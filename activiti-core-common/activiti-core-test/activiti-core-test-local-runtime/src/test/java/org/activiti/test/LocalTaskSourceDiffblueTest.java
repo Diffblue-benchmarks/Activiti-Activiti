@@ -16,22 +16,19 @@
 package org.activiti.test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.api.runtime.shared.query.Page;
 import org.activiti.api.runtime.shared.query.Pageable;
 import org.activiti.api.task.model.Task;
-import org.activiti.api.task.model.Task.TaskStatus;
 import org.activiti.api.task.model.payloads.GetTasksPayload;
 import org.activiti.api.task.runtime.TaskRuntime;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -52,18 +49,14 @@ class LocalTaskSourceDiffblueTest {
   private TaskRuntime taskRuntime;
 
   /**
-   * Test {@link LocalTaskSource#getTasks(String)}.
-   * <p>
    * Method under test: {@link LocalTaskSource#getTasks(String)}
    */
   @Test
-  @DisplayName("Test getTasks(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List LocalTaskSource.getTasks(String)"})
   void testGetTasks() {
     // Arrange
     Page<Task> page = mock(Page.class);
-    when(page.getContent()).thenReturn(new ArrayList<>());
+    ArrayList<Task> taskList = new ArrayList<>();
+    when(page.getContent()).thenReturn(taskList);
     when(taskRuntime.tasks(Mockito.<Pageable>any(), Mockito.<GetTasksPayload>any())).thenReturn(page);
 
     // Act
@@ -73,41 +66,16 @@ class LocalTaskSourceDiffblueTest {
     verify(page).getContent();
     verify(taskRuntime).tasks(isA(Pageable.class), isA(GetTasksPayload.class));
     assertTrue(actualTasks.isEmpty());
+    assertSame(taskList, actualTasks);
   }
 
   /**
-   * Test {@link LocalTaskSource#canHandle(TaskStatus)}.
-   * <ul>
-   *   <li>When {@code COMPLETED}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link LocalTaskSource#canHandle(Task.TaskStatus)}
    */
   @Test
-  @DisplayName("Test canHandle(TaskStatus); when 'COMPLETED'; then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean LocalTaskSource.canHandle(Task.TaskStatus)"})
-  void testCanHandle_whenCompleted_thenReturnFalse() {
+  void testCanHandle() {
     // Arrange, Act and Assert
-    assertFalse(localTaskSource.canHandle(TaskStatus.COMPLETED));
-  }
-
-  /**
-   * Test {@link LocalTaskSource#canHandle(TaskStatus)}.
-   * <ul>
-   *   <li>When {@code CREATED}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link LocalTaskSource#canHandle(Task.TaskStatus)}
-   */
-  @Test
-  @DisplayName("Test canHandle(TaskStatus); when 'CREATED'; then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean LocalTaskSource.canHandle(Task.TaskStatus)"})
-  void testCanHandle_whenCreated_thenReturnTrue() {
-    // Arrange, Act and Assert
-    assertTrue(localTaskSource.canHandle(TaskStatus.CREATED));
+    assertTrue(localTaskSource.canHandle(Task.TaskStatus.CREATED));
+    assertFalse(localTaskSource.canHandle(Task.TaskStatus.COMPLETED));
   }
 }

@@ -20,56 +20,317 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class CallActivityDiffblueTest {
   /**
-   * Test {@link CallActivity#clone()}.
-   * <ul>
-   *   <li>Given {@link CallActivity} (default constructor).</li>
-   *   <li>Then return IoSpecification is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link CallActivity#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"CallActivity CallActivity.clone()"})
-  public void testClone_givenCallActivity_thenReturnIoSpecificationIsNull() {
+  public void testClone() {
     // Arrange and Act
     CallActivity actualCloneResult = (new CallActivity()).clone();
 
     // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getBusinessKey());
+    assertNull(actualCloneResult.getCalledElement());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getParentContainer());
     assertNull(actualCloneResult.getIoSpecification());
     assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
     assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isInheritBusinessKey());
+    assertFalse(actualCloneResult.isInheritVariables());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
     assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
     assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
     assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getInParameters().isEmpty());
+    assertTrue(actualCloneResult.getOutParameters().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
     assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
   }
 
   /**
-   * Test {@link CallActivity#clone()}.
-   * <ul>
-   *   <li>Given {@link IOSpecification} (default constructor) DataOutputs is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link CallActivity#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"CallActivity CallActivity.clone()"})
-  public void testClone_givenIOSpecificationDataOutputsIsNull() {
+  public void testClone2() {
+    // Arrange
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
+
+    CallActivity callActivity = new CallActivity();
+    callActivity.setLoopCharacteristics(null);
+    callActivity.setIoSpecification(null);
+    callActivity.setDataInputAssociations(null);
+    callActivity.setDataOutputAssociations(null);
+    callActivity.setBoundaryEvents(boundaryEvents);
+
+    // Act
+    CallActivity actualCloneResult = callActivity.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getBusinessKey());
+    assertNull(actualCloneResult.getCalledElement());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getIoSpecification());
+    assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isInheritBusinessKey());
+    assertFalse(actualCloneResult.isInheritVariables());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getInParameters().isEmpty());
+    assertTrue(actualCloneResult.getOutParameters().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+    assertEquals(boundaryEvents, actualCloneResult.getBoundaryEvents());
+  }
+
+  /**
+   * Method under test: {@link CallActivity#clone()}
+   */
+  @Test
+  public void testClone3() {
+    // Arrange
+    ArrayList<DataAssociation> dataOutputAssociations = new ArrayList<>();
+    dataOutputAssociations.add(new DataAssociation());
+
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
+
+    CallActivity callActivity = new CallActivity();
+    callActivity.setLoopCharacteristics(null);
+    callActivity.setIoSpecification(null);
+    callActivity.setDataInputAssociations(null);
+    callActivity.setDataOutputAssociations(dataOutputAssociations);
+    callActivity.setBoundaryEvents(boundaryEvents);
+
+    // Act
+    CallActivity actualCloneResult = callActivity.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    List<DataAssociation> dataOutputAssociations2 = actualCloneResult.getDataOutputAssociations();
+    assertEquals(1, dataOutputAssociations2.size());
+    DataAssociation getResult = dataOutputAssociations2.get(0);
+    assertNull(getResult.getId());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getBusinessKey());
+    assertNull(actualCloneResult.getCalledElement());
+    assertNull(getResult.getSourceRef());
+    assertNull(getResult.getTargetRef());
+    assertNull(getResult.getTransformation());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getIoSpecification());
+    assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlRowNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isInheritBusinessKey());
+    assertFalse(actualCloneResult.isInheritVariables());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getInParameters().isEmpty());
+    assertTrue(actualCloneResult.getOutParameters().isEmpty());
+    assertTrue(getResult.getAssignments().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(getResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+    assertEquals(boundaryEvents, actualCloneResult.getBoundaryEvents());
+  }
+
+  /**
+   * Method under test: {@link CallActivity#clone()}
+   */
+  @Test
+  public void testClone4() {
+    // Arrange
+    ArrayList<DataAssociation> dataInputAssociations = new ArrayList<>();
+    dataInputAssociations.add(new DataAssociation());
+
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
+
+    CallActivity callActivity = new CallActivity();
+    callActivity.setLoopCharacteristics(null);
+    callActivity.setIoSpecification(null);
+    callActivity.setDataInputAssociations(dataInputAssociations);
+    callActivity.setDataOutputAssociations(null);
+    callActivity.setBoundaryEvents(boundaryEvents);
+
+    // Act
+    CallActivity actualCloneResult = callActivity.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    List<DataAssociation> dataInputAssociations2 = actualCloneResult.getDataInputAssociations();
+    assertEquals(1, dataInputAssociations2.size());
+    DataAssociation getResult = dataInputAssociations2.get(0);
+    assertNull(getResult.getId());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getBusinessKey());
+    assertNull(actualCloneResult.getCalledElement());
+    assertNull(getResult.getSourceRef());
+    assertNull(getResult.getTargetRef());
+    assertNull(getResult.getTransformation());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getIoSpecification());
+    assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlRowNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isInheritBusinessKey());
+    assertFalse(actualCloneResult.isInheritVariables());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getInParameters().isEmpty());
+    assertTrue(actualCloneResult.getOutParameters().isEmpty());
+    assertTrue(getResult.getAssignments().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(getResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+    assertEquals(boundaryEvents, actualCloneResult.getBoundaryEvents());
+  }
+
+  /**
+   * Method under test: {@link CallActivity#clone()}
+   */
+  @Test
+  public void testClone5() {
+    // Arrange
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
+
+    CallActivity callActivity = new CallActivity();
+    callActivity.setLoopCharacteristics(null);
+    callActivity.setIoSpecification(new IOSpecification());
+    callActivity.setDataInputAssociations(null);
+    callActivity.setDataOutputAssociations(null);
+    callActivity.setBoundaryEvents(boundaryEvents);
+
+    // Act
+    CallActivity actualCloneResult = callActivity.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    IOSpecification ioSpecification = actualCloneResult.getIoSpecification();
+    assertNull(ioSpecification.getId());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getBusinessKey());
+    assertNull(actualCloneResult.getCalledElement());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, ioSpecification.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, ioSpecification.getXmlRowNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isInheritBusinessKey());
+    assertFalse(actualCloneResult.isInheritVariables());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getInParameters().isEmpty());
+    assertTrue(actualCloneResult.getOutParameters().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(ioSpecification.getDataInputRefs().isEmpty());
+    assertTrue(ioSpecification.getDataInputs().isEmpty());
+    assertTrue(ioSpecification.getDataOutputRefs().isEmpty());
+    assertTrue(ioSpecification.getDataOutputs().isEmpty());
+    assertTrue(ioSpecification.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(ioSpecification.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+    assertEquals(boundaryEvents, actualCloneResult.getBoundaryEvents());
+  }
+
+  /**
+   * Method under test: {@link CallActivity#clone()}
+   */
+  @Test
+  public void testClone6() {
     // Arrange
     IOSpecification ioSpecification = new IOSpecification();
     ioSpecification.setDataInputs(null);
@@ -85,195 +346,58 @@ public class CallActivityDiffblueTest {
     callActivity.setDataOutputAssociations(null);
     callActivity.setBoundaryEvents(boundaryEvents);
 
-    // Act and Assert
-    IOSpecification ioSpecification2 = callActivity.clone().getIoSpecification();
+    // Act
+    CallActivity actualCloneResult = callActivity.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    IOSpecification ioSpecification2 = actualCloneResult.getIoSpecification();
     assertNull(ioSpecification2.getId());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getBusinessKey());
+    assertNull(actualCloneResult.getCalledElement());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
     assertEquals(0, ioSpecification2.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
     assertEquals(0, ioSpecification2.getXmlRowNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isInheritBusinessKey());
+    assertFalse(actualCloneResult.isInheritVariables());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getInParameters().isEmpty());
+    assertTrue(actualCloneResult.getOutParameters().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
     assertTrue(ioSpecification2.getDataInputRefs().isEmpty());
     assertTrue(ioSpecification2.getDataInputs().isEmpty());
     assertTrue(ioSpecification2.getDataOutputRefs().isEmpty());
     assertTrue(ioSpecification2.getDataOutputs().isEmpty());
     assertTrue(ioSpecification2.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
     assertTrue(ioSpecification2.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+    assertEquals(boundaryEvents, actualCloneResult.getBoundaryEvents());
   }
 
   /**
-   * Test {@link CallActivity#clone()}.
-   * <ul>
-   *   <li>Then return Attributes size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link CallActivity#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"CallActivity CallActivity.clone()"})
-  public void testClone_thenReturnAttributesSizeIsOne() {
-    // Arrange
-    CallActivity callActivity = new CallActivity();
-    ExtensionAttribute attribute = new ExtensionAttribute("Name");
-    callActivity.addAttribute(attribute);
-
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = callActivity.clone().getAttributes();
-    assertEquals(1, attributes.size());
-    List<ExtensionAttribute> getResult = attributes.get("Name");
-    assertEquals(1, getResult.size());
-    assertSame(attribute, getResult.get(0));
-  }
-
-  /**
-   * Test {@link CallActivity#clone()}.
-   * <ul>
-   *   <li>Then return Attributes size is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CallActivity#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"CallActivity CallActivity.clone()"})
-  public void testClone_thenReturnAttributesSizeIsTwo() {
-    // Arrange
-    CallActivity callActivity = new CallActivity();
-    ExtensionAttribute attribute = new ExtensionAttribute("42");
-    callActivity.addAttribute(attribute);
-    callActivity.addAttribute(new ExtensionAttribute("Name"));
-
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = callActivity.clone().getAttributes();
-    assertEquals(2, attributes.size());
-    List<ExtensionAttribute> getResult = attributes.get("42");
-    assertEquals(1, getResult.size());
-    assertTrue(attributes.containsKey("Name"));
-    assertSame(attribute, getResult.get(0));
-  }
-
-  /**
-   * Test {@link CallActivity#clone()}.
-   * <ul>
-   *   <li>Then return BoundaryEvents size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CallActivity#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"CallActivity CallActivity.clone()"})
-  public void testClone_thenReturnBoundaryEventsSizeIsOne() {
-    // Arrange
-    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
-    BoundaryEvent boundaryEvent = new BoundaryEvent();
-    boundaryEvents.add(boundaryEvent);
-
-    CallActivity callActivity = new CallActivity();
-    callActivity.setLoopCharacteristics(null);
-    callActivity.setIoSpecification(null);
-    callActivity.setDataInputAssociations(null);
-    callActivity.setDataOutputAssociations(null);
-    callActivity.setBoundaryEvents(boundaryEvents);
-
-    // Act and Assert
-    List<BoundaryEvent> boundaryEvents2 = callActivity.clone().getBoundaryEvents();
-    assertEquals(1, boundaryEvents2.size());
-    assertSame(boundaryEvent, boundaryEvents2.get(0));
-  }
-
-  /**
-   * Test {@link CallActivity#clone()}.
-   * <ul>
-   *   <li>Then return DataInputAssociations size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CallActivity#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"CallActivity CallActivity.clone()"})
-  public void testClone_thenReturnDataInputAssociationsSizeIsOne() {
-    // Arrange
-    ArrayList<DataAssociation> dataInputAssociations = new ArrayList<>();
-    dataInputAssociations.add(new DataAssociation());
-
-    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
-    boundaryEvents.add(new BoundaryEvent());
-
-    CallActivity callActivity = new CallActivity();
-    callActivity.setLoopCharacteristics(null);
-    callActivity.setIoSpecification(null);
-    callActivity.setDataInputAssociations(dataInputAssociations);
-    callActivity.setDataOutputAssociations(null);
-    callActivity.setBoundaryEvents(boundaryEvents);
-
-    // Act and Assert
-    List<DataAssociation> dataInputAssociations2 = callActivity.clone().getDataInputAssociations();
-    assertEquals(1, dataInputAssociations2.size());
-    DataAssociation getResult = dataInputAssociations2.get(0);
-    assertNull(getResult.getId());
-    assertNull(getResult.getSourceRef());
-    assertNull(getResult.getTargetRef());
-    assertNull(getResult.getTransformation());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(getResult.getAssignments().isEmpty());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link CallActivity#clone()}.
-   * <ul>
-   *   <li>Then return DataOutputAssociations size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CallActivity#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"CallActivity CallActivity.clone()"})
-  public void testClone_thenReturnDataOutputAssociationsSizeIsOne() {
-    // Arrange
-    ArrayList<DataAssociation> dataOutputAssociations = new ArrayList<>();
-    dataOutputAssociations.add(new DataAssociation());
-
-    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
-    boundaryEvents.add(new BoundaryEvent());
-
-    CallActivity callActivity = new CallActivity();
-    callActivity.setLoopCharacteristics(null);
-    callActivity.setIoSpecification(null);
-    callActivity.setDataInputAssociations(null);
-    callActivity.setDataOutputAssociations(dataOutputAssociations);
-    callActivity.setBoundaryEvents(boundaryEvents);
-
-    // Act and Assert
-    List<DataAssociation> dataOutputAssociations2 = callActivity.clone().getDataOutputAssociations();
-    assertEquals(1, dataOutputAssociations2.size());
-    DataAssociation getResult = dataOutputAssociations2.get(0);
-    assertNull(getResult.getId());
-    assertNull(getResult.getSourceRef());
-    assertNull(getResult.getTargetRef());
-    assertNull(getResult.getTransformation());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(getResult.getAssignments().isEmpty());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link CallActivity#clone()}.
-   * <ul>
-   *   <li>Then return IoSpecification DataOutputs size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CallActivity#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"CallActivity CallActivity.clone()"})
-  public void testClone_thenReturnIoSpecificationDataOutputsSizeIsOne() {
+  public void testClone7() {
     // Arrange
     ArrayList<DataSpec> dataOutputs = new ArrayList<>();
     dataOutputs.add(new DataSpec());
@@ -292,79 +416,140 @@ public class CallActivityDiffblueTest {
     callActivity.setDataOutputAssociations(null);
     callActivity.setBoundaryEvents(boundaryEvents);
 
-    // Act and Assert
-    List<DataSpec> dataOutputs2 = callActivity.clone().getIoSpecification().getDataOutputs();
+    // Act
+    CallActivity actualCloneResult = callActivity.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    IOSpecification ioSpecification2 = actualCloneResult.getIoSpecification();
+    List<DataSpec> dataOutputs2 = ioSpecification2.getDataOutputs();
     assertEquals(1, dataOutputs2.size());
     DataSpec getResult = dataOutputs2.get(0);
     assertNull(getResult.getId());
+    assertNull(ioSpecification2.getId());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getBusinessKey());
+    assertNull(actualCloneResult.getCalledElement());
     assertNull(getResult.getItemSubjectRef());
     assertNull(getResult.getName());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
     assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, ioSpecification2.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
     assertEquals(0, getResult.getXmlRowNumber());
+    assertEquals(0, ioSpecification2.getXmlRowNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isInheritBusinessKey());
+    assertFalse(actualCloneResult.isInheritVariables());
     assertFalse(getResult.isCollection());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getInParameters().isEmpty());
+    assertTrue(actualCloneResult.getOutParameters().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(ioSpecification2.getDataInputRefs().isEmpty());
+    assertTrue(ioSpecification2.getDataInputs().isEmpty());
+    assertTrue(ioSpecification2.getDataOutputRefs().isEmpty());
     assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(ioSpecification2.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
     assertTrue(getResult.getExtensionElements().isEmpty());
+    assertTrue(ioSpecification2.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+    assertEquals(boundaryEvents, actualCloneResult.getBoundaryEvents());
   }
 
   /**
-   * Test {@link CallActivity#clone()}.
-   * <ul>
-   *   <li>Then return IoSpecification Id is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link CallActivity#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"CallActivity CallActivity.clone()"})
-  public void testClone_thenReturnIoSpecificationIdIsNull() {
-    // Arrange
-    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
-    boundaryEvents.add(new BoundaryEvent());
-
-    CallActivity callActivity = new CallActivity();
-    callActivity.setLoopCharacteristics(null);
-    callActivity.setIoSpecification(new IOSpecification());
-    callActivity.setDataInputAssociations(null);
-    callActivity.setDataOutputAssociations(null);
-    callActivity.setBoundaryEvents(boundaryEvents);
-
-    // Act and Assert
-    IOSpecification ioSpecification = callActivity.clone().getIoSpecification();
-    assertNull(ioSpecification.getId());
-    assertEquals(0, ioSpecification.getXmlColumnNumber());
-    assertEquals(0, ioSpecification.getXmlRowNumber());
-    assertTrue(ioSpecification.getDataInputRefs().isEmpty());
-    assertTrue(ioSpecification.getDataInputs().isEmpty());
-    assertTrue(ioSpecification.getDataOutputRefs().isEmpty());
-    assertTrue(ioSpecification.getDataOutputs().isEmpty());
-    assertTrue(ioSpecification.getAttributes().isEmpty());
-    assertTrue(ioSpecification.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link CallActivity#clone()}.
-   * <ul>
-   *   <li>Then return LoopCharacteristics Id is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CallActivity#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"CallActivity CallActivity.clone()"})
-  public void testClone_thenReturnLoopCharacteristicsIdIsNull() {
+  public void testClone8() {
     // Arrange
     CallActivity callActivity = new CallActivity();
-    callActivity.setLoopCharacteristics(new MultiInstanceLoopCharacteristics());
-    callActivity.addAttribute(new ExtensionAttribute("Name"));
+    ExtensionAttribute attribute = new ExtensionAttribute("Name");
+    callActivity.addAttribute(attribute);
 
     // Act
     CallActivity actualCloneResult = callActivity.clone();
 
     // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getBusinessKey());
+    assertNull(actualCloneResult.getCalledElement());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getIoSpecification());
+    assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    Map<String, List<ExtensionAttribute>> attributes = actualCloneResult.getAttributes();
+    assertEquals(1, attributes.size());
+    List<ExtensionAttribute> getResult = attributes.get("Name");
+    assertEquals(1, getResult.size());
+    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isInheritBusinessKey());
+    assertFalse(actualCloneResult.isInheritVariables());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getInParameters().isEmpty());
+    assertTrue(actualCloneResult.getOutParameters().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+    assertSame(attribute, getResult.get(0));
+  }
+
+  /**
+   * Method under test: {@link CallActivity#clone()}
+   */
+  @Test
+  public void testClone9() {
+    // Arrange
+    CallActivity callActivity = new CallActivity();
+    callActivity.setLoopCharacteristics(new MultiInstanceLoopCharacteristics());
+    ExtensionAttribute attribute = new ExtensionAttribute("Name");
+    callActivity.addAttribute(attribute);
+
+    // Act
+    CallActivity actualCloneResult = callActivity.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
     MultiInstanceLoopCharacteristics loopCharacteristics = actualCloneResult.getLoopCharacteristics();
     assertNull(loopCharacteristics.getId());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getBusinessKey());
+    assertNull(actualCloneResult.getCalledElement());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
     assertNull(loopCharacteristics.getCompletionCondition());
     assertNull(loopCharacteristics.getElementIndexVariable());
     assertNull(loopCharacteristics.getElementVariable());
@@ -372,34 +557,136 @@ public class CallActivityDiffblueTest {
     assertNull(loopCharacteristics.getLoopCardinality());
     assertNull(loopCharacteristics.getLoopDataOutputRef());
     assertNull(loopCharacteristics.getOutputDataItem());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getIoSpecification());
+    assertNull(actualCloneResult.getSubProcess());
     assertEquals(0, loopCharacteristics.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
     assertEquals(0, loopCharacteristics.getXmlRowNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    Map<String, List<ExtensionAttribute>> attributes = actualCloneResult.getAttributes();
+    assertEquals(1, attributes.size());
+    List<ExtensionAttribute> getResult = attributes.get("Name");
+    assertEquals(1, getResult.size());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isInheritBusinessKey());
+    assertFalse(actualCloneResult.isInheritVariables());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
     assertFalse(loopCharacteristics.isSequential());
+    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getInParameters().isEmpty());
+    assertTrue(actualCloneResult.getOutParameters().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
     assertTrue(loopCharacteristics.getAttributes().isEmpty());
     assertTrue(loopCharacteristics.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
     assertTrue(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertTrue(actualCloneResult.isExclusive());
+    assertSame(attribute, getResult.get(0));
   }
 
   /**
-   * Test {@link CallActivity#setValues(CallActivity)} with {@code CallActivity}.
-   * <ul>
-   *   <li>Then calls {@link MultiInstanceLoopCharacteristics#clone()}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link CallActivity#clone()}
+   */
+  @Test
+  public void testClone10() {
+    // Arrange
+    CallActivity callActivity = new CallActivity();
+    ExtensionAttribute attribute = new ExtensionAttribute("42");
+    callActivity.addAttribute(attribute);
+    ExtensionAttribute attribute2 = new ExtensionAttribute("Name");
+    callActivity.addAttribute(attribute2);
+
+    // Act
+    CallActivity actualCloneResult = callActivity.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getBusinessKey());
+    assertNull(actualCloneResult.getCalledElement());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getIoSpecification());
+    assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    Map<String, List<ExtensionAttribute>> attributes = actualCloneResult.getAttributes();
+    assertEquals(2, attributes.size());
+    List<ExtensionAttribute> getResult = attributes.get("42");
+    assertEquals(1, getResult.size());
+    List<ExtensionAttribute> getResult2 = attributes.get("Name");
+    assertEquals(1, getResult2.size());
+    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isInheritBusinessKey());
+    assertFalse(actualCloneResult.isInheritVariables());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getInParameters().isEmpty());
+    assertTrue(actualCloneResult.getOutParameters().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+    assertSame(attribute, getResult.get(0));
+    assertSame(attribute2, getResult2.get(0));
+  }
+
+  /**
    * Method under test: {@link CallActivity#setValues(CallActivity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CallActivity.setValues(CallActivity)"})
-  public void testSetValuesWithCallActivity_thenCallsClone() {
+  public void testSetValues() {
+    // Arrange
+    CallActivity callActivity = new CallActivity();
+    ExtensionAttribute attribute = mock(ExtensionAttribute.class);
+    when(attribute.getName()).thenReturn("Name");
+
+    CallActivity otherElement = new CallActivity();
+    otherElement.addAttribute(attribute);
+
+    // Act
+    callActivity.setValues(otherElement);
+
+    // Assert
+    verify(attribute, atLeast(1)).getName();
+  }
+
+  /**
+   * Method under test: {@link CallActivity#setValues(CallActivity)}
+   */
+  @Test
+  public void testSetValues2() {
     // Arrange
     CallActivity callActivity = new CallActivity();
     MultiInstanceLoopCharacteristics loopCharacteristics = mock(MultiInstanceLoopCharacteristics.class);
     when(loopCharacteristics.clone()).thenReturn(new MultiInstanceLoopCharacteristics());
 
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
+
     CallActivity otherElement = new CallActivity();
     otherElement.setLoopCharacteristics(loopCharacteristics);
-    otherElement.addAttribute(new ExtensionAttribute("Name"));
+    otherElement.setIoSpecification(null);
+    otherElement.setDataInputAssociations(null);
+    otherElement.setDataOutputAssociations(null);
+    otherElement.setBoundaryEvents(boundaryEvents);
 
     // Act
     callActivity.setValues(otherElement);
@@ -409,19 +696,14 @@ public class CallActivityDiffblueTest {
   }
 
   /**
-   * Test {@link CallActivity#setValues(CallActivity)} with {@code CallActivity}.
-   * <ul>
-   *   <li>Then calls {@link IOSpecification#clone()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link CallActivity#setValues(CallActivity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CallActivity.setValues(CallActivity)"})
-  public void testSetValuesWithCallActivity_thenCallsClone2() {
+  public void testSetValues3() {
     // Arrange
     CallActivity callActivity = new CallActivity();
+    MultiInstanceLoopCharacteristics loopCharacteristics = mock(MultiInstanceLoopCharacteristics.class);
+    when(loopCharacteristics.clone()).thenReturn(new MultiInstanceLoopCharacteristics());
     IOSpecification ioSpecification = mock(IOSpecification.class);
     when(ioSpecification.clone()).thenReturn(new IOSpecification());
 
@@ -429,7 +711,7 @@ public class CallActivityDiffblueTest {
     boundaryEvents.add(new BoundaryEvent());
 
     CallActivity otherElement = new CallActivity();
-    otherElement.setLoopCharacteristics(null);
+    otherElement.setLoopCharacteristics(loopCharacteristics);
     otherElement.setIoSpecification(ioSpecification);
     otherElement.setDataInputAssociations(null);
     otherElement.setDataOutputAssociations(null);
@@ -440,20 +722,14 @@ public class CallActivityDiffblueTest {
 
     // Assert
     verify(ioSpecification).clone();
+    verify(loopCharacteristics).clone();
   }
 
   /**
-   * Test {@link CallActivity#setValues(CallActivity)} with {@code CallActivity}.
-   * <ul>
-   *   <li>Then calls {@link DataAssociation#clone()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link CallActivity#setValues(CallActivity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CallActivity.setValues(CallActivity)"})
-  public void testSetValuesWithCallActivity_thenCallsClone3() {
+  public void testSetValues4() {
     // Arrange
     CallActivity callActivity = new CallActivity();
     DataAssociation dataAssociation = mock(DataAssociation.class);
@@ -480,17 +756,10 @@ public class CallActivityDiffblueTest {
   }
 
   /**
-   * Test {@link CallActivity#setValues(CallActivity)} with {@code CallActivity}.
-   * <ul>
-   *   <li>Then calls {@link DataAssociation#clone()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link CallActivity#setValues(CallActivity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CallActivity.setValues(CallActivity)"})
-  public void testSetValuesWithCallActivity_thenCallsClone4() {
+  public void testSetValues5() {
     // Arrange
     CallActivity callActivity = new CallActivity();
     DataAssociation dataAssociation = mock(DataAssociation.class);
@@ -517,8 +786,6 @@ public class CallActivityDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link CallActivity}
@@ -537,14 +804,6 @@ public class CallActivityDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CallActivity.<init>()", "String CallActivity.getBusinessKey()",
-      "String CallActivity.getCalledElement()", "List CallActivity.getInParameters()",
-      "List CallActivity.getOutParameters()", "boolean CallActivity.isInheritBusinessKey()",
-      "boolean CallActivity.isInheritVariables()", "void CallActivity.setBusinessKey(String)",
-      "void CallActivity.setCalledElement(String)", "void CallActivity.setInParameters(List)",
-      "void CallActivity.setInheritBusinessKey(boolean)", "void CallActivity.setInheritVariables(boolean)",
-      "void CallActivity.setOutParameters(List)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     CallActivity actualCallActivity = new CallActivity();
@@ -563,18 +822,9 @@ public class CallActivityDiffblueTest {
     boolean actualIsInheritBusinessKeyResult = actualCallActivity.isInheritBusinessKey();
     boolean actualIsInheritVariablesResult = actualCallActivity.isInheritVariables();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("Business Key", actualBusinessKey);
     assertEquals("Called Element", actualCalledElement);
-    assertNull(actualCallActivity.getBehavior());
-    assertNull(actualCallActivity.getDefaultFlow());
-    assertNull(actualCallActivity.getFailedJobRetryTimeCycleValue());
-    assertNull(actualCallActivity.getId());
-    assertNull(actualCallActivity.getDocumentation());
-    assertNull(actualCallActivity.getName());
-    assertNull(actualCallActivity.getParentContainer());
-    assertNull(actualCallActivity.getIoSpecification());
-    assertNull(actualCallActivity.getLoopCharacteristics());
     assertEquals(0, actualCallActivity.getXmlColumnNumber());
     assertEquals(0, actualCallActivity.getXmlRowNumber());
     assertFalse(actualCallActivity.isForCompensation());

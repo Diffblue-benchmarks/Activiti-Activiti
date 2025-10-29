@@ -23,8 +23,6 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.MethodNotFoundException;
 import jakarta.el.PropertyNotFoundException;
 import jakarta.el.ValueExpression;
@@ -40,43 +38,15 @@ import org.activiti.engine.impl.delegate.invocation.DelegateInvocation;
 import org.activiti.engine.impl.interceptor.DelegateInterceptor;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class JuelExpressionDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link JuelExpression#JuelExpression(ValueExpression, String)}
-   *   <li>{@link JuelExpression#getExpressionText()}
-   * </ul>
+   * Method under test:
+   * {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void JuelExpression.<init>(ValueExpression, String)",
-      "String JuelExpression.getExpressionText()"})
-  public void testGettersAndSetters() {
-    // Arrange
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-
-    // Act and Assert
-    assertEquals("Expression Text",
-        (new JuelExpression(new ObjectValueExpression(converter, JSONObject.NULL, type), "Expression Text"))
-            .getExpressionText());
-  }
-
-  /**
-   * Test {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)} with {@code expressionManager}, {@code delegateInterceptor}, {@code availableVariables}.
-   * <p>
-   * Method under test: {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object JuelExpression.getValue(ExpressionManager, DelegateInterceptor, Map)"})
-  public void testGetValueWithExpressionManagerDelegateInterceptorAvailableVariables() {
+  public void testGetValue() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
@@ -95,14 +65,11 @@ public class JuelExpressionDiffblueTest {
   }
 
   /**
-   * Test {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)} with {@code expressionManager}, {@code delegateInterceptor}, {@code availableVariables}.
-   * <p>
-   * Method under test: {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)}
+   * Method under test:
+   * {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object JuelExpression.getValue(ExpressionManager, DelegateInterceptor, Map)"})
-  public void testGetValueWithExpressionManagerDelegateInterceptorAvailableVariables2() {
+  public void testGetValue2() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
@@ -123,14 +90,11 @@ public class JuelExpressionDiffblueTest {
   }
 
   /**
-   * Test {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)} with {@code expressionManager}, {@code delegateInterceptor}, {@code availableVariables}.
-   * <p>
-   * Method under test: {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)}
+   * Method under test:
+   * {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object JuelExpression.getValue(ExpressionManager, DelegateInterceptor, Map)"})
-  public void testGetValueWithExpressionManagerDelegateInterceptorAvailableVariables3() {
+  public void testGetValue3() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
@@ -148,14 +112,11 @@ public class JuelExpressionDiffblueTest {
   }
 
   /**
-   * Test {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)} with {@code expressionManager}, {@code delegateInterceptor}, {@code availableVariables}.
-   * <p>
-   * Method under test: {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)}
+   * Method under test:
+   * {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object JuelExpression.getValue(ExpressionManager, DelegateInterceptor, Map)"})
-  public void testGetValueWithExpressionManagerDelegateInterceptorAvailableVariables4() {
+  public void testGetValue4() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
@@ -173,14 +134,11 @@ public class JuelExpressionDiffblueTest {
   }
 
   /**
-   * Test {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)} with {@code expressionManager}, {@code delegateInterceptor}, {@code availableVariables}.
-   * <p>
-   * Method under test: {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)}
+   * Method under test:
+   * {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object JuelExpression.getValue(ExpressionManager, DelegateInterceptor, Map)"})
-  public void testGetValueWithExpressionManagerDelegateInterceptorAvailableVariables5() {
+  public void testGetValue5() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
@@ -198,14 +156,11 @@ public class JuelExpressionDiffblueTest {
   }
 
   /**
-   * Test {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)} with {@code expressionManager}, {@code delegateInterceptor}, {@code availableVariables}.
-   * <p>
-   * Method under test: {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)}
+   * Method under test:
+   * {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object JuelExpression.getValue(ExpressionManager, DelegateInterceptor, Map)"})
-  public void testGetValueWithExpressionManagerDelegateInterceptorAvailableVariables6() {
+  public void testGetValue6() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
@@ -232,14 +187,11 @@ public class JuelExpressionDiffblueTest {
   }
 
   /**
-   * Test {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)} with {@code expressionManager}, {@code delegateInterceptor}, {@code availableVariables}.
-   * <p>
-   * Method under test: {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)}
+   * Method under test:
+   * {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object JuelExpression.getValue(ExpressionManager, DelegateInterceptor, Map)"})
-  public void testGetValueWithExpressionManagerDelegateInterceptorAvailableVariables7() {
+  public void testGetValue7() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
@@ -270,14 +222,11 @@ public class JuelExpressionDiffblueTest {
   }
 
   /**
-   * Test {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)} with {@code expressionManager}, {@code delegateInterceptor}, {@code availableVariables}.
-   * <p>
-   * Method under test: {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)}
+   * Method under test:
+   * {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object JuelExpression.getValue(ExpressionManager, DelegateInterceptor, Map)"})
-  public void testGetValueWithExpressionManagerDelegateInterceptorAvailableVariables8() {
+  public void testGetValue8() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
@@ -313,18 +262,10 @@ public class JuelExpressionDiffblueTest {
   }
 
   /**
-   * Test {@link JuelExpression#toString()}.
-   * <ul>
-   *   <li>Given {@code Object}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link JuelExpression#toString()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String JuelExpression.toString()"})
-  public void testToString_givenJavaLangObject_thenReturnNull() {
+  public void testToString() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
@@ -332,5 +273,24 @@ public class JuelExpressionDiffblueTest {
     // Act and Assert
     assertNull((new JuelExpression(new ObjectValueExpression(converter, JSONObject.NULL, type), "Expression Text"))
         .toString());
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>{@link JuelExpression#JuelExpression(ValueExpression, String)}
+   *   <li>{@link JuelExpression#getExpressionText()}
+   * </ul>
+   */
+  @Test
+  public void testGettersAndSetters() {
+    // Arrange
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+
+    // Act and Assert
+    assertEquals("Expression Text",
+        (new JuelExpression(new ObjectValueExpression(converter, JSONObject.NULL, type), "Expression Text"))
+            .getExpressionText());
   }
 }

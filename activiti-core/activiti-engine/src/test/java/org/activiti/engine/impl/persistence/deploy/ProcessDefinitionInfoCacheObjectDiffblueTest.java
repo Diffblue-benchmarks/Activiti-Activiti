@@ -17,20 +17,16 @@ package org.activiti.engine.impl.persistence.deploy;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ProcessDefinitionInfoCacheObjectDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of {@link ProcessDefinitionInfoCacheObject}
+   *   <li>default or parameterless constructor of
+   * {@link ProcessDefinitionInfoCacheObject}
    *   <li>{@link ProcessDefinitionInfoCacheObject#setId(String)}
    *   <li>{@link ProcessDefinitionInfoCacheObject#setInfoNode(ObjectNode)}
    *   <li>{@link ProcessDefinitionInfoCacheObject#setRevision(int)}
@@ -40,12 +36,6 @@ public class ProcessDefinitionInfoCacheObjectDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ProcessDefinitionInfoCacheObject.<init>()",
-      "String ProcessDefinitionInfoCacheObject.getId()", "ObjectNode ProcessDefinitionInfoCacheObject.getInfoNode()",
-      "int ProcessDefinitionInfoCacheObject.getRevision()", "void ProcessDefinitionInfoCacheObject.setId(String)",
-      "void ProcessDefinitionInfoCacheObject.setInfoNode(ObjectNode)",
-      "void ProcessDefinitionInfoCacheObject.setRevision(int)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ProcessDefinitionInfoCacheObject actualProcessDefinitionInfoCacheObject = new ProcessDefinitionInfoCacheObject();
@@ -56,7 +46,7 @@ public class ProcessDefinitionInfoCacheObjectDiffblueTest {
     String actualId = actualProcessDefinitionInfoCacheObject.getId();
     ObjectNode actualInfoNode = actualProcessDefinitionInfoCacheObject.getInfoNode();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("42", actualId);
     assertEquals(1, actualProcessDefinitionInfoCacheObject.getRevision());
     assertSame(infoNode, actualInfoNode);

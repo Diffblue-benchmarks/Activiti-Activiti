@@ -17,15 +17,10 @@ package org.activiti.engine.cfg;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class MailServerInfoDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link MailServerInfo}
@@ -46,15 +41,6 @@ public class MailServerInfoDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void MailServerInfo.<init>()", "String MailServerInfo.getMailServerDefaultFrom()",
-      "String MailServerInfo.getMailServerHost()", "String MailServerInfo.getMailServerPassword()",
-      "int MailServerInfo.getMailServerPort()", "String MailServerInfo.getMailServerUsername()",
-      "boolean MailServerInfo.isMailServerUseSSL()", "boolean MailServerInfo.isMailServerUseTLS()",
-      "void MailServerInfo.setMailServerDefaultFrom(String)", "void MailServerInfo.setMailServerHost(String)",
-      "void MailServerInfo.setMailServerPassword(String)", "void MailServerInfo.setMailServerPort(int)",
-      "void MailServerInfo.setMailServerUseSSL(boolean)", "void MailServerInfo.setMailServerUseTLS(boolean)",
-      "void MailServerInfo.setMailServerUsername(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     MailServerInfo actualMailServerInfo = new MailServerInfo();
@@ -72,7 +58,7 @@ public class MailServerInfoDiffblueTest {
     String actualMailServerUsername = actualMailServerInfo.getMailServerUsername();
     boolean actualIsMailServerUseSSLResult = actualMailServerInfo.isMailServerUseSSL();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("iloveyou", actualMailServerPassword);
     assertEquals("jane.doe@example.org", actualMailServerDefaultFrom);
     assertEquals("janedoe", actualMailServerUsername);

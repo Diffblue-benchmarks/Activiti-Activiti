@@ -22,8 +22,6 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Collection;
 import java.util.Set;
 import org.activiti.engine.impl.asyncexecutor.AsyncExecutor;
@@ -31,17 +29,31 @@ import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.multitenant.TenantInfoHolder;
 import org.activiti.engine.test.cfg.multitenant.DummyTenantInfoHolder;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class TenantAwareAcquireTimerJobsRunnableDiffblueTest {
   /**
-   * Test {@link TenantAwareAcquireTimerJobsRunnable#TenantAwareAcquireTimerJobsRunnable(AsyncExecutor, TenantInfoHolder, String)}.
-   * <p>
-   * Method under test: {@link TenantAwareAcquireTimerJobsRunnable#TenantAwareAcquireTimerJobsRunnable(AsyncExecutor, TenantInfoHolder, String)}
+   * Method under test:
+   * {@link TenantAwareAcquireTimerJobsRunnable#getTenantAwareAsyncExecutor()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void TenantAwareAcquireTimerJobsRunnable.<init>(AsyncExecutor, TenantInfoHolder, String)"})
+  public void testGetTenantAwareAsyncExecutor() {
+    // Arrange
+    ExecutorPerTenantAsyncExecutor asyncExecutor = mock(ExecutorPerTenantAsyncExecutor.class);
+    when(asyncExecutor.getProcessEngineConfiguration()).thenReturn(new JtaProcessEngineConfiguration());
+
+    // Act
+    (new TenantAwareAcquireTimerJobsRunnable(asyncExecutor, new DummyTenantInfoHolder(), "42"))
+        .getTenantAwareAsyncExecutor();
+
+    // Assert
+    verify(asyncExecutor).getProcessEngineConfiguration();
+  }
+
+  /**
+   * Method under test:
+   * {@link TenantAwareAcquireTimerJobsRunnable#TenantAwareAcquireTimerJobsRunnable(AsyncExecutor, TenantInfoHolder, String)}
+   */
+  @Test
   public void testNewTenantAwareAcquireTimerJobsRunnable() {
     // Arrange
     ExecutorPerTenantAsyncExecutor asyncExecutor = mock(ExecutorPerTenantAsyncExecutor.class);
@@ -63,30 +75,5 @@ public class TenantAwareAcquireTimerJobsRunnableDiffblueTest {
     assertEquals(0L, actualTenantAwareAcquireTimerJobsRunnable.getMillisToWait());
     assertTrue(allTenants.isEmpty());
     assertSame(asyncExecutor, actualTenantAwareAcquireTimerJobsRunnable.getTenantAwareAsyncExecutor());
-  }
-
-  /**
-   * Test {@link TenantAwareAcquireTimerJobsRunnable#getTenantAwareAsyncExecutor()}.
-   * <ul>
-   *   <li>Then calls {@link ExecutorPerTenantAsyncExecutor#getProcessEngineConfiguration()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TenantAwareAcquireTimerJobsRunnable#getTenantAwareAsyncExecutor()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ExecutorPerTenantAsyncExecutor TenantAwareAcquireTimerJobsRunnable.getTenantAwareAsyncExecutor()"})
-  public void testGetTenantAwareAsyncExecutor_thenCallsGetProcessEngineConfiguration() {
-    // Arrange
-    ExecutorPerTenantAsyncExecutor asyncExecutor = mock(ExecutorPerTenantAsyncExecutor.class);
-    when(asyncExecutor.getProcessEngineConfiguration()).thenReturn(new JtaProcessEngineConfiguration());
-
-    // Act
-    (new TenantAwareAcquireTimerJobsRunnable(asyncExecutor, new DummyTenantInfoHolder(), "42"))
-        .getTenantAwareAsyncExecutor();
-
-    // Assert
-    verify(asyncExecutor).getProcessEngineConfiguration();
   }
 }

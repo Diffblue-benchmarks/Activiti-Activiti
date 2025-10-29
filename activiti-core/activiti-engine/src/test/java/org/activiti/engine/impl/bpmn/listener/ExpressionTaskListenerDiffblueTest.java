@@ -17,23 +17,46 @@ package org.activiti.engine.impl.bpmn.listener;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import org.activiti.core.el.juel.ObjectValueExpression;
+import org.activiti.core.el.juel.misc.TypeConverter;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.impl.el.FixedValue;
+import org.activiti.engine.impl.el.JuelExpression;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ExpressionTaskListenerDiffblueTest {
   /**
-   * Test {@link ExpressionTaskListener#ExpressionTaskListener(Expression)}.
-   * <p>
-   * Method under test: {@link ExpressionTaskListener#ExpressionTaskListener(Expression)}
+   * Method under test: {@link ExpressionTaskListener#getExpressionText()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExpressionTaskListener.<init>(Expression)"})
+  public void testGetExpressionText() {
+    // Arrange, Act and Assert
+    assertEquals("null", (new ExpressionTaskListener(new FixedValue(JSONObject.NULL))).getExpressionText());
+  }
+
+  /**
+   * Method under test: {@link ExpressionTaskListener#getExpressionText()}
+   */
+  @Test
+  public void testGetExpressionText2() {
+    // Arrange
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+
+    // Act and Assert
+    assertEquals("null",
+        (new ExpressionTaskListener(
+            new JuelExpression(new ObjectValueExpression(converter, JSONObject.NULL, type), "null")))
+            .getExpressionText());
+  }
+
+  /**
+   * Method under test:
+   * {@link ExpressionTaskListener#ExpressionTaskListener(Expression)}
+   */
+  @Test
   public void testNewExpressionTaskListener() {
     // Arrange and Act
     ExpressionTaskListener actualExpressionTaskListener = new ExpressionTaskListener(new FixedValue(JSONObject.NULL));
@@ -43,22 +66,5 @@ public class ExpressionTaskListenerDiffblueTest {
     assertTrue(expression instanceof FixedValue);
     assertEquals("null", expression.getExpressionText());
     assertEquals("null", actualExpressionTaskListener.getExpressionText());
-  }
-
-  /**
-   * Test {@link ExpressionTaskListener#getExpressionText()}.
-   * <ul>
-   *   <li>Given {@link FixedValue#FixedValue(Object)} with value is {@link JSONObject#NULL}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExpressionTaskListener#getExpressionText()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.lang.String ExpressionTaskListener.getExpressionText()"})
-  public void testGetExpressionText_givenFixedValueWithValueIsNull_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertEquals("null", (new ExpressionTaskListener(new FixedValue(JSONObject.NULL))).getExpressionText());
   }
 }

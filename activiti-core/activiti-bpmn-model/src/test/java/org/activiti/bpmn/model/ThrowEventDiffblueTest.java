@@ -19,25 +19,21 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.function.BiFunction;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ThrowEventDiffblueTest {
   /**
-   * Test {@link ThrowEvent#clone()}.
-   * <ul>
-   *   <li>Given {@link ThrowEvent} (default constructor).</li>
-   *   <li>Then return Behavior is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ThrowEvent#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ThrowEvent ThrowEvent.clone()"})
-  public void testClone_givenThrowEvent_thenReturnBehaviorIsNull() {
+  public void testClone() {
     // Arrange and Act
     ThrowEvent actualCloneResult = (new ThrowEvent()).clone();
 
@@ -62,13 +58,68 @@ public class ThrowEventDiffblueTest {
   }
 
   /**
-   * Test new {@link ThrowEvent} (default constructor).
-   * <p>
+   * Method under test: {@link ThrowEvent#clone()}
+   */
+  @Test
+  public void testClone2() {
+    // Arrange
+    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
+    attributes.computeIfPresent("foo", mock(BiFunction.class));
+
+    ThrowEvent throwEvent = new ThrowEvent();
+    throwEvent.setExtensionElements(null);
+    throwEvent.setAttributes(attributes);
+
+    // Act
+    ThrowEvent actualCloneResult = throwEvent.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertTrue(actualCloneResult.getEventDefinitions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+  }
+
+  /**
+   * Method under test: {@link ThrowEvent#setValues(ThrowEvent)}
+   */
+  @Test
+  public void testSetValues() {
+    // Arrange
+    ThrowEvent throwEvent = new ThrowEvent();
+    CancelEventDefinition cancelEventDefinition = mock(CancelEventDefinition.class);
+    when(cancelEventDefinition.clone()).thenReturn(new CancelEventDefinition());
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(cancelEventDefinition);
+
+    ThrowEvent otherEvent = new ThrowEvent();
+    otherEvent.setEventDefinitions(eventDefinitions);
+
+    // Act
+    throwEvent.setValues(otherEvent);
+
+    // Assert
+    verify(cancelEventDefinition).clone();
+  }
+
+  /**
    * Method under test: default or parameterless constructor of {@link ThrowEvent}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ThrowEvent.<init>()"})
   public void testNewThrowEvent() {
     // Arrange and Act
     ThrowEvent actualThrowEvent = new ThrowEvent();

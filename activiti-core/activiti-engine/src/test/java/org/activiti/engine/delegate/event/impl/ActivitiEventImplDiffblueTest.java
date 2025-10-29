@@ -18,101 +18,12 @@ package org.activiti.engine.delegate.event.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ActivitiEventImplDiffblueTest {
   /**
-   * Test {@link ActivitiEventImpl#ActivitiEventImpl(ActivitiEventType, String, String, String)}.
-   * <ul>
-   *   <li>When {@code ENTITY_CREATED}.</li>
-   *   <li>Then return ExecutionId is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ActivitiEventImpl#ActivitiEventImpl(ActivitiEventType, String, String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiEventImpl.<init>(ActivitiEventType, String, String, String)"})
-  public void testNewActivitiEventImpl_whenEntityCreated_thenReturnExecutionIdIs42() {
-    // Arrange and Act
-    ActivitiEventImpl actualActivitiEventImpl = new ActivitiEventImpl(ActivitiEventType.ENTITY_CREATED, "42", "42",
-        "42");
-
-    // Assert
-    assertEquals("42", actualActivitiEventImpl.getExecutionId());
-    assertEquals("42", actualActivitiEventImpl.getProcessDefinitionId());
-    assertEquals("42", actualActivitiEventImpl.getProcessInstanceId());
-    assertNull(actualActivitiEventImpl.getReason());
-    assertEquals(ActivitiEventType.ENTITY_CREATED, actualActivitiEventImpl.getType());
-  }
-
-  /**
-   * Test {@link ActivitiEventImpl#ActivitiEventImpl(ActivitiEventType)}.
-   * <ul>
-   *   <li>When {@code ENTITY_CREATED}.</li>
-   *   <li>Then return ExecutionId is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ActivitiEventImpl#ActivitiEventImpl(ActivitiEventType)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiEventImpl.<init>(ActivitiEventType)"})
-  public void testNewActivitiEventImpl_whenEntityCreated_thenReturnExecutionIdIsNull() {
-    // Arrange and Act
-    ActivitiEventImpl actualActivitiEventImpl = new ActivitiEventImpl(ActivitiEventType.ENTITY_CREATED);
-
-    // Assert
-    assertNull(actualActivitiEventImpl.getExecutionId());
-    assertNull(actualActivitiEventImpl.getProcessDefinitionId());
-    assertNull(actualActivitiEventImpl.getProcessInstanceId());
-    assertNull(actualActivitiEventImpl.getReason());
-    assertEquals(ActivitiEventType.ENTITY_CREATED, actualActivitiEventImpl.getType());
-  }
-
-  /**
-   * Test {@link ActivitiEventImpl#ActivitiEventImpl(ActivitiEventType)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ActivitiEventImpl#ActivitiEventImpl(ActivitiEventType)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiEventImpl.<init>(ActivitiEventType)"})
-  public void testNewActivitiEventImpl_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> new ActivitiEventImpl(null));
-  }
-
-  /**
-   * Test {@link ActivitiEventImpl#ActivitiEventImpl(ActivitiEventType, String, String, String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ActivitiEventImpl#ActivitiEventImpl(ActivitiEventType, String, String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiEventImpl.<init>(ActivitiEventType, String, String, String)"})
-  public void testNewActivitiEventImpl_whenNull_thenThrowActivitiIllegalArgumentException2() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> new ActivitiEventImpl(null, "42", "42", "42"));
-
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link ActivitiEventImpl#setExecutionId(String)}
@@ -129,13 +40,6 @@ public class ActivitiEventImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String ActivitiEventImpl.getExecutionId()", "String ActivitiEventImpl.getProcessDefinitionId()",
-      "String ActivitiEventImpl.getProcessInstanceId()", "String ActivitiEventImpl.getReason()",
-      "ActivitiEventType ActivitiEventImpl.getType()", "void ActivitiEventImpl.setExecutionId(String)",
-      "void ActivitiEventImpl.setProcessDefinitionId(String)", "void ActivitiEventImpl.setProcessInstanceId(String)",
-      "void ActivitiEventImpl.setReason(String)", "void ActivitiEventImpl.setType(ActivitiEventType)",
-      "String ActivitiEventImpl.toString()"})
   public void testGettersAndSetters() {
     // Arrange
     ActivitiEventImpl activitiEventImpl = new ActivitiEventImpl(ActivitiEventType.ENTITY_CREATED);
@@ -152,7 +56,7 @@ public class ActivitiEventImplDiffblueTest {
     String actualProcessInstanceId = activitiEventImpl.getProcessInstanceId();
     String actualReason = activitiEventImpl.getReason();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("42", actualExecutionId);
     assertEquals("42", actualProcessDefinitionId);
     assertEquals("42", actualProcessInstanceId);
@@ -160,5 +64,61 @@ public class ActivitiEventImplDiffblueTest {
     assertEquals("class org.activiti.engine.delegate.event.impl.ActivitiEventImpl - ENTITY_CREATED",
         actualToStringResult);
     assertEquals(ActivitiEventType.ENTITY_CREATED, activitiEventImpl.getType());
+  }
+
+  /**
+   * Method under test:
+   * {@link ActivitiEventImpl#ActivitiEventImpl(ActivitiEventType)}
+   */
+  @Test
+  public void testNewActivitiEventImpl() {
+    // Arrange and Act
+    ActivitiEventImpl actualActivitiEventImpl = new ActivitiEventImpl(ActivitiEventType.ENTITY_CREATED);
+
+    // Assert
+    assertNull(actualActivitiEventImpl.getExecutionId());
+    assertNull(actualActivitiEventImpl.getProcessDefinitionId());
+    assertNull(actualActivitiEventImpl.getProcessInstanceId());
+    assertNull(actualActivitiEventImpl.getReason());
+    assertEquals(ActivitiEventType.ENTITY_CREATED, actualActivitiEventImpl.getType());
+  }
+
+  /**
+   * Method under test:
+   * {@link ActivitiEventImpl#ActivitiEventImpl(ActivitiEventType)}
+   */
+  @Test
+  public void testNewActivitiEventImpl2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> new ActivitiEventImpl(null));
+  }
+
+  /**
+   * Method under test:
+   * {@link ActivitiEventImpl#ActivitiEventImpl(ActivitiEventType, String, String, String)}
+   */
+  @Test
+  public void testNewActivitiEventImpl3() {
+    // Arrange and Act
+    ActivitiEventImpl actualActivitiEventImpl = new ActivitiEventImpl(ActivitiEventType.ENTITY_CREATED, "42", "42",
+        "42");
+
+    // Assert
+    assertEquals("42", actualActivitiEventImpl.getExecutionId());
+    assertEquals("42", actualActivitiEventImpl.getProcessDefinitionId());
+    assertEquals("42", actualActivitiEventImpl.getProcessInstanceId());
+    assertNull(actualActivitiEventImpl.getReason());
+    assertEquals(ActivitiEventType.ENTITY_CREATED, actualActivitiEventImpl.getType());
+  }
+
+  /**
+   * Method under test:
+   * {@link ActivitiEventImpl#ActivitiEventImpl(ActivitiEventType, String, String, String)}
+   */
+  @Test
+  public void testNewActivitiEventImpl4() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> new ActivitiEventImpl(null, "42", "42", "42"));
+
   }
 }

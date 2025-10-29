@@ -17,41 +17,28 @@ package org.activiti.image.impl.icon;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class SignalThrowIconTypeDiffblueTest {
   /**
-   * Test {@link SignalThrowIconType#getWidth()}.
-   * <p>
    * Method under test: {@link SignalThrowIconType#getWidth()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.lang.Integer SignalThrowIconType.getWidth()"})
   public void testGetWidth() {
     // Arrange, Act and Assert
     assertEquals(17, (new SignalThrowIconType()).getWidth().intValue());
   }
 
   /**
-   * Test {@link SignalThrowIconType#getHeight()}.
-   * <p>
    * Method under test: {@link SignalThrowIconType#getHeight()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.lang.Integer SignalThrowIconType.getHeight()"})
   public void testGetHeight() {
     // Arrange, Act and Assert
     assertEquals(15, (new SignalThrowIconType()).getHeight().intValue());
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link SignalThrowIconType}
@@ -64,11 +51,6 @@ public class SignalThrowIconTypeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SignalThrowIconType.<init>()", "String SignalThrowIconType.getAnchorValue()",
-      "String SignalThrowIconType.getDValue()", "String SignalThrowIconType.getFillValue()",
-      "String SignalThrowIconType.getStrokeValue()", "String SignalThrowIconType.getStrokeWidth()",
-      "String SignalThrowIconType.getStyleValue()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     SignalThrowIconType actualSignalThrowIconType = new SignalThrowIconType();

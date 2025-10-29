@@ -20,23 +20,16 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.payloads.DeleteProcessPayload;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class DeleteProcessPayloadBuilderDiffblueTest {
   /**
-   * Test {@link DeleteProcessPayloadBuilder#withProcessInstance(ProcessInstance)}.
-   * <p>
-   * Method under test: {@link DeleteProcessPayloadBuilder#withProcessInstance(ProcessInstance)}
+   * Method under test:
+   * {@link DeleteProcessPayloadBuilder#withProcessInstance(ProcessInstance)}
    */
   @Test
-  @DisplayName("Test withProcessInstance(ProcessInstance)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"DeleteProcessPayloadBuilder DeleteProcessPayloadBuilder.withProcessInstance(ProcessInstance)"})
   void testWithProcessInstance() {
     // Arrange
     DeleteProcessPayloadBuilder deleteResult = ProcessPayloadBuilder.delete();
@@ -53,23 +46,16 @@ class DeleteProcessPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link DeleteProcessPayloadBuilder#build()}.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link DeleteProcessPayloadBuilder#build()}
-   *   <li>default or parameterless constructor of {@link DeleteProcessPayloadBuilder}
+   *   <li>default or parameterless constructor of
+   * {@link DeleteProcessPayloadBuilder}
    *   <li>{@link DeleteProcessPayloadBuilder#withProcessInstanceId(String)}
    *   <li>{@link DeleteProcessPayloadBuilder#withReason(String)}
    * </ul>
    */
   @Test
-  @DisplayName("Test build()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DeleteProcessPayloadBuilder.<init>()",
-      "DeleteProcessPayload DeleteProcessPayloadBuilder.build()",
-      "DeleteProcessPayloadBuilder DeleteProcessPayloadBuilder.withProcessInstanceId(String)",
-      "DeleteProcessPayloadBuilder DeleteProcessPayloadBuilder.withReason(String)"})
   void testBuild() {
     // Arrange and Act
     DeleteProcessPayload actualBuildResult = (new DeleteProcessPayloadBuilder())

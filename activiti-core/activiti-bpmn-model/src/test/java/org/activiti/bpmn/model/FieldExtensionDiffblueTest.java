@@ -18,60 +18,20 @@ package org.activiti.bpmn.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import java.util.HashMap;
+import java.util.List;
+import java.util.function.BiFunction;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class FieldExtensionDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>default or parameterless constructor of {@link FieldExtension}
-   *   <li>{@link FieldExtension#setExpression(String)}
-   *   <li>{@link FieldExtension#setFieldName(String)}
-   *   <li>{@link FieldExtension#setStringValue(String)}
-   *   <li>{@link FieldExtension#getExpression()}
-   *   <li>{@link FieldExtension#getFieldName()}
-   *   <li>{@link FieldExtension#getStringValue()}
-   * </ul>
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void FieldExtension.<init>()", "String FieldExtension.getExpression()",
-      "String FieldExtension.getFieldName()", "String FieldExtension.getStringValue()",
-      "void FieldExtension.setExpression(String)", "void FieldExtension.setFieldName(String)",
-      "void FieldExtension.setStringValue(String)"})
-  public void testGettersAndSetters() {
-    // Arrange and Act
-    FieldExtension actualFieldExtension = new FieldExtension();
-    actualFieldExtension.setExpression("Expression");
-    actualFieldExtension.setFieldName("Field Name");
-    actualFieldExtension.setStringValue("42");
-    String actualExpression = actualFieldExtension.getExpression();
-    String actualFieldName = actualFieldExtension.getFieldName();
-
-    // Assert
-    assertEquals("42", actualFieldExtension.getStringValue());
-    assertEquals("Expression", actualExpression);
-    assertEquals("Field Name", actualFieldName);
-    assertNull(actualFieldExtension.getId());
-    assertEquals(0, actualFieldExtension.getXmlColumnNumber());
-    assertEquals(0, actualFieldExtension.getXmlRowNumber());
-    assertTrue(actualFieldExtension.getAttributes().isEmpty());
-    assertTrue(actualFieldExtension.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link FieldExtension#clone()}.
-   * <p>
    * Method under test: {@link FieldExtension#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"FieldExtension FieldExtension.clone()"})
   public void testClone() {
     // Arrange and Act
     FieldExtension actualCloneResult = (new FieldExtension()).clone();
@@ -85,5 +45,82 @@ public class FieldExtensionDiffblueTest {
     assertEquals(0, actualCloneResult.getXmlRowNumber());
     assertTrue(actualCloneResult.getAttributes().isEmpty());
     assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link FieldExtension#clone()}
+   */
+  @Test
+  public void testClone2() {
+    // Arrange
+    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
+    extensionElements.computeIfPresent("foo", mock(BiFunction.class));
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setExtensionElements(extensionElements);
+
+    // Act
+    FieldExtension actualCloneResult = fieldExtension.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getExpression());
+    assertNull(actualCloneResult.getFieldName());
+    assertNull(actualCloneResult.getStringValue());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link FieldExtension#setValues(FieldExtension)}
+   */
+  @Test
+  public void testSetValues() {
+    // Arrange
+    ExtensionElement extensionElement = mock(ExtensionElement.class);
+    when(extensionElement.getName()).thenReturn("Name");
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.addExtensionElement(extensionElement);
+
+    // Act
+    fieldExtension.setValues(new FieldExtension());
+
+    // Assert
+    verify(extensionElement, atLeast(1)).getName();
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>default or parameterless constructor of {@link FieldExtension}
+   *   <li>{@link FieldExtension#setExpression(String)}
+   *   <li>{@link FieldExtension#setFieldName(String)}
+   *   <li>{@link FieldExtension#setStringValue(String)}
+   *   <li>{@link FieldExtension#getExpression()}
+   *   <li>{@link FieldExtension#getFieldName()}
+   *   <li>{@link FieldExtension#getStringValue()}
+   * </ul>
+   */
+  @Test
+  public void testGettersAndSetters() {
+    // Arrange and Act
+    FieldExtension actualFieldExtension = new FieldExtension();
+    actualFieldExtension.setExpression("Expression");
+    actualFieldExtension.setFieldName("Field Name");
+    actualFieldExtension.setStringValue("42");
+    String actualExpression = actualFieldExtension.getExpression();
+    String actualFieldName = actualFieldExtension.getFieldName();
+
+    // Assert that nothing has changed
+    assertEquals("42", actualFieldExtension.getStringValue());
+    assertEquals("Expression", actualExpression);
+    assertEquals("Field Name", actualFieldName);
+    assertEquals(0, actualFieldExtension.getXmlColumnNumber());
+    assertEquals(0, actualFieldExtension.getXmlRowNumber());
+    assertTrue(actualFieldExtension.getAttributes().isEmpty());
+    assertTrue(actualFieldExtension.getExtensionElements().isEmpty());
   }
 }

@@ -3,23 +3,25 @@
     "reportVersion" : "2.6"
   },
   "run" : {
-    "version" : "2025.02.02-08b2a5a-licensed",
-    "creationTimestamp" : "2025-10-21T18:36:58.703503864Z",
+    "version" : "2024.10.01-2ee2e3d-licensed",
+    "creationTimestamp" : "2025-10-28T11:31:52.893683331Z",
     "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
-    "totalTime" : 169.008,
-    "environmentDetectionTime" : 0.366,
-    "indexingTime" : 0.376,
-    "entryPointsTime" : 0.361,
-    "generationTime" : 1784.214,
-    "timeToFirstTest" : 3458.167,
-    "timeToLastTest" : 2946.254,
-    "indexQueryTime" : 7.409,
-    "verificationTime" : 107.101,
-    "validationTime" : 29.408
+    "totalTime" : 3181.22,
+    "environmentDetectionTime" : 0.436,
+    "indexingTime" : 0.344,
+    "entryPointsTime" : 0.424,
+    "generationTime" : 1448.599,
+    "timeToFirstTest" : 87.907,
+    "timeToLastTest" : 90.172,
+    "indexQueryTime" : 8.077,
+    "verificationTime" : 129.118,
+    "validationTime" : 28.887
   },
   "codes" : {
+    "F009" : "Internal error",
     "R000" : "Success",
     "R002" : "Missing observers",
+    "R004" : "No meaningful assertions found",
     "R026" : "Failed to create Spring context",
     "T000" : "Method eligible for test creation",
     "T001" : "Trivial getter",
@@ -32,9 +34,9 @@
   "summary" : {
     "classesCount" : 13,
     "methodsCount" : 43,
-    "cumulativeDiffblueTestCount" : 29,
+    "cumulativeDiffblueTestCount" : 21,
     "cumulativeManualTestCount" : 14,
-    "completeTestCount" : 29,
+    "completeTestCount" : 23,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 285,
@@ -47,18 +49,20 @@
       "T012" : 9
     },
     "perMethodOutcome" : {
-      "R000" : 20,
+      "F009" : 5,
+      "R000" : 15,
       "R002" : 7,
-      "R026" : 2,
+      "R004" : 1,
+      "R026" : 1,
       "T003" : 1,
       "T010" : 4,
       "T012" : 9
     },
     "perTestOutcome" : {
-      "R000" : 29
+      "R000" : 23
     },
     "perTestValidation" : {
-      "V000" : 29
+      "V000" : 23
     }
   },
   "classes" : {
@@ -75,7 +79,8 @@
       "perMethodOutcome" : {
         "R000" : 3,
         "R002" : 1,
-        "R026" : 2,
+        "R004" : 1,
+        "R026" : 1,
         "T003" : 1,
         "T012" : 2
       },
@@ -96,7 +101,7 @@
     },
     "org.activiti.runtime.api.event.impl.ToVariableCreatedConverter" : {
       "methodsCount" : 3,
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
@@ -104,17 +109,14 @@
         "T012" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 1,
+        "F009" : 1,
         "R002" : 1,
         "T012" : 1
-      },
-      "perTestOutcome" : {
-        "R000" : 1
       }
     },
     "org.activiti.runtime.api.event.impl.ToVariableDeletedConverter" : {
       "methodsCount" : 3,
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
@@ -122,17 +124,14 @@
         "T012" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 1,
+        "F009" : 1,
         "R002" : 1,
         "T012" : 1
-      },
-      "perTestOutcome" : {
-        "R000" : 1
       }
     },
     "org.activiti.runtime.api.event.impl.ToVariableUpdatedConverter" : {
       "methodsCount" : 3,
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
@@ -140,12 +139,9 @@
         "T012" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 1,
+        "F009" : 1,
         "R002" : 1,
         "T012" : 1
-      },
-      "perTestOutcome" : {
-        "R000" : 1
       }
     },
     "org.activiti.runtime.api.event.internal.VariableCreatedListenerDelegate" : {
@@ -220,7 +216,7 @@
     },
     "org.activiti.runtime.api.model.impl.APIVariableInstanceConverter" : {
       "methodsCount" : 3,
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
@@ -228,28 +224,22 @@
         "T012" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 1,
+        "F009" : 1,
         "R002" : 1,
         "T012" : 1
-      },
-      "perTestOutcome" : {
-        "R000" : 1
       }
     },
     "org.activiti.runtime.api.model.impl.ListConverter" : {
       "methodsCount" : 2,
-      "completeTestCount" : 2,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
         "T010" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 1,
+        "F009" : 1,
         "T010" : 1
-      },
-      "perTestOutcome" : {
-        "R000" : 2
       }
     },
     "org.activiti.runtime.api.model.impl.ModelConverter" : {
@@ -293,7 +283,7 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R026",
+      "perMethodOutcome" : "R004",
       "lineNumbers" : [
         44
       ]
@@ -399,13 +389,10 @@
       ]
     },
     "org.activiti.runtime.api.event.impl.ToVariableCreatedConverter.from:(Lorg/activiti/engine/delegate/event/ActivitiVariableEvent;)Ljava/util/Optional;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "F009",
       "lineNumbers" : [
         29,
         30,
@@ -434,13 +421,10 @@
       ]
     },
     "org.activiti.runtime.api.event.impl.ToVariableDeletedConverter.from:(Lorg/activiti/engine/delegate/event/ActivitiVariableEvent;)Ljava/util/Optional;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "F009",
       "lineNumbers" : [
         29,
         30,
@@ -469,13 +453,10 @@
       ]
     },
     "org.activiti.runtime.api.event.impl.ToVariableUpdatedConverter.from:(Lorg/activiti/engine/delegate/event/ActivitiVariableUpdatedEvent;)Ljava/util/Optional;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "F009",
       "lineNumbers" : [
         29,
         30,
@@ -692,13 +673,10 @@
       ]
     },
     "org.activiti.runtime.api.model.impl.APIVariableInstanceConverter.from:(Lorg/activiti/engine/impl/persistence/entity/VariableInstance;)Lorg/activiti/api/model/shared/model/VariableInstance;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "F009",
       "lineNumbers" : [
         27,
         28,
@@ -718,13 +696,10 @@
       ]
     },
     "org.activiti.runtime.api.model.impl.ListConverter.from:(Ljava/util/Collection;)Ljava/util/List;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 2
-      },
+      "perMethodOutcome" : "F009",
       "lineNumbers" : [
         25,
         26,

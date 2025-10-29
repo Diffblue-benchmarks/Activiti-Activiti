@@ -17,53 +17,32 @@ package org.activiti.bpmn.converter.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class CommaSplitterDiffblueTest {
   /**
-   * Test {@link CommaSplitter#splitCommas(String)}.
-   * <ul>
-   *   <li>When empty string.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link CommaSplitter#splitCommas(String)}
    */
   @Test
-  @DisplayName("Test splitCommas(String); when empty string; then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List CommaSplitter.splitCommas(String)"})
-  void testSplitCommas_whenEmptyString_thenReturnEmpty() {
-    // Arrange and Act
-    List<String> actualSplitCommasResult = CommaSplitter.splitCommas("");
-
-    // Assert
-    assertTrue(actualSplitCommasResult.isEmpty());
-  }
-
-  /**
-   * Test {@link CommaSplitter#splitCommas(String)}.
-   * <ul>
-   *   <li>When {@code St}.</li>
-   *   <li>Then return size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CommaSplitter#splitCommas(String)}
-   */
-  @Test
-  @DisplayName("Test splitCommas(String); when 'St'; then return size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List CommaSplitter.splitCommas(String)"})
-  void testSplitCommas_whenSt_thenReturnSizeIsOne() {
+  void testSplitCommas() {
     // Arrange and Act
     List<String> actualSplitCommasResult = CommaSplitter.splitCommas("St");
 
     // Assert
     assertEquals(1, actualSplitCommasResult.size());
     assertEquals("St", actualSplitCommasResult.get(0));
+  }
+
+  /**
+   * Method under test: {@link CommaSplitter#splitCommas(String)}
+   */
+  @Test
+  void testSplitCommas2() {
+    // Arrange and Act
+    List<String> actualSplitCommasResult = CommaSplitter.splitCommas("");
+
+    // Assert
+    assertTrue(actualSplitCommasResult.isEmpty());
   }
 }

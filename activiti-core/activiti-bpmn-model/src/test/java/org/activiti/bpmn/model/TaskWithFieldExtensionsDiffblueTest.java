@@ -17,40 +17,48 @@ package org.activiti.bpmn.model;
 
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class TaskWithFieldExtensionsDiffblueTest {
   /**
-   * Test {@link TaskWithFieldExtensions#getFieldExtensions()}.
-   * <p>
    * Method under test: {@link TaskWithFieldExtensions#getFieldExtensions()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"List TaskWithFieldExtensions.getFieldExtensions()"})
   public void testGetFieldExtensions() {
-    // Arrange, Act and Assert
-    assertTrue((new SendTask()).getFieldExtensions().isEmpty());
+    // Arrange
+    SendTask sendTask = new SendTask();
+
+    // Act
+    List<FieldExtension> actualFieldExtensions = sendTask.getFieldExtensions();
+
+    // Assert
+    assertTrue(actualFieldExtensions.isEmpty());
+    assertSame(sendTask.fieldExtensions, actualFieldExtensions);
   }
 
   /**
-   * Test {@link TaskWithFieldExtensions#setFieldExtensions(List)}.
-   * <ul>
-   *   <li>Given {@link FieldExtension} (default constructor).</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@link FieldExtension} (default constructor).</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TaskWithFieldExtensions#setFieldExtensions(List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void TaskWithFieldExtensions.setFieldExtensions(List)"})
-  public void testSetFieldExtensions_givenFieldExtension_whenArrayListAddFieldExtension() {
+  public void testSetFieldExtensions() {
+    // Arrange
+    SendTask sendTask = new SendTask();
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+
+    // Act
+    sendTask.setFieldExtensions(fieldExtensions);
+
+    // Assert
+    assertSame(fieldExtensions, sendTask.getFieldExtensions());
+  }
+
+  /**
+   * Method under test: {@link TaskWithFieldExtensions#setFieldExtensions(List)}
+   */
+  @Test
+  public void testSetFieldExtensions2() {
     // Arrange
     SendTask sendTask = new SendTask();
 
@@ -65,47 +73,16 @@ public class TaskWithFieldExtensionsDiffblueTest {
   }
 
   /**
-   * Test {@link TaskWithFieldExtensions#setFieldExtensions(List)}.
-   * <ul>
-   *   <li>Given {@link FieldExtension} (default constructor).</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@link FieldExtension} (default constructor).</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TaskWithFieldExtensions#setFieldExtensions(List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void TaskWithFieldExtensions.setFieldExtensions(List)"})
-  public void testSetFieldExtensions_givenFieldExtension_whenArrayListAddFieldExtension2() {
+  public void testSetFieldExtensions3() {
     // Arrange
     SendTask sendTask = new SendTask();
 
     ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
     fieldExtensions.add(new FieldExtension());
     fieldExtensions.add(new FieldExtension());
-
-    // Act
-    sendTask.setFieldExtensions(fieldExtensions);
-
-    // Assert
-    assertSame(fieldExtensions, sendTask.getFieldExtensions());
-  }
-
-  /**
-   * Test {@link TaskWithFieldExtensions#setFieldExtensions(List)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TaskWithFieldExtensions#setFieldExtensions(List)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void TaskWithFieldExtensions.setFieldExtensions(List)"})
-  public void testSetFieldExtensions_whenArrayList() {
-    // Arrange
-    SendTask sendTask = new SendTask();
-    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
 
     // Act
     sendTask.setFieldExtensions(fieldExtensions);

@@ -16,9 +16,6 @@
 package org.activiti.core.common.spring.security;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,28 +29,20 @@ class LocalSpringSecurityContextPrincipalProviderDiffblueTest {
   private LocalSpringSecurityContextPrincipalProvider localSpringSecurityContextPrincipalProvider;
 
   /**
-   * Test {@link LocalSpringSecurityContextPrincipalProvider#getCurrentPrincipal()}.
-   * <p>
-   * Method under test: {@link LocalSpringSecurityContextPrincipalProvider#getCurrentPrincipal()}
+   * Method under test:
+   * {@link LocalSpringSecurityContextPrincipalProvider#getCurrentPrincipal()}
    */
   @Test
-  @DisplayName("Test getCurrentPrincipal()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.util.Optional LocalSpringSecurityContextPrincipalProvider.getCurrentPrincipal()"})
   void testGetCurrentPrincipal() {
     // Arrange, Act and Assert
     assertFalse((new LocalSpringSecurityContextPrincipalProvider()).getCurrentPrincipal().isPresent());
   }
 
   /**
-   * Test new {@link LocalSpringSecurityContextPrincipalProvider} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link LocalSpringSecurityContextPrincipalProvider}
+   * Method under test: default or parameterless constructor of
+   * {@link LocalSpringSecurityContextPrincipalProvider}
    */
   @Test
-  @DisplayName("Test new LocalSpringSecurityContextPrincipalProvider (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void LocalSpringSecurityContextPrincipalProvider.<init>()"})
   void testNewLocalSpringSecurityContextPrincipalProvider() {
     // Arrange, Act and Assert
     assertFalse((new LocalSpringSecurityContextPrincipalProvider()).getCurrentPrincipal().isPresent());

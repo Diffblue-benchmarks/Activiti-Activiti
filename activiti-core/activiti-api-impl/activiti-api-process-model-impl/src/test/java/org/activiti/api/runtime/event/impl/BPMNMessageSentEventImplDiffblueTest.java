@@ -18,25 +18,26 @@ package org.activiti.api.runtime.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.BPMNMessage;
 import org.activiti.api.process.model.events.BPMNMessageEvent;
-import org.activiti.api.process.model.events.BPMNMessageEvent.MessageEvents;
 import org.activiti.api.runtime.model.impl.BPMNMessageImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class BPMNMessageSentEventImplDiffblueTest {
   /**
-   * Test {@link BPMNMessageSentEventImpl#BPMNMessageSentEventImpl()}.
-   * <p>
-   * Method under test: {@link BPMNMessageSentEventImpl#BPMNMessageSentEventImpl()}
+   * Method under test: {@link BPMNMessageSentEventImpl#getEventType()}
    */
   @Test
-  @DisplayName("Test new BPMNMessageSentEventImpl()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BPMNMessageSentEventImpl.<init>()"})
+  void testGetEventType() {
+    // Arrange, Act and Assert
+    assertEquals(BPMNMessageEvent.MessageEvents.MESSAGE_SENT, (new BPMNMessageSentEventImpl()).getEventType());
+  }
+
+  /**
+   * Method under test:
+   * {@link BPMNMessageSentEventImpl#BPMNMessageSentEventImpl()}
+   */
+  @Test
   void testNewBPMNMessageSentEventImpl() {
     // Arrange and Act
     BPMNMessageSentEventImpl actualBpmnMessageSentEventImpl = new BPMNMessageSentEventImpl();
@@ -49,18 +50,14 @@ class BPMNMessageSentEventImplDiffblueTest {
     assertNull(actualBpmnMessageSentEventImpl.getProcessDefinitionKey());
     assertNull(actualBpmnMessageSentEventImpl.getProcessInstanceId());
     assertNull(actualBpmnMessageSentEventImpl.getEntity());
-    assertEquals(MessageEvents.MESSAGE_SENT, actualBpmnMessageSentEventImpl.getEventType());
+    assertEquals(BPMNMessageEvent.MessageEvents.MESSAGE_SENT, actualBpmnMessageSentEventImpl.getEventType());
   }
 
   /**
-   * Test {@link BPMNMessageSentEventImpl#BPMNMessageSentEventImpl(BPMNMessage)}.
-   * <p>
-   * Method under test: {@link BPMNMessageSentEventImpl#BPMNMessageSentEventImpl(BPMNMessage)}
+   * Method under test:
+   * {@link BPMNMessageSentEventImpl#BPMNMessageSentEventImpl(BPMNMessage)}
    */
   @Test
-  @DisplayName("Test new BPMNMessageSentEventImpl(BPMNMessage)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BPMNMessageSentEventImpl.<init>(BPMNMessage)"})
   void testNewBPMNMessageSentEventImpl2() {
     // Arrange
     BPMNMessageImpl entity = new BPMNMessageImpl("42");
@@ -75,21 +72,7 @@ class BPMNMessageSentEventImplDiffblueTest {
     assertNull(actualBpmnMessageSentEventImpl.getProcessDefinitionId());
     assertNull(actualBpmnMessageSentEventImpl.getProcessDefinitionKey());
     assertNull(actualBpmnMessageSentEventImpl.getProcessInstanceId());
-    assertEquals(MessageEvents.MESSAGE_SENT, actualBpmnMessageSentEventImpl.getEventType());
+    assertEquals(BPMNMessageEvent.MessageEvents.MESSAGE_SENT, actualBpmnMessageSentEventImpl.getEventType());
     assertSame(entity, actualBpmnMessageSentEventImpl.getEntity());
-  }
-
-  /**
-   * Test {@link BPMNMessageSentEventImpl#getEventType()}.
-   * <p>
-   * Method under test: {@link BPMNMessageSentEventImpl#getEventType()}
-   */
-  @Test
-  @DisplayName("Test getEventType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BPMNMessageEvent.MessageEvents BPMNMessageSentEventImpl.getEventType()"})
-  void testGetEventType() {
-    // Arrange, Act and Assert
-    assertEquals(MessageEvents.MESSAGE_SENT, (new BPMNMessageSentEventImpl()).getEventType());
   }
 }

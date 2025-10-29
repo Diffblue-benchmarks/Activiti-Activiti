@@ -28,12 +28,13 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.util.Date;
 import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.FlowElement;
-import org.activiti.engine.delegate.DelegateExecution;
+import org.activiti.core.el.CustomFunctionProvider;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventDispatcher;
 import org.activiti.engine.delegate.event.impl.ActivitiEventDispatcherImpl;
@@ -56,6 +57,8 @@ import org.activiti.engine.impl.persistence.entity.HistoricIdentityLinkEntityMan
 import org.activiti.engine.impl.persistence.entity.HistoricProcessInstanceEntity;
 import org.activiti.engine.impl.persistence.entity.HistoricProcessInstanceEntityImpl;
 import org.activiti.engine.impl.persistence.entity.HistoricProcessInstanceEntityManagerImpl;
+import org.activiti.engine.impl.persistence.entity.HistoricTaskInstanceEntityImpl;
+import org.activiti.engine.impl.persistence.entity.HistoricTaskInstanceEntityManagerImpl;
 import org.activiti.engine.impl.persistence.entity.IdentityLinkEntity;
 import org.activiti.engine.impl.persistence.entity.IdentityLinkEntityImpl;
 import org.activiti.engine.impl.persistence.entity.data.CommentDataManager;
@@ -63,115 +66,287 @@ import org.activiti.engine.impl.persistence.entity.data.ExecutionDataManager;
 import org.activiti.engine.impl.persistence.entity.data.HistoricActivityInstanceDataManager;
 import org.activiti.engine.impl.persistence.entity.data.HistoricIdentityLinkDataManager;
 import org.activiti.engine.impl.persistence.entity.data.HistoricProcessInstanceDataManager;
+import org.activiti.engine.impl.persistence.entity.data.HistoricTaskInstanceDataManager;
 import org.activiti.engine.impl.persistence.entity.data.impl.MybatisHistoricProcessInstanceDataManager;
 import org.activiti.engine.impl.util.DefaultClockImpl;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class DefaultHistoryManagerDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link DefaultHistoryManager#DefaultHistoryManager(ProcessEngineConfigurationImpl, HistoryLevel)}
-   *   <li>{@link DefaultHistoryManager#setHistoryLevel(HistoryLevel)}
-   *   <li>{@link DefaultHistoryManager#getHistoryLevel()}
-   * </ul>
+   * Method under test:
+   * {@link DefaultHistoryManager#isHistoryLevelAtLeast(HistoryLevel)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultHistoryManager.<init>(ProcessEngineConfigurationImpl, HistoryLevel)",
-      "HistoryLevel DefaultHistoryManager.getHistoryLevel()",
-      "void DefaultHistoryManager.setHistoryLevel(HistoryLevel)"})
-  public void testGettersAndSetters() {
-    // Arrange and Act
-    DefaultHistoryManager actualDefaultHistoryManager = new DefaultHistoryManager(new JtaProcessEngineConfiguration(),
-        HistoryLevel.NONE);
-    actualDefaultHistoryManager.setHistoryLevel(HistoryLevel.NONE);
-
-    // Assert
-    assertEquals(HistoryLevel.NONE, actualDefaultHistoryManager.getHistoryLevel());
-  }
-
-  /**
-   * Test {@link DefaultHistoryManager#isHistoryLevelAtLeast(HistoryLevel)}.
-   * <ul>
-   *   <li>When {@code ACTIVITY}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#isHistoryLevelAtLeast(HistoryLevel)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean DefaultHistoryManager.isHistoryLevelAtLeast(HistoryLevel)"})
-  public void testIsHistoryLevelAtLeast_whenActivity_thenReturnFalse() {
+  public void testIsHistoryLevelAtLeast() {
     // Arrange, Act and Assert
+    assertTrue((new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE))
+        .isHistoryLevelAtLeast(HistoryLevel.NONE));
     assertFalse((new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE))
         .isHistoryLevelAtLeast(HistoryLevel.ACTIVITY));
   }
 
   /**
-   * Test {@link DefaultHistoryManager#isHistoryLevelAtLeast(HistoryLevel)}.
-   * <ul>
-   *   <li>When {@code NONE}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#isHistoryLevelAtLeast(HistoryLevel)}
+   * Method under test:
+   * {@link DefaultHistoryManager#isHistoryLevelAtLeast(HistoryLevel)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean DefaultHistoryManager.isHistoryLevelAtLeast(HistoryLevel)"})
-  public void testIsHistoryLevelAtLeast_whenNone_thenReturnTrue() {
-    // Arrange, Act and Assert
-    assertTrue((new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE))
+  public void testIsHistoryLevelAtLeast2() {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
+
+    // Act and Assert
+    assertTrue((new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.NONE))
         .isHistoryLevelAtLeast(HistoryLevel.NONE));
   }
 
   /**
-   * Test {@link DefaultHistoryManager#isHistoryEnabled()}.
-   * <ul>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DefaultHistoryManager#isHistoryEnabled()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean DefaultHistoryManager.isHistoryEnabled()"})
-  public void testIsHistoryEnabled_thenReturnFalse() {
+  public void testIsHistoryEnabled() {
     // Arrange, Act and Assert
     assertFalse((new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE)).isHistoryEnabled());
-  }
-
-  /**
-   * Test {@link DefaultHistoryManager#isHistoryEnabled()}.
-   * <ul>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#isHistoryEnabled()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean DefaultHistoryManager.isHistoryEnabled()"})
-  public void testIsHistoryEnabled_thenReturnTrue() {
-    // Arrange, Act and Assert
     assertTrue(
         (new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY)).isHistoryEnabled());
   }
 
   /**
-   * Test {@link DefaultHistoryManager#recordProcessInstanceStart(ExecutionEntity, FlowElement)}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#recordProcessInstanceStart(ExecutionEntity, FlowElement)}
+   * Method under test: {@link DefaultHistoryManager#isHistoryEnabled()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultHistoryManager.recordProcessInstanceStart(ExecutionEntity, FlowElement)"})
+  public void testIsHistoryEnabled2() {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
+
+    // Act and Assert
+    assertFalse((new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.NONE)).isHistoryEnabled());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordProcessInstanceEnd(String, String, String)}
+   */
+  @Test
+  public void testRecordProcessInstanceEnd() {
+    // Arrange
+    HistoricProcessInstanceDataManager historicProcessInstanceDataManager = mock(
+        HistoricProcessInstanceDataManager.class);
+    when(historicProcessInstanceDataManager.findById(Mockito.<String>any())).thenReturn(null);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricProcessInstanceEntityManager())
+        .thenReturn(new HistoricProcessInstanceEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicProcessInstanceDataManager));
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.ACTIVITY)).recordProcessInstanceEnd("42",
+        "Just cause", "42");
+
+    // Assert
+    verify(processEngineConfiguration).getHistoricProcessInstanceEntityManager();
+    verify(historicProcessInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordProcessInstanceEnd(String, String, String)}
+   */
+  @Test
+  public void testRecordProcessInstanceEnd2() {
+    // Arrange
+    HistoricProcessInstanceEntityImpl historicProcessInstanceEntityImpl = mock(HistoricProcessInstanceEntityImpl.class);
+    doNothing().when(historicProcessInstanceEntityImpl).setEndActivityId(Mockito.<String>any());
+    doNothing().when(historicProcessInstanceEntityImpl).markEnded(Mockito.<String>any());
+    HistoricProcessInstanceDataManager historicProcessInstanceDataManager = mock(
+        HistoricProcessInstanceDataManager.class);
+    when(historicProcessInstanceDataManager.findById(Mockito.<String>any()))
+        .thenReturn(historicProcessInstanceEntityImpl);
+    HistoricProcessInstanceEntityManagerImpl historicProcessInstanceEntityManagerImpl = new HistoricProcessInstanceEntityManagerImpl(
+        new JtaProcessEngineConfiguration(), historicProcessInstanceDataManager);
+
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
+    when(processEngineConfiguration.getHistoricProcessInstanceEntityManager())
+        .thenReturn(historicProcessInstanceEntityManagerImpl);
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.ACTIVITY)).recordProcessInstanceEnd("42",
+        "Just cause", "42");
+
+    // Assert
+    verify(processEngineConfiguration).getEventDispatcher();
+    verify(processEngineConfiguration).getHistoricProcessInstanceEntityManager();
+    verify(historicProcessInstanceEntityImpl).setEndActivityId(eq("42"));
+    verify(historicProcessInstanceEntityImpl).markEnded(eq("Just cause"));
+    verify(historicProcessInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordProcessInstanceEnd(String, String, String)}
+   */
+  @Test
+  public void testRecordProcessInstanceEnd3() {
+    // Arrange
+    HistoricProcessInstanceEntityImpl historicProcessInstanceEntityImpl = mock(HistoricProcessInstanceEntityImpl.class);
+    doNothing().when(historicProcessInstanceEntityImpl).setEndActivityId(Mockito.<String>any());
+    doNothing().when(historicProcessInstanceEntityImpl).markEnded(Mockito.<String>any());
+    HistoricProcessInstanceDataManager historicProcessInstanceDataManager = mock(
+        HistoricProcessInstanceDataManager.class);
+    when(historicProcessInstanceDataManager.findById(Mockito.<String>any()))
+        .thenReturn(historicProcessInstanceEntityImpl);
+    HistoricProcessInstanceEntityManagerImpl historicProcessInstanceEntityManagerImpl = new HistoricProcessInstanceEntityManagerImpl(
+        new JtaProcessEngineConfiguration(), historicProcessInstanceDataManager);
+
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(null);
+    when(processEngineConfiguration.getHistoricProcessInstanceEntityManager())
+        .thenReturn(historicProcessInstanceEntityManagerImpl);
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.ACTIVITY)).recordProcessInstanceEnd("42",
+        "Just cause", "42");
+
+    // Assert
+    verify(processEngineConfiguration).getEventDispatcher();
+    verify(processEngineConfiguration).getHistoricProcessInstanceEntityManager();
+    verify(historicProcessInstanceEntityImpl).setEndActivityId(eq("42"));
+    verify(historicProcessInstanceEntityImpl).markEnded(eq("Just cause"));
+    verify(historicProcessInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordProcessInstanceEnd(String, String, String)}
+   */
+  @Test
+  public void testRecordProcessInstanceEnd4() {
+    // Arrange
+    HistoricProcessInstanceEntityImpl historicProcessInstanceEntityImpl = mock(HistoricProcessInstanceEntityImpl.class);
+    doNothing().when(historicProcessInstanceEntityImpl).setEndActivityId(Mockito.<String>any());
+    doNothing().when(historicProcessInstanceEntityImpl).markEnded(Mockito.<String>any());
+    HistoricProcessInstanceDataManager historicProcessInstanceDataManager = mock(
+        HistoricProcessInstanceDataManager.class);
+    when(historicProcessInstanceDataManager.findById(Mockito.<String>any()))
+        .thenReturn(historicProcessInstanceEntityImpl);
+    HistoricProcessInstanceEntityManagerImpl historicProcessInstanceEntityManagerImpl = new HistoricProcessInstanceEntityManagerImpl(
+        new JtaProcessEngineConfiguration(), historicProcessInstanceDataManager);
+
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    when(processEngineConfiguration.getHistoricProcessInstanceEntityManager())
+        .thenReturn(historicProcessInstanceEntityManagerImpl);
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.ACTIVITY)).recordProcessInstanceEnd("42",
+        "Just cause", "42");
+
+    // Assert
+    verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration).getEventDispatcher();
+    verify(processEngineConfiguration).getHistoricProcessInstanceEntityManager();
+    verify(historicProcessInstanceEntityImpl).setEndActivityId(eq("42"));
+    verify(historicProcessInstanceEntityImpl).markEnded(eq("Just cause"));
+    verify(historicProcessInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordProcessInstanceEnd(String, String, String)}
+   */
+  @Test
+  public void testRecordProcessInstanceEnd5() {
+    // Arrange
+    HistoricProcessInstanceEntityImpl historicProcessInstanceEntityImpl = mock(HistoricProcessInstanceEntityImpl.class);
+    doNothing().when(historicProcessInstanceEntityImpl).setEndActivityId(Mockito.<String>any());
+    doNothing().when(historicProcessInstanceEntityImpl).markEnded(Mockito.<String>any());
+    HistoricProcessInstanceDataManager historicProcessInstanceDataManager = mock(
+        HistoricProcessInstanceDataManager.class);
+    when(historicProcessInstanceDataManager.findById(Mockito.<String>any()))
+        .thenReturn(historicProcessInstanceEntityImpl);
+    HistoricProcessInstanceEntityManagerImpl historicProcessInstanceEntityManagerImpl = new HistoricProcessInstanceEntityManagerImpl(
+        new JtaProcessEngineConfiguration(), historicProcessInstanceDataManager);
+
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    when(processEngineConfiguration.getHistoricProcessInstanceEntityManager())
+        .thenReturn(historicProcessInstanceEntityManagerImpl);
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.ACTIVITY)).recordProcessInstanceEnd("42",
+        "Just cause", "42");
+
+    // Assert
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration).getEventDispatcher();
+    verify(processEngineConfiguration).getHistoricProcessInstanceEntityManager();
+    verify(historicProcessInstanceEntityImpl).setEndActivityId(eq("42"));
+    verify(historicProcessInstanceEntityImpl).markEnded(eq("Just cause"));
+    verify(historicProcessInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordProcessInstanceNameChange(String, String)}
+   */
+  @Test
+  public void testRecordProcessInstanceNameChange() {
+    // Arrange
+    HistoricProcessInstanceDataManager historicProcessInstanceDataManager = mock(
+        HistoricProcessInstanceDataManager.class);
+    when(historicProcessInstanceDataManager.findById(Mockito.<String>any()))
+        .thenReturn(new HistoricProcessInstanceEntityImpl());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricProcessInstanceEntityManager())
+        .thenReturn(new HistoricProcessInstanceEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicProcessInstanceDataManager));
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.ACTIVITY)).recordProcessInstanceNameChange("42",
+        "New Name");
+
+    // Assert
+    verify(processEngineConfiguration).getHistoricProcessInstanceEntityManager();
+    verify(historicProcessInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordProcessInstanceNameChange(String, String)}
+   */
+  @Test
+  public void testRecordProcessInstanceNameChange2() {
+    // Arrange
+    HistoricProcessInstanceDataManager historicProcessInstanceDataManager = mock(
+        HistoricProcessInstanceDataManager.class);
+    when(historicProcessInstanceDataManager.findById(Mockito.<String>any())).thenReturn(null);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricProcessInstanceEntityManager())
+        .thenReturn(new HistoricProcessInstanceEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicProcessInstanceDataManager));
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.ACTIVITY)).recordProcessInstanceNameChange("42",
+        "New Name");
+
+    // Assert
+    verify(processEngineConfiguration).getHistoricProcessInstanceEntityManager();
+    verify(historicProcessInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordProcessInstanceStart(ExecutionEntity, FlowElement)}
+   */
+  @Test
   public void testRecordProcessInstanceStart() {
     // Arrange
     HistoricProcessInstanceDataManager historicProcessInstanceDataManager = mock(
@@ -201,13 +376,10 @@ public class DefaultHistoryManagerDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultHistoryManager#recordProcessInstanceStart(ExecutionEntity, FlowElement)}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#recordProcessInstanceStart(ExecutionEntity, FlowElement)}
+   * Method under test:
+   * {@link DefaultHistoryManager#recordProcessInstanceStart(ExecutionEntity, FlowElement)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultHistoryManager.recordProcessInstanceStart(ExecutionEntity, FlowElement)"})
   public void testRecordProcessInstanceStart2() {
     // Arrange
     HistoricProcessInstanceDataManager historicProcessInstanceDataManager = mock(
@@ -237,59 +409,11 @@ public class DefaultHistoryManagerDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultHistoryManager#recordProcessInstanceStart(ExecutionEntity, FlowElement)}.
-   * <ul>
-   *   <li>Given {@link ActivitiEventDispatcher} {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#recordProcessInstanceStart(ExecutionEntity, FlowElement)}
+   * Method under test:
+   * {@link DefaultHistoryManager#recordProcessInstanceStart(ExecutionEntity, FlowElement)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultHistoryManager.recordProcessInstanceStart(ExecutionEntity, FlowElement)"})
-  public void testRecordProcessInstanceStart_givenActivitiEventDispatcherIsEnabledReturnFalse() {
-    // Arrange
-    HistoricProcessInstanceDataManager historicProcessInstanceDataManager = mock(
-        HistoricProcessInstanceDataManager.class);
-    doNothing().when(historicProcessInstanceDataManager).insert(Mockito.<HistoricProcessInstanceEntity>any());
-    when(historicProcessInstanceDataManager.create(Mockito.<ExecutionEntity>any()))
-        .thenReturn(new HistoricProcessInstanceEntityImpl());
-    HistoricProcessInstanceEntityManagerImpl historicProcessInstanceEntityManagerImpl = new HistoricProcessInstanceEntityManagerImpl(
-        new JtaProcessEngineConfiguration(), historicProcessInstanceDataManager);
-
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
-    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processEngineConfiguration.getHistoricProcessInstanceEntityManager())
-        .thenReturn(historicProcessInstanceEntityManagerImpl);
-    DefaultHistoryManager defaultHistoryManager = new DefaultHistoryManager(processEngineConfiguration,
-        HistoryLevel.ACTIVITY);
-    ExecutionEntityImpl processInstance = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-
-    // Act
-    defaultHistoryManager.recordProcessInstanceStart(processInstance, new AdhocSubProcess());
-
-    // Assert
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfiguration).getEventDispatcher();
-    verify(processEngineConfiguration, atLeast(1)).getHistoricProcessInstanceEntityManager();
-    verify(historicProcessInstanceDataManager).insert(isA(HistoricProcessInstanceEntity.class));
-    verify(historicProcessInstanceDataManager).create(isA(ExecutionEntity.class));
-  }
-
-  /**
-   * Test {@link DefaultHistoryManager#recordProcessInstanceStart(ExecutionEntity, FlowElement)}.
-   * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#recordProcessInstanceStart(ExecutionEntity, FlowElement)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultHistoryManager.recordProcessInstanceStart(ExecutionEntity, FlowElement)"})
-  public void testRecordProcessInstanceStart_thenCallsDispatchEvent() {
+  public void testRecordProcessInstanceStart3() {
     // Arrange
     HistoricProcessInstanceDataManager historicProcessInstanceDataManager = mock(
         HistoricProcessInstanceDataManager.class);
@@ -323,14 +447,46 @@ public class DefaultHistoryManagerDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultHistoryManager#recordSubProcessInstanceStart(ExecutionEntity, ExecutionEntity, FlowElement)}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#recordSubProcessInstanceStart(ExecutionEntity, ExecutionEntity, FlowElement)}
+   * Method under test:
+   * {@link DefaultHistoryManager#recordProcessInstanceStart(ExecutionEntity, FlowElement)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void DefaultHistoryManager.recordSubProcessInstanceStart(ExecutionEntity, ExecutionEntity, FlowElement)"})
+  public void testRecordProcessInstanceStart4() {
+    // Arrange
+    HistoricProcessInstanceDataManager historicProcessInstanceDataManager = mock(
+        HistoricProcessInstanceDataManager.class);
+    doNothing().when(historicProcessInstanceDataManager).insert(Mockito.<HistoricProcessInstanceEntity>any());
+    when(historicProcessInstanceDataManager.create(Mockito.<ExecutionEntity>any()))
+        .thenReturn(new HistoricProcessInstanceEntityImpl());
+    HistoricProcessInstanceEntityManagerImpl historicProcessInstanceEntityManagerImpl = new HistoricProcessInstanceEntityManagerImpl(
+        new JtaProcessEngineConfiguration(), historicProcessInstanceDataManager);
+
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    when(processEngineConfiguration.getHistoricProcessInstanceEntityManager())
+        .thenReturn(historicProcessInstanceEntityManagerImpl);
+    DefaultHistoryManager defaultHistoryManager = new DefaultHistoryManager(processEngineConfiguration,
+        HistoryLevel.ACTIVITY);
+    ExecutionEntityImpl processInstance = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+
+    // Act
+    defaultHistoryManager.recordProcessInstanceStart(processInstance, new AdhocSubProcess());
+
+    // Assert
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration).getEventDispatcher();
+    verify(processEngineConfiguration, atLeast(1)).getHistoricProcessInstanceEntityManager();
+    verify(historicProcessInstanceDataManager).insert(isA(HistoricProcessInstanceEntity.class));
+    verify(historicProcessInstanceDataManager).create(isA(ExecutionEntity.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordSubProcessInstanceStart(ExecutionEntity, ExecutionEntity, FlowElement)}
+   */
+  @Test
   public void testRecordSubProcessInstanceStart() {
     // Arrange
     HistoricProcessInstanceDataManager historicProcessInstanceDataManager = mock(
@@ -361,14 +517,10 @@ public class DefaultHistoryManagerDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultHistoryManager#recordSubProcessInstanceStart(ExecutionEntity, ExecutionEntity, FlowElement)}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#recordSubProcessInstanceStart(ExecutionEntity, ExecutionEntity, FlowElement)}
+   * Method under test:
+   * {@link DefaultHistoryManager#recordSubProcessInstanceStart(ExecutionEntity, ExecutionEntity, FlowElement)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void DefaultHistoryManager.recordSubProcessInstanceStart(ExecutionEntity, ExecutionEntity, FlowElement)"})
   public void testRecordSubProcessInstanceStart2() {
     // Arrange
     HistoricProcessInstanceDataManager historicProcessInstanceDataManager = mock(
@@ -399,59 +551,11 @@ public class DefaultHistoryManagerDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultHistoryManager#recordSubProcessInstanceStart(ExecutionEntity, ExecutionEntity, FlowElement)}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#recordSubProcessInstanceStart(ExecutionEntity, ExecutionEntity, FlowElement)}
+   * Method under test:
+   * {@link DefaultHistoryManager#recordSubProcessInstanceStart(ExecutionEntity, ExecutionEntity, FlowElement)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void DefaultHistoryManager.recordSubProcessInstanceStart(ExecutionEntity, ExecutionEntity, FlowElement)"})
   public void testRecordSubProcessInstanceStart3() {
-    // Arrange
-    HistoricProcessInstanceDataManager historicProcessInstanceDataManager = mock(
-        HistoricProcessInstanceDataManager.class);
-    doNothing().when(historicProcessInstanceDataManager).insert(Mockito.<HistoricProcessInstanceEntity>any());
-    when(historicProcessInstanceDataManager.create(Mockito.<ExecutionEntity>any()))
-        .thenReturn(new HistoricProcessInstanceEntityImpl());
-    HistoricProcessInstanceEntityManagerImpl historicProcessInstanceEntityManagerImpl = new HistoricProcessInstanceEntityManagerImpl(
-        new JtaProcessEngineConfiguration(), historicProcessInstanceDataManager);
-
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
-    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processEngineConfiguration.getHistoricProcessInstanceEntityManager())
-        .thenReturn(historicProcessInstanceEntityManagerImpl);
-    DefaultHistoryManager defaultHistoryManager = new DefaultHistoryManager(processEngineConfiguration,
-        HistoryLevel.ACTIVITY);
-    ExecutionEntityImpl parentExecution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-    ExecutionEntityImpl subProcessInstance = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-
-    // Act
-    defaultHistoryManager.recordSubProcessInstanceStart(parentExecution, subProcessInstance, new AdhocSubProcess());
-
-    // Assert
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfiguration).getEventDispatcher();
-    verify(processEngineConfiguration, atLeast(1)).getHistoricProcessInstanceEntityManager();
-    verify(historicProcessInstanceDataManager).insert(isA(HistoricProcessInstanceEntity.class));
-    verify(historicProcessInstanceDataManager).create(isA(ExecutionEntity.class));
-  }
-
-  /**
-   * Test {@link DefaultHistoryManager#recordSubProcessInstanceStart(ExecutionEntity, ExecutionEntity, FlowElement)}.
-   * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#recordSubProcessInstanceStart(ExecutionEntity, ExecutionEntity, FlowElement)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void DefaultHistoryManager.recordSubProcessInstanceStart(ExecutionEntity, ExecutionEntity, FlowElement)"})
-  public void testRecordSubProcessInstanceStart_thenCallsDispatchEvent() {
     // Arrange
     HistoricProcessInstanceDataManager historicProcessInstanceDataManager = mock(
         HistoricProcessInstanceDataManager.class);
@@ -486,18 +590,90 @@ public class DefaultHistoryManagerDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultHistoryManager#recordSubProcessInstanceStart(ExecutionEntity, ExecutionEntity, FlowElement)}.
-   * <ul>
-   *   <li>Then calls {@link ExecutionEntityImpl#getCurrentFlowElement()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#recordSubProcessInstanceStart(ExecutionEntity, ExecutionEntity, FlowElement)}
+   * Method under test:
+   * {@link DefaultHistoryManager#recordSubProcessInstanceStart(ExecutionEntity, ExecutionEntity, FlowElement)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void DefaultHistoryManager.recordSubProcessInstanceStart(ExecutionEntity, ExecutionEntity, FlowElement)"})
-  public void testRecordSubProcessInstanceStart_thenCallsGetCurrentFlowElement() {
+  public void testRecordSubProcessInstanceStart4() {
+    // Arrange
+    HistoricProcessInstanceDataManager historicProcessInstanceDataManager = mock(
+        HistoricProcessInstanceDataManager.class);
+    doNothing().when(historicProcessInstanceDataManager).insert(Mockito.<HistoricProcessInstanceEntity>any());
+    when(historicProcessInstanceDataManager.create(Mockito.<ExecutionEntity>any()))
+        .thenReturn(new HistoricProcessInstanceEntityImpl());
+    HistoricProcessInstanceEntityManagerImpl historicProcessInstanceEntityManagerImpl = new HistoricProcessInstanceEntityManagerImpl(
+        new JtaProcessEngineConfiguration(), historicProcessInstanceDataManager);
+
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    when(processEngineConfiguration.getHistoricProcessInstanceEntityManager())
+        .thenReturn(historicProcessInstanceEntityManagerImpl);
+    DefaultHistoryManager defaultHistoryManager = new DefaultHistoryManager(processEngineConfiguration,
+        HistoryLevel.ACTIVITY);
+    ExecutionEntityImpl parentExecution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+    ExecutionEntityImpl subProcessInstance = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+
+    // Act
+    defaultHistoryManager.recordSubProcessInstanceStart(parentExecution, subProcessInstance, new AdhocSubProcess());
+
+    // Assert
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration).getEventDispatcher();
+    verify(processEngineConfiguration, atLeast(1)).getHistoricProcessInstanceEntityManager();
+    verify(historicProcessInstanceDataManager).insert(isA(HistoricProcessInstanceEntity.class));
+    verify(historicProcessInstanceDataManager).create(isA(ExecutionEntity.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordSubProcessInstanceStart(ExecutionEntity, ExecutionEntity, FlowElement)}
+   */
+  @Test
+  public void testRecordSubProcessInstanceStart5() {
+    // Arrange
+    HistoricProcessInstanceEntityImpl historicProcessInstanceEntityImpl = mock(HistoricProcessInstanceEntityImpl.class);
+    when(historicProcessInstanceEntityImpl.getStartActivityId()).thenReturn("42");
+    HistoricProcessInstanceDataManager historicProcessInstanceDataManager = mock(
+        HistoricProcessInstanceDataManager.class);
+    doNothing().when(historicProcessInstanceDataManager).insert(Mockito.<HistoricProcessInstanceEntity>any());
+    when(historicProcessInstanceDataManager.create(Mockito.<ExecutionEntity>any()))
+        .thenReturn(historicProcessInstanceEntityImpl);
+    HistoricProcessInstanceEntityManagerImpl historicProcessInstanceEntityManagerImpl = new HistoricProcessInstanceEntityManagerImpl(
+        new JtaProcessEngineConfiguration(), historicProcessInstanceDataManager);
+
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    when(processEngineConfiguration.getHistoricProcessInstanceEntityManager())
+        .thenReturn(historicProcessInstanceEntityManagerImpl);
+    DefaultHistoryManager defaultHistoryManager = new DefaultHistoryManager(processEngineConfiguration,
+        HistoryLevel.ACTIVITY);
+    ExecutionEntityImpl parentExecution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+    ExecutionEntityImpl subProcessInstance = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+
+    // Act
+    defaultHistoryManager.recordSubProcessInstanceStart(parentExecution, subProcessInstance, new AdhocSubProcess());
+
+    // Assert
+    verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration).getEventDispatcher();
+    verify(processEngineConfiguration, atLeast(1)).getHistoricProcessInstanceEntityManager();
+    verify(historicProcessInstanceEntityImpl).getStartActivityId();
+    verify(historicProcessInstanceDataManager).insert(isA(HistoricProcessInstanceEntity.class));
+    verify(historicProcessInstanceDataManager).create(isA(ExecutionEntity.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordSubProcessInstanceStart(ExecutionEntity, ExecutionEntity, FlowElement)}
+   */
+  @Test
+  public void testRecordSubProcessInstanceStart6() {
     // Arrange
     HistoricProcessInstanceEntityImpl historicProcessInstanceEntityImpl = mock(HistoricProcessInstanceEntityImpl.class);
     when(historicProcessInstanceEntityImpl.getStartActivityId()).thenReturn("42");
@@ -537,67 +713,11 @@ public class DefaultHistoryManagerDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultHistoryManager#recordSubProcessInstanceStart(ExecutionEntity, ExecutionEntity, FlowElement)}.
-   * <ul>
-   *   <li>Then calls {@link HistoricProcessInstanceEntityImpl#getStartActivityId()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#recordSubProcessInstanceStart(ExecutionEntity, ExecutionEntity, FlowElement)}
+   * Method under test:
+   * {@link DefaultHistoryManager#recordActivityStart(ExecutionEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void DefaultHistoryManager.recordSubProcessInstanceStart(ExecutionEntity, ExecutionEntity, FlowElement)"})
-  public void testRecordSubProcessInstanceStart_thenCallsGetStartActivityId() {
-    // Arrange
-    HistoricProcessInstanceEntityImpl historicProcessInstanceEntityImpl = mock(HistoricProcessInstanceEntityImpl.class);
-    when(historicProcessInstanceEntityImpl.getStartActivityId()).thenReturn("42");
-    HistoricProcessInstanceDataManager historicProcessInstanceDataManager = mock(
-        HistoricProcessInstanceDataManager.class);
-    doNothing().when(historicProcessInstanceDataManager).insert(Mockito.<HistoricProcessInstanceEntity>any());
-    when(historicProcessInstanceDataManager.create(Mockito.<ExecutionEntity>any()))
-        .thenReturn(historicProcessInstanceEntityImpl);
-    HistoricProcessInstanceEntityManagerImpl historicProcessInstanceEntityManagerImpl = new HistoricProcessInstanceEntityManagerImpl(
-        new JtaProcessEngineConfiguration(), historicProcessInstanceDataManager);
-
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processEngineConfiguration.getHistoricProcessInstanceEntityManager())
-        .thenReturn(historicProcessInstanceEntityManagerImpl);
-    DefaultHistoryManager defaultHistoryManager = new DefaultHistoryManager(processEngineConfiguration,
-        HistoryLevel.ACTIVITY);
-    ExecutionEntityImpl parentExecution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-    ExecutionEntityImpl subProcessInstance = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-
-    // Act
-    defaultHistoryManager.recordSubProcessInstanceStart(parentExecution, subProcessInstance, new AdhocSubProcess());
-
-    // Assert
-    verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfiguration).getEventDispatcher();
-    verify(processEngineConfiguration, atLeast(1)).getHistoricProcessInstanceEntityManager();
-    verify(historicProcessInstanceEntityImpl).getStartActivityId();
-    verify(historicProcessInstanceDataManager).insert(isA(HistoricProcessInstanceEntity.class));
-    verify(historicProcessInstanceDataManager).create(isA(ExecutionEntity.class));
-  }
-
-  /**
-   * Test {@link DefaultHistoryManager#recordActivityStart(ExecutionEntity)}.
-   * <ul>
-   *   <li>Given {@code null}.</li>
-   *   <li>Then calls {@link ExecutionEntityImpl#getActivityId()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#recordActivityStart(ExecutionEntity)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultHistoryManager.recordActivityStart(ExecutionEntity)"})
-  public void testRecordActivityStart_givenNull_thenCallsGetActivityId() {
+  public void testRecordActivityStart() {
     // Arrange
     DefaultHistoryManager defaultHistoryManager = new DefaultHistoryManager(new JtaProcessEngineConfiguration(),
         HistoryLevel.ACTIVITY);
@@ -608,21 +728,36 @@ public class DefaultHistoryManagerDiffblueTest {
     // Act
     defaultHistoryManager.recordActivityStart(executionEntity);
 
-    // Assert
+    // Assert that nothing has changed
     verify(executionEntity).getActivityId();
     verify(executionEntity).getCurrentFlowElement();
   }
 
   /**
-   * Test {@link DefaultHistoryManager#findActivityInstance(ExecutionEntity, boolean, boolean)} with {@code execution}, {@code createOnNotFound}, {@code endTimeMustBeNull}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#findActivityInstance(ExecutionEntity, boolean, boolean)}
+   * Method under test:
+   * {@link DefaultHistoryManager#recordActivityEnd(ExecutionEntity, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "HistoricActivityInstanceEntity DefaultHistoryManager.findActivityInstance(ExecutionEntity, boolean, boolean)"})
-  public void testFindActivityInstanceWithExecutionCreateOnNotFoundEndTimeMustBeNull() {
+  public void testRecordActivityEnd() {
+    // Arrange
+    DefaultHistoryManager defaultHistoryManager = new DefaultHistoryManager(new JtaProcessEngineConfiguration(),
+        HistoryLevel.ACTIVITY);
+    ExecutionEntity executionEntity = mock(ExecutionEntity.class);
+    when(executionEntity.getCurrentFlowElement()).thenReturn(new AdhocSubProcess());
+
+    // Act
+    defaultHistoryManager.recordActivityEnd(executionEntity, "Just cause");
+
+    // Assert that nothing has changed
+    verify(executionEntity, atLeast(1)).getCurrentFlowElement();
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#findActivityInstance(ExecutionEntity, boolean, boolean)}
+   */
+  @Test
+  public void testFindActivityInstance() {
     // Arrange
     DefaultHistoryManager defaultHistoryManager = new DefaultHistoryManager(new JtaProcessEngineConfiguration(),
         HistoryLevel.NONE);
@@ -633,14 +768,27 @@ public class DefaultHistoryManagerDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultHistoryManager#createHistoricActivityInstanceEntity(ExecutionEntity)}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createHistoricActivityInstanceEntity(ExecutionEntity)}
+   * Method under test:
+   * {@link DefaultHistoryManager#findActivityInstance(ExecutionEntity, boolean, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "HistoricActivityInstanceEntity DefaultHistoryManager.createHistoricActivityInstanceEntity(ExecutionEntity)"})
+  public void testFindActivityInstance2() {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
+    DefaultHistoryManager defaultHistoryManager = new DefaultHistoryManager(processEngineConfiguration,
+        HistoryLevel.NONE);
+
+    // Act and Assert
+    assertNull(defaultHistoryManager.findActivityInstance(ExecutionEntityImpl.createWithEmptyRelationshipCollections(),
+        true, true));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#createHistoricActivityInstanceEntity(ExecutionEntity)}
+   */
+  @Test
   public void testCreateHistoricActivityInstanceEntity() {
     // Arrange
     IdGenerator idGenerator = mock(IdGenerator.class);
@@ -692,18 +840,69 @@ public class DefaultHistoryManagerDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultHistoryManager#createHistoricActivityInstanceEntity(ExecutionEntity)}.
-   * <ul>
-   *   <li>Given {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createHistoricActivityInstanceEntity(ExecutionEntity)}
+   * Method under test:
+   * {@link DefaultHistoryManager#createHistoricActivityInstanceEntity(ExecutionEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "HistoricActivityInstanceEntity DefaultHistoryManager.createHistoricActivityInstanceEntity(ExecutionEntity)"})
-  public void testCreateHistoricActivityInstanceEntity_givenNull() {
+  public void testCreateHistoricActivityInstanceEntity2() {
+    // Arrange
+    IdGenerator idGenerator = mock(IdGenerator.class);
+    when(idGenerator.getNextId()).thenReturn("42");
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    HistoricActivityInstanceDataManager historicActivityInstanceDataManager = mock(
+        HistoricActivityInstanceDataManager.class);
+    doNothing().when(historicActivityInstanceDataManager).insert(Mockito.<HistoricActivityInstanceEntity>any());
+    HistoricActivityInstanceEntityImpl historicActivityInstanceEntityImpl = new HistoricActivityInstanceEntityImpl();
+    when(historicActivityInstanceDataManager.create()).thenReturn(historicActivityInstanceEntityImpl);
+    HistoricActivityInstanceEntityManagerImpl historicActivityInstanceEntityManagerImpl = new HistoricActivityInstanceEntityManagerImpl(
+        processEngineConfiguration, historicActivityInstanceDataManager);
+
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
+    when(processEngineConfiguration2.getIdGenerator()).thenReturn(idGenerator);
+    when(processEngineConfiguration2.getHistoricActivityInstanceEntityManager())
+        .thenReturn(historicActivityInstanceEntityManagerImpl);
+    DefaultHistoryManager defaultHistoryManager = new DefaultHistoryManager(processEngineConfiguration2,
+        HistoryLevel.NONE);
+    ExecutionEntityImpl execution = mock(ExecutionEntityImpl.class);
+    when(execution.getId()).thenReturn("42");
+    when(execution.getActivityId()).thenReturn("42");
+    when(execution.getProcessDefinitionId()).thenReturn("42");
+    when(execution.getProcessInstanceId()).thenReturn("42");
+    when(execution.getTenantId()).thenReturn("42");
+    when(execution.getCurrentFlowElement()).thenReturn(new AdhocSubProcess());
+
+    // Act
+    HistoricActivityInstanceEntity actualCreateHistoricActivityInstanceEntityResult = defaultHistoryManager
+        .createHistoricActivityInstanceEntity(execution);
+
+    // Assert
+    verify(processEngineConfiguration2).getClock();
+    verify(activitiEventDispatcher).isEnabled();
+    verify(idGenerator).getNextId();
+    verify(processEngineConfiguration).getEventDispatcher();
+    verify(processEngineConfiguration2, atLeast(1)).getHistoricActivityInstanceEntityManager();
+    verify(processEngineConfiguration2).getIdGenerator();
+    verify(execution).getId();
+    verify(execution).getActivityId();
+    verify(execution, atLeast(1)).getCurrentFlowElement();
+    verify(execution).getProcessDefinitionId();
+    verify(execution).getProcessInstanceId();
+    verify(execution, atLeast(1)).getTenantId();
+    verify(historicActivityInstanceDataManager).create();
+    verify(historicActivityInstanceDataManager).insert(isA(HistoricActivityInstanceEntity.class));
+    assertSame(historicActivityInstanceEntityImpl, actualCreateHistoricActivityInstanceEntityResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#createHistoricActivityInstanceEntity(ExecutionEntity)}
+   */
+  @Test
+  public void testCreateHistoricActivityInstanceEntity3() {
     // Arrange
     IdGenerator idGenerator = mock(IdGenerator.class);
     when(idGenerator.getNextId()).thenReturn("42");
@@ -757,79 +956,667 @@ public class DefaultHistoryManagerDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultHistoryManager#createHistoricActivityInstanceEntity(ExecutionEntity)}.
-   * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#isEnabled()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createHistoricActivityInstanceEntity(ExecutionEntity)}
+   * Method under test:
+   * {@link DefaultHistoryManager#recordProcessDefinitionChange(String, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "HistoricActivityInstanceEntity DefaultHistoryManager.createHistoricActivityInstanceEntity(ExecutionEntity)"})
-  public void testCreateHistoricActivityInstanceEntity_thenCallsIsEnabled() {
+  public void testRecordProcessDefinitionChange() {
     // Arrange
-    IdGenerator idGenerator = mock(IdGenerator.class);
-    when(idGenerator.getNextId()).thenReturn("42");
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    HistoricActivityInstanceDataManager historicActivityInstanceDataManager = mock(
-        HistoricActivityInstanceDataManager.class);
-    doNothing().when(historicActivityInstanceDataManager).insert(Mockito.<HistoricActivityInstanceEntity>any());
-    HistoricActivityInstanceEntityImpl historicActivityInstanceEntityImpl = new HistoricActivityInstanceEntityImpl();
-    when(historicActivityInstanceDataManager.create()).thenReturn(historicActivityInstanceEntityImpl);
-    HistoricActivityInstanceEntityManagerImpl historicActivityInstanceEntityManagerImpl = new HistoricActivityInstanceEntityManagerImpl(
-        processEngineConfiguration, historicActivityInstanceDataManager);
-
-    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
-    when(processEngineConfiguration2.getIdGenerator()).thenReturn(idGenerator);
-    when(processEngineConfiguration2.getHistoricActivityInstanceEntityManager())
-        .thenReturn(historicActivityInstanceEntityManagerImpl);
-    DefaultHistoryManager defaultHistoryManager = new DefaultHistoryManager(processEngineConfiguration2,
-        HistoryLevel.NONE);
-    ExecutionEntityImpl execution = mock(ExecutionEntityImpl.class);
-    when(execution.getId()).thenReturn("42");
-    when(execution.getActivityId()).thenReturn("42");
-    when(execution.getProcessDefinitionId()).thenReturn("42");
-    when(execution.getProcessInstanceId()).thenReturn("42");
-    when(execution.getTenantId()).thenReturn("42");
-    when(execution.getCurrentFlowElement()).thenReturn(new AdhocSubProcess());
+    HistoricProcessInstanceDataManager historicProcessInstanceDataManager = mock(
+        HistoricProcessInstanceDataManager.class);
+    when(historicProcessInstanceDataManager.findById(Mockito.<String>any()))
+        .thenReturn(new HistoricProcessInstanceEntityImpl());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricProcessInstanceEntityManager())
+        .thenReturn(new HistoricProcessInstanceEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicProcessInstanceDataManager));
 
     // Act
-    HistoricActivityInstanceEntity actualCreateHistoricActivityInstanceEntityResult = defaultHistoryManager
-        .createHistoricActivityInstanceEntity(execution);
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.ACTIVITY)).recordProcessDefinitionChange("42",
+        "42");
 
     // Assert
-    verify(processEngineConfiguration2).getClock();
-    verify(activitiEventDispatcher).isEnabled();
-    verify(idGenerator).getNextId();
-    verify(processEngineConfiguration).getEventDispatcher();
-    verify(processEngineConfiguration2, atLeast(1)).getHistoricActivityInstanceEntityManager();
-    verify(processEngineConfiguration2).getIdGenerator();
-    verify(execution).getId();
-    verify(execution).getActivityId();
-    verify(execution, atLeast(1)).getCurrentFlowElement();
-    verify(execution).getProcessDefinitionId();
-    verify(execution).getProcessInstanceId();
-    verify(execution, atLeast(1)).getTenantId();
-    verify(historicActivityInstanceDataManager).create();
-    verify(historicActivityInstanceDataManager).insert(isA(HistoricActivityInstanceEntity.class));
-    assertSame(historicActivityInstanceEntityImpl, actualCreateHistoricActivityInstanceEntityResult);
+    verify(processEngineConfiguration).getHistoricProcessInstanceEntityManager();
+    verify(historicProcessInstanceDataManager).findById(eq("42"));
   }
 
   /**
-   * Test {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean)} with {@code taskId}, {@code userId}, {@code groupId}, {@code type}, {@code create}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean)}
+   * Method under test:
+   * {@link DefaultHistoryManager#recordProcessDefinitionChange(String, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultHistoryManager.createIdentityLinkComment(String, String, String, String, boolean)"})
-  public void testCreateIdentityLinkCommentWithTaskIdUserIdGroupIdTypeCreate() {
+  public void testRecordProcessDefinitionChange2() {
+    // Arrange
+    HistoricProcessInstanceDataManager historicProcessInstanceDataManager = mock(
+        HistoricProcessInstanceDataManager.class);
+    when(historicProcessInstanceDataManager.findById(Mockito.<String>any())).thenReturn(null);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricProcessInstanceEntityManager())
+        .thenReturn(new HistoricProcessInstanceEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicProcessInstanceDataManager));
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.ACTIVITY)).recordProcessDefinitionChange("42",
+        "42");
+
+    // Assert
+    verify(processEngineConfiguration).getHistoricProcessInstanceEntityManager();
+    verify(historicProcessInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordTaskEnd(String, String)}
+   */
+  @Test
+  public void testRecordTaskEnd() {
+    // Arrange
+    HistoricTaskInstanceDataManager historicTaskInstanceDataManager = mock(HistoricTaskInstanceDataManager.class);
+    when(historicTaskInstanceDataManager.findById(Mockito.<String>any())).thenReturn(null);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricTaskInstanceEntityManager())
+        .thenReturn(new HistoricTaskInstanceEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicTaskInstanceDataManager));
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.AUDIT)).recordTaskEnd("42", "Just cause");
+
+    // Assert
+    verify(processEngineConfiguration).getHistoricTaskInstanceEntityManager();
+    verify(historicTaskInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordTaskEnd(String, String)}
+   */
+  @Test
+  public void testRecordTaskEnd2() {
+    // Arrange
+    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl = mock(HistoricTaskInstanceEntityImpl.class);
+    doNothing().when(historicTaskInstanceEntityImpl).markEnded(Mockito.<String>any());
+    HistoricTaskInstanceDataManager historicTaskInstanceDataManager = mock(HistoricTaskInstanceDataManager.class);
+    when(historicTaskInstanceDataManager.findById(Mockito.<String>any())).thenReturn(historicTaskInstanceEntityImpl);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricTaskInstanceEntityManager())
+        .thenReturn(new HistoricTaskInstanceEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicTaskInstanceDataManager));
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.AUDIT)).recordTaskEnd("42", "Just cause");
+
+    // Assert
+    verify(processEngineConfiguration).getHistoricTaskInstanceEntityManager();
+    verify(historicTaskInstanceEntityImpl).markEnded(eq("Just cause"));
+    verify(historicTaskInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordTaskAssigneeChange(String, String)}
+   */
+  @Test
+  public void testRecordTaskAssigneeChange() {
+    // Arrange
+    HistoricTaskInstanceDataManager historicTaskInstanceDataManager = mock(HistoricTaskInstanceDataManager.class);
+    when(historicTaskInstanceDataManager.findById(Mockito.<String>any()))
+        .thenReturn(new HistoricTaskInstanceEntityImpl());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricTaskInstanceEntityManager())
+        .thenReturn(new HistoricTaskInstanceEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicTaskInstanceDataManager));
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.AUDIT)).recordTaskAssigneeChange("42",
+        "Assignee");
+
+    // Assert
+    verify(processEngineConfiguration).getHistoricTaskInstanceEntityManager();
+    verify(historicTaskInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordTaskAssigneeChange(String, String)}
+   */
+  @Test
+  public void testRecordTaskAssigneeChange2() {
+    // Arrange
+    HistoricTaskInstanceDataManager historicTaskInstanceDataManager = mock(HistoricTaskInstanceDataManager.class);
+    when(historicTaskInstanceDataManager.findById(Mockito.<String>any())).thenReturn(null);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricTaskInstanceEntityManager())
+        .thenReturn(new HistoricTaskInstanceEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicTaskInstanceDataManager));
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.AUDIT)).recordTaskAssigneeChange("42",
+        "Assignee");
+
+    // Assert
+    verify(processEngineConfiguration).getHistoricTaskInstanceEntityManager();
+    verify(historicTaskInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordTaskOwnerChange(String, String)}
+   */
+  @Test
+  public void testRecordTaskOwnerChange() {
+    // Arrange
+    HistoricTaskInstanceDataManager historicTaskInstanceDataManager = mock(HistoricTaskInstanceDataManager.class);
+    when(historicTaskInstanceDataManager.findById(Mockito.<String>any()))
+        .thenReturn(new HistoricTaskInstanceEntityImpl());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricTaskInstanceEntityManager())
+        .thenReturn(new HistoricTaskInstanceEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicTaskInstanceDataManager));
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.AUDIT)).recordTaskOwnerChange("42", "Owner");
+
+    // Assert
+    verify(processEngineConfiguration).getHistoricTaskInstanceEntityManager();
+    verify(historicTaskInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordTaskOwnerChange(String, String)}
+   */
+  @Test
+  public void testRecordTaskOwnerChange2() {
+    // Arrange
+    HistoricTaskInstanceDataManager historicTaskInstanceDataManager = mock(HistoricTaskInstanceDataManager.class);
+    when(historicTaskInstanceDataManager.findById(Mockito.<String>any())).thenReturn(null);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricTaskInstanceEntityManager())
+        .thenReturn(new HistoricTaskInstanceEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicTaskInstanceDataManager));
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.AUDIT)).recordTaskOwnerChange("42", "Owner");
+
+    // Assert
+    verify(processEngineConfiguration).getHistoricTaskInstanceEntityManager();
+    verify(historicTaskInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordTaskNameChange(String, String)}
+   */
+  @Test
+  public void testRecordTaskNameChange() {
+    // Arrange
+    HistoricTaskInstanceDataManager historicTaskInstanceDataManager = mock(HistoricTaskInstanceDataManager.class);
+    when(historicTaskInstanceDataManager.findById(Mockito.<String>any()))
+        .thenReturn(new HistoricTaskInstanceEntityImpl());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricTaskInstanceEntityManager())
+        .thenReturn(new HistoricTaskInstanceEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicTaskInstanceDataManager));
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.AUDIT)).recordTaskNameChange("42", "Task Name");
+
+    // Assert
+    verify(processEngineConfiguration).getHistoricTaskInstanceEntityManager();
+    verify(historicTaskInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordTaskNameChange(String, String)}
+   */
+  @Test
+  public void testRecordTaskNameChange2() {
+    // Arrange
+    HistoricTaskInstanceDataManager historicTaskInstanceDataManager = mock(HistoricTaskInstanceDataManager.class);
+    when(historicTaskInstanceDataManager.findById(Mockito.<String>any())).thenReturn(null);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricTaskInstanceEntityManager())
+        .thenReturn(new HistoricTaskInstanceEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicTaskInstanceDataManager));
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.AUDIT)).recordTaskNameChange("42", "Task Name");
+
+    // Assert
+    verify(processEngineConfiguration).getHistoricTaskInstanceEntityManager();
+    verify(historicTaskInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordTaskDescriptionChange(String, String)}
+   */
+  @Test
+  public void testRecordTaskDescriptionChange() {
+    // Arrange
+    HistoricTaskInstanceDataManager historicTaskInstanceDataManager = mock(HistoricTaskInstanceDataManager.class);
+    when(historicTaskInstanceDataManager.findById(Mockito.<String>any()))
+        .thenReturn(new HistoricTaskInstanceEntityImpl());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricTaskInstanceEntityManager())
+        .thenReturn(new HistoricTaskInstanceEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicTaskInstanceDataManager));
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.AUDIT)).recordTaskDescriptionChange("42",
+        "The characteristics of someone or something");
+
+    // Assert
+    verify(processEngineConfiguration).getHistoricTaskInstanceEntityManager();
+    verify(historicTaskInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordTaskDescriptionChange(String, String)}
+   */
+  @Test
+  public void testRecordTaskDescriptionChange2() {
+    // Arrange
+    HistoricTaskInstanceDataManager historicTaskInstanceDataManager = mock(HistoricTaskInstanceDataManager.class);
+    when(historicTaskInstanceDataManager.findById(Mockito.<String>any())).thenReturn(null);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricTaskInstanceEntityManager())
+        .thenReturn(new HistoricTaskInstanceEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicTaskInstanceDataManager));
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.AUDIT)).recordTaskDescriptionChange("42",
+        "The characteristics of someone or something");
+
+    // Assert
+    verify(processEngineConfiguration).getHistoricTaskInstanceEntityManager();
+    verify(historicTaskInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordTaskDueDateChange(String, Date)}
+   */
+  @Test
+  public void testRecordTaskDueDateChange() {
+    // Arrange
+    HistoricTaskInstanceDataManager historicTaskInstanceDataManager = mock(HistoricTaskInstanceDataManager.class);
+    when(historicTaskInstanceDataManager.findById(Mockito.<String>any()))
+        .thenReturn(new HistoricTaskInstanceEntityImpl());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricTaskInstanceEntityManager())
+        .thenReturn(new HistoricTaskInstanceEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicTaskInstanceDataManager));
+    DefaultHistoryManager defaultHistoryManager = new DefaultHistoryManager(processEngineConfiguration,
+        HistoryLevel.AUDIT);
+
+    // Act
+    defaultHistoryManager.recordTaskDueDateChange("42",
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+
+    // Assert
+    verify(processEngineConfiguration).getHistoricTaskInstanceEntityManager();
+    verify(historicTaskInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordTaskDueDateChange(String, Date)}
+   */
+  @Test
+  public void testRecordTaskDueDateChange2() {
+    // Arrange
+    HistoricTaskInstanceDataManager historicTaskInstanceDataManager = mock(HistoricTaskInstanceDataManager.class);
+    when(historicTaskInstanceDataManager.findById(Mockito.<String>any())).thenReturn(null);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricTaskInstanceEntityManager())
+        .thenReturn(new HistoricTaskInstanceEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicTaskInstanceDataManager));
+    DefaultHistoryManager defaultHistoryManager = new DefaultHistoryManager(processEngineConfiguration,
+        HistoryLevel.AUDIT);
+
+    // Act
+    defaultHistoryManager.recordTaskDueDateChange("42",
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+
+    // Assert
+    verify(processEngineConfiguration).getHistoricTaskInstanceEntityManager();
+    verify(historicTaskInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordTaskPriorityChange(String, int)}
+   */
+  @Test
+  public void testRecordTaskPriorityChange() {
+    // Arrange
+    HistoricTaskInstanceDataManager historicTaskInstanceDataManager = mock(HistoricTaskInstanceDataManager.class);
+    when(historicTaskInstanceDataManager.findById(Mockito.<String>any()))
+        .thenReturn(new HistoricTaskInstanceEntityImpl());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricTaskInstanceEntityManager())
+        .thenReturn(new HistoricTaskInstanceEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicTaskInstanceDataManager));
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.AUDIT)).recordTaskPriorityChange("42", 1);
+
+    // Assert
+    verify(processEngineConfiguration).getHistoricTaskInstanceEntityManager();
+    verify(historicTaskInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordTaskPriorityChange(String, int)}
+   */
+  @Test
+  public void testRecordTaskPriorityChange2() {
+    // Arrange
+    HistoricTaskInstanceDataManager historicTaskInstanceDataManager = mock(HistoricTaskInstanceDataManager.class);
+    when(historicTaskInstanceDataManager.findById(Mockito.<String>any())).thenReturn(null);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricTaskInstanceEntityManager())
+        .thenReturn(new HistoricTaskInstanceEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicTaskInstanceDataManager));
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.AUDIT)).recordTaskPriorityChange("42", 1);
+
+    // Assert
+    verify(processEngineConfiguration).getHistoricTaskInstanceEntityManager();
+    verify(historicTaskInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordTaskCategoryChange(String, String)}
+   */
+  @Test
+  public void testRecordTaskCategoryChange() {
+    // Arrange
+    HistoricTaskInstanceDataManager historicTaskInstanceDataManager = mock(HistoricTaskInstanceDataManager.class);
+    when(historicTaskInstanceDataManager.findById(Mockito.<String>any()))
+        .thenReturn(new HistoricTaskInstanceEntityImpl());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricTaskInstanceEntityManager())
+        .thenReturn(new HistoricTaskInstanceEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicTaskInstanceDataManager));
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.AUDIT)).recordTaskCategoryChange("42",
+        "Category");
+
+    // Assert
+    verify(processEngineConfiguration).getHistoricTaskInstanceEntityManager();
+    verify(historicTaskInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordTaskCategoryChange(String, String)}
+   */
+  @Test
+  public void testRecordTaskCategoryChange2() {
+    // Arrange
+    HistoricTaskInstanceDataManager historicTaskInstanceDataManager = mock(HistoricTaskInstanceDataManager.class);
+    when(historicTaskInstanceDataManager.findById(Mockito.<String>any())).thenReturn(null);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricTaskInstanceEntityManager())
+        .thenReturn(new HistoricTaskInstanceEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicTaskInstanceDataManager));
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.AUDIT)).recordTaskCategoryChange("42",
+        "Category");
+
+    // Assert
+    verify(processEngineConfiguration).getHistoricTaskInstanceEntityManager();
+    verify(historicTaskInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordTaskFormKeyChange(String, String)}
+   */
+  @Test
+  public void testRecordTaskFormKeyChange() {
+    // Arrange
+    HistoricTaskInstanceDataManager historicTaskInstanceDataManager = mock(HistoricTaskInstanceDataManager.class);
+    when(historicTaskInstanceDataManager.findById(Mockito.<String>any()))
+        .thenReturn(new HistoricTaskInstanceEntityImpl());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricTaskInstanceEntityManager())
+        .thenReturn(new HistoricTaskInstanceEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicTaskInstanceDataManager));
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.AUDIT)).recordTaskFormKeyChange("42",
+        "Form Key");
+
+    // Assert
+    verify(processEngineConfiguration).getHistoricTaskInstanceEntityManager();
+    verify(historicTaskInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordTaskFormKeyChange(String, String)}
+   */
+  @Test
+  public void testRecordTaskFormKeyChange2() {
+    // Arrange
+    HistoricTaskInstanceDataManager historicTaskInstanceDataManager = mock(HistoricTaskInstanceDataManager.class);
+    when(historicTaskInstanceDataManager.findById(Mockito.<String>any())).thenReturn(null);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricTaskInstanceEntityManager())
+        .thenReturn(new HistoricTaskInstanceEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicTaskInstanceDataManager));
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.AUDIT)).recordTaskFormKeyChange("42",
+        "Form Key");
+
+    // Assert
+    verify(processEngineConfiguration).getHistoricTaskInstanceEntityManager();
+    verify(historicTaskInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordTaskParentTaskIdChange(String, String)}
+   */
+  @Test
+  public void testRecordTaskParentTaskIdChange() {
+    // Arrange
+    HistoricTaskInstanceDataManager historicTaskInstanceDataManager = mock(HistoricTaskInstanceDataManager.class);
+    when(historicTaskInstanceDataManager.findById(Mockito.<String>any()))
+        .thenReturn(new HistoricTaskInstanceEntityImpl());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricTaskInstanceEntityManager())
+        .thenReturn(new HistoricTaskInstanceEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicTaskInstanceDataManager));
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.AUDIT)).recordTaskParentTaskIdChange("42",
+        "42");
+
+    // Assert
+    verify(processEngineConfiguration).getHistoricTaskInstanceEntityManager();
+    verify(historicTaskInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordTaskParentTaskIdChange(String, String)}
+   */
+  @Test
+  public void testRecordTaskParentTaskIdChange2() {
+    // Arrange
+    HistoricTaskInstanceDataManager historicTaskInstanceDataManager = mock(HistoricTaskInstanceDataManager.class);
+    when(historicTaskInstanceDataManager.findById(Mockito.<String>any())).thenReturn(null);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricTaskInstanceEntityManager())
+        .thenReturn(new HistoricTaskInstanceEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicTaskInstanceDataManager));
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.AUDIT)).recordTaskParentTaskIdChange("42",
+        "42");
+
+    // Assert
+    verify(processEngineConfiguration).getHistoricTaskInstanceEntityManager();
+    verify(historicTaskInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordTaskExecutionIdChange(String, String)}
+   */
+  @Test
+  public void testRecordTaskExecutionIdChange() {
+    // Arrange
+    HistoricTaskInstanceDataManager historicTaskInstanceDataManager = mock(HistoricTaskInstanceDataManager.class);
+    when(historicTaskInstanceDataManager.findById(Mockito.<String>any()))
+        .thenReturn(new HistoricTaskInstanceEntityImpl());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricTaskInstanceEntityManager())
+        .thenReturn(new HistoricTaskInstanceEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicTaskInstanceDataManager));
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.AUDIT)).recordTaskExecutionIdChange("42", "42");
+
+    // Assert
+    verify(processEngineConfiguration).getHistoricTaskInstanceEntityManager();
+    verify(historicTaskInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordTaskExecutionIdChange(String, String)}
+   */
+  @Test
+  public void testRecordTaskExecutionIdChange2() {
+    // Arrange
+    HistoricTaskInstanceDataManager historicTaskInstanceDataManager = mock(HistoricTaskInstanceDataManager.class);
+    when(historicTaskInstanceDataManager.findById(Mockito.<String>any())).thenReturn(null);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricTaskInstanceEntityManager())
+        .thenReturn(new HistoricTaskInstanceEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicTaskInstanceDataManager));
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.AUDIT)).recordTaskExecutionIdChange("42", "42");
+
+    // Assert
+    verify(processEngineConfiguration).getHistoricTaskInstanceEntityManager();
+    verify(historicTaskInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordTaskDefinitionKeyChange(String, String)}
+   */
+  @Test
+  public void testRecordTaskDefinitionKeyChange() {
+    // Arrange
+    HistoricTaskInstanceDataManager historicTaskInstanceDataManager = mock(HistoricTaskInstanceDataManager.class);
+    when(historicTaskInstanceDataManager.findById(Mockito.<String>any()))
+        .thenReturn(new HistoricTaskInstanceEntityImpl());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricTaskInstanceEntityManager())
+        .thenReturn(new HistoricTaskInstanceEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicTaskInstanceDataManager));
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.AUDIT)).recordTaskDefinitionKeyChange("42",
+        "Task Definition Key");
+
+    // Assert
+    verify(processEngineConfiguration).getHistoricTaskInstanceEntityManager();
+    verify(historicTaskInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordTaskDefinitionKeyChange(String, String)}
+   */
+  @Test
+  public void testRecordTaskDefinitionKeyChange2() {
+    // Arrange
+    HistoricTaskInstanceDataManager historicTaskInstanceDataManager = mock(HistoricTaskInstanceDataManager.class);
+    when(historicTaskInstanceDataManager.findById(Mockito.<String>any())).thenReturn(null);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricTaskInstanceEntityManager())
+        .thenReturn(new HistoricTaskInstanceEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicTaskInstanceDataManager));
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.AUDIT)).recordTaskDefinitionKeyChange("42",
+        "Task Definition Key");
+
+    // Assert
+    verify(processEngineConfiguration).getHistoricTaskInstanceEntityManager();
+    verify(historicTaskInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordTaskProcessDefinitionChange(String, String)}
+   */
+  @Test
+  public void testRecordTaskProcessDefinitionChange() {
+    // Arrange
+    HistoricTaskInstanceDataManager historicTaskInstanceDataManager = mock(HistoricTaskInstanceDataManager.class);
+    when(historicTaskInstanceDataManager.findById(Mockito.<String>any()))
+        .thenReturn(new HistoricTaskInstanceEntityImpl());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricTaskInstanceEntityManager())
+        .thenReturn(new HistoricTaskInstanceEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicTaskInstanceDataManager));
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.ACTIVITY))
+        .recordTaskProcessDefinitionChange("42", "42");
+
+    // Assert
+    verify(processEngineConfiguration).getHistoricTaskInstanceEntityManager();
+    verify(historicTaskInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#recordTaskProcessDefinitionChange(String, String)}
+   */
+  @Test
+  public void testRecordTaskProcessDefinitionChange2() {
+    // Arrange
+    HistoricTaskInstanceDataManager historicTaskInstanceDataManager = mock(HistoricTaskInstanceDataManager.class);
+    when(historicTaskInstanceDataManager.findById(Mockito.<String>any())).thenReturn(null);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricTaskInstanceEntityManager())
+        .thenReturn(new HistoricTaskInstanceEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicTaskInstanceDataManager));
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration, HistoryLevel.ACTIVITY))
+        .recordTaskProcessDefinitionChange("42", "42");
+
+    // Assert
+    verify(processEngineConfiguration).getHistoricTaskInstanceEntityManager();
+    verify(historicTaskInstanceDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean)}
+   */
+  @Test
+  public void testCreateIdentityLinkComment() {
     // Arrange
     HistoryManager historyManager = mock(HistoryManager.class);
     when(historyManager.isHistoryEnabled()).thenReturn(true);
@@ -842,7 +1629,7 @@ public class DefaultHistoryManagerDiffblueTest {
     CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
         commentDataManager);
 
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
     when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
 
@@ -861,14 +1648,11 @@ public class DefaultHistoryManagerDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean)} with {@code taskId}, {@code userId}, {@code groupId}, {@code type}, {@code create}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean)}
+   * Method under test:
+   * {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultHistoryManager.createIdentityLinkComment(String, String, String, String, boolean)"})
-  public void testCreateIdentityLinkCommentWithTaskIdUserIdGroupIdTypeCreate2() {
+  public void testCreateIdentityLinkComment2() {
     // Arrange
     HistoryManager historyManager = mock(HistoryManager.class);
     when(historyManager.isHistoryEnabled()).thenReturn(true);
@@ -883,7 +1667,7 @@ public class DefaultHistoryManagerDiffblueTest {
     CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
         commentDataManager);
 
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
     when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
 
@@ -903,14 +1687,11 @@ public class DefaultHistoryManagerDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean)} with {@code taskId}, {@code userId}, {@code groupId}, {@code type}, {@code create}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean)}
+   * Method under test:
+   * {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultHistoryManager.createIdentityLinkComment(String, String, String, String, boolean)"})
-  public void testCreateIdentityLinkCommentWithTaskIdUserIdGroupIdTypeCreate3() {
+  public void testCreateIdentityLinkComment3() {
     // Arrange
     HistoryManager historyManager = mock(HistoryManager.class);
     when(historyManager.isHistoryEnabled()).thenReturn(true);
@@ -926,7 +1707,7 @@ public class DefaultHistoryManagerDiffblueTest {
     CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
         commentDataManager);
 
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
     when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
 
@@ -947,98 +1728,11 @@ public class DefaultHistoryManagerDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean, boolean)} with {@code taskId}, {@code userId}, {@code groupId}, {@code type}, {@code create}, {@code forceNullUserId}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean, boolean)}
+   * Method under test:
+   * {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void DefaultHistoryManager.createIdentityLinkComment(String, String, String, String, boolean, boolean)"})
-  public void testCreateIdentityLinkCommentWithTaskIdUserIdGroupIdTypeCreateForceNullUserId() {
-    // Arrange
-    HistoryManager historyManager = mock(HistoryManager.class);
-    when(historyManager.isHistoryEnabled()).thenReturn(true);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
-    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
-    CommentDataManager commentDataManager = mock(CommentDataManager.class);
-    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
-    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
-    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
-        commentDataManager);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
-    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
-
-    // Act
-    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY)).createIdentityLinkComment("42",
-        "42", "42", "Type", true, true);
-
-    // Assert
-    verify(processEngineConfiguration2).getClock();
-    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfiguration).getHistoryManager();
-    verify(historyManager).isHistoryEnabled();
-    verify(commentDataManager).create();
-    verify(commentDataManager).insert(isA(CommentEntity.class));
-  }
-
-  /**
-   * Test {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean, boolean)} with {@code taskId}, {@code userId}, {@code groupId}, {@code type}, {@code create}, {@code forceNullUserId}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void DefaultHistoryManager.createIdentityLinkComment(String, String, String, String, boolean, boolean)"})
-  public void testCreateIdentityLinkCommentWithTaskIdUserIdGroupIdTypeCreateForceNullUserId2() {
-    // Arrange
-    HistoryManager historyManager = mock(HistoryManager.class);
-    when(historyManager.isHistoryEnabled()).thenReturn(true);
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
-    CommentDataManager commentDataManager = mock(CommentDataManager.class);
-    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
-    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
-    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
-        commentDataManager);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
-    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
-
-    // Act
-    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY)).createIdentityLinkComment("42",
-        "42", "42", "Type", true, true);
-
-    // Assert
-    verify(processEngineConfiguration2).getClock();
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfiguration).getHistoryManager();
-    verify(historyManager).isHistoryEnabled();
-    verify(commentDataManager).create();
-    verify(commentDataManager).insert(isA(CommentEntity.class));
-  }
-
-  /**
-   * Test {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean, boolean)} with {@code taskId}, {@code userId}, {@code groupId}, {@code type}, {@code create}, {@code forceNullUserId}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void DefaultHistoryManager.createIdentityLinkComment(String, String, String, String, boolean, boolean)"})
-  public void testCreateIdentityLinkCommentWithTaskIdUserIdGroupIdTypeCreateForceNullUserId3() {
+  public void testCreateIdentityLinkComment4() {
     // Arrange
     HistoryManager historyManager = mock(HistoryManager.class);
     when(historyManager.isHistoryEnabled()).thenReturn(true);
@@ -1054,189 +1748,7 @@ public class DefaultHistoryManagerDiffblueTest {
     CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
         commentDataManager);
 
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
-    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
-
-    // Act
-    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY)).createIdentityLinkComment("42",
-        "42", "42", "Type", false, true);
-
-    // Assert
-    verify(processEngineConfiguration2).getClock();
-    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfiguration).getHistoryManager();
-    verify(historyManager).isHistoryEnabled();
-    verify(commentDataManager).create();
-    verify(commentDataManager).insert(isA(CommentEntity.class));
-  }
-
-  /**
-   * Test {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean, boolean)} with {@code taskId}, {@code userId}, {@code groupId}, {@code type}, {@code create}, {@code forceNullUserId}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void DefaultHistoryManager.createIdentityLinkComment(String, String, String, String, boolean, boolean)"})
-  public void testCreateIdentityLinkCommentWithTaskIdUserIdGroupIdTypeCreateForceNullUserId4() {
-    // Arrange
-    HistoryManager historyManager = mock(HistoryManager.class);
-    when(historyManager.isHistoryEnabled()).thenReturn(true);
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
-    CommentDataManager commentDataManager = mock(CommentDataManager.class);
-    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
-    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
-    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
-        commentDataManager);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
-    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
-
-    // Act
-    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY)).createIdentityLinkComment("42",
-        null, "42", "Type", false, true);
-
-    // Assert
-    verify(processEngineConfiguration2).getClock();
-    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfiguration).getHistoryManager();
-    verify(historyManager).isHistoryEnabled();
-    verify(commentDataManager).create();
-    verify(commentDataManager).insert(isA(CommentEntity.class));
-  }
-
-  /**
-   * Test {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean, boolean)} with {@code taskId}, {@code userId}, {@code groupId}, {@code type}, {@code create}, {@code forceNullUserId}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void DefaultHistoryManager.createIdentityLinkComment(String, String, String, String, boolean, boolean)"})
-  public void testCreateIdentityLinkCommentWithTaskIdUserIdGroupIdTypeCreateForceNullUserId5() {
-    // Arrange
-    HistoryManager historyManager = mock(HistoryManager.class);
-    when(historyManager.isHistoryEnabled()).thenReturn(true);
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
-    CommentDataManager commentDataManager = mock(CommentDataManager.class);
-    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
-    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
-    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
-        commentDataManager);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
-    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
-
-    // Act
-    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY)).createIdentityLinkComment("42",
-        null, "42", "Type", false, false);
-
-    // Assert
-    verify(processEngineConfiguration2).getClock();
-    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfiguration).getHistoryManager();
-    verify(historyManager).isHistoryEnabled();
-    verify(commentDataManager).create();
-    verify(commentDataManager).insert(isA(CommentEntity.class));
-  }
-
-  /**
-   * Test {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean, boolean)} with {@code taskId}, {@code userId}, {@code groupId}, {@code type}, {@code create}, {@code forceNullUserId}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void DefaultHistoryManager.createIdentityLinkComment(String, String, String, String, boolean, boolean)"})
-  public void testCreateIdentityLinkCommentWithTaskIdUserIdGroupIdTypeCreateForceNullUserId6() {
-    // Arrange
-    HistoryManager historyManager = mock(HistoryManager.class);
-    when(historyManager.isHistoryEnabled()).thenReturn(true);
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
-    CommentDataManager commentDataManager = mock(CommentDataManager.class);
-    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
-    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
-    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
-        commentDataManager);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
-    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
-
-    // Act
-    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY)).createIdentityLinkComment("42",
-        null, "42", "Type", true, false);
-
-    // Assert
-    verify(processEngineConfiguration2).getClock();
-    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfiguration).getHistoryManager();
-    verify(historyManager).isHistoryEnabled();
-    verify(commentDataManager).create();
-    verify(commentDataManager).insert(isA(CommentEntity.class));
-  }
-
-  /**
-   * Test {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean)} with {@code taskId}, {@code userId}, {@code groupId}, {@code type}, {@code create}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultHistoryManager.createIdentityLinkComment(String, String, String, String, boolean)"})
-  public void testCreateIdentityLinkCommentWithTaskIdUserIdGroupIdTypeCreate_whenNull() {
-    // Arrange
-    HistoryManager historyManager = mock(HistoryManager.class);
-    when(historyManager.isHistoryEnabled()).thenReturn(true);
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
-    CommentDataManager commentDataManager = mock(CommentDataManager.class);
-    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
-    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
-    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
-        commentDataManager);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
     when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
 
@@ -1257,17 +1769,11 @@ public class DefaultHistoryManagerDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean)} with {@code taskId}, {@code userId}, {@code groupId}, {@code type}, {@code create}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean)}
+   * Method under test:
+   * {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultHistoryManager.createIdentityLinkComment(String, String, String, String, boolean)"})
-  public void testCreateIdentityLinkCommentWithTaskIdUserIdGroupIdTypeCreate_whenNull2() {
+  public void testCreateIdentityLinkComment5() {
     // Arrange
     HistoryManager historyManager = mock(HistoryManager.class);
     when(historyManager.isHistoryEnabled()).thenReturn(true);
@@ -1283,7 +1789,7 @@ public class DefaultHistoryManagerDiffblueTest {
     CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
         commentDataManager);
 
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
     when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
 
@@ -1304,14 +1810,11 @@ public class DefaultHistoryManagerDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean)} with {@code taskId}, {@code userId}, {@code type}, {@code create}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean)}
+   * Method under test:
+   * {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultHistoryManager.createUserIdentityLinkComment(String, String, String, boolean)"})
-  public void testCreateUserIdentityLinkCommentWithTaskIdUserIdTypeCreate() {
+  public void testCreateIdentityLinkComment6() {
     // Arrange
     HistoryManager historyManager = mock(HistoryManager.class);
     when(historyManager.isHistoryEnabled()).thenReturn(true);
@@ -1324,7 +1827,246 @@ public class DefaultHistoryManagerDiffblueTest {
     CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
         commentDataManager);
 
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
+    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY)).createIdentityLinkComment("42",
+        "42", "42", "Type", true, true);
+
+    // Assert
+    verify(processEngineConfiguration2).getClock();
+    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration).getHistoryManager();
+    verify(historyManager).isHistoryEnabled();
+    verify(commentDataManager).create();
+    verify(commentDataManager).insert(isA(CommentEntity.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean, boolean)}
+   */
+  @Test
+  public void testCreateIdentityLinkComment7() {
+    // Arrange
+    HistoryManager historyManager = mock(HistoryManager.class);
+    when(historyManager.isHistoryEnabled()).thenReturn(true);
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
+    CommentDataManager commentDataManager = mock(CommentDataManager.class);
+    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
+    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
+    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
+        commentDataManager);
+
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
+    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY)).createIdentityLinkComment("42",
+        "42", "42", "Type", true, true);
+
+    // Assert
+    verify(processEngineConfiguration2).getClock();
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration).getHistoryManager();
+    verify(historyManager).isHistoryEnabled();
+    verify(commentDataManager).create();
+    verify(commentDataManager).insert(isA(CommentEntity.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean, boolean)}
+   */
+  @Test
+  public void testCreateIdentityLinkComment8() {
+    // Arrange
+    HistoryManager historyManager = mock(HistoryManager.class);
+    when(historyManager.isHistoryEnabled()).thenReturn(true);
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
+    CommentDataManager commentDataManager = mock(CommentDataManager.class);
+    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
+    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
+    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
+        commentDataManager);
+
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
+    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY)).createIdentityLinkComment("42",
+        "42", "42", "Type", false, true);
+
+    // Assert
+    verify(processEngineConfiguration2).getClock();
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration).getHistoryManager();
+    verify(historyManager).isHistoryEnabled();
+    verify(commentDataManager).create();
+    verify(commentDataManager).insert(isA(CommentEntity.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean, boolean)}
+   */
+  @Test
+  public void testCreateIdentityLinkComment9() {
+    // Arrange
+    HistoryManager historyManager = mock(HistoryManager.class);
+    when(historyManager.isHistoryEnabled()).thenReturn(true);
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
+    CommentDataManager commentDataManager = mock(CommentDataManager.class);
+    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
+    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
+    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
+        commentDataManager);
+
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
+    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY)).createIdentityLinkComment("42",
+        null, "42", "Type", false, true);
+
+    // Assert
+    verify(processEngineConfiguration2).getClock();
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration).getHistoryManager();
+    verify(historyManager).isHistoryEnabled();
+    verify(commentDataManager).create();
+    verify(commentDataManager).insert(isA(CommentEntity.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean, boolean)}
+   */
+  @Test
+  public void testCreateIdentityLinkComment10() {
+    // Arrange
+    HistoryManager historyManager = mock(HistoryManager.class);
+    when(historyManager.isHistoryEnabled()).thenReturn(true);
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
+    CommentDataManager commentDataManager = mock(CommentDataManager.class);
+    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
+    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
+    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
+        commentDataManager);
+
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
+    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY)).createIdentityLinkComment("42",
+        null, "42", "Type", false, false);
+
+    // Assert
+    verify(processEngineConfiguration2).getClock();
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration).getHistoryManager();
+    verify(historyManager).isHistoryEnabled();
+    verify(commentDataManager).create();
+    verify(commentDataManager).insert(isA(CommentEntity.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#createIdentityLinkComment(String, String, String, String, boolean, boolean)}
+   */
+  @Test
+  public void testCreateIdentityLinkComment11() {
+    // Arrange
+    HistoryManager historyManager = mock(HistoryManager.class);
+    when(historyManager.isHistoryEnabled()).thenReturn(true);
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
+    CommentDataManager commentDataManager = mock(CommentDataManager.class);
+    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
+    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
+    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
+        commentDataManager);
+
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
+    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY)).createIdentityLinkComment("42",
+        null, "42", "Type", true, false);
+
+    // Assert
+    verify(processEngineConfiguration2).getClock();
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration).getHistoryManager();
+    verify(historyManager).isHistoryEnabled();
+    verify(commentDataManager).create();
+    verify(commentDataManager).insert(isA(CommentEntity.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean)}
+   */
+  @Test
+  public void testCreateUserIdentityLinkComment() {
+    // Arrange
+    HistoryManager historyManager = mock(HistoryManager.class);
+    when(historyManager.isHistoryEnabled()).thenReturn(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
+    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
+    CommentDataManager commentDataManager = mock(CommentDataManager.class);
+    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
+    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
+    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
+        commentDataManager);
+
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
     when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
 
@@ -1343,14 +2085,11 @@ public class DefaultHistoryManagerDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean)} with {@code taskId}, {@code userId}, {@code type}, {@code create}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean)}
+   * Method under test:
+   * {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultHistoryManager.createUserIdentityLinkComment(String, String, String, boolean)"})
-  public void testCreateUserIdentityLinkCommentWithTaskIdUserIdTypeCreate2() {
+  public void testCreateUserIdentityLinkComment2() {
     // Arrange
     HistoryManager historyManager = mock(HistoryManager.class);
     when(historyManager.isHistoryEnabled()).thenReturn(true);
@@ -1365,7 +2104,7 @@ public class DefaultHistoryManagerDiffblueTest {
     CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
         commentDataManager);
 
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
     when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
 
@@ -1385,14 +2124,11 @@ public class DefaultHistoryManagerDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean)} with {@code taskId}, {@code userId}, {@code type}, {@code create}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean)}
+   * Method under test:
+   * {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultHistoryManager.createUserIdentityLinkComment(String, String, String, boolean)"})
-  public void testCreateUserIdentityLinkCommentWithTaskIdUserIdTypeCreate3() {
+  public void testCreateUserIdentityLinkComment3() {
     // Arrange
     HistoryManager historyManager = mock(HistoryManager.class);
     when(historyManager.isHistoryEnabled()).thenReturn(true);
@@ -1408,7 +2144,7 @@ public class DefaultHistoryManagerDiffblueTest {
     CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
         commentDataManager);
 
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
     when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
 
@@ -1429,98 +2165,11 @@ public class DefaultHistoryManagerDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean, boolean)} with {@code taskId}, {@code userId}, {@code type}, {@code create}, {@code forceNullUserId}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean, boolean)}
+   * Method under test:
+   * {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void DefaultHistoryManager.createUserIdentityLinkComment(String, String, String, boolean, boolean)"})
-  public void testCreateUserIdentityLinkCommentWithTaskIdUserIdTypeCreateForceNullUserId() {
-    // Arrange
-    HistoryManager historyManager = mock(HistoryManager.class);
-    when(historyManager.isHistoryEnabled()).thenReturn(true);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
-    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
-    CommentDataManager commentDataManager = mock(CommentDataManager.class);
-    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
-    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
-    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
-        commentDataManager);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
-    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
-
-    // Act
-    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY)).createUserIdentityLinkComment("42",
-        "42", "Type", true, true);
-
-    // Assert
-    verify(processEngineConfiguration2).getClock();
-    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfiguration).getHistoryManager();
-    verify(historyManager).isHistoryEnabled();
-    verify(commentDataManager).create();
-    verify(commentDataManager).insert(isA(CommentEntity.class));
-  }
-
-  /**
-   * Test {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean, boolean)} with {@code taskId}, {@code userId}, {@code type}, {@code create}, {@code forceNullUserId}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void DefaultHistoryManager.createUserIdentityLinkComment(String, String, String, boolean, boolean)"})
-  public void testCreateUserIdentityLinkCommentWithTaskIdUserIdTypeCreateForceNullUserId2() {
-    // Arrange
-    HistoryManager historyManager = mock(HistoryManager.class);
-    when(historyManager.isHistoryEnabled()).thenReturn(true);
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
-    CommentDataManager commentDataManager = mock(CommentDataManager.class);
-    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
-    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
-    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
-        commentDataManager);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
-    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
-
-    // Act
-    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY)).createUserIdentityLinkComment("42",
-        "42", "Type", true, true);
-
-    // Assert
-    verify(processEngineConfiguration2).getClock();
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfiguration).getHistoryManager();
-    verify(historyManager).isHistoryEnabled();
-    verify(commentDataManager).create();
-    verify(commentDataManager).insert(isA(CommentEntity.class));
-  }
-
-  /**
-   * Test {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean, boolean)} with {@code taskId}, {@code userId}, {@code type}, {@code create}, {@code forceNullUserId}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void DefaultHistoryManager.createUserIdentityLinkComment(String, String, String, boolean, boolean)"})
-  public void testCreateUserIdentityLinkCommentWithTaskIdUserIdTypeCreateForceNullUserId3() {
+  public void testCreateUserIdentityLinkComment4() {
     // Arrange
     HistoryManager historyManager = mock(HistoryManager.class);
     when(historyManager.isHistoryEnabled()).thenReturn(true);
@@ -1536,189 +2185,7 @@ public class DefaultHistoryManagerDiffblueTest {
     CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
         commentDataManager);
 
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
-    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
-
-    // Act
-    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY)).createUserIdentityLinkComment("42",
-        "42", "Type", false, true);
-
-    // Assert
-    verify(processEngineConfiguration2).getClock();
-    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfiguration).getHistoryManager();
-    verify(historyManager).isHistoryEnabled();
-    verify(commentDataManager).create();
-    verify(commentDataManager).insert(isA(CommentEntity.class));
-  }
-
-  /**
-   * Test {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean, boolean)} with {@code taskId}, {@code userId}, {@code type}, {@code create}, {@code forceNullUserId}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void DefaultHistoryManager.createUserIdentityLinkComment(String, String, String, boolean, boolean)"})
-  public void testCreateUserIdentityLinkCommentWithTaskIdUserIdTypeCreateForceNullUserId4() {
-    // Arrange
-    HistoryManager historyManager = mock(HistoryManager.class);
-    when(historyManager.isHistoryEnabled()).thenReturn(true);
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
-    CommentDataManager commentDataManager = mock(CommentDataManager.class);
-    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
-    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
-    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
-        commentDataManager);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
-    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
-
-    // Act
-    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY)).createUserIdentityLinkComment("42",
-        null, "Type", false, true);
-
-    // Assert
-    verify(processEngineConfiguration2).getClock();
-    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfiguration).getHistoryManager();
-    verify(historyManager).isHistoryEnabled();
-    verify(commentDataManager).create();
-    verify(commentDataManager).insert(isA(CommentEntity.class));
-  }
-
-  /**
-   * Test {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean, boolean)} with {@code taskId}, {@code userId}, {@code type}, {@code create}, {@code forceNullUserId}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void DefaultHistoryManager.createUserIdentityLinkComment(String, String, String, boolean, boolean)"})
-  public void testCreateUserIdentityLinkCommentWithTaskIdUserIdTypeCreateForceNullUserId5() {
-    // Arrange
-    HistoryManager historyManager = mock(HistoryManager.class);
-    when(historyManager.isHistoryEnabled()).thenReturn(true);
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
-    CommentDataManager commentDataManager = mock(CommentDataManager.class);
-    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
-    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
-    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
-        commentDataManager);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
-    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
-
-    // Act
-    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY)).createUserIdentityLinkComment("42",
-        null, "Type", false, false);
-
-    // Assert
-    verify(processEngineConfiguration2).getClock();
-    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfiguration).getHistoryManager();
-    verify(historyManager).isHistoryEnabled();
-    verify(commentDataManager).create();
-    verify(commentDataManager).insert(isA(CommentEntity.class));
-  }
-
-  /**
-   * Test {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean, boolean)} with {@code taskId}, {@code userId}, {@code type}, {@code create}, {@code forceNullUserId}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void DefaultHistoryManager.createUserIdentityLinkComment(String, String, String, boolean, boolean)"})
-  public void testCreateUserIdentityLinkCommentWithTaskIdUserIdTypeCreateForceNullUserId6() {
-    // Arrange
-    HistoryManager historyManager = mock(HistoryManager.class);
-    when(historyManager.isHistoryEnabled()).thenReturn(true);
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
-    CommentDataManager commentDataManager = mock(CommentDataManager.class);
-    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
-    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
-    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
-        commentDataManager);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
-    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
-
-    // Act
-    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY)).createUserIdentityLinkComment("42",
-        null, "Type", true, false);
-
-    // Assert
-    verify(processEngineConfiguration2).getClock();
-    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfiguration).getHistoryManager();
-    verify(historyManager).isHistoryEnabled();
-    verify(commentDataManager).create();
-    verify(commentDataManager).insert(isA(CommentEntity.class));
-  }
-
-  /**
-   * Test {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean)} with {@code taskId}, {@code userId}, {@code type}, {@code create}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultHistoryManager.createUserIdentityLinkComment(String, String, String, boolean)"})
-  public void testCreateUserIdentityLinkCommentWithTaskIdUserIdTypeCreate_whenNull() {
-    // Arrange
-    HistoryManager historyManager = mock(HistoryManager.class);
-    when(historyManager.isHistoryEnabled()).thenReturn(true);
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
-    CommentDataManager commentDataManager = mock(CommentDataManager.class);
-    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
-    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
-    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
-        commentDataManager);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
     when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
 
@@ -1739,17 +2206,11 @@ public class DefaultHistoryManagerDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean)} with {@code taskId}, {@code userId}, {@code type}, {@code create}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean)}
+   * Method under test:
+   * {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultHistoryManager.createUserIdentityLinkComment(String, String, String, boolean)"})
-  public void testCreateUserIdentityLinkCommentWithTaskIdUserIdTypeCreate_whenNull2() {
+  public void testCreateUserIdentityLinkComment5() {
     // Arrange
     HistoryManager historyManager = mock(HistoryManager.class);
     when(historyManager.isHistoryEnabled()).thenReturn(true);
@@ -1765,7 +2226,7 @@ public class DefaultHistoryManagerDiffblueTest {
     CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
         commentDataManager);
 
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
     when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
 
@@ -1786,24 +2247,15 @@ public class DefaultHistoryManagerDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultHistoryManager#createProcessInstanceIdentityLinkComment(String, String, String, String, boolean)} with {@code processInstanceId}, {@code userId}, {@code groupId}, {@code type}, {@code create}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createProcessInstanceIdentityLinkComment(String, String, String, String, boolean)}
+   * Method under test:
+   * {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void DefaultHistoryManager.createProcessInstanceIdentityLinkComment(String, String, String, String, boolean)"})
-  public void testCreateProcessInstanceIdentityLinkCommentWithProcessInstanceIdUserIdGroupIdTypeCreate() {
+  public void testCreateUserIdentityLinkComment6() {
     // Arrange
     HistoryManager historyManager = mock(HistoryManager.class);
     when(historyManager.isHistoryEnabled()).thenReturn(true);
-    ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
-    when(executionDataManager.findById(Mockito.<String>any()))
-        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getExecutionEntityManager())
-        .thenReturn(new ExecutionEntityManagerImpl(new JtaProcessEngineConfiguration(), executionDataManager));
     when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
     when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
     CommentDataManager commentDataManager = mock(CommentDataManager.class);
@@ -1812,36 +2264,30 @@ public class DefaultHistoryManagerDiffblueTest {
     CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
         commentDataManager);
 
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
     when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
 
     // Act
-    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY))
-        .createProcessInstanceIdentityLinkComment("42", "42", "42", "Type", false);
+    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY)).createUserIdentityLinkComment("42",
+        "42", "Type", true, true);
 
     // Assert
     verify(processEngineConfiguration2).getClock();
     verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
     verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfiguration).getExecutionEntityManager();
     verify(processEngineConfiguration).getHistoryManager();
     verify(historyManager).isHistoryEnabled();
     verify(commentDataManager).create();
-    verify(executionDataManager).findById(eq("42"));
     verify(commentDataManager).insert(isA(CommentEntity.class));
   }
 
   /**
-   * Test {@link DefaultHistoryManager#createProcessInstanceIdentityLinkComment(String, String, String, String, boolean)} with {@code processInstanceId}, {@code userId}, {@code groupId}, {@code type}, {@code create}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createProcessInstanceIdentityLinkComment(String, String, String, String, boolean)}
+   * Method under test:
+   * {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void DefaultHistoryManager.createProcessInstanceIdentityLinkComment(String, String, String, String, boolean)"})
-  public void testCreateProcessInstanceIdentityLinkCommentWithProcessInstanceIdUserIdGroupIdTypeCreate2() {
+  public void testCreateUserIdentityLinkComment7() {
     // Arrange
     HistoryManager historyManager = mock(HistoryManager.class);
     when(historyManager.isHistoryEnabled()).thenReturn(true);
@@ -1856,13 +2302,13 @@ public class DefaultHistoryManagerDiffblueTest {
     CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
         commentDataManager);
 
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
     when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
 
     // Act
-    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY))
-        .createProcessInstanceIdentityLinkComment("42", "42", "42", "Type", false);
+    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY)).createUserIdentityLinkComment("42",
+        "42", "Type", true, true);
 
     // Assert
     verify(processEngineConfiguration2).getClock();
@@ -1876,188 +2322,11 @@ public class DefaultHistoryManagerDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultHistoryManager#createProcessInstanceIdentityLinkComment(String, String, String, String, boolean, boolean)} with {@code processInstanceId}, {@code userId}, {@code groupId}, {@code type}, {@code create}, {@code forceNullUserId}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createProcessInstanceIdentityLinkComment(String, String, String, String, boolean, boolean)}
+   * Method under test:
+   * {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void DefaultHistoryManager.createProcessInstanceIdentityLinkComment(String, String, String, String, boolean, boolean)"})
-  public void testCreateProcessInstanceIdentityLinkCommentWithProcessInstanceIdUserIdGroupIdTypeCreateForceNullUserId() {
-    // Arrange
-    HistoryManager historyManager = mock(HistoryManager.class);
-    when(historyManager.isHistoryEnabled()).thenReturn(true);
-    ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
-    when(executionDataManager.findById(Mockito.<String>any()))
-        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getExecutionEntityManager())
-        .thenReturn(new ExecutionEntityManagerImpl(new JtaProcessEngineConfiguration(), executionDataManager));
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
-    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
-    CommentDataManager commentDataManager = mock(CommentDataManager.class);
-    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
-    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
-    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
-        commentDataManager);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
-    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
-
-    // Act
-    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY))
-        .createProcessInstanceIdentityLinkComment("42", "42", "42", "Type", false, true);
-
-    // Assert
-    verify(processEngineConfiguration2).getClock();
-    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfiguration).getExecutionEntityManager();
-    verify(processEngineConfiguration).getHistoryManager();
-    verify(historyManager).isHistoryEnabled();
-    verify(commentDataManager).create();
-    verify(executionDataManager).findById(eq("42"));
-    verify(commentDataManager).insert(isA(CommentEntity.class));
-  }
-
-  /**
-   * Test {@link DefaultHistoryManager#createProcessInstanceIdentityLinkComment(String, String, String, String, boolean, boolean)} with {@code processInstanceId}, {@code userId}, {@code groupId}, {@code type}, {@code create}, {@code forceNullUserId}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createProcessInstanceIdentityLinkComment(String, String, String, String, boolean, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void DefaultHistoryManager.createProcessInstanceIdentityLinkComment(String, String, String, String, boolean, boolean)"})
-  public void testCreateProcessInstanceIdentityLinkCommentWithProcessInstanceIdUserIdGroupIdTypeCreateForceNullUserId2() {
-    // Arrange
-    HistoryManager historyManager = mock(HistoryManager.class);
-    when(historyManager.isHistoryEnabled()).thenReturn(true);
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
-    CommentDataManager commentDataManager = mock(CommentDataManager.class);
-    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
-    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
-    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
-        commentDataManager);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
-    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
-
-    // Act
-    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY))
-        .createProcessInstanceIdentityLinkComment("42", "42", "42", "Type", false, true);
-
-    // Assert
-    verify(processEngineConfiguration2).getClock();
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfiguration).getHistoryManager();
-    verify(historyManager).isHistoryEnabled();
-    verify(commentDataManager).create();
-    verify(commentDataManager).insert(isA(CommentEntity.class));
-  }
-
-  /**
-   * Test {@link DefaultHistoryManager#createGroupIdentityLinkComment(String, String, String, boolean)}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createGroupIdentityLinkComment(String, String, String, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultHistoryManager.createGroupIdentityLinkComment(String, String, String, boolean)"})
-  public void testCreateGroupIdentityLinkComment() {
-    // Arrange
-    HistoryManager historyManager = mock(HistoryManager.class);
-    when(historyManager.isHistoryEnabled()).thenReturn(true);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
-    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
-    CommentDataManager commentDataManager = mock(CommentDataManager.class);
-    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
-    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
-    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
-        commentDataManager);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
-    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
-
-    // Act
-    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY)).createGroupIdentityLinkComment("42",
-        "42", "Type", true);
-
-    // Assert
-    verify(processEngineConfiguration2).getClock();
-    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfiguration).getHistoryManager();
-    verify(historyManager).isHistoryEnabled();
-    verify(commentDataManager).create();
-    verify(commentDataManager).insert(isA(CommentEntity.class));
-  }
-
-  /**
-   * Test {@link DefaultHistoryManager#createGroupIdentityLinkComment(String, String, String, boolean)}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createGroupIdentityLinkComment(String, String, String, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultHistoryManager.createGroupIdentityLinkComment(String, String, String, boolean)"})
-  public void testCreateGroupIdentityLinkComment2() {
-    // Arrange
-    HistoryManager historyManager = mock(HistoryManager.class);
-    when(historyManager.isHistoryEnabled()).thenReturn(true);
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
-    CommentDataManager commentDataManager = mock(CommentDataManager.class);
-    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
-    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
-    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
-        commentDataManager);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
-    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
-
-    // Act
-    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY)).createGroupIdentityLinkComment("42",
-        "42", "Type", true);
-
-    // Assert
-    verify(processEngineConfiguration2).getClock();
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfiguration).getHistoryManager();
-    verify(historyManager).isHistoryEnabled();
-    verify(commentDataManager).create();
-    verify(commentDataManager).insert(isA(CommentEntity.class));
-  }
-
-  /**
-   * Test {@link DefaultHistoryManager#createGroupIdentityLinkComment(String, String, String, boolean)}.
-   * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createGroupIdentityLinkComment(String, String, String, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultHistoryManager.createGroupIdentityLinkComment(String, String, String, boolean)"})
-  public void testCreateGroupIdentityLinkComment_thenCallsDispatchEvent() {
+  public void testCreateUserIdentityLinkComment8() {
     // Arrange
     HistoryManager historyManager = mock(HistoryManager.class);
     when(historyManager.isHistoryEnabled()).thenReturn(true);
@@ -2073,7 +2342,410 @@ public class DefaultHistoryManagerDiffblueTest {
     CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
         commentDataManager);
 
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
+    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY)).createUserIdentityLinkComment("42",
+        "42", "Type", false, true);
+
+    // Assert
+    verify(processEngineConfiguration2).getClock();
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration).getHistoryManager();
+    verify(historyManager).isHistoryEnabled();
+    verify(commentDataManager).create();
+    verify(commentDataManager).insert(isA(CommentEntity.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean, boolean)}
+   */
+  @Test
+  public void testCreateUserIdentityLinkComment9() {
+    // Arrange
+    HistoryManager historyManager = mock(HistoryManager.class);
+    when(historyManager.isHistoryEnabled()).thenReturn(true);
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
+    CommentDataManager commentDataManager = mock(CommentDataManager.class);
+    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
+    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
+    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
+        commentDataManager);
+
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
+    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY)).createUserIdentityLinkComment("42",
+        null, "Type", false, true);
+
+    // Assert
+    verify(processEngineConfiguration2).getClock();
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration).getHistoryManager();
+    verify(historyManager).isHistoryEnabled();
+    verify(commentDataManager).create();
+    verify(commentDataManager).insert(isA(CommentEntity.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean, boolean)}
+   */
+  @Test
+  public void testCreateUserIdentityLinkComment10() {
+    // Arrange
+    HistoryManager historyManager = mock(HistoryManager.class);
+    when(historyManager.isHistoryEnabled()).thenReturn(true);
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
+    CommentDataManager commentDataManager = mock(CommentDataManager.class);
+    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
+    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
+    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
+        commentDataManager);
+
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
+    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY)).createUserIdentityLinkComment("42",
+        null, "Type", false, false);
+
+    // Assert
+    verify(processEngineConfiguration2).getClock();
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration).getHistoryManager();
+    verify(historyManager).isHistoryEnabled();
+    verify(commentDataManager).create();
+    verify(commentDataManager).insert(isA(CommentEntity.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#createUserIdentityLinkComment(String, String, String, boolean, boolean)}
+   */
+  @Test
+  public void testCreateUserIdentityLinkComment11() {
+    // Arrange
+    HistoryManager historyManager = mock(HistoryManager.class);
+    when(historyManager.isHistoryEnabled()).thenReturn(true);
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
+    CommentDataManager commentDataManager = mock(CommentDataManager.class);
+    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
+    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
+    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
+        commentDataManager);
+
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
+    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY)).createUserIdentityLinkComment("42",
+        null, "Type", true, false);
+
+    // Assert
+    verify(processEngineConfiguration2).getClock();
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration).getHistoryManager();
+    verify(historyManager).isHistoryEnabled();
+    verify(commentDataManager).create();
+    verify(commentDataManager).insert(isA(CommentEntity.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#createProcessInstanceIdentityLinkComment(String, String, String, String, boolean)}
+   */
+  @Test
+  public void testCreateProcessInstanceIdentityLinkComment() {
+    // Arrange
+    HistoryManager historyManager = mock(HistoryManager.class);
+    when(historyManager.isHistoryEnabled()).thenReturn(true);
+    ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
+    when(executionDataManager.findById(Mockito.<String>any()))
+        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getExecutionEntityManager())
+        .thenReturn(new ExecutionEntityManagerImpl(new JtaProcessEngineConfiguration(), executionDataManager));
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
+    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
+    CommentDataManager commentDataManager = mock(CommentDataManager.class);
+    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
+    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
+    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
+        commentDataManager);
+
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
+    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY))
+        .createProcessInstanceIdentityLinkComment("42", "42", "42", "Type", false);
+
+    // Assert
+    verify(processEngineConfiguration2).getClock();
+    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration).getExecutionEntityManager();
+    verify(processEngineConfiguration).getHistoryManager();
+    verify(historyManager).isHistoryEnabled();
+    verify(commentDataManager).create();
+    verify(executionDataManager).findById(eq("42"));
+    verify(commentDataManager).insert(isA(CommentEntity.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#createProcessInstanceIdentityLinkComment(String, String, String, String, boolean)}
+   */
+  @Test
+  public void testCreateProcessInstanceIdentityLinkComment2() {
+    // Arrange
+    HistoryManager historyManager = mock(HistoryManager.class);
+    when(historyManager.isHistoryEnabled()).thenReturn(true);
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
+    CommentDataManager commentDataManager = mock(CommentDataManager.class);
+    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
+    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
+    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
+        commentDataManager);
+
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
+    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY))
+        .createProcessInstanceIdentityLinkComment("42", "42", "42", "Type", false);
+
+    // Assert
+    verify(processEngineConfiguration2).getClock();
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration).getHistoryManager();
+    verify(historyManager).isHistoryEnabled();
+    verify(commentDataManager).create();
+    verify(commentDataManager).insert(isA(CommentEntity.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#createProcessInstanceIdentityLinkComment(String, String, String, String, boolean, boolean)}
+   */
+  @Test
+  public void testCreateProcessInstanceIdentityLinkComment3() {
+    // Arrange
+    HistoryManager historyManager = mock(HistoryManager.class);
+    when(historyManager.isHistoryEnabled()).thenReturn(true);
+    ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
+    when(executionDataManager.findById(Mockito.<String>any()))
+        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getExecutionEntityManager())
+        .thenReturn(new ExecutionEntityManagerImpl(new JtaProcessEngineConfiguration(), executionDataManager));
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
+    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
+    CommentDataManager commentDataManager = mock(CommentDataManager.class);
+    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
+    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
+    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
+        commentDataManager);
+
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
+    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY))
+        .createProcessInstanceIdentityLinkComment("42", "42", "42", "Type", false, true);
+
+    // Assert
+    verify(processEngineConfiguration2).getClock();
+    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration).getExecutionEntityManager();
+    verify(processEngineConfiguration).getHistoryManager();
+    verify(historyManager).isHistoryEnabled();
+    verify(commentDataManager).create();
+    verify(executionDataManager).findById(eq("42"));
+    verify(commentDataManager).insert(isA(CommentEntity.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#createProcessInstanceIdentityLinkComment(String, String, String, String, boolean, boolean)}
+   */
+  @Test
+  public void testCreateProcessInstanceIdentityLinkComment4() {
+    // Arrange
+    HistoryManager historyManager = mock(HistoryManager.class);
+    when(historyManager.isHistoryEnabled()).thenReturn(true);
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
+    CommentDataManager commentDataManager = mock(CommentDataManager.class);
+    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
+    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
+    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
+        commentDataManager);
+
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
+    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY))
+        .createProcessInstanceIdentityLinkComment("42", "42", "42", "Type", false, true);
+
+    // Assert
+    verify(processEngineConfiguration2).getClock();
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration).getHistoryManager();
+    verify(historyManager).isHistoryEnabled();
+    verify(commentDataManager).create();
+    verify(commentDataManager).insert(isA(CommentEntity.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#createGroupIdentityLinkComment(String, String, String, boolean)}
+   */
+  @Test
+  public void testCreateGroupIdentityLinkComment() {
+    // Arrange
+    HistoryManager historyManager = mock(HistoryManager.class);
+    when(historyManager.isHistoryEnabled()).thenReturn(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
+    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
+    CommentDataManager commentDataManager = mock(CommentDataManager.class);
+    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
+    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
+    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
+        commentDataManager);
+
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
+    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY)).createGroupIdentityLinkComment("42",
+        "42", "Type", true);
+
+    // Assert
+    verify(processEngineConfiguration2).getClock();
+    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration).getHistoryManager();
+    verify(historyManager).isHistoryEnabled();
+    verify(commentDataManager).create();
+    verify(commentDataManager).insert(isA(CommentEntity.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#createGroupIdentityLinkComment(String, String, String, boolean)}
+   */
+  @Test
+  public void testCreateGroupIdentityLinkComment2() {
+    // Arrange
+    HistoryManager historyManager = mock(HistoryManager.class);
+    when(historyManager.isHistoryEnabled()).thenReturn(true);
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
+    CommentDataManager commentDataManager = mock(CommentDataManager.class);
+    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
+    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
+    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
+        commentDataManager);
+
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
+    when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
+
+    // Act
+    (new DefaultHistoryManager(processEngineConfiguration2, HistoryLevel.ACTIVITY)).createGroupIdentityLinkComment("42",
+        "42", "Type", true);
+
+    // Assert
+    verify(processEngineConfiguration2).getClock();
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration2, atLeast(1)).getCommentEntityManager();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration).getHistoryManager();
+    verify(historyManager).isHistoryEnabled();
+    verify(commentDataManager).create();
+    verify(commentDataManager).insert(isA(CommentEntity.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#createGroupIdentityLinkComment(String, String, String, boolean)}
+   */
+  @Test
+  public void testCreateGroupIdentityLinkComment3() {
+    // Arrange
+    HistoryManager historyManager = mock(HistoryManager.class);
+    when(historyManager.isHistoryEnabled()).thenReturn(true);
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    when(processEngineConfiguration.getHistoryManager()).thenReturn(historyManager);
+    CommentDataManager commentDataManager = mock(CommentDataManager.class);
+    doNothing().when(commentDataManager).insert(Mockito.<CommentEntity>any());
+    when(commentDataManager.create()).thenReturn(new CommentEntityImpl());
+    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
+        commentDataManager);
+
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
     when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
 
@@ -2094,17 +2766,11 @@ public class DefaultHistoryManagerDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultHistoryManager#createAttachmentComment(String, String, String, boolean)}.
-   * <ul>
-   *   <li>Then calls {@link ProcessEngineConfigurationImpl#getExecutionEntityManager()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createAttachmentComment(String, String, String, boolean)}
+   * Method under test:
+   * {@link DefaultHistoryManager#createAttachmentComment(String, String, String, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultHistoryManager.createAttachmentComment(String, String, String, boolean)"})
-  public void testCreateAttachmentComment_thenCallsGetExecutionEntityManager() {
+  public void testCreateAttachmentComment() {
     // Arrange
     HistoryManager historyManager = mock(HistoryManager.class);
     when(historyManager.isHistoryEnabled()).thenReturn(true);
@@ -2122,7 +2788,7 @@ public class DefaultHistoryManagerDiffblueTest {
     CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
         commentDataManager);
 
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
     when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
 
@@ -2143,17 +2809,11 @@ public class DefaultHistoryManagerDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultHistoryManager#createAttachmentComment(String, String, String, boolean)}.
-   * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#isEnabled()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#createAttachmentComment(String, String, String, boolean)}
+   * Method under test:
+   * {@link DefaultHistoryManager#createAttachmentComment(String, String, String, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultHistoryManager.createAttachmentComment(String, String, String, boolean)"})
-  public void testCreateAttachmentComment_thenCallsIsEnabled() {
+  public void testCreateAttachmentComment2() {
     // Arrange
     HistoryManager historyManager = mock(HistoryManager.class);
     when(historyManager.isHistoryEnabled()).thenReturn(true);
@@ -2168,7 +2828,7 @@ public class DefaultHistoryManagerDiffblueTest {
     CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
         commentDataManager);
 
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
+    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration2.getClock()).thenReturn(new DefaultClockImpl());
     when(processEngineConfiguration2.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
 
@@ -2188,80 +2848,11 @@ public class DefaultHistoryManagerDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultHistoryManager#recordIdentityLinkCreated(IdentityLinkEntity)}.
-   * <ul>
-   *   <li>Given {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#recordIdentityLinkCreated(IdentityLinkEntity)}
+   * Method under test:
+   * {@link DefaultHistoryManager#recordIdentityLinkCreated(IdentityLinkEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultHistoryManager.recordIdentityLinkCreated(IdentityLinkEntity)"})
-  public void testRecordIdentityLinkCreated_givenNull() throws UnsupportedEncodingException {
-    // Arrange
-    HistoricIdentityLinkEntityImpl historicIdentityLinkEntityImpl = mock(HistoricIdentityLinkEntityImpl.class);
-    doNothing().when(historicIdentityLinkEntityImpl).setId(Mockito.<String>any());
-    doNothing().when(historicIdentityLinkEntityImpl).setDetails(Mockito.<byte[]>any());
-    doNothing().when(historicIdentityLinkEntityImpl).setGroupId(Mockito.<String>any());
-    doNothing().when(historicIdentityLinkEntityImpl).setProcessInstanceId(Mockito.<String>any());
-    doNothing().when(historicIdentityLinkEntityImpl).setTaskId(Mockito.<String>any());
-    doNothing().when(historicIdentityLinkEntityImpl).setType(Mockito.<String>any());
-    doNothing().when(historicIdentityLinkEntityImpl).setUserId(Mockito.<String>any());
-    HistoricIdentityLinkDataManager historicIdentityLinkDataManager = mock(HistoricIdentityLinkDataManager.class);
-    doNothing().when(historicIdentityLinkDataManager).insert(Mockito.<HistoricIdentityLinkEntity>any());
-    when(historicIdentityLinkDataManager.create()).thenReturn(historicIdentityLinkEntityImpl);
-    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.getHistoricIdentityLinkEntityManager())
-        .thenReturn(new HistoricIdentityLinkEntityManagerImpl(new JtaProcessEngineConfiguration(),
-            historicIdentityLinkDataManager));
-    DefaultHistoryManager defaultHistoryManager = new DefaultHistoryManager(processEngineConfiguration,
-        HistoryLevel.AUDIT);
-    IdentityLinkEntityImpl identityLink = mock(IdentityLinkEntityImpl.class);
-    when(identityLink.getDetails()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
-    when(identityLink.getId()).thenReturn("42");
-    when(identityLink.getGroupId()).thenReturn("42");
-    when(identityLink.getType()).thenReturn("Type");
-    when(identityLink.getUserId()).thenReturn("42");
-    when(identityLink.getProcessInstanceId()).thenReturn(null);
-    when(identityLink.getTaskId()).thenReturn("42");
-
-    // Act
-    defaultHistoryManager.recordIdentityLinkCreated(identityLink);
-
-    // Assert
-    verify(processEngineConfiguration, atLeast(1)).getHistoricIdentityLinkEntityManager();
-    verify(identityLink).getId();
-    verify(historicIdentityLinkEntityImpl).setId(eq("42"));
-    verify(historicIdentityLinkEntityImpl).setDetails(isA(byte[].class));
-    verify(historicIdentityLinkEntityImpl).setGroupId(eq("42"));
-    verify(historicIdentityLinkEntityImpl).setProcessInstanceId(isNull());
-    verify(historicIdentityLinkEntityImpl).setTaskId(eq("42"));
-    verify(historicIdentityLinkEntityImpl).setType(eq("Type"));
-    verify(historicIdentityLinkEntityImpl).setUserId(eq("42"));
-    verify(identityLink).getDetails();
-    verify(identityLink).getGroupId();
-    verify(identityLink, atLeast(1)).getProcessInstanceId();
-    verify(identityLink, atLeast(1)).getTaskId();
-    verify(identityLink).getType();
-    verify(identityLink).getUserId();
-    verify(historicIdentityLinkDataManager).create();
-    verify(historicIdentityLinkDataManager).insert(isA(HistoricIdentityLinkEntity.class));
-  }
-
-  /**
-   * Test {@link DefaultHistoryManager#recordIdentityLinkCreated(IdentityLinkEntity)}.
-   * <ul>
-   *   <li>Then calls {@link ProcessEngineConfigurationImpl#getHistoricIdentityLinkEntityManager()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#recordIdentityLinkCreated(IdentityLinkEntity)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultHistoryManager.recordIdentityLinkCreated(IdentityLinkEntity)"})
-  public void testRecordIdentityLinkCreated_thenCallsGetHistoricIdentityLinkEntityManager()
-      throws UnsupportedEncodingException {
+  public void testRecordIdentityLinkCreated() throws UnsupportedEncodingException {
     // Arrange
     HistoricIdentityLinkEntityImpl historicIdentityLinkEntityImpl = mock(HistoricIdentityLinkEntityImpl.class);
     doNothing().when(historicIdentityLinkEntityImpl).setId(Mockito.<String>any());
@@ -2313,17 +2904,67 @@ public class DefaultHistoryManagerDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultHistoryManager#deleteHistoricIdentityLink(String)}.
-   * <ul>
-   *   <li>Then calls {@link ProcessEngineConfigurationImpl#getHistoricIdentityLinkEntityManager()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#deleteHistoricIdentityLink(String)}
+   * Method under test:
+   * {@link DefaultHistoryManager#recordIdentityLinkCreated(IdentityLinkEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultHistoryManager.deleteHistoricIdentityLink(String)"})
-  public void testDeleteHistoricIdentityLink_thenCallsGetHistoricIdentityLinkEntityManager() {
+  public void testRecordIdentityLinkCreated2() throws UnsupportedEncodingException {
+    // Arrange
+    HistoricIdentityLinkEntityImpl historicIdentityLinkEntityImpl = mock(HistoricIdentityLinkEntityImpl.class);
+    doNothing().when(historicIdentityLinkEntityImpl).setId(Mockito.<String>any());
+    doNothing().when(historicIdentityLinkEntityImpl).setDetails(Mockito.<byte[]>any());
+    doNothing().when(historicIdentityLinkEntityImpl).setGroupId(Mockito.<String>any());
+    doNothing().when(historicIdentityLinkEntityImpl).setProcessInstanceId(Mockito.<String>any());
+    doNothing().when(historicIdentityLinkEntityImpl).setTaskId(Mockito.<String>any());
+    doNothing().when(historicIdentityLinkEntityImpl).setType(Mockito.<String>any());
+    doNothing().when(historicIdentityLinkEntityImpl).setUserId(Mockito.<String>any());
+    HistoricIdentityLinkDataManager historicIdentityLinkDataManager = mock(HistoricIdentityLinkDataManager.class);
+    doNothing().when(historicIdentityLinkDataManager).insert(Mockito.<HistoricIdentityLinkEntity>any());
+    when(historicIdentityLinkDataManager.create()).thenReturn(historicIdentityLinkEntityImpl);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getHistoricIdentityLinkEntityManager())
+        .thenReturn(new HistoricIdentityLinkEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            historicIdentityLinkDataManager));
+    DefaultHistoryManager defaultHistoryManager = new DefaultHistoryManager(processEngineConfiguration,
+        HistoryLevel.AUDIT);
+    IdentityLinkEntityImpl identityLink = mock(IdentityLinkEntityImpl.class);
+    when(identityLink.getDetails()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
+    when(identityLink.getId()).thenReturn("42");
+    when(identityLink.getGroupId()).thenReturn("42");
+    when(identityLink.getType()).thenReturn("Type");
+    when(identityLink.getUserId()).thenReturn("42");
+    when(identityLink.getProcessInstanceId()).thenReturn(null);
+    when(identityLink.getTaskId()).thenReturn("42");
+
+    // Act
+    defaultHistoryManager.recordIdentityLinkCreated(identityLink);
+
+    // Assert
+    verify(processEngineConfiguration, atLeast(1)).getHistoricIdentityLinkEntityManager();
+    verify(identityLink).getId();
+    verify(historicIdentityLinkEntityImpl).setId(eq("42"));
+    verify(historicIdentityLinkEntityImpl).setDetails(isA(byte[].class));
+    verify(historicIdentityLinkEntityImpl).setGroupId(eq("42"));
+    verify(historicIdentityLinkEntityImpl).setProcessInstanceId(isNull());
+    verify(historicIdentityLinkEntityImpl).setTaskId(eq("42"));
+    verify(historicIdentityLinkEntityImpl).setType(eq("Type"));
+    verify(historicIdentityLinkEntityImpl).setUserId(eq("42"));
+    verify(identityLink).getDetails();
+    verify(identityLink).getGroupId();
+    verify(identityLink, atLeast(1)).getProcessInstanceId();
+    verify(identityLink, atLeast(1)).getTaskId();
+    verify(identityLink).getType();
+    verify(identityLink).getUserId();
+    verify(historicIdentityLinkDataManager).create();
+    verify(historicIdentityLinkDataManager).insert(isA(HistoricIdentityLinkEntity.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#deleteHistoricIdentityLink(String)}
+   */
+  @Test
+  public void testDeleteHistoricIdentityLink() {
     // Arrange
     HistoricIdentityLinkEntityManager historicIdentityLinkEntityManager = mock(HistoricIdentityLinkEntityManager.class);
     doNothing().when(historicIdentityLinkEntityManager).delete(Mockito.<String>any());
@@ -2340,13 +2981,10 @@ public class DefaultHistoryManagerDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultHistoryManager#updateProcessBusinessKeyInHistory(ExecutionEntity)}.
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#updateProcessBusinessKeyInHistory(ExecutionEntity)}
+   * Method under test:
+   * {@link DefaultHistoryManager#updateProcessBusinessKeyInHistory(ExecutionEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultHistoryManager.updateProcessBusinessKeyInHistory(ExecutionEntity)"})
   public void testUpdateProcessBusinessKeyInHistory() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
@@ -2361,22 +2999,16 @@ public class DefaultHistoryManagerDiffblueTest {
     defaultHistoryManager
         .updateProcessBusinessKeyInHistory(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
-    // Assert
+    // Assert that nothing has changed
     verify(processEngineConfiguration).getHistoricProcessInstanceEntityManager();
   }
 
   /**
-   * Test {@link DefaultHistoryManager#updateProcessBusinessKeyInHistory(ExecutionEntity)}.
-   * <ul>
-   *   <li>Then calls {@link DelegateExecution#getId()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#updateProcessBusinessKeyInHistory(ExecutionEntity)}
+   * Method under test:
+   * {@link DefaultHistoryManager#updateProcessBusinessKeyInHistory(ExecutionEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultHistoryManager.updateProcessBusinessKeyInHistory(ExecutionEntity)"})
-  public void testUpdateProcessBusinessKeyInHistory_thenCallsGetId() {
+  public void testUpdateProcessBusinessKeyInHistory2() {
     // Arrange
     HistoricProcessInstanceDataManager historicProcessInstanceDataManager = mock(
         HistoricProcessInstanceDataManager.class);
@@ -2406,23 +3038,52 @@ public class DefaultHistoryManagerDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultHistoryManager#parseActivityType(FlowElement)}.
-   * <ul>
-   *   <li>When {@link AdhocSubProcess} (default constructor).</li>
-   *   <li>Then return {@code adhocSubProcess}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultHistoryManager#parseActivityType(FlowElement)}
+   * Method under test:
+   * {@link DefaultHistoryManager#parseActivityType(FlowElement)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String DefaultHistoryManager.parseActivityType(FlowElement)"})
-  public void testParseActivityType_whenAdhocSubProcess_thenReturnAdhocSubProcess() {
+  public void testParseActivityType() {
     // Arrange
     DefaultHistoryManager defaultHistoryManager = new DefaultHistoryManager(new JtaProcessEngineConfiguration(),
         HistoryLevel.NONE);
 
     // Act and Assert
     assertEquals("adhocSubProcess", defaultHistoryManager.parseActivityType(new AdhocSubProcess()));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultHistoryManager#parseActivityType(FlowElement)}
+   */
+  @Test
+  public void testParseActivityType2() {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
+    DefaultHistoryManager defaultHistoryManager = new DefaultHistoryManager(processEngineConfiguration,
+        HistoryLevel.NONE);
+
+    // Act and Assert
+    assertEquals("adhocSubProcess", defaultHistoryManager.parseActivityType(new AdhocSubProcess()));
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>
+   * {@link DefaultHistoryManager#DefaultHistoryManager(ProcessEngineConfigurationImpl, HistoryLevel)}
+   *   <li>{@link DefaultHistoryManager#setHistoryLevel(HistoryLevel)}
+   *   <li>{@link DefaultHistoryManager#getHistoryLevel()}
+   * </ul>
+   */
+  @Test
+  public void testGettersAndSetters() {
+    // Arrange and Act
+    DefaultHistoryManager actualDefaultHistoryManager = new DefaultHistoryManager(new JtaProcessEngineConfiguration(),
+        HistoryLevel.NONE);
+    actualDefaultHistoryManager.setHistoryLevel(HistoryLevel.NONE);
+
+    // Assert that nothing has changed
+    assertEquals(HistoryLevel.NONE, actualDefaultHistoryManager.getHistoryLevel());
   }
 }

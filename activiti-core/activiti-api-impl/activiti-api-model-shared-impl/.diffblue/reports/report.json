@@ -3,25 +3,23 @@
     "reportVersion" : "2.6"
   },
   "run" : {
-    "version" : "2025.02.02-08b2a5a-licensed",
-    "creationTimestamp" : "2025-10-21T18:36:58.703503864Z",
+    "version" : "2024.10.01-2ee2e3d-licensed",
+    "creationTimestamp" : "2025-10-28T11:31:52.893683331Z",
     "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
-    "totalTime" : 113.375,
-    "environmentDetectionTime" : 0.351,
-    "indexingTime" : 0.387,
-    "entryPointsTime" : 0.347,
-    "generationTime" : 3735.708,
-    "timeToFirstTest" : 5813.234,
-    "timeToLastTest" : 5146.106,
-    "indexQueryTime" : 4.2010000000000005,
-    "verificationTime" : 186.903,
-    "validationTime" : 11.407
+    "totalTime" : 5088.529,
+    "environmentDetectionTime" : 0.409,
+    "indexingTime" : 0.354,
+    "entryPointsTime" : 0.405,
+    "generationTime" : 2937.41,
+    "timeToFirstTest" : 87.907,
+    "timeToLastTest" : 90.172,
+    "indexQueryTime" : 4.874,
+    "verificationTime" : 226.238,
+    "validationTime" : 12.883
   },
   "codes" : {
     "R000" : "Success",
     "R002" : "Missing observers",
-    "R004" : "No meaningful assertions found",
-    "R031" : "Method may be time-sensitive",
     "T000" : "Method eligible for test creation",
     "T001" : "Trivial getter",
     "T002" : "Trivial setter",
@@ -34,9 +32,9 @@
   "summary" : {
     "classesCount" : 12,
     "methodsCount" : 63,
-    "cumulativeDiffblueTestCount" : 43,
+    "cumulativeDiffblueTestCount" : 47,
     "cumulativeManualTestCount" : 0,
-    "completeTestCount" : 43,
+    "completeTestCount" : 47,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 396,
@@ -50,19 +48,17 @@
       "T020" : 2
     },
     "perMethodOutcome" : {
-      "R000" : 50,
+      "R000" : 53,
       "R002" : 1,
-      "R004" : 2,
-      "R031" : 1,
       "T004" : 2,
       "T005" : 2,
       "T010" : 5
     },
     "perTestOutcome" : {
-      "R000" : 43
+      "R000" : 47
     },
     "perTestValidation" : {
-      "V000" : 43
+      "V000" : 47
     }
   },
   "classes" : {
@@ -117,20 +113,18 @@
     },
     "org.activiti.api.runtime.event.impl.RuntimeEventImpl" : {
       "methodsCount" : 22,
-      "completeTestCount" : 20,
+      "completeTestCount" : 24,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 19,
         "T010" : 3
       },
       "perMethodOutcome" : {
-        "R000" : 16,
-        "R004" : 2,
-        "R031" : 1,
+        "R000" : 19,
         "T010" : 3
       },
       "perTestOutcome" : {
-        "R000" : 20
+        "R000" : 24
       }
     },
     "org.activiti.api.runtime.event.impl.VariableCreatedEventImpl" : {
@@ -347,12 +341,12 @@
       ]
     },
     "org.activiti.api.runtime.event.impl.RuntimeEventImpl.equals:(Ljava/lang/Object;)Z" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 7
       },
       "lineNumbers" : [
         168,
@@ -399,10 +393,13 @@
       ]
     },
     "org.activiti.api.runtime.event.impl.RuntimeEventImpl.getId:()Ljava/lang/String;" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R004",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
       "lineNumbers" : [
         56
       ]
@@ -468,21 +465,24 @@
       ]
     },
     "org.activiti.api.runtime.event.impl.RuntimeEventImpl.getTimestamp:()Ljava/lang/Long;" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R031",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
       "lineNumbers" : [
         66
       ]
     },
     "org.activiti.api.runtime.event.impl.RuntimeEventImpl.hashCode:()I" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 7
       },
       "lineNumbers" : [
         154,
@@ -582,10 +582,13 @@
       ]
     },
     "org.activiti.api.runtime.event.impl.RuntimeEventImpl.toString:()Ljava/lang/String;" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R004",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
       "lineNumbers" : [
         129,
         130,

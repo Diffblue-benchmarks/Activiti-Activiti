@@ -17,41 +17,28 @@ package org.activiti.image.impl.icon;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class TimerIconTypeDiffblueTest {
   /**
-   * Test {@link TimerIconType#getWidth()}.
-   * <p>
    * Method under test: {@link TimerIconType#getWidth()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.lang.Integer TimerIconType.getWidth()"})
   public void testGetWidth() {
     // Arrange, Act and Assert
     assertEquals(20, (new TimerIconType()).getWidth().intValue());
   }
 
   /**
-   * Test {@link TimerIconType#getHeight()}.
-   * <p>
    * Method under test: {@link TimerIconType#getHeight()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.lang.Integer TimerIconType.getHeight()"})
   public void testGetHeight() {
     // Arrange, Act and Assert
     assertEquals(20, (new TimerIconType()).getHeight().intValue());
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link TimerIconType}
@@ -64,11 +51,6 @@ public class TimerIconTypeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void TimerIconType.<init>()", "String TimerIconType.getAnchorValue()",
-      "String TimerIconType.getDValue()", "String TimerIconType.getFillValue()",
-      "String TimerIconType.getStrokeValue()", "String TimerIconType.getStrokeWidth()",
-      "String TimerIconType.getStyleValue()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     TimerIconType actualTimerIconType = new TimerIconType();

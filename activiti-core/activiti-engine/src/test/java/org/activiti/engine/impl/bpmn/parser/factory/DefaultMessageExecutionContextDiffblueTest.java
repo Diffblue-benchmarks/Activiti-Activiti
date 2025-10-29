@@ -27,8 +27,6 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,7 +43,6 @@ import org.activiti.engine.impl.el.FixedValue;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -60,50 +57,18 @@ public class DefaultMessageExecutionContextDiffblueTest {
   @Mock
   private ExpressionManager expressionManager;
 
-  /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link DefaultMessageExecutionContext#DefaultMessageExecutionContext(MessageEventDefinition, ExpressionManager, MessagePayloadMappingProvider)}
-   *   <li>{@link DefaultMessageExecutionContext#getExpressionManager()}
-   *   <li>{@link DefaultMessageExecutionContext#getMessagePayloadMappingProvider()}
-   * </ul>
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void DefaultMessageExecutionContext.<init>(MessageEventDefinition, ExpressionManager, MessagePayloadMappingProvider)",
-      "ExpressionManager DefaultMessageExecutionContext.getExpressionManager()",
-      "MessagePayloadMappingProvider DefaultMessageExecutionContext.getMessagePayloadMappingProvider()"})
-  public void testGettersAndSetters() {
-    // Arrange
-    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
-    ExpressionManager expressionManager = new ExpressionManager();
-    MessagePayloadMappingProvider messagePayloadMappingProvider = mock(MessagePayloadMappingProvider.class);
+  @Mock
+  private MessageEventDefinition messageEventDefinition;
 
-    // Act
-    DefaultMessageExecutionContext actualDefaultMessageExecutionContext = new DefaultMessageExecutionContext(
-        messageEventDefinition, expressionManager, messagePayloadMappingProvider);
-    ExpressionManager actualExpressionManager = actualDefaultMessageExecutionContext.getExpressionManager();
-
-    // Assert
-    assertSame(expressionManager, actualExpressionManager);
-    assertSame(messagePayloadMappingProvider, actualDefaultMessageExecutionContext.getMessagePayloadMappingProvider());
-  }
+  @Mock
+  private MessagePayloadMappingProvider messagePayloadMappingProvider;
 
   /**
-   * Test {@link DefaultMessageExecutionContext#getMessageName(DelegateExecution)}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultMessageExecutionContext#getMessageName(DelegateExecution)}
+   * Method under test:
+   * {@link DefaultMessageExecutionContext#getMessageName(DelegateExecution)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String DefaultMessageExecutionContext.getMessageName(DelegateExecution)"})
-  public void testGetMessageName_thenReturnNull() {
+  public void testGetMessageName() {
     // Arrange
     MessageEventDefinition messageEventDefinition = mock(MessageEventDefinition.class);
     when(messageEventDefinition.getMessageRef()).thenReturn("Message Ref");
@@ -129,17 +94,11 @@ public class DefaultMessageExecutionContextDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultMessageExecutionContext#getMessageName(DelegateExecution)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultMessageExecutionContext#getMessageName(DelegateExecution)}
+   * Method under test:
+   * {@link DefaultMessageExecutionContext#getMessageName(DelegateExecution)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String DefaultMessageExecutionContext.getMessageName(DelegateExecution)"})
-  public void testGetMessageName_thenThrowActivitiIllegalArgumentException() {
+  public void testGetMessageName2() {
     // Arrange
     MessageEventDefinition messageEventDefinition = mock(MessageEventDefinition.class);
     when(messageEventDefinition.getMessageRef()).thenReturn("Message Ref");
@@ -162,17 +121,11 @@ public class DefaultMessageExecutionContextDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultMessageExecutionContext#getCorrelationKey(DelegateExecution)}.
-   * <ul>
-   *   <li>Then return not Present.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultMessageExecutionContext#getCorrelationKey(DelegateExecution)}
+   * Method under test:
+   * {@link DefaultMessageExecutionContext#getCorrelationKey(DelegateExecution)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Optional DefaultMessageExecutionContext.getCorrelationKey(DelegateExecution)"})
-  public void testGetCorrelationKey_thenReturnNotPresent() {
+  public void testGetCorrelationKey() {
     // Arrange
     MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
     DefaultMessageExecutionContext defaultMessageExecutionContext = new DefaultMessageExecutionContext(
@@ -185,17 +138,11 @@ public class DefaultMessageExecutionContextDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultMessageExecutionContext#getMessagePayload(DelegateExecution)}.
-   * <ul>
-   *   <li>Then return {@link Optional} with {@link HashMap#HashMap()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultMessageExecutionContext#getMessagePayload(DelegateExecution)}
+   * Method under test:
+   * {@link DefaultMessageExecutionContext#getMessagePayload(DelegateExecution)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Optional DefaultMessageExecutionContext.getMessagePayload(DelegateExecution)"})
-  public void testGetMessagePayload_thenReturnOptionalWithHashMap() {
+  public void testGetMessagePayload() {
     // Arrange
     MessagePayloadMappingProvider messagePayloadMappingProvider = mock(MessagePayloadMappingProvider.class);
     Optional<Map<String, Object>> ofResult = Optional.of(new HashMap<>());
@@ -214,17 +161,11 @@ public class DefaultMessageExecutionContextDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultMessageExecutionContext#getMessagePayload(DelegateExecution)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultMessageExecutionContext#getMessagePayload(DelegateExecution)}
+   * Method under test:
+   * {@link DefaultMessageExecutionContext#getMessagePayload(DelegateExecution)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Optional DefaultMessageExecutionContext.getMessagePayload(DelegateExecution)"})
-  public void testGetMessagePayload_thenThrowActivitiIllegalArgumentException() {
+  public void testGetMessagePayload2() {
     // Arrange
     MessagePayloadMappingProvider messagePayloadMappingProvider = mock(MessagePayloadMappingProvider.class);
     when(messagePayloadMappingProvider.getMessagePayload(Mockito.<DelegateExecution>any()))
@@ -240,17 +181,38 @@ public class DefaultMessageExecutionContextDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultMessageExecutionContext#createThrowMessage(DelegateExecution)}.
-   * <ul>
-   *   <li>Then return BusinessKey is {@code Process Instance Business Key}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultMessageExecutionContext#createThrowMessage(DelegateExecution)}
+   * Method under test:
+   * {@link DefaultMessageExecutionContext#createThrowMessage(DelegateExecution)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ThrowMessage DefaultMessageExecutionContext.createThrowMessage(DelegateExecution)"})
-  public void testCreateThrowMessage_thenReturnBusinessKeyIsProcessInstanceBusinessKey() {
+  public void testCreateThrowMessage() {
+    // Arrange
+    MessageEventDefinition messageEventDefinition = mock(MessageEventDefinition.class);
+    when(messageEventDefinition.getMessageRef()).thenReturn("Message Ref");
+
+    ArrayList<CustomFunctionProvider> customFunctionProviders = new ArrayList<>();
+    customFunctionProviders.add(mock(CustomFunctionProvider.class));
+    ExpressionManager expressionManager = mock(ExpressionManager.class);
+    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(null);
+    doNothing().when(expressionManager).setCustomFunctionProviders(Mockito.<List<CustomFunctionProvider>>any());
+    expressionManager.setCustomFunctionProviders(customFunctionProviders);
+    DefaultMessageExecutionContext defaultMessageExecutionContext = new DefaultMessageExecutionContext(
+        messageEventDefinition, expressionManager, mock(MessagePayloadMappingProvider.class));
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> defaultMessageExecutionContext
+        .createThrowMessage(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    verify(messageEventDefinition).getMessageRef();
+    verify(expressionManager).createExpression(eq("Message Ref"));
+    verify(expressionManager).setCustomFunctionProviders(isA(List.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultMessageExecutionContext#createThrowMessage(DelegateExecution)}
+   */
+  @Test
+  public void testCreateThrowMessage2() {
     // Arrange
     MessageEventDefinition messageEventDefinition = mock(MessageEventDefinition.class);
     when(messageEventDefinition.getCorrelationKey()).thenReturn("Correlation Key");
@@ -291,47 +253,44 @@ public class DefaultMessageExecutionContextDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultMessageExecutionContext#createThrowMessage(DelegateExecution)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultMessageExecutionContext#createThrowMessage(DelegateExecution)}
+   * Method under test:
+   * {@link DefaultMessageExecutionContext#evaluateExpression(String, DelegateExecution)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ThrowMessage DefaultMessageExecutionContext.createThrowMessage(DelegateExecution)"})
-  public void testCreateThrowMessage_thenThrowActivitiIllegalArgumentException() {
+  public void testEvaluateExpression() {
     // Arrange
-    MessageEventDefinition messageEventDefinition = mock(MessageEventDefinition.class);
-    when(messageEventDefinition.getMessageRef()).thenReturn("Message Ref");
+    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
 
-    ArrayList<CustomFunctionProvider> customFunctionProviders = new ArrayList<>();
-    customFunctionProviders.add(mock(CustomFunctionProvider.class));
-    ExpressionManager expressionManager = mock(ExpressionManager.class);
-    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(null);
-    doNothing().when(expressionManager).setCustomFunctionProviders(Mockito.<List<CustomFunctionProvider>>any());
-    expressionManager.setCustomFunctionProviders(customFunctionProviders);
-    DefaultMessageExecutionContext defaultMessageExecutionContext = new DefaultMessageExecutionContext(
-        messageEventDefinition, expressionManager, mock(MessagePayloadMappingProvider.class));
+    // Act
+    String actualEvaluateExpressionResult = defaultMessageExecutionContext.evaluateExpression("Expression",
+        ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
-    // Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> defaultMessageExecutionContext
-        .createThrowMessage(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
-    verify(messageEventDefinition).getMessageRef();
-    verify(expressionManager).createExpression(eq("Message Ref"));
-    verify(expressionManager).setCustomFunctionProviders(isA(List.class));
+    // Assert
+    verify(expressionManager).createExpression(eq("Expression"));
+    assertEquals("null", actualEvaluateExpressionResult);
   }
 
   /**
-   * Test {@link DefaultMessageExecutionContext#evaluateExpression(String, DelegateExecution)}.
-   * <p>
-   * Method under test: {@link DefaultMessageExecutionContext#evaluateExpression(String, DelegateExecution)}
+   * Method under test:
+   * {@link DefaultMessageExecutionContext#evaluateExpression(String, DelegateExecution)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String DefaultMessageExecutionContext.evaluateExpression(String, DelegateExecution)"})
-  public void testEvaluateExpression() {
+  public void testEvaluateExpression2() {
+    // Arrange
+    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(null);
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> defaultMessageExecutionContext
+        .evaluateExpression("Expression", ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    verify(expressionManager).createExpression(eq("Expression"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultMessageExecutionContext#evaluateExpression(String, DelegateExecution)}
+   */
+  @Test
+  public void testEvaluateExpression3() {
     // Arrange
     when(expressionManager.createExpression(Mockito.<String>any()))
         .thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
@@ -343,47 +302,28 @@ public class DefaultMessageExecutionContextDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultMessageExecutionContext#evaluateExpression(String, DelegateExecution)}.
+   * Methods under test:
    * <ul>
-   *   <li>Given {@link ExpressionManager} {@link ExpressionManager#createExpression(String)} return {@code null}.</li>
+   *   <li>
+   * {@link DefaultMessageExecutionContext#DefaultMessageExecutionContext(MessageEventDefinition, ExpressionManager, MessagePayloadMappingProvider)}
+   *   <li>{@link DefaultMessageExecutionContext#getExpressionManager()}
+   *   <li>{@link DefaultMessageExecutionContext#getMessagePayloadMappingProvider()}
    * </ul>
-   * <p>
-   * Method under test: {@link DefaultMessageExecutionContext#evaluateExpression(String, DelegateExecution)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String DefaultMessageExecutionContext.evaluateExpression(String, DelegateExecution)"})
-  public void testEvaluateExpression_givenExpressionManagerCreateExpressionReturnNull() {
+  public void testGettersAndSetters() {
     // Arrange
-    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(null);
-
-    // Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> defaultMessageExecutionContext
-        .evaluateExpression("Expression", ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
-    verify(expressionManager).createExpression(eq("Expression"));
-  }
-
-  /**
-   * Test {@link DefaultMessageExecutionContext#evaluateExpression(String, DelegateExecution)}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultMessageExecutionContext#evaluateExpression(String, DelegateExecution)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String DefaultMessageExecutionContext.evaluateExpression(String, DelegateExecution)"})
-  public void testEvaluateExpression_thenReturnNull() {
-    // Arrange
-    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
+    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
+    ExpressionManager expressionManager = new ExpressionManager();
+    MessagePayloadMappingProvider messagePayloadMappingProvider = mock(MessagePayloadMappingProvider.class);
 
     // Act
-    String actualEvaluateExpressionResult = defaultMessageExecutionContext.evaluateExpression("Expression",
-        ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    DefaultMessageExecutionContext actualDefaultMessageExecutionContext = new DefaultMessageExecutionContext(
+        messageEventDefinition, expressionManager, messagePayloadMappingProvider);
+    ExpressionManager actualExpressionManager = actualDefaultMessageExecutionContext.getExpressionManager();
 
     // Assert
-    verify(expressionManager).createExpression(eq("Expression"));
-    assertEquals("null", actualEvaluateExpressionResult);
+    assertSame(expressionManager, actualExpressionManager);
+    assertSame(messagePayloadMappingProvider, actualDefaultMessageExecutionContext.getMessagePayloadMappingProvider());
   }
 }

@@ -19,38 +19,42 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import java.util.function.BiFunction;
 import org.junit.jupiter.api.Test;
 
 class ExtensionDiffblueTest {
   /**
-   * Test {@link Extension#getConstantForFlowElement(String)}.
-   * <p>
    * Method under test: {@link Extension#getConstantForFlowElement(String)}
    */
   @Test
-  @DisplayName("Test getConstantForFlowElement(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ProcessConstantsMapping Extension.getConstantForFlowElement(String)"})
   void testGetConstantForFlowElement() {
     // Arrange, Act and Assert
     assertTrue((new Extension()).getConstantForFlowElement("01234567-89AB-CDEF-FEDC-BA9876543210").isEmpty());
   }
 
   /**
-   * Test {@link Extension#getMappingForFlowElement(String)}.
-   * <p>
+   * Method under test: {@link Extension#getConstantForFlowElement(String)}
+   */
+  @Test
+  void testGetConstantForFlowElement2() {
+    // Arrange
+    HashMap<String, VariableDefinition> properties = new HashMap<>();
+    properties.computeIfPresent("foo", mock(BiFunction.class));
+
+    Extension extension = new Extension();
+    extension.setProperties(properties);
+
+    // Act and Assert
+    assertTrue(extension.getConstantForFlowElement("01234567-89AB-CDEF-FEDC-BA9876543210").isEmpty());
+  }
+
+  /**
    * Method under test: {@link Extension#getMappingForFlowElement(String)}
    */
   @Test
-  @DisplayName("Test getMappingForFlowElement(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ProcessVariablesMapping Extension.getMappingForFlowElement(String)"})
   void testGetMappingForFlowElement() {
     // Arrange and Act
     ProcessVariablesMapping actualMappingForFlowElement = (new Extension())
@@ -63,55 +67,91 @@ class ExtensionDiffblueTest {
   }
 
   /**
-   * Test {@link Extension#findAssigneeTemplateForTask(String)}.
-   * <ul>
-   *   <li>Given {@link Extension} (default constructor).</li>
-   *   <li>Then return not Present.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link Extension#getMappingForFlowElement(String)}
+   */
+  @Test
+  void testGetMappingForFlowElement2() {
+    // Arrange
+    HashMap<String, VariableDefinition> properties = new HashMap<>();
+    properties.computeIfPresent("foo", mock(BiFunction.class));
+
+    Extension extension = new Extension();
+    extension.setProperties(properties);
+
+    // Act
+    ProcessVariablesMapping actualMappingForFlowElement = extension
+        .getMappingForFlowElement("01234567-89AB-CDEF-FEDC-BA9876543210");
+
+    // Assert
+    assertNull(actualMappingForFlowElement.getMappingType());
+    assertTrue(actualMappingForFlowElement.getInputs().isEmpty());
+    assertTrue(actualMappingForFlowElement.getOutputs().isEmpty());
+  }
+
+  /**
    * Method under test: {@link Extension#findAssigneeTemplateForTask(String)}
    */
   @Test
-  @DisplayName("Test findAssigneeTemplateForTask(String); given Extension (default constructor); then return not Present")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.util.Optional Extension.findAssigneeTemplateForTask(String)"})
-  void testFindAssigneeTemplateForTask_givenExtension_thenReturnNotPresent() {
+  void testFindAssigneeTemplateForTask() {
     // Arrange, Act and Assert
     assertFalse((new Extension()).findAssigneeTemplateForTask("01234567-89AB-CDEF-FEDC-BA9876543210").isPresent());
   }
 
   /**
-   * Test {@link Extension#findCandidateTemplateForTask(String)}.
-   * <ul>
-   *   <li>Given {@link Extension} (default constructor).</li>
-   *   <li>Then return not Present.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link Extension#findAssigneeTemplateForTask(String)}
+   */
+  @Test
+  void testFindAssigneeTemplateForTask2() {
+    // Arrange
+    HashMap<String, VariableDefinition> properties = new HashMap<>();
+    properties.computeIfPresent("foo", mock(BiFunction.class));
+
+    Extension extension = new Extension();
+    extension.setProperties(properties);
+
+    // Act and Assert
+    assertFalse(extension.findAssigneeTemplateForTask("01234567-89AB-CDEF-FEDC-BA9876543210").isPresent());
+  }
+
+  /**
    * Method under test: {@link Extension#findCandidateTemplateForTask(String)}
    */
   @Test
-  @DisplayName("Test findCandidateTemplateForTask(String); given Extension (default constructor); then return not Present")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.util.Optional Extension.findCandidateTemplateForTask(String)"})
-  void testFindCandidateTemplateForTask_givenExtension_thenReturnNotPresent() {
+  void testFindCandidateTemplateForTask() {
     // Arrange, Act and Assert
     assertFalse((new Extension()).findCandidateTemplateForTask("01234567-89AB-CDEF-FEDC-BA9876543210").isPresent());
   }
 
   /**
-   * Test {@link Extension#getProperty(String)}.
-   * <ul>
-   *   <li>Given {@link Extension} (default constructor) Properties is {@code null}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link Extension#findCandidateTemplateForTask(String)}
+   */
+  @Test
+  void testFindCandidateTemplateForTask2() {
+    // Arrange
+    HashMap<String, VariableDefinition> properties = new HashMap<>();
+    properties.computeIfPresent("foo", mock(BiFunction.class));
+
+    Extension extension = new Extension();
+    extension.setProperties(properties);
+
+    // Act and Assert
+    assertFalse(extension.findCandidateTemplateForTask("01234567-89AB-CDEF-FEDC-BA9876543210").isPresent());
+  }
+
+  /**
    * Method under test: {@link Extension#getProperty(String)}
    */
   @Test
-  @DisplayName("Test getProperty(String); given Extension (default constructor) Properties is 'null'; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"VariableDefinition Extension.getProperty(String)"})
-  void testGetProperty_givenExtensionPropertiesIsNull_thenReturnNull() {
+  void testGetProperty() {
+    // Arrange, Act and Assert
+    assertNull((new Extension()).getProperty("01234567-89AB-CDEF-FEDC-BA9876543210"));
+  }
+
+  /**
+   * Method under test: {@link Extension#getProperty(String)}
+   */
+  @Test
+  void testGetProperty2() {
     // Arrange
     Extension extension = new Extension();
     extension.setProperties(null);
@@ -121,38 +161,35 @@ class ExtensionDiffblueTest {
   }
 
   /**
-   * Test {@link Extension#getProperty(String)}.
-   * <ul>
-   *   <li>Given {@link Extension} (default constructor).</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Extension#getProperty(String)}
    */
   @Test
-  @DisplayName("Test getProperty(String); given Extension (default constructor); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"VariableDefinition Extension.getProperty(String)"})
-  void testGetProperty_givenExtension_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new Extension()).getProperty("01234567-89AB-CDEF-FEDC-BA9876543210"));
+  void testGetProperty3() {
+    // Arrange
+    HashMap<String, ProcessVariablesMapping> mappings = new HashMap<>();
+    mappings.computeIfPresent("foo", mock(BiFunction.class));
+
+    Extension extension = new Extension();
+    extension.setMappings(mappings);
+
+    // Act and Assert
+    assertNull(extension.getProperty("01234567-89AB-CDEF-FEDC-BA9876543210"));
   }
 
   /**
-   * Test {@link Extension#getPropertyByName(String)}.
-   * <ul>
-   *   <li>Given {@link Extension} (default constructor) Properties is {@code null}.</li>
-   *   <li>When {@code Name}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Extension#getPropertyByName(String)}
    */
   @Test
-  @DisplayName("Test getPropertyByName(String); given Extension (default constructor) Properties is 'null'; when 'Name'; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"VariableDefinition Extension.getPropertyByName(String)"})
-  void testGetPropertyByName_givenExtensionPropertiesIsNull_whenName_thenReturnNull() {
+  void testGetPropertyByName() {
+    // Arrange, Act and Assert
+    assertNull((new Extension()).getPropertyByName("Name"));
+  }
+
+  /**
+   * Method under test: {@link Extension#getPropertyByName(String)}
+   */
+  @Test
+  void testGetPropertyByName2() {
     // Arrange
     Extension extension = new Extension();
     extension.setProperties(null);
@@ -162,118 +199,108 @@ class ExtensionDiffblueTest {
   }
 
   /**
-   * Test {@link Extension#getPropertyByName(String)}.
-   * <ul>
-   *   <li>Given {@link Extension} (default constructor).</li>
-   *   <li>When {@code Name}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Extension#getPropertyByName(String)}
    */
   @Test
-  @DisplayName("Test getPropertyByName(String); given Extension (default constructor); when 'Name'; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"VariableDefinition Extension.getPropertyByName(String)"})
-  void testGetPropertyByName_givenExtension_whenName_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new Extension()).getPropertyByName("Name"));
-  }
-
-  /**
-   * Test {@link Extension#getPropertyByName(String)}.
-   * <ul>
-   *   <li>Given {@link TreeMap#TreeMap()} {@code foo} is {@code null}.</li>
-   *   <li>When {@code Name}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Extension#getPropertyByName(String)}
-   */
-  @Test
-  @DisplayName("Test getPropertyByName(String); given TreeMap() 'foo' is 'null'; when 'Name'; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"VariableDefinition Extension.getPropertyByName(String)"})
-  void testGetPropertyByName_givenTreeMapFooIsNull_whenName_thenReturnNull() {
+  void testGetPropertyByName3() {
     // Arrange
-    TreeMap<String, VariableDefinition> properties = new TreeMap<>();
-    properties.put("foo", null);
+    HashMap<String, ProcessVariablesMapping> mappings = new HashMap<>();
+    mappings.computeIfPresent("foo", mock(BiFunction.class));
 
     Extension extension = new Extension();
-    extension.setProperties(properties);
+    extension.setMappings(mappings);
 
     // Act and Assert
     assertNull(extension.getPropertyByName("Name"));
   }
 
   /**
-   * Test {@link Extension#getPropertyByName(String)}.
-   * <ul>
-   *   <li>Given {@link TreeMap#TreeMap()} {@code foo} is {@link VariableDefinition#VariableDefinition()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Extension#getPropertyByName(String)}
    */
   @Test
-  @DisplayName("Test getPropertyByName(String); given TreeMap() 'foo' is VariableDefinition(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"VariableDefinition Extension.getPropertyByName(String)"})
-  void testGetPropertyByName_givenTreeMapFooIsVariableDefinition_thenReturnNull() {
+  void testGetPropertyByName4() {
     // Arrange
-    TreeMap<String, VariableDefinition> properties = new TreeMap<>();
+    HashMap<String, ProcessVariablesMapping> mappings = new HashMap<>();
+    mappings.computeIfPresent("foo", mock(BiFunction.class));
+
+    HashMap<String, VariableDefinition> properties = new HashMap<>();
     properties.put("foo", new VariableDefinition());
 
     Extension extension = new Extension();
     extension.setProperties(properties);
+    extension.setMappings(mappings);
 
     // Act and Assert
     assertNull(extension.getPropertyByName("Name"));
   }
 
   /**
-   * Test {@link Extension#getPropertyByName(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return {@link VariableDefinition#VariableDefinition()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Extension#getPropertyByName(String)}
    */
   @Test
-  @DisplayName("Test getPropertyByName(String); when 'null'; then return VariableDefinition()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"VariableDefinition Extension.getPropertyByName(String)"})
-  void testGetPropertyByName_whenNull_thenReturnVariableDefinition() {
+  void testGetPropertyByName5() {
     // Arrange
-    TreeMap<String, VariableDefinition> properties = new TreeMap<>();
+    HashMap<String, ProcessVariablesMapping> mappings = new HashMap<>();
+    mappings.computeIfPresent("foo", mock(BiFunction.class));
+
+    HashMap<String, VariableDefinition> properties = new HashMap<>();
+    properties.put("foo", null);
+
+    Extension extension = new Extension();
+    extension.setProperties(properties);
+    extension.setMappings(mappings);
+
+    // Act and Assert
+    assertNull(extension.getPropertyByName("Name"));
+  }
+
+  /**
+   * Method under test: {@link Extension#getPropertyByName(String)}
+   */
+  @Test
+  void testGetPropertyByName6() {
+    // Arrange
+    HashMap<String, ProcessVariablesMapping> mappings = new HashMap<>();
+    mappings.computeIfPresent("foo", mock(BiFunction.class));
+
+    HashMap<String, VariableDefinition> properties = new HashMap<>();
     VariableDefinition variableDefinition = new VariableDefinition();
     properties.put("foo", variableDefinition);
 
     Extension extension = new Extension();
     extension.setProperties(properties);
+    extension.setMappings(mappings);
 
     // Act and Assert
     assertSame(variableDefinition, extension.getPropertyByName(null));
   }
 
   /**
-   * Test {@link Extension#hasMapping(String)}.
-   * <p>
    * Method under test: {@link Extension#hasMapping(String)}
    */
   @Test
-  @DisplayName("Test hasMapping(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean Extension.hasMapping(String)"})
   void testHasMapping() {
     // Arrange, Act and Assert
     assertFalse((new Extension()).hasMapping("42"));
   }
 
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link Extension#hasMapping(String)}
+   */
+  @Test
+  void testHasMapping2() {
+    // Arrange
+    HashMap<String, VariableDefinition> properties = new HashMap<>();
+    properties.computeIfPresent("foo", mock(BiFunction.class));
+
+    Extension extension = new Extension();
+    extension.setProperties(properties);
+
+    // Act and Assert
+    assertFalse(extension.hasMapping("42"));
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>{@link Extension#setAssignments(Map)}
@@ -289,12 +316,6 @@ class ExtensionDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Map Extension.getAssignments()", "Map Extension.getConstants()", "Map Extension.getMappings()",
-      "Map Extension.getProperties()", "TemplatesDefinition Extension.getTemplates()",
-      "void Extension.setAssignments(Map)", "void Extension.setConstants(Map)", "void Extension.setMappings(Map)",
-      "void Extension.setProperties(Map)", "void Extension.setTemplates(TemplatesDefinition)"})
   void testGettersAndSetters() {
     // Arrange
     Extension extension = new Extension();
@@ -316,7 +337,7 @@ class ExtensionDiffblueTest {
     Map<String, VariableDefinition> actualProperties = extension.getProperties();
     TemplatesDefinition actualTemplates = extension.getTemplates();
 
-    // Assert
+    // Assert that nothing has changed
     assertTrue(actualAssignments.isEmpty());
     assertTrue(actualConstants.isEmpty());
     assertTrue(actualMappings.isEmpty());
@@ -329,14 +350,9 @@ class ExtensionDiffblueTest {
   }
 
   /**
-   * Test new {@link Extension} (default constructor).
-   * <p>
    * Method under test: default or parameterless constructor of {@link Extension}
    */
   @Test
-  @DisplayName("Test new Extension (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Extension.<init>()"})
   void testNewExtension() {
     // Arrange and Act
     Extension actualExtension = new Extension();

@@ -15,15 +15,16 @@
  */
 package org.activiti.runtime.api.model.impl;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.activiti.api.process.model.BPMNActivity;
 import org.activiti.api.runtime.model.impl.BPMNActivityImpl;
 import org.activiti.engine.delegate.event.ActivitiActivityEvent;
 import org.activiti.engine.delegate.event.impl.ActivitiActivityCancelledEventImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,19 +38,10 @@ class ToActivityConverterDiffblueTest {
   private ToActivityConverter toActivityConverter;
 
   /**
-   * Test {@link ToActivityConverter#from(ActivitiActivityEvent)}.
-   * <ul>
-   *   <li>When {@link ActivitiActivityCancelledEventImpl} (default constructor).</li>
-   *   <li>Then return {@link BPMNActivityImpl}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ToActivityConverter#from(ActivitiActivityEvent)}
    */
   @Test
-  @DisplayName("Test from(ActivitiActivityEvent); when ActivitiActivityCancelledEventImpl (default constructor); then return BPMNActivityImpl")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BPMNActivity ToActivityConverter.from(ActivitiActivityEvent)"})
-  void testFrom_whenActivitiActivityCancelledEventImpl_thenReturnBPMNActivityImpl() {
+  void testFrom() {
     // Arrange and Act
     BPMNActivity actualFromResult = toActivityConverter.from(new ActivitiActivityCancelledEventImpl());
 
@@ -61,5 +53,38 @@ class ToActivityConverterDiffblueTest {
     assertNull(actualFromResult.getElementId());
     assertNull(actualFromResult.getProcessDefinitionId());
     assertNull(actualFromResult.getProcessInstanceId());
+  }
+
+  /**
+   * Method under test: {@link ToActivityConverter#from(ActivitiActivityEvent)}
+   */
+  @Test
+  void testFrom2() {
+    // Arrange
+    ActivitiActivityCancelledEventImpl internalEvent = mock(ActivitiActivityCancelledEventImpl.class);
+    when(internalEvent.getActivityId()).thenReturn("42");
+    when(internalEvent.getActivityName()).thenReturn("Activity Name");
+    when(internalEvent.getActivityType()).thenReturn("Activity Type");
+    when(internalEvent.getExecutionId()).thenReturn("42");
+    when(internalEvent.getProcessDefinitionId()).thenReturn("42");
+    when(internalEvent.getProcessInstanceId()).thenReturn("42");
+
+    // Act
+    BPMNActivity actualFromResult = toActivityConverter.from(internalEvent);
+
+    // Assert
+    verify(internalEvent).getActivityId();
+    verify(internalEvent).getActivityName();
+    verify(internalEvent).getActivityType();
+    verify(internalEvent).getExecutionId();
+    verify(internalEvent).getProcessDefinitionId();
+    verify(internalEvent).getProcessInstanceId();
+    assertTrue(actualFromResult instanceof BPMNActivityImpl);
+    assertEquals("42", actualFromResult.getExecutionId());
+    assertEquals("42", actualFromResult.getElementId());
+    assertEquals("42", actualFromResult.getProcessDefinitionId());
+    assertEquals("42", actualFromResult.getProcessInstanceId());
+    assertEquals("Activity Name", actualFromResult.getActivityName());
+    assertEquals("Activity Type", actualFromResult.getActivityType());
   }
 }

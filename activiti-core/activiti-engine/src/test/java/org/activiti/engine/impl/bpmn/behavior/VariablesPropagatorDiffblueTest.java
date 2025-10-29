@@ -20,63 +20,21 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
-import org.activiti.engine.impl.persistence.entity.VariableScopeImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class VariablesPropagatorDiffblueTest {
   /**
-   * Test {@link VariablesPropagator#propagate(DelegateExecution, Map)}.
-   * <ul>
-   *   <li>Then calls {@link ExecutionEntityImpl#getProcessInstanceId()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariablesPropagator#propagate(DelegateExecution, Map)}
+   * Method under test:
+   * {@link VariablesPropagator#propagate(DelegateExecution, Map)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void VariablesPropagator.propagate(DelegateExecution, Map)"})
-  public void testPropagate_thenCallsGetProcessInstanceId() {
-    // Arrange
-    VariablesPropagator variablesPropagator = new VariablesPropagator(new CopyVariablesCalculator());
-    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
-    when(executionEntityImpl.isMultiInstanceRoot()).thenReturn(false);
-    ExecutionEntityImpl execution = mock(ExecutionEntityImpl.class);
-    when(execution.getProcessInstanceId()).thenReturn(null);
-    when(execution.getParent()).thenReturn(executionEntityImpl);
-
-    HashMap<String, Object> availableVariables = new HashMap<>();
-    availableVariables.put("foo", JSONObject.NULL);
-
-    // Act
-    variablesPropagator.propagate(execution, availableVariables);
-
-    // Assert
-    verify(execution).getParent();
-    verify(execution).getProcessInstanceId();
-    verify(executionEntityImpl).isMultiInstanceRoot();
-  }
-
-  /**
-   * Test {@link VariablesPropagator#propagate(DelegateExecution, Map)}.
-   * <ul>
-   *   <li>Then calls {@link VariableScopeImpl#setVariablesLocal(Map)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariablesPropagator#propagate(DelegateExecution, Map)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void VariablesPropagator.propagate(DelegateExecution, Map)"})
-  public void testPropagate_thenCallsSetVariablesLocal() {
+  public void testPropagate() {
     // Arrange
     VariablesPropagator variablesPropagator = new VariablesPropagator(new CopyVariablesCalculator());
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
@@ -91,9 +49,35 @@ public class VariablesPropagatorDiffblueTest {
     // Act
     variablesPropagator.propagate(execution, availableVariables);
 
-    // Assert
+    // Assert that nothing has changed
     verify(execution).getParent();
     verify(executionEntityImpl).isMultiInstanceRoot();
     verify(execution).setVariablesLocal(isA(Map.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link VariablesPropagator#propagate(DelegateExecution, Map)}
+   */
+  @Test
+  public void testPropagate2() {
+    // Arrange
+    VariablesPropagator variablesPropagator = new VariablesPropagator(new CopyVariablesCalculator());
+    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
+    when(executionEntityImpl.isMultiInstanceRoot()).thenReturn(false);
+    ExecutionEntityImpl execution = mock(ExecutionEntityImpl.class);
+    when(execution.getProcessInstanceId()).thenReturn(null);
+    when(execution.getParent()).thenReturn(executionEntityImpl);
+
+    HashMap<String, Object> availableVariables = new HashMap<>();
+    availableVariables.put("foo", JSONObject.NULL);
+
+    // Act
+    variablesPropagator.propagate(execution, availableVariables);
+
+    // Assert that nothing has changed
+    verify(execution).getParent();
+    verify(execution).getProcessInstanceId();
+    verify(executionEntityImpl).isMultiInstanceRoot();
   }
 }

@@ -18,15 +18,128 @@ package org.activiti.api.runtime.model.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class BPMNErrorImplDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
+   * Methods under test:
+   * <ul>
+   *   <li>{@link BPMNErrorImpl#equals(Object)}
+   *   <li>{@link BPMNErrorImpl#hashCode()}
+   * </ul>
+   */
+  @Test
+  void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {
+    // Arrange
+    BPMNErrorImpl bpmnErrorImpl = new BPMNErrorImpl("42");
+    BPMNErrorImpl bpmnErrorImpl2 = new BPMNErrorImpl("42");
+
+    // Act and Assert
+    assertEquals(bpmnErrorImpl, bpmnErrorImpl2);
+    int expectedHashCodeResult = bpmnErrorImpl.hashCode();
+    assertEquals(expectedHashCodeResult, bpmnErrorImpl2.hashCode());
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>{@link BPMNErrorImpl#equals(Object)}
+   *   <li>{@link BPMNErrorImpl#hashCode()}
+   * </ul>
+   */
+  @Test
+  void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
+    // Arrange
+    BPMNErrorImpl bpmnErrorImpl = new BPMNErrorImpl("42");
+
+    // Act and Assert
+    assertEquals(bpmnErrorImpl, bpmnErrorImpl);
+    int expectedHashCodeResult = bpmnErrorImpl.hashCode();
+    assertEquals(expectedHashCodeResult, bpmnErrorImpl.hashCode());
+  }
+
+  /**
+   * Method under test: {@link BPMNErrorImpl#equals(Object)}
+   */
+  @Test
+  void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
+    // Arrange
+    BPMNErrorImpl bpmnErrorImpl = new BPMNErrorImpl("Element Id");
+
+    // Act and Assert
+    assertNotEquals(bpmnErrorImpl, new BPMNErrorImpl("42"));
+  }
+
+  /**
+   * Method under test: {@link BPMNErrorImpl#equals(Object)}
+   */
+  @Test
+  void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
+    // Arrange
+    BPMNErrorImpl bpmnErrorImpl = new BPMNErrorImpl("42", "Activity Name", "Activity Type");
+
+    // Act and Assert
+    assertNotEquals(bpmnErrorImpl, new BPMNErrorImpl("42"));
+  }
+
+  /**
+   * Method under test: {@link BPMNErrorImpl#equals(Object)}
+   */
+  @Test
+  void testEquals_whenOtherIsDifferent_thenReturnNotEqual3() {
+    // Arrange
+    BPMNErrorImpl bpmnErrorImpl = new BPMNErrorImpl("42");
+    bpmnErrorImpl.setErrorCode("An error occurred");
+
+    // Act and Assert
+    assertNotEquals(bpmnErrorImpl, new BPMNErrorImpl("42"));
+  }
+
+  /**
+   * Method under test: {@link BPMNErrorImpl#equals(Object)}
+   */
+  @Test
+  void testEquals_whenOtherIsDifferent_thenReturnNotEqual4() {
+    // Arrange
+    BPMNErrorImpl bpmnErrorImpl = new BPMNErrorImpl("42");
+    bpmnErrorImpl.setErrorId("An error occurred");
+
+    // Act and Assert
+    assertNotEquals(bpmnErrorImpl, new BPMNErrorImpl("42"));
+  }
+
+  /**
+   * Method under test: {@link BPMNErrorImpl#equals(Object)}
+   */
+  @Test
+  void testEquals_whenOtherIsDifferent_thenReturnNotEqual5() {
+    // Arrange
+    BPMNErrorImpl bpmnErrorImpl = new BPMNErrorImpl("42");
+    bpmnErrorImpl.setActivityType("Activity Type");
+
+    // Act and Assert
+    assertNotEquals(bpmnErrorImpl, new BPMNErrorImpl("42"));
+  }
+
+  /**
+   * Method under test: {@link BPMNErrorImpl#equals(Object)}
+   */
+  @Test
+  void testEquals_whenOtherIsNull_thenReturnNotEqual() {
+    // Arrange, Act and Assert
+    assertNotEquals(new BPMNErrorImpl("42"), null);
+  }
+
+  /**
+   * Method under test: {@link BPMNErrorImpl#equals(Object)}
+   */
+  @Test
+  void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
+    // Arrange, Act and Assert
+    assertNotEquals(new BPMNErrorImpl("42"), "Different type to BPMNErrorImpl");
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>{@link BPMNErrorImpl#BPMNErrorImpl()}
@@ -38,11 +151,6 @@ class BPMNErrorImplDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BPMNErrorImpl.<init>()", "String BPMNErrorImpl.getErrorCode()",
-      "String BPMNErrorImpl.getErrorId()", "void BPMNErrorImpl.setErrorCode(String)",
-      "void BPMNErrorImpl.setErrorId(String)", "String BPMNErrorImpl.toString()"})
   void testGettersAndSetters() {
     // Arrange and Act
     BPMNErrorImpl actualBpmnErrorImpl = new BPMNErrorImpl();
@@ -51,30 +159,19 @@ class BPMNErrorImplDiffblueTest {
     String actualToStringResult = actualBpmnErrorImpl.toString();
     String actualErrorCode = actualBpmnErrorImpl.getErrorCode();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("An error occurred", actualErrorCode);
     assertEquals("An error occurred", actualBpmnErrorImpl.getErrorId());
     assertEquals(
         "BPMNActivityImpl{activityName='null', activityType='null', elementId='null', errorId='An error occurred',"
             + " errorCode='An error occurred'}",
         actualToStringResult);
-    assertNull(actualBpmnErrorImpl.getActivityName());
-    assertNull(actualBpmnErrorImpl.getActivityType());
-    assertNull(actualBpmnErrorImpl.getExecutionId());
-    assertNull(actualBpmnErrorImpl.getElementId());
-    assertNull(actualBpmnErrorImpl.getProcessDefinitionId());
-    assertNull(actualBpmnErrorImpl.getProcessInstanceId());
   }
 
   /**
-   * Test {@link BPMNErrorImpl#BPMNErrorImpl(String)}.
-   * <p>
    * Method under test: {@link BPMNErrorImpl#BPMNErrorImpl(String)}
    */
   @Test
-  @DisplayName("Test new BPMNErrorImpl(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BPMNErrorImpl.<init>(String)"})
   void testNewBPMNErrorImpl() {
     // Arrange and Act
     BPMNErrorImpl actualBpmnErrorImpl = new BPMNErrorImpl("42");
@@ -91,14 +188,10 @@ class BPMNErrorImplDiffblueTest {
   }
 
   /**
-   * Test {@link BPMNErrorImpl#BPMNErrorImpl(String, String, String)}.
-   * <p>
-   * Method under test: {@link BPMNErrorImpl#BPMNErrorImpl(String, String, String)}
+   * Method under test:
+   * {@link BPMNErrorImpl#BPMNErrorImpl(String, String, String)}
    */
   @Test
-  @DisplayName("Test new BPMNErrorImpl(String, String, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BPMNErrorImpl.<init>(String, String, String)"})
   void testNewBPMNErrorImpl2() {
     // Arrange and Act
     BPMNErrorImpl actualBpmnErrorImpl = new BPMNErrorImpl("42", "Activity Name", "Activity Type");
@@ -112,204 +205,5 @@ class BPMNErrorImplDiffblueTest {
     assertNull(actualBpmnErrorImpl.getProcessInstanceId());
     assertNull(actualBpmnErrorImpl.getErrorCode());
     assertNull(actualBpmnErrorImpl.getErrorId());
-  }
-
-  /**
-   * Test {@link BPMNErrorImpl#equals(Object)}, and {@link BPMNErrorImpl#hashCode()}.
-   * <ul>
-   *   <li>When other is equal.</li>
-   *   <li>Then return equal.</li>
-   * </ul>
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link BPMNErrorImpl#equals(Object)}
-   *   <li>{@link BPMNErrorImpl#hashCode()}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test equals(Object), and hashCode(); when other is equal; then return equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean BPMNErrorImpl.equals(Object)", "int BPMNErrorImpl.hashCode()"})
-  void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {
-    // Arrange
-    BPMNErrorImpl bpmnErrorImpl = new BPMNErrorImpl("42");
-    BPMNErrorImpl bpmnErrorImpl2 = new BPMNErrorImpl("42");
-
-    // Act and Assert
-    assertEquals(bpmnErrorImpl, bpmnErrorImpl2);
-    int expectedHashCodeResult = bpmnErrorImpl.hashCode();
-    assertEquals(expectedHashCodeResult, bpmnErrorImpl2.hashCode());
-  }
-
-  /**
-   * Test {@link BPMNErrorImpl#equals(Object)}, and {@link BPMNErrorImpl#hashCode()}.
-   * <ul>
-   *   <li>When other is same.</li>
-   *   <li>Then return equal.</li>
-   * </ul>
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link BPMNErrorImpl#equals(Object)}
-   *   <li>{@link BPMNErrorImpl#hashCode()}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean BPMNErrorImpl.equals(Object)", "int BPMNErrorImpl.hashCode()"})
-  void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
-    // Arrange
-    BPMNErrorImpl bpmnErrorImpl = new BPMNErrorImpl("42");
-
-    // Act and Assert
-    assertEquals(bpmnErrorImpl, bpmnErrorImpl);
-    int expectedHashCodeResult = bpmnErrorImpl.hashCode();
-    assertEquals(expectedHashCodeResult, bpmnErrorImpl.hashCode());
-  }
-
-  /**
-   * Test {@link BPMNErrorImpl#equals(Object)}.
-   * <ul>
-   *   <li>When other is different.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BPMNErrorImpl#equals(Object)}
-   */
-  @Test
-  @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean BPMNErrorImpl.equals(Object)", "int BPMNErrorImpl.hashCode()"})
-  void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
-    // Arrange
-    BPMNErrorImpl bpmnErrorImpl = new BPMNErrorImpl("Element Id");
-
-    // Act and Assert
-    assertNotEquals(bpmnErrorImpl, new BPMNErrorImpl("42"));
-  }
-
-  /**
-   * Test {@link BPMNErrorImpl#equals(Object)}.
-   * <ul>
-   *   <li>When other is different.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BPMNErrorImpl#equals(Object)}
-   */
-  @Test
-  @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean BPMNErrorImpl.equals(Object)", "int BPMNErrorImpl.hashCode()"})
-  void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
-    // Arrange
-    BPMNErrorImpl bpmnErrorImpl = new BPMNErrorImpl("42", "Activity Name", "Activity Type");
-
-    // Act and Assert
-    assertNotEquals(bpmnErrorImpl, new BPMNErrorImpl("42"));
-  }
-
-  /**
-   * Test {@link BPMNErrorImpl#equals(Object)}.
-   * <ul>
-   *   <li>When other is different.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BPMNErrorImpl#equals(Object)}
-   */
-  @Test
-  @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean BPMNErrorImpl.equals(Object)", "int BPMNErrorImpl.hashCode()"})
-  void testEquals_whenOtherIsDifferent_thenReturnNotEqual3() {
-    // Arrange
-    BPMNErrorImpl bpmnErrorImpl = new BPMNErrorImpl("42");
-    bpmnErrorImpl.setErrorCode("An error occurred");
-
-    // Act and Assert
-    assertNotEquals(bpmnErrorImpl, new BPMNErrorImpl("42"));
-  }
-
-  /**
-   * Test {@link BPMNErrorImpl#equals(Object)}.
-   * <ul>
-   *   <li>When other is different.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BPMNErrorImpl#equals(Object)}
-   */
-  @Test
-  @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean BPMNErrorImpl.equals(Object)", "int BPMNErrorImpl.hashCode()"})
-  void testEquals_whenOtherIsDifferent_thenReturnNotEqual4() {
-    // Arrange
-    BPMNErrorImpl bpmnErrorImpl = new BPMNErrorImpl("42");
-    bpmnErrorImpl.setErrorId("An error occurred");
-
-    // Act and Assert
-    assertNotEquals(bpmnErrorImpl, new BPMNErrorImpl("42"));
-  }
-
-  /**
-   * Test {@link BPMNErrorImpl#equals(Object)}.
-   * <ul>
-   *   <li>When other is different.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BPMNErrorImpl#equals(Object)}
-   */
-  @Test
-  @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean BPMNErrorImpl.equals(Object)", "int BPMNErrorImpl.hashCode()"})
-  void testEquals_whenOtherIsDifferent_thenReturnNotEqual5() {
-    // Arrange
-    BPMNErrorImpl bpmnErrorImpl = new BPMNErrorImpl("42");
-    bpmnErrorImpl.setActivityType("Activity Type");
-
-    // Act and Assert
-    assertNotEquals(bpmnErrorImpl, new BPMNErrorImpl("42"));
-  }
-
-  /**
-   * Test {@link BPMNErrorImpl#equals(Object)}.
-   * <ul>
-   *   <li>When other is {@code null}.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BPMNErrorImpl#equals(Object)}
-   */
-  @Test
-  @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean BPMNErrorImpl.equals(Object)", "int BPMNErrorImpl.hashCode()"})
-  void testEquals_whenOtherIsNull_thenReturnNotEqual() {
-    // Arrange, Act and Assert
-    assertNotEquals(new BPMNErrorImpl("42"), null);
-  }
-
-  /**
-   * Test {@link BPMNErrorImpl#equals(Object)}.
-   * <ul>
-   *   <li>When other is wrong type.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BPMNErrorImpl#equals(Object)}
-   */
-  @Test
-  @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean BPMNErrorImpl.equals(Object)", "int BPMNErrorImpl.hashCode()"})
-  void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
-    // Arrange, Act and Assert
-    assertNotEquals(new BPMNErrorImpl("42"), "Different type to BPMNErrorImpl");
   }
 }

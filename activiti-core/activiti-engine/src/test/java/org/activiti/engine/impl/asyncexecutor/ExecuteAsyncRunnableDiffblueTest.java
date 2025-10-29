@@ -26,11 +26,7 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonInclude.Value;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.core.Base64Variant;
@@ -56,13 +52,11 @@ import com.fasterxml.jackson.databind.deser.DefaultDeserializationContext;
 import com.fasterxml.jackson.databind.deser.DeserializerFactory;
 import com.fasterxml.jackson.databind.deser.Deserializers;
 import com.fasterxml.jackson.databind.introspect.AccessorNamingStrategy;
-import com.fasterxml.jackson.databind.introspect.AccessorNamingStrategy.Provider;
 import com.fasterxml.jackson.databind.introspect.BasicClassIntrospector;
 import com.fasterxml.jackson.databind.introspect.ClassIntrospector;
 import com.fasterxml.jackson.databind.introspect.DefaultAccessorNamingStrategy;
 import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
 import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
-import com.fasterxml.jackson.databind.introspect.VisibilityChecker.Std;
 import com.fasterxml.jackson.databind.jsontype.PolymorphicTypeValidator;
 import com.fasterxml.jackson.databind.jsontype.SubtypeResolver;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
@@ -70,7 +64,6 @@ import com.fasterxml.jackson.databind.jsontype.impl.StdSubtypeResolver;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.ser.BeanSerializerFactory;
 import com.fasterxml.jackson.databind.ser.DefaultSerializerProvider;
-import com.fasterxml.jackson.databind.ser.DefaultSerializerProvider.Impl;
 import com.fasterxml.jackson.databind.ser.SerializerFactory;
 import com.fasterxml.jackson.databind.ser.Serializers;
 import com.fasterxml.jackson.databind.ser.impl.FailingSerializer;
@@ -86,9 +79,11 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.Set;
 import java.util.TimeZone;
+import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BoundaryEvent;
 import org.activiti.bpmn.model.BusinessRuleTask;
 import org.activiti.bpmn.model.Transaction;
@@ -126,7 +121,6 @@ import org.activiti.engine.impl.interceptor.CommandConfig;
 import org.activiti.engine.impl.interceptor.CommandContextInterceptor;
 import org.activiti.engine.impl.interceptor.CommandInterceptor;
 import org.activiti.engine.impl.persistence.deploy.Deployer;
-import org.activiti.engine.impl.persistence.entity.AbstractJobEntityImpl;
 import org.activiti.engine.impl.persistence.entity.DeadLetterJobEntityImpl;
 import org.activiti.engine.impl.persistence.entity.integration.IntegrationContextManagerImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
@@ -134,18 +128,14 @@ import org.activiti.engine.integration.IntegrationContextServiceImpl;
 import org.activiti.engine.parse.BpmnParseHandler;
 import org.activiti.engine.runtime.Job;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class ExecuteAsyncRunnableDiffblueTest {
   /**
-   * Test {@link ExecuteAsyncRunnable#ExecuteAsyncRunnable(String, ProcessEngineConfigurationImpl)}.
-   * <p>
-   * Method under test: {@link ExecuteAsyncRunnable#ExecuteAsyncRunnable(String, ProcessEngineConfigurationImpl)}
+   * Method under test:
+   * {@link ExecuteAsyncRunnable#ExecuteAsyncRunnable(String, ProcessEngineConfigurationImpl)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecuteAsyncRunnable.<init>(String, ProcessEngineConfigurationImpl)"})
   public void testNewExecuteAsyncRunnable() throws IOException, MissingResourceException {
     // Arrange and Act
     ExecuteAsyncRunnable actualExecuteAsyncRunnable = new ExecuteAsyncRunnable("42",
@@ -169,12 +159,12 @@ public class ExecuteAsyncRunnableDiffblueTest {
     assertTrue(deserializationContext instanceof DefaultDeserializationContext.Impl);
     ClassIntrospector classIntrospector = deserializationConfig.getClassIntrospector();
     assertTrue(classIntrospector instanceof BasicClassIntrospector);
-    Provider accessorNaming = deserializationConfig.getAccessorNaming();
+    AccessorNamingStrategy.Provider accessorNaming = deserializationConfig.getAccessorNaming();
     assertTrue(accessorNaming instanceof DefaultAccessorNamingStrategy.Provider);
     AnnotationIntrospector annotationIntrospector = deserializationConfig.getAnnotationIntrospector();
     assertTrue(annotationIntrospector instanceof JacksonAnnotationIntrospector);
     VisibilityChecker<?> visibilityChecker = objectMapper.getVisibilityChecker();
-    assertTrue(visibilityChecker instanceof Std);
+    assertTrue(visibilityChecker instanceof VisibilityChecker.Std);
     PolymorphicTypeValidator polymorphicTypeValidator = objectMapper.getPolymorphicTypeValidator();
     assertTrue(polymorphicTypeValidator instanceof LaissezFaireSubTypeValidator);
     SubtypeResolver subtypeResolver = objectMapper.getSubtypeResolver();
@@ -182,9 +172,9 @@ public class ExecuteAsyncRunnableDiffblueTest {
     SerializerFactory serializerFactory = objectMapper.getSerializerFactory();
     assertTrue(serializerFactory instanceof BeanSerializerFactory);
     SerializerProvider serializerProvider = objectMapper.getSerializerProvider();
-    assertTrue(serializerProvider instanceof Impl);
+    assertTrue(serializerProvider instanceof DefaultSerializerProvider.Impl);
     SerializerProvider serializerProviderInstance = objectMapper.getSerializerProviderInstance();
-    assertTrue(serializerProviderInstance instanceof Impl);
+    assertTrue(serializerProviderInstance instanceof DefaultSerializerProvider.Impl);
     JsonSerializer<Object> defaultNullKeySerializer = serializerProvider.getDefaultNullKeySerializer();
     assertTrue(defaultNullKeySerializer instanceof FailingSerializer);
     JsonSerializer<Object> defaultNullValueSerializer = serializerProvider.getDefaultNullValueSerializer();
@@ -299,7 +289,7 @@ public class ExecuteAsyncRunnableDiffblueTest {
     assertNull(serializationConfig.getDefaultMergeable());
     assertNull(factory.getFormatReadFeatureType());
     assertNull(factory.getFormatWriteFeatureType());
-    Value defaultPropertyInclusion = deserializationConfig.getDefaultPropertyInclusion();
+    JsonInclude.Value defaultPropertyInclusion = deserializationConfig.getDefaultPropertyInclusion();
     assertNull(defaultPropertyInclusion.getContentFilter());
     assertNull(defaultPropertyInclusion.getValueFilter());
     assertNull(deserializationContext.getActiveView());
@@ -518,9 +508,9 @@ public class ExecuteAsyncRunnableDiffblueTest {
         ((JtaProcessEngineConfiguration) processEngineConfigurationImpl).DEFAULT_MAX_NR_OF_STATEMENTS_BULK_INSERT_SQL_SERVER);
     JsonNodeFactory nodeFactory = objectMapper.getNodeFactory();
     assertEquals(9999, nodeFactory.getMaxElementIndexForInsert());
-    assertEquals(Include.ALWAYS, serializationConfig.getSerializationInclusion());
-    assertEquals(Include.USE_DEFAULTS, defaultPropertyInclusion.getContentInclusion());
-    assertEquals(Include.USE_DEFAULTS, defaultPropertyInclusion.getValueInclusion());
+    assertEquals(JsonInclude.Include.ALWAYS, serializationConfig.getSerializationInclusion());
+    assertEquals(JsonInclude.Include.USE_DEFAULTS, defaultPropertyInclusion.getContentInclusion());
+    assertEquals(JsonInclude.Include.USE_DEFAULTS, defaultPropertyInclusion.getValueInclusion());
     JsonSetter.Value defaultSetterInfo = deserializationConfig.getDefaultSetterInfo();
     assertEquals(Nulls.DEFAULT, defaultSetterInfo.getContentNulls());
     assertEquals(Nulls.DEFAULT, defaultSetterInfo.getValueNulls());
@@ -648,13 +638,10 @@ public class ExecuteAsyncRunnableDiffblueTest {
   }
 
   /**
-   * Test {@link ExecuteAsyncRunnable#ExecuteAsyncRunnable(Job, ProcessEngineConfigurationImpl)}.
-   * <p>
-   * Method under test: {@link ExecuteAsyncRunnable#ExecuteAsyncRunnable(Job, ProcessEngineConfigurationImpl)}
+   * Method under test:
+   * {@link ExecuteAsyncRunnable#ExecuteAsyncRunnable(Job, ProcessEngineConfigurationImpl)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecuteAsyncRunnable.<init>(Job, ProcessEngineConfigurationImpl)"})
   public void testNewExecuteAsyncRunnable2() {
     // Arrange
     Job job = mock(Job.class);
@@ -662,31 +649,27 @@ public class ExecuteAsyncRunnableDiffblueTest {
     when(job.getId()).thenReturn("42");
     CommandInterceptor first = mock(CommandInterceptor.class);
     when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(JSONObject.NULL);
-    CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
-
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setCommandExecutor(commandExecutor);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getCommandExecutor())
+        .thenReturn(new CommandExecutorImpl(new CommandConfig(), first));
 
     // Act
     ExecuteAsyncRunnable actualExecuteAsyncRunnable = new ExecuteAsyncRunnable(job, processEngineConfiguration);
     actualExecuteAsyncRunnable.run();
 
     // Assert
+    verify(processEngineConfiguration, atLeast(1)).getCommandExecutor();
     verify(first, atLeast(1)).execute(isA(CommandConfig.class), Mockito.<Command<Object>>any());
     verify(job).getId();
     verify(job, atLeast(1)).isExclusive();
-    assertTrue(actualExecuteAsyncRunnable.processEngineConfiguration instanceof JtaProcessEngineConfiguration);
     assertEquals("42", actualExecuteAsyncRunnable.jobId);
   }
 
   /**
-   * Test {@link ExecuteAsyncRunnable#ExecuteAsyncRunnable(Job, ProcessEngineConfigurationImpl)}.
-   * <p>
-   * Method under test: {@link ExecuteAsyncRunnable#ExecuteAsyncRunnable(Job, ProcessEngineConfigurationImpl)}
+   * Method under test:
+   * {@link ExecuteAsyncRunnable#ExecuteAsyncRunnable(Job, ProcessEngineConfigurationImpl)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecuteAsyncRunnable.<init>(Job, ProcessEngineConfigurationImpl)"})
   public void testNewExecuteAsyncRunnable3() {
     // Arrange
     Job job = mock(Job.class);
@@ -694,39 +677,34 @@ public class ExecuteAsyncRunnableDiffblueTest {
     when(job.getId()).thenReturn("42");
     CommandInterceptor first = mock(CommandInterceptor.class);
     when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(JSONObject.NULL);
-    CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
-
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setCommandExecutor(commandExecutor);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getCommandExecutor())
+        .thenReturn(new CommandExecutorImpl(new CommandConfig(), first));
 
     // Act
     ExecuteAsyncRunnable actualExecuteAsyncRunnable = new ExecuteAsyncRunnable(job, processEngineConfiguration);
     actualExecuteAsyncRunnable.run();
 
     // Assert
+    verify(processEngineConfiguration).getCommandExecutor();
     verify(first).execute(isA(CommandConfig.class), isA(Command.class));
     verify(job).getId();
     verify(job, atLeast(1)).isExclusive();
-    assertTrue(actualExecuteAsyncRunnable.processEngineConfiguration instanceof JtaProcessEngineConfiguration);
     assertEquals("42", actualExecuteAsyncRunnable.jobId);
   }
 
   /**
-   * Test {@link ExecuteAsyncRunnable#run()}.
-   * <p>
    * Method under test: {@link ExecuteAsyncRunnable#run()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecuteAsyncRunnable.run()"})
   public void testRun() {
     // Arrange
     DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
     deadLetterJobEntityImpl.setDeleted(true);
-    deadLetterJobEntityImpl
-        .setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    deadLetterJobEntityImpl
-        .setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    Date duedate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    deadLetterJobEntityImpl.setDuedate(duedate);
+    Date endDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    deadLetterJobEntityImpl.setEndDate(endDate);
     deadLetterJobEntityImpl.setExceptionMessage("An error occurred");
     deadLetterJobEntityImpl.setExclusive(true);
     deadLetterJobEntityImpl.setExecutionId("42");
@@ -757,50 +735,65 @@ public class ExecuteAsyncRunnableDiffblueTest {
     // Assert
     verify(processEngineConfiguration, atLeast(1)).getCommandExecutor();
     verify(first, atLeast(1)).execute(isA(CommandConfig.class), Mockito.<Command<Object>>any());
-    assertTrue(executeAsyncRunnable.job instanceof DeadLetterJobEntityImpl);
+    Job job = executeAsyncRunnable.job;
+    Object persistentState = ((DeadLetterJobEntityImpl) job).getPersistentState();
+    assertTrue(persistentState instanceof Map);
+    assertTrue(job instanceof DeadLetterJobEntityImpl);
+    assertEquals("42", job.getExecutionId());
+    assertEquals("42", job.getId());
+    assertEquals("42", job.getProcessDefinitionId());
+    assertEquals("42", job.getProcessInstanceId());
+    assertEquals("42", job.getTenantId());
+    assertEquals("An error occurred", job.getExceptionMessage());
+    assertEquals(3, ((Map<String, Object>) persistentState).size());
+    assertEquals("An error occurred", ((Map<String, Object>) persistentState).get("exceptionMessage"));
+    assertEquals("Job Handler Configuration", job.getJobHandlerConfiguration());
+    assertEquals("Job Handler Type", job.getJobHandlerType());
+    assertEquals("Job Type", job.getJobType());
+    assertEquals("Repeat", ((DeadLetterJobEntityImpl) job).getRepeat());
+    assertNull(((DeadLetterJobEntityImpl) job).getExceptionStacktrace());
+    assertNull(((DeadLetterJobEntityImpl) job).getExceptionByteArrayRef());
+    assertEquals(2, ((DeadLetterJobEntityImpl) job).getRevision());
+    assertEquals(2, job.getRetries());
+    assertEquals(3, ((DeadLetterJobEntityImpl) job).getRevisionNext());
+    assertEquals(3, ((DeadLetterJobEntityImpl) job).getMaxIterations());
+    assertTrue(((Map<String, Object>) persistentState).containsKey("retries"));
+    assertTrue(((DeadLetterJobEntityImpl) job).isDeleted());
+    assertTrue(((DeadLetterJobEntityImpl) job).isInserted());
+    assertTrue(((DeadLetterJobEntityImpl) job).isUpdated());
+    assertTrue(job.isExclusive());
+    assertSame(duedate, ((Map<String, Object>) persistentState).get("duedate"));
+    assertSame(endDate, ((DeadLetterJobEntityImpl) job).getEndDate());
+    assertSame(duedate, job.getDuedate());
   }
 
   /**
-   * Test {@link ExecuteAsyncRunnable#run()}.
-   * <ul>
-   *   <li>Given {@link CommandInterceptor} {@link CommandInterceptor#execute(CommandConfig, Command)} return {@code null}.</li>
-   *   <li>Then calls {@link ProcessEngineConfigurationImpl#getCommandExecutor()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ExecuteAsyncRunnable#run()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecuteAsyncRunnable.run()"})
-  public void testRun_givenCommandInterceptorExecuteReturnNull_thenCallsGetCommandExecutor() {
+  public void testRun2() {
     // Arrange
     CommandInterceptor first = mock(CommandInterceptor.class);
     when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(null);
     JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration.getCommandExecutor())
         .thenReturn(new CommandExecutorImpl(new CommandConfig(), first));
+    ExecuteAsyncRunnable executeAsyncRunnable = new ExecuteAsyncRunnable("42", processEngineConfiguration);
 
     // Act
-    (new ExecuteAsyncRunnable("42", processEngineConfiguration)).run();
+    executeAsyncRunnable.run();
 
-    // Assert that nothing has changed
+    // Assert
     verify(processEngineConfiguration, atLeast(1)).getCommandExecutor();
     verify(first, atLeast(1)).execute(isA(CommandConfig.class), Mockito.<Command<Object>>any());
+    assertNull(executeAsyncRunnable.job);
   }
 
   /**
-   * Test {@link ExecuteAsyncRunnable#run()}.
-   * <ul>
-   *   <li>Given {@link DeadLetterJobEntityImpl} {@link AbstractJobEntityImpl#isExclusive()} return {@code false}.</li>
-   *   <li>Then calls {@link AbstractJobEntityImpl#isExclusive()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ExecuteAsyncRunnable#run()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecuteAsyncRunnable.run()"})
-  public void testRun_givenDeadLetterJobEntityImplIsExclusiveReturnFalse_thenCallsIsExclusive() {
+  public void testRun3() {
     // Arrange
     DeadLetterJobEntityImpl deadLetterJobEntityImpl = mock(DeadLetterJobEntityImpl.class);
     when(deadLetterJobEntityImpl.isExclusive()).thenReturn(false);
@@ -821,17 +814,10 @@ public class ExecuteAsyncRunnableDiffblueTest {
   }
 
   /**
-   * Test {@link ExecuteAsyncRunnable#runInternal()}.
-   * <ul>
-   *   <li>Then calls {@link ProcessEngineConfigurationImpl#getCommandExecutor()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ExecuteAsyncRunnable#runInternal()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecuteAsyncRunnable.runInternal()"})
-  public void testRunInternal_thenCallsGetCommandExecutor() {
+  public void testRunInternal() {
     // Arrange
     CommandInterceptor first = mock(CommandInterceptor.class);
     when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any())).thenReturn(null);
@@ -848,18 +834,29 @@ public class ExecuteAsyncRunnableDiffblueTest {
   }
 
   /**
-   * Test {@link ExecuteAsyncRunnable#executeJob()}.
-   * <ul>
-   *   <li>Given {@link CommandInterceptor} {@link CommandInterceptor#execute(CommandConfig, Command)} return {@link JSONObject#NULL}.</li>
-   *   <li>Then calls {@link CommandInterceptor#execute(CommandConfig, Command)}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ExecuteAsyncRunnable#executeJob()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecuteAsyncRunnable.executeJob()"})
-  public void testExecuteJob_givenCommandInterceptorExecuteReturnNull_thenCallsExecute() {
+  public void testExecuteJob() {
+    // Arrange
+    CommandConfig defaultConfig = mock(CommandConfig.class);
+    when(defaultConfig.isContextReusePossible()).thenThrow(new ActivitiOptimisticLockingException("An error occurred"));
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getCommandExecutor())
+        .thenReturn(new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor()));
+
+    // Act and Assert
+    assertThrows(ActivitiOptimisticLockingException.class,
+        () -> (new ExecuteAsyncRunnable("42", processEngineConfiguration)).executeJob());
+    verify(processEngineConfiguration, atLeast(1)).getCommandExecutor();
+    verify(defaultConfig, atLeast(1)).isContextReusePossible();
+  }
+
+  /**
+   * Method under test: {@link ExecuteAsyncRunnable#executeJob()}
+   */
+  @Test
+  public void testExecuteJob2() {
     // Arrange
     CommandInterceptor first = mock(CommandInterceptor.class);
     when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(JSONObject.NULL);
@@ -876,17 +873,10 @@ public class ExecuteAsyncRunnableDiffblueTest {
   }
 
   /**
-   * Test {@link ExecuteAsyncRunnable#executeJob()}.
-   * <ul>
-   *   <li>Then calls {@link CommandExecutorImpl#execute(Command)}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ExecuteAsyncRunnable#executeJob()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecuteAsyncRunnable.executeJob()"})
-  public void testExecuteJob_thenCallsExecute() {
+  public void testExecuteJob3() {
     // Arrange
     new ActivitiOptimisticLockingException("An error occurred");
     CommandExecutorImpl commandExecutorImpl = mock(CommandExecutorImpl.class);
@@ -903,39 +893,9 @@ public class ExecuteAsyncRunnableDiffblueTest {
   }
 
   /**
-   * Test {@link ExecuteAsyncRunnable#executeJob()}.
-   * <ul>
-   *   <li>Then calls {@link CommandConfig#isContextReusePossible()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecuteAsyncRunnable#executeJob()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecuteAsyncRunnable.executeJob()"})
-  public void testExecuteJob_thenCallsIsContextReusePossible() {
-    // Arrange
-    CommandConfig defaultConfig = mock(CommandConfig.class);
-    when(defaultConfig.isContextReusePossible()).thenThrow(new ActivitiOptimisticLockingException("An error occurred"));
-    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.getCommandExecutor())
-        .thenReturn(new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor()));
-
-    // Act and Assert
-    assertThrows(ActivitiOptimisticLockingException.class,
-        () -> (new ExecuteAsyncRunnable("42", processEngineConfiguration)).executeJob());
-    verify(processEngineConfiguration, atLeast(1)).getCommandExecutor();
-    verify(defaultConfig, atLeast(1)).isContextReusePossible();
-  }
-
-  /**
-   * Test {@link ExecuteAsyncRunnable#unlockJobIfNeeded()}.
-   * <p>
    * Method under test: {@link ExecuteAsyncRunnable#unlockJobIfNeeded()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecuteAsyncRunnable.unlockJobIfNeeded()"})
   public void testUnlockJobIfNeeded() {
     // Arrange
     DeadLetterJobEntityImpl job = mock(DeadLetterJobEntityImpl.class);
@@ -945,19 +905,15 @@ public class ExecuteAsyncRunnableDiffblueTest {
     // Act
     (new ExecuteAsyncRunnable(job, null)).unlockJobIfNeeded();
 
-    // Assert
+    // Assert that nothing has changed
     verify(job, atLeast(1)).getId();
     verify(job).isExclusive();
   }
 
   /**
-   * Test {@link ExecuteAsyncRunnable#unlockJobIfNeeded()}.
-   * <p>
    * Method under test: {@link ExecuteAsyncRunnable#unlockJobIfNeeded()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecuteAsyncRunnable.unlockJobIfNeeded()"})
   public void testUnlockJobIfNeeded2() {
     // Arrange
     DeadLetterJobEntityImpl job = mock(DeadLetterJobEntityImpl.class);
@@ -978,18 +934,58 @@ public class ExecuteAsyncRunnableDiffblueTest {
   }
 
   /**
-   * Test {@link ExecuteAsyncRunnable#unlockJobIfNeeded()}.
-   * <ul>
-   *   <li>Given {@link CommandInterceptor} {@link CommandInterceptor#execute(CommandConfig, Command)} return {@link JSONObject#NULL}.</li>
-   *   <li>Then calls {@link CommandInterceptor#execute(CommandConfig, Command)}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ExecuteAsyncRunnable#unlockJobIfNeeded()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecuteAsyncRunnable.unlockJobIfNeeded()"})
-  public void testUnlockJobIfNeeded_givenCommandInterceptorExecuteReturnNull_thenCallsExecute() {
+  public void testUnlockJobIfNeeded3() {
+    // Arrange
+    DeadLetterJobEntityImpl job = mock(DeadLetterJobEntityImpl.class);
+    when(job.isExclusive()).thenReturn(true);
+    when(job.getId()).thenReturn("42");
+    CommandConfig defaultConfig = mock(CommandConfig.class);
+    when(defaultConfig.isContextReusePossible()).thenThrow(new ActivitiOptimisticLockingException("An error occurred"));
+    CommandExecutorImpl commandExecutor = new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor());
+
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.setCommandExecutor(commandExecutor);
+
+    // Act
+    (new ExecuteAsyncRunnable(job, processEngineConfiguration)).unlockJobIfNeeded();
+
+    // Assert
+    verify(defaultConfig).isContextReusePossible();
+    verify(job).getId();
+    verify(job).isExclusive();
+  }
+
+  /**
+   * Method under test: {@link ExecuteAsyncRunnable#unlockJobIfNeeded()}
+   */
+  @Test
+  public void testUnlockJobIfNeeded4() {
+    // Arrange
+    DeadLetterJobEntityImpl job = mock(DeadLetterJobEntityImpl.class);
+    when(job.isExclusive()).thenReturn(false);
+    when(job.getId()).thenReturn("42");
+
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    CommandConfig defaultConfig = mock(CommandConfig.class);
+    processEngineConfiguration
+        .setCommandExecutor(new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor()));
+
+    // Act
+    (new ExecuteAsyncRunnable(job, processEngineConfiguration)).unlockJobIfNeeded();
+
+    // Assert that nothing has changed
+    verify(job).getId();
+    verify(job).isExclusive();
+  }
+
+  /**
+   * Method under test: {@link ExecuteAsyncRunnable#unlockJobIfNeeded()}
+   */
+  @Test
+  public void testUnlockJobIfNeeded5() {
     // Arrange
     DeadLetterJobEntityImpl job = mock(DeadLetterJobEntityImpl.class);
     when(job.isExclusive()).thenReturn(true);
@@ -1011,47 +1007,10 @@ public class ExecuteAsyncRunnableDiffblueTest {
   }
 
   /**
-   * Test {@link ExecuteAsyncRunnable#unlockJobIfNeeded()}.
-   * <ul>
-   *   <li>Given {@link DeadLetterJobEntityImpl} {@link AbstractJobEntityImpl#isExclusive()} return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ExecuteAsyncRunnable#unlockJobIfNeeded()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecuteAsyncRunnable.unlockJobIfNeeded()"})
-  public void testUnlockJobIfNeeded_givenDeadLetterJobEntityImplIsExclusiveReturnFalse() {
-    // Arrange
-    DeadLetterJobEntityImpl job = mock(DeadLetterJobEntityImpl.class);
-    when(job.isExclusive()).thenReturn(false);
-    when(job.getId()).thenReturn("42");
-
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    CommandConfig defaultConfig = mock(CommandConfig.class);
-    processEngineConfiguration
-        .setCommandExecutor(new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor()));
-
-    // Act
-    (new ExecuteAsyncRunnable(job, processEngineConfiguration)).unlockJobIfNeeded();
-
-    // Assert
-    verify(job).getId();
-    verify(job).isExclusive();
-  }
-
-  /**
-   * Test {@link ExecuteAsyncRunnable#unlockJobIfNeeded()}.
-   * <ul>
-   *   <li>Then calls {@link CommandExecutorImpl#execute(Command)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecuteAsyncRunnable#unlockJobIfNeeded()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecuteAsyncRunnable.unlockJobIfNeeded()"})
-  public void testUnlockJobIfNeeded_thenCallsExecute() {
+  public void testUnlockJobIfNeeded6() {
     // Arrange
     new ActivitiOptimisticLockingException("An error occurred");
     DeadLetterJobEntityImpl job = mock(DeadLetterJobEntityImpl.class);
@@ -1074,50 +1033,10 @@ public class ExecuteAsyncRunnableDiffblueTest {
   }
 
   /**
-   * Test {@link ExecuteAsyncRunnable#unlockJobIfNeeded()}.
-   * <ul>
-   *   <li>Then calls {@link CommandConfig#isContextReusePossible()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecuteAsyncRunnable#unlockJobIfNeeded()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecuteAsyncRunnable.unlockJobIfNeeded()"})
-  public void testUnlockJobIfNeeded_thenCallsIsContextReusePossible() {
-    // Arrange
-    DeadLetterJobEntityImpl job = mock(DeadLetterJobEntityImpl.class);
-    when(job.isExclusive()).thenReturn(true);
-    when(job.getId()).thenReturn("42");
-    CommandConfig defaultConfig = mock(CommandConfig.class);
-    when(defaultConfig.isContextReusePossible()).thenThrow(new ActivitiOptimisticLockingException("An error occurred"));
-    CommandExecutorImpl commandExecutor = new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor());
-
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setCommandExecutor(commandExecutor);
-
-    // Act
-    (new ExecuteAsyncRunnable(job, processEngineConfiguration)).unlockJobIfNeeded();
-
-    // Assert
-    verify(defaultConfig).isContextReusePossible();
-    verify(job).getId();
-    verify(job).isExclusive();
-  }
-
-  /**
-   * Test {@link ExecuteAsyncRunnable#lockJobIfNeeded()}.
-   * <ul>
-   *   <li>Given {@link CommandInterceptor} {@link CommandInterceptor#execute(CommandConfig, Command)} return {@code null}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ExecuteAsyncRunnable#lockJobIfNeeded()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean ExecuteAsyncRunnable.lockJobIfNeeded()"})
-  public void testLockJobIfNeeded_givenCommandInterceptorExecuteReturnNull_thenReturnFalse() {
+  public void testLockJobIfNeeded() {
     // Arrange
     CommandInterceptor first = mock(CommandInterceptor.class);
     when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any())).thenReturn(null);
@@ -1136,17 +1055,10 @@ public class ExecuteAsyncRunnableDiffblueTest {
   }
 
   /**
-   * Test {@link ExecuteAsyncRunnable#unacquireJob()}.
-   * <ul>
-   *   <li>Then calls {@link ProcessEngineConfigurationImpl#getCommandExecutor()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ExecuteAsyncRunnable#unacquireJob()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecuteAsyncRunnable.unacquireJob()"})
-  public void testUnacquireJob_thenCallsGetCommandExecutor() {
+  public void testUnacquireJob() {
     // Arrange
     CommandInterceptor first = mock(CommandInterceptor.class);
     when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any())).thenReturn(null);
@@ -1163,17 +1075,10 @@ public class ExecuteAsyncRunnableDiffblueTest {
   }
 
   /**
-   * Test {@link ExecuteAsyncRunnable#handleFailedJob(Throwable)}.
-   * <ul>
-   *   <li>Then calls {@link ProcessEngineConfigurationImpl#getCommandExecutor()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ExecuteAsyncRunnable#handleFailedJob(Throwable)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecuteAsyncRunnable.handleFailedJob(Throwable)"})
-  public void testHandleFailedJob_thenCallsGetCommandExecutor() {
+  public void testHandleFailedJob() {
     // Arrange
     CommandInterceptor first = mock(CommandInterceptor.class);
     when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(JSONObject.NULL);

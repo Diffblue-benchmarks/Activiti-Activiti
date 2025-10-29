@@ -17,39 +17,32 @@ package org.activiti.engine.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.standalone.testing.ActivitiTestCaseTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ActivitiTestCaseDiffblueTest {
+  @InjectMocks
+  private ActivitiTestCaseTest activitiTestCaseTest;
+
   /**
-   * Test {@link ActivitiTestCase#getConfigurationResource()}.
-   * <p>
    * Method under test: {@link ActivitiTestCase#getConfigurationResource()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String ActivitiTestCase.getConfigurationResource()"})
   public void testGetConfigurationResource() {
     // Arrange, Act and Assert
     assertEquals("activiti.cfg.xml", (new ActivitiTestCaseTest()).getConfigurationResource());
   }
 
   /**
-   * Test {@link ActivitiTestCase#setConfigurationResource(String)}.
-   * <p>
    * Method under test: {@link ActivitiTestCase#setConfigurationResource(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiTestCase.setConfigurationResource(String)"})
   public void testSetConfigurationResource() {
-    // Arrange
-    ActivitiTestCaseTest activitiTestCaseTest = new ActivitiTestCaseTest();
-
-    // Act
+    // Arrange and Act
     activitiTestCaseTest.setConfigurationResource("Configuration Resource");
 
     // Assert
@@ -57,26 +50,18 @@ public class ActivitiTestCaseDiffblueTest {
   }
 
   /**
-   * Test {@link ActivitiTestCase#getMockSupport()}.
-   * <p>
    * Method under test: {@link ActivitiTestCase#getMockSupport()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"org.activiti.engine.test.mock.ActivitiMockSupport ActivitiTestCase.getMockSupport()"})
   public void testGetMockSupport() {
     // Arrange, Act and Assert
     assertNull((new ActivitiTestCaseTest()).getMockSupport());
   }
 
   /**
-   * Test {@link ActivitiTestCase#mockSupport()}.
-   * <p>
    * Method under test: {@link ActivitiTestCase#mockSupport()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"org.activiti.engine.test.mock.ActivitiMockSupport ActivitiTestCase.mockSupport()"})
   public void testMockSupport() {
     // Arrange, Act and Assert
     assertNull((new ActivitiTestCaseTest()).mockSupport());

@@ -16,29 +16,54 @@
 package org.activiti.runtime.api.event.impl;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import org.activiti.engine.delegate.event.ActivitiEntityEvent;
 import org.activiti.engine.delegate.event.impl.ActivitiProcessCancelledEventImpl;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.runtime.api.model.impl.APITaskCandidateUserConverter;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ToTaskCandidateUserRemovedConverterDiffblueTest {
   /**
-   * Test {@link ToTaskCandidateUserRemovedConverter#ToTaskCandidateUserRemovedConverter(APITaskCandidateUserConverter)}.
-   * <p>
-   * Method under test: {@link ToTaskCandidateUserRemovedConverter#ToTaskCandidateUserRemovedConverter(APITaskCandidateUserConverter)}
+   * Method under test:
+   * {@link ToTaskCandidateUserRemovedConverter#from(ActivitiEntityEvent)}
    */
   @Test
-  @DisplayName("Test new ToTaskCandidateUserRemovedConverter(APITaskCandidateUserConverter)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ToTaskCandidateUserRemovedConverter.<init>(APITaskCandidateUserConverter)"})
+  void testFrom() {
+    // Arrange
+    ToTaskCandidateUserRemovedConverter toTaskCandidateUserRemovedConverter = new ToTaskCandidateUserRemovedConverter(
+        new APITaskCandidateUserConverter());
+
+    // Act and Assert
+    assertFalse(toTaskCandidateUserRemovedConverter
+        .from(new ActivitiProcessCancelledEventImpl(ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
+        .isPresent());
+  }
+
+  /**
+   * Method under test:
+   * {@link ToTaskCandidateUserRemovedConverter#from(ActivitiEntityEvent)}
+   */
+  @Test
+  void testFrom2() {
+    // Arrange
+    ToTaskCandidateUserRemovedConverter toTaskCandidateUserRemovedConverter = new ToTaskCandidateUserRemovedConverter(
+        new APITaskCandidateUserConverter());
+
+    // Act and Assert
+    assertFalse(
+        toTaskCandidateUserRemovedConverter.from(new ActivitiProcessCancelledEventImpl(mock(ProcessInstance.class)))
+            .isPresent());
+  }
+
+  /**
+   * Method under test:
+   * {@link ToTaskCandidateUserRemovedConverter#ToTaskCandidateUserRemovedConverter(APITaskCandidateUserConverter)}
+   */
+  @Test
   void testNewToTaskCandidateUserRemovedConverter() {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
-    //   Run dcover create --keep-partial-tests to gain insights into why
-    //   a non-Spring test was created.
 
     // Arrange and Act
     ToTaskCandidateUserRemovedConverter actualToTaskCandidateUserRemovedConverter = new ToTaskCandidateUserRemovedConverter(
@@ -51,24 +76,19 @@ class ToTaskCandidateUserRemovedConverterDiffblueTest {
   }
 
   /**
-   * Test {@link ToTaskCandidateUserRemovedConverter#from(ActivitiEntityEvent)} with {@code ActivitiEntityEvent}.
-   * <ul>
-   *   <li>Then return not Present.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ToTaskCandidateUserRemovedConverter#from(ActivitiEntityEvent)}
+   * Method under test:
+   * {@link ToTaskCandidateUserRemovedConverter#ToTaskCandidateUserRemovedConverter(APITaskCandidateUserConverter)}
    */
   @Test
-  @DisplayName("Test from(ActivitiEntityEvent) with 'ActivitiEntityEvent'; then return not Present")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.util.Optional ToTaskCandidateUserRemovedConverter.from(ActivitiEntityEvent)"})
-  void testFromWithActivitiEntityEvent_thenReturnNotPresent() {
-    // Arrange
-    ToTaskCandidateUserRemovedConverter toTaskCandidateUserRemovedConverter = new ToTaskCandidateUserRemovedConverter(
-        new APITaskCandidateUserConverter());
+  void testNewToTaskCandidateUserRemovedConverter2() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
 
-    // Act and Assert
-    assertFalse(toTaskCandidateUserRemovedConverter
+    // Arrange and Act
+    ToTaskCandidateUserRemovedConverter actualToTaskCandidateUserRemovedConverter = new ToTaskCandidateUserRemovedConverter(
+        mock(APITaskCandidateUserConverter.class));
+
+    // Assert
+    assertFalse(actualToTaskCandidateUserRemovedConverter
         .from(new ActivitiProcessCancelledEventImpl(ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
         .isPresent());
   }

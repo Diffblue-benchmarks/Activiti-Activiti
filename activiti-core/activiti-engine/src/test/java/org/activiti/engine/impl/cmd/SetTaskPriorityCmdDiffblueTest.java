@@ -16,20 +16,13 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class SetTaskPriorityCmdDiffblueTest {
   /**
-   * Test {@link SetTaskPriorityCmd#SetTaskPriorityCmd(String, int)}.
-   * <p>
    * Method under test: {@link SetTaskPriorityCmd#SetTaskPriorityCmd(String, int)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SetTaskPriorityCmd.<init>(String, int)"})
   public void testNewSetTaskPriorityCmd() {
     // Arrange and Act
     SetTaskPriorityCmd actualSetTaskPriorityCmd = new SetTaskPriorityCmd("42", 1);

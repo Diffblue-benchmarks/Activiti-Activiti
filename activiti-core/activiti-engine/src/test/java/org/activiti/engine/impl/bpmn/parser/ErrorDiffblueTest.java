@@ -16,15 +16,10 @@
 package org.activiti.engine.impl.bpmn.parser;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ErrorDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link Error}
@@ -35,9 +30,6 @@ public class ErrorDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Error.<init>()", "String Error.getErrorCode()", "String Error.getId()",
-      "void Error.setErrorCode(String)", "void Error.setId(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Error actualError = new Error();
@@ -45,7 +37,7 @@ public class ErrorDiffblueTest {
     actualError.setId("42");
     String actualErrorCode = actualError.getErrorCode();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("42", actualError.getId());
     assertEquals("An error occurred", actualErrorCode);
   }

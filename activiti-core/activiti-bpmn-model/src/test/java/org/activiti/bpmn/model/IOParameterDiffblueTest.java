@@ -19,27 +19,40 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.util.List;
 import java.util.Map;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class IOParameterDiffblueTest {
   /**
-   * Test {@link IOParameter#clone()}.
-   * <ul>
-   *   <li>Given {@link IOParameter} (default constructor) ExtensionElements is {@code null}.</li>
-   *   <li>Then return Id is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link IOParameter#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"IOParameter IOParameter.clone()"})
-  public void testClone_givenIOParameterExtensionElementsIsNull_thenReturnIdIsNull() {
+  public void testClone() {
+    // Arrange and Act
+    IOParameter actualCloneResult = (new IOParameter()).clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getSource());
+    assertNull(actualCloneResult.getSourceExpression());
+    assertNull(actualCloneResult.getTarget());
+    assertNull(actualCloneResult.getTargetExpression());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link IOParameter#clone()}
+   */
+  @Test
+  public void testClone2() {
     // Arrange
     IOParameter ioParameter = new IOParameter();
     ioParameter.setExtensionElements(null);
@@ -61,20 +74,17 @@ public class IOParameterDiffblueTest {
   }
 
   /**
-   * Test {@link IOParameter#clone()}.
-   * <ul>
-   *   <li>Given {@link IOParameter} (default constructor).</li>
-   *   <li>Then return Id is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link IOParameter#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"IOParameter IOParameter.clone()"})
-  public void testClone_givenIOParameter_thenReturnIdIsNull() {
-    // Arrange and Act
-    IOParameter actualCloneResult = (new IOParameter()).clone();
+  public void testClone3() {
+    // Arrange
+    IOParameter ioParameter = new IOParameter();
+    ExtensionAttribute attribute = new ExtensionAttribute("Name");
+    ioParameter.addAttribute(attribute);
+
+    // Act
+    IOParameter actualCloneResult = ioParameter.clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
@@ -84,65 +94,69 @@ public class IOParameterDiffblueTest {
     assertNull(actualCloneResult.getTargetExpression());
     assertEquals(0, actualCloneResult.getXmlColumnNumber());
     assertEquals(0, actualCloneResult.getXmlRowNumber());
-    assertTrue(actualCloneResult.getAttributes().isEmpty());
-    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link IOParameter#clone()}.
-   * <ul>
-   *   <li>Then return Attributes size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link IOParameter#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"IOParameter IOParameter.clone()"})
-  public void testClone_thenReturnAttributesSizeIsOne() {
-    // Arrange
-    IOParameter ioParameter = new IOParameter();
-    ExtensionAttribute attribute = new ExtensionAttribute("Name");
-    ioParameter.addAttribute(attribute);
-
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = ioParameter.clone().getAttributes();
+    Map<String, List<ExtensionAttribute>> attributes = actualCloneResult.getAttributes();
     assertEquals(1, attributes.size());
     List<ExtensionAttribute> getResult = attributes.get("Name");
     assertEquals(1, getResult.size());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
     assertSame(attribute, getResult.get(0));
   }
 
   /**
-   * Test {@link IOParameter#clone()}.
-   * <ul>
-   *   <li>Then return Attributes size is two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link IOParameter#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"IOParameter IOParameter.clone()"})
-  public void testClone_thenReturnAttributesSizeIsTwo() {
+  public void testClone4() {
     // Arrange
     IOParameter ioParameter = new IOParameter();
     ExtensionAttribute attribute = new ExtensionAttribute("42");
     ioParameter.addAttribute(attribute);
-    ioParameter.addAttribute(new ExtensionAttribute("Name"));
+    ExtensionAttribute attribute2 = new ExtensionAttribute("Name");
+    ioParameter.addAttribute(attribute2);
 
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = ioParameter.clone().getAttributes();
+    // Act
+    IOParameter actualCloneResult = ioParameter.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getSource());
+    assertNull(actualCloneResult.getSourceExpression());
+    assertNull(actualCloneResult.getTarget());
+    assertNull(actualCloneResult.getTargetExpression());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    Map<String, List<ExtensionAttribute>> attributes = actualCloneResult.getAttributes();
     assertEquals(2, attributes.size());
     List<ExtensionAttribute> getResult = attributes.get("42");
     assertEquals(1, getResult.size());
-    assertTrue(attributes.containsKey("Name"));
+    List<ExtensionAttribute> getResult2 = attributes.get("Name");
+    assertEquals(1, getResult2.size());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
     assertSame(attribute, getResult.get(0));
+    assertSame(attribute2, getResult2.get(0));
   }
 
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link IOParameter#setValues(IOParameter)}
+   */
+  @Test
+  public void testSetValues() {
+    // Arrange
+    IOParameter ioParameter = new IOParameter();
+    ExtensionAttribute attribute = mock(ExtensionAttribute.class);
+    when(attribute.getName()).thenReturn("Name");
+
+    IOParameter otherElement = new IOParameter();
+    otherElement.addAttribute(attribute);
+
+    // Act
+    ioParameter.setValues(otherElement);
+
+    // Assert
+    verify(attribute, atLeast(1)).getName();
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link IOParameter}
@@ -157,12 +171,6 @@ public class IOParameterDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void IOParameter.<init>()", "String IOParameter.getSource()",
-      "String IOParameter.getSourceExpression()", "String IOParameter.getTarget()",
-      "String IOParameter.getTargetExpression()", "void IOParameter.setSource(String)",
-      "void IOParameter.setSourceExpression(String)", "void IOParameter.setTarget(String)",
-      "void IOParameter.setTargetExpression(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     IOParameter actualIoParameter = new IOParameter();
@@ -174,12 +182,11 @@ public class IOParameterDiffblueTest {
     String actualSourceExpression = actualIoParameter.getSourceExpression();
     String actualTarget = actualIoParameter.getTarget();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("Source Expression", actualSourceExpression);
     assertEquals("Source", actualSource);
     assertEquals("Target Expression", actualIoParameter.getTargetExpression());
     assertEquals("Target", actualTarget);
-    assertNull(actualIoParameter.getId());
     assertEquals(0, actualIoParameter.getXmlColumnNumber());
     assertEquals(0, actualIoParameter.getXmlRowNumber());
     assertTrue(actualIoParameter.getAttributes().isEmpty());

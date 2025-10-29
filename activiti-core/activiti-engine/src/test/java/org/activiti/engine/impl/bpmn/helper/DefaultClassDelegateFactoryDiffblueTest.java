@@ -19,89 +19,262 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.bpmn.model.MapExceptionEntry;
+import org.activiti.core.el.juel.ObjectValueExpression;
+import org.activiti.core.el.juel.misc.TypeConverter;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.impl.bpmn.parser.FieldDeclaration;
 import org.activiti.engine.impl.el.FixedValue;
+import org.activiti.engine.impl.el.JuelExpression;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class DefaultClassDelegateFactoryDiffblueTest {
+  @InjectMocks
+  private DefaultClassDelegateFactory defaultClassDelegateFactory;
+
   /**
-   * Test {@link DefaultClassDelegateFactory#create(String, List)} with {@code className}, {@code fieldDeclarations}.
-   * <ul>
-   *   <li>Then return {@link ClassDelegate#fieldDeclarations} size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultClassDelegateFactory#create(String, List)}
+   * Method under test:
+   * {@link DefaultClassDelegateFactory#create(String, String, List, Expression, List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ClassDelegate DefaultClassDelegateFactory.create(String, List)"})
-  public void testCreateWithClassNameFieldDeclarations_thenReturnFieldDeclarationsSizeIsOne() {
+  public void testCreate() {
     // Arrange
-    DefaultClassDelegateFactory defaultClassDelegateFactory = new DefaultClassDelegateFactory();
+    ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
+    FixedValue skipExpression = new FixedValue(JSONObject.NULL);
+    ArrayList<MapExceptionEntry> mapExceptions = new ArrayList<>();
 
+    // Act
+    ClassDelegate actualCreateResult = defaultClassDelegateFactory.create("42", "Class Name", fieldDeclarations,
+        skipExpression, mapExceptions);
+
+    // Assert
+    Expression expression = actualCreateResult.skipExpression;
+    assertTrue(expression instanceof FixedValue);
+    assertEquals("42", actualCreateResult.serviceTaskId);
+    assertEquals("Class Name", actualCreateResult.getClassName());
+    assertEquals("null", expression.getExpressionText());
+    assertNull(actualCreateResult.customPropertiesResolverInstance);
+    assertNull(actualCreateResult.executionListenerInstance);
+    assertNull(actualCreateResult.taskListenerInstance);
+    assertNull(actualCreateResult.transactionDependentExecutionListenerInstance);
+    assertNull(actualCreateResult.transactionDependentTaskListenerInstance);
+    assertNull(actualCreateResult.getMultiInstanceActivityBehavior());
+    assertNull(actualCreateResult.activityBehaviorInstance);
+    assertTrue(mapExceptions.isEmpty());
+    assertTrue(actualCreateResult.fieldDeclarations.isEmpty());
+    assertTrue(actualCreateResult.mapExceptions.isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultClassDelegateFactory#create(String, String, List, Expression, List)}
+   */
+  @Test
+  public void testCreate2() {
+    // Arrange
     ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
     FieldDeclaration fieldDeclaration = new FieldDeclaration();
     fieldDeclarations.add(fieldDeclaration);
+    FixedValue skipExpression = new FixedValue(JSONObject.NULL);
+    ArrayList<MapExceptionEntry> mapExceptions = new ArrayList<>();
 
-    // Act and Assert
-    List<FieldDeclaration> fieldDeclarationList = defaultClassDelegateFactory.create("Class Name",
-        fieldDeclarations).fieldDeclarations;
+    // Act
+    ClassDelegate actualCreateResult = defaultClassDelegateFactory.create("42", "Class Name", fieldDeclarations,
+        skipExpression, mapExceptions);
+
+    // Assert
+    Expression expression = actualCreateResult.skipExpression;
+    assertTrue(expression instanceof FixedValue);
+    assertEquals("42", actualCreateResult.serviceTaskId);
+    assertEquals("Class Name", actualCreateResult.getClassName());
+    assertEquals("null", expression.getExpressionText());
+    assertNull(actualCreateResult.customPropertiesResolverInstance);
+    assertNull(actualCreateResult.executionListenerInstance);
+    assertNull(actualCreateResult.taskListenerInstance);
+    assertNull(actualCreateResult.transactionDependentExecutionListenerInstance);
+    assertNull(actualCreateResult.transactionDependentTaskListenerInstance);
+    assertNull(actualCreateResult.getMultiInstanceActivityBehavior());
+    assertNull(actualCreateResult.activityBehaviorInstance);
+    List<FieldDeclaration> fieldDeclarationList = actualCreateResult.fieldDeclarations;
     assertEquals(1, fieldDeclarationList.size());
+    assertTrue(mapExceptions.isEmpty());
+    assertTrue(actualCreateResult.mapExceptions.isEmpty());
     assertSame(fieldDeclaration, fieldDeclarationList.get(0));
   }
 
   /**
-   * Test {@link DefaultClassDelegateFactory#create(String, List)} with {@code className}, {@code fieldDeclarations}.
-   * <ul>
-   *   <li>Then return {@link ClassDelegate#fieldDeclarations} size is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultClassDelegateFactory#create(String, List)}
+   * Method under test:
+   * {@link DefaultClassDelegateFactory#create(String, String, List, Expression, List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ClassDelegate DefaultClassDelegateFactory.create(String, List)"})
-  public void testCreateWithClassNameFieldDeclarations_thenReturnFieldDeclarationsSizeIsTwo() {
+  public void testCreate3() {
     // Arrange
-    DefaultClassDelegateFactory defaultClassDelegateFactory = new DefaultClassDelegateFactory();
-
     ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
-    fieldDeclarations.add(new FieldDeclaration());
     FieldDeclaration fieldDeclaration = new FieldDeclaration();
     fieldDeclarations.add(fieldDeclaration);
+    FieldDeclaration fieldDeclaration2 = new FieldDeclaration();
+    fieldDeclarations.add(fieldDeclaration2);
+    FixedValue skipExpression = new FixedValue(JSONObject.NULL);
+    ArrayList<MapExceptionEntry> mapExceptions = new ArrayList<>();
 
-    // Act and Assert
-    List<FieldDeclaration> fieldDeclarationList = defaultClassDelegateFactory.create("Class Name",
-        fieldDeclarations).fieldDeclarations;
+    // Act
+    ClassDelegate actualCreateResult = defaultClassDelegateFactory.create("42", "Class Name", fieldDeclarations,
+        skipExpression, mapExceptions);
+
+    // Assert
+    Expression expression = actualCreateResult.skipExpression;
+    assertTrue(expression instanceof FixedValue);
+    assertEquals("42", actualCreateResult.serviceTaskId);
+    assertEquals("Class Name", actualCreateResult.getClassName());
+    assertEquals("null", expression.getExpressionText());
+    assertNull(actualCreateResult.customPropertiesResolverInstance);
+    assertNull(actualCreateResult.executionListenerInstance);
+    assertNull(actualCreateResult.taskListenerInstance);
+    assertNull(actualCreateResult.transactionDependentExecutionListenerInstance);
+    assertNull(actualCreateResult.transactionDependentTaskListenerInstance);
+    assertNull(actualCreateResult.getMultiInstanceActivityBehavior());
+    assertNull(actualCreateResult.activityBehaviorInstance);
+    List<FieldDeclaration> fieldDeclarationList = actualCreateResult.fieldDeclarations;
     assertEquals(2, fieldDeclarationList.size());
-    assertSame(fieldDeclaration, fieldDeclarationList.get(1));
+    assertTrue(mapExceptions.isEmpty());
+    assertTrue(actualCreateResult.mapExceptions.isEmpty());
+    assertSame(fieldDeclaration, fieldDeclarationList.get(0));
+    assertSame(fieldDeclaration2, fieldDeclarationList.get(1));
   }
 
   /**
-   * Test {@link DefaultClassDelegateFactory#create(String, List)} with {@code className}, {@code fieldDeclarations}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return {@code Class Name}.</li>
-   * </ul>
-   * <p>
+   * Method under test:
+   * {@link DefaultClassDelegateFactory#create(String, String, List, Expression, List)}
+   */
+  @Test
+  public void testCreate4() {
+    // Arrange
+    ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    JuelExpression skipExpression = new JuelExpression(new ObjectValueExpression(converter, JSONObject.NULL, type),
+        "Expression Text");
+
+    ArrayList<MapExceptionEntry> mapExceptions = new ArrayList<>();
+
+    // Act
+    ClassDelegate actualCreateResult = defaultClassDelegateFactory.create("42", "Class Name", fieldDeclarations,
+        skipExpression, mapExceptions);
+
+    // Assert
+    Expression expression = actualCreateResult.skipExpression;
+    assertTrue(expression instanceof JuelExpression);
+    assertEquals("42", actualCreateResult.serviceTaskId);
+    assertEquals("Class Name", actualCreateResult.getClassName());
+    assertEquals("Expression Text", expression.getExpressionText());
+    assertNull(actualCreateResult.customPropertiesResolverInstance);
+    assertNull(actualCreateResult.executionListenerInstance);
+    assertNull(actualCreateResult.taskListenerInstance);
+    assertNull(actualCreateResult.transactionDependentExecutionListenerInstance);
+    assertNull(actualCreateResult.transactionDependentTaskListenerInstance);
+    assertNull(actualCreateResult.getMultiInstanceActivityBehavior());
+    assertNull(actualCreateResult.activityBehaviorInstance);
+    assertTrue(mapExceptions.isEmpty());
+    assertTrue(actualCreateResult.fieldDeclarations.isEmpty());
+    assertTrue(actualCreateResult.mapExceptions.isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultClassDelegateFactory#create(String, String, List, Expression, List)}
+   */
+  @Test
+  public void testCreate5() {
+    // Arrange
+    ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
+    FixedValue skipExpression = new FixedValue(JSONObject.NULL);
+
+    ArrayList<MapExceptionEntry> mapExceptions = new ArrayList<>();
+    MapExceptionEntry mapExceptionEntry = new MapExceptionEntry("An error occurred", "Class Name", true);
+
+    mapExceptions.add(mapExceptionEntry);
+
+    // Act
+    ClassDelegate actualCreateResult = defaultClassDelegateFactory.create("42", "Class Name", fieldDeclarations,
+        skipExpression, mapExceptions);
+
+    // Assert
+    assertEquals(1, mapExceptions.size());
+    Expression expression = actualCreateResult.skipExpression;
+    assertTrue(expression instanceof FixedValue);
+    assertEquals("42", actualCreateResult.serviceTaskId);
+    assertEquals("Class Name", actualCreateResult.getClassName());
+    assertEquals("null", expression.getExpressionText());
+    assertNull(actualCreateResult.customPropertiesResolverInstance);
+    assertNull(actualCreateResult.executionListenerInstance);
+    assertNull(actualCreateResult.taskListenerInstance);
+    assertNull(actualCreateResult.transactionDependentExecutionListenerInstance);
+    assertNull(actualCreateResult.transactionDependentTaskListenerInstance);
+    assertNull(actualCreateResult.getMultiInstanceActivityBehavior());
+    assertNull(actualCreateResult.activityBehaviorInstance);
+    List<MapExceptionEntry> mapExceptionEntryList = actualCreateResult.mapExceptions;
+    assertEquals(1, mapExceptionEntryList.size());
+    assertTrue(actualCreateResult.fieldDeclarations.isEmpty());
+    assertSame(mapExceptionEntry, mapExceptionEntryList.get(0));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultClassDelegateFactory#create(String, String, List, Expression, List)}
+   */
+  @Test
+  public void testCreate6() {
+    // Arrange
+    ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
+    FixedValue skipExpression = new FixedValue(JSONObject.NULL);
+
+    ArrayList<MapExceptionEntry> mapExceptions = new ArrayList<>();
+    MapExceptionEntry mapExceptionEntry = new MapExceptionEntry("An error occurred", "Class Name", true);
+
+    mapExceptions.add(mapExceptionEntry);
+    MapExceptionEntry mapExceptionEntry2 = new MapExceptionEntry("An error occurred", "Class Name", true);
+
+    mapExceptions.add(mapExceptionEntry2);
+
+    // Act
+    ClassDelegate actualCreateResult = defaultClassDelegateFactory.create("42", "Class Name", fieldDeclarations,
+        skipExpression, mapExceptions);
+
+    // Assert
+    assertEquals(2, mapExceptions.size());
+    Expression expression = actualCreateResult.skipExpression;
+    assertTrue(expression instanceof FixedValue);
+    assertEquals("42", actualCreateResult.serviceTaskId);
+    assertEquals("Class Name", actualCreateResult.getClassName());
+    assertEquals("null", expression.getExpressionText());
+    assertNull(actualCreateResult.customPropertiesResolverInstance);
+    assertNull(actualCreateResult.executionListenerInstance);
+    assertNull(actualCreateResult.taskListenerInstance);
+    assertNull(actualCreateResult.transactionDependentExecutionListenerInstance);
+    assertNull(actualCreateResult.transactionDependentTaskListenerInstance);
+    assertNull(actualCreateResult.getMultiInstanceActivityBehavior());
+    assertNull(actualCreateResult.activityBehaviorInstance);
+    List<MapExceptionEntry> mapExceptionEntryList = actualCreateResult.mapExceptions;
+    assertEquals(2, mapExceptionEntryList.size());
+    assertTrue(actualCreateResult.fieldDeclarations.isEmpty());
+    assertSame(mapExceptionEntry, mapExceptionEntryList.get(0));
+    assertSame(mapExceptionEntry2, mapExceptionEntryList.get(1));
+  }
+
+  /**
    * Method under test: {@link DefaultClassDelegateFactory#create(String, List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ClassDelegate DefaultClassDelegateFactory.create(String, List)"})
-  public void testCreateWithClassNameFieldDeclarations_whenArrayList_thenReturnClassName() {
-    // Arrange
-    DefaultClassDelegateFactory defaultClassDelegateFactory = new DefaultClassDelegateFactory();
-
-    // Act
+  public void testCreate7() {
+    // Arrange and Act
     ClassDelegate actualCreateResult = defaultClassDelegateFactory.create("Class Name", new ArrayList<>());
 
     // Assert
@@ -120,126 +293,92 @@ public class DefaultClassDelegateFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultClassDelegateFactory#create(String, String, List, Expression, List)} with {@code id}, {@code className}, {@code fieldDeclarations}, {@code skipExpression}, {@code mapExceptions}.
-   * <p>
-   * Method under test: {@link DefaultClassDelegateFactory#create(String, String, List, Expression, List)}
+   * Method under test: {@link DefaultClassDelegateFactory#create(String, List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ClassDelegate DefaultClassDelegateFactory.create(String, String, List, Expression, List)"})
-  public void testCreateWithIdClassNameFieldDeclarationsSkipExpressionMapExceptions() {
+  public void testCreate8() {
     // Arrange
-    DefaultClassDelegateFactory defaultClassDelegateFactory = new DefaultClassDelegateFactory();
-    ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
-    FixedValue skipExpression = new FixedValue(JSONObject.NULL);
-    ArrayList<MapExceptionEntry> mapExceptions = new ArrayList<>();
-
-    // Act
-    defaultClassDelegateFactory.create("42", "Class Name", fieldDeclarations, skipExpression, mapExceptions);
-
-    // Assert
-    assertTrue(mapExceptions.isEmpty());
-  }
-
-  /**
-   * Test {@link DefaultClassDelegateFactory#create(String, String, List, Expression, List)} with {@code id}, {@code className}, {@code fieldDeclarations}, {@code skipExpression}, {@code mapExceptions}.
-   * <p>
-   * Method under test: {@link DefaultClassDelegateFactory#create(String, String, List, Expression, List)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ClassDelegate DefaultClassDelegateFactory.create(String, String, List, Expression, List)"})
-  public void testCreateWithIdClassNameFieldDeclarationsSkipExpressionMapExceptions2() {
-    // Arrange
-    DefaultClassDelegateFactory defaultClassDelegateFactory = new DefaultClassDelegateFactory();
-
     ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
     FieldDeclaration fieldDeclaration = new FieldDeclaration();
     fieldDeclarations.add(fieldDeclaration);
-    FixedValue skipExpression = new FixedValue(JSONObject.NULL);
 
-    // Act and Assert
-    List<FieldDeclaration> fieldDeclarationList = defaultClassDelegateFactory.create("42", "Class Name",
-        fieldDeclarations, skipExpression, new ArrayList<>()).fieldDeclarations;
+    // Act
+    ClassDelegate actualCreateResult = defaultClassDelegateFactory.create("Class Name", fieldDeclarations);
+
+    // Assert
+    assertEquals("Class Name", actualCreateResult.getClassName());
+    assertNull(actualCreateResult.serviceTaskId);
+    assertNull(actualCreateResult.mapExceptions);
+    assertNull(actualCreateResult.customPropertiesResolverInstance);
+    assertNull(actualCreateResult.executionListenerInstance);
+    assertNull(actualCreateResult.skipExpression);
+    assertNull(actualCreateResult.taskListenerInstance);
+    assertNull(actualCreateResult.transactionDependentExecutionListenerInstance);
+    assertNull(actualCreateResult.transactionDependentTaskListenerInstance);
+    assertNull(actualCreateResult.getMultiInstanceActivityBehavior());
+    assertNull(actualCreateResult.activityBehaviorInstance);
+    List<FieldDeclaration> fieldDeclarationList = actualCreateResult.fieldDeclarations;
     assertEquals(1, fieldDeclarationList.size());
     assertSame(fieldDeclaration, fieldDeclarationList.get(0));
   }
 
   /**
-   * Test {@link DefaultClassDelegateFactory#create(String, String, List, Expression, List)} with {@code id}, {@code className}, {@code fieldDeclarations}, {@code skipExpression}, {@code mapExceptions}.
-   * <p>
-   * Method under test: {@link DefaultClassDelegateFactory#create(String, String, List, Expression, List)}
+   * Method under test: {@link DefaultClassDelegateFactory#create(String, List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ClassDelegate DefaultClassDelegateFactory.create(String, String, List, Expression, List)"})
-  public void testCreateWithIdClassNameFieldDeclarationsSkipExpressionMapExceptions3() {
+  public void testCreate9() {
     // Arrange
-    DefaultClassDelegateFactory defaultClassDelegateFactory = new DefaultClassDelegateFactory();
-
     ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
-    fieldDeclarations.add(new FieldDeclaration());
     FieldDeclaration fieldDeclaration = new FieldDeclaration();
     fieldDeclarations.add(fieldDeclaration);
-    FixedValue skipExpression = new FixedValue(JSONObject.NULL);
+    FieldDeclaration fieldDeclaration2 = new FieldDeclaration();
+    fieldDeclarations.add(fieldDeclaration2);
 
-    // Act and Assert
-    List<FieldDeclaration> fieldDeclarationList = defaultClassDelegateFactory.create("42", "Class Name",
-        fieldDeclarations, skipExpression, new ArrayList<>()).fieldDeclarations;
+    // Act
+    ClassDelegate actualCreateResult = defaultClassDelegateFactory.create("Class Name", fieldDeclarations);
+
+    // Assert
+    assertEquals("Class Name", actualCreateResult.getClassName());
+    assertNull(actualCreateResult.serviceTaskId);
+    assertNull(actualCreateResult.mapExceptions);
+    assertNull(actualCreateResult.customPropertiesResolverInstance);
+    assertNull(actualCreateResult.executionListenerInstance);
+    assertNull(actualCreateResult.skipExpression);
+    assertNull(actualCreateResult.taskListenerInstance);
+    assertNull(actualCreateResult.transactionDependentExecutionListenerInstance);
+    assertNull(actualCreateResult.transactionDependentTaskListenerInstance);
+    assertNull(actualCreateResult.getMultiInstanceActivityBehavior());
+    assertNull(actualCreateResult.activityBehaviorInstance);
+    List<FieldDeclaration> fieldDeclarationList = actualCreateResult.fieldDeclarations;
     assertEquals(2, fieldDeclarationList.size());
-    assertSame(fieldDeclaration, fieldDeclarationList.get(1));
+    assertSame(fieldDeclaration, fieldDeclarationList.get(0));
+    assertSame(fieldDeclaration2, fieldDeclarationList.get(1));
   }
 
   /**
-   * Test {@link DefaultClassDelegateFactory#create(String, String, List, Expression, List)} with {@code id}, {@code className}, {@code fieldDeclarations}, {@code skipExpression}, {@code mapExceptions}.
-   * <p>
-   * Method under test: {@link DefaultClassDelegateFactory#create(String, String, List, Expression, List)}
+   * Method under test: {@link DefaultClassDelegateFactory#create(String, List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ClassDelegate DefaultClassDelegateFactory.create(String, String, List, Expression, List)"})
-  public void testCreateWithIdClassNameFieldDeclarationsSkipExpressionMapExceptions4() {
+  public void testCreate10() {
     // Arrange
-    DefaultClassDelegateFactory defaultClassDelegateFactory = new DefaultClassDelegateFactory();
     ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
-    FixedValue skipExpression = new FixedValue(JSONObject.NULL);
+    fieldDeclarations.add(mock(FieldDeclaration.class));
 
-    ArrayList<MapExceptionEntry> mapExceptions = new ArrayList<>();
-    MapExceptionEntry mapExceptionEntry = new MapExceptionEntry("An error occurred", "Class Name", true);
+    // Act
+    ClassDelegate actualCreateResult = defaultClassDelegateFactory.create("Class Name", fieldDeclarations);
 
-    mapExceptions.add(mapExceptionEntry);
-
-    // Act and Assert
-    List<MapExceptionEntry> mapExceptionEntryList = defaultClassDelegateFactory.create("42", "Class Name",
-        fieldDeclarations, skipExpression, mapExceptions).mapExceptions;
-    assertEquals(1, mapExceptionEntryList.size());
-    assertSame(mapExceptionEntry, mapExceptionEntryList.get(0));
-  }
-
-  /**
-   * Test {@link DefaultClassDelegateFactory#create(String, String, List, Expression, List)} with {@code id}, {@code className}, {@code fieldDeclarations}, {@code skipExpression}, {@code mapExceptions}.
-   * <p>
-   * Method under test: {@link DefaultClassDelegateFactory#create(String, String, List, Expression, List)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ClassDelegate DefaultClassDelegateFactory.create(String, String, List, Expression, List)"})
-  public void testCreateWithIdClassNameFieldDeclarationsSkipExpressionMapExceptions5() {
-    // Arrange
-    DefaultClassDelegateFactory defaultClassDelegateFactory = new DefaultClassDelegateFactory();
-    ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
-    FixedValue skipExpression = new FixedValue(JSONObject.NULL);
-
-    ArrayList<MapExceptionEntry> mapExceptions = new ArrayList<>();
-    mapExceptions.add(new MapExceptionEntry("An error occurred", "Class Name", true));
-    MapExceptionEntry mapExceptionEntry = new MapExceptionEntry("An error occurred", "Class Name", true);
-
-    mapExceptions.add(mapExceptionEntry);
-
-    // Act and Assert
-    List<MapExceptionEntry> mapExceptionEntryList = defaultClassDelegateFactory.create("42", "Class Name",
-        fieldDeclarations, skipExpression, mapExceptions).mapExceptions;
-    assertEquals(2, mapExceptionEntryList.size());
-    assertSame(mapExceptionEntry, mapExceptionEntryList.get(1));
+    // Assert
+    assertEquals("Class Name", actualCreateResult.getClassName());
+    assertNull(actualCreateResult.serviceTaskId);
+    assertNull(actualCreateResult.mapExceptions);
+    assertNull(actualCreateResult.customPropertiesResolverInstance);
+    assertNull(actualCreateResult.executionListenerInstance);
+    assertNull(actualCreateResult.skipExpression);
+    assertNull(actualCreateResult.taskListenerInstance);
+    assertNull(actualCreateResult.transactionDependentExecutionListenerInstance);
+    assertNull(actualCreateResult.transactionDependentTaskListenerInstance);
+    assertNull(actualCreateResult.getMultiInstanceActivityBehavior());
+    assertNull(actualCreateResult.activityBehaviorInstance);
+    assertEquals(1, actualCreateResult.fieldDeclarations.size());
   }
 }

@@ -17,9 +17,10 @@ package org.activiti.engine.impl.bpmn.parser.handler;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BoundaryEvent;
 import org.activiti.bpmn.model.CancelEventDefinition;
@@ -28,19 +29,53 @@ import org.activiti.engine.impl.bpmn.behavior.BoundaryCancelEventActivityBehavio
 import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
+import org.activiti.engine.impl.cfg.BpmnParseFactory;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class CancelEventDefinitionParseHandlerDiffblueTest {
   /**
-   * Test {@link CancelEventDefinitionParseHandler#executeParse(BpmnParse, CancelEventDefinition)} with {@code BpmnParse}, {@code CancelEventDefinition}.
-   * <p>
-   * Method under test: {@link CancelEventDefinitionParseHandler#executeParse(BpmnParse, CancelEventDefinition)}
+   * Method under test:
+   * {@link CancelEventDefinitionParseHandler#executeParse(BpmnParse, CancelEventDefinition)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CancelEventDefinitionParseHandler.executeParse(BpmnParse, CancelEventDefinition)"})
-  public void testExecuteParseWithBpmnParseCancelEventDefinition() {
+  public void testExecuteParse() {
+    // Arrange
+    CancelEventDefinitionParseHandler cancelEventDefinitionParseHandler = new CancelEventDefinitionParseHandler();
+    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
+
+    // Act
+    cancelEventDefinitionParseHandler.executeParse(bpmnParse, new CancelEventDefinition());
+
+    // Assert that nothing has changed
+    assertNull(bpmnParse.getCurrentFlowElement());
+  }
+
+  /**
+   * Method under test:
+   * {@link CancelEventDefinitionParseHandler#executeParse(BpmnParse, CancelEventDefinition)}
+   */
+  @Test
+  public void testExecuteParse2() {
+    // Arrange
+    CancelEventDefinitionParseHandler cancelEventDefinitionParseHandler = new CancelEventDefinitionParseHandler();
+
+    BpmnParser parser = new BpmnParser();
+    parser.setBpmnParseFactory(mock(BpmnParseFactory.class));
+    BpmnParse bpmnParse = new BpmnParse(parser);
+
+    // Act
+    cancelEventDefinitionParseHandler.executeParse(bpmnParse, new CancelEventDefinition());
+
+    // Assert that nothing has changed
+    assertNull(bpmnParse.getCurrentFlowElement());
+  }
+
+  /**
+   * Method under test:
+   * {@link CancelEventDefinitionParseHandler#executeParse(BpmnParse, CancelEventDefinition)}
+   */
+  @Test
+  public void testExecuteParse3() {
     // Arrange
     CancelEventDefinitionParseHandler cancelEventDefinitionParseHandler = new CancelEventDefinitionParseHandler();
 
@@ -48,32 +83,30 @@ public class CancelEventDefinitionParseHandlerDiffblueTest {
     parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
 
     BpmnParse bpmnParse = new BpmnParse(parser);
-    bpmnParse.setCurrentFlowElement(new BoundaryEvent());
+    BoundaryEvent currentFlowElement = new BoundaryEvent();
+    bpmnParse.setCurrentFlowElement(currentFlowElement);
 
     // Act
     cancelEventDefinitionParseHandler.executeParse(bpmnParse, new CancelEventDefinition());
 
     // Assert
-    FlowElement currentFlowElement = bpmnParse.getCurrentFlowElement();
-    assertTrue(currentFlowElement instanceof BoundaryEvent);
-    Object behavior = ((BoundaryEvent) currentFlowElement).getBehavior();
+    FlowElement currentFlowElement2 = bpmnParse.getCurrentFlowElement();
+    assertTrue(currentFlowElement2 instanceof BoundaryEvent);
+    Object behavior = ((BoundaryEvent) currentFlowElement2).getBehavior();
     assertTrue(behavior instanceof BoundaryCancelEventActivityBehavior);
     assertFalse(((BoundaryCancelEventActivityBehavior) behavior).isInterrupting());
+    assertSame(currentFlowElement, currentFlowElement2);
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of {@link CancelEventDefinitionParseHandler}
+   *   <li>default or parameterless constructor of
+   * {@link CancelEventDefinitionParseHandler}
    *   <li>{@link CancelEventDefinitionParseHandler#getHandledType()}
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CancelEventDefinitionParseHandler.<init>()",
-      "Class CancelEventDefinitionParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends BaseElement> actualHandledType = (new CancelEventDefinitionParseHandler()).getHandledType();

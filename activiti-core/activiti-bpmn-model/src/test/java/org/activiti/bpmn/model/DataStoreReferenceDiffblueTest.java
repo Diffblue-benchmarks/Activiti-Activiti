@@ -18,25 +18,18 @@ package org.activiti.bpmn.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import java.util.HashMap;
+import java.util.List;
+import java.util.function.BiFunction;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class DataStoreReferenceDiffblueTest {
   /**
-   * Test {@link DataStoreReference#clone()}.
-   * <ul>
-   *   <li>Given {@link DataStoreReference} (default constructor).</li>
-   *   <li>Then return Id is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DataStoreReference#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"DataStoreReference DataStoreReference.clone()"})
-  public void testClone_givenDataStoreReference_thenReturnIdIsNull() {
+  public void testClone() {
     // Arrange and Act
     DataStoreReference actualCloneResult = (new DataStoreReference()).clone();
 
@@ -57,8 +50,38 @@ public class DataStoreReferenceDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link DataStoreReference#clone()}
+   */
+  @Test
+  public void testClone2() {
+    // Arrange
+    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
+    attributes.computeIfPresent("foo", mock(BiFunction.class));
+
+    DataStoreReference dataStoreReference = new DataStoreReference();
+    dataStoreReference.setExtensionElements(null);
+    dataStoreReference.setAttributes(attributes);
+
+    // Act
+    DataStoreReference actualCloneResult = dataStoreReference.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDataState());
+    assertNull(actualCloneResult.getDataStoreRef());
+    assertNull(actualCloneResult.getItemSubjectRef());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link DataStoreReference}
@@ -71,11 +94,6 @@ public class DataStoreReferenceDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DataStoreReference.<init>()", "String DataStoreReference.getDataState()",
-      "String DataStoreReference.getDataStoreRef()", "String DataStoreReference.getItemSubjectRef()",
-      "void DataStoreReference.setDataState(String)", "void DataStoreReference.setDataStoreRef(String)",
-      "void DataStoreReference.setItemSubjectRef(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     DataStoreReference actualDataStoreReference = new DataStoreReference();
@@ -85,14 +103,10 @@ public class DataStoreReferenceDiffblueTest {
     String actualDataState = actualDataStoreReference.getDataState();
     String actualDataStoreRef = actualDataStoreReference.getDataStoreRef();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("Data State", actualDataState);
     assertEquals("Data Store Ref", actualDataStoreRef);
     assertEquals("Hello from the Dreaming Spires", actualDataStoreReference.getItemSubjectRef());
-    assertNull(actualDataStoreReference.getId());
-    assertNull(actualDataStoreReference.getDocumentation());
-    assertNull(actualDataStoreReference.getName());
-    assertNull(actualDataStoreReference.getParentContainer());
     assertEquals(0, actualDataStoreReference.getXmlColumnNumber());
     assertEquals(0, actualDataStoreReference.getXmlRowNumber());
     assertTrue(actualDataStoreReference.getExecutionListeners().isEmpty());

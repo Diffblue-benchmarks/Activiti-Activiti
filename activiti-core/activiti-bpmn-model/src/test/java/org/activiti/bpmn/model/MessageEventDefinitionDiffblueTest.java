@@ -19,22 +19,21 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.function.BiFunction;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class MessageEventDefinitionDiffblueTest {
   /**
-   * Test {@link MessageEventDefinition#clone()}.
-   * <p>
    * Method under test: {@link MessageEventDefinition#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"MessageEventDefinition MessageEventDefinition.clone()"})
   public void testClone() {
     // Arrange and Act
     MessageEventDefinition actualCloneResult = (new MessageEventDefinition()).clone();
@@ -52,8 +51,53 @@ public class MessageEventDefinitionDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link MessageEventDefinition#clone()}
+   */
+  @Test
+  public void testClone2() {
+    // Arrange
+    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
+    extensionElements.computeIfPresent("foo", mock(BiFunction.class));
+
+    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
+    messageEventDefinition.setExtensionElements(extensionElements);
+
+    // Act
+    MessageEventDefinition actualCloneResult = messageEventDefinition.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getCorrelationKey());
+    assertNull(actualCloneResult.getMessageExpression());
+    assertNull(actualCloneResult.getMessageRef());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertTrue(actualCloneResult.getFieldExtensions().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link MessageEventDefinition#setValues(MessageEventDefinition)}
+   */
+  @Test
+  public void testSetValues() {
+    // Arrange
+    ExtensionElement extensionElement = mock(ExtensionElement.class);
+    when(extensionElement.getName()).thenReturn("Name");
+
+    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
+    messageEventDefinition.addExtensionElement(extensionElement);
+
+    // Act
+    messageEventDefinition.setValues(new MessageEventDefinition());
+
+    // Assert
+    verify(extensionElement, atLeast(1)).getName();
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link MessageEventDefinition}
@@ -68,12 +112,6 @@ public class MessageEventDefinitionDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void MessageEventDefinition.<init>()", "String MessageEventDefinition.getCorrelationKey()",
-      "List MessageEventDefinition.getFieldExtensions()", "String MessageEventDefinition.getMessageExpression()",
-      "String MessageEventDefinition.getMessageRef()", "void MessageEventDefinition.setCorrelationKey(String)",
-      "void MessageEventDefinition.setFieldExtensions(List)",
-      "void MessageEventDefinition.setMessageExpression(String)", "void MessageEventDefinition.setMessageRef(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     MessageEventDefinition actualMessageEventDefinition = new MessageEventDefinition();
@@ -86,11 +124,10 @@ public class MessageEventDefinitionDiffblueTest {
     List<FieldExtension> actualFieldExtensions = actualMessageEventDefinition.getFieldExtensions();
     String actualMessageExpression = actualMessageEventDefinition.getMessageExpression();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("Correlation Key", actualCorrelationKey);
     assertEquals("Message Expression", actualMessageExpression);
     assertEquals("Message Ref", actualMessageEventDefinition.getMessageRef());
-    assertNull(actualMessageEventDefinition.getId());
     assertEquals(0, actualMessageEventDefinition.getXmlColumnNumber());
     assertEquals(0, actualMessageEventDefinition.getXmlRowNumber());
     assertTrue(actualFieldExtensions.isEmpty());

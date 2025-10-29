@@ -22,7 +22,6 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import javax.xml.stream.XMLStreamWriter;
 import org.activiti.bpmn.converter.IndentingXMLStreamWriter;
@@ -34,22 +33,116 @@ import org.activiti.bpmn.model.MessageEventDefinition;
 import org.activiti.bpmn.model.Process;
 import org.activiti.bpmn.model.Signal;
 import org.activiti.bpmn.model.SignalEventDefinition;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class SignalAndMessageDefinitionExportDiffblueTest {
   /**
-   * Test {@link SignalAndMessageDefinitionExport#writeSignalsAndMessages(BpmnModel, XMLStreamWriter)}.
-   * <p>
-   * Method under test: {@link SignalAndMessageDefinitionExport#writeSignalsAndMessages(BpmnModel, XMLStreamWriter)}
+   * Method under test:
+   * {@link SignalAndMessageDefinitionExport#writeSignalsAndMessages(BpmnModel, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeSignalsAndMessages(BpmnModel, XMLStreamWriter)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SignalAndMessageDefinitionExport.writeSignalsAndMessages(BpmnModel, XMLStreamWriter)"})
   void testWriteSignalsAndMessages() throws Exception {
+    // Arrange
+    BpmnModel model = mock(BpmnModel.class);
+    when(model.getMessages()).thenReturn(new ArrayList<>());
+    when(model.getSignals()).thenReturn(new ArrayList<>());
+    when(model.getProcesses()).thenReturn(new ArrayList<>());
+
+    // Act
+    SignalAndMessageDefinitionExport.writeSignalsAndMessages(model, new IndentingXMLStreamWriter(null));
+
+    // Assert that nothing has changed
+    verify(model).getMessages();
+    verify(model).getProcesses();
+    verify(model).getSignals();
+  }
+
+  /**
+   * Method under test:
+   * {@link SignalAndMessageDefinitionExport#writeSignalsAndMessages(BpmnModel, XMLStreamWriter)}
+   */
+  @Test
+  void testWriteSignalsAndMessages2() throws Exception {
+    // Arrange
+    ArrayList<Process> processList = new ArrayList<>();
+    processList.add(new Process());
+    BpmnModel model = mock(BpmnModel.class);
+    when(model.getMessages()).thenReturn(new ArrayList<>());
+    when(model.getSignals()).thenReturn(new ArrayList<>());
+    when(model.getProcesses()).thenReturn(processList);
+
+    // Act
+    SignalAndMessageDefinitionExport.writeSignalsAndMessages(model, new IndentingXMLStreamWriter(null));
+
+    // Assert that nothing has changed
+    verify(model).getMessages();
+    verify(model).getProcesses();
+    verify(model).getSignals();
+  }
+
+  /**
+   * Method under test:
+   * {@link SignalAndMessageDefinitionExport#writeSignalsAndMessages(BpmnModel, XMLStreamWriter)}
+   */
+  @Test
+  void testWriteSignalsAndMessages3() throws Exception {
+    // Arrange
+    Process process = mock(Process.class);
+    when(process.findFlowElementsOfType(Mockito.<Class<Event>>any())).thenReturn(new ArrayList<>());
+
+    ArrayList<Process> processList = new ArrayList<>();
+    processList.add(process);
+    BpmnModel model = mock(BpmnModel.class);
+    when(model.getMessages()).thenReturn(new ArrayList<>());
+    when(model.getSignals()).thenReturn(new ArrayList<>());
+    when(model.getProcesses()).thenReturn(processList);
+
+    // Act
+    SignalAndMessageDefinitionExport.writeSignalsAndMessages(model, new IndentingXMLStreamWriter(null));
+
+    // Assert that nothing has changed
+    verify(model).getMessages();
+    verify(model).getProcesses();
+    verify(model).getSignals();
+    verify(process).findFlowElementsOfType(isA(Class.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link SignalAndMessageDefinitionExport#writeSignalsAndMessages(BpmnModel, XMLStreamWriter)}
+   */
+  @Test
+  void testWriteSignalsAndMessages4() throws Exception {
+    // Arrange
+    ArrayList<Event> eventList = new ArrayList<>();
+    eventList.add(new BoundaryEvent());
+    Process process = mock(Process.class);
+    when(process.findFlowElementsOfType(Mockito.<Class<Event>>any())).thenReturn(eventList);
+
+    ArrayList<Process> processList = new ArrayList<>();
+    processList.add(process);
+    BpmnModel model = mock(BpmnModel.class);
+    when(model.getMessages()).thenReturn(new ArrayList<>());
+    when(model.getSignals()).thenReturn(new ArrayList<>());
+    when(model.getProcesses()).thenReturn(processList);
+
+    // Act
+    SignalAndMessageDefinitionExport.writeSignalsAndMessages(model, new IndentingXMLStreamWriter(null));
+
+    // Assert that nothing has changed
+    verify(model).getMessages();
+    verify(model).getProcesses();
+    verify(model).getSignals();
+    verify(process).findFlowElementsOfType(isA(Class.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link SignalAndMessageDefinitionExport#writeSignalsAndMessages(BpmnModel, XMLStreamWriter)}
+   */
+  @Test
+  void testWriteSignalsAndMessages5() throws Exception {
     // Arrange
     BoundaryEvent boundaryEvent = new BoundaryEvent();
     boundaryEvent.addEventDefinition(new CancelEventDefinition());
@@ -69,7 +162,7 @@ class SignalAndMessageDefinitionExportDiffblueTest {
     // Act
     SignalAndMessageDefinitionExport.writeSignalsAndMessages(model, new IndentingXMLStreamWriter(null));
 
-    // Assert
+    // Assert that nothing has changed
     verify(model).getMessages();
     verify(model).getProcesses();
     verify(model).getSignals();
@@ -77,15 +170,11 @@ class SignalAndMessageDefinitionExportDiffblueTest {
   }
 
   /**
-   * Test {@link SignalAndMessageDefinitionExport#writeSignalsAndMessages(BpmnModel, XMLStreamWriter)}.
-   * <p>
-   * Method under test: {@link SignalAndMessageDefinitionExport#writeSignalsAndMessages(BpmnModel, XMLStreamWriter)}
+   * Method under test:
+   * {@link SignalAndMessageDefinitionExport#writeSignalsAndMessages(BpmnModel, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeSignalsAndMessages(BpmnModel, XMLStreamWriter)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SignalAndMessageDefinitionExport.writeSignalsAndMessages(BpmnModel, XMLStreamWriter)"})
-  void testWriteSignalsAndMessages2() throws Exception {
+  void testWriteSignalsAndMessages6() throws Exception {
     // Arrange
     BoundaryEvent boundaryEvent = new BoundaryEvent();
     boundaryEvent.addEventDefinition(new SignalEventDefinition());
@@ -105,7 +194,7 @@ class SignalAndMessageDefinitionExportDiffblueTest {
     // Act
     SignalAndMessageDefinitionExport.writeSignalsAndMessages(model, new IndentingXMLStreamWriter(null));
 
-    // Assert
+    // Assert that nothing has changed
     verify(model).getMessages();
     verify(model).getProcesses();
     verify(model).getSignals();
@@ -113,15 +202,11 @@ class SignalAndMessageDefinitionExportDiffblueTest {
   }
 
   /**
-   * Test {@link SignalAndMessageDefinitionExport#writeSignalsAndMessages(BpmnModel, XMLStreamWriter)}.
-   * <p>
-   * Method under test: {@link SignalAndMessageDefinitionExport#writeSignalsAndMessages(BpmnModel, XMLStreamWriter)}
+   * Method under test:
+   * {@link SignalAndMessageDefinitionExport#writeSignalsAndMessages(BpmnModel, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeSignalsAndMessages(BpmnModel, XMLStreamWriter)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SignalAndMessageDefinitionExport.writeSignalsAndMessages(BpmnModel, XMLStreamWriter)"})
-  void testWriteSignalsAndMessages3() throws Exception {
+  void testWriteSignalsAndMessages7() throws Exception {
     // Arrange
     BoundaryEvent boundaryEvent = new BoundaryEvent();
     boundaryEvent.addEventDefinition(new MessageEventDefinition());
@@ -141,7 +226,7 @@ class SignalAndMessageDefinitionExportDiffblueTest {
     // Act
     SignalAndMessageDefinitionExport.writeSignalsAndMessages(model, new IndentingXMLStreamWriter(null));
 
-    // Assert
+    // Assert that nothing has changed
     verify(model).getMessages();
     verify(model).getProcesses();
     verify(model).getSignals();
@@ -149,18 +234,14 @@ class SignalAndMessageDefinitionExportDiffblueTest {
   }
 
   /**
-   * Test {@link SignalAndMessageDefinitionExport#writeSignalsAndMessages(BpmnModel, XMLStreamWriter)}.
-   * <p>
-   * Method under test: {@link SignalAndMessageDefinitionExport#writeSignalsAndMessages(BpmnModel, XMLStreamWriter)}
+   * Method under test:
+   * {@link SignalAndMessageDefinitionExport#writeSignalsAndMessages(BpmnModel, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeSignalsAndMessages(BpmnModel, XMLStreamWriter)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SignalAndMessageDefinitionExport.writeSignalsAndMessages(BpmnModel, XMLStreamWriter)"})
-  void testWriteSignalsAndMessages4() throws Exception {
+  void testWriteSignalsAndMessages8() throws Exception {
     // Arrange
     SignalEventDefinition eventDefinition = mock(SignalEventDefinition.class);
-    when(eventDefinition.getSignalRef()).thenReturn("");
+    when(eventDefinition.getSignalRef()).thenReturn("Signal Ref");
 
     BoundaryEvent boundaryEvent = new BoundaryEvent();
     boundaryEvent.addEventDefinition(eventDefinition);
@@ -173,6 +254,7 @@ class SignalAndMessageDefinitionExportDiffblueTest {
     ArrayList<Process> processList = new ArrayList<>();
     processList.add(process);
     BpmnModel model = mock(BpmnModel.class);
+    when(model.containsSignalId(Mockito.<String>any())).thenReturn(true);
     when(model.getMessages()).thenReturn(new ArrayList<>());
     when(model.getSignals()).thenReturn(new ArrayList<>());
     when(model.getProcesses()).thenReturn(processList);
@@ -180,124 +262,21 @@ class SignalAndMessageDefinitionExportDiffblueTest {
     // Act
     SignalAndMessageDefinitionExport.writeSignalsAndMessages(model, new IndentingXMLStreamWriter(null));
 
-    // Assert
+    // Assert that nothing has changed
+    verify(model).containsSignalId(eq("Signal Ref"));
     verify(model).getMessages();
     verify(model).getProcesses();
     verify(model).getSignals();
     verify(process).findFlowElementsOfType(isA(Class.class));
-    verify(eventDefinition).getSignalRef();
+    verify(eventDefinition, atLeast(1)).getSignalRef();
   }
 
   /**
-   * Test {@link SignalAndMessageDefinitionExport#writeSignalsAndMessages(BpmnModel, XMLStreamWriter)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link BoundaryEvent} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SignalAndMessageDefinitionExport#writeSignalsAndMessages(BpmnModel, XMLStreamWriter)}
+   * Method under test:
+   * {@link SignalAndMessageDefinitionExport#writeSignalsAndMessages(BpmnModel, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeSignalsAndMessages(BpmnModel, XMLStreamWriter); given ArrayList() add BoundaryEvent (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SignalAndMessageDefinitionExport.writeSignalsAndMessages(BpmnModel, XMLStreamWriter)"})
-  void testWriteSignalsAndMessages_givenArrayListAddBoundaryEvent() throws Exception {
-    // Arrange
-    ArrayList<Event> eventList = new ArrayList<>();
-    eventList.add(new BoundaryEvent());
-    Process process = mock(Process.class);
-    when(process.findFlowElementsOfType(Mockito.<Class<Event>>any())).thenReturn(eventList);
-
-    ArrayList<Process> processList = new ArrayList<>();
-    processList.add(process);
-    BpmnModel model = mock(BpmnModel.class);
-    when(model.getMessages()).thenReturn(new ArrayList<>());
-    when(model.getSignals()).thenReturn(new ArrayList<>());
-    when(model.getProcesses()).thenReturn(processList);
-
-    // Act
-    SignalAndMessageDefinitionExport.writeSignalsAndMessages(model, new IndentingXMLStreamWriter(null));
-
-    // Assert
-    verify(model).getMessages();
-    verify(model).getProcesses();
-    verify(model).getSignals();
-    verify(process).findFlowElementsOfType(isA(Class.class));
-  }
-
-  /**
-   * Test {@link SignalAndMessageDefinitionExport#writeSignalsAndMessages(BpmnModel, XMLStreamWriter)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link Process} (default constructor).</li>
-   *   <li>Then calls {@link BpmnModel#getMessages()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SignalAndMessageDefinitionExport#writeSignalsAndMessages(BpmnModel, XMLStreamWriter)}
-   */
-  @Test
-  @DisplayName("Test writeSignalsAndMessages(BpmnModel, XMLStreamWriter); given ArrayList() add Process (default constructor); then calls getMessages()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SignalAndMessageDefinitionExport.writeSignalsAndMessages(BpmnModel, XMLStreamWriter)"})
-  void testWriteSignalsAndMessages_givenArrayListAddProcess_thenCallsGetMessages() throws Exception {
-    // Arrange
-    ArrayList<Process> processList = new ArrayList<>();
-    processList.add(new Process());
-    BpmnModel model = mock(BpmnModel.class);
-    when(model.getMessages()).thenReturn(new ArrayList<>());
-    when(model.getSignals()).thenReturn(new ArrayList<>());
-    when(model.getProcesses()).thenReturn(processList);
-
-    // Act
-    SignalAndMessageDefinitionExport.writeSignalsAndMessages(model, new IndentingXMLStreamWriter(null));
-
-    // Assert
-    verify(model).getMessages();
-    verify(model).getProcesses();
-    verify(model).getSignals();
-  }
-
-  /**
-   * Test {@link SignalAndMessageDefinitionExport#writeSignalsAndMessages(BpmnModel, XMLStreamWriter)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then calls {@link BpmnModel#getMessages()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SignalAndMessageDefinitionExport#writeSignalsAndMessages(BpmnModel, XMLStreamWriter)}
-   */
-  @Test
-  @DisplayName("Test writeSignalsAndMessages(BpmnModel, XMLStreamWriter); given ArrayList(); then calls getMessages()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SignalAndMessageDefinitionExport.writeSignalsAndMessages(BpmnModel, XMLStreamWriter)"})
-  void testWriteSignalsAndMessages_givenArrayList_thenCallsGetMessages() throws Exception {
-    // Arrange
-    BpmnModel model = mock(BpmnModel.class);
-    when(model.getMessages()).thenReturn(new ArrayList<>());
-    when(model.getSignals()).thenReturn(new ArrayList<>());
-    when(model.getProcesses()).thenReturn(new ArrayList<>());
-
-    // Act
-    SignalAndMessageDefinitionExport.writeSignalsAndMessages(model, new IndentingXMLStreamWriter(null));
-
-    // Assert
-    verify(model).getMessages();
-    verify(model).getProcesses();
-    verify(model).getSignals();
-  }
-
-  /**
-   * Test {@link SignalAndMessageDefinitionExport#writeSignalsAndMessages(BpmnModel, XMLStreamWriter)}.
-   * <ul>
-   *   <li>Given {@code false}.</li>
-   *   <li>Then calls {@link BpmnModel#addSignal(Signal)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SignalAndMessageDefinitionExport#writeSignalsAndMessages(BpmnModel, XMLStreamWriter)}
-   */
-  @Test
-  @DisplayName("Test writeSignalsAndMessages(BpmnModel, XMLStreamWriter); given 'false'; then calls addSignal(Signal)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SignalAndMessageDefinitionExport.writeSignalsAndMessages(BpmnModel, XMLStreamWriter)"})
-  void testWriteSignalsAndMessages_givenFalse_thenCallsAddSignal() throws Exception {
+  void testWriteSignalsAndMessages9() throws Exception {
     // Arrange
     SignalEventDefinition eventDefinition = mock(SignalEventDefinition.class);
     when(eventDefinition.getSignalRef()).thenReturn("Signal Ref");
@@ -333,22 +312,14 @@ class SignalAndMessageDefinitionExportDiffblueTest {
   }
 
   /**
-   * Test {@link SignalAndMessageDefinitionExport#writeSignalsAndMessages(BpmnModel, XMLStreamWriter)}.
-   * <ul>
-   *   <li>Given {@code true}.</li>
-   *   <li>When {@link BpmnModel} {@link BpmnModel#containsSignalId(String)} return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SignalAndMessageDefinitionExport#writeSignalsAndMessages(BpmnModel, XMLStreamWriter)}
+   * Method under test:
+   * {@link SignalAndMessageDefinitionExport#writeSignalsAndMessages(BpmnModel, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeSignalsAndMessages(BpmnModel, XMLStreamWriter); given 'true'; when BpmnModel containsSignalId(String) return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SignalAndMessageDefinitionExport.writeSignalsAndMessages(BpmnModel, XMLStreamWriter)"})
-  void testWriteSignalsAndMessages_givenTrue_whenBpmnModelContainsSignalIdReturnTrue() throws Exception {
+  void testWriteSignalsAndMessages10() throws Exception {
     // Arrange
     SignalEventDefinition eventDefinition = mock(SignalEventDefinition.class);
-    when(eventDefinition.getSignalRef()).thenReturn("Signal Ref");
+    when(eventDefinition.getSignalRef()).thenReturn("");
 
     BoundaryEvent boundaryEvent = new BoundaryEvent();
     boundaryEvent.addEventDefinition(eventDefinition);
@@ -361,7 +332,6 @@ class SignalAndMessageDefinitionExportDiffblueTest {
     ArrayList<Process> processList = new ArrayList<>();
     processList.add(process);
     BpmnModel model = mock(BpmnModel.class);
-    when(model.containsSignalId(Mockito.<String>any())).thenReturn(true);
     when(model.getMessages()).thenReturn(new ArrayList<>());
     when(model.getSignals()).thenReturn(new ArrayList<>());
     when(model.getProcesses()).thenReturn(processList);
@@ -369,46 +339,11 @@ class SignalAndMessageDefinitionExportDiffblueTest {
     // Act
     SignalAndMessageDefinitionExport.writeSignalsAndMessages(model, new IndentingXMLStreamWriter(null));
 
-    // Assert
-    verify(model).containsSignalId(eq("Signal Ref"));
+    // Assert that nothing has changed
     verify(model).getMessages();
     verify(model).getProcesses();
     verify(model).getSignals();
     verify(process).findFlowElementsOfType(isA(Class.class));
-    verify(eventDefinition, atLeast(1)).getSignalRef();
-  }
-
-  /**
-   * Test {@link SignalAndMessageDefinitionExport#writeSignalsAndMessages(BpmnModel, XMLStreamWriter)}.
-   * <ul>
-   *   <li>Then calls {@link Process#findFlowElementsOfType(Class)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SignalAndMessageDefinitionExport#writeSignalsAndMessages(BpmnModel, XMLStreamWriter)}
-   */
-  @Test
-  @DisplayName("Test writeSignalsAndMessages(BpmnModel, XMLStreamWriter); then calls findFlowElementsOfType(Class)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SignalAndMessageDefinitionExport.writeSignalsAndMessages(BpmnModel, XMLStreamWriter)"})
-  void testWriteSignalsAndMessages_thenCallsFindFlowElementsOfType() throws Exception {
-    // Arrange
-    Process process = mock(Process.class);
-    when(process.findFlowElementsOfType(Mockito.<Class<Event>>any())).thenReturn(new ArrayList<>());
-
-    ArrayList<Process> processList = new ArrayList<>();
-    processList.add(process);
-    BpmnModel model = mock(BpmnModel.class);
-    when(model.getMessages()).thenReturn(new ArrayList<>());
-    when(model.getSignals()).thenReturn(new ArrayList<>());
-    when(model.getProcesses()).thenReturn(processList);
-
-    // Act
-    SignalAndMessageDefinitionExport.writeSignalsAndMessages(model, new IndentingXMLStreamWriter(null));
-
-    // Assert
-    verify(model).getMessages();
-    verify(model).getProcesses();
-    verify(model).getSignals();
-    verify(process).findFlowElementsOfType(isA(Class.class));
+    verify(eventDefinition).getSignalRef();
   }
 }

@@ -19,46 +19,25 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.Message;
-import org.activiti.bpmn.model.Message.Builder;
 import org.activiti.bpmn.model.Resource;
 import org.activiti.bpmn.model.Signal;
 import org.activiti.validation.ValidationError;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class MessageValidatorDiffblueTest {
   /**
-   * Test {@link MessageValidator#validate(BpmnModel, List)}.
-   * <p>
    * Method under test: {@link MessageValidator#validate(BpmnModel, List)}
    */
   @Test
-  @DisplayName("Test validate(BpmnModel, List)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void MessageValidator.validate(BpmnModel, List)"})
   void testValidate() {
     // Arrange
     MessageValidator messageValidator = new MessageValidator();
-
     BpmnModel bpmnModel = new BpmnModel();
-    Builder builderResult = Message.builder();
-    Builder attributesResult = builderResult.attributes(new HashMap<>());
-    Message message = attributesResult.extensionElements(new HashMap<>())
-        .id("42")
-        .itemRef(null)
-        .name("Name")
-        .xmlColumnNumber(10)
-        .xmlRowNumber(10)
-        .build();
-    bpmnModel.addMessage(message);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
@@ -72,74 +51,22 @@ class MessageValidatorDiffblueTest {
     assertTrue(errors.isEmpty());
     assertTrue(resources.isEmpty());
     assertTrue(signals.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
   }
 
   /**
-   * Test {@link MessageValidator#validate(BpmnModel, List)}.
-   * <p>
    * Method under test: {@link MessageValidator#validate(BpmnModel, List)}
    */
   @Test
-  @DisplayName("Test validate(BpmnModel, List)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void MessageValidator.validate(BpmnModel, List)"})
   void testValidate2() {
     // Arrange
     MessageValidator messageValidator = new MessageValidator();
 
     BpmnModel bpmnModel = new BpmnModel();
-    Builder builderResult = Message.builder();
-    Builder attributesResult = builderResult.attributes(new HashMap<>());
-    Message message = attributesResult.extensionElements(new HashMap<>())
-        .id("42")
-        .itemRef("")
-        .name("Name")
-        .xmlColumnNumber(10)
-        .xmlRowNumber(10)
-        .build();
-    bpmnModel.addMessage(message);
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    messageValidator.validate(bpmnModel, errors);
-
-    // Assert that nothing has changed
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
-    assertTrue(errors.isEmpty());
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
-  }
-
-  /**
-   * Test {@link MessageValidator#validate(BpmnModel, List)}.
-   * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link MessageValidator#validate(BpmnModel, List)}
-   */
-  @Test
-  @DisplayName("Test validate(BpmnModel, List); then ArrayList() size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void MessageValidator.validate(BpmnModel, List)"})
-  void testValidate_thenArrayListSizeIsOne() {
-    // Arrange
-    MessageValidator messageValidator = new MessageValidator();
-
-    BpmnModel bpmnModel = new BpmnModel();
-    Builder builderResult = Message.builder();
-    Builder attributesResult = builderResult.attributes(new HashMap<>());
-    Message message = attributesResult.extensionElements(new HashMap<>())
-        .id("42")
-        .itemRef("Item Ref")
-        .name("Name")
-        .xmlColumnNumber(10)
-        .xmlRowNumber(10)
-        .build();
-    bpmnModel.addMessage(message);
+    bpmnModel.addMessage(new Message("42", "Name", "Item Ref"));
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
@@ -160,90 +87,28 @@ class MessageValidatorDiffblueTest {
     assertNull(getResult.getProcessDefinitionId());
     assertNull(getResult.getProcessDefinitionName());
     assertNull(getResult.getValidatorSetName());
-    assertEquals(10, getResult.getXmlColumnNumber());
-    assertEquals(10, getResult.getXmlLineNumber());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
     assertFalse(getResult.isWarning());
     assertTrue(resources.isEmpty());
     assertTrue(signals.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
     assertTrue(getResult.getParams().isEmpty());
   }
 
   /**
-   * Test {@link MessageValidator#validate(BpmnModel, List)}.
-   * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link MessageValidator#validate(BpmnModel, List)}
    */
   @Test
-  @DisplayName("Test validate(BpmnModel, List); then ArrayList() size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void MessageValidator.validate(BpmnModel, List)"})
-  void testValidate_thenArrayListSizeIsTwo() {
+  void testValidate3() {
     // Arrange
     MessageValidator messageValidator = new MessageValidator();
 
     BpmnModel bpmnModel = new BpmnModel();
-    Builder builderResult = Message.builder();
-    Builder attributesResult = builderResult.attributes(new HashMap<>());
-    Message message = attributesResult.extensionElements(new HashMap<>())
-        .id("Id")
-        .itemRef("Item Ref")
-        .name("Name")
-        .xmlColumnNumber(10)
-        .xmlRowNumber(10)
-        .build();
-    bpmnModel.addMessage(message);
-    Builder builderResult2 = Message.builder();
-    Builder attributesResult2 = builderResult2.attributes(new HashMap<>());
-    Message message2 = attributesResult2.extensionElements(new HashMap<>())
-        .id("42")
-        .itemRef("Item Ref")
-        .name("Name")
-        .xmlColumnNumber(10)
-        .xmlRowNumber(10)
-        .build();
-    bpmnModel.addMessage(message2);
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    messageValidator.validate(bpmnModel, errors);
-
-    // Assert
-    assertEquals(2, errors.size());
-    ValidationError getResult = errors.get(1);
-    assertEquals("MESSAGE_INVALID_ITEM_REF", getResult.getDefaultDescription());
-    assertEquals("MESSAGE_INVALID_ITEM_REF", getResult.getKey());
-    assertEquals("MESSAGE_INVALID_ITEM_REF", getResult.getProblem());
-    assertNull(getResult.getActivityId());
-    assertNull(getResult.getActivityName());
-    assertNull(getResult.getProcessDefinitionId());
-    assertNull(getResult.getProcessDefinitionName());
-    assertNull(getResult.getValidatorSetName());
-    assertEquals(10, getResult.getXmlColumnNumber());
-    assertEquals(10, getResult.getXmlLineNumber());
-    assertFalse(getResult.isWarning());
-    assertTrue(getResult.getParams().isEmpty());
-  }
-
-  /**
-   * Test {@link MessageValidator#validate(BpmnModel, List)}.
-   * <ul>
-   *   <li>When {@link BpmnModel} (default constructor).</li>
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link MessageValidator#validate(BpmnModel, List)}
-   */
-  @Test
-  @DisplayName("Test validate(BpmnModel, List); when BpmnModel (default constructor); then ArrayList() Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void MessageValidator.validate(BpmnModel, List)"})
-  void testValidate_whenBpmnModel_thenArrayListEmpty() {
-    // Arrange
-    MessageValidator messageValidator = new MessageValidator();
-    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addMessage(new Message("42", "Name", null));
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
@@ -257,5 +122,94 @@ class MessageValidatorDiffblueTest {
     assertTrue(errors.isEmpty());
     assertTrue(resources.isEmpty());
     assertTrue(signals.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link MessageValidator#validate(BpmnModel, List)}
+   */
+  @Test
+  void testValidate4() {
+    // Arrange
+    MessageValidator messageValidator = new MessageValidator();
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addMessage(new Message("42", "Name", ""));
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    messageValidator.validate(bpmnModel, errors);
+
+    // Assert that nothing has changed
+    Collection<Resource> resources = bpmnModel.getResources();
+    assertTrue(resources instanceof List);
+    Collection<Signal> signals = bpmnModel.getSignals();
+    assertTrue(signals instanceof List);
+    assertTrue(errors.isEmpty());
+    assertTrue(resources.isEmpty());
+    assertTrue(signals.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link MessageValidator#validate(BpmnModel, List)}
+   */
+  @Test
+  void testValidate5() {
+    // Arrange
+    MessageValidator messageValidator = new MessageValidator();
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addMessage(new Message("Id", "MESSAGE_INVALID_ITEM_REF", "MESSAGE_INVALID_ITEM_REF"));
+    bpmnModel.addMessage(new Message("42", "Name", "Item Ref"));
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    messageValidator.validate(bpmnModel, errors);
+
+    // Assert
+    Collection<Resource> resources = bpmnModel.getResources();
+    assertTrue(resources instanceof List);
+    Collection<Signal> signals = bpmnModel.getSignals();
+    assertTrue(signals instanceof List);
+    assertEquals(2, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("MESSAGE_INVALID_ITEM_REF", getResult.getDefaultDescription());
+    ValidationError getResult2 = errors.get(1);
+    assertEquals("MESSAGE_INVALID_ITEM_REF", getResult2.getDefaultDescription());
+    assertEquals("MESSAGE_INVALID_ITEM_REF", getResult.getKey());
+    assertEquals("MESSAGE_INVALID_ITEM_REF", getResult2.getKey());
+    assertEquals("MESSAGE_INVALID_ITEM_REF", getResult.getProblem());
+    assertEquals("MESSAGE_INVALID_ITEM_REF", getResult2.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult2.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult2.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult2.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult2.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertNull(getResult2.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult2.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertEquals(0, getResult2.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
+    assertFalse(getResult2.isWarning());
+    assertTrue(resources.isEmpty());
+    assertTrue(signals.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
+    assertTrue(getResult2.getParams().isEmpty());
   }
 }

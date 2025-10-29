@@ -3,19 +3,19 @@
     "reportVersion" : "2.6"
   },
   "run" : {
-    "version" : "2025.02.02-08b2a5a-licensed",
-    "creationTimestamp" : "2025-10-21T18:36:58.703503864Z",
+    "version" : "2024.10.01-2ee2e3d-licensed",
+    "creationTimestamp" : "2025-10-28T11:31:52.893683331Z",
     "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
-    "totalTime" : 546.592,
-    "environmentDetectionTime" : 0.509,
-    "indexingTime" : 0.41,
-    "entryPointsTime" : 0.505,
-    "generationTime" : 7450.622,
-    "timeToFirstTest" : 10190.092,
-    "timeToLastTest" : 9311.325,
-    "indexQueryTime" : 4.5760000000000005,
-    "verificationTime" : 316.903,
-    "validationTime" : 18.77
+    "totalTime" : 9144.741,
+    "environmentDetectionTime" : 0.695,
+    "indexingTime" : 0.376,
+    "entryPointsTime" : 0.69,
+    "generationTime" : 6290.035,
+    "timeToFirstTest" : 87.907,
+    "timeToLastTest" : 90.172,
+    "indexQueryTime" : 4.539,
+    "verificationTime" : 401.87,
+    "validationTime" : 18.462
   },
   "codes" : {
     "F009" : "Internal error",
@@ -36,9 +36,9 @@
   "summary" : {
     "classesCount" : 40,
     "methodsCount" : 158,
-    "cumulativeDiffblueTestCount" : 355,
+    "cumulativeDiffblueTestCount" : 371,
     "cumulativeManualTestCount" : 6,
-    "completeTestCount" : 355,
+    "completeTestCount" : 371,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 1701,
@@ -54,10 +54,10 @@
     },
     "perMethodOutcome" : {
       "F009" : 1,
-      "R000" : 98,
+      "R000" : 99,
       "R002" : 29,
       "R004" : 2,
-      "R013" : 11,
+      "R013" : 10,
       "T003" : 3,
       "T004" : 1,
       "T005" : 1,
@@ -65,10 +65,10 @@
       "T012" : 5
     },
     "perTestOutcome" : {
-      "R000" : 355
+      "R000" : 371
     },
     "perTestValidation" : {
-      "V000" : 355
+      "V000" : 371
     }
   },
   "classes" : {
@@ -101,7 +101,7 @@
     },
     "org.activiti.validation.ProcessValidatorImpl" : {
       "methodsCount" : 5,
-      "completeTestCount" : 6,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 3,
@@ -112,7 +112,7 @@
         "R000" : 5
       },
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 7
       }
     },
     "org.activiti.validation.ValidationError" : {
@@ -161,20 +161,23 @@
     },
     "org.activiti.validation.validator.ProcessLevelValidator" : {
       "methodsCount" : 3,
-      "completeTestCount" : 0,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
         "T010" : 2
       },
       "perMethodOutcome" : {
-        "R013" : 1,
+        "R000" : 1,
         "T010" : 2
+      },
+      "perTestOutcome" : {
+        "R000" : 4
       }
     },
     "org.activiti.validation.validator.ValidationErrorDecorator" : {
       "methodsCount" : 4,
-      "completeTestCount" : 4,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 4
@@ -185,7 +188,7 @@
         "R013" : 1
       },
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 5
       }
     },
     "org.activiti.validation.validator.ValidationErrorDecorator$1" : {
@@ -212,7 +215,7 @@
     },
     "org.activiti.validation.validator.ValidatorImpl" : {
       "methodsCount" : 13,
-      "completeTestCount" : 41,
+      "completeTestCount" : 46,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 12,
@@ -223,7 +226,7 @@
         "T010" : 1
       },
       "perTestOutcome" : {
-        "R000" : 41
+        "R000" : 46
       }
     },
     "org.activiti.validation.validator.ValidatorSet" : {
@@ -304,7 +307,7 @@
     },
     "org.activiti.validation.validator.impl.BpmnModelValidator" : {
       "methodsCount" : 9,
-      "completeTestCount" : 12,
+      "completeTestCount" : 16,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 5,
@@ -313,20 +316,19 @@
         "T012" : 2
       },
       "perMethodOutcome" : {
-        "R000" : 3,
+        "R000" : 4,
         "R002" : 1,
         "R004" : 1,
-        "R013" : 1,
         "T003" : 1,
         "T012" : 2
       },
       "perTestOutcome" : {
-        "R000" : 12
+        "R000" : 16
       }
     },
     "org.activiti.validation.validator.impl.DataObjectValidator" : {
       "methodsCount" : 2,
-      "completeTestCount" : 7,
+      "completeTestCount" : 8,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
@@ -337,7 +339,7 @@
         "R002" : 1
       },
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 8
       }
     },
     "org.activiti.validation.validator.impl.DiagramInterchangeInfoValidator" : {
@@ -358,7 +360,7 @@
     },
     "org.activiti.validation.validator.impl.EndEventValidator" : {
       "methodsCount" : 2,
-      "completeTestCount" : 8,
+      "completeTestCount" : 9,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
@@ -369,7 +371,7 @@
         "R002" : 1
       },
       "perTestOutcome" : {
-        "R000" : 8
+        "R000" : 9
       }
     },
     "org.activiti.validation.validator.impl.ErrorValidator" : {
@@ -408,7 +410,7 @@
     },
     "org.activiti.validation.validator.impl.EventSubprocessValidator" : {
       "methodsCount" : 2,
-      "completeTestCount" : 11,
+      "completeTestCount" : 12,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
@@ -419,12 +421,12 @@
         "R002" : 1
       },
       "perTestOutcome" : {
-        "R000" : 11
+        "R000" : 12
       }
     },
     "org.activiti.validation.validator.impl.EventValidator" : {
       "methodsCount" : 6,
-      "completeTestCount" : 38,
+      "completeTestCount" : 39,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 5,
@@ -435,12 +437,12 @@
         "R002" : 1
       },
       "perTestOutcome" : {
-        "R000" : 38
+        "R000" : 39
       }
     },
     "org.activiti.validation.validator.impl.ExclusiveGatewayValidator" : {
       "methodsCount" : 3,
-      "completeTestCount" : 14,
+      "completeTestCount" : 16,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -451,7 +453,7 @@
         "R002" : 1
       },
       "perTestOutcome" : {
-        "R000" : 14
+        "R000" : 16
       }
     },
     "org.activiti.validation.validator.impl.ExecutionListenerValidator" : {
@@ -489,7 +491,7 @@
     },
     "org.activiti.validation.validator.impl.FlowElementValidator" : {
       "methodsCount" : 7,
-      "completeTestCount" : 25,
+      "completeTestCount" : 13,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 4,
@@ -497,18 +499,18 @@
         "T005" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 3,
+        "R000" : 2,
         "R002" : 1,
-        "R013" : 1,
+        "R013" : 2,
         "T003" : 2
       },
       "perTestOutcome" : {
-        "R000" : 25
+        "R000" : 13
       }
     },
     "org.activiti.validation.validator.impl.IntermediateCatchEventValidator" : {
       "methodsCount" : 2,
-      "completeTestCount" : 9,
+      "completeTestCount" : 10,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
@@ -519,12 +521,12 @@
         "R002" : 1
       },
       "perTestOutcome" : {
-        "R000" : 9
+        "R000" : 10
       }
     },
     "org.activiti.validation.validator.impl.IntermediateThrowEventValidator" : {
       "methodsCount" : 2,
-      "completeTestCount" : 9,
+      "completeTestCount" : 10,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
@@ -535,7 +537,7 @@
         "R002" : 1
       },
       "perTestOutcome" : {
-        "R000" : 9
+        "R000" : 10
       }
     },
     "org.activiti.validation.validator.impl.MessageValidator" : {
@@ -572,7 +574,7 @@
     },
     "org.activiti.validation.validator.impl.ScriptTaskValidator" : {
       "methodsCount" : 2,
-      "completeTestCount" : 6,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
@@ -583,12 +585,12 @@
         "R002" : 1
       },
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 7
       }
     },
     "org.activiti.validation.validator.impl.SendTaskValidator" : {
       "methodsCount" : 3,
-      "completeTestCount" : 7,
+      "completeTestCount" : 8,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -600,12 +602,12 @@
         "R013" : 1
       },
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 8
       }
     },
     "org.activiti.validation.validator.impl.SequenceflowValidator" : {
       "methodsCount" : 2,
-      "completeTestCount" : 13,
+      "completeTestCount" : 14,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
@@ -616,12 +618,12 @@
         "R002" : 1
       },
       "perTestOutcome" : {
-        "R000" : 13
+        "R000" : 14
       }
     },
     "org.activiti.validation.validator.impl.ServiceTaskValidator" : {
       "methodsCount" : 6,
-      "completeTestCount" : 31,
+      "completeTestCount" : 33,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 5,
@@ -633,7 +635,7 @@
         "R013" : 1
       },
       "perTestOutcome" : {
-        "R000" : 31
+        "R000" : 33
       }
     },
     "org.activiti.validation.validator.impl.SignalValidator" : {
@@ -753,12 +755,12 @@
       ]
     },
     "org.activiti.validation.ProcessValidatorImpl.addValidatorSet:(Lorg/activiti/validation/validator/ValidatorSet;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 3
       },
       "lineNumbers" : [
         65,
@@ -1269,10 +1271,13 @@
       "perMethodOutcome" : "T010"
     },
     "org.activiti.validation.validator.ProcessLevelValidator.validate:(Lorg/activiti/bpmn/model/BpmnModel;Ljava/util/List;)V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
       "lineNumbers" : [
         32,
         33,
@@ -1335,12 +1340,12 @@
       ]
     },
     "org.activiti.validation.validator.ValidationErrorDecorator.resolveMessage:(Ljava/lang/String;Ljava/util/Map;)Ljava/lang/String;" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 4
       },
       "lineNumbers" : [
         60,
@@ -1363,12 +1368,12 @@
       ]
     },
     "org.activiti.validation.validator.ValidatorImpl.addError:(Ljava/util/List;Ljava/lang/String;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 3
       },
       "lineNumbers" : [
         34,
@@ -1376,12 +1381,12 @@
       ]
     },
     "org.activiti.validation.validator.ValidatorImpl.addError:(Ljava/util/List;Ljava/lang/String;Ljava/util/Map;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 3
       },
       "lineNumbers" : [
         38,
@@ -1389,12 +1394,12 @@
       ]
     },
     "org.activiti.validation.validator.ValidatorImpl.addError:(Ljava/util/List;Ljava/lang/String;Lorg/activiti/bpmn/model/BaseElement;)V" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 5
       },
       "lineNumbers" : [
         43,
@@ -1415,12 +1420,12 @@
       ]
     },
     "org.activiti.validation.validator.ValidatorImpl.addError:(Ljava/util/List;Ljava/lang/String;Lorg/activiti/bpmn/model/Process;Ljava/lang/String;)V" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 4
       },
       "lineNumbers" : [
         106,
@@ -1504,12 +1509,12 @@
       ]
     },
     "org.activiti.validation.validator.ValidatorImpl.addError:(Ljava/util/List;Lorg/activiti/validation/ValidationError;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 3
       },
       "lineNumbers" : [
         30,
@@ -1858,10 +1863,13 @@
       ]
     },
     "org.activiti.validation.validator.impl.BpmnModelValidator.handleBPMNModelConstraints:(Lorg/activiti/bpmn/model/BpmnModel;Ljava/util/List;)V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
       "lineNumbers" : [
         80,
         81,
@@ -1933,12 +1941,12 @@
       ]
     },
     "org.activiti.validation.validator.impl.BpmnModelValidator.validateAtLeastOneExecutable:(Lorg/activiti/bpmn/model/BpmnModel;Ljava/util/List;)Z" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 4
       },
       "lineNumbers" : [
         91,
@@ -1961,12 +1969,12 @@
       ]
     },
     "org.activiti.validation.validator.impl.DataObjectValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
-      "completeTestCount" : 7,
+      "completeTestCount" : 8,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 8
       },
       "lineNumbers" : [
         40,
@@ -2039,12 +2047,12 @@
       ]
     },
     "org.activiti.validation.validator.impl.EndEventValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
-      "completeTestCount" : 8,
+      "completeTestCount" : 9,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 8
+        "R000" : 9
       },
       "lineNumbers" : [
         39,
@@ -2153,12 +2161,12 @@
       ]
     },
     "org.activiti.validation.validator.impl.EventSubprocessValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
-      "completeTestCount" : 11,
+      "completeTestCount" : 12,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 11
+        "R000" : 12
       },
       "lineNumbers" : [
         39,
@@ -2184,12 +2192,12 @@
       ]
     },
     "org.activiti.validation.validator.impl.EventValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
-      "completeTestCount" : 12,
+      "completeTestCount" : 13,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 12
+        "R000" : 13
       },
       "lineNumbers" : [
         43,
@@ -2285,12 +2293,12 @@
       ]
     },
     "org.activiti.validation.validator.impl.ExclusiveGatewayValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
-      "completeTestCount" : 11,
+      "completeTestCount" : 12,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 11
+        "R000" : 12
       },
       "lineNumbers" : [
         38,
@@ -2301,12 +2309,12 @@
       ]
     },
     "org.activiti.validation.validator.impl.ExclusiveGatewayValidator.validateExclusiveGateway:(Lorg/activiti/bpmn/model/Process;Lorg/activiti/bpmn/model/ExclusiveGateway;Ljava/util/List;)V" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 4
       },
       "lineNumbers" : [
         45,
@@ -2466,13 +2474,10 @@
       ]
     },
     "org.activiti.validation.validator.impl.FlowElementValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
-      "completeTestCount" : 12,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 12
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         52,
         53,
@@ -2572,12 +2577,12 @@
       ]
     },
     "org.activiti.validation.validator.impl.IntermediateCatchEventValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
-      "completeTestCount" : 9,
+      "completeTestCount" : 10,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 9
+        "R000" : 10
       },
       "lineNumbers" : [
         39,
@@ -2603,12 +2608,12 @@
       ]
     },
     "org.activiti.validation.validator.impl.IntermediateThrowEventValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
-      "completeTestCount" : 9,
+      "completeTestCount" : 10,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 9
+        "R000" : 10
       },
       "lineNumbers" : [
         39,
@@ -2688,12 +2693,12 @@
       ]
     },
     "org.activiti.validation.validator.impl.ScriptTaskValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 7
       },
       "lineNumbers" : [
         36,
@@ -2714,12 +2719,12 @@
       ]
     },
     "org.activiti.validation.validator.impl.SendTaskValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
-      "completeTestCount" : 7,
+      "completeTestCount" : 8,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 8
       },
       "lineNumbers" : [
         38,
@@ -2767,12 +2772,12 @@
       ]
     },
     "org.activiti.validation.validator.impl.SequenceflowValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
-      "completeTestCount" : 13,
+      "completeTestCount" : 14,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 13
+        "R000" : 14
       },
       "lineNumbers" : [
         39,
@@ -2819,12 +2824,12 @@
       ]
     },
     "org.activiti.validation.validator.impl.ServiceTaskValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
-      "completeTestCount" : 11,
+      "completeTestCount" : 12,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 11
+        "R000" : 12
       },
       "lineNumbers" : [
         38,
@@ -2857,12 +2862,12 @@
       ]
     },
     "org.activiti.validation.validator.impl.ServiceTaskValidator.verifyResultVariableName:(Lorg/activiti/bpmn/model/Process;Lorg/activiti/bpmn/model/ServiceTask;Ljava/util/List;)V" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 7
       },
       "lineNumbers" : [
         80,

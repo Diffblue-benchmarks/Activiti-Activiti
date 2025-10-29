@@ -26,14 +26,13 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.activiti.core.el.CustomFunctionProvider;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventDispatcher;
 import org.activiti.engine.delegate.event.impl.ActivitiEventDispatcherImpl;
@@ -42,7 +41,6 @@ import org.activiti.engine.impl.HistoricVariableInstanceQueryImpl;
 import org.activiti.engine.impl.Page;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
-import org.activiti.engine.impl.db.HasRevision;
 import org.activiti.engine.impl.history.DefaultHistoryManager;
 import org.activiti.engine.impl.history.HistoryLevel;
 import org.activiti.engine.impl.persistence.entity.data.DataManager;
@@ -52,7 +50,6 @@ import org.activiti.engine.impl.util.DefaultClockImpl;
 import org.activiti.engine.impl.variable.BigDecimalType;
 import org.activiti.engine.impl.variable.VariableType;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -61,63 +58,20 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HistoricVariableInstanceEntityManagerImplDiffblueTest {
+  @Mock
+  private HistoricVariableInstanceDataManager historicVariableInstanceDataManager;
+
   @InjectMocks
   private HistoricVariableInstanceEntityManagerImpl historicVariableInstanceEntityManagerImpl;
 
   @Mock
   private ProcessEngineConfigurationImpl processEngineConfigurationImpl;
 
-  @Mock
-  private HistoricVariableInstanceDataManager historicVariableInstanceDataManager;
-
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link HistoricVariableInstanceEntityManagerImpl#HistoricVariableInstanceEntityManagerImpl(ProcessEngineConfigurationImpl, HistoricVariableInstanceDataManager)}
-   *   <li>{@link HistoricVariableInstanceEntityManagerImpl#setHistoricVariableInstanceDataManager(HistoricVariableInstanceDataManager)}
-   *   <li>{@link HistoricVariableInstanceEntityManagerImpl#getDataManager()}
-   *   <li>{@link HistoricVariableInstanceEntityManagerImpl#getHistoricVariableInstanceDataManager()}
-   * </ul>
+   * Method under test:
+   * {@link HistoricVariableInstanceEntityManagerImpl#copyAndInsert(VariableInstanceEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void HistoricVariableInstanceEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, HistoricVariableInstanceDataManager)",
-      "DataManager HistoricVariableInstanceEntityManagerImpl.getDataManager()",
-      "HistoricVariableInstanceDataManager HistoricVariableInstanceEntityManagerImpl.getHistoricVariableInstanceDataManager()",
-      "void HistoricVariableInstanceEntityManagerImpl.setHistoricVariableInstanceDataManager(HistoricVariableInstanceDataManager)"})
-  public void testGettersAndSetters() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-
-    // Act
-    HistoricVariableInstanceEntityManagerImpl actualHistoricVariableInstanceEntityManagerImpl = new HistoricVariableInstanceEntityManagerImpl(
-        processEngineConfiguration,
-        new MybatisHistoricVariableInstanceDataManager(new JtaProcessEngineConfiguration()));
-    MybatisHistoricVariableInstanceDataManager historicVariableInstanceDataManager = new MybatisHistoricVariableInstanceDataManager(
-        new JtaProcessEngineConfiguration());
-    actualHistoricVariableInstanceEntityManagerImpl
-        .setHistoricVariableInstanceDataManager(historicVariableInstanceDataManager);
-    DataManager<HistoricVariableInstanceEntity> actualDataManager = actualHistoricVariableInstanceEntityManagerImpl
-        .getDataManager();
-
-    // Assert
-    assertSame(historicVariableInstanceDataManager, actualDataManager);
-    assertSame(historicVariableInstanceDataManager,
-        actualHistoricVariableInstanceEntityManagerImpl.getHistoricVariableInstanceDataManager());
-  }
-
-  /**
-   * Test {@link HistoricVariableInstanceEntityManagerImpl#copyAndInsert(VariableInstanceEntity)}.
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceEntityManagerImpl#copyAndInsert(VariableInstanceEntity)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "HistoricVariableInstanceEntity HistoricVariableInstanceEntityManagerImpl.copyAndInsert(VariableInstanceEntity)"})
   public void testCopyAndInsert() {
     // Arrange
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
@@ -144,58 +98,11 @@ public class HistoricVariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricVariableInstanceEntityManagerImpl#copyAndInsert(VariableInstanceEntity)}.
-   * <ul>
-   *   <li>Given {@link ActivitiEventDispatcher} {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceEntityManagerImpl#copyAndInsert(VariableInstanceEntity)}
+   * Method under test:
+   * {@link HistoricVariableInstanceEntityManagerImpl#copyAndInsert(VariableInstanceEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "HistoricVariableInstanceEntity HistoricVariableInstanceEntityManagerImpl.copyAndInsert(VariableInstanceEntity)"})
-  public void testCopyAndInsert_givenActivitiEventDispatcherIsEnabledReturnFalse() {
-    // Arrange
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processEngineConfiguration.getClock()).thenReturn(new DefaultClockImpl());
-    HistoricVariableInstanceDataManager historicVariableInstanceDataManager = mock(
-        HistoricVariableInstanceDataManager.class);
-    doNothing().when(historicVariableInstanceDataManager).insert(Mockito.<HistoricVariableInstanceEntity>any());
-    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
-    when(historicVariableInstanceDataManager.create()).thenReturn(historicVariableInstanceEntityImpl);
-    HistoricVariableInstanceEntityManagerImpl historicVariableInstanceEntityManagerImpl = new HistoricVariableInstanceEntityManagerImpl(
-        processEngineConfiguration, historicVariableInstanceDataManager);
-
-    // Act
-    HistoricVariableInstanceEntity actualCopyAndInsertResult = historicVariableInstanceEntityManagerImpl
-        .copyAndInsert(new VariableInstanceEntityImpl());
-
-    // Assert
-    verify(processEngineConfiguration, atLeast(1)).getClock();
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfiguration).getEventDispatcher();
-    verify(historicVariableInstanceDataManager).create();
-    verify(historicVariableInstanceDataManager).insert(isA(HistoricVariableInstanceEntity.class));
-    assertSame(historicVariableInstanceEntityImpl, actualCopyAndInsertResult);
-  }
-
-  /**
-   * Test {@link HistoricVariableInstanceEntityManagerImpl#copyAndInsert(VariableInstanceEntity)}.
-   * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceEntityManagerImpl#copyAndInsert(VariableInstanceEntity)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "HistoricVariableInstanceEntity HistoricVariableInstanceEntityManagerImpl.copyAndInsert(VariableInstanceEntity)"})
-  public void testCopyAndInsert_thenCallsDispatchEvent() {
+  public void testCopyAndInsert2() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
@@ -226,18 +133,44 @@ public class HistoricVariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricVariableInstanceEntityManagerImpl#copyAndInsert(VariableInstanceEntity)}.
-   * <ul>
-   *   <li>Then calls {@link HasRevision#getRevision()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceEntityManagerImpl#copyAndInsert(VariableInstanceEntity)}
+   * Method under test:
+   * {@link HistoricVariableInstanceEntityManagerImpl#copyAndInsert(VariableInstanceEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "HistoricVariableInstanceEntity HistoricVariableInstanceEntityManagerImpl.copyAndInsert(VariableInstanceEntity)"})
-  public void testCopyAndInsert_thenCallsGetRevision() throws UnsupportedEncodingException {
+  public void testCopyAndInsert3() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    when(processEngineConfiguration.getClock()).thenReturn(new DefaultClockImpl());
+    HistoricVariableInstanceDataManager historicVariableInstanceDataManager = mock(
+        HistoricVariableInstanceDataManager.class);
+    doNothing().when(historicVariableInstanceDataManager).insert(Mockito.<HistoricVariableInstanceEntity>any());
+    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
+    when(historicVariableInstanceDataManager.create()).thenReturn(historicVariableInstanceEntityImpl);
+    HistoricVariableInstanceEntityManagerImpl historicVariableInstanceEntityManagerImpl = new HistoricVariableInstanceEntityManagerImpl(
+        processEngineConfiguration, historicVariableInstanceDataManager);
+
+    // Act
+    HistoricVariableInstanceEntity actualCopyAndInsertResult = historicVariableInstanceEntityManagerImpl
+        .copyAndInsert(new VariableInstanceEntityImpl());
+
+    // Assert
+    verify(processEngineConfiguration, atLeast(1)).getClock();
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration).getEventDispatcher();
+    verify(historicVariableInstanceDataManager).create();
+    verify(historicVariableInstanceDataManager).insert(isA(HistoricVariableInstanceEntity.class));
+    assertSame(historicVariableInstanceEntityImpl, actualCopyAndInsertResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricVariableInstanceEntityManagerImpl#copyAndInsert(VariableInstanceEntity)}
+   */
+  @Test
+  public void testCopyAndInsert4() throws UnsupportedEncodingException {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
@@ -322,21 +255,15 @@ public class HistoricVariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricVariableInstanceEntityManagerImpl#copyVariableValue(HistoricVariableInstanceEntity, VariableInstanceEntity)}.
-   * <ul>
-   *   <li>Then {@link HistoricVariableInstanceEntityImpl} (default constructor) PersistentState {@link Map}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceEntityManagerImpl#copyVariableValue(HistoricVariableInstanceEntity, VariableInstanceEntity)}
+   * Method under test:
+   * {@link HistoricVariableInstanceEntityManagerImpl#copyVariableValue(HistoricVariableInstanceEntity, VariableInstanceEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void HistoricVariableInstanceEntityManagerImpl.copyVariableValue(HistoricVariableInstanceEntity, VariableInstanceEntity)"})
-  public void testCopyVariableValue_thenHistoricVariableInstanceEntityImplPersistentStateMap() {
+  public void testCopyVariableValue() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setClock(new DefaultClockImpl());
+    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
     HistoricVariableInstanceEntityManagerImpl historicVariableInstanceEntityManagerImpl = new HistoricVariableInstanceEntityManagerImpl(
         processEngineConfiguration,
         new MybatisHistoricVariableInstanceDataManager(new JtaProcessEngineConfiguration()));
@@ -360,14 +287,11 @@ public class HistoricVariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricVariableInstanceEntityManagerImpl#delete(HistoricVariableInstanceEntity, boolean)} with {@code HistoricVariableInstanceEntity}, {@code boolean}.
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceEntityManagerImpl#delete(HistoricVariableInstanceEntity, boolean)}
+   * Method under test:
+   * {@link HistoricVariableInstanceEntityManagerImpl#delete(HistoricVariableInstanceEntity, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricVariableInstanceEntityManagerImpl.delete(HistoricVariableInstanceEntity, boolean)"})
-  public void testDeleteWithHistoricVariableInstanceEntityBoolean() {
+  public void testDelete() {
     // Arrange
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
     when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
@@ -386,14 +310,39 @@ public class HistoricVariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricVariableInstanceEntityManagerImpl#delete(HistoricVariableInstanceEntity, boolean)} with {@code HistoricVariableInstanceEntity}, {@code boolean}.
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceEntityManagerImpl#delete(HistoricVariableInstanceEntity, boolean)}
+   * Method under test:
+   * {@link HistoricVariableInstanceEntityManagerImpl#delete(HistoricVariableInstanceEntity, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricVariableInstanceEntityManagerImpl.delete(HistoricVariableInstanceEntity, boolean)"})
-  public void testDeleteWithHistoricVariableInstanceEntityBoolean2() {
+  public void testDelete2() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    HistoricVariableInstanceDataManager historicVariableInstanceDataManager = mock(
+        HistoricVariableInstanceDataManager.class);
+    doNothing().when(historicVariableInstanceDataManager).delete(Mockito.<HistoricVariableInstanceEntity>any());
+    HistoricVariableInstanceEntityManagerImpl historicVariableInstanceEntityManagerImpl = new HistoricVariableInstanceEntityManagerImpl(
+        processEngineConfiguration, historicVariableInstanceDataManager);
+
+    // Act
+    historicVariableInstanceEntityManagerImpl.delete(new HistoricVariableInstanceEntityImpl(), true);
+
+    // Assert
+    verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(historicVariableInstanceDataManager).delete(isA(HistoricVariableInstanceEntity.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricVariableInstanceEntityManagerImpl#delete(HistoricVariableInstanceEntity, boolean)}
+   */
+  @Test
+  public void testDelete3() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     when(activitiEventDispatcher.isEnabled()).thenReturn(false);
@@ -415,17 +364,11 @@ public class HistoricVariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricVariableInstanceEntityManagerImpl#delete(HistoricVariableInstanceEntity, boolean)} with {@code HistoricVariableInstanceEntity}, {@code boolean}.
-   * <ul>
-   *   <li>Given {@link ByteArrayRef#ByteArrayRef()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceEntityManagerImpl#delete(HistoricVariableInstanceEntity, boolean)}
+   * Method under test:
+   * {@link HistoricVariableInstanceEntityManagerImpl#delete(HistoricVariableInstanceEntity, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricVariableInstanceEntityManagerImpl.delete(HistoricVariableInstanceEntity, boolean)"})
-  public void testDeleteWithHistoricVariableInstanceEntityBoolean_givenByteArrayRef() {
+  public void testDelete4() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
@@ -452,17 +395,11 @@ public class HistoricVariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricVariableInstanceEntityManagerImpl#delete(HistoricVariableInstanceEntity, boolean)} with {@code HistoricVariableInstanceEntity}, {@code boolean}.
-   * <ul>
-   *   <li>Then calls {@link ByteArrayRef#delete()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceEntityManagerImpl#delete(HistoricVariableInstanceEntity, boolean)}
+   * Method under test:
+   * {@link HistoricVariableInstanceEntityManagerImpl#delete(HistoricVariableInstanceEntity, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricVariableInstanceEntityManagerImpl.delete(HistoricVariableInstanceEntity, boolean)"})
-  public void testDeleteWithHistoricVariableInstanceEntityBoolean_thenCallsDelete() {
+  public void testDelete5() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
@@ -492,52 +429,11 @@ public class HistoricVariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricVariableInstanceEntityManagerImpl#delete(HistoricVariableInstanceEntity, boolean)} with {@code HistoricVariableInstanceEntity}, {@code boolean}.
-   * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceEntityManagerImpl#delete(HistoricVariableInstanceEntity, boolean)}
+   * Method under test:
+   * {@link HistoricVariableInstanceEntityManagerImpl#delete(HistoricVariableInstanceEntity, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricVariableInstanceEntityManagerImpl.delete(HistoricVariableInstanceEntity, boolean)"})
-  public void testDeleteWithHistoricVariableInstanceEntityBoolean_thenCallsDispatchEvent() {
-    // Arrange
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    HistoricVariableInstanceDataManager historicVariableInstanceDataManager = mock(
-        HistoricVariableInstanceDataManager.class);
-    doNothing().when(historicVariableInstanceDataManager).delete(Mockito.<HistoricVariableInstanceEntity>any());
-    HistoricVariableInstanceEntityManagerImpl historicVariableInstanceEntityManagerImpl = new HistoricVariableInstanceEntityManagerImpl(
-        processEngineConfiguration, historicVariableInstanceDataManager);
-
-    // Act
-    historicVariableInstanceEntityManagerImpl.delete(new HistoricVariableInstanceEntityImpl(), true);
-
-    // Assert
-    verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(historicVariableInstanceDataManager).delete(isA(HistoricVariableInstanceEntity.class));
-  }
-
-  /**
-   * Test {@link HistoricVariableInstanceEntityManagerImpl#delete(HistoricVariableInstanceEntity, boolean)} with {@code HistoricVariableInstanceEntity}, {@code boolean}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then calls {@link ByteArrayRef#delete()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceEntityManagerImpl#delete(HistoricVariableInstanceEntity, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricVariableInstanceEntityManagerImpl.delete(HistoricVariableInstanceEntity, boolean)"})
-  public void testDeleteWithHistoricVariableInstanceEntityBoolean_whenFalse_thenCallsDelete() {
+  public void testDelete6() {
     // Arrange
     HistoricVariableInstanceDataManager historicVariableInstanceDataManager = mock(
         HistoricVariableInstanceDataManager.class);
@@ -559,39 +455,31 @@ public class HistoricVariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstanceByProcessInstanceId(String)}.
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstanceByProcessInstanceId(String)}
+   * Method under test:
+   * {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstanceByProcessInstanceId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void HistoricVariableInstanceEntityManagerImpl.deleteHistoricVariableInstanceByProcessInstanceId(String)"})
   public void testDeleteHistoricVariableInstanceByProcessInstanceId() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.NONE));
 
     // Act
     historicVariableInstanceEntityManagerImpl.deleteHistoricVariableInstanceByProcessInstanceId("42");
 
-    // Assert
+    // Assert that nothing has changed
     verify(processEngineConfigurationImpl).getHistoryManager();
   }
 
   /**
-   * Test {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstanceByProcessInstanceId(String)}.
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstanceByProcessInstanceId(String)}
+   * Method under test:
+   * {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstanceByProcessInstanceId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void HistoricVariableInstanceEntityManagerImpl.deleteHistoricVariableInstanceByProcessInstanceId(String)"})
   public void testDeleteHistoricVariableInstanceByProcessInstanceId2() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.ACTIVITY));
     when(historicVariableInstanceDataManager.findHistoricVariableInstancesByProcessInstanceId(Mockito.<String>any()))
         .thenReturn(new ArrayList<>());
 
@@ -604,19 +492,15 @@ public class HistoricVariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstanceByProcessInstanceId(String)}.
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstanceByProcessInstanceId(String)}
+   * Method under test:
+   * {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstanceByProcessInstanceId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void HistoricVariableInstanceEntityManagerImpl.deleteHistoricVariableInstanceByProcessInstanceId(String)"})
   public void testDeleteHistoricVariableInstanceByProcessInstanceId3() {
     // Arrange
     when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.ACTIVITY));
 
     ArrayList<HistoricVariableInstanceEntity> historicVariableInstanceEntityList = new ArrayList<>();
     historicVariableInstanceEntityList.add(new HistoricVariableInstanceEntityImpl());
@@ -635,21 +519,49 @@ public class HistoricVariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstanceByProcessInstanceId(String)}.
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstanceByProcessInstanceId(String)}
+   * Method under test:
+   * {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstanceByProcessInstanceId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void HistoricVariableInstanceEntityManagerImpl.deleteHistoricVariableInstanceByProcessInstanceId(String)"})
   public void testDeleteHistoricVariableInstanceByProcessInstanceId4() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    when(processEngineConfigurationImpl.getHistoryManager())
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.ACTIVITY));
+
+    ArrayList<HistoricVariableInstanceEntity> historicVariableInstanceEntityList = new ArrayList<>();
+    historicVariableInstanceEntityList.add(new HistoricVariableInstanceEntityImpl());
+    doNothing().when(historicVariableInstanceDataManager).delete(Mockito.<HistoricVariableInstanceEntity>any());
+    when(historicVariableInstanceDataManager.findHistoricVariableInstancesByProcessInstanceId(Mockito.<String>any()))
+        .thenReturn(historicVariableInstanceEntityList);
+
+    // Act
+    historicVariableInstanceEntityManagerImpl.deleteHistoricVariableInstanceByProcessInstanceId("42");
+
+    // Assert
+    verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfigurationImpl, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfigurationImpl).getHistoryManager();
+    verify(historicVariableInstanceDataManager).delete(isA(HistoricVariableInstanceEntity.class));
+    verify(historicVariableInstanceDataManager).findHistoricVariableInstancesByProcessInstanceId(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstanceByProcessInstanceId(String)}
+   */
+  @Test
+  public void testDeleteHistoricVariableInstanceByProcessInstanceId5() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     when(activitiEventDispatcher.isEnabled()).thenReturn(false);
     when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.ACTIVITY));
 
     ArrayList<HistoricVariableInstanceEntity> historicVariableInstanceEntityList = new ArrayList<>();
     historicVariableInstanceEntityList.add(new HistoricVariableInstanceEntityImpl());
@@ -669,22 +581,18 @@ public class HistoricVariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstanceByProcessInstanceId(String)}.
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstanceByProcessInstanceId(String)}
+   * Method under test:
+   * {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstanceByProcessInstanceId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void HistoricVariableInstanceEntityManagerImpl.deleteHistoricVariableInstanceByProcessInstanceId(String)"})
-  public void testDeleteHistoricVariableInstanceByProcessInstanceId5() {
+  public void testDeleteHistoricVariableInstanceByProcessInstanceId6() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
     when(activitiEventDispatcher.isEnabled()).thenReturn(true);
     when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.ACTIVITY));
     HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = mock(
         HistoricVariableInstanceEntityImpl.class);
     when(historicVariableInstanceEntityImpl.getByteArrayRef()).thenReturn(new ByteArrayRef());
@@ -709,25 +617,18 @@ public class HistoricVariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstanceByProcessInstanceId(String)}.
-   * <ul>
-   *   <li>Then calls {@link ByteArrayRef#delete()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstanceByProcessInstanceId(String)}
+   * Method under test:
+   * {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstanceByProcessInstanceId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void HistoricVariableInstanceEntityManagerImpl.deleteHistoricVariableInstanceByProcessInstanceId(String)"})
-  public void testDeleteHistoricVariableInstanceByProcessInstanceId_thenCallsDelete() {
+  public void testDeleteHistoricVariableInstanceByProcessInstanceId7() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
     when(activitiEventDispatcher.isEnabled()).thenReturn(true);
     when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.ACTIVITY));
     ByteArrayRef byteArrayRef = mock(ByteArrayRef.class);
     doNothing().when(byteArrayRef).delete();
     HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = mock(
@@ -755,57 +656,11 @@ public class HistoricVariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstanceByProcessInstanceId(String)}.
-   * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstanceByProcessInstanceId(String)}
+   * Method under test:
+   * {@link HistoricVariableInstanceEntityManagerImpl#findHistoricVariableInstanceCountByQueryCriteria(HistoricVariableInstanceQueryImpl)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void HistoricVariableInstanceEntityManagerImpl.deleteHistoricVariableInstanceByProcessInstanceId(String)"})
-  public void testDeleteHistoricVariableInstanceByProcessInstanceId_thenCallsDispatchEvent() {
-    // Arrange
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
-
-    ArrayList<HistoricVariableInstanceEntity> historicVariableInstanceEntityList = new ArrayList<>();
-    historicVariableInstanceEntityList.add(new HistoricVariableInstanceEntityImpl());
-    doNothing().when(historicVariableInstanceDataManager).delete(Mockito.<HistoricVariableInstanceEntity>any());
-    when(historicVariableInstanceDataManager.findHistoricVariableInstancesByProcessInstanceId(Mockito.<String>any()))
-        .thenReturn(historicVariableInstanceEntityList);
-
-    // Act
-    historicVariableInstanceEntityManagerImpl.deleteHistoricVariableInstanceByProcessInstanceId("42");
-
-    // Assert
-    verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfigurationImpl, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfigurationImpl).getHistoryManager();
-    verify(historicVariableInstanceDataManager).delete(isA(HistoricVariableInstanceEntity.class));
-    verify(historicVariableInstanceDataManager).findHistoricVariableInstancesByProcessInstanceId(eq("42"));
-  }
-
-  /**
-   * Test {@link HistoricVariableInstanceEntityManagerImpl#findHistoricVariableInstanceCountByQueryCriteria(HistoricVariableInstanceQueryImpl)}.
-   * <ul>
-   *   <li>Then return three.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceEntityManagerImpl#findHistoricVariableInstanceCountByQueryCriteria(HistoricVariableInstanceQueryImpl)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "long HistoricVariableInstanceEntityManagerImpl.findHistoricVariableInstanceCountByQueryCriteria(HistoricVariableInstanceQueryImpl)"})
-  public void testFindHistoricVariableInstanceCountByQueryCriteria_thenReturnThree() {
+  public void testFindHistoricVariableInstanceCountByQueryCriteria() {
     // Arrange
     HistoricVariableInstanceDataManager historicVariableInstanceDataManager = mock(
         HistoricVariableInstanceDataManager.class);
@@ -826,23 +681,18 @@ public class HistoricVariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricVariableInstanceEntityManagerImpl#findHistoricVariableInstancesByQueryCriteria(HistoricVariableInstanceQueryImpl, Page)}.
-   * <ul>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceEntityManagerImpl#findHistoricVariableInstancesByQueryCriteria(HistoricVariableInstanceQueryImpl, Page)}
+   * Method under test:
+   * {@link HistoricVariableInstanceEntityManagerImpl#findHistoricVariableInstancesByQueryCriteria(HistoricVariableInstanceQueryImpl, Page)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "List HistoricVariableInstanceEntityManagerImpl.findHistoricVariableInstancesByQueryCriteria(HistoricVariableInstanceQueryImpl, Page)"})
-  public void testFindHistoricVariableInstancesByQueryCriteria_thenReturnEmpty() {
+  public void testFindHistoricVariableInstancesByQueryCriteria() {
     // Arrange
     HistoricVariableInstanceDataManager historicVariableInstanceDataManager = mock(
         HistoricVariableInstanceDataManager.class);
+    ArrayList<HistoricVariableInstance> historicVariableInstanceList = new ArrayList<>();
     when(historicVariableInstanceDataManager.findHistoricVariableInstancesByQueryCriteria(
-        Mockito.<HistoricVariableInstanceQueryImpl>any(), Mockito.<Page>any())).thenReturn(new ArrayList<>());
+        Mockito.<HistoricVariableInstanceQueryImpl>any(), Mockito.<Page>any()))
+        .thenReturn(historicVariableInstanceList);
     HistoricVariableInstanceEntityManagerImpl historicVariableInstanceEntityManagerImpl = new HistoricVariableInstanceEntityManagerImpl(
         new JtaProcessEngineConfiguration(), historicVariableInstanceDataManager);
     HistoricVariableInstanceQueryImpl historicProcessVariableQuery = new HistoricVariableInstanceQueryImpl();
@@ -855,17 +705,14 @@ public class HistoricVariableInstanceEntityManagerImplDiffblueTest {
     verify(historicVariableInstanceDataManager)
         .findHistoricVariableInstancesByQueryCriteria(isA(HistoricVariableInstanceQueryImpl.class), isA(Page.class));
     assertTrue(actualFindHistoricVariableInstancesByQueryCriteriaResult.isEmpty());
+    assertSame(historicVariableInstanceList, actualFindHistoricVariableInstancesByQueryCriteriaResult);
   }
 
   /**
-   * Test {@link HistoricVariableInstanceEntityManagerImpl#findHistoricVariableInstanceByVariableInstanceId(String)}.
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceEntityManagerImpl#findHistoricVariableInstanceByVariableInstanceId(String)}
+   * Method under test:
+   * {@link HistoricVariableInstanceEntityManagerImpl#findHistoricVariableInstanceByVariableInstanceId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "HistoricVariableInstanceEntity HistoricVariableInstanceEntityManagerImpl.findHistoricVariableInstanceByVariableInstanceId(String)"})
   public void testFindHistoricVariableInstanceByVariableInstanceId() {
     // Arrange
     HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
@@ -882,37 +729,31 @@ public class HistoricVariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstancesByTaskId(String)}.
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstancesByTaskId(String)}
+   * Method under test:
+   * {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstancesByTaskId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricVariableInstanceEntityManagerImpl.deleteHistoricVariableInstancesByTaskId(String)"})
   public void testDeleteHistoricVariableInstancesByTaskId() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.NONE));
 
     // Act
     historicVariableInstanceEntityManagerImpl.deleteHistoricVariableInstancesByTaskId("42");
 
-    // Assert
+    // Assert that nothing has changed
     verify(processEngineConfigurationImpl).getHistoryManager();
   }
 
   /**
-   * Test {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstancesByTaskId(String)}.
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstancesByTaskId(String)}
+   * Method under test:
+   * {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstancesByTaskId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricVariableInstanceEntityManagerImpl.deleteHistoricVariableInstancesByTaskId(String)"})
   public void testDeleteHistoricVariableInstancesByTaskId2() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.ACTIVITY));
     when(historicVariableInstanceDataManager.findHistoricVariableInstancesByTaskId(Mockito.<String>any()))
         .thenReturn(new ArrayList<>());
 
@@ -925,18 +766,15 @@ public class HistoricVariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstancesByTaskId(String)}.
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstancesByTaskId(String)}
+   * Method under test:
+   * {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstancesByTaskId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricVariableInstanceEntityManagerImpl.deleteHistoricVariableInstancesByTaskId(String)"})
   public void testDeleteHistoricVariableInstancesByTaskId3() {
     // Arrange
     when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.ACTIVITY));
 
     ArrayList<HistoricVariableInstanceEntity> historicVariableInstanceEntityList = new ArrayList<>();
     historicVariableInstanceEntityList.add(new HistoricVariableInstanceEntityImpl());
@@ -955,20 +793,49 @@ public class HistoricVariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstancesByTaskId(String)}.
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstancesByTaskId(String)}
+   * Method under test:
+   * {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstancesByTaskId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricVariableInstanceEntityManagerImpl.deleteHistoricVariableInstancesByTaskId(String)"})
   public void testDeleteHistoricVariableInstancesByTaskId4() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    when(processEngineConfigurationImpl.getHistoryManager())
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.ACTIVITY));
+
+    ArrayList<HistoricVariableInstanceEntity> historicVariableInstanceEntityList = new ArrayList<>();
+    historicVariableInstanceEntityList.add(new HistoricVariableInstanceEntityImpl());
+    doNothing().when(historicVariableInstanceDataManager).delete(Mockito.<HistoricVariableInstanceEntity>any());
+    when(historicVariableInstanceDataManager.findHistoricVariableInstancesByTaskId(Mockito.<String>any()))
+        .thenReturn(historicVariableInstanceEntityList);
+
+    // Act
+    historicVariableInstanceEntityManagerImpl.deleteHistoricVariableInstancesByTaskId("42");
+
+    // Assert
+    verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfigurationImpl, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfigurationImpl).getHistoryManager();
+    verify(historicVariableInstanceDataManager).delete(isA(HistoricVariableInstanceEntity.class));
+    verify(historicVariableInstanceDataManager).findHistoricVariableInstancesByTaskId(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstancesByTaskId(String)}
+   */
+  @Test
+  public void testDeleteHistoricVariableInstancesByTaskId5() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     when(activitiEventDispatcher.isEnabled()).thenReturn(false);
     when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.ACTIVITY));
 
     ArrayList<HistoricVariableInstanceEntity> historicVariableInstanceEntityList = new ArrayList<>();
     historicVariableInstanceEntityList.add(new HistoricVariableInstanceEntityImpl());
@@ -988,21 +855,18 @@ public class HistoricVariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstancesByTaskId(String)}.
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstancesByTaskId(String)}
+   * Method under test:
+   * {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstancesByTaskId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricVariableInstanceEntityManagerImpl.deleteHistoricVariableInstancesByTaskId(String)"})
-  public void testDeleteHistoricVariableInstancesByTaskId5() {
+  public void testDeleteHistoricVariableInstancesByTaskId6() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
     when(activitiEventDispatcher.isEnabled()).thenReturn(true);
     when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.ACTIVITY));
     HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = mock(
         HistoricVariableInstanceEntityImpl.class);
     when(historicVariableInstanceEntityImpl.getByteArrayRef()).thenReturn(new ByteArrayRef());
@@ -1027,24 +891,18 @@ public class HistoricVariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstancesByTaskId(String)}.
-   * <ul>
-   *   <li>Then calls {@link ByteArrayRef#delete()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstancesByTaskId(String)}
+   * Method under test:
+   * {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstancesByTaskId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricVariableInstanceEntityManagerImpl.deleteHistoricVariableInstancesByTaskId(String)"})
-  public void testDeleteHistoricVariableInstancesByTaskId_thenCallsDelete() {
+  public void testDeleteHistoricVariableInstancesByTaskId7() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
     when(activitiEventDispatcher.isEnabled()).thenReturn(true);
     when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.ACTIVITY));
     ByteArrayRef byteArrayRef = mock(ByteArrayRef.class);
     doNothing().when(byteArrayRef).delete();
     HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = mock(
@@ -1072,62 +930,18 @@ public class HistoricVariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstancesByTaskId(String)}.
-   * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceEntityManagerImpl#deleteHistoricVariableInstancesByTaskId(String)}
+   * Method under test:
+   * {@link HistoricVariableInstanceEntityManagerImpl#findHistoricVariableInstancesByNativeQuery(Map, int, int)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricVariableInstanceEntityManagerImpl.deleteHistoricVariableInstancesByTaskId(String)"})
-  public void testDeleteHistoricVariableInstancesByTaskId_thenCallsDispatchEvent() {
-    // Arrange
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
-
-    ArrayList<HistoricVariableInstanceEntity> historicVariableInstanceEntityList = new ArrayList<>();
-    historicVariableInstanceEntityList.add(new HistoricVariableInstanceEntityImpl());
-    doNothing().when(historicVariableInstanceDataManager).delete(Mockito.<HistoricVariableInstanceEntity>any());
-    when(historicVariableInstanceDataManager.findHistoricVariableInstancesByTaskId(Mockito.<String>any()))
-        .thenReturn(historicVariableInstanceEntityList);
-
-    // Act
-    historicVariableInstanceEntityManagerImpl.deleteHistoricVariableInstancesByTaskId("42");
-
-    // Assert
-    verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfigurationImpl, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfigurationImpl).getHistoryManager();
-    verify(historicVariableInstanceDataManager).delete(isA(HistoricVariableInstanceEntity.class));
-    verify(historicVariableInstanceDataManager).findHistoricVariableInstancesByTaskId(eq("42"));
-  }
-
-  /**
-   * Test {@link HistoricVariableInstanceEntityManagerImpl#findHistoricVariableInstancesByNativeQuery(Map, int, int)}.
-   * <ul>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceEntityManagerImpl#findHistoricVariableInstancesByNativeQuery(Map, int, int)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "List HistoricVariableInstanceEntityManagerImpl.findHistoricVariableInstancesByNativeQuery(Map, int, int)"})
-  public void testFindHistoricVariableInstancesByNativeQuery_thenReturnEmpty() {
+  public void testFindHistoricVariableInstancesByNativeQuery() {
     // Arrange
     HistoricVariableInstanceDataManager historicVariableInstanceDataManager = mock(
         HistoricVariableInstanceDataManager.class);
+    ArrayList<HistoricVariableInstance> historicVariableInstanceList = new ArrayList<>();
     when(historicVariableInstanceDataManager
         .findHistoricVariableInstancesByNativeQuery(Mockito.<Map<String, Object>>any(), anyInt(), anyInt()))
-        .thenReturn(new ArrayList<>());
+        .thenReturn(historicVariableInstanceList);
     HistoricVariableInstanceEntityManagerImpl historicVariableInstanceEntityManagerImpl = new HistoricVariableInstanceEntityManagerImpl(
         new JtaProcessEngineConfiguration(), historicVariableInstanceDataManager);
 
@@ -1139,21 +953,15 @@ public class HistoricVariableInstanceEntityManagerImplDiffblueTest {
     verify(historicVariableInstanceDataManager).findHistoricVariableInstancesByNativeQuery(isA(Map.class), eq(1),
         eq(3));
     assertTrue(actualFindHistoricVariableInstancesByNativeQueryResult.isEmpty());
+    assertSame(historicVariableInstanceList, actualFindHistoricVariableInstancesByNativeQueryResult);
   }
 
   /**
-   * Test {@link HistoricVariableInstanceEntityManagerImpl#findHistoricVariableInstanceCountByNativeQuery(Map)}.
-   * <ul>
-   *   <li>Then return three.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceEntityManagerImpl#findHistoricVariableInstanceCountByNativeQuery(Map)}
+   * Method under test:
+   * {@link HistoricVariableInstanceEntityManagerImpl#findHistoricVariableInstanceCountByNativeQuery(Map)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "long HistoricVariableInstanceEntityManagerImpl.findHistoricVariableInstanceCountByNativeQuery(Map)"})
-  public void testFindHistoricVariableInstanceCountByNativeQuery_thenReturnThree() {
+  public void testFindHistoricVariableInstanceCountByNativeQuery() {
     // Arrange
     HistoricVariableInstanceDataManager historicVariableInstanceDataManager = mock(
         HistoricVariableInstanceDataManager.class);
@@ -1169,5 +977,39 @@ public class HistoricVariableInstanceEntityManagerImplDiffblueTest {
     // Assert
     verify(historicVariableInstanceDataManager).findHistoricVariableInstanceCountByNativeQuery(isA(Map.class));
     assertEquals(3L, actualFindHistoricVariableInstanceCountByNativeQueryResult);
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>
+   * {@link HistoricVariableInstanceEntityManagerImpl#HistoricVariableInstanceEntityManagerImpl(ProcessEngineConfigurationImpl, HistoricVariableInstanceDataManager)}
+   *   <li>
+   * {@link HistoricVariableInstanceEntityManagerImpl#setHistoricVariableInstanceDataManager(HistoricVariableInstanceDataManager)}
+   *   <li>{@link HistoricVariableInstanceEntityManagerImpl#getDataManager()}
+   *   <li>
+   * {@link HistoricVariableInstanceEntityManagerImpl#getHistoricVariableInstanceDataManager()}
+   * </ul>
+   */
+  @Test
+  public void testGettersAndSetters() {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+
+    // Act
+    HistoricVariableInstanceEntityManagerImpl actualHistoricVariableInstanceEntityManagerImpl = new HistoricVariableInstanceEntityManagerImpl(
+        processEngineConfiguration,
+        new MybatisHistoricVariableInstanceDataManager(new JtaProcessEngineConfiguration()));
+    MybatisHistoricVariableInstanceDataManager historicVariableInstanceDataManager = new MybatisHistoricVariableInstanceDataManager(
+        new JtaProcessEngineConfiguration());
+    actualHistoricVariableInstanceEntityManagerImpl
+        .setHistoricVariableInstanceDataManager(historicVariableInstanceDataManager);
+    DataManager<HistoricVariableInstanceEntity> actualDataManager = actualHistoricVariableInstanceEntityManagerImpl
+        .getDataManager();
+
+    // Assert that nothing has changed
+    assertSame(historicVariableInstanceDataManager, actualDataManager);
+    assertSame(historicVariableInstanceDataManager,
+        actualHistoricVariableInstanceEntityManagerImpl.getHistoricVariableInstanceDataManager());
   }
 }

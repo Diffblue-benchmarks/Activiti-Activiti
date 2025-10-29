@@ -19,53 +19,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import java.util.function.BiFunction;
 import org.junit.jupiter.api.Test;
 
 class SignalPayloadDiffblueTest {
   /**
-   * Test {@link SignalPayload#SignalPayload()}.
-   * <p>
-   * Method under test: {@link SignalPayload#SignalPayload()}
-   */
-  @Test
-  @DisplayName("Test new SignalPayload()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SignalPayload.<init>()"})
-  void testNewSignalPayload() {
-    // Arrange and Act
-    SignalPayload actualSignalPayload = new SignalPayload();
-
-    // Assert
-    assertNull(actualSignalPayload.getName());
-    assertTrue(actualSignalPayload.getVariables().isEmpty());
-  }
-
-  /**
-   * Test {@link SignalPayload#SignalPayload(String, Map)}.
-   * <p>
-   * Method under test: {@link SignalPayload#SignalPayload(String, Map)}
-   */
-  @Test
-  @DisplayName("Test new SignalPayload(String, Map)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SignalPayload.<init>(String, Map)"})
-  void testNewSignalPayload2() {
-    // Arrange and Act
-    SignalPayload actualSignalPayload = new SignalPayload("Name", new HashMap<>());
-
-    // Assert
-    assertEquals("Name", actualSignalPayload.getName());
-    assertTrue(actualSignalPayload.getVariables().isEmpty());
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link SignalPayload#setName(String)}
@@ -76,10 +37,6 @@ class SignalPayloadDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String SignalPayload.getId()", "String SignalPayload.getName()",
-      "Map SignalPayload.getVariables()", "void SignalPayload.setName(String)", "void SignalPayload.setVariables(Map)"})
   void testGettersAndSetters() {
     // Arrange
     SignalPayload signalPayload = new SignalPayload();
@@ -92,9 +49,59 @@ class SignalPayloadDiffblueTest {
     String actualName = signalPayload.getName();
     Map<String, Object> actualVariables = signalPayload.getVariables();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("Name", actualName);
     assertTrue(actualVariables.isEmpty());
     assertSame(variables, actualVariables);
+  }
+
+  /**
+   * Method under test: {@link SignalPayload#SignalPayload()}
+   */
+  @Test
+  void testNewSignalPayload() {
+    // Arrange and Act
+    SignalPayload actualSignalPayload = new SignalPayload();
+
+    // Assert
+    assertNull(actualSignalPayload.getName());
+    assertTrue(actualSignalPayload.getVariables().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link SignalPayload#SignalPayload(String, Map)}
+   */
+  @Test
+  void testNewSignalPayload2() {
+    // Arrange
+    HashMap<String, Object> variables = new HashMap<>();
+
+    // Act
+    SignalPayload actualSignalPayload = new SignalPayload("Name", variables);
+
+    // Assert
+    assertEquals("Name", actualSignalPayload.getName());
+    Map<String, Object> variables2 = actualSignalPayload.getVariables();
+    assertTrue(variables2.isEmpty());
+    assertSame(variables, variables2);
+  }
+
+  /**
+   * Method under test: {@link SignalPayload#SignalPayload(String, Map)}
+   */
+  @Test
+  void testNewSignalPayload3() {
+    // Arrange
+    HashMap<String, Object> variables = new HashMap<>();
+    variables.computeIfPresent("foo", mock(BiFunction.class));
+
+    // Act
+    SignalPayload actualSignalPayload = new SignalPayload("Name", variables);
+
+    // Assert
+    assertEquals("Name", actualSignalPayload.getName());
+    Map<String, Object> variables2 = actualSignalPayload.getVariables();
+    assertTrue(variables2.isEmpty());
+    assertSame(variables, variables2);
   }
 }

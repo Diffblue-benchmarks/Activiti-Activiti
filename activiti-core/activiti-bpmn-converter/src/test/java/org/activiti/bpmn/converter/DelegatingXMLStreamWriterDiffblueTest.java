@@ -26,28 +26,18 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.stream.XMLStreamException;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class DelegatingXMLStreamWriterDiffblueTest {
   /**
-   * Test {@link DelegatingXMLStreamWriter#writeStartElement(String)} with {@code localName}.
-   * <ul>
-   *   <li>Then calls {@link IndentingXMLStreamWriter#writeStartElement(String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegatingXMLStreamWriter#writeStartElement(String)}
+   * Method under test:
+   * {@link DelegatingXMLStreamWriter#writeStartElement(String)}
    */
   @Test
-  @DisplayName("Test writeStartElement(String) with 'localName'; then calls writeStartElement(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeStartElement(String)"})
-  void testWriteStartElementWithLocalName_thenCallsWriteStartElement() throws XMLStreamException {
+  void testWriteStartElement() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeStartElement(Mockito.<String>any());
@@ -60,18 +50,11 @@ class DelegatingXMLStreamWriterDiffblueTest {
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#writeStartElement(String, String)} with {@code namespaceURI}, {@code localName}.
-   * <ul>
-   *   <li>Then calls {@link IndentingXMLStreamWriter#writeStartElement(String, String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegatingXMLStreamWriter#writeStartElement(String, String)}
+   * Method under test:
+   * {@link DelegatingXMLStreamWriter#writeStartElement(String, String)}
    */
   @Test
-  @DisplayName("Test writeStartElement(String, String) with 'namespaceURI', 'localName'; then calls writeStartElement(String, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeStartElement(String, String)"})
-  void testWriteStartElementWithNamespaceURILocalName_thenCallsWriteStartElement() throws XMLStreamException {
+  void testWriteStartElement2() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeStartElement(Mockito.<String>any(), Mockito.<String>any());
@@ -84,18 +67,11 @@ class DelegatingXMLStreamWriterDiffblueTest {
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#writeStartElement(String, String)} with {@code namespaceURI}, {@code localName}.
-   * <ul>
-   *   <li>Then calls {@link IndentingXMLStreamWriter#writeStartElement(String, String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegatingXMLStreamWriter#writeStartElement(String, String)}
+   * Method under test:
+   * {@link DelegatingXMLStreamWriter#writeStartElement(String, String)}
    */
   @Test
-  @DisplayName("Test writeStartElement(String, String) with 'namespaceURI', 'localName'; then calls writeStartElement(String, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeStartElement(String, String)"})
-  void testWriteStartElementWithNamespaceURILocalName_thenCallsWriteStartElement2() throws XMLStreamException {
+  void testWriteStartElement3() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeStartElement(Mockito.<String>any(), Mockito.<String>any());
@@ -109,18 +85,11 @@ class DelegatingXMLStreamWriterDiffblueTest {
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#writeStartElement(String, String, String)} with {@code prefix}, {@code localName}, {@code namespaceURI}.
-   * <ul>
-   *   <li>Then calls {@link IndentingXMLStreamWriter#writeStartElement(String, String, String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegatingXMLStreamWriter#writeStartElement(String, String, String)}
+   * Method under test:
+   * {@link DelegatingXMLStreamWriter#writeStartElement(String, String, String)}
    */
   @Test
-  @DisplayName("Test writeStartElement(String, String, String) with 'prefix', 'localName', 'namespaceURI'; then calls writeStartElement(String, String, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeStartElement(String, String, String)"})
-  void testWriteStartElementWithPrefixLocalNameNamespaceURI_thenCallsWriteStartElement() throws XMLStreamException {
+  void testWriteStartElement4() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
@@ -133,18 +102,11 @@ class DelegatingXMLStreamWriterDiffblueTest {
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#writeEmptyElement(String)} with {@code localName}.
-   * <ul>
-   *   <li>Then calls {@link IndentingXMLStreamWriter#writeEmptyElement(String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegatingXMLStreamWriter#writeEmptyElement(String)}
+   * Method under test:
+   * {@link DelegatingXMLStreamWriter#writeEmptyElement(String)}
    */
   @Test
-  @DisplayName("Test writeEmptyElement(String) with 'localName'; then calls writeEmptyElement(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeEmptyElement(String)"})
-  void testWriteEmptyElementWithLocalName_thenCallsWriteEmptyElement() throws XMLStreamException {
+  void testWriteEmptyElement() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeEmptyElement(Mockito.<String>any());
@@ -157,18 +119,11 @@ class DelegatingXMLStreamWriterDiffblueTest {
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#writeEmptyElement(String, String)} with {@code namespaceURI}, {@code localName}.
-   * <ul>
-   *   <li>Then calls {@link IndentingXMLStreamWriter#writeEmptyElement(String, String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegatingXMLStreamWriter#writeEmptyElement(String, String)}
+   * Method under test:
+   * {@link DelegatingXMLStreamWriter#writeEmptyElement(String, String)}
    */
   @Test
-  @DisplayName("Test writeEmptyElement(String, String) with 'namespaceURI', 'localName'; then calls writeEmptyElement(String, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeEmptyElement(String, String)"})
-  void testWriteEmptyElementWithNamespaceURILocalName_thenCallsWriteEmptyElement() throws XMLStreamException {
+  void testWriteEmptyElement2() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeEmptyElement(Mockito.<String>any(), Mockito.<String>any());
@@ -181,18 +136,11 @@ class DelegatingXMLStreamWriterDiffblueTest {
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#writeEmptyElement(String, String)} with {@code namespaceURI}, {@code localName}.
-   * <ul>
-   *   <li>Then calls {@link IndentingXMLStreamWriter#writeEmptyElement(String, String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegatingXMLStreamWriter#writeEmptyElement(String, String)}
+   * Method under test:
+   * {@link DelegatingXMLStreamWriter#writeEmptyElement(String, String)}
    */
   @Test
-  @DisplayName("Test writeEmptyElement(String, String) with 'namespaceURI', 'localName'; then calls writeEmptyElement(String, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeEmptyElement(String, String)"})
-  void testWriteEmptyElementWithNamespaceURILocalName_thenCallsWriteEmptyElement2() throws XMLStreamException {
+  void testWriteEmptyElement3() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeEmptyElement(Mockito.<String>any(), Mockito.<String>any());
@@ -206,18 +154,11 @@ class DelegatingXMLStreamWriterDiffblueTest {
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#writeEmptyElement(String, String, String)} with {@code prefix}, {@code localName}, {@code namespaceURI}.
-   * <ul>
-   *   <li>Then calls {@link IndentingXMLStreamWriter#writeEmptyElement(String, String, String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegatingXMLStreamWriter#writeEmptyElement(String, String, String)}
+   * Method under test:
+   * {@link DelegatingXMLStreamWriter#writeEmptyElement(String, String, String)}
    */
   @Test
-  @DisplayName("Test writeEmptyElement(String, String, String) with 'prefix', 'localName', 'namespaceURI'; then calls writeEmptyElement(String, String, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeEmptyElement(String, String, String)"})
-  void testWriteEmptyElementWithPrefixLocalNameNamespaceURI_thenCallsWriteEmptyElement() throws XMLStreamException {
+  void testWriteEmptyElement4() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeEmptyElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
@@ -230,18 +171,10 @@ class DelegatingXMLStreamWriterDiffblueTest {
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#writeEndDocument()}.
-   * <ul>
-   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeEndDocument()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DelegatingXMLStreamWriter#writeEndDocument()}
    */
   @Test
-  @DisplayName("Test writeEndDocument(); then calls writeEndDocument()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeEndDocument()"})
-  void testWriteEndDocument_thenCallsWriteEndDocument() throws XMLStreamException {
+  void testWriteEndDocument() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeEndDocument();
@@ -249,23 +182,15 @@ class DelegatingXMLStreamWriterDiffblueTest {
     // Act
     (new IndentingXMLStreamWriter(writer)).writeEndDocument();
 
-    // Assert
+    // Assert that nothing has changed
     verify(writer).writeEndDocument();
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#writeEndDocument()}.
-   * <ul>
-   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeEndDocument()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DelegatingXMLStreamWriter#writeEndDocument()}
    */
   @Test
-  @DisplayName("Test writeEndDocument(); then calls writeEndDocument()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeEndDocument()"})
-  void testWriteEndDocument_thenCallsWriteEndDocument2() throws XMLStreamException {
+  void testWriteEndDocument2() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeEndDocument();
@@ -273,24 +198,15 @@ class DelegatingXMLStreamWriterDiffblueTest {
     // Act
     (new IndentingXMLStreamWriter(new IndentingXMLStreamWriter(writer))).writeEndDocument();
 
-    // Assert
+    // Assert that nothing has changed
     verify(writer).writeEndDocument();
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#close()}.
-   * <ul>
-   *   <li>Given {@link IndentingXMLStreamWriter} {@link DelegatingXMLStreamWriter#close()} does nothing.</li>
-   *   <li>Then calls {@link DelegatingXMLStreamWriter#close()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DelegatingXMLStreamWriter#close()}
    */
   @Test
-  @DisplayName("Test close(); given IndentingXMLStreamWriter close() does nothing; then calls close()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.close()"})
-  void testClose_givenIndentingXMLStreamWriterCloseDoesNothing_thenCallsClose() throws XMLStreamException {
+  void testClose() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).close();
@@ -298,24 +214,15 @@ class DelegatingXMLStreamWriterDiffblueTest {
     // Act
     (new IndentingXMLStreamWriter(writer)).close();
 
-    // Assert
+    // Assert that nothing has changed
     verify(writer).close();
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#close()}.
-   * <ul>
-   *   <li>Given {@link IndentingXMLStreamWriter} {@link DelegatingXMLStreamWriter#close()} does nothing.</li>
-   *   <li>Then calls {@link DelegatingXMLStreamWriter#close()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DelegatingXMLStreamWriter#close()}
    */
   @Test
-  @DisplayName("Test close(); given IndentingXMLStreamWriter close() does nothing; then calls close()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.close()"})
-  void testClose_givenIndentingXMLStreamWriterCloseDoesNothing_thenCallsClose2() throws XMLStreamException {
+  void testClose2() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).close();
@@ -323,24 +230,15 @@ class DelegatingXMLStreamWriterDiffblueTest {
     // Act
     (new IndentingXMLStreamWriter(new IndentingXMLStreamWriter(writer))).close();
 
-    // Assert
+    // Assert that nothing has changed
     verify(writer).close();
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#flush()}.
-   * <ul>
-   *   <li>Given {@link IndentingXMLStreamWriter} {@link DelegatingXMLStreamWriter#flush()} does nothing.</li>
-   *   <li>Then calls {@link DelegatingXMLStreamWriter#flush()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DelegatingXMLStreamWriter#flush()}
    */
   @Test
-  @DisplayName("Test flush(); given IndentingXMLStreamWriter flush() does nothing; then calls flush()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.flush()"})
-  void testFlush_givenIndentingXMLStreamWriterFlushDoesNothing_thenCallsFlush() throws XMLStreamException {
+  void testFlush() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).flush();
@@ -348,24 +246,15 @@ class DelegatingXMLStreamWriterDiffblueTest {
     // Act
     (new IndentingXMLStreamWriter(writer)).flush();
 
-    // Assert
+    // Assert that nothing has changed
     verify(writer).flush();
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#flush()}.
-   * <ul>
-   *   <li>Given {@link IndentingXMLStreamWriter} {@link DelegatingXMLStreamWriter#flush()} does nothing.</li>
-   *   <li>Then calls {@link DelegatingXMLStreamWriter#flush()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DelegatingXMLStreamWriter#flush()}
    */
   @Test
-  @DisplayName("Test flush(); given IndentingXMLStreamWriter flush() does nothing; then calls flush()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.flush()"})
-  void testFlush_givenIndentingXMLStreamWriterFlushDoesNothing_thenCallsFlush2() throws XMLStreamException {
+  void testFlush2() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).flush();
@@ -373,23 +262,16 @@ class DelegatingXMLStreamWriterDiffblueTest {
     // Act
     (new IndentingXMLStreamWriter(new IndentingXMLStreamWriter(writer))).flush();
 
-    // Assert
+    // Assert that nothing has changed
     verify(writer).flush();
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#writeAttribute(String, String)} with {@code localName}, {@code value}.
-   * <ul>
-   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeAttribute(String, String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegatingXMLStreamWriter#writeAttribute(String, String)}
+   * Method under test:
+   * {@link DelegatingXMLStreamWriter#writeAttribute(String, String)}
    */
   @Test
-  @DisplayName("Test writeAttribute(String, String) with 'localName', 'value'; then calls writeAttribute(String, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeAttribute(String, String)"})
-  void testWriteAttributeWithLocalNameValue_thenCallsWriteAttribute() throws XMLStreamException {
+  void testWriteAttribute() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
@@ -397,23 +279,16 @@ class DelegatingXMLStreamWriterDiffblueTest {
     // Act
     (new IndentingXMLStreamWriter(writer)).writeAttribute("Local Name", "42");
 
-    // Assert
+    // Assert that nothing has changed
     verify(writer).writeAttribute(eq("Local Name"), eq("42"));
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#writeAttribute(String, String)} with {@code localName}, {@code value}.
-   * <ul>
-   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeAttribute(String, String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegatingXMLStreamWriter#writeAttribute(String, String)}
+   * Method under test:
+   * {@link DelegatingXMLStreamWriter#writeAttribute(String, String)}
    */
   @Test
-  @DisplayName("Test writeAttribute(String, String) with 'localName', 'value'; then calls writeAttribute(String, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeAttribute(String, String)"})
-  void testWriteAttributeWithLocalNameValue_thenCallsWriteAttribute2() throws XMLStreamException {
+  void testWriteAttribute2() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
@@ -421,23 +296,16 @@ class DelegatingXMLStreamWriterDiffblueTest {
     // Act
     (new IndentingXMLStreamWriter(new IndentingXMLStreamWriter(writer))).writeAttribute("Local Name", "42");
 
-    // Assert
+    // Assert that nothing has changed
     verify(writer).writeAttribute(eq("Local Name"), eq("42"));
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#writeAttribute(String, String, String)} with {@code namespaceURI}, {@code localName}, {@code value}.
-   * <ul>
-   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeAttribute(String, String, String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegatingXMLStreamWriter#writeAttribute(String, String, String)}
+   * Method under test:
+   * {@link DelegatingXMLStreamWriter#writeAttribute(String, String, String)}
    */
   @Test
-  @DisplayName("Test writeAttribute(String, String, String) with 'namespaceURI', 'localName', 'value'; then calls writeAttribute(String, String, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeAttribute(String, String, String)"})
-  void testWriteAttributeWithNamespaceURILocalNameValue_thenCallsWriteAttribute() throws XMLStreamException {
+  void testWriteAttribute3() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
@@ -445,23 +313,16 @@ class DelegatingXMLStreamWriterDiffblueTest {
     // Act
     (new IndentingXMLStreamWriter(writer)).writeAttribute("Namespace URI", "Local Name", "42");
 
-    // Assert
+    // Assert that nothing has changed
     verify(writer).writeAttribute(eq("Namespace URI"), eq("Local Name"), eq("42"));
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#writeAttribute(String, String, String, String)} with {@code prefix}, {@code namespaceURI}, {@code localName}, {@code value}.
-   * <ul>
-   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeAttribute(String, String, String, String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegatingXMLStreamWriter#writeAttribute(String, String, String, String)}
+   * Method under test:
+   * {@link DelegatingXMLStreamWriter#writeAttribute(String, String, String, String)}
    */
   @Test
-  @DisplayName("Test writeAttribute(String, String, String, String) with 'prefix', 'namespaceURI', 'localName', 'value'; then calls writeAttribute(String, String, String, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeAttribute(String, String, String, String)"})
-  void testWriteAttributeWithPrefixNamespaceURILocalNameValue_thenCallsWriteAttribute() throws XMLStreamException {
+  void testWriteAttribute4() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer)
@@ -470,23 +331,16 @@ class DelegatingXMLStreamWriterDiffblueTest {
     // Act
     (new IndentingXMLStreamWriter(writer)).writeAttribute("Prefix", "Namespace URI", "Local Name", "42");
 
-    // Assert
+    // Assert that nothing has changed
     verify(writer).writeAttribute(eq("Prefix"), eq("Namespace URI"), eq("Local Name"), eq("42"));
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#writeNamespace(String, String)}.
-   * <ul>
-   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeNamespace(String, String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegatingXMLStreamWriter#writeNamespace(String, String)}
+   * Method under test:
+   * {@link DelegatingXMLStreamWriter#writeNamespace(String, String)}
    */
   @Test
-  @DisplayName("Test writeNamespace(String, String); then calls writeNamespace(String, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeNamespace(String, String)"})
-  void testWriteNamespace_thenCallsWriteNamespace() throws XMLStreamException {
+  void testWriteNamespace() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
@@ -494,23 +348,16 @@ class DelegatingXMLStreamWriterDiffblueTest {
     // Act
     (new IndentingXMLStreamWriter(writer)).writeNamespace("Prefix", "Namespace URI");
 
-    // Assert
+    // Assert that nothing has changed
     verify(writer).writeNamespace(eq("Prefix"), eq("Namespace URI"));
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#writeNamespace(String, String)}.
-   * <ul>
-   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeNamespace(String, String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegatingXMLStreamWriter#writeNamespace(String, String)}
+   * Method under test:
+   * {@link DelegatingXMLStreamWriter#writeNamespace(String, String)}
    */
   @Test
-  @DisplayName("Test writeNamespace(String, String); then calls writeNamespace(String, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeNamespace(String, String)"})
-  void testWriteNamespace_thenCallsWriteNamespace2() throws XMLStreamException {
+  void testWriteNamespace2() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
@@ -518,23 +365,16 @@ class DelegatingXMLStreamWriterDiffblueTest {
     // Act
     (new IndentingXMLStreamWriter(new IndentingXMLStreamWriter(writer))).writeNamespace("Prefix", "Namespace URI");
 
-    // Assert
+    // Assert that nothing has changed
     verify(writer).writeNamespace(eq("Prefix"), eq("Namespace URI"));
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#writeDefaultNamespace(String)}.
-   * <ul>
-   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeDefaultNamespace(String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegatingXMLStreamWriter#writeDefaultNamespace(String)}
+   * Method under test:
+   * {@link DelegatingXMLStreamWriter#writeDefaultNamespace(String)}
    */
   @Test
-  @DisplayName("Test writeDefaultNamespace(String); then calls writeDefaultNamespace(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeDefaultNamespace(String)"})
-  void testWriteDefaultNamespace_thenCallsWriteDefaultNamespace() throws XMLStreamException {
+  void testWriteDefaultNamespace() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeDefaultNamespace(Mockito.<String>any());
@@ -542,23 +382,15 @@ class DelegatingXMLStreamWriterDiffblueTest {
     // Act
     (new IndentingXMLStreamWriter(writer)).writeDefaultNamespace("Namespace URI");
 
-    // Assert
+    // Assert that nothing has changed
     verify(writer).writeDefaultNamespace(eq("Namespace URI"));
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#writeComment(String)}.
-   * <ul>
-   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeComment(String)}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DelegatingXMLStreamWriter#writeComment(String)}
    */
   @Test
-  @DisplayName("Test writeComment(String); then calls writeComment(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeComment(String)"})
-  void testWriteComment_thenCallsWriteComment() throws XMLStreamException {
+  void testWriteComment() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeComment(Mockito.<String>any());
@@ -566,71 +398,16 @@ class DelegatingXMLStreamWriterDiffblueTest {
     // Act
     (new IndentingXMLStreamWriter(writer)).writeComment("Data");
 
-    // Assert
+    // Assert that nothing has changed
     verify(writer).writeComment(eq("Data"));
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#writeProcessingInstruction(String, String)} with {@code target}, {@code data}.
-   * <ul>
-   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeProcessingInstruction(String, String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegatingXMLStreamWriter#writeProcessingInstruction(String, String)}
+   * Method under test:
+   * {@link DelegatingXMLStreamWriter#writeProcessingInstruction(String)}
    */
   @Test
-  @DisplayName("Test writeProcessingInstruction(String, String) with 'target', 'data'; then calls writeProcessingInstruction(String, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeProcessingInstruction(String, String)"})
-  void testWriteProcessingInstructionWithTargetData_thenCallsWriteProcessingInstruction() throws XMLStreamException {
-    // Arrange
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).writeProcessingInstruction(Mockito.<String>any(), Mockito.<String>any());
-
-    // Act
-    (new IndentingXMLStreamWriter(writer)).writeProcessingInstruction("Target", "Data");
-
-    // Assert
-    verify(writer).writeProcessingInstruction(eq("Target"), eq("Data"));
-  }
-
-  /**
-   * Test {@link DelegatingXMLStreamWriter#writeProcessingInstruction(String, String)} with {@code target}, {@code data}.
-   * <ul>
-   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeProcessingInstruction(String, String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegatingXMLStreamWriter#writeProcessingInstruction(String, String)}
-   */
-  @Test
-  @DisplayName("Test writeProcessingInstruction(String, String) with 'target', 'data'; then calls writeProcessingInstruction(String, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeProcessingInstruction(String, String)"})
-  void testWriteProcessingInstructionWithTargetData_thenCallsWriteProcessingInstruction2() throws XMLStreamException {
-    // Arrange
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).writeProcessingInstruction(Mockito.<String>any(), Mockito.<String>any());
-
-    // Act
-    (new IndentingXMLStreamWriter(new IndentingXMLStreamWriter(writer))).writeProcessingInstruction("Target", "Data");
-
-    // Assert
-    verify(writer).writeProcessingInstruction(eq("Target"), eq("Data"));
-  }
-
-  /**
-   * Test {@link DelegatingXMLStreamWriter#writeProcessingInstruction(String)} with {@code target}.
-   * <ul>
-   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeProcessingInstruction(String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegatingXMLStreamWriter#writeProcessingInstruction(String)}
-   */
-  @Test
-  @DisplayName("Test writeProcessingInstruction(String) with 'target'; then calls writeProcessingInstruction(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeProcessingInstruction(String)"})
-  void testWriteProcessingInstructionWithTarget_thenCallsWriteProcessingInstruction() throws XMLStreamException {
+  void testWriteProcessingInstruction() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeProcessingInstruction(Mockito.<String>any());
@@ -638,23 +415,49 @@ class DelegatingXMLStreamWriterDiffblueTest {
     // Act
     (new IndentingXMLStreamWriter(writer)).writeProcessingInstruction("Target");
 
-    // Assert
+    // Assert that nothing has changed
     verify(writer).writeProcessingInstruction(eq("Target"));
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#writeCData(String)}.
-   * <ul>
-   *   <li>Then calls {@link IndentingXMLStreamWriter#writeCData(String)}.</li>
-   * </ul>
-   * <p>
+   * Method under test:
+   * {@link DelegatingXMLStreamWriter#writeProcessingInstruction(String, String)}
+   */
+  @Test
+  void testWriteProcessingInstruction2() throws XMLStreamException {
+    // Arrange
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer).writeProcessingInstruction(Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    (new IndentingXMLStreamWriter(writer)).writeProcessingInstruction("Target", "Data");
+
+    // Assert that nothing has changed
+    verify(writer).writeProcessingInstruction(eq("Target"), eq("Data"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DelegatingXMLStreamWriter#writeProcessingInstruction(String, String)}
+   */
+  @Test
+  void testWriteProcessingInstruction3() throws XMLStreamException {
+    // Arrange
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer).writeProcessingInstruction(Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    (new IndentingXMLStreamWriter(new IndentingXMLStreamWriter(writer))).writeProcessingInstruction("Target", "Data");
+
+    // Assert that nothing has changed
+    verify(writer).writeProcessingInstruction(eq("Target"), eq("Data"));
+  }
+
+  /**
    * Method under test: {@link DelegatingXMLStreamWriter#writeCData(String)}
    */
   @Test
-  @DisplayName("Test writeCData(String); then calls writeCData(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeCData(String)"})
-  void testWriteCData_thenCallsWriteCData() throws XMLStreamException {
+  void testWriteCData() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeCData(Mockito.<String>any());
@@ -667,19 +470,10 @@ class DelegatingXMLStreamWriterDiffblueTest {
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#writeDTD(String)}.
-   * <ul>
-   *   <li>Given {@link IndentingXMLStreamWriter} {@link DelegatingXMLStreamWriter#writeDTD(String)} does nothing.</li>
-   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeDTD(String)}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DelegatingXMLStreamWriter#writeDTD(String)}
    */
   @Test
-  @DisplayName("Test writeDTD(String); given IndentingXMLStreamWriter writeDTD(String) does nothing; then calls writeDTD(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeDTD(String)"})
-  void testWriteDTD_givenIndentingXMLStreamWriterWriteDTDDoesNothing_thenCallsWriteDTD() throws XMLStreamException {
+  void testWriteDTD() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeDTD(Mockito.<String>any());
@@ -687,23 +481,15 @@ class DelegatingXMLStreamWriterDiffblueTest {
     // Act
     (new IndentingXMLStreamWriter(writer)).writeDTD("Dtd");
 
-    // Assert
+    // Assert that nothing has changed
     verify(writer).writeDTD(eq("Dtd"));
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#writeEntityRef(String)}.
-   * <ul>
-   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeEntityRef(String)}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DelegatingXMLStreamWriter#writeEntityRef(String)}
    */
   @Test
-  @DisplayName("Test writeEntityRef(String); then calls writeEntityRef(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeEntityRef(String)"})
-  void testWriteEntityRef_thenCallsWriteEntityRef() throws XMLStreamException {
+  void testWriteEntityRef() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeEntityRef(Mockito.<String>any());
@@ -711,75 +497,15 @@ class DelegatingXMLStreamWriterDiffblueTest {
     // Act
     (new IndentingXMLStreamWriter(writer)).writeEntityRef("Name");
 
-    // Assert
+    // Assert that nothing has changed
     verify(writer).writeEntityRef(eq("Name"));
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#writeStartDocument(String, String)} with {@code encoding}, {@code version}.
-   * <ul>
-   *   <li>Then calls {@link IndentingXMLStreamWriter#writeCharacters(String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegatingXMLStreamWriter#writeStartDocument(String, String)}
-   */
-  @Test
-  @DisplayName("Test writeStartDocument(String, String) with 'encoding', 'version'; then calls writeCharacters(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeStartDocument(String, String)"})
-  void testWriteStartDocumentWithEncodingVersion_thenCallsWriteCharacters() throws XMLStreamException {
-    // Arrange
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeStartDocument(Mockito.<String>any(), Mockito.<String>any());
-
-    // Act
-    (new IndentingXMLStreamWriter(writer)).writeStartDocument("UTF-8", "1.0.2");
-
-    // Assert
-    verify(writer).writeCharacters(eq("\n"));
-    verify(writer).writeStartDocument(eq("UTF-8"), eq("1.0.2"));
-  }
-
-  /**
-   * Test {@link DelegatingXMLStreamWriter#writeStartDocument(String)} with {@code version}.
-   * <ul>
-   *   <li>Then calls {@link IndentingXMLStreamWriter#writeCharacters(String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegatingXMLStreamWriter#writeStartDocument(String)}
-   */
-  @Test
-  @DisplayName("Test writeStartDocument(String) with 'version'; then calls writeCharacters(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeStartDocument(String)"})
-  void testWriteStartDocumentWithVersion_thenCallsWriteCharacters() throws XMLStreamException {
-    // Arrange
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeStartDocument(Mockito.<String>any());
-
-    // Act
-    (new IndentingXMLStreamWriter(writer)).writeStartDocument("1.0.2");
-
-    // Assert
-    verify(writer).writeCharacters(eq("\n"));
-    verify(writer).writeStartDocument(eq("1.0.2"));
-  }
-
-  /**
-   * Test {@link DelegatingXMLStreamWriter#writeStartDocument()}.
-   * <ul>
-   *   <li>Then calls {@link IndentingXMLStreamWriter#writeCharacters(String)}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DelegatingXMLStreamWriter#writeStartDocument()}
    */
   @Test
-  @DisplayName("Test writeStartDocument(); then calls writeCharacters(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeStartDocument()"})
-  void testWriteStartDocument_thenCallsWriteCharacters() throws XMLStreamException {
+  void testWriteStartDocument() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeCharacters(Mockito.<String>any());
@@ -788,24 +514,16 @@ class DelegatingXMLStreamWriterDiffblueTest {
     // Act
     (new IndentingXMLStreamWriter(writer)).writeStartDocument();
 
-    // Assert
+    // Assert that nothing has changed
     verify(writer).writeCharacters(eq("\n"));
     verify(writer).writeStartDocument();
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#writeStartDocument()}.
-   * <ul>
-   *   <li>Then calls {@link IndentingXMLStreamWriter#writeCharacters(String)}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DelegatingXMLStreamWriter#writeStartDocument()}
    */
   @Test
-  @DisplayName("Test writeStartDocument(); then calls writeCharacters(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeStartDocument()"})
-  void testWriteStartDocument_thenCallsWriteCharacters2() throws XMLStreamException {
+  void testWriteStartDocument2() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeCharacters(Mockito.<String>any());
@@ -820,18 +538,81 @@ class DelegatingXMLStreamWriterDiffblueTest {
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#writeCharacters(char[], int, int)} with {@code text}, {@code start}, {@code len}.
-   * <ul>
-   *   <li>Then calls {@link IndentingXMLStreamWriter#writeCharacters(char[], int, int)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegatingXMLStreamWriter#writeCharacters(char[], int, int)}
+   * Method under test:
+   * {@link DelegatingXMLStreamWriter#writeStartDocument(String)}
    */
   @Test
-  @DisplayName("Test writeCharacters(char[], int, int) with 'text', 'start', 'len'; then calls writeCharacters(char[], int, int)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeCharacters(char[], int, int)"})
-  void testWriteCharactersWithTextStartLen_thenCallsWriteCharacters() throws XMLStreamException {
+  void testWriteStartDocument3() throws XMLStreamException {
+    // Arrange
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer).writeCharacters(Mockito.<String>any());
+    doNothing().when(writer).writeStartDocument(Mockito.<String>any());
+
+    // Act
+    (new IndentingXMLStreamWriter(writer)).writeStartDocument("1.0.2");
+
+    // Assert that nothing has changed
+    verify(writer).writeCharacters(eq("\n"));
+    verify(writer).writeStartDocument(eq("1.0.2"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DelegatingXMLStreamWriter#writeStartDocument(String, String)}
+   */
+  @Test
+  void testWriteStartDocument4() throws XMLStreamException {
+    // Arrange
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer).writeCharacters(Mockito.<String>any());
+    doNothing().when(writer).writeStartDocument(Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    (new IndentingXMLStreamWriter(writer)).writeStartDocument("UTF-8", "1.0.2");
+
+    // Assert that nothing has changed
+    verify(writer).writeCharacters(eq("\n"));
+    verify(writer).writeStartDocument(eq("UTF-8"), eq("1.0.2"));
+  }
+
+  /**
+   * Method under test: {@link DelegatingXMLStreamWriter#writeCharacters(String)}
+   */
+  @Test
+  void testWriteCharacters() throws XMLStreamException {
+    // Arrange
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer).writeCharacters(Mockito.<String>any());
+
+    // Act
+    (new IndentingXMLStreamWriter(writer)).writeCharacters("Text");
+
+    // Assert
+    verify(writer).writeCharacters(eq("Text"));
+  }
+
+  /**
+   * Method under test: {@link DelegatingXMLStreamWriter#writeCharacters(String)}
+   */
+  @Test
+  void testWriteCharacters2() throws XMLStreamException {
+    // Arrange
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer).writeCharacters(Mockito.<String>any());
+
+    // Act
+    (new IndentingXMLStreamWriter(new IndentingXMLStreamWriter(writer))).writeCharacters("Text");
+
+    // Assert
+    verify(writer).writeCharacters(eq("Text"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DelegatingXMLStreamWriter#writeCharacters(char[], int, int)}
+   */
+  @Test
+  void testWriteCharacters3() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeCharacters(Mockito.<char[]>any(), anyInt(), anyInt());
@@ -845,66 +626,10 @@ class DelegatingXMLStreamWriterDiffblueTest {
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#writeCharacters(String)} with {@code text}.
-   * <ul>
-   *   <li>Then calls {@link IndentingXMLStreamWriter#writeCharacters(String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegatingXMLStreamWriter#writeCharacters(String)}
-   */
-  @Test
-  @DisplayName("Test writeCharacters(String) with 'text'; then calls writeCharacters(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeCharacters(String)"})
-  void testWriteCharactersWithText_thenCallsWriteCharacters() throws XMLStreamException {
-    // Arrange
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-
-    // Act
-    (new IndentingXMLStreamWriter(writer)).writeCharacters("Text");
-
-    // Assert
-    verify(writer).writeCharacters(eq("Text"));
-  }
-
-  /**
-   * Test {@link DelegatingXMLStreamWriter#writeCharacters(String)} with {@code text}.
-   * <ul>
-   *   <li>Then calls {@link IndentingXMLStreamWriter#writeCharacters(String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegatingXMLStreamWriter#writeCharacters(String)}
-   */
-  @Test
-  @DisplayName("Test writeCharacters(String) with 'text'; then calls writeCharacters(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeCharacters(String)"})
-  void testWriteCharactersWithText_thenCallsWriteCharacters2() throws XMLStreamException {
-    // Arrange
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-
-    // Act
-    (new IndentingXMLStreamWriter(new IndentingXMLStreamWriter(writer))).writeCharacters("Text");
-
-    // Assert
-    verify(writer).writeCharacters(eq("Text"));
-  }
-
-  /**
-   * Test {@link DelegatingXMLStreamWriter#getPrefix(String)}.
-   * <ul>
-   *   <li>Then return {@code Prefix}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DelegatingXMLStreamWriter#getPrefix(String)}
    */
   @Test
-  @DisplayName("Test getPrefix(String); then return 'Prefix'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String DelegatingXMLStreamWriter.getPrefix(String)"})
-  void testGetPrefix_thenReturnPrefix() throws XMLStreamException {
+  void testGetPrefix() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     when(writer.getPrefix(Mockito.<String>any())).thenReturn("Prefix");
@@ -918,18 +643,11 @@ class DelegatingXMLStreamWriterDiffblueTest {
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#setPrefix(String, String)}.
-   * <ul>
-   *   <li>Then calls {@link DelegatingXMLStreamWriter#setPrefix(String, String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegatingXMLStreamWriter#setPrefix(String, String)}
+   * Method under test:
+   * {@link DelegatingXMLStreamWriter#setPrefix(String, String)}
    */
   @Test
-  @DisplayName("Test setPrefix(String, String); then calls setPrefix(String, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.setPrefix(String, String)"})
-  void testSetPrefix_thenCallsSetPrefix() throws XMLStreamException {
+  void testSetPrefix() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).setPrefix(Mockito.<String>any(), Mockito.<String>any());
@@ -937,23 +655,16 @@ class DelegatingXMLStreamWriterDiffblueTest {
     // Act
     (new IndentingXMLStreamWriter(writer)).setPrefix("Prefix", "Uri");
 
-    // Assert
+    // Assert that nothing has changed
     verify(writer).setPrefix(eq("Prefix"), eq("Uri"));
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#setPrefix(String, String)}.
-   * <ul>
-   *   <li>Then calls {@link DelegatingXMLStreamWriter#setPrefix(String, String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegatingXMLStreamWriter#setPrefix(String, String)}
+   * Method under test:
+   * {@link DelegatingXMLStreamWriter#setPrefix(String, String)}
    */
   @Test
-  @DisplayName("Test setPrefix(String, String); then calls setPrefix(String, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.setPrefix(String, String)"})
-  void testSetPrefix_thenCallsSetPrefix2() throws XMLStreamException {
+  void testSetPrefix2() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).setPrefix(Mockito.<String>any(), Mockito.<String>any());
@@ -961,23 +672,16 @@ class DelegatingXMLStreamWriterDiffblueTest {
     // Act
     (new IndentingXMLStreamWriter(new IndentingXMLStreamWriter(writer))).setPrefix("Prefix", "Uri");
 
-    // Assert
+    // Assert that nothing has changed
     verify(writer).setPrefix(eq("Prefix"), eq("Uri"));
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#setDefaultNamespace(String)}.
-   * <ul>
-   *   <li>Then calls {@link DelegatingXMLStreamWriter#setDefaultNamespace(String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegatingXMLStreamWriter#setDefaultNamespace(String)}
+   * Method under test:
+   * {@link DelegatingXMLStreamWriter#setDefaultNamespace(String)}
    */
   @Test
-  @DisplayName("Test setDefaultNamespace(String); then calls setDefaultNamespace(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.setDefaultNamespace(String)"})
-  void testSetDefaultNamespace_thenCallsSetDefaultNamespace() throws XMLStreamException {
+  void testSetDefaultNamespace() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).setDefaultNamespace(Mockito.<String>any());
@@ -985,23 +689,16 @@ class DelegatingXMLStreamWriterDiffblueTest {
     // Act
     (new IndentingXMLStreamWriter(writer)).setDefaultNamespace("Uri");
 
-    // Assert
+    // Assert that nothing has changed
     verify(writer).setDefaultNamespace(eq("Uri"));
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#setNamespaceContext(NamespaceContext)}.
-   * <ul>
-   *   <li>Then calls {@link DelegatingXMLStreamWriter#setNamespaceContext(NamespaceContext)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegatingXMLStreamWriter#setNamespaceContext(NamespaceContext)}
+   * Method under test:
+   * {@link DelegatingXMLStreamWriter#setNamespaceContext(NamespaceContext)}
    */
   @Test
-  @DisplayName("Test setNamespaceContext(NamespaceContext); then calls setNamespaceContext(NamespaceContext)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.setNamespaceContext(NamespaceContext)"})
-  void testSetNamespaceContext_thenCallsSetNamespaceContext() throws XMLStreamException {
+  void testSetNamespaceContext() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).setNamespaceContext(Mockito.<NamespaceContext>any());
@@ -1009,23 +706,16 @@ class DelegatingXMLStreamWriterDiffblueTest {
     // Act
     (new IndentingXMLStreamWriter(writer)).setNamespaceContext(null);
 
-    // Assert
+    // Assert that nothing has changed
     verify(writer).setNamespaceContext(isNull());
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#setNamespaceContext(NamespaceContext)}.
-   * <ul>
-   *   <li>Then calls {@link DelegatingXMLStreamWriter#setNamespaceContext(NamespaceContext)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegatingXMLStreamWriter#setNamespaceContext(NamespaceContext)}
+   * Method under test:
+   * {@link DelegatingXMLStreamWriter#setNamespaceContext(NamespaceContext)}
    */
   @Test
-  @DisplayName("Test setNamespaceContext(NamespaceContext); then calls setNamespaceContext(NamespaceContext)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.setNamespaceContext(NamespaceContext)"})
-  void testSetNamespaceContext_thenCallsSetNamespaceContext2() throws XMLStreamException {
+  void testSetNamespaceContext2() throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).setNamespaceContext(Mockito.<NamespaceContext>any());
@@ -1033,23 +723,15 @@ class DelegatingXMLStreamWriterDiffblueTest {
     // Act
     (new IndentingXMLStreamWriter(new IndentingXMLStreamWriter(writer))).setNamespaceContext(null);
 
-    // Assert
+    // Assert that nothing has changed
     verify(writer).setNamespaceContext(isNull());
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#getNamespaceContext()}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DelegatingXMLStreamWriter#getNamespaceContext()}
    */
   @Test
-  @DisplayName("Test getNamespaceContext(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"NamespaceContext DelegatingXMLStreamWriter.getNamespaceContext()"})
-  void testGetNamespaceContext_thenReturnNull() {
+  void testGetNamespaceContext() {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     when(writer.getNamespaceContext()).thenReturn(null);
@@ -1063,18 +745,10 @@ class DelegatingXMLStreamWriterDiffblueTest {
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#getNamespaceContext()}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DelegatingXMLStreamWriter#getNamespaceContext()}
    */
   @Test
-  @DisplayName("Test getNamespaceContext(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"NamespaceContext DelegatingXMLStreamWriter.getNamespaceContext()"})
-  void testGetNamespaceContext_thenReturnNull2() {
+  void testGetNamespaceContext2() {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     when(writer.getNamespaceContext()).thenReturn(null);
@@ -1089,18 +763,10 @@ class DelegatingXMLStreamWriterDiffblueTest {
   }
 
   /**
-   * Test {@link DelegatingXMLStreamWriter#getProperty(String)}.
-   * <ul>
-   *   <li>Then return {@code Property}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DelegatingXMLStreamWriter#getProperty(String)}
    */
   @Test
-  @DisplayName("Test getProperty(String); then return 'Property'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object DelegatingXMLStreamWriter.getProperty(String)"})
-  void testGetProperty_thenReturnProperty() throws IllegalArgumentException {
+  void testGetProperty() throws IllegalArgumentException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     when(writer.getProperty(Mockito.<String>any())).thenReturn("Property");

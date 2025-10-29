@@ -28,7 +28,6 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -38,7 +37,6 @@ import org.activiti.api.runtime.shared.NotFoundException;
 import org.activiti.api.runtime.shared.query.Pageable;
 import org.activiti.api.runtime.shared.security.SecurityManager;
 import org.activiti.api.task.model.Task;
-import org.activiti.api.task.model.Task.TaskStatus;
 import org.activiti.api.task.model.impl.TaskImpl;
 import org.activiti.api.task.model.payloads.AssignTaskPayload;
 import org.activiti.api.task.model.payloads.CreateTaskVariablePayload;
@@ -51,26 +49,22 @@ import org.activiti.api.task.runtime.conf.TaskRuntimeConfiguration;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.impl.TaskQueryImpl;
-import org.activiti.engine.impl.persistence.entity.VariableInstance;
 import org.activiti.runtime.api.model.impl.APITaskConverter;
 import org.activiti.runtime.api.model.impl.APIVariableInstanceConverter;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.aot.DisabledInAotMode;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @ContextConfiguration(classes = {TaskRuntimeImpl.class})
 @ExtendWith(SpringExtension.class)
 @DisabledInAotMode
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 class TaskRuntimeImplDiffblueTest {
   @MockBean
   private APITaskConverter aPITaskConverter;
@@ -94,15 +88,10 @@ class TaskRuntimeImplDiffblueTest {
   private TaskService taskService;
 
   /**
-   * Test {@link TaskRuntimeImpl#tasks(Pageable)} with {@code pageable}.
-   * <p>
    * Method under test: {@link TaskRuntimeImpl#tasks(Pageable)}
    */
   @Test
-  @DisplayName("Test tasks(Pageable) with 'pageable'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.runtime.shared.query.Page TaskRuntimeImpl.tasks(Pageable)"})
-  void testTasksWithPageable() throws SecurityException {
+  void testTasks() throws SecurityException {
     // Arrange
     when(securityManager.getAuthenticatedUserGroups()).thenThrow(new IllegalStateException("foo"));
     when(securityManager.getAuthenticatedUserId()).thenReturn("42");
@@ -114,15 +103,30 @@ class TaskRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link TaskRuntimeImpl#tasks(Pageable)} with {@code pageable}.
-   * <p>
    * Method under test: {@link TaskRuntimeImpl#tasks(Pageable)}
    */
   @Test
-  @DisplayName("Test tasks(Pageable) with 'pageable'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.runtime.shared.query.Page TaskRuntimeImpl.tasks(Pageable)"})
-  void testTasksWithPageable2() {
+  void testTasks2() throws SecurityException {
+    // Arrange
+    TaskQueryImpl taskQueryImpl = mock(TaskQueryImpl.class);
+    when(taskQueryImpl.or()).thenReturn(new TaskQueryImpl());
+    when(taskService.createTaskQuery()).thenReturn(taskQueryImpl);
+    when(securityManager.getAuthenticatedUserGroups()).thenReturn(new ArrayList<>());
+    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> taskRuntimeImpl.tasks(Pageable.of(1, 3)));
+    verify(securityManager, atLeast(1)).getAuthenticatedUserGroups();
+    verify(securityManager, atLeast(1)).getAuthenticatedUserId();
+    verify(taskService).createTaskQuery();
+    verify(taskQueryImpl).or();
+  }
+
+  /**
+   * Method under test: {@link TaskRuntimeImpl#tasks(Pageable)}
+   */
+  @Test
+  void testTasks3() {
     // Arrange
     when(securityManager.getAuthenticatedUserId()).thenReturn("");
 
@@ -132,15 +136,10 @@ class TaskRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link TaskRuntimeImpl#tasks(Pageable, GetTasksPayload)} with {@code pageable}, {@code getTasksPayload}.
-   * <p>
    * Method under test: {@link TaskRuntimeImpl#tasks(Pageable, GetTasksPayload)}
    */
   @Test
-  @DisplayName("Test tasks(Pageable, GetTasksPayload) with 'pageable', 'getTasksPayload'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.runtime.shared.query.Page TaskRuntimeImpl.tasks(Pageable, GetTasksPayload)"})
-  void testTasksWithPageableGetTasksPayload() throws SecurityException {
+  void testTasks4() throws SecurityException {
     // Arrange
     when(taskService.createTaskQuery()).thenReturn(new TaskQueryImpl());
     when(securityManager.getAuthenticatedUserGroups()).thenThrow(new IllegalStateException("foo"));
@@ -155,15 +154,31 @@ class TaskRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link TaskRuntimeImpl#tasks(Pageable, GetTasksPayload)} with {@code pageable}, {@code getTasksPayload}.
-   * <p>
    * Method under test: {@link TaskRuntimeImpl#tasks(Pageable, GetTasksPayload)}
    */
   @Test
-  @DisplayName("Test tasks(Pageable, GetTasksPayload) with 'pageable', 'getTasksPayload'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.runtime.shared.query.Page TaskRuntimeImpl.tasks(Pageable, GetTasksPayload)"})
-  void testTasksWithPageableGetTasksPayload2() {
+  void testTasks5() throws SecurityException {
+    // Arrange
+    TaskQueryImpl taskQueryImpl = mock(TaskQueryImpl.class);
+    when(taskQueryImpl.or()).thenReturn(new TaskQueryImpl());
+    when(taskService.createTaskQuery()).thenReturn(taskQueryImpl);
+    when(securityManager.getAuthenticatedUserGroups()).thenReturn(new ArrayList<>());
+    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
+    Pageable pageable = Pageable.of(1, 3);
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> taskRuntimeImpl.tasks(pageable, new GetTasksPayload()));
+    verify(securityManager).getAuthenticatedUserGroups();
+    verify(securityManager).getAuthenticatedUserId();
+    verify(taskService).createTaskQuery();
+    verify(taskQueryImpl).or();
+  }
+
+  /**
+   * Method under test: {@link TaskRuntimeImpl#tasks(Pageable, GetTasksPayload)}
+   */
+  @Test
+  void testTasks6() {
     // Arrange
     when(taskService.createTaskQuery()).thenReturn(mock(TaskQueryImpl.class));
     when(securityManager.getAuthenticatedUserId()).thenReturn("");
@@ -176,40 +191,34 @@ class TaskRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link TaskRuntimeImpl#tasks(Pageable, GetTasksPayload)} with {@code pageable}, {@code getTasksPayload}.
-   * <p>
    * Method under test: {@link TaskRuntimeImpl#tasks(Pageable, GetTasksPayload)}
    */
   @Test
-  @DisplayName("Test tasks(Pageable, GetTasksPayload) with 'pageable', 'getTasksPayload'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.runtime.shared.query.Page TaskRuntimeImpl.tasks(Pageable, GetTasksPayload)"})
-  void testTasksWithPageableGetTasksPayload3() {
+  void testTasks7() throws SecurityException {
     // Arrange
-    when(taskService.createTaskQuery()).thenReturn(mock(TaskQueryImpl.class));
-    when(securityManager.getAuthenticatedUserId()).thenReturn(null);
+    TaskQueryImpl taskQueryImpl = mock(TaskQueryImpl.class);
+    when(taskQueryImpl.taskCandidateOrAssigned(Mockito.<String>any(), Mockito.<List<String>>any()))
+        .thenReturn(new TaskQueryImpl());
+    TaskQueryImpl taskQueryImpl2 = mock(TaskQueryImpl.class);
+    when(taskQueryImpl2.or()).thenReturn(taskQueryImpl);
+    when(taskService.createTaskQuery()).thenReturn(taskQueryImpl2);
+    when(securityManager.getAuthenticatedUserGroups()).thenReturn(new ArrayList<>());
+    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
 
     // Act and Assert
-    assertThrows(IllegalStateException.class,
-        () -> taskRuntimeImpl.tasks(Pageable.of(1, 3), mock(GetTasksPayload.class)));
+    assertThrows(ActivitiException.class, () -> taskRuntimeImpl.tasks(Pageable.of(1, 3), null));
+    verify(securityManager).getAuthenticatedUserGroups();
     verify(securityManager).getAuthenticatedUserId();
     verify(taskService).createTaskQuery();
+    verify(taskQueryImpl2).or();
+    verify(taskQueryImpl).taskCandidateOrAssigned(eq("42"), isA(List.class));
   }
 
   /**
-   * Test {@link TaskRuntimeImpl#tasks(Pageable, GetTasksPayload)} with {@code pageable}, {@code getTasksPayload}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>Then calls {@link GetTasksPayload#getAssigneeId()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TaskRuntimeImpl#tasks(Pageable, GetTasksPayload)}
    */
   @Test
-  @DisplayName("Test tasks(Pageable, GetTasksPayload) with 'pageable', 'getTasksPayload'; given '42'; then calls getAssigneeId()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.runtime.shared.query.Page TaskRuntimeImpl.tasks(Pageable, GetTasksPayload)"})
-  void testTasksWithPageableGetTasksPayload_given42_thenCallsGetAssigneeId() throws SecurityException {
+  void testTasks8() throws SecurityException {
     // Arrange
     TaskQueryImpl taskQueryImpl = mock(TaskQueryImpl.class);
     when(taskQueryImpl.taskCandidateOrAssigned(Mockito.<String>any(), Mockito.<List<String>>any()))
@@ -240,47 +249,26 @@ class TaskRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link TaskRuntimeImpl#tasks(Pageable, GetTasksPayload)} with {@code pageable}, {@code getTasksPayload}.
-   * <ul>
-   *   <li>Given {@link TaskQueryImpl} {@link TaskQueryImpl#or()} return {@link TaskQueryImpl#TaskQueryImpl()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TaskRuntimeImpl#tasks(Pageable, GetTasksPayload)}
    */
   @Test
-  @DisplayName("Test tasks(Pageable, GetTasksPayload) with 'pageable', 'getTasksPayload'; given TaskQueryImpl or() return TaskQueryImpl()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.runtime.shared.query.Page TaskRuntimeImpl.tasks(Pageable, GetTasksPayload)"})
-  void testTasksWithPageableGetTasksPayload_givenTaskQueryImplOrReturnTaskQueryImpl() throws SecurityException {
+  void testTasks9() {
     // Arrange
-    TaskQueryImpl taskQueryImpl = mock(TaskQueryImpl.class);
-    when(taskQueryImpl.or()).thenReturn(new TaskQueryImpl());
-    when(taskService.createTaskQuery()).thenReturn(taskQueryImpl);
-    when(securityManager.getAuthenticatedUserGroups()).thenReturn(new ArrayList<>());
-    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
-    Pageable pageable = Pageable.of(1, 3);
+    when(taskService.createTaskQuery()).thenReturn(mock(TaskQueryImpl.class));
+    when(securityManager.getAuthenticatedUserId()).thenReturn(null);
 
     // Act and Assert
-    assertThrows(ActivitiException.class, () -> taskRuntimeImpl.tasks(pageable, new GetTasksPayload()));
-    verify(securityManager).getAuthenticatedUserGroups();
+    assertThrows(IllegalStateException.class,
+        () -> taskRuntimeImpl.tasks(Pageable.of(1, 3), mock(GetTasksPayload.class)));
     verify(securityManager).getAuthenticatedUserId();
     verify(taskService).createTaskQuery();
-    verify(taskQueryImpl).or();
   }
 
   /**
-   * Test {@link TaskRuntimeImpl#tasks(Pageable, GetTasksPayload)} with {@code pageable}, {@code getTasksPayload}.
-   * <ul>
-   *   <li>Then throw {@link NotFoundException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TaskRuntimeImpl#tasks(Pageable, GetTasksPayload)}
    */
   @Test
-  @DisplayName("Test tasks(Pageable, GetTasksPayload) with 'pageable', 'getTasksPayload'; then throw NotFoundException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.runtime.shared.query.Page TaskRuntimeImpl.tasks(Pageable, GetTasksPayload)"})
-  void testTasksWithPageableGetTasksPayload_thenThrowNotFoundException() throws SecurityException {
+  void testTasks10() throws SecurityException {
     // Arrange
     when(taskService.createTaskQuery()).thenReturn(mock(TaskQueryImpl.class));
     when(securityManager.getAuthenticatedUserGroups()).thenReturn(new ArrayList<>());
@@ -298,81 +286,12 @@ class TaskRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link TaskRuntimeImpl#tasks(Pageable, GetTasksPayload)} with {@code pageable}, {@code getTasksPayload}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then calls {@link TaskQueryImpl#taskCandidateOrAssigned(String, List)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TaskRuntimeImpl#tasks(Pageable, GetTasksPayload)}
-   */
-  @Test
-  @DisplayName("Test tasks(Pageable, GetTasksPayload) with 'pageable', 'getTasksPayload'; when 'null'; then calls taskCandidateOrAssigned(String, List)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.runtime.shared.query.Page TaskRuntimeImpl.tasks(Pageable, GetTasksPayload)"})
-  void testTasksWithPageableGetTasksPayload_whenNull_thenCallsTaskCandidateOrAssigned() throws SecurityException {
-    // Arrange
-    TaskQueryImpl taskQueryImpl = mock(TaskQueryImpl.class);
-    when(taskQueryImpl.taskCandidateOrAssigned(Mockito.<String>any(), Mockito.<List<String>>any()))
-        .thenReturn(new TaskQueryImpl());
-    TaskQueryImpl taskQueryImpl2 = mock(TaskQueryImpl.class);
-    when(taskQueryImpl2.or()).thenReturn(taskQueryImpl);
-    when(taskService.createTaskQuery()).thenReturn(taskQueryImpl2);
-    when(securityManager.getAuthenticatedUserGroups()).thenReturn(new ArrayList<>());
-    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> taskRuntimeImpl.tasks(Pageable.of(1, 3), null));
-    verify(securityManager).getAuthenticatedUserGroups();
-    verify(securityManager).getAuthenticatedUserId();
-    verify(taskService).createTaskQuery();
-    verify(taskQueryImpl2).or();
-    verify(taskQueryImpl).taskCandidateOrAssigned(eq("42"), isA(List.class));
-  }
-
-  /**
-   * Test {@link TaskRuntimeImpl#tasks(Pageable)} with {@code pageable}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TaskRuntimeImpl#tasks(Pageable)}
-   */
-  @Test
-  @DisplayName("Test tasks(Pageable) with 'pageable'; then throw ActivitiException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.runtime.shared.query.Page TaskRuntimeImpl.tasks(Pageable)"})
-  void testTasksWithPageable_thenThrowActivitiException() throws SecurityException {
-    // Arrange
-    TaskQueryImpl taskQueryImpl = mock(TaskQueryImpl.class);
-    when(taskQueryImpl.or()).thenReturn(new TaskQueryImpl());
-    when(taskService.createTaskQuery()).thenReturn(taskQueryImpl);
-    when(securityManager.getAuthenticatedUserGroups()).thenReturn(new ArrayList<>());
-    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> taskRuntimeImpl.tasks(Pageable.of(1, 3)));
-    verify(securityManager, atLeast(1)).getAuthenticatedUserGroups();
-    verify(securityManager, atLeast(1)).getAuthenticatedUserId();
-    verify(taskService).createTaskQuery();
-    verify(taskQueryImpl).or();
-  }
-
-  /**
-   * Test {@link TaskRuntimeImpl#update(UpdateTaskPayload)}.
-   * <ul>
-   *   <li>Then return {@link TaskImpl#TaskImpl(String, String, TaskStatus)} with id is {@code 42} and {@code Name} and status is {@code CREATED}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TaskRuntimeImpl#update(UpdateTaskPayload)}
    */
   @Test
-  @DisplayName("Test update(UpdateTaskPayload); then return TaskImpl(String, String, TaskStatus) with id is '42' and 'Name' and status is 'CREATED'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Task TaskRuntimeImpl.update(UpdateTaskPayload)"})
-  void testUpdate_thenReturnTaskImplWithIdIs42AndNameAndStatusIsCreated() {
+  void testUpdate() {
     // Arrange
-    TaskImpl taskImpl = new TaskImpl("42", "Name", TaskStatus.CREATED);
+    TaskImpl taskImpl = new TaskImpl("42", "Name", Task.TaskStatus.CREATED);
 
     when(taskRuntimeHelper.applyUpdateTaskPayload(anyBoolean(), Mockito.<UpdateTaskPayload>any())).thenReturn(taskImpl);
 
@@ -385,18 +304,10 @@ class TaskRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link TaskRuntimeImpl#update(UpdateTaskPayload)}.
-   * <ul>
-   *   <li>Then throw {@link IllegalStateException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TaskRuntimeImpl#update(UpdateTaskPayload)}
    */
   @Test
-  @DisplayName("Test update(UpdateTaskPayload); then throw IllegalStateException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Task TaskRuntimeImpl.update(UpdateTaskPayload)"})
-  void testUpdate_thenThrowIllegalStateException() {
+  void testUpdate2() {
     // Arrange
     when(taskRuntimeHelper.applyUpdateTaskPayload(anyBoolean(), Mockito.<UpdateTaskPayload>any()))
         .thenThrow(new IllegalStateException("foo"));
@@ -407,60 +318,10 @@ class TaskRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link TaskRuntimeImpl#userCandidates(String)}.
-   * <ul>
-   *   <li>Given {@link SecurityManager} {@link SecurityManager#getAuthenticatedUserId()} return empty string.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TaskRuntimeImpl#userCandidates(String)}
    */
   @Test
-  @DisplayName("Test userCandidates(String); given SecurityManager getAuthenticatedUserId() return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List TaskRuntimeImpl.userCandidates(String)"})
-  void testUserCandidates_givenSecurityManagerGetAuthenticatedUserIdReturnEmptyString() {
-    // Arrange
-    when(securityManager.getAuthenticatedUserId()).thenReturn("");
-
-    // Act and Assert
-    assertThrows(IllegalStateException.class, () -> taskRuntimeImpl.userCandidates("42"));
-    verify(securityManager).getAuthenticatedUserId();
-  }
-
-  /**
-   * Test {@link TaskRuntimeImpl#userCandidates(String)}.
-   * <ul>
-   *   <li>Given {@link SecurityManager} {@link SecurityManager#getAuthenticatedUserId()} return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TaskRuntimeImpl#userCandidates(String)}
-   */
-  @Test
-  @DisplayName("Test userCandidates(String); given SecurityManager getAuthenticatedUserId() return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List TaskRuntimeImpl.userCandidates(String)"})
-  void testUserCandidates_givenSecurityManagerGetAuthenticatedUserIdReturnNull() {
-    // Arrange
-    when(securityManager.getAuthenticatedUserId()).thenReturn(null);
-
-    // Act and Assert
-    assertThrows(IllegalStateException.class, () -> taskRuntimeImpl.userCandidates("42"));
-    verify(securityManager).getAuthenticatedUserId();
-  }
-
-  /**
-   * Test {@link TaskRuntimeImpl#userCandidates(String)}.
-   * <ul>
-   *   <li>Then throw {@link NotFoundException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TaskRuntimeImpl#userCandidates(String)}
-   */
-  @Test
-  @DisplayName("Test userCandidates(String); then throw NotFoundException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List TaskRuntimeImpl.userCandidates(String)"})
-  void testUserCandidates_thenThrowNotFoundException() throws SecurityException {
+  void testUserCandidates() throws SecurityException {
     // Arrange
     when(securityManager.getAuthenticatedUserRoles()).thenThrow(new NotFoundException("An error occurred"));
     when(securityManager.getAuthenticatedUserId()).thenReturn("42");
@@ -472,60 +333,36 @@ class TaskRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link TaskRuntimeImpl#groupCandidates(String)}.
-   * <ul>
-   *   <li>Given {@link SecurityManager} {@link SecurityManager#getAuthenticatedUserId()} return empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TaskRuntimeImpl#groupCandidates(String)}
+   * Method under test: {@link TaskRuntimeImpl#userCandidates(String)}
    */
   @Test
-  @DisplayName("Test groupCandidates(String); given SecurityManager getAuthenticatedUserId() return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List TaskRuntimeImpl.groupCandidates(String)"})
-  void testGroupCandidates_givenSecurityManagerGetAuthenticatedUserIdReturnEmptyString() {
+  void testUserCandidates2() {
     // Arrange
     when(securityManager.getAuthenticatedUserId()).thenReturn("");
 
     // Act and Assert
-    assertThrows(IllegalStateException.class, () -> taskRuntimeImpl.groupCandidates("42"));
+    assertThrows(IllegalStateException.class, () -> taskRuntimeImpl.userCandidates("42"));
     verify(securityManager).getAuthenticatedUserId();
   }
 
   /**
-   * Test {@link TaskRuntimeImpl#groupCandidates(String)}.
-   * <ul>
-   *   <li>Given {@link SecurityManager} {@link SecurityManager#getAuthenticatedUserId()} return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TaskRuntimeImpl#groupCandidates(String)}
+   * Method under test: {@link TaskRuntimeImpl#userCandidates(String)}
    */
   @Test
-  @DisplayName("Test groupCandidates(String); given SecurityManager getAuthenticatedUserId() return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List TaskRuntimeImpl.groupCandidates(String)"})
-  void testGroupCandidates_givenSecurityManagerGetAuthenticatedUserIdReturnNull() {
+  void testUserCandidates3() {
     // Arrange
     when(securityManager.getAuthenticatedUserId()).thenReturn(null);
 
     // Act and Assert
-    assertThrows(IllegalStateException.class, () -> taskRuntimeImpl.groupCandidates("42"));
+    assertThrows(IllegalStateException.class, () -> taskRuntimeImpl.userCandidates("42"));
     verify(securityManager).getAuthenticatedUserId();
   }
 
   /**
-   * Test {@link TaskRuntimeImpl#groupCandidates(String)}.
-   * <ul>
-   *   <li>Then throw {@link NotFoundException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TaskRuntimeImpl#groupCandidates(String)}
    */
   @Test
-  @DisplayName("Test groupCandidates(String); then throw NotFoundException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List TaskRuntimeImpl.groupCandidates(String)"})
-  void testGroupCandidates_thenThrowNotFoundException() throws SecurityException {
+  void testGroupCandidates() throws SecurityException {
     // Arrange
     when(securityManager.getAuthenticatedUserRoles()).thenThrow(new NotFoundException("An error occurred"));
     when(securityManager.getAuthenticatedUserId()).thenReturn("42");
@@ -537,20 +374,41 @@ class TaskRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link TaskRuntimeImpl#variables(GetTaskVariablesPayload)}.
-   * <ul>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link TaskRuntimeImpl#groupCandidates(String)}
+   */
+  @Test
+  void testGroupCandidates2() {
+    // Arrange
+    when(securityManager.getAuthenticatedUserId()).thenReturn("");
+
+    // Act and Assert
+    assertThrows(IllegalStateException.class, () -> taskRuntimeImpl.groupCandidates("42"));
+    verify(securityManager).getAuthenticatedUserId();
+  }
+
+  /**
+   * Method under test: {@link TaskRuntimeImpl#groupCandidates(String)}
+   */
+  @Test
+  void testGroupCandidates3() {
+    // Arrange
+    when(securityManager.getAuthenticatedUserId()).thenReturn(null);
+
+    // Act and Assert
+    assertThrows(IllegalStateException.class, () -> taskRuntimeImpl.groupCandidates("42"));
+    verify(securityManager).getAuthenticatedUserId();
+  }
+
+  /**
    * Method under test: {@link TaskRuntimeImpl#variables(GetTaskVariablesPayload)}
    */
   @Test
-  @DisplayName("Test variables(GetTaskVariablesPayload); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List TaskRuntimeImpl.variables(GetTaskVariablesPayload)"})
-  void testVariables_thenReturnEmpty() {
+  void testVariables() {
     // Arrange
-    when(aPIVariableInstanceConverter.from(Mockito.<Collection<VariableInstance>>any())).thenReturn(new ArrayList<>());
+    ArrayList<org.activiti.api.model.shared.model.VariableInstance> variableInstanceList = new ArrayList<>();
+    when(aPIVariableInstanceConverter
+        .from(Mockito.<Collection<org.activiti.engine.impl.persistence.entity.VariableInstance>>any()))
+        .thenReturn(variableInstanceList);
     when(taskRuntimeHelper.getInternalTaskVariables(Mockito.<String>any())).thenReturn(new HashMap<>());
     doNothing().when(taskRuntimeHelper).assertHasAccessToTask(Mockito.<String>any());
 
@@ -563,21 +421,14 @@ class TaskRuntimeImplDiffblueTest {
     verify(taskRuntimeHelper).getInternalTaskVariables(isNull());
     verify(aPIVariableInstanceConverter).from(isA(Collection.class));
     assertTrue(actualVariablesResult.isEmpty());
+    assertSame(variableInstanceList, actualVariablesResult);
   }
 
   /**
-   * Test {@link TaskRuntimeImpl#variables(GetTaskVariablesPayload)}.
-   * <ul>
-   *   <li>Then throw {@link NotFoundException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TaskRuntimeImpl#variables(GetTaskVariablesPayload)}
    */
   @Test
-  @DisplayName("Test variables(GetTaskVariablesPayload); then throw NotFoundException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List TaskRuntimeImpl.variables(GetTaskVariablesPayload)"})
-  void testVariables_thenThrowNotFoundException() {
+  void testVariables2() {
     // Arrange
     doThrow(new NotFoundException("An error occurred")).when(taskRuntimeHelper)
         .assertHasAccessToTask(Mockito.<String>any());
@@ -588,41 +439,27 @@ class TaskRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link TaskRuntimeImpl#createVariable(CreateTaskVariablePayload)}.
-   * <ul>
-   *   <li>Given {@link TaskRuntimeHelper} {@link TaskRuntimeHelper#createVariable(boolean, CreateTaskVariablePayload)} does nothing.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TaskRuntimeImpl#createVariable(CreateTaskVariablePayload)}
+   * Method under test:
+   * {@link TaskRuntimeImpl#createVariable(CreateTaskVariablePayload)}
    */
   @Test
-  @DisplayName("Test createVariable(CreateTaskVariablePayload); given TaskRuntimeHelper createVariable(boolean, CreateTaskVariablePayload) does nothing")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void TaskRuntimeImpl.createVariable(CreateTaskVariablePayload)"})
-  void testCreateVariable_givenTaskRuntimeHelperCreateVariableDoesNothing() {
+  void testCreateVariable() {
     // Arrange
     doNothing().when(taskRuntimeHelper).createVariable(anyBoolean(), Mockito.<CreateTaskVariablePayload>any());
 
     // Act
     taskRuntimeImpl.createVariable(new CreateTaskVariablePayload());
 
-    // Assert
+    // Assert that nothing has changed
     verify(taskRuntimeHelper).createVariable(eq(false), isA(CreateTaskVariablePayload.class));
   }
 
   /**
-   * Test {@link TaskRuntimeImpl#createVariable(CreateTaskVariablePayload)}.
-   * <ul>
-   *   <li>Then throw {@link IllegalStateException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TaskRuntimeImpl#createVariable(CreateTaskVariablePayload)}
+   * Method under test:
+   * {@link TaskRuntimeImpl#createVariable(CreateTaskVariablePayload)}
    */
   @Test
-  @DisplayName("Test createVariable(CreateTaskVariablePayload); then throw IllegalStateException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void TaskRuntimeImpl.createVariable(CreateTaskVariablePayload)"})
-  void testCreateVariable_thenThrowIllegalStateException() {
+  void testCreateVariable2() {
     // Arrange
     doThrow(new IllegalStateException("foo")).when(taskRuntimeHelper)
         .createVariable(anyBoolean(), Mockito.<CreateTaskVariablePayload>any());
@@ -633,41 +470,27 @@ class TaskRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link TaskRuntimeImpl#updateVariable(UpdateTaskVariablePayload)}.
-   * <ul>
-   *   <li>Given {@link TaskRuntimeHelper} {@link TaskRuntimeHelper#updateVariable(boolean, UpdateTaskVariablePayload)} does nothing.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TaskRuntimeImpl#updateVariable(UpdateTaskVariablePayload)}
+   * Method under test:
+   * {@link TaskRuntimeImpl#updateVariable(UpdateTaskVariablePayload)}
    */
   @Test
-  @DisplayName("Test updateVariable(UpdateTaskVariablePayload); given TaskRuntimeHelper updateVariable(boolean, UpdateTaskVariablePayload) does nothing")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void TaskRuntimeImpl.updateVariable(UpdateTaskVariablePayload)"})
-  void testUpdateVariable_givenTaskRuntimeHelperUpdateVariableDoesNothing() {
+  void testUpdateVariable() {
     // Arrange
     doNothing().when(taskRuntimeHelper).updateVariable(anyBoolean(), Mockito.<UpdateTaskVariablePayload>any());
 
     // Act
     taskRuntimeImpl.updateVariable(new UpdateTaskVariablePayload());
 
-    // Assert
+    // Assert that nothing has changed
     verify(taskRuntimeHelper).updateVariable(eq(false), isA(UpdateTaskVariablePayload.class));
   }
 
   /**
-   * Test {@link TaskRuntimeImpl#updateVariable(UpdateTaskVariablePayload)}.
-   * <ul>
-   *   <li>Then throw {@link IllegalStateException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TaskRuntimeImpl#updateVariable(UpdateTaskVariablePayload)}
+   * Method under test:
+   * {@link TaskRuntimeImpl#updateVariable(UpdateTaskVariablePayload)}
    */
   @Test
-  @DisplayName("Test updateVariable(UpdateTaskVariablePayload); then throw IllegalStateException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void TaskRuntimeImpl.updateVariable(UpdateTaskVariablePayload)"})
-  void testUpdateVariable_thenThrowIllegalStateException() {
+  void testUpdateVariable2() {
     // Arrange
     doThrow(new IllegalStateException("foo")).when(taskRuntimeHelper)
         .updateVariable(anyBoolean(), Mockito.<UpdateTaskVariablePayload>any());
@@ -678,19 +501,10 @@ class TaskRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link TaskRuntimeImpl#save(SaveTaskPayload)}.
-   * <ul>
-   *   <li>Given {@link TaskService} {@link TaskService#setVariablesLocal(String, Map)} does nothing.</li>
-   *   <li>Then calls {@link TaskService#setVariablesLocal(String, Map)}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TaskRuntimeImpl#save(SaveTaskPayload)}
    */
   @Test
-  @DisplayName("Test save(SaveTaskPayload); given TaskService setVariablesLocal(String, Map) does nothing; then calls setVariablesLocal(String, Map)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void TaskRuntimeImpl.save(SaveTaskPayload)"})
-  void testSave_givenTaskServiceSetVariablesLocalDoesNothing_thenCallsSetVariablesLocal() {
+  void testSave() {
     // Arrange
     doNothing().when(taskService).setVariablesLocal(Mockito.<String>any(), Mockito.<Map<String, Object>>any());
     doNothing().when(taskRuntimeHelper).assertHasAccessToTask(Mockito.<String>any());
@@ -699,25 +513,17 @@ class TaskRuntimeImplDiffblueTest {
     // Act
     taskRuntimeImpl.save(new SaveTaskPayload());
 
-    // Assert
+    // Assert that nothing has changed
     verify(taskService).setVariablesLocal(isNull(), isNull());
     verify(taskRuntimeHelper).assertHasAccessToTask(isNull());
     verify(taskRuntimeHelper).handleSaveTaskPayload(isA(SaveTaskPayload.class));
   }
 
   /**
-   * Test {@link TaskRuntimeImpl#save(SaveTaskPayload)}.
-   * <ul>
-   *   <li>Then throw {@link NotFoundException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TaskRuntimeImpl#save(SaveTaskPayload)}
    */
   @Test
-  @DisplayName("Test save(SaveTaskPayload); then throw NotFoundException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void TaskRuntimeImpl.save(SaveTaskPayload)"})
-  void testSave_thenThrowNotFoundException() {
+  void testSave2() {
     // Arrange
     doThrow(new NotFoundException("An error occurred")).when(taskRuntimeHelper)
         .assertHasAccessToTask(Mockito.<String>any());
@@ -728,39 +534,25 @@ class TaskRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link TaskRuntimeImpl#assign(AssignTaskPayload)}.
-   * <ul>
-   *   <li>Given {@link SecurityManager} {@link SecurityManager#getAuthenticatedUserId()} return empty string.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TaskRuntimeImpl#assign(AssignTaskPayload)}
    */
   @Test
-  @DisplayName("Test assign(AssignTaskPayload); given SecurityManager getAuthenticatedUserId() return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Task TaskRuntimeImpl.assign(AssignTaskPayload)"})
-  void testAssign_givenSecurityManagerGetAuthenticatedUserIdReturnEmptyString() {
+  void testAssign() throws SecurityException {
     // Arrange
-    when(securityManager.getAuthenticatedUserId()).thenReturn("");
+    when(securityManager.getAuthenticatedUserRoles()).thenThrow(new NotFoundException("An error occurred"));
+    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
 
     // Act and Assert
-    assertThrows(IllegalStateException.class, () -> taskRuntimeImpl.assign(new AssignTaskPayload()));
+    assertThrows(NotFoundException.class, () -> taskRuntimeImpl.assign(new AssignTaskPayload()));
     verify(securityManager).getAuthenticatedUserId();
+    verify(securityManager).getAuthenticatedUserRoles();
   }
 
   /**
-   * Test {@link TaskRuntimeImpl#assign(AssignTaskPayload)}.
-   * <ul>
-   *   <li>Given {@link SecurityManager} {@link SecurityManager#getAuthenticatedUserId()} return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TaskRuntimeImpl#assign(AssignTaskPayload)}
    */
   @Test
-  @DisplayName("Test assign(AssignTaskPayload); given SecurityManager getAuthenticatedUserId() return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Task TaskRuntimeImpl.assign(AssignTaskPayload)"})
-  void testAssign_givenSecurityManagerGetAuthenticatedUserIdReturnNull() {
+  void testAssign2() {
     // Arrange
     when(securityManager.getAuthenticatedUserId()).thenReturn(null);
 
@@ -770,25 +562,15 @@ class TaskRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link TaskRuntimeImpl#assign(AssignTaskPayload)}.
-   * <ul>
-   *   <li>Then throw {@link NotFoundException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TaskRuntimeImpl#assign(AssignTaskPayload)}
    */
   @Test
-  @DisplayName("Test assign(AssignTaskPayload); then throw NotFoundException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Task TaskRuntimeImpl.assign(AssignTaskPayload)"})
-  void testAssign_thenThrowNotFoundException() throws SecurityException {
+  void testAssign3() {
     // Arrange
-    when(securityManager.getAuthenticatedUserRoles()).thenThrow(new NotFoundException("An error occurred"));
-    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
+    when(securityManager.getAuthenticatedUserId()).thenReturn("");
 
     // Act and Assert
-    assertThrows(NotFoundException.class, () -> taskRuntimeImpl.assign(new AssignTaskPayload()));
+    assertThrows(IllegalStateException.class, () -> taskRuntimeImpl.assign(new AssignTaskPayload()));
     verify(securityManager).getAuthenticatedUserId();
-    verify(securityManager).getAuthenticatedUserRoles();
   }
 }

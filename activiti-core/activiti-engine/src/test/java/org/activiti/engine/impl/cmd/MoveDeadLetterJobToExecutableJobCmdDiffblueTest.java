@@ -16,25 +16,18 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class MoveDeadLetterJobToExecutableJobCmdDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>{@link MoveDeadLetterJobToExecutableJobCmd#MoveDeadLetterJobToExecutableJobCmd(String, int)}
+   *   <li>
+   * {@link MoveDeadLetterJobToExecutableJobCmd#MoveDeadLetterJobToExecutableJobCmd(String, int)}
    *   <li>{@link MoveDeadLetterJobToExecutableJobCmd#getJobId()}
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void MoveDeadLetterJobToExecutableJobCmd.<init>(String, int)",
-      "String MoveDeadLetterJobToExecutableJobCmd.getJobId()"})
   public void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals("42", (new MoveDeadLetterJobToExecutableJobCmd("42", 1)).getJobId());

@@ -24,7 +24,6 @@ import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,27 +31,44 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import org.activiti.engine.impl.RepositoryServiceImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class DeploymentResourceLoaderDiffblueTest {
   /**
-   * Test {@link DeploymentResourceLoader#loadResourcesForDeployment(String, ResourceReader)}.
-   * <p>
-   * Method under test: {@link DeploymentResourceLoader#loadResourcesForDeployment(String, ResourceReader)}
+   * Method under test:
+   * {@link DeploymentResourceLoader#loadResourcesForDeployment(String, ResourceReader)}
    */
   @Test
-  @DisplayName("Test loadResourcesForDeployment(String, ResourceReader)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List DeploymentResourceLoader.loadResourcesForDeployment(String, ResourceReader)"})
-  void testLoadResourcesForDeployment() throws IOException {
+  void testLoadResourcesForDeployment() {
+    // Arrange
+    RepositoryServiceImpl repositoryService = mock(RepositoryServiceImpl.class);
+    when(repositoryService.getDeploymentResourceNames(Mockito.<String>any())).thenReturn(new ArrayList<>());
+
+    DeploymentResourceLoader<Object> deploymentResourceLoader = new DeploymentResourceLoader<>();
+    deploymentResourceLoader.setRepositoryService(repositoryService);
+
+    // Act
+    List<Object> actualLoadResourcesForDeploymentResult = deploymentResourceLoader.loadResourcesForDeployment("42",
+        mock(ResourceReader.class));
+
+    // Assert
+    verify(repositoryService).getDeploymentResourceNames(eq("42"));
+    assertTrue(actualLoadResourcesForDeploymentResult.isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link DeploymentResourceLoader#loadResourcesForDeployment(String, ResourceReader)}
+   */
+  @Test
+  void testLoadResourcesForDeployment2() throws IOException {
     // Arrange
     ArrayList<String> stringList = new ArrayList<>();
     stringList.add("foo");
     RepositoryServiceImpl repositoryService = mock(RepositoryServiceImpl.class);
-    when(repositoryService.getResourceAsStream(Mockito.<String>any(), Mockito.<String>any())).thenReturn(null);
+    when(repositoryService.getResourceAsStream(Mockito.<String>any(), Mockito.<String>any()))
+        .thenReturn(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
     when(repositoryService.getDeploymentResourceNames(Mockito.<String>any())).thenReturn(stringList);
 
     DeploymentResourceLoader<Object> deploymentResourceLoader = new DeploymentResourceLoader<>();
@@ -60,32 +76,29 @@ class DeploymentResourceLoaderDiffblueTest {
     Predicate<String> predicate = mock(Predicate.class);
     when(predicate.test(Mockito.<String>any())).thenReturn(true);
     ResourceReader<Object> resourceLoaderDescriptor = mock(ResourceReader.class);
-    when(resourceLoaderDescriptor.read(Mockito.<InputStream>any())).thenThrow(new IOException("foo"));
+    when(resourceLoaderDescriptor.read(Mockito.<InputStream>any())).thenReturn("Read");
     when(resourceLoaderDescriptor.getResourceNameSelector()).thenReturn(predicate);
 
-    // Act and Assert
-    assertThrows(IllegalStateException.class,
-        () -> deploymentResourceLoader.loadResourcesForDeployment("42", resourceLoaderDescriptor));
+    // Act
+    List<Object> actualLoadResourcesForDeploymentResult = deploymentResourceLoader.loadResourcesForDeployment("42",
+        resourceLoaderDescriptor);
+
+    // Assert
     verify(predicate).test(eq("foo"));
     verify(repositoryService).getDeploymentResourceNames(eq("42"));
     verify(repositoryService).getResourceAsStream(eq("42"), eq("foo"));
     verify(resourceLoaderDescriptor).getResourceNameSelector();
-    verify(resourceLoaderDescriptor).read(isNull());
+    verify(resourceLoaderDescriptor).read(isA(InputStream.class));
+    assertEquals(1, actualLoadResourcesForDeploymentResult.size());
+    assertEquals("Read", actualLoadResourcesForDeploymentResult.get(0));
   }
 
   /**
-   * Test {@link DeploymentResourceLoader#loadResourcesForDeployment(String, ResourceReader)}.
-   * <ul>
-   *   <li>Given {@link IOException#IOException(String)} with {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeploymentResourceLoader#loadResourcesForDeployment(String, ResourceReader)}
+   * Method under test:
+   * {@link DeploymentResourceLoader#loadResourcesForDeployment(String, ResourceReader)}
    */
   @Test
-  @DisplayName("Test loadResourcesForDeployment(String, ResourceReader); given IOException(String) with 'foo'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List DeploymentResourceLoader.loadResourcesForDeployment(String, ResourceReader)"})
-  void testLoadResourcesForDeployment_givenIOExceptionWithFoo() throws IOException {
+  void testLoadResourcesForDeployment3() throws IOException {
     // Arrange
     ArrayList<String> stringList = new ArrayList<>();
     stringList.add("foo");
@@ -113,18 +126,11 @@ class DeploymentResourceLoaderDiffblueTest {
   }
 
   /**
-   * Test {@link DeploymentResourceLoader#loadResourcesForDeployment(String, ResourceReader)}.
-   * <ul>
-   *   <li>Given {@link IllegalStateException#IllegalStateException(String)} with {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeploymentResourceLoader#loadResourcesForDeployment(String, ResourceReader)}
+   * Method under test:
+   * {@link DeploymentResourceLoader#loadResourcesForDeployment(String, ResourceReader)}
    */
   @Test
-  @DisplayName("Test loadResourcesForDeployment(String, ResourceReader); given IllegalStateException(String) with 'foo'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List DeploymentResourceLoader.loadResourcesForDeployment(String, ResourceReader)"})
-  void testLoadResourcesForDeployment_givenIllegalStateExceptionWithFoo() throws IOException {
+  void testLoadResourcesForDeployment4() throws IOException {
     // Arrange
     ArrayList<String> stringList = new ArrayList<>();
     stringList.add("foo");
@@ -152,19 +158,46 @@ class DeploymentResourceLoaderDiffblueTest {
   }
 
   /**
-   * Test {@link DeploymentResourceLoader#loadResourcesForDeployment(String, ResourceReader)}.
-   * <ul>
-   *   <li>Given {@code null}.</li>
-   *   <li>When {@link ResourceReader} {@link ResourceReader#read(InputStream)} return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeploymentResourceLoader#loadResourcesForDeployment(String, ResourceReader)}
+   * Method under test:
+   * {@link DeploymentResourceLoader#loadResourcesForDeployment(String, ResourceReader)}
    */
   @Test
-  @DisplayName("Test loadResourcesForDeployment(String, ResourceReader); given 'null'; when ResourceReader read(InputStream) return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List DeploymentResourceLoader.loadResourcesForDeployment(String, ResourceReader)"})
-  void testLoadResourcesForDeployment_givenNull_whenResourceReaderReadReturnNull() throws IOException {
+  void testLoadResourcesForDeployment5() throws IOException {
+    // Arrange
+    ArrayList<String> stringList = new ArrayList<>();
+    stringList.add("foo");
+    RepositoryServiceImpl repositoryService = mock(RepositoryServiceImpl.class);
+    when(repositoryService.getResourceAsStream(Mockito.<String>any(), Mockito.<String>any())).thenReturn(null);
+    when(repositoryService.getDeploymentResourceNames(Mockito.<String>any())).thenReturn(stringList);
+
+    DeploymentResourceLoader<Object> deploymentResourceLoader = new DeploymentResourceLoader<>();
+    deploymentResourceLoader.setRepositoryService(repositoryService);
+    Predicate<String> predicate = mock(Predicate.class);
+    when(predicate.test(Mockito.<String>any())).thenReturn(true);
+    ResourceReader<Object> resourceLoaderDescriptor = mock(ResourceReader.class);
+    when(resourceLoaderDescriptor.read(Mockito.<InputStream>any())).thenReturn("Read");
+    when(resourceLoaderDescriptor.getResourceNameSelector()).thenReturn(predicate);
+
+    // Act
+    List<Object> actualLoadResourcesForDeploymentResult = deploymentResourceLoader.loadResourcesForDeployment("42",
+        resourceLoaderDescriptor);
+
+    // Assert
+    verify(predicate).test(eq("foo"));
+    verify(repositoryService).getDeploymentResourceNames(eq("42"));
+    verify(repositoryService).getResourceAsStream(eq("42"), eq("foo"));
+    verify(resourceLoaderDescriptor).getResourceNameSelector();
+    verify(resourceLoaderDescriptor).read(isNull());
+    assertEquals(1, actualLoadResourcesForDeploymentResult.size());
+    assertEquals("Read", actualLoadResourcesForDeploymentResult.get(0));
+  }
+
+  /**
+   * Method under test:
+   * {@link DeploymentResourceLoader#loadResourcesForDeployment(String, ResourceReader)}
+   */
+  @Test
+  void testLoadResourcesForDeployment6() throws IOException {
     // Arrange
     ArrayList<String> stringList = new ArrayList<>();
     stringList.add("foo");
@@ -195,62 +228,11 @@ class DeploymentResourceLoaderDiffblueTest {
   }
 
   /**
-   * Test {@link DeploymentResourceLoader#loadResourcesForDeployment(String, ResourceReader)}.
-   * <ul>
-   *   <li>Given {@code Read}.</li>
-   *   <li>Then return size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeploymentResourceLoader#loadResourcesForDeployment(String, ResourceReader)}
+   * Method under test:
+   * {@link DeploymentResourceLoader#loadResourcesForDeployment(String, ResourceReader)}
    */
   @Test
-  @DisplayName("Test loadResourcesForDeployment(String, ResourceReader); given 'Read'; then return size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List DeploymentResourceLoader.loadResourcesForDeployment(String, ResourceReader)"})
-  void testLoadResourcesForDeployment_givenRead_thenReturnSizeIsOne() throws IOException {
-    // Arrange
-    ArrayList<String> stringList = new ArrayList<>();
-    stringList.add("foo");
-    RepositoryServiceImpl repositoryService = mock(RepositoryServiceImpl.class);
-    when(repositoryService.getResourceAsStream(Mockito.<String>any(), Mockito.<String>any()))
-        .thenReturn(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
-    when(repositoryService.getDeploymentResourceNames(Mockito.<String>any())).thenReturn(stringList);
-
-    DeploymentResourceLoader<Object> deploymentResourceLoader = new DeploymentResourceLoader<>();
-    deploymentResourceLoader.setRepositoryService(repositoryService);
-    Predicate<String> predicate = mock(Predicate.class);
-    when(predicate.test(Mockito.<String>any())).thenReturn(true);
-    ResourceReader<Object> resourceLoaderDescriptor = mock(ResourceReader.class);
-    when(resourceLoaderDescriptor.read(Mockito.<InputStream>any())).thenReturn("Read");
-    when(resourceLoaderDescriptor.getResourceNameSelector()).thenReturn(predicate);
-
-    // Act
-    List<Object> actualLoadResourcesForDeploymentResult = deploymentResourceLoader.loadResourcesForDeployment("42",
-        resourceLoaderDescriptor);
-
-    // Assert
-    verify(predicate).test(eq("foo"));
-    verify(repositoryService).getDeploymentResourceNames(eq("42"));
-    verify(repositoryService).getResourceAsStream(eq("42"), eq("foo"));
-    verify(resourceLoaderDescriptor).getResourceNameSelector();
-    verify(resourceLoaderDescriptor).read(isA(InputStream.class));
-    assertEquals(1, actualLoadResourcesForDeploymentResult.size());
-    assertEquals("Read", actualLoadResourcesForDeploymentResult.get(0));
-  }
-
-  /**
-   * Test {@link DeploymentResourceLoader#loadResourcesForDeployment(String, ResourceReader)}.
-   * <ul>
-   *   <li>Then return size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeploymentResourceLoader#loadResourcesForDeployment(String, ResourceReader)}
-   */
-  @Test
-  @DisplayName("Test loadResourcesForDeployment(String, ResourceReader); then return size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List DeploymentResourceLoader.loadResourcesForDeployment(String, ResourceReader)"})
-  void testLoadResourcesForDeployment_thenReturnSizeIsOne() throws IOException {
+  void testLoadResourcesForDeployment7() throws IOException {
     // Arrange
     ArrayList<String> stringList = new ArrayList<>();
     stringList.add("foo");
@@ -263,50 +245,16 @@ class DeploymentResourceLoaderDiffblueTest {
     Predicate<String> predicate = mock(Predicate.class);
     when(predicate.test(Mockito.<String>any())).thenReturn(true);
     ResourceReader<Object> resourceLoaderDescriptor = mock(ResourceReader.class);
-    when(resourceLoaderDescriptor.read(Mockito.<InputStream>any())).thenReturn("Read");
+    when(resourceLoaderDescriptor.read(Mockito.<InputStream>any())).thenThrow(new IOException("foo"));
     when(resourceLoaderDescriptor.getResourceNameSelector()).thenReturn(predicate);
 
-    // Act
-    List<Object> actualLoadResourcesForDeploymentResult = deploymentResourceLoader.loadResourcesForDeployment("42",
-        resourceLoaderDescriptor);
-
-    // Assert
+    // Act and Assert
+    assertThrows(IllegalStateException.class,
+        () -> deploymentResourceLoader.loadResourcesForDeployment("42", resourceLoaderDescriptor));
     verify(predicate).test(eq("foo"));
     verify(repositoryService).getDeploymentResourceNames(eq("42"));
     verify(repositoryService).getResourceAsStream(eq("42"), eq("foo"));
     verify(resourceLoaderDescriptor).getResourceNameSelector();
     verify(resourceLoaderDescriptor).read(isNull());
-    assertEquals(1, actualLoadResourcesForDeploymentResult.size());
-    assertEquals("Read", actualLoadResourcesForDeploymentResult.get(0));
-  }
-
-  /**
-   * Test {@link DeploymentResourceLoader#loadResourcesForDeployment(String, ResourceReader)}.
-   * <ul>
-   *   <li>When {@link ResourceReader}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeploymentResourceLoader#loadResourcesForDeployment(String, ResourceReader)}
-   */
-  @Test
-  @DisplayName("Test loadResourcesForDeployment(String, ResourceReader); when ResourceReader; then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List DeploymentResourceLoader.loadResourcesForDeployment(String, ResourceReader)"})
-  void testLoadResourcesForDeployment_whenResourceReader_thenReturnEmpty() {
-    // Arrange
-    RepositoryServiceImpl repositoryService = mock(RepositoryServiceImpl.class);
-    when(repositoryService.getDeploymentResourceNames(Mockito.<String>any())).thenReturn(new ArrayList<>());
-
-    DeploymentResourceLoader<Object> deploymentResourceLoader = new DeploymentResourceLoader<>();
-    deploymentResourceLoader.setRepositoryService(repositoryService);
-
-    // Act
-    List<Object> actualLoadResourcesForDeploymentResult = deploymentResourceLoader.loadResourcesForDeployment("42",
-        mock(ResourceReader.class));
-
-    // Assert
-    verify(repositoryService).getDeploymentResourceNames(eq("42"));
-    assertTrue(actualLoadResourcesForDeploymentResult.isEmpty());
   }
 }

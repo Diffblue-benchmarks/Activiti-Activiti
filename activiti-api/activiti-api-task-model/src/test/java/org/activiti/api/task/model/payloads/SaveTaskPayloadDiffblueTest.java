@@ -19,53 +19,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import java.util.function.BiFunction;
 import org.junit.jupiter.api.Test;
 
 class SaveTaskPayloadDiffblueTest {
   /**
-   * Test {@link SaveTaskPayload#SaveTaskPayload()}.
-   * <p>
-   * Method under test: {@link SaveTaskPayload#SaveTaskPayload()}
-   */
-  @Test
-  @DisplayName("Test new SaveTaskPayload()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SaveTaskPayload.<init>()"})
-  void testNewSaveTaskPayload() {
-    // Arrange and Act
-    SaveTaskPayload actualSaveTaskPayload = new SaveTaskPayload();
-
-    // Assert
-    assertNull(actualSaveTaskPayload.getTaskId());
-    assertNull(actualSaveTaskPayload.getVariables());
-  }
-
-  /**
-   * Test {@link SaveTaskPayload#SaveTaskPayload(String, Map)}.
-   * <p>
-   * Method under test: {@link SaveTaskPayload#SaveTaskPayload(String, Map)}
-   */
-  @Test
-  @DisplayName("Test new SaveTaskPayload(String, Map)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SaveTaskPayload.<init>(String, Map)"})
-  void testNewSaveTaskPayload2() {
-    // Arrange and Act
-    SaveTaskPayload actualSaveTaskPayload = new SaveTaskPayload("42", new HashMap<>());
-
-    // Assert
-    assertEquals("42", actualSaveTaskPayload.getTaskId());
-    assertTrue(actualSaveTaskPayload.getVariables().isEmpty());
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link SaveTaskPayload#setTaskId(String)}
@@ -76,11 +37,6 @@ class SaveTaskPayloadDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String SaveTaskPayload.getId()", "String SaveTaskPayload.getTaskId()",
-      "Map SaveTaskPayload.getVariables()", "void SaveTaskPayload.setTaskId(String)",
-      "void SaveTaskPayload.setVariables(Map)"})
   void testGettersAndSetters() {
     // Arrange
     SaveTaskPayload saveTaskPayload = new SaveTaskPayload();
@@ -93,9 +49,59 @@ class SaveTaskPayloadDiffblueTest {
     String actualTaskId = saveTaskPayload.getTaskId();
     Map<String, Object> actualVariables = saveTaskPayload.getVariables();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("42", actualTaskId);
     assertTrue(actualVariables.isEmpty());
     assertSame(variables, actualVariables);
+  }
+
+  /**
+   * Method under test: {@link SaveTaskPayload#SaveTaskPayload()}
+   */
+  @Test
+  void testNewSaveTaskPayload() {
+    // Arrange and Act
+    SaveTaskPayload actualSaveTaskPayload = new SaveTaskPayload();
+
+    // Assert
+    assertNull(actualSaveTaskPayload.getTaskId());
+    assertNull(actualSaveTaskPayload.getVariables());
+  }
+
+  /**
+   * Method under test: {@link SaveTaskPayload#SaveTaskPayload(String, Map)}
+   */
+  @Test
+  void testNewSaveTaskPayload2() {
+    // Arrange
+    HashMap<String, Object> variables = new HashMap<>();
+
+    // Act
+    SaveTaskPayload actualSaveTaskPayload = new SaveTaskPayload("42", variables);
+
+    // Assert
+    assertEquals("42", actualSaveTaskPayload.getTaskId());
+    Map<String, Object> variables2 = actualSaveTaskPayload.getVariables();
+    assertTrue(variables2.isEmpty());
+    assertSame(variables, variables2);
+  }
+
+  /**
+   * Method under test: {@link SaveTaskPayload#SaveTaskPayload(String, Map)}
+   */
+  @Test
+  void testNewSaveTaskPayload3() {
+    // Arrange
+    HashMap<String, Object> variables = new HashMap<>();
+    variables.computeIfPresent("foo", mock(BiFunction.class));
+
+    // Act
+    SaveTaskPayload actualSaveTaskPayload = new SaveTaskPayload("42", variables);
+
+    // Assert
+    assertEquals("42", actualSaveTaskPayload.getTaskId());
+    Map<String, Object> variables2 = actualSaveTaskPayload.getVariables();
+    assertTrue(variables2.isEmpty());
+    assertSame(variables, variables2);
   }
 }

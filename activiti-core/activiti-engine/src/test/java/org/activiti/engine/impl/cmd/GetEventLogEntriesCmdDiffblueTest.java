@@ -17,25 +17,14 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class GetEventLogEntriesCmdDiffblueTest {
   /**
-   * Test {@link GetEventLogEntriesCmd#GetEventLogEntriesCmd()}.
-   * <ul>
-   *   <li>Then return {@link GetEventLogEntriesCmd#processInstanceId} is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link GetEventLogEntriesCmd#GetEventLogEntriesCmd()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void GetEventLogEntriesCmd.<init>()", "void GetEventLogEntriesCmd.<init>(Long, Long)",
-      "void GetEventLogEntriesCmd.<init>(String)"})
-  public void testNewGetEventLogEntriesCmd_thenReturnProcessInstanceIdIsNull() {
+  public void testNewGetEventLogEntriesCmd() {
     // Arrange and Act
     GetEventLogEntriesCmd actualGetEventLogEntriesCmd = new GetEventLogEntriesCmd();
 
@@ -46,19 +35,25 @@ public class GetEventLogEntriesCmdDiffblueTest {
   }
 
   /**
-   * Test {@link GetEventLogEntriesCmd#GetEventLogEntriesCmd(String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then return {@link GetEventLogEntriesCmd#processInstanceId} is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GetEventLogEntriesCmd#GetEventLogEntriesCmd(String)}
+   * Method under test:
+   * {@link GetEventLogEntriesCmd#GetEventLogEntriesCmd(Long, Long)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void GetEventLogEntriesCmd.<init>()", "void GetEventLogEntriesCmd.<init>(Long, Long)",
-      "void GetEventLogEntriesCmd.<init>(String)"})
-  public void testNewGetEventLogEntriesCmd_when42_thenReturnProcessInstanceIdIs42() {
+  public void testNewGetEventLogEntriesCmd2() {
+    // Arrange and Act
+    GetEventLogEntriesCmd actualGetEventLogEntriesCmd = new GetEventLogEntriesCmd(1L, 3L);
+
+    // Assert
+    assertEquals(1L, actualGetEventLogEntriesCmd.startLogNr.longValue());
+    assertEquals(3L, actualGetEventLogEntriesCmd.pageSize.longValue());
+  }
+
+  /**
+   * Method under test:
+   * {@link GetEventLogEntriesCmd#GetEventLogEntriesCmd(String)}
+   */
+  @Test
+  public void testNewGetEventLogEntriesCmd3() {
     // Arrange and Act
     GetEventLogEntriesCmd actualGetEventLogEntriesCmd = new GetEventLogEntriesCmd("42");
 
@@ -66,27 +61,5 @@ public class GetEventLogEntriesCmdDiffblueTest {
     assertEquals("42", actualGetEventLogEntriesCmd.processInstanceId);
     assertNull(actualGetEventLogEntriesCmd.pageSize);
     assertNull(actualGetEventLogEntriesCmd.startLogNr);
-  }
-
-  /**
-   * Test {@link GetEventLogEntriesCmd#GetEventLogEntriesCmd(Long, Long)}.
-   * <ul>
-   *   <li>When one.</li>
-   *   <li>Then return {@link GetEventLogEntriesCmd#startLogNr} longValue is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GetEventLogEntriesCmd#GetEventLogEntriesCmd(Long, Long)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void GetEventLogEntriesCmd.<init>()", "void GetEventLogEntriesCmd.<init>(Long, Long)",
-      "void GetEventLogEntriesCmd.<init>(String)"})
-  public void testNewGetEventLogEntriesCmd_whenOne_thenReturnStartLogNrLongValueIsOne() {
-    // Arrange and Act
-    GetEventLogEntriesCmd actualGetEventLogEntriesCmd = new GetEventLogEntriesCmd(1L, 3L);
-
-    // Assert
-    assertEquals(1L, actualGetEventLogEntriesCmd.startLogNr.longValue());
-    assertEquals(3L, actualGetEventLogEntriesCmd.pageSize.longValue());
   }
 }

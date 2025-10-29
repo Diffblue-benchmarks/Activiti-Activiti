@@ -19,47 +19,19 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import org.activiti.core.el.CustomFunctionProvider;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.persistence.entity.ResourceEntity;
 import org.activiti.engine.impl.persistence.entity.ResourceEntityImpl;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class MybatisResourceDataManagerDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link MybatisResourceDataManager#MybatisResourceDataManager(ProcessEngineConfigurationImpl)}
-   *   <li>{@link MybatisResourceDataManager#getManagedEntityClass()}
-   * </ul>
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void MybatisResourceDataManager.<init>(ProcessEngineConfigurationImpl)",
-      "Class MybatisResourceDataManager.getManagedEntityClass()"})
-  public void testGettersAndSetters() {
-    // Arrange and Act
-    Class<? extends ResourceEntity> actualManagedEntityClass = (new MybatisResourceDataManager(
-        new JtaProcessEngineConfiguration())).getManagedEntityClass();
-
-    // Assert
-    Class<ResourceEntityImpl> expectedManagedEntityClass = ResourceEntityImpl.class;
-    assertEquals(expectedManagedEntityClass, actualManagedEntityClass);
-  }
-
-  /**
-   * Test {@link MybatisResourceDataManager#create()}.
-   * <p>
    * Method under test: {@link MybatisResourceDataManager#create()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ResourceEntity MybatisResourceDataManager.create()"})
   public void testCreate() {
     // Arrange and Act
     ResourceEntity actualCreateResult = (new MybatisResourceDataManager(new JtaProcessEngineConfiguration())).create();
@@ -74,5 +46,48 @@ public class MybatisResourceDataManagerDiffblueTest {
     assertFalse(actualCreateResult.isInserted());
     assertFalse(actualCreateResult.isUpdated());
     assertFalse(actualCreateResult.isGenerated());
+  }
+
+  /**
+   * Method under test: {@link MybatisResourceDataManager#create()}
+   */
+  @Test
+  public void testCreate2() {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
+
+    // Act
+    ResourceEntity actualCreateResult = (new MybatisResourceDataManager(processEngineConfiguration)).create();
+
+    // Assert
+    assertTrue(actualCreateResult instanceof ResourceEntityImpl);
+    assertNull(actualCreateResult.getBytes());
+    assertNull(actualCreateResult.getId());
+    assertNull(actualCreateResult.getDeploymentId());
+    assertNull(actualCreateResult.getName());
+    assertFalse(actualCreateResult.isDeleted());
+    assertFalse(actualCreateResult.isInserted());
+    assertFalse(actualCreateResult.isUpdated());
+    assertFalse(actualCreateResult.isGenerated());
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>
+   * {@link MybatisResourceDataManager#MybatisResourceDataManager(ProcessEngineConfigurationImpl)}
+   *   <li>{@link MybatisResourceDataManager#getManagedEntityClass()}
+   * </ul>
+   */
+  @Test
+  public void testGettersAndSetters() {
+    // Arrange and Act
+    Class<? extends ResourceEntity> actualManagedEntityClass = (new MybatisResourceDataManager(
+        new JtaProcessEngineConfiguration())).getManagedEntityClass();
+
+    // Assert
+    Class<ResourceEntityImpl> expectedManagedEntityClass = ResourceEntityImpl.class;
+    assertEquals(expectedManagedEntityClass, actualManagedEntityClass);
   }
 }

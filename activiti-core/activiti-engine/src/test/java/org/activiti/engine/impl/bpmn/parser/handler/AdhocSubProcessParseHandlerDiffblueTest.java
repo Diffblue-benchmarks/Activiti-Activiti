@@ -19,14 +19,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.Collection;
+import java.util.List;
 import org.activiti.bpmn.model.AdhocSubProcess;
+import org.activiti.bpmn.model.Artifact;
 import org.activiti.bpmn.model.Association;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BooleanDataObject;
 import org.activiti.bpmn.model.BoundaryEvent;
 import org.activiti.bpmn.model.BpmnModel;
+import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.Process;
 import org.activiti.bpmn.model.SubProcess;
 import org.activiti.engine.impl.bpmn.behavior.AdhocSubProcessActivityBehavior;
@@ -35,18 +37,55 @@ import org.activiti.engine.impl.bpmn.parser.BpmnParseHandlers;
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class AdhocSubProcessParseHandlerDiffblueTest {
   /**
-   * Test {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)} with {@code BpmnParse}, {@code SubProcess}.
-   * <p>
-   * Method under test: {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)}
+   * Method under test:
+   * {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AdhocSubProcessParseHandler.executeParse(BpmnParse, SubProcess)"})
-  public void testExecuteParseWithBpmnParseSubProcess() {
+  public void testExecuteParse() {
+    // Arrange
+    AdhocSubProcessParseHandler adhocSubProcessParseHandler = new AdhocSubProcessParseHandler();
+
+    BpmnParser parser = new BpmnParser();
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParse bpmnParse = new BpmnParse(parser);
+    SubProcess subProcess = new SubProcess();
+
+    // Act
+    adhocSubProcessParseHandler.executeParse(bpmnParse, subProcess);
+
+    // Assert
+    Collection<Artifact> artifacts = subProcess.getArtifacts();
+    assertTrue(artifacts instanceof List);
+    Collection<FlowElement> flowElements = subProcess.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    Object behavior = subProcess.getBehavior();
+    assertTrue(behavior instanceof AdhocSubProcessActivityBehavior);
+    assertNull(bpmnParse.getCurrentFlowElement());
+    assertNull(((AdhocSubProcessActivityBehavior) behavior).getMultiInstanceActivityBehavior());
+    assertTrue(artifacts.isEmpty());
+    assertTrue(flowElements.isEmpty());
+    assertTrue(subProcess.getBoundaryEvents().isEmpty());
+    assertTrue(subProcess.getDataInputAssociations().isEmpty());
+    assertTrue(subProcess.getDataOutputAssociations().isEmpty());
+    assertTrue(subProcess.getMapExceptions().isEmpty());
+    assertTrue(subProcess.getExecutionListeners().isEmpty());
+    assertTrue(subProcess.getIncomingFlows().isEmpty());
+    assertTrue(subProcess.getOutgoingFlows().isEmpty());
+    assertTrue(subProcess.getDataObjects().isEmpty());
+    assertTrue(subProcess.getAttributes().isEmpty());
+    assertTrue(subProcess.getExtensionElements().isEmpty());
+    assertTrue(subProcess.getFlowElementMap().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)}
+   */
+  @Test
+  public void testExecuteParse2() {
     // Arrange
     AdhocSubProcessParseHandler adhocSubProcessParseHandler = new AdhocSubProcessParseHandler();
 
@@ -67,14 +106,56 @@ public class AdhocSubProcessParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)} with {@code BpmnParse}, {@code SubProcess}.
-   * <p>
-   * Method under test: {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)}
+   * Method under test:
+   * {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AdhocSubProcessParseHandler.executeParse(BpmnParse, SubProcess)"})
-  public void testExecuteParseWithBpmnParseSubProcess2() {
+  public void testExecuteParse3() {
+    // Arrange
+    AdhocSubProcessParseHandler adhocSubProcessParseHandler = new AdhocSubProcessParseHandler();
+
+    BpmnParser parser = new BpmnParser();
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+
+    BpmnParse bpmnParse = new BpmnParse(parser);
+    bpmnParse.setBpmnModel(new BpmnModel());
+
+    SubProcess subProcess = new SubProcess();
+    subProcess.addArtifact(new Association());
+
+    // Act
+    adhocSubProcessParseHandler.executeParse(bpmnParse, subProcess);
+
+    // Assert
+    Collection<Artifact> artifacts = subProcess.getArtifacts();
+    assertEquals(1, artifacts.size());
+    assertTrue(artifacts instanceof List);
+    Collection<FlowElement> flowElements = subProcess.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    Object behavior = subProcess.getBehavior();
+    assertTrue(behavior instanceof AdhocSubProcessActivityBehavior);
+    assertNull(bpmnParse.getCurrentFlowElement());
+    assertNull(((AdhocSubProcessActivityBehavior) behavior).getMultiInstanceActivityBehavior());
+    assertTrue(flowElements.isEmpty());
+    assertTrue(subProcess.getBoundaryEvents().isEmpty());
+    assertTrue(subProcess.getDataInputAssociations().isEmpty());
+    assertTrue(subProcess.getDataOutputAssociations().isEmpty());
+    assertTrue(subProcess.getMapExceptions().isEmpty());
+    assertTrue(subProcess.getExecutionListeners().isEmpty());
+    assertTrue(subProcess.getIncomingFlows().isEmpty());
+    assertTrue(subProcess.getOutgoingFlows().isEmpty());
+    assertTrue(subProcess.getDataObjects().isEmpty());
+    assertTrue(subProcess.getAttributes().isEmpty());
+    assertTrue(subProcess.getExtensionElements().isEmpty());
+    assertTrue(subProcess.getFlowElementMap().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)}
+   */
+  @Test
+  public void testExecuteParse4() {
     // Arrange
     AdhocSubProcessParseHandler adhocSubProcessParseHandler = new AdhocSubProcessParseHandler();
 
@@ -98,14 +179,11 @@ public class AdhocSubProcessParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)} with {@code BpmnParse}, {@code SubProcess}.
-   * <p>
-   * Method under test: {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)}
+   * Method under test:
+   * {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AdhocSubProcessParseHandler.executeParse(BpmnParse, SubProcess)"})
-  public void testExecuteParseWithBpmnParseSubProcess3() {
+  public void testExecuteParse5() {
     // Arrange
     AdhocSubProcessParseHandler adhocSubProcessParseHandler = new AdhocSubProcessParseHandler();
 
@@ -126,17 +204,11 @@ public class AdhocSubProcessParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)} with {@code BpmnParse}, {@code SubProcess}.
-   * <ul>
-   *   <li>Given {@link BooleanDataObject} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)}
+   * Method under test:
+   * {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AdhocSubProcessParseHandler.executeParse(BpmnParse, SubProcess)"})
-  public void testExecuteParseWithBpmnParseSubProcess_givenBooleanDataObject() {
+  public void testExecuteParse6() {
     // Arrange
     AdhocSubProcessParseHandler adhocSubProcessParseHandler = new AdhocSubProcessParseHandler();
 
@@ -152,93 +224,35 @@ public class AdhocSubProcessParseHandlerDiffblueTest {
     adhocSubProcessParseHandler.executeParse(bpmnParse, subProcess);
 
     // Assert
+    Collection<Artifact> artifacts = subProcess.getArtifacts();
+    assertTrue(artifacts instanceof List);
+    Collection<FlowElement> flowElements = subProcess.getFlowElements();
+    assertEquals(1, flowElements.size());
+    assertTrue(flowElements instanceof List);
     Object behavior = subProcess.getBehavior();
     assertTrue(behavior instanceof AdhocSubProcessActivityBehavior);
     assertNull(bpmnParse.getCurrentFlowElement());
     assertNull(((AdhocSubProcessActivityBehavior) behavior).getMultiInstanceActivityBehavior());
+    assertTrue(artifacts.isEmpty());
+    assertTrue(subProcess.getBoundaryEvents().isEmpty());
+    assertTrue(subProcess.getDataInputAssociations().isEmpty());
+    assertTrue(subProcess.getDataOutputAssociations().isEmpty());
+    assertTrue(subProcess.getMapExceptions().isEmpty());
+    assertTrue(subProcess.getExecutionListeners().isEmpty());
+    assertTrue(subProcess.getIncomingFlows().isEmpty());
+    assertTrue(subProcess.getOutgoingFlows().isEmpty());
+    assertTrue(subProcess.getDataObjects().isEmpty());
+    assertTrue(subProcess.getAttributes().isEmpty());
+    assertTrue(subProcess.getExtensionElements().isEmpty());
+    assertTrue(subProcess.getFlowElementMap().isEmpty());
   }
 
   /**
-   * Test {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)} with {@code BpmnParse}, {@code SubProcess}.
-   * <ul>
-   *   <li>Given {@link BpmnModel} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)}
+   * Method under test:
+   * {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AdhocSubProcessParseHandler.executeParse(BpmnParse, SubProcess)"})
-  public void testExecuteParseWithBpmnParseSubProcess_givenBpmnModel() {
-    // Arrange
-    AdhocSubProcessParseHandler adhocSubProcessParseHandler = new AdhocSubProcessParseHandler();
-
-    BpmnParser parser = new BpmnParser();
-    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
-
-    BpmnParse bpmnParse = new BpmnParse(parser);
-    bpmnParse.setBpmnModel(new BpmnModel());
-
-    SubProcess subProcess = new SubProcess();
-    subProcess.addArtifact(new Association());
-
-    // Act
-    adhocSubProcessParseHandler.executeParse(bpmnParse, subProcess);
-
-    // Assert
-    Object behavior = subProcess.getBehavior();
-    assertTrue(behavior instanceof AdhocSubProcessActivityBehavior);
-    assertNull(bpmnParse.getCurrentFlowElement());
-    assertNull(((AdhocSubProcessActivityBehavior) behavior).getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)} with {@code BpmnParse}, {@code SubProcess}.
-   * <ul>
-   *   <li>Given {@link BpmnModel} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AdhocSubProcessParseHandler.executeParse(BpmnParse, SubProcess)"})
-  public void testExecuteParseWithBpmnParseSubProcess_givenBpmnModel2() {
-    // Arrange
-    AdhocSubProcessParseHandler adhocSubProcessParseHandler = new AdhocSubProcessParseHandler();
-
-    BpmnParser parser = new BpmnParser();
-    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
-
-    BpmnParse bpmnParse = new BpmnParse(parser);
-    bpmnParse.setBpmnModel(new BpmnModel());
-
-    SubProcess subProcess = new SubProcess();
-    subProcess.addArtifact(new Association());
-    subProcess.addArtifact(new Association());
-
-    // Act
-    adhocSubProcessParseHandler.executeParse(bpmnParse, subProcess);
-
-    // Assert
-    Object behavior = subProcess.getBehavior();
-    assertTrue(behavior instanceof AdhocSubProcessActivityBehavior);
-    assertNull(bpmnParse.getCurrentFlowElement());
-    assertNull(((AdhocSubProcessActivityBehavior) behavior).getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)} with {@code BpmnParse}, {@code SubProcess}.
-   * <ul>
-   *   <li>Given {@link BpmnModel} (default constructor) addProcess {@link Process} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AdhocSubProcessParseHandler.executeParse(BpmnParse, SubProcess)"})
-  public void testExecuteParseWithBpmnParseSubProcess_givenBpmnModelAddProcessProcess() {
+  public void testExecuteParse7() {
     // Arrange
     AdhocSubProcessParseHandler adhocSubProcessParseHandler = new AdhocSubProcessParseHandler();
 
@@ -258,54 +272,38 @@ public class AdhocSubProcessParseHandlerDiffblueTest {
     adhocSubProcessParseHandler.executeParse(bpmnParse, subProcess);
 
     // Assert
+    Collection<Artifact> artifacts = subProcess.getArtifacts();
+    assertEquals(1, artifacts.size());
+    assertTrue(artifacts instanceof List);
+    Collection<FlowElement> flowElements = subProcess.getFlowElements();
+    assertTrue(flowElements instanceof List);
     Object behavior = subProcess.getBehavior();
     assertTrue(behavior instanceof AdhocSubProcessActivityBehavior);
     assertNull(bpmnParse.getCurrentFlowElement());
     assertNull(((AdhocSubProcessActivityBehavior) behavior).getMultiInstanceActivityBehavior());
+    assertTrue(flowElements.isEmpty());
+    assertTrue(subProcess.getBoundaryEvents().isEmpty());
+    assertTrue(subProcess.getDataInputAssociations().isEmpty());
+    assertTrue(subProcess.getDataOutputAssociations().isEmpty());
+    assertTrue(subProcess.getMapExceptions().isEmpty());
+    assertTrue(subProcess.getExecutionListeners().isEmpty());
+    assertTrue(subProcess.getIncomingFlows().isEmpty());
+    assertTrue(subProcess.getOutgoingFlows().isEmpty());
+    assertTrue(subProcess.getDataObjects().isEmpty());
+    assertTrue(subProcess.getAttributes().isEmpty());
+    assertTrue(subProcess.getExtensionElements().isEmpty());
+    assertTrue(subProcess.getFlowElementMap().isEmpty());
   }
 
   /**
-   * Test {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)} with {@code BpmnParse}, {@code SubProcess}.
-   * <ul>
-   *   <li>When {@link SubProcess} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AdhocSubProcessParseHandler.executeParse(BpmnParse, SubProcess)"})
-  public void testExecuteParseWithBpmnParseSubProcess_whenSubProcess() {
-    // Arrange
-    AdhocSubProcessParseHandler adhocSubProcessParseHandler = new AdhocSubProcessParseHandler();
-
-    BpmnParser parser = new BpmnParser();
-    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
-    BpmnParse bpmnParse = new BpmnParse(parser);
-    SubProcess subProcess = new SubProcess();
-
-    // Act
-    adhocSubProcessParseHandler.executeParse(bpmnParse, subProcess);
-
-    // Assert
-    Object behavior = subProcess.getBehavior();
-    assertTrue(behavior instanceof AdhocSubProcessActivityBehavior);
-    assertNull(bpmnParse.getCurrentFlowElement());
-    assertNull(((AdhocSubProcessActivityBehavior) behavior).getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of {@link AdhocSubProcessParseHandler}
+   *   <li>default or parameterless constructor of
+   * {@link AdhocSubProcessParseHandler}
    *   <li>{@link AdhocSubProcessParseHandler#getHandledType()}
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AdhocSubProcessParseHandler.<init>()", "Class AdhocSubProcessParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends BaseElement> actualHandledType = (new AdhocSubProcessParseHandler()).getHandledType();

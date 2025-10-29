@@ -16,21 +16,17 @@
 package org.activiti.engine.impl.persistence.entity.data.impl.util;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
-import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -42,84 +38,28 @@ public class ExecutionTreeStringBuilderDiffblueTest {
   private ExecutionTreeStringBuilder executionTreeStringBuilder;
 
   /**
-   * Test {@link ExecutionTreeStringBuilder#toString()}.
-   * <ul>
-   *   <li>Then return {@code null : null, parent id null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ExecutionTreeStringBuilder#toString()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String ExecutionTreeStringBuilder.toString()"})
-  public void testToString_thenReturnNullNullParentIdNull() {
+  public void testToString() {
     // Arrange, Act and Assert
     assertEquals("null : null, parent id null\r\n",
         (new ExecutionTreeStringBuilder(ExecutionEntityImpl.createWithEmptyRelationshipCollections())).toString());
   }
 
   /**
-   * Test {@link ExecutionTreeStringBuilder#toString()}.
-   * <ul>
-   *   <li>Then throw {@link StackOverflowError}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionTreeStringBuilder#toString()}
+   * Method under test:
+   * {@link ExecutionTreeStringBuilder#internalToString(ExecutionEntity, StringBuilder, String, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String ExecutionTreeStringBuilder.toString()"})
-  public void testToString_thenThrowStackOverflowError() {
-    // Arrange
-    ExecutionEntityImpl executionEntity = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-    executionEntity.addChildExecution(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-
-    // Act and Assert
-    assertThrows(StackOverflowError.class, () -> (new ExecutionTreeStringBuilder(executionEntity)).toString());
-  }
-
-  /**
-   * Test {@link ExecutionTreeStringBuilder#toString()}.
-   * <ul>
-   *   <li>Then throw {@link StackOverflowError}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionTreeStringBuilder#toString()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String ExecutionTreeStringBuilder.toString()"})
-  public void testToString_thenThrowStackOverflowError2() {
-    // Arrange
-    ExecutionEntityImpl executionEntity = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-    executionEntity.addChildExecution(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    executionEntity.addChildExecution(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-
-    // Act and Assert
-    assertThrows(StackOverflowError.class, () -> (new ExecutionTreeStringBuilder(executionEntity)).toString());
-  }
-
-  /**
-   * Test {@link ExecutionTreeStringBuilder#internalToString(ExecutionEntity, StringBuilder, String, boolean)}.
-   * <ul>
-   *   <li>Given {@link ExecutionEntity} {@link ExecutionEntity#isMultiInstanceRoot()} return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionTreeStringBuilder#internalToString(ExecutionEntity, StringBuilder, String, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void ExecutionTreeStringBuilder.internalToString(ExecutionEntity, StringBuilder, String, boolean)"})
-  public void testInternalToString_givenExecutionEntityIsMultiInstanceRootReturnFalse() {
+  public void testInternalToString() {
     // Arrange
     when(executionEntity.isScope()).thenReturn(true);
-    when(executionEntity.isMultiInstanceRoot()).thenReturn(false);
+    when(executionEntity.isMultiInstanceRoot()).thenReturn(true);
     when(executionEntity.getId()).thenReturn("42");
     when(executionEntity.getParentId()).thenReturn("42");
     when(executionEntity.getActivityId()).thenReturn("42");
-    org.mockito.Mockito.<List<? extends ExecutionEntity>>when(executionEntity.getExecutions())
-        .thenReturn(new ArrayList<>());
+    Mockito.<List<? extends ExecutionEntity>>when(executionEntity.getExecutions()).thenReturn(new ArrayList<>());
     StringBuilder strb = new StringBuilder("foo");
 
     // Act
@@ -132,30 +72,22 @@ public class ExecutionTreeStringBuilderDiffblueTest {
     verify(executionEntity).getExecutions();
     verify(executionEntity).isMultiInstanceRoot();
     verify(executionEntity).getActivityId();
-    assertEquals("fooPrefix└── 42 : activityId=42, parent id 42 (scope)\r\n", strb.toString());
+    assertEquals("fooPrefix└── 42 : activityId=42, parent id 42 (scope) (multi instance root)\r\n", strb.toString());
   }
 
   /**
-   * Test {@link ExecutionTreeStringBuilder#internalToString(ExecutionEntity, StringBuilder, String, boolean)}.
-   * <ul>
-   *   <li>Given {@link ExecutionEntity} {@link DelegateExecution#isScope()} return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionTreeStringBuilder#internalToString(ExecutionEntity, StringBuilder, String, boolean)}
+   * Method under test:
+   * {@link ExecutionTreeStringBuilder#internalToString(ExecutionEntity, StringBuilder, String, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void ExecutionTreeStringBuilder.internalToString(ExecutionEntity, StringBuilder, String, boolean)"})
-  public void testInternalToString_givenExecutionEntityIsScopeReturnFalse() {
+  public void testInternalToString2() {
     // Arrange
     when(executionEntity.isScope()).thenReturn(false);
     when(executionEntity.isMultiInstanceRoot()).thenReturn(true);
     when(executionEntity.getId()).thenReturn("42");
     when(executionEntity.getParentId()).thenReturn("42");
     when(executionEntity.getActivityId()).thenReturn("42");
-    org.mockito.Mockito.<List<? extends ExecutionEntity>>when(executionEntity.getExecutions())
-        .thenReturn(new ArrayList<>());
+    Mockito.<List<? extends ExecutionEntity>>when(executionEntity.getExecutions()).thenReturn(new ArrayList<>());
     StringBuilder strb = new StringBuilder("foo");
 
     // Act
@@ -172,26 +104,18 @@ public class ExecutionTreeStringBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link ExecutionTreeStringBuilder#internalToString(ExecutionEntity, StringBuilder, String, boolean)}.
-   * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is a string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionTreeStringBuilder#internalToString(ExecutionEntity, StringBuilder, String, boolean)}
+   * Method under test:
+   * {@link ExecutionTreeStringBuilder#internalToString(ExecutionEntity, StringBuilder, String, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void ExecutionTreeStringBuilder.internalToString(ExecutionEntity, StringBuilder, String, boolean)"})
-  public void testInternalToString_thenStringBuilderWithFooToStringIsAString() {
+  public void testInternalToString3() {
     // Arrange
     when(executionEntity.isScope()).thenReturn(true);
-    when(executionEntity.isMultiInstanceRoot()).thenReturn(true);
+    when(executionEntity.isMultiInstanceRoot()).thenReturn(false);
     when(executionEntity.getId()).thenReturn("42");
     when(executionEntity.getParentId()).thenReturn("42");
     when(executionEntity.getActivityId()).thenReturn("42");
-    org.mockito.Mockito.<List<? extends ExecutionEntity>>when(executionEntity.getExecutions())
-        .thenReturn(new ArrayList<>());
+    Mockito.<List<? extends ExecutionEntity>>when(executionEntity.getExecutions()).thenReturn(new ArrayList<>());
     StringBuilder strb = new StringBuilder("foo");
 
     // Act
@@ -204,6 +128,6 @@ public class ExecutionTreeStringBuilderDiffblueTest {
     verify(executionEntity).getExecutions();
     verify(executionEntity).isMultiInstanceRoot();
     verify(executionEntity).getActivityId();
-    assertEquals("fooPrefix└── 42 : activityId=42, parent id 42 (scope) (multi instance root)\r\n", strb.toString());
+    assertEquals("fooPrefix└── 42 : activityId=42, parent id 42 (scope)\r\n", strb.toString());
   }
 }

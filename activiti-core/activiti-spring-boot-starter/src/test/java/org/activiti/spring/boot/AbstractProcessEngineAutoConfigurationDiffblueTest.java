@@ -22,41 +22,31 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
-import org.activiti.api.runtime.shared.identity.UserGroupManager;
+import org.activiti.core.common.spring.identity.ActivitiUserGroupManagerImpl;
+import org.activiti.core.common.spring.identity.ExtendedInMemoryUserDetailsManager;
 import org.activiti.spring.SpringAsyncExecutor;
 import org.activiti.spring.SpringCallerRunsRejectedJobsHandler;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.core.task.TaskExecutor;
 
-@ExtendWith(MockitoExtension.class)
 class AbstractProcessEngineAutoConfigurationDiffblueTest {
-  @Mock
-  private UserGroupManager userGroupManager;
-
   /**
-   * Test {@link AbstractProcessEngineAutoConfiguration#springAsyncExecutor(TaskExecutor)}.
-   * <p>
-   * Method under test: {@link AbstractProcessEngineAutoConfiguration#springAsyncExecutor(TaskExecutor)}
+   * Method under test:
+   * {@link AbstractProcessEngineAutoConfiguration#springAsyncExecutor(TaskExecutor)}
    */
   @Test
-  @DisplayName("Test springAsyncExecutor(TaskExecutor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"SpringAsyncExecutor AbstractProcessEngineAutoConfiguration.springAsyncExecutor(TaskExecutor)"})
   void testSpringAsyncExecutor() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+
     // Arrange
     TaskExecutor applicationTaskExecutor = mock(TaskExecutor.class);
 
     // Act
-    SpringAsyncExecutor actualSpringAsyncExecutorResult = (new ProcessEngineAutoConfiguration(userGroupManager))
+    SpringAsyncExecutor actualSpringAsyncExecutorResult = (new ProcessEngineAutoConfiguration(
+        new ActivitiUserGroupManagerImpl(new ExtendedInMemoryUserDetailsManager())))
         .springAsyncExecutor(applicationTaskExecutor);
 
     // Assert
@@ -90,64 +80,32 @@ class AbstractProcessEngineAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractProcessEngineAutoConfiguration#springRejectedJobsHandler()}.
-   * <p>
-   * Method under test: {@link AbstractProcessEngineAutoConfiguration#springRejectedJobsHandler()}
+   * Method under test:
+   * {@link AbstractProcessEngineAutoConfiguration#getCustomMybatisMapperClasses(List)}
    */
   @Test
-  @DisplayName("Test springRejectedJobsHandler()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.spring.SpringRejectedJobsHandler AbstractProcessEngineAutoConfiguration.springRejectedJobsHandler()"})
-  void testSpringRejectedJobsHandler() {
-    // Arrange, Act and Assert
-    assertTrue((new ProcessEngineAutoConfiguration(userGroupManager))
-        .springRejectedJobsHandler() instanceof SpringCallerRunsRejectedJobsHandler);
-  }
+  void testGetCustomMybatisMapperClasses() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
 
-  /**
-   * Test {@link AbstractProcessEngineAutoConfiguration#getCustomMybatisMapperClasses(List)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AbstractProcessEngineAutoConfiguration#getCustomMybatisMapperClasses(List)}
-   */
-  @Test
-  @DisplayName("Test getCustomMybatisMapperClasses(List); given '42'; when ArrayList() add '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.util.Set AbstractProcessEngineAutoConfiguration.getCustomMybatisMapperClasses(List)"})
-  void testGetCustomMybatisMapperClasses_given42_whenArrayListAdd42() {
     // Arrange
     ProcessEngineAutoConfiguration processEngineAutoConfiguration = new ProcessEngineAutoConfiguration(
-        userGroupManager);
-
-    ArrayList<String> customMyBatisMappers = new ArrayList<>();
-    customMyBatisMappers.add("42");
-    customMyBatisMappers.add("foo");
+        new ActivitiUserGroupManagerImpl(new ExtendedInMemoryUserDetailsManager()));
 
     // Act and Assert
-    assertThrows(IllegalArgumentException.class,
-        () -> processEngineAutoConfiguration.getCustomMybatisMapperClasses(customMyBatisMappers));
+    assertTrue(processEngineAutoConfiguration.getCustomMybatisMapperClasses(new ArrayList<>()).isEmpty());
   }
 
   /**
-   * Test {@link AbstractProcessEngineAutoConfiguration#getCustomMybatisMapperClasses(List)}.
-   * <ul>
-   *   <li>Given {@code Custom My Batis Mappers}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AbstractProcessEngineAutoConfiguration#getCustomMybatisMapperClasses(List)}
+   * Method under test:
+   * {@link AbstractProcessEngineAutoConfiguration#getCustomMybatisMapperClasses(List)}
    */
   @Test
-  @DisplayName("Test getCustomMybatisMapperClasses(List); given 'Custom My Batis Mappers'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.util.Set AbstractProcessEngineAutoConfiguration.getCustomMybatisMapperClasses(List)"})
-  void testGetCustomMybatisMapperClasses_givenCustomMyBatisMappers() {
+  void testGetCustomMybatisMapperClasses2() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+
     // Arrange
     ProcessEngineAutoConfiguration processEngineAutoConfiguration = new ProcessEngineAutoConfiguration(
-        userGroupManager);
+        new ActivitiUserGroupManagerImpl(new ExtendedInMemoryUserDetailsManager()));
 
     ArrayList<String> customMyBatisMappers = new ArrayList<>();
     customMyBatisMappers.add("Custom My Batis Mappers");
@@ -158,39 +116,54 @@ class AbstractProcessEngineAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractProcessEngineAutoConfiguration#getCustomMybatisMapperClasses(List)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AbstractProcessEngineAutoConfiguration#getCustomMybatisMapperClasses(List)}
+   * Method under test:
+   * {@link AbstractProcessEngineAutoConfiguration#getCustomMybatisMapperClasses(List)}
    */
   @Test
-  @DisplayName("Test getCustomMybatisMapperClasses(List); when ArrayList(); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.util.Set AbstractProcessEngineAutoConfiguration.getCustomMybatisMapperClasses(List)"})
-  void testGetCustomMybatisMapperClasses_whenArrayList_thenReturnEmpty() {
+  void testGetCustomMybatisMapperClasses3() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+
     // Arrange
     ProcessEngineAutoConfiguration processEngineAutoConfiguration = new ProcessEngineAutoConfiguration(
-        userGroupManager);
+        new ActivitiUserGroupManagerImpl(mock(ExtendedInMemoryUserDetailsManager.class)));
 
     // Act and Assert
     assertTrue(processEngineAutoConfiguration.getCustomMybatisMapperClasses(new ArrayList<>()).isEmpty());
   }
 
   /**
-   * Test {@link AbstractProcessEngineAutoConfiguration#taskExecutor()}.
-   * <p>
-   * Method under test: {@link AbstractProcessEngineAutoConfiguration#taskExecutor()}
+   * Method under test:
+   * {@link AbstractProcessEngineAutoConfiguration#getCustomMybatisMapperClasses(List)}
    */
   @Test
-  @DisplayName("Test taskExecutor()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TaskExecutor AbstractProcessEngineAutoConfiguration.taskExecutor()"})
+  void testGetCustomMybatisMapperClasses4() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+
+    // Arrange
+    ProcessEngineAutoConfiguration processEngineAutoConfiguration = new ProcessEngineAutoConfiguration(
+        new ActivitiUserGroupManagerImpl(new ExtendedInMemoryUserDetailsManager()));
+
+    ArrayList<String> customMyBatisMappers = new ArrayList<>();
+    customMyBatisMappers.add("");
+    customMyBatisMappers.add("foo");
+
+    // Act and Assert
+    assertThrows(IllegalArgumentException.class,
+        () -> processEngineAutoConfiguration.getCustomMybatisMapperClasses(customMyBatisMappers));
+  }
+
+  /**
+   * Method under test:
+   * {@link AbstractProcessEngineAutoConfiguration#taskExecutor()}
+   */
+  @Test
   void testTaskExecutor() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+
     // Arrange and Act
-    TaskExecutor actualTaskExecutorResult = (new ProcessEngineAutoConfiguration(userGroupManager)).taskExecutor();
+    TaskExecutor actualTaskExecutorResult = (new ProcessEngineAutoConfiguration(
+        new ActivitiUserGroupManagerImpl(new ExtendedInMemoryUserDetailsManager()))).taskExecutor();
+    actualTaskExecutorResult.execute(mock(Runnable.class));
 
     // Assert
     assertTrue(actualTaskExecutorResult instanceof SimpleAsyncTaskExecutor);

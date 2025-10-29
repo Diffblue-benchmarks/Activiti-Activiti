@@ -21,28 +21,21 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class ActivityBehaviorInvocationDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>{@link ActivityBehaviorInvocation#ActivityBehaviorInvocation(ActivityBehavior, DelegateExecution)}
+   *   <li>
+   * {@link ActivityBehaviorInvocation#ActivityBehaviorInvocation(ActivityBehavior, DelegateExecution)}
    *   <li>{@link ActivityBehaviorInvocation#getTarget()}
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivityBehaviorInvocation.<init>(ActivityBehavior, DelegateExecution)",
-      "Object ActivityBehaviorInvocation.getTarget()"})
   public void testGettersAndSetters() {
     // Arrange
     ActivityBehavior behaviorInstance = mock(ActivityBehavior.class);
@@ -59,13 +52,9 @@ public class ActivityBehaviorInvocationDiffblueTest {
   }
 
   /**
-   * Test {@link ActivityBehaviorInvocation#invoke()}.
-   * <p>
    * Method under test: {@link ActivityBehaviorInvocation#invoke()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivityBehaviorInvocation.invoke()"})
   public void testInvoke() {
     // Arrange
     ActivityBehavior behaviorInstance = mock(ActivityBehavior.class);

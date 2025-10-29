@@ -18,88 +18,67 @@ package org.activiti.bpmn.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.mockito.Mockito;
 
 public class ScriptTaskDiffblueTest {
   /**
-   * Test {@link ScriptTask#clone()}.
-   * <ul>
-   *   <li>Given {@link ScriptTask} (default constructor) ForCompensation is {@code true}.</li>
-   *   <li>Then return ForCompensation.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ScriptTask#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ScriptTask ScriptTask.clone()"})
-  public void testClone_givenScriptTaskForCompensationIsTrue_thenReturnForCompensation() {
-    // Arrange
-    ScriptTask scriptTask = new ScriptTask();
-    scriptTask.setForCompensation(true);
-
-    // Act
-    ScriptTask actualCloneResult = scriptTask.clone();
-
-    // Assert
-    assertNull(actualCloneResult.getIoSpecification());
-    assertNull(actualCloneResult.getLoopCharacteristics());
-    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
-    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
-    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
-    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
-    assertTrue(actualCloneResult.isForCompensation());
-  }
-
-  /**
-   * Test {@link ScriptTask#clone()}.
-   * <ul>
-   *   <li>Given {@link ScriptTask} (default constructor).</li>
-   *   <li>Then return not ForCompensation.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ScriptTask#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ScriptTask ScriptTask.clone()"})
-  public void testClone_givenScriptTask_thenReturnNotForCompensation() {
+  public void testClone() {
     // Arrange and Act
     ScriptTask actualCloneResult = (new ScriptTask()).clone();
 
     // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getResultVariable());
+    assertNull(actualCloneResult.getScript());
+    assertNull(actualCloneResult.getScriptFormat());
+    assertNull(actualCloneResult.getParentContainer());
     assertNull(actualCloneResult.getIoSpecification());
     assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
     assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
     assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertFalse(actualCloneResult.isAutoStoreVariables());
     assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
     assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
     assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
   }
 
   /**
-   * Test {@link ScriptTask#clone()}.
-   * <ul>
-   *   <li>Then return BoundaryEvents size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ScriptTask#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ScriptTask ScriptTask.clone()"})
-  public void testClone_thenReturnBoundaryEventsSizeIsOne() {
+  public void testClone2() {
     // Arrange
     ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
-    BoundaryEvent boundaryEvent = new BoundaryEvent();
-    boundaryEvents.add(boundaryEvent);
+    boundaryEvents.add(new BoundaryEvent());
 
     ScriptTask scriptTask = new ScriptTask();
     scriptTask.setLoopCharacteristics(null);
@@ -108,65 +87,47 @@ public class ScriptTaskDiffblueTest {
     scriptTask.setDataOutputAssociations(null);
     scriptTask.setBoundaryEvents(boundaryEvents);
 
-    // Act and Assert
-    List<BoundaryEvent> boundaryEvents2 = scriptTask.clone().getBoundaryEvents();
-    assertEquals(1, boundaryEvents2.size());
-    assertSame(boundaryEvent, boundaryEvents2.get(0));
+    // Act
+    ScriptTask actualCloneResult = scriptTask.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getResultVariable());
+    assertNull(actualCloneResult.getScript());
+    assertNull(actualCloneResult.getScriptFormat());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getIoSpecification());
+    assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertFalse(actualCloneResult.isAutoStoreVariables());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+    assertEquals(boundaryEvents, actualCloneResult.getBoundaryEvents());
   }
 
   /**
-   * Test {@link ScriptTask#clone()}.
-   * <ul>
-   *   <li>Then return DataInputAssociations size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ScriptTask#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ScriptTask ScriptTask.clone()"})
-  public void testClone_thenReturnDataInputAssociationsSizeIsOne() {
-    // Arrange
-    ArrayList<DataAssociation> dataInputAssociations = new ArrayList<>();
-    dataInputAssociations.add(new DataAssociation());
-
-    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
-    boundaryEvents.add(new BoundaryEvent());
-
-    ScriptTask scriptTask = new ScriptTask();
-    scriptTask.setLoopCharacteristics(null);
-    scriptTask.setIoSpecification(null);
-    scriptTask.setDataInputAssociations(dataInputAssociations);
-    scriptTask.setDataOutputAssociations(null);
-    scriptTask.setBoundaryEvents(boundaryEvents);
-
-    // Act and Assert
-    List<DataAssociation> dataInputAssociations2 = scriptTask.clone().getDataInputAssociations();
-    assertEquals(1, dataInputAssociations2.size());
-    DataAssociation getResult = dataInputAssociations2.get(0);
-    assertNull(getResult.getId());
-    assertNull(getResult.getSourceRef());
-    assertNull(getResult.getTargetRef());
-    assertNull(getResult.getTransformation());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(getResult.getAssignments().isEmpty());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link ScriptTask#clone()}.
-   * <ul>
-   *   <li>Then return DataOutputAssociations size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ScriptTask#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ScriptTask ScriptTask.clone()"})
-  public void testClone_thenReturnDataOutputAssociationsSizeIsOne() {
+  public void testClone3() {
     // Arrange
     ArrayList<DataAssociation> dataOutputAssociations = new ArrayList<>();
     dataOutputAssociations.add(new DataAssociation());
@@ -181,33 +142,124 @@ public class ScriptTaskDiffblueTest {
     scriptTask.setDataOutputAssociations(dataOutputAssociations);
     scriptTask.setBoundaryEvents(boundaryEvents);
 
-    // Act and Assert
-    List<DataAssociation> dataOutputAssociations2 = scriptTask.clone().getDataOutputAssociations();
+    // Act
+    ScriptTask actualCloneResult = scriptTask.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    List<DataAssociation> dataOutputAssociations2 = actualCloneResult.getDataOutputAssociations();
     assertEquals(1, dataOutputAssociations2.size());
     DataAssociation getResult = dataOutputAssociations2.get(0);
     assertNull(getResult.getId());
+    assertNull(actualCloneResult.getId());
     assertNull(getResult.getSourceRef());
     assertNull(getResult.getTargetRef());
     assertNull(getResult.getTransformation());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getResultVariable());
+    assertNull(actualCloneResult.getScript());
+    assertNull(actualCloneResult.getScriptFormat());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getIoSpecification());
+    assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
     assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
     assertEquals(0, getResult.getXmlRowNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertFalse(actualCloneResult.isAutoStoreVariables());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
     assertTrue(getResult.getAssignments().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
     assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
     assertTrue(getResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+    assertEquals(boundaryEvents, actualCloneResult.getBoundaryEvents());
   }
 
   /**
-   * Test {@link ScriptTask#clone()}.
-   * <ul>
-   *   <li>Then return IoSpecification Id is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ScriptTask#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ScriptTask ScriptTask.clone()"})
-  public void testClone_thenReturnIoSpecificationIdIsNull() {
+  public void testClone4() {
+    // Arrange
+    ArrayList<DataAssociation> dataInputAssociations = new ArrayList<>();
+    dataInputAssociations.add(new DataAssociation());
+
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
+
+    ScriptTask scriptTask = new ScriptTask();
+    scriptTask.setLoopCharacteristics(null);
+    scriptTask.setIoSpecification(null);
+    scriptTask.setDataInputAssociations(dataInputAssociations);
+    scriptTask.setDataOutputAssociations(null);
+    scriptTask.setBoundaryEvents(boundaryEvents);
+
+    // Act
+    ScriptTask actualCloneResult = scriptTask.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    List<DataAssociation> dataInputAssociations2 = actualCloneResult.getDataInputAssociations();
+    assertEquals(1, dataInputAssociations2.size());
+    DataAssociation getResult = dataInputAssociations2.get(0);
+    assertNull(getResult.getId());
+    assertNull(actualCloneResult.getId());
+    assertNull(getResult.getSourceRef());
+    assertNull(getResult.getTargetRef());
+    assertNull(getResult.getTransformation());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getResultVariable());
+    assertNull(actualCloneResult.getScript());
+    assertNull(actualCloneResult.getScriptFormat());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getIoSpecification());
+    assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlRowNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertFalse(actualCloneResult.isAutoStoreVariables());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(getResult.getAssignments().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(getResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+    assertEquals(boundaryEvents, actualCloneResult.getBoundaryEvents());
+  }
+
+  /**
+   * Method under test: {@link ScriptTask#clone()}
+   */
+  @Test
+  public void testClone5() {
     // Arrange
     ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
     boundaryEvents.add(new BoundaryEvent());
@@ -219,31 +271,101 @@ public class ScriptTaskDiffblueTest {
     scriptTask.setDataOutputAssociations(null);
     scriptTask.setBoundaryEvents(boundaryEvents);
 
-    // Act and Assert
-    IOSpecification ioSpecification = scriptTask.clone().getIoSpecification();
+    // Act
+    ScriptTask actualCloneResult = scriptTask.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    IOSpecification ioSpecification = actualCloneResult.getIoSpecification();
     assertNull(ioSpecification.getId());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getResultVariable());
+    assertNull(actualCloneResult.getScript());
+    assertNull(actualCloneResult.getScriptFormat());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
     assertEquals(0, ioSpecification.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
     assertEquals(0, ioSpecification.getXmlRowNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertFalse(actualCloneResult.isAutoStoreVariables());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
     assertTrue(ioSpecification.getDataInputRefs().isEmpty());
     assertTrue(ioSpecification.getDataInputs().isEmpty());
     assertTrue(ioSpecification.getDataOutputRefs().isEmpty());
     assertTrue(ioSpecification.getDataOutputs().isEmpty());
     assertTrue(ioSpecification.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
     assertTrue(ioSpecification.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+    assertEquals(boundaryEvents, actualCloneResult.getBoundaryEvents());
   }
 
   /**
-   * Test {@link ScriptTask#clone()}.
-   * <ul>
-   *   <li>Then return LoopCharacteristics Id is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ScriptTask#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ScriptTask ScriptTask.clone()"})
-  public void testClone_thenReturnLoopCharacteristicsIdIsNull() {
+  public void testClone6() {
+    // Arrange
+    ScriptTask scriptTask = new ScriptTask();
+    scriptTask.setForCompensation(true);
+
+    // Act
+    ScriptTask actualCloneResult = scriptTask.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getResultVariable());
+    assertNull(actualCloneResult.getScript());
+    assertNull(actualCloneResult.getScriptFormat());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getIoSpecification());
+    assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertFalse(actualCloneResult.isAutoStoreVariables());
+    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isForCompensation());
+    assertTrue(actualCloneResult.isExclusive());
+  }
+
+  /**
+   * Method under test: {@link ScriptTask#clone()}
+   */
+  @Test
+  public void testClone7() {
     // Arrange
     ScriptTask scriptTask = new ScriptTask();
     scriptTask.setLoopCharacteristics(new MultiInstanceLoopCharacteristics());
@@ -252,8 +374,14 @@ public class ScriptTaskDiffblueTest {
     ScriptTask actualCloneResult = scriptTask.clone();
 
     // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
     MultiInstanceLoopCharacteristics loopCharacteristics = actualCloneResult.getLoopCharacteristics();
     assertNull(loopCharacteristics.getId());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
     assertNull(loopCharacteristics.getCompletionCondition());
     assertNull(loopCharacteristics.getElementIndexVariable());
     assertNull(loopCharacteristics.getElementVariable());
@@ -261,17 +389,70 @@ public class ScriptTaskDiffblueTest {
     assertNull(loopCharacteristics.getLoopCardinality());
     assertNull(loopCharacteristics.getLoopDataOutputRef());
     assertNull(loopCharacteristics.getOutputDataItem());
+    assertNull(actualCloneResult.getResultVariable());
+    assertNull(actualCloneResult.getScript());
+    assertNull(actualCloneResult.getScriptFormat());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getIoSpecification());
+    assertNull(actualCloneResult.getSubProcess());
     assertEquals(0, loopCharacteristics.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
     assertEquals(0, loopCharacteristics.getXmlRowNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
     assertFalse(loopCharacteristics.isSequential());
+    assertFalse(actualCloneResult.isAutoStoreVariables());
+    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
     assertTrue(loopCharacteristics.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
     assertTrue(loopCharacteristics.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
     assertTrue(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertTrue(actualCloneResult.isExclusive());
   }
 
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link ScriptTask#setValues(ScriptTask)}
+   */
+  @Test
+  public void testSetValues() {
+    // Arrange
+    ScriptTask scriptTask = new ScriptTask();
+    IOSpecification ioSpecification = mock(IOSpecification.class);
+    when(ioSpecification.clone()).thenReturn(new IOSpecification());
+    doNothing().when(ioSpecification).setDataInputs(Mockito.<List<DataSpec>>any());
+    doNothing().when(ioSpecification).setDataOutputs(Mockito.<List<DataSpec>>any());
+    ioSpecification.setDataInputs(null);
+    ioSpecification.setDataOutputs(null);
+
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
+
+    ScriptTask otherElement = new ScriptTask();
+    otherElement.setIoSpecification(ioSpecification);
+    otherElement.setLoopCharacteristics(null);
+    otherElement.setDataInputAssociations(null);
+    otherElement.setDataOutputAssociations(null);
+    otherElement.setBoundaryEvents(boundaryEvents);
+
+    // Act
+    scriptTask.setValues(otherElement);
+
+    // Assert
+    verify(ioSpecification).clone();
+    verify(ioSpecification).setDataInputs(isNull());
+    verify(ioSpecification).setDataOutputs(isNull());
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ScriptTask}
@@ -286,12 +467,6 @@ public class ScriptTaskDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ScriptTask.<init>()", "String ScriptTask.getResultVariable()",
-      "String ScriptTask.getScript()", "String ScriptTask.getScriptFormat()",
-      "boolean ScriptTask.isAutoStoreVariables()", "void ScriptTask.setAutoStoreVariables(boolean)",
-      "void ScriptTask.setResultVariable(String)", "void ScriptTask.setScript(String)",
-      "void ScriptTask.setScriptFormat(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ScriptTask actualScriptTask = new ScriptTask();
@@ -304,19 +479,10 @@ public class ScriptTaskDiffblueTest {
     String actualScriptFormat = actualScriptTask.getScriptFormat();
     boolean actualIsAutoStoreVariablesResult = actualScriptTask.isAutoStoreVariables();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("Result Variable", actualResultVariable);
     assertEquals("Script Format", actualScriptFormat);
     assertEquals("Script", actualScript);
-    assertNull(actualScriptTask.getBehavior());
-    assertNull(actualScriptTask.getDefaultFlow());
-    assertNull(actualScriptTask.getFailedJobRetryTimeCycleValue());
-    assertNull(actualScriptTask.getId());
-    assertNull(actualScriptTask.getDocumentation());
-    assertNull(actualScriptTask.getName());
-    assertNull(actualScriptTask.getParentContainer());
-    assertNull(actualScriptTask.getIoSpecification());
-    assertNull(actualScriptTask.getLoopCharacteristics());
     assertEquals(0, actualScriptTask.getXmlColumnNumber());
     assertEquals(0, actualScriptTask.getXmlRowNumber());
     assertFalse(actualScriptTask.isForCompensation());

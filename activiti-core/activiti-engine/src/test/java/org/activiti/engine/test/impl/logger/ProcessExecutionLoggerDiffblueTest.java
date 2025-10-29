@@ -18,55 +18,162 @@ package org.activiti.engine.test.impl.logger;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ProcessExecutionLoggerDiffblueTest {
   /**
-   * Test new {@link ProcessExecutionLogger} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link ProcessExecutionLogger}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ProcessExecutionLogger.<init>()"})
-  public void testNewProcessExecutionLogger() {
-    // Arrange and Act
-    ProcessExecutionLogger actualProcessExecutionLogger = new ProcessExecutionLogger();
-
-    // Assert
-    assertTrue(actualProcessExecutionLogger.createdExecutions.isEmpty());
-    assertTrue(actualProcessExecutionLogger.debugInfoMap.isEmpty());
-    assertTrue(actualProcessExecutionLogger.deletedExecutions.isEmpty());
-  }
-
-  /**
-   * Test {@link ProcessExecutionLogger#generateExecutionTrees()}.
-   * <p>
    * Method under test: {@link ProcessExecutionLogger#generateExecutionTrees()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.util.List ProcessExecutionLogger.generateExecutionTrees()"})
   public void testGenerateExecutionTrees() {
     // Arrange, Act and Assert
     assertTrue((new ProcessExecutionLogger()).generateExecutionTrees().isEmpty());
   }
 
   /**
-   * Test {@link ProcessExecutionLogger#logDebugInfo(boolean)} with {@code boolean}.
-   * <p>
+   * Method under test:
+   * {@link ProcessExecutionLogger#internalPopulateExecutionTree(DebugInfoExecutionTree.DebugInfoExecutionTreeNode, Map)}
+   */
+  @Test
+  public void testInternalPopulateExecutionTree() {
+    // Arrange
+    ProcessExecutionLogger processExecutionLogger = new ProcessExecutionLogger();
+    DebugInfoExecutionTree.DebugInfoExecutionTreeNode parentNode = new DebugInfoExecutionTree.DebugInfoExecutionTreeNode();
+    HashMap<String, List<ExecutionEntity>> parentMapping = new HashMap<>();
+
+    // Act
+    processExecutionLogger.internalPopulateExecutionTree(parentNode, parentMapping);
+
+    // Assert that nothing has changed
+    assertTrue(parentMapping.isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessExecutionLogger#internalPopulateExecutionTree(DebugInfoExecutionTree.DebugInfoExecutionTreeNode, Map)}
+   */
+  @Test
+  public void testInternalPopulateExecutionTree2() {
+    // Arrange
+    ProcessExecutionLogger processExecutionLogger = new ProcessExecutionLogger();
+    DebugInfoExecutionTree.DebugInfoExecutionTreeNode parentNode = mock(
+        DebugInfoExecutionTree.DebugInfoExecutionTreeNode.class);
+    when(parentNode.getId()).thenReturn("42");
+    HashMap<String, List<ExecutionEntity>> parentMapping = new HashMap<>();
+
+    // Act
+    processExecutionLogger.internalPopulateExecutionTree(parentNode, parentMapping);
+
+    // Assert that nothing has changed
+    verify(parentNode).getId();
+    assertTrue(parentMapping.isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessExecutionLogger#internalPopulateExecutionTree(DebugInfoExecutionTree.DebugInfoExecutionTreeNode, Map)}
+   */
+  @Test
+  public void testInternalPopulateExecutionTree3() {
+    // Arrange
+    ProcessExecutionLogger processExecutionLogger = new ProcessExecutionLogger();
+    DebugInfoExecutionTree.DebugInfoExecutionTreeNode parentNode = mock(
+        DebugInfoExecutionTree.DebugInfoExecutionTreeNode.class);
+    when(parentNode.getId()).thenReturn("42");
+
+    HashMap<String, List<ExecutionEntity>> parentMapping = new HashMap<>();
+    ArrayList<ExecutionEntity> executionEntityList = new ArrayList<>();
+    parentMapping.put("42", executionEntityList);
+    parentMapping.put("foo", new ArrayList<>());
+
+    // Act
+    processExecutionLogger.internalPopulateExecutionTree(parentNode, parentMapping);
+
+    // Assert that nothing has changed
+    verify(parentNode, atLeast(1)).getId();
+    assertEquals(2, parentMapping.size());
+    assertTrue(parentMapping.containsKey("foo"));
+    List<ExecutionEntity> getResult = parentMapping.get("42");
+    assertTrue(getResult.isEmpty());
+    assertSame(executionEntityList, getResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessExecutionLogger#internalPopulateExecutionTree(DebugInfoExecutionTree.DebugInfoExecutionTreeNode, Map)}
+   */
+  @Test
+  public void testInternalPopulateExecutionTree4() {
+    // Arrange
+    ProcessExecutionLogger processExecutionLogger = new ProcessExecutionLogger();
+    DebugInfoExecutionTree.DebugInfoExecutionTreeNode parentNode = mock(
+        DebugInfoExecutionTree.DebugInfoExecutionTreeNode.class);
+    when(parentNode.getChildNodes()).thenReturn(new ArrayList<>());
+    when(parentNode.getId()).thenReturn("42");
+
+    ArrayList<ExecutionEntity> executionEntityList = new ArrayList<>();
+    executionEntityList.add(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+
+    HashMap<String, List<ExecutionEntity>> parentMapping = new HashMap<>();
+    parentMapping.put("42", executionEntityList);
+    parentMapping.put("foo", new ArrayList<>());
+
+    // Act
+    processExecutionLogger.internalPopulateExecutionTree(parentNode, parentMapping);
+
+    // Assert
+    verify(parentNode).getChildNodes();
+    verify(parentNode, atLeast(1)).getId();
+    assertEquals(2, parentMapping.size());
+    assertTrue(parentMapping.containsKey("foo"));
+    assertSame(executionEntityList, parentMapping.get("42"));
+  }
+
+  /**
+   * Method under test: {@link ProcessExecutionLogger#logDebugInfo()}
+   */
+  @Test
+  public void testLogDebugInfo() {
+    // Arrange
+    ProcessExecutionLogger processExecutionLogger = new ProcessExecutionLogger();
+
+    // Act
+    processExecutionLogger.logDebugInfo();
+
+    // Assert that nothing has changed
+    assertTrue(processExecutionLogger.debugInfoMap.isEmpty());
+  }
+
+  /**
    * Method under test: {@link ProcessExecutionLogger#logDebugInfo(boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ProcessExecutionLogger.logDebugInfo(boolean)"})
-  public void testLogDebugInfoWithBoolean() {
+  public void testLogDebugInfo2() {
+    // Arrange
+    ProcessExecutionLogger processExecutionLogger = new ProcessExecutionLogger();
+
+    // Act
+    processExecutionLogger.logDebugInfo(true);
+
+    // Assert
+    assertTrue(processExecutionLogger.debugInfoMap.isEmpty());
+  }
+
+  /**
+   * Method under test: {@link ProcessExecutionLogger#logDebugInfo(boolean)}
+   */
+  @Test
+  public void testLogDebugInfo3() {
     // Arrange
     ProcessExecutionLogger processExecutionLogger = new ProcessExecutionLogger();
     processExecutionLogger
@@ -80,18 +187,10 @@ public class ProcessExecutionLoggerDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessExecutionLogger#logDebugInfo(boolean)} with {@code boolean}.
-   * <ul>
-   *   <li>Given {@link ProcessExecutionLogger} (default constructor).</li>
-   *   <li>When {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ProcessExecutionLogger#logDebugInfo(boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ProcessExecutionLogger.logDebugInfo(boolean)"})
-  public void testLogDebugInfoWithBoolean_givenProcessExecutionLogger_whenFalse() {
+  public void testLogDebugInfo4() {
     // Arrange
     ProcessExecutionLogger processExecutionLogger = new ProcessExecutionLogger();
 
@@ -103,40 +202,11 @@ public class ProcessExecutionLoggerDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessExecutionLogger#logDebugInfo(boolean)} with {@code boolean}.
-   * <ul>
-   *   <li>Given {@link ProcessExecutionLogger} (default constructor).</li>
-   *   <li>When {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessExecutionLogger#logDebugInfo(boolean)}
+   * Method under test:
+   * {@link ProcessExecutionLogger#executionCreated(ExecutionEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ProcessExecutionLogger.logDebugInfo(boolean)"})
-  public void testLogDebugInfoWithBoolean_givenProcessExecutionLogger_whenTrue() {
-    // Arrange
-    ProcessExecutionLogger processExecutionLogger = new ProcessExecutionLogger();
-
-    // Act
-    processExecutionLogger.logDebugInfo(true);
-
-    // Assert that nothing has changed
-    assertTrue(processExecutionLogger.debugInfoMap.isEmpty());
-  }
-
-  /**
-   * Test {@link ProcessExecutionLogger#executionCreated(ExecutionEntity)}.
-   * <ul>
-   *   <li>Then {@link ProcessExecutionLogger} (default constructor) {@link ProcessExecutionLogger#createdExecutions} size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessExecutionLogger#executionCreated(ExecutionEntity)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ProcessExecutionLogger.executionCreated(ExecutionEntity)"})
-  public void testExecutionCreated_thenProcessExecutionLoggerCreatedExecutionsSizeIsOne() {
+  public void testExecutionCreated() {
     // Arrange
     ProcessExecutionLogger processExecutionLogger = new ProcessExecutionLogger();
     ExecutionEntityImpl executionEntity = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
@@ -147,21 +217,25 @@ public class ProcessExecutionLoggerDiffblueTest {
     // Assert
     Map<String, ExecutionEntity> stringExecutionEntityMap = processExecutionLogger.createdExecutions;
     assertEquals(1, stringExecutionEntityMap.size());
+    assertTrue(executionEntity.getProcessVariables().isEmpty());
+    assertTrue(executionEntity.getTransientVariables().isEmpty());
+    assertTrue(executionEntity.getTransientVariablesLocal().isEmpty());
+    assertTrue(executionEntity.getUsedVariablesCache().isEmpty());
+    assertTrue(executionEntity.getVariableInstanceEntities().isEmpty());
+    assertTrue(executionEntity.getVariableInstances().isEmpty());
+    assertTrue(executionEntity.getVariableInstancesLocal().isEmpty());
+    assertTrue(executionEntity.getVariables().isEmpty());
+    assertTrue(executionEntity.getVariablesLocal().isEmpty());
+    assertTrue(processExecutionLogger.deletedExecutions.isEmpty());
     assertSame(executionEntity, stringExecutionEntityMap.get(null));
   }
 
   /**
-   * Test {@link ProcessExecutionLogger#executionDeleted(ExecutionEntity)}.
-   * <ul>
-   *   <li>Then {@link ProcessExecutionLogger} (default constructor) {@link ProcessExecutionLogger#deletedExecutions} size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessExecutionLogger#executionDeleted(ExecutionEntity)}
+   * Method under test:
+   * {@link ProcessExecutionLogger#executionDeleted(ExecutionEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ProcessExecutionLogger.executionDeleted(ExecutionEntity)"})
-  public void testExecutionDeleted_thenProcessExecutionLoggerDeletedExecutionsSizeIsOne() {
+  public void testExecutionDeleted() {
     // Arrange
     ProcessExecutionLogger processExecutionLogger = new ProcessExecutionLogger();
     ExecutionEntityImpl executionEntity = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
@@ -173,5 +247,20 @@ public class ProcessExecutionLoggerDiffblueTest {
     Map<String, ExecutionEntity> stringExecutionEntityMap = processExecutionLogger.deletedExecutions;
     assertEquals(1, stringExecutionEntityMap.size());
     assertSame(executionEntity, stringExecutionEntityMap.get(null));
+  }
+
+  /**
+   * Method under test: default or parameterless constructor of
+   * {@link ProcessExecutionLogger}
+   */
+  @Test
+  public void testNewProcessExecutionLogger() {
+    // Arrange and Act
+    ProcessExecutionLogger actualProcessExecutionLogger = new ProcessExecutionLogger();
+
+    // Assert
+    assertTrue(actualProcessExecutionLogger.createdExecutions.isEmpty());
+    assertTrue(actualProcessExecutionLogger.debugInfoMap.isEmpty());
+    assertTrue(actualProcessExecutionLogger.deletedExecutions.isEmpty());
   }
 }

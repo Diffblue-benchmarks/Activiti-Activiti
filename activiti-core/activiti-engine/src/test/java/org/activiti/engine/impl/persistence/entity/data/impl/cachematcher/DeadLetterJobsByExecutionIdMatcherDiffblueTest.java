@@ -21,28 +21,31 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.persistence.entity.DeadLetterJobEntity;
 import org.activiti.engine.impl.persistence.entity.DeadLetterJobEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class DeadLetterJobsByExecutionIdMatcherDiffblueTest {
   /**
-   * Test {@link DeadLetterJobsByExecutionIdMatcher#isRetained(DeadLetterJobEntity, Object)} with {@code DeadLetterJobEntity}, {@code Object}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeadLetterJobsByExecutionIdMatcher#isRetained(DeadLetterJobEntity, Object)}
+   * Method under test:
+   * {@link DeadLetterJobsByExecutionIdMatcher#isRetained(DeadLetterJobEntity, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean DeadLetterJobsByExecutionIdMatcher.isRetained(DeadLetterJobEntity, Object)"})
-  public void testIsRetainedWithDeadLetterJobEntityObject_given42_thenReturnFalse() {
+  public void testIsRetained() {
+    // Arrange
+    DeadLetterJobsByExecutionIdMatcher deadLetterJobsByExecutionIdMatcher = new DeadLetterJobsByExecutionIdMatcher();
+
+    // Act and Assert
+    assertFalse(deadLetterJobsByExecutionIdMatcher.isRetained(new DeadLetterJobEntityImpl(), JSONObject.NULL));
+  }
+
+  /**
+   * Method under test:
+   * {@link DeadLetterJobsByExecutionIdMatcher#isRetained(DeadLetterJobEntity, Object)}
+   */
+  @Test
+  public void testIsRetained2() {
     // Arrange
     DeadLetterJobsByExecutionIdMatcher deadLetterJobsByExecutionIdMatcher = new DeadLetterJobsByExecutionIdMatcher();
     DeadLetterJobEntity jobEntity = mock(DeadLetterJobEntity.class);
@@ -57,19 +60,11 @@ public class DeadLetterJobsByExecutionIdMatcherDiffblueTest {
   }
 
   /**
-   * Test {@link DeadLetterJobsByExecutionIdMatcher#isRetained(DeadLetterJobEntity, Object)} with {@code DeadLetterJobEntity}, {@code Object}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeadLetterJobsByExecutionIdMatcher#isRetained(DeadLetterJobEntity, Object)}
+   * Method under test:
+   * {@link DeadLetterJobsByExecutionIdMatcher#isRetained(DeadLetterJobEntity, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean DeadLetterJobsByExecutionIdMatcher.isRetained(DeadLetterJobEntity, Object)"})
-  public void testIsRetainedWithDeadLetterJobEntityObject_given42_when42_thenReturnTrue() {
+  public void testIsRetained3() {
     // Arrange
     DeadLetterJobsByExecutionIdMatcher deadLetterJobsByExecutionIdMatcher = new DeadLetterJobsByExecutionIdMatcher();
     DeadLetterJobEntity jobEntity = mock(DeadLetterJobEntity.class);
@@ -81,24 +76,5 @@ public class DeadLetterJobsByExecutionIdMatcherDiffblueTest {
     // Assert
     verify(jobEntity, atLeast(1)).getExecutionId();
     assertTrue(actualIsRetainedResult);
-  }
-
-  /**
-   * Test {@link DeadLetterJobsByExecutionIdMatcher#isRetained(DeadLetterJobEntity, Object)} with {@code DeadLetterJobEntity}, {@code Object}.
-   * <ul>
-   *   <li>When {@link DeadLetterJobEntityImpl} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeadLetterJobsByExecutionIdMatcher#isRetained(DeadLetterJobEntity, Object)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean DeadLetterJobsByExecutionIdMatcher.isRetained(DeadLetterJobEntity, Object)"})
-  public void testIsRetainedWithDeadLetterJobEntityObject_whenDeadLetterJobEntityImpl() {
-    // Arrange
-    DeadLetterJobsByExecutionIdMatcher deadLetterJobsByExecutionIdMatcher = new DeadLetterJobsByExecutionIdMatcher();
-
-    // Act and Assert
-    assertFalse(deadLetterJobsByExecutionIdMatcher.isRetained(new DeadLetterJobEntityImpl(), JSONObject.NULL));
   }
 }

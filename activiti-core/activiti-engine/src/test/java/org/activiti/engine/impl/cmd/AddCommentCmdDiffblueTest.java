@@ -16,18 +16,10 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class AddCommentCmdDiffblueTest {
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@code Not all who wander are lost}.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link AddCommentCmd#AddCommentCmd(String, String, String)}
@@ -36,11 +28,7 @@ public class AddCommentCmdDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AddCommentCmd.<init>(String, String, String)",
-      "void AddCommentCmd.<init>(String, String, String, String)",
-      "String AddCommentCmd.getSuspendedExceptionMessage()", "String AddCommentCmd.getSuspendedTaskException()"})
-  public void testGettersAndSetters_whenNotAllWhoWanderAreLost() {
+  public void testGettersAndSetters() {
     // Arrange and Act
     AddCommentCmd actualAddCommentCmd = new AddCommentCmd("42", "42", "Not all who wander are lost");
     String actualSuspendedExceptionMessage = actualAddCommentCmd.getSuspendedExceptionMessage();
@@ -51,11 +39,6 @@ public class AddCommentCmdDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@code Type}.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link AddCommentCmd#AddCommentCmd(String, String, String, String)}
@@ -64,11 +47,7 @@ public class AddCommentCmdDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AddCommentCmd.<init>(String, String, String)",
-      "void AddCommentCmd.<init>(String, String, String, String)",
-      "String AddCommentCmd.getSuspendedExceptionMessage()", "String AddCommentCmd.getSuspendedTaskException()"})
-  public void testGettersAndSetters_whenType() {
+  public void testGettersAndSetters2() {
     // Arrange and Act
     AddCommentCmd actualAddCommentCmd = new AddCommentCmd("42", "42", "Type", "Not all who wander are lost");
     String actualSuspendedExceptionMessage = actualAddCommentCmd.getSuspendedExceptionMessage();

@@ -21,83 +21,25 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 import org.activiti.engine.ActivitiException;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class HistoricIdentityLinkEntityImplDiffblueTest {
-  /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>default or parameterless constructor of {@link HistoricIdentityLinkEntityImpl}
-   *   <li>{@link HistoricIdentityLinkEntityImpl#setDetails(byte[])}
-   *   <li>{@link HistoricIdentityLinkEntityImpl#setProcessInstanceId(String)}
-   *   <li>{@link HistoricIdentityLinkEntityImpl#setTaskId(String)}
-   *   <li>{@link HistoricIdentityLinkEntityImpl#setType(String)}
-   *   <li>{@link HistoricIdentityLinkEntityImpl#getDetails()}
-   *   <li>{@link HistoricIdentityLinkEntityImpl#getGroupId()}
-   *   <li>{@link HistoricIdentityLinkEntityImpl#getProcessInstanceId()}
-   *   <li>{@link HistoricIdentityLinkEntityImpl#getTaskId()}
-   *   <li>{@link HistoricIdentityLinkEntityImpl#getType()}
-   *   <li>{@link HistoricIdentityLinkEntityImpl#getUserId()}
-   * </ul>
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricIdentityLinkEntityImpl.<init>()",
-      "byte[] HistoricIdentityLinkEntityImpl.getDetails()", "String HistoricIdentityLinkEntityImpl.getGroupId()",
-      "String HistoricIdentityLinkEntityImpl.getProcessInstanceId()",
-      "String HistoricIdentityLinkEntityImpl.getTaskId()", "String HistoricIdentityLinkEntityImpl.getType()",
-      "String HistoricIdentityLinkEntityImpl.getUserId()", "void HistoricIdentityLinkEntityImpl.setDetails(byte[])",
-      "void HistoricIdentityLinkEntityImpl.setProcessInstanceId(String)",
-      "void HistoricIdentityLinkEntityImpl.setTaskId(String)", "void HistoricIdentityLinkEntityImpl.setType(String)"})
-  public void testGettersAndSetters() throws UnsupportedEncodingException {
-    // Arrange and Act
-    HistoricIdentityLinkEntityImpl actualHistoricIdentityLinkEntityImpl = new HistoricIdentityLinkEntityImpl();
-    byte[] details = "AXAXAXAX".getBytes("UTF-8");
-    actualHistoricIdentityLinkEntityImpl.setDetails(details);
-    actualHistoricIdentityLinkEntityImpl.setProcessInstanceId("42");
-    actualHistoricIdentityLinkEntityImpl.setTaskId("42");
-    actualHistoricIdentityLinkEntityImpl.setType("Type");
-    byte[] actualDetails = actualHistoricIdentityLinkEntityImpl.getDetails();
-    String actualGroupId = actualHistoricIdentityLinkEntityImpl.getGroupId();
-    String actualProcessInstanceId = actualHistoricIdentityLinkEntityImpl.getProcessInstanceId();
-    String actualTaskId = actualHistoricIdentityLinkEntityImpl.getTaskId();
-    String actualType = actualHistoricIdentityLinkEntityImpl.getType();
-    String actualUserId = actualHistoricIdentityLinkEntityImpl.getUserId();
-
-    // Assert
-    assertEquals("42", actualProcessInstanceId);
-    assertEquals("42", actualTaskId);
-    assertEquals("Type", actualType);
-    assertNull(actualHistoricIdentityLinkEntityImpl.getId());
-    assertNull(actualGroupId);
-    assertNull(actualUserId);
-    assertFalse(actualHistoricIdentityLinkEntityImpl.isDeleted());
-    assertFalse(actualHistoricIdentityLinkEntityImpl.isInserted());
-    assertFalse(actualHistoricIdentityLinkEntityImpl.isUpdated());
-    assertSame(details, actualDetails);
-  }
+  @InjectMocks
+  private HistoricIdentityLinkEntityImpl historicIdentityLinkEntityImpl;
 
   /**
-   * Test {@link HistoricIdentityLinkEntityImpl#getPersistentState()}.
-   * <ul>
-   *   <li>Given {@link HistoricIdentityLinkEntityImpl} (default constructor).</li>
-   *   <li>Then return size is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricIdentityLinkEntityImpl#getPersistentState()}
+   * Method under test:
+   * {@link HistoricIdentityLinkEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object HistoricIdentityLinkEntityImpl.getPersistentState()"})
-  public void testGetPersistentState_givenHistoricIdentityLinkEntityImpl_thenReturnSizeIsTwo() {
+  public void testGetPersistentState() {
     // Arrange and Act
     Object actualPersistentState = (new HistoricIdentityLinkEntityImpl()).getPersistentState();
 
@@ -109,53 +51,11 @@ public class HistoricIdentityLinkEntityImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricIdentityLinkEntityImpl#getPersistentState()}.
-   * <ul>
-   *   <li>Then return {@code groupId} is {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricIdentityLinkEntityImpl#getPersistentState()}
+   * Method under test:
+   * {@link HistoricIdentityLinkEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object HistoricIdentityLinkEntityImpl.getPersistentState()"})
-  public void testGetPersistentState_thenReturnGroupIdIsFoo() {
-    // Arrange
-    HistoricIdentityLinkEntityImpl historicIdentityLinkEntityImpl = new HistoricIdentityLinkEntityImpl();
-    historicIdentityLinkEntityImpl.setDeleted(true);
-    historicIdentityLinkEntityImpl.setId("42");
-    historicIdentityLinkEntityImpl.setInserted(true);
-    historicIdentityLinkEntityImpl.setType("Type");
-    historicIdentityLinkEntityImpl.setUpdated(true);
-    historicIdentityLinkEntityImpl.setUserId(null);
-    historicIdentityLinkEntityImpl.setGroupId("foo");
-    historicIdentityLinkEntityImpl.setTaskId(null);
-    historicIdentityLinkEntityImpl.setProcessInstanceId(null);
-    historicIdentityLinkEntityImpl.setDetails(null);
-
-    // Act
-    Object actualPersistentState = historicIdentityLinkEntityImpl.getPersistentState();
-
-    // Assert
-    assertTrue(actualPersistentState instanceof Map);
-    assertEquals(3, ((Map<String, String>) actualPersistentState).size());
-    assertEquals("42", ((Map<String, String>) actualPersistentState).get("id"));
-    assertEquals("Type", ((Map<String, String>) actualPersistentState).get("type"));
-    assertEquals("foo", ((Map<String, String>) actualPersistentState).get("groupId"));
-  }
-
-  /**
-   * Test {@link HistoricIdentityLinkEntityImpl#getPersistentState()}.
-   * <ul>
-   *   <li>Then return {@code processInstanceId} is {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricIdentityLinkEntityImpl#getPersistentState()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object HistoricIdentityLinkEntityImpl.getPersistentState()"})
-  public void testGetPersistentState_thenReturnProcessInstanceIdIsFoo() {
+  public void testGetPersistentState2() {
     // Arrange
     HistoricIdentityLinkEntityImpl historicIdentityLinkEntityImpl = new HistoricIdentityLinkEntityImpl();
     historicIdentityLinkEntityImpl.setDeleted(true);
@@ -181,17 +81,11 @@ public class HistoricIdentityLinkEntityImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricIdentityLinkEntityImpl#getPersistentState()}.
-   * <ul>
-   *   <li>Then return {@code taskId} is {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricIdentityLinkEntityImpl#getPersistentState()}
+   * Method under test:
+   * {@link HistoricIdentityLinkEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object HistoricIdentityLinkEntityImpl.getPersistentState()"})
-  public void testGetPersistentState_thenReturnTaskIdIsFoo() {
+  public void testGetPersistentState3() {
     // Arrange
     HistoricIdentityLinkEntityImpl historicIdentityLinkEntityImpl = new HistoricIdentityLinkEntityImpl();
     historicIdentityLinkEntityImpl.setDeleted(true);
@@ -217,17 +111,41 @@ public class HistoricIdentityLinkEntityImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricIdentityLinkEntityImpl#getPersistentState()}.
-   * <ul>
-   *   <li>Then return {@code userId} is {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricIdentityLinkEntityImpl#getPersistentState()}
+   * Method under test:
+   * {@link HistoricIdentityLinkEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object HistoricIdentityLinkEntityImpl.getPersistentState()"})
-  public void testGetPersistentState_thenReturnUserIdIsFoo() {
+  public void testGetPersistentState4() {
+    // Arrange
+    HistoricIdentityLinkEntityImpl historicIdentityLinkEntityImpl = new HistoricIdentityLinkEntityImpl();
+    historicIdentityLinkEntityImpl.setDeleted(true);
+    historicIdentityLinkEntityImpl.setId("42");
+    historicIdentityLinkEntityImpl.setInserted(true);
+    historicIdentityLinkEntityImpl.setType("Type");
+    historicIdentityLinkEntityImpl.setUpdated(true);
+    historicIdentityLinkEntityImpl.setUserId(null);
+    historicIdentityLinkEntityImpl.setGroupId("foo");
+    historicIdentityLinkEntityImpl.setTaskId(null);
+    historicIdentityLinkEntityImpl.setProcessInstanceId(null);
+    historicIdentityLinkEntityImpl.setDetails(null);
+
+    // Act
+    Object actualPersistentState = historicIdentityLinkEntityImpl.getPersistentState();
+
+    // Assert
+    assertTrue(actualPersistentState instanceof Map);
+    assertEquals(3, ((Map<String, String>) actualPersistentState).size());
+    assertEquals("42", ((Map<String, String>) actualPersistentState).get("id"));
+    assertEquals("Type", ((Map<String, String>) actualPersistentState).get("type"));
+    assertEquals("foo", ((Map<String, String>) actualPersistentState).get("groupId"));
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricIdentityLinkEntityImpl#getPersistentState()}
+   */
+  @Test
+  public void testGetPersistentState5() {
     // Arrange
     HistoricIdentityLinkEntityImpl historicIdentityLinkEntityImpl = new HistoricIdentityLinkEntityImpl();
     historicIdentityLinkEntityImpl.setDeleted(true);
@@ -253,18 +171,19 @@ public class HistoricIdentityLinkEntityImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricIdentityLinkEntityImpl#isUser()}.
-   * <ul>
-   *   <li>Given {@link HistoricIdentityLinkEntityImpl} (default constructor) UserId is {@code 42}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link HistoricIdentityLinkEntityImpl#isUser()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean HistoricIdentityLinkEntityImpl.isUser()"})
-  public void testIsUser_givenHistoricIdentityLinkEntityImplUserIdIs42_thenReturnTrue() {
+  public void testIsUser() {
+    // Arrange, Act and Assert
+    assertFalse((new HistoricIdentityLinkEntityImpl()).isUser());
+  }
+
+  /**
+   * Method under test: {@link HistoricIdentityLinkEntityImpl#isUser()}
+   */
+  @Test
+  public void testIsUser2() {
     // Arrange
     HistoricIdentityLinkEntityImpl historicIdentityLinkEntityImpl = new HistoricIdentityLinkEntityImpl();
     historicIdentityLinkEntityImpl.setUserId("42");
@@ -274,35 +193,19 @@ public class HistoricIdentityLinkEntityImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricIdentityLinkEntityImpl#isUser()}.
-   * <ul>
-   *   <li>Given {@link HistoricIdentityLinkEntityImpl} (default constructor).</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricIdentityLinkEntityImpl#isUser()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean HistoricIdentityLinkEntityImpl.isUser()"})
-  public void testIsUser_givenHistoricIdentityLinkEntityImpl_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse((new HistoricIdentityLinkEntityImpl()).isUser());
-  }
-
-  /**
-   * Test {@link HistoricIdentityLinkEntityImpl#isGroup()}.
-   * <ul>
-   *   <li>Given {@link HistoricIdentityLinkEntityImpl} (default constructor) GroupId is {@code 42}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link HistoricIdentityLinkEntityImpl#isGroup()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean HistoricIdentityLinkEntityImpl.isGroup()"})
-  public void testIsGroup_givenHistoricIdentityLinkEntityImplGroupIdIs42_thenReturnTrue() {
+  public void testIsGroup() {
+    // Arrange, Act and Assert
+    assertFalse((new HistoricIdentityLinkEntityImpl()).isGroup());
+  }
+
+  /**
+   * Method under test: {@link HistoricIdentityLinkEntityImpl#isGroup()}
+   */
+  @Test
+  public void testIsGroup2() {
     // Arrange
     HistoricIdentityLinkEntityImpl historicIdentityLinkEntityImpl = new HistoricIdentityLinkEntityImpl();
     historicIdentityLinkEntityImpl.setGroupId("42");
@@ -312,177 +215,161 @@ public class HistoricIdentityLinkEntityImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricIdentityLinkEntityImpl#isGroup()}.
-   * <ul>
-   *   <li>Given {@link HistoricIdentityLinkEntityImpl} (default constructor).</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricIdentityLinkEntityImpl#isGroup()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean HistoricIdentityLinkEntityImpl.isGroup()"})
-  public void testIsGroup_givenHistoricIdentityLinkEntityImpl_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse((new HistoricIdentityLinkEntityImpl()).isGroup());
-  }
-
-  /**
-   * Test {@link HistoricIdentityLinkEntityImpl#setUserId(String)}.
-   * <ul>
-   *   <li>Then {@link HistoricIdentityLinkEntityImpl} (default constructor) PersistentState {@code userId} is {@code 42}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link HistoricIdentityLinkEntityImpl#setUserId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricIdentityLinkEntityImpl.setUserId(String)"})
-  public void testSetUserId_thenHistoricIdentityLinkEntityImplPersistentStateUserIdIs42() {
+  public void testSetUserId() {
     // Arrange
-    HistoricIdentityLinkEntityImpl historicIdentityLinkEntityImpl = new HistoricIdentityLinkEntityImpl();
+    HistoricIdentityLinkEntityImpl historicIdentityLinkEntityImpl2 = new HistoricIdentityLinkEntityImpl();
 
     // Act
-    historicIdentityLinkEntityImpl.setUserId("42");
+    historicIdentityLinkEntityImpl2.setUserId("42");
 
     // Assert
-    Object persistentState = historicIdentityLinkEntityImpl.getPersistentState();
+    Object persistentState = historicIdentityLinkEntityImpl2.getPersistentState();
     assertTrue(persistentState instanceof Map);
     assertEquals(3, ((Map<String, String>) persistentState).size());
     assertEquals("42", ((Map<String, String>) persistentState).get("userId"));
-    assertEquals("42", historicIdentityLinkEntityImpl.getUserId());
+    assertEquals("42", historicIdentityLinkEntityImpl2.getUserId());
     assertTrue(((Map<String, String>) persistentState).containsKey("id"));
     assertTrue(((Map<String, String>) persistentState).containsKey("type"));
-    assertTrue(historicIdentityLinkEntityImpl.isUser());
+    assertTrue(historicIdentityLinkEntityImpl2.isUser());
   }
 
   /**
-   * Test {@link HistoricIdentityLinkEntityImpl#setUserId(String)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link HistoricIdentityLinkEntityImpl#setUserId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricIdentityLinkEntityImpl.setUserId(String)"})
-  public void testSetUserId_thenThrowActivitiException() {
+  public void testSetUserId2() {
     // Arrange
-    HistoricIdentityLinkEntityImpl historicIdentityLinkEntityImpl = new HistoricIdentityLinkEntityImpl();
-    historicIdentityLinkEntityImpl.setGroupId("42");
+    HistoricIdentityLinkEntityImpl historicIdentityLinkEntityImpl2 = new HistoricIdentityLinkEntityImpl();
+    historicIdentityLinkEntityImpl2.setGroupId("42");
 
     // Act and Assert
-    assertThrows(ActivitiException.class, () -> historicIdentityLinkEntityImpl.setUserId("42"));
+    assertThrows(ActivitiException.class, () -> historicIdentityLinkEntityImpl2.setUserId("42"));
   }
 
   /**
-   * Test {@link HistoricIdentityLinkEntityImpl#setUserId(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then not {@link HistoricIdentityLinkEntityImpl} (default constructor) User.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link HistoricIdentityLinkEntityImpl#setUserId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricIdentityLinkEntityImpl.setUserId(String)"})
-  public void testSetUserId_whenNull_thenNotHistoricIdentityLinkEntityImplUser() {
+  public void testSetUserId3() {
     // Arrange
-    HistoricIdentityLinkEntityImpl historicIdentityLinkEntityImpl = new HistoricIdentityLinkEntityImpl();
-    historicIdentityLinkEntityImpl.setGroupId("42");
+    HistoricIdentityLinkEntityImpl historicIdentityLinkEntityImpl2 = new HistoricIdentityLinkEntityImpl();
+    historicIdentityLinkEntityImpl2.setGroupId("42");
 
     // Act
-    historicIdentityLinkEntityImpl.setUserId(null);
+    historicIdentityLinkEntityImpl2.setUserId(null);
 
-    // Assert that nothing has changed
-    Object persistentState = historicIdentityLinkEntityImpl.getPersistentState();
+    // Assert
+    Object persistentState = historicIdentityLinkEntityImpl2.getPersistentState();
     assertTrue(persistentState instanceof Map);
+    assertNull(historicIdentityLinkEntityImpl2.getUserId());
     assertEquals(3, ((Map<String, String>) persistentState).size());
-    assertFalse(historicIdentityLinkEntityImpl.isUser());
+    assertFalse(historicIdentityLinkEntityImpl2.isUser());
     assertTrue(((Map<String, String>) persistentState).containsKey("groupId"));
     assertTrue(((Map<String, String>) persistentState).containsKey("id"));
     assertTrue(((Map<String, String>) persistentState).containsKey("type"));
   }
 
   /**
-   * Test {@link HistoricIdentityLinkEntityImpl#setGroupId(String)}.
-   * <ul>
-   *   <li>Then {@link HistoricIdentityLinkEntityImpl} (default constructor) PersistentState {@code groupId} is {@code 42}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link HistoricIdentityLinkEntityImpl#setGroupId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricIdentityLinkEntityImpl.setGroupId(String)"})
-  public void testSetGroupId_thenHistoricIdentityLinkEntityImplPersistentStateGroupIdIs42() {
+  public void testSetGroupId() {
     // Arrange
-    HistoricIdentityLinkEntityImpl historicIdentityLinkEntityImpl = new HistoricIdentityLinkEntityImpl();
+    HistoricIdentityLinkEntityImpl historicIdentityLinkEntityImpl2 = new HistoricIdentityLinkEntityImpl();
 
     // Act
-    historicIdentityLinkEntityImpl.setGroupId("42");
+    historicIdentityLinkEntityImpl2.setGroupId("42");
 
     // Assert
-    Object persistentState = historicIdentityLinkEntityImpl.getPersistentState();
+    Object persistentState = historicIdentityLinkEntityImpl2.getPersistentState();
     assertTrue(persistentState instanceof Map);
     assertEquals(3, ((Map<String, String>) persistentState).size());
     assertEquals("42", ((Map<String, String>) persistentState).get("groupId"));
-    assertEquals("42", historicIdentityLinkEntityImpl.getGroupId());
+    assertEquals("42", historicIdentityLinkEntityImpl2.getGroupId());
     assertTrue(((Map<String, String>) persistentState).containsKey("id"));
     assertTrue(((Map<String, String>) persistentState).containsKey("type"));
-    assertTrue(historicIdentityLinkEntityImpl.isGroup());
+    assertTrue(historicIdentityLinkEntityImpl2.isGroup());
   }
 
   /**
-   * Test {@link HistoricIdentityLinkEntityImpl#setGroupId(String)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link HistoricIdentityLinkEntityImpl#setGroupId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricIdentityLinkEntityImpl.setGroupId(String)"})
-  public void testSetGroupId_thenThrowActivitiException() {
+  public void testSetGroupId2() {
     // Arrange
-    HistoricIdentityLinkEntityImpl historicIdentityLinkEntityImpl = new HistoricIdentityLinkEntityImpl();
-    historicIdentityLinkEntityImpl.setUserId("42");
+    HistoricIdentityLinkEntityImpl historicIdentityLinkEntityImpl2 = new HistoricIdentityLinkEntityImpl();
+    historicIdentityLinkEntityImpl2.setUserId("42");
 
     // Act and Assert
-    assertThrows(ActivitiException.class, () -> historicIdentityLinkEntityImpl.setGroupId("42"));
+    assertThrows(ActivitiException.class, () -> historicIdentityLinkEntityImpl2.setGroupId("42"));
   }
 
   /**
-   * Test {@link HistoricIdentityLinkEntityImpl#setGroupId(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then not {@link HistoricIdentityLinkEntityImpl} (default constructor) Group.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link HistoricIdentityLinkEntityImpl#setGroupId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricIdentityLinkEntityImpl.setGroupId(String)"})
-  public void testSetGroupId_whenNull_thenNotHistoricIdentityLinkEntityImplGroup() {
+  public void testSetGroupId3() {
     // Arrange
-    HistoricIdentityLinkEntityImpl historicIdentityLinkEntityImpl = new HistoricIdentityLinkEntityImpl();
-    historicIdentityLinkEntityImpl.setUserId("42");
+    HistoricIdentityLinkEntityImpl historicIdentityLinkEntityImpl2 = new HistoricIdentityLinkEntityImpl();
+    historicIdentityLinkEntityImpl2.setUserId("42");
 
     // Act
-    historicIdentityLinkEntityImpl.setGroupId(null);
+    historicIdentityLinkEntityImpl2.setGroupId(null);
 
-    // Assert that nothing has changed
-    Object persistentState = historicIdentityLinkEntityImpl.getPersistentState();
+    // Assert
+    Object persistentState = historicIdentityLinkEntityImpl2.getPersistentState();
     assertTrue(persistentState instanceof Map);
+    assertNull(historicIdentityLinkEntityImpl2.getGroupId());
     assertEquals(3, ((Map<String, String>) persistentState).size());
-    assertFalse(historicIdentityLinkEntityImpl.isGroup());
+    assertFalse(historicIdentityLinkEntityImpl2.isGroup());
     assertTrue(((Map<String, String>) persistentState).containsKey("id"));
     assertTrue(((Map<String, String>) persistentState).containsKey("type"));
     assertTrue(((Map<String, String>) persistentState).containsKey("userId"));
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>default or parameterless constructor of
+   * {@link HistoricIdentityLinkEntityImpl}
+   *   <li>{@link HistoricIdentityLinkEntityImpl#setDetails(byte[])}
+   *   <li>{@link HistoricIdentityLinkEntityImpl#setProcessInstanceId(String)}
+   *   <li>{@link HistoricIdentityLinkEntityImpl#setTaskId(String)}
+   *   <li>{@link HistoricIdentityLinkEntityImpl#setType(String)}
+   *   <li>{@link HistoricIdentityLinkEntityImpl#getDetails()}
+   *   <li>{@link HistoricIdentityLinkEntityImpl#getGroupId()}
+   *   <li>{@link HistoricIdentityLinkEntityImpl#getProcessInstanceId()}
+   *   <li>{@link HistoricIdentityLinkEntityImpl#getTaskId()}
+   *   <li>{@link HistoricIdentityLinkEntityImpl#getType()}
+   *   <li>{@link HistoricIdentityLinkEntityImpl#getUserId()}
+   * </ul>
+   */
+  @Test
+  public void testGettersAndSetters() throws UnsupportedEncodingException {
+    // Arrange and Act
+    HistoricIdentityLinkEntityImpl actualHistoricIdentityLinkEntityImpl = new HistoricIdentityLinkEntityImpl();
+    byte[] details = "AXAXAXAX".getBytes("UTF-8");
+    actualHistoricIdentityLinkEntityImpl.setDetails(details);
+    actualHistoricIdentityLinkEntityImpl.setProcessInstanceId("42");
+    actualHistoricIdentityLinkEntityImpl.setTaskId("42");
+    actualHistoricIdentityLinkEntityImpl.setType("Type");
+    byte[] actualDetails = actualHistoricIdentityLinkEntityImpl.getDetails();
+    actualHistoricIdentityLinkEntityImpl.getGroupId();
+    String actualProcessInstanceId = actualHistoricIdentityLinkEntityImpl.getProcessInstanceId();
+    String actualTaskId = actualHistoricIdentityLinkEntityImpl.getTaskId();
+    String actualType = actualHistoricIdentityLinkEntityImpl.getType();
+    actualHistoricIdentityLinkEntityImpl.getUserId();
+
+    // Assert that nothing has changed
+    assertEquals("42", actualProcessInstanceId);
+    assertEquals("42", actualTaskId);
+    assertEquals("Type", actualType);
+    assertFalse(actualHistoricIdentityLinkEntityImpl.isDeleted());
+    assertFalse(actualHistoricIdentityLinkEntityImpl.isInserted());
+    assertFalse(actualHistoricIdentityLinkEntityImpl.isUpdated());
+    assertSame(details, actualDetails);
   }
 }

@@ -21,53 +21,17 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.persistence.entity.EventSubscriptionEntity;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class EventSubscriptionsByExecutionIdMatcherDiffblueTest {
   /**
-   * Test {@link EventSubscriptionsByExecutionIdMatcher#isRetained(EventSubscriptionEntity, Object)} with {@code EventSubscriptionEntity}, {@code Object}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EventSubscriptionsByExecutionIdMatcher#isRetained(EventSubscriptionEntity, Object)}
+   * Method under test:
+   * {@link EventSubscriptionsByExecutionIdMatcher#isRetained(EventSubscriptionEntity, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean EventSubscriptionsByExecutionIdMatcher.isRetained(EventSubscriptionEntity, Object)"})
-  public void testIsRetainedWithEventSubscriptionEntityObject_given42_when42_thenReturnTrue() {
-    // Arrange
-    EventSubscriptionsByExecutionIdMatcher eventSubscriptionsByExecutionIdMatcher = new EventSubscriptionsByExecutionIdMatcher();
-    EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
-    when(eventSubscriptionEntity.getExecutionId()).thenReturn("42");
-
-    // Act
-    boolean actualIsRetainedResult = eventSubscriptionsByExecutionIdMatcher.isRetained(eventSubscriptionEntity, "42");
-
-    // Assert
-    verify(eventSubscriptionEntity, atLeast(1)).getExecutionId();
-    assertTrue(actualIsRetainedResult);
-  }
-
-  /**
-   * Test {@link EventSubscriptionsByExecutionIdMatcher#isRetained(EventSubscriptionEntity, Object)} with {@code EventSubscriptionEntity}, {@code Object}.
-   * <ul>
-   *   <li>Given {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EventSubscriptionsByExecutionIdMatcher#isRetained(EventSubscriptionEntity, Object)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean EventSubscriptionsByExecutionIdMatcher.isRetained(EventSubscriptionEntity, Object)"})
-  public void testIsRetainedWithEventSubscriptionEntityObject_givenNull() {
+  public void testIsRetained() {
     // Arrange
     EventSubscriptionsByExecutionIdMatcher eventSubscriptionsByExecutionIdMatcher = new EventSubscriptionsByExecutionIdMatcher();
     EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
@@ -83,18 +47,11 @@ public class EventSubscriptionsByExecutionIdMatcherDiffblueTest {
   }
 
   /**
-   * Test {@link EventSubscriptionsByExecutionIdMatcher#isRetained(EventSubscriptionEntity, Object)} with {@code EventSubscriptionEntity}, {@code Object}.
-   * <ul>
-   *   <li>When {@code Parameter}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EventSubscriptionsByExecutionIdMatcher#isRetained(EventSubscriptionEntity, Object)}
+   * Method under test:
+   * {@link EventSubscriptionsByExecutionIdMatcher#isRetained(EventSubscriptionEntity, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean EventSubscriptionsByExecutionIdMatcher.isRetained(EventSubscriptionEntity, Object)"})
-  public void testIsRetainedWithEventSubscriptionEntityObject_whenParameter_thenReturnFalse() {
+  public void testIsRetained2() {
     // Arrange
     EventSubscriptionsByExecutionIdMatcher eventSubscriptionsByExecutionIdMatcher = new EventSubscriptionsByExecutionIdMatcher();
     EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
@@ -107,5 +64,24 @@ public class EventSubscriptionsByExecutionIdMatcherDiffblueTest {
     // Assert
     verify(eventSubscriptionEntity, atLeast(1)).getExecutionId();
     assertFalse(actualIsRetainedResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link EventSubscriptionsByExecutionIdMatcher#isRetained(EventSubscriptionEntity, Object)}
+   */
+  @Test
+  public void testIsRetained3() {
+    // Arrange
+    EventSubscriptionsByExecutionIdMatcher eventSubscriptionsByExecutionIdMatcher = new EventSubscriptionsByExecutionIdMatcher();
+    EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
+    when(eventSubscriptionEntity.getExecutionId()).thenReturn("42");
+
+    // Act
+    boolean actualIsRetainedResult = eventSubscriptionsByExecutionIdMatcher.isRetained(eventSubscriptionEntity, "42");
+
+    // Assert
+    verify(eventSubscriptionEntity, atLeast(1)).getExecutionId();
+    assertTrue(actualIsRetainedResult);
   }
 }

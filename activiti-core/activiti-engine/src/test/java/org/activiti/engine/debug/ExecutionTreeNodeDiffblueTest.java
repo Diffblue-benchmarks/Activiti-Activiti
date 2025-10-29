@@ -18,18 +18,16 @@ package org.activiti.engine.debug;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.bpmn.model.AdhocSubProcess;
-import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -44,58 +42,65 @@ public class ExecutionTreeNodeDiffblueTest {
   private ExecutionTreeNode executionTreeNode;
 
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link ExecutionTreeNode#ExecutionTreeNode(ExecutionEntity)}
-   *   <li>{@link ExecutionTreeNode#setChildren(List)}
-   *   <li>{@link ExecutionTreeNode#setExecutionEntity(ExecutionEntity)}
-   *   <li>{@link ExecutionTreeNode#setParent(ExecutionTreeNode)}
-   *   <li>{@link ExecutionTreeNode#getChildren()}
-   *   <li>{@link ExecutionTreeNode#getExecutionEntity()}
-   *   <li>{@link ExecutionTreeNode#getParent()}
-   * </ul>
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecutionTreeNode.<init>(ExecutionEntity)", "List ExecutionTreeNode.getChildren()",
-      "ExecutionEntity ExecutionTreeNode.getExecutionEntity()", "ExecutionTreeNode ExecutionTreeNode.getParent()",
-      "void ExecutionTreeNode.setChildren(List)", "void ExecutionTreeNode.setExecutionEntity(ExecutionEntity)",
-      "void ExecutionTreeNode.setParent(ExecutionTreeNode)"})
-  public void testGettersAndSetters() {
-    // Arrange and Act
-    ExecutionTreeNode actualExecutionTreeNode = new ExecutionTreeNode(
-        ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    ArrayList<ExecutionTreeNode> children = new ArrayList<>();
-    actualExecutionTreeNode.setChildren(children);
-    ExecutionEntityImpl executionEntity = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-    actualExecutionTreeNode.setExecutionEntity(executionEntity);
-    ExecutionTreeNode parent = new ExecutionTreeNode(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    actualExecutionTreeNode.setParent(parent);
-    List<ExecutionTreeNode> actualChildren = actualExecutionTreeNode.getChildren();
-    ExecutionEntity actualExecutionEntity = actualExecutionTreeNode.getExecutionEntity();
-    ExecutionTreeNode actualParent = actualExecutionTreeNode.getParent();
-
-    // Assert
-    assertTrue(actualChildren.isEmpty());
-    assertSame(children, actualChildren);
-    assertSame(parent, actualParent);
-    assertSame(executionEntity, actualExecutionEntity);
-  }
-
-  /**
-   * Test {@link ExecutionTreeNode#toString()}.
-   * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections Ended is {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ExecutionTreeNode#toString()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String ExecutionTreeNode.toString()"})
-  public void testToString_givenCreateWithEmptyRelationshipCollectionsEndedIsTrue() {
+  public void testToString() {
+    // Arrange, Act and Assert
+    assertEquals("null (process instance)\n",
+        (new ExecutionTreeNode(ExecutionEntityImpl.createWithEmptyRelationshipCollections())).toString());
+  }
+
+  /**
+   * Method under test: {@link ExecutionTreeNode#toString()}
+   */
+  @Test
+  public void testToString2() {
+    // Arrange
+    ExecutionEntityImpl executionEntity = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+    executionEntity.setParentId("42");
+
+    // Act and Assert
+    assertEquals("null, parent id 42\n", (new ExecutionTreeNode(executionEntity)).toString());
+  }
+
+  /**
+   * Method under test: {@link ExecutionTreeNode#toString()}
+   */
+  @Test
+  public void testToString3() {
+    // Arrange
+    ExecutionTreeNode executionTreeNode = new ExecutionTreeNode(
+        ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    executionTreeNode.setChildren(new ArrayList<>());
+
+    // Act and Assert
+    assertEquals("null (process instance)\n", executionTreeNode.toString());
+  }
+
+  /**
+   * Method under test: {@link ExecutionTreeNode#toString()}
+   */
+  @Test
+  public void testToString4() {
+    // Arrange
+    ArrayList<ExecutionTreeNode> children = new ArrayList<>();
+    children.add(new ExecutionTreeNode(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+
+    ExecutionTreeNode executionTreeNode = new ExecutionTreeNode(
+        ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    executionTreeNode.setChildren(children);
+
+    // Act and Assert
+    assertEquals("null (process instance)\n└── null : , parent id null (active) (scope)\n",
+        executionTreeNode.toString());
+  }
+
+  /**
+   * Method under test: {@link ExecutionTreeNode#toString()}
+   */
+  @Test
+  public void testToString5() {
     // Arrange
     ExecutionEntityImpl executionEntity = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
     executionEntity.setEnded(true);
@@ -114,17 +119,10 @@ public class ExecutionTreeNodeDiffblueTest {
   }
 
   /**
-   * Test {@link ExecutionTreeNode#toString()}.
-   * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections MultiInstanceRoot is {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ExecutionTreeNode#toString()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String ExecutionTreeNode.toString()"})
-  public void testToString_givenCreateWithEmptyRelationshipCollectionsMultiInstanceRootIsTrue() {
+  public void testToString6() {
     // Arrange
     ExecutionEntityImpl executionEntity = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
     executionEntity.setMultiInstanceRoot(true);
@@ -143,42 +141,10 @@ public class ExecutionTreeNodeDiffblueTest {
   }
 
   /**
-   * Test {@link ExecutionTreeNode#toString()}.
-   * <ul>
-   *   <li>Then return a string.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ExecutionTreeNode#toString()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String ExecutionTreeNode.toString()"})
-  public void testToString_thenReturnAString() {
-    // Arrange
-    ArrayList<ExecutionTreeNode> children = new ArrayList<>();
-    children.add(new ExecutionTreeNode(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
-
-    ExecutionTreeNode executionTreeNode = new ExecutionTreeNode(
-        ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    executionTreeNode.setChildren(children);
-
-    // Act and Assert
-    assertEquals("null (process instance)\n└── null : , parent id null (active) (scope)\n",
-        executionTreeNode.toString());
-  }
-
-  /**
-   * Test {@link ExecutionTreeNode#toString()}.
-   * <ul>
-   *   <li>Then return a string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionTreeNode#toString()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String ExecutionTreeNode.toString()"})
-  public void testToString_thenReturnAString2() {
+  public void testToString7() {
     // Arrange
     ExecutionTreeNode executionTreeNode = new ExecutionTreeNode(
         ExecutionEntityImpl.createWithEmptyRelationshipCollections());
@@ -197,17 +163,10 @@ public class ExecutionTreeNodeDiffblueTest {
   }
 
   /**
-   * Test {@link ExecutionTreeNode#toString()}.
-   * <ul>
-   *   <li>Then return a string.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ExecutionTreeNode#toString()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String ExecutionTreeNode.toString()"})
-  public void testToString_thenReturnAString3() {
+  public void testToString8() {
     // Arrange
     ArrayList<ExecutionTreeNode> children = new ArrayList<>();
     children.add(new ExecutionTreeNode(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
@@ -229,17 +188,10 @@ public class ExecutionTreeNodeDiffblueTest {
   }
 
   /**
-   * Test {@link ExecutionTreeNode#toString()}.
-   * <ul>
-   *   <li>Then return a string.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ExecutionTreeNode#toString()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String ExecutionTreeNode.toString()"})
-  public void testToString_thenReturnAString4() {
+  public void testToString9() {
     // Arrange
     ArrayList<ExecutionTreeNode> children = new ArrayList<>();
     children.add(new ExecutionTreeNode(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
@@ -263,258 +215,11 @@ public class ExecutionTreeNodeDiffblueTest {
   }
 
   /**
-   * Test {@link ExecutionTreeNode#toString()}.
-   * <ul>
-   *   <li>Then return {@code null, parent id 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionTreeNode#toString()}
+   * Method under test:
+   * {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String ExecutionTreeNode.toString()"})
-  public void testToString_thenReturnNullParentId42() {
-    // Arrange
-    ExecutionEntityImpl executionEntity = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-    executionEntity.setParentId("42");
-
-    // Act and Assert
-    assertEquals("null, parent id 42\n", (new ExecutionTreeNode(executionEntity)).toString());
-  }
-
-  /**
-   * Test {@link ExecutionTreeNode#toString()}.
-   * <ul>
-   *   <li>Then return {@code null (process instance)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionTreeNode#toString()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String ExecutionTreeNode.toString()"})
-  public void testToString_thenReturnNullProcessInstance() {
-    // Arrange, Act and Assert
-    assertEquals("null (process instance)\n",
-        (new ExecutionTreeNode(ExecutionEntityImpl.createWithEmptyRelationshipCollections())).toString());
-  }
-
-  /**
-   * Test {@link ExecutionTreeNode#toString()}.
-   * <ul>
-   *   <li>Then return {@code null (process instance)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionTreeNode#toString()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String ExecutionTreeNode.toString()"})
-  public void testToString_thenReturnNullProcessInstance2() {
-    // Arrange
-    ExecutionTreeNode executionTreeNode = new ExecutionTreeNode(
-        ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    executionTreeNode.setChildren(new ArrayList<>());
-
-    // Act and Assert
-    assertEquals("null (process instance)\n", executionTreeNode.toString());
-  }
-
-  /**
-   * Test {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}.
-   * <ul>
-   *   <li>Given {@link ExecutionEntity} {@link DelegateExecution#getCurrentFlowElement()} return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecutionTreeNode.internalToString(StringBuilder, String, boolean)"})
-  public void testInternalToString_givenExecutionEntityGetCurrentFlowElementReturnNull() {
-    // Arrange
-    when(executionEntity.isActive()).thenReturn(true);
-    when(executionEntity.isEnded()).thenReturn(true);
-    when(executionEntity.isScope()).thenReturn(true);
-    when(executionEntity.isMultiInstanceRoot()).thenReturn(true);
-    when(executionEntity.getId()).thenReturn("42");
-    when(executionEntity.getParentId()).thenReturn("42");
-    when(executionEntity.getCurrentFlowElement()).thenReturn(null);
-    StringBuilder strb = new StringBuilder("foo");
-
-    // Act
-    executionTreeNode.internalToString(strb, "Prefix", true);
-
-    // Assert
-    verify(executionEntity).getCurrentFlowElement();
-    verify(executionEntity).getId();
-    verify(executionEntity).getParentId();
-    verify(executionEntity).isActive();
-    verify(executionEntity).isEnded();
-    verify(executionEntity).isScope();
-    verify(executionEntity).isMultiInstanceRoot();
-    assertEquals("fooPrefix└── 42 : , parent id 42 (active) (scope) (multi instance root) (ended)\n", strb.toString());
-  }
-
-  /**
-   * Test {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}.
-   * <ul>
-   *   <li>Given {@link ExecutionEntity} {@link DelegateExecution#isActive()} return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecutionTreeNode.internalToString(StringBuilder, String, boolean)"})
-  public void testInternalToString_givenExecutionEntityIsActiveReturnFalse() {
-    // Arrange
-    when(executionEntity.isActive()).thenReturn(false);
-    when(executionEntity.isEnded()).thenReturn(true);
-    when(executionEntity.isScope()).thenReturn(true);
-    when(executionEntity.isMultiInstanceRoot()).thenReturn(true);
-    when(executionEntity.getId()).thenReturn("42");
-    when(executionEntity.getParentId()).thenReturn("42");
-    when(executionEntity.getCurrentFlowElement()).thenReturn(new AdhocSubProcess());
-    StringBuilder strb = new StringBuilder("foo");
-
-    // Act
-    executionTreeNode.internalToString(strb, "Prefix", true);
-
-    // Assert
-    verify(executionEntity).getCurrentFlowElement();
-    verify(executionEntity).getId();
-    verify(executionEntity).getParentId();
-    verify(executionEntity).isActive();
-    verify(executionEntity).isEnded();
-    verify(executionEntity).isScope();
-    verify(executionEntity).isMultiInstanceRoot();
-    assertEquals("fooPrefix└── 42 : null (AdhocSubProcess, parent id 42 (not active) (scope) (multi instance root)"
-        + " (ended)\n", strb.toString());
-  }
-
-  /**
-   * Test {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}.
-   * <ul>
-   *   <li>Given {@link ExecutionEntity} {@link DelegateExecution#isEnded()} return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecutionTreeNode.internalToString(StringBuilder, String, boolean)"})
-  public void testInternalToString_givenExecutionEntityIsEndedReturnFalse() {
-    // Arrange
-    when(executionEntity.isActive()).thenReturn(true);
-    when(executionEntity.isEnded()).thenReturn(false);
-    when(executionEntity.isScope()).thenReturn(true);
-    when(executionEntity.isMultiInstanceRoot()).thenReturn(true);
-    when(executionEntity.getId()).thenReturn("42");
-    when(executionEntity.getParentId()).thenReturn("42");
-    when(executionEntity.getCurrentFlowElement()).thenReturn(new AdhocSubProcess());
-    StringBuilder strb = new StringBuilder("foo");
-
-    // Act
-    executionTreeNode.internalToString(strb, "Prefix", true);
-
-    // Assert
-    verify(executionEntity).getCurrentFlowElement();
-    verify(executionEntity).getId();
-    verify(executionEntity).getParentId();
-    verify(executionEntity).isActive();
-    verify(executionEntity).isEnded();
-    verify(executionEntity).isScope();
-    verify(executionEntity).isMultiInstanceRoot();
-    assertEquals("fooPrefix└── 42 : null (AdhocSubProcess, parent id 42 (active) (scope) (multi instance root)\n",
-        strb.toString());
-  }
-
-  /**
-   * Test {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}.
-   * <ul>
-   *   <li>Given {@link ExecutionEntity} {@link ExecutionEntity#isMultiInstanceRoot()} return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecutionTreeNode.internalToString(StringBuilder, String, boolean)"})
-  public void testInternalToString_givenExecutionEntityIsMultiInstanceRootReturnFalse() {
-    // Arrange
-    when(executionEntity.isActive()).thenReturn(true);
-    when(executionEntity.isEnded()).thenReturn(true);
-    when(executionEntity.isScope()).thenReturn(true);
-    when(executionEntity.isMultiInstanceRoot()).thenReturn(false);
-    when(executionEntity.getId()).thenReturn("42");
-    when(executionEntity.getParentId()).thenReturn("42");
-    when(executionEntity.getCurrentFlowElement()).thenReturn(new AdhocSubProcess());
-    StringBuilder strb = new StringBuilder("foo");
-
-    // Act
-    executionTreeNode.internalToString(strb, "Prefix", true);
-
-    // Assert
-    verify(executionEntity).getCurrentFlowElement();
-    verify(executionEntity).getId();
-    verify(executionEntity).getParentId();
-    verify(executionEntity).isActive();
-    verify(executionEntity).isEnded();
-    verify(executionEntity).isScope();
-    verify(executionEntity).isMultiInstanceRoot();
-    assertEquals("fooPrefix└── 42 : null (AdhocSubProcess, parent id 42 (active) (scope) (ended)\n", strb.toString());
-  }
-
-  /**
-   * Test {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}.
-   * <ul>
-   *   <li>Given {@link ExecutionEntity} {@link DelegateExecution#isScope()} return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecutionTreeNode.internalToString(StringBuilder, String, boolean)"})
-  public void testInternalToString_givenExecutionEntityIsScopeReturnFalse() {
-    // Arrange
-    when(executionEntity.isActive()).thenReturn(true);
-    when(executionEntity.isEnded()).thenReturn(true);
-    when(executionEntity.isScope()).thenReturn(false);
-    when(executionEntity.isMultiInstanceRoot()).thenReturn(true);
-    when(executionEntity.getId()).thenReturn("42");
-    when(executionEntity.getParentId()).thenReturn("42");
-    when(executionEntity.getCurrentFlowElement()).thenReturn(new AdhocSubProcess());
-    StringBuilder strb = new StringBuilder("foo");
-
-    // Act
-    executionTreeNode.internalToString(strb, "Prefix", true);
-
-    // Assert
-    verify(executionEntity).getCurrentFlowElement();
-    verify(executionEntity).getId();
-    verify(executionEntity).getParentId();
-    verify(executionEntity).isActive();
-    verify(executionEntity).isEnded();
-    verify(executionEntity).isScope();
-    verify(executionEntity).isMultiInstanceRoot();
-    assertEquals("fooPrefix└── 42 : null (AdhocSubProcess, parent id 42 (active) (multi instance root) (ended)\n",
-        strb.toString());
-  }
-
-  /**
-   * Test {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}.
-   * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is a string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecutionTreeNode.internalToString(StringBuilder, String, boolean)"})
-  public void testInternalToString_thenStringBuilderWithFooToStringIsAString() {
+  public void testInternalToString() {
     // Arrange
     when(executionEntity.isActive()).thenReturn(true);
     when(executionEntity.isEnded()).thenReturn(true);
@@ -542,18 +247,164 @@ public class ExecutionTreeNodeDiffblueTest {
   }
 
   /**
-   * Test {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is a string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}
+   * Method under test:
+   * {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecutionTreeNode.internalToString(StringBuilder, String, boolean)"})
-  public void testInternalToString_whenFalse_thenStringBuilderWithFooToStringIsAString() {
+  public void testInternalToString2() {
+    // Arrange
+    when(executionEntity.isActive()).thenReturn(false);
+    when(executionEntity.isEnded()).thenReturn(true);
+    when(executionEntity.isScope()).thenReturn(true);
+    when(executionEntity.isMultiInstanceRoot()).thenReturn(true);
+    when(executionEntity.getId()).thenReturn("42");
+    when(executionEntity.getParentId()).thenReturn("42");
+    when(executionEntity.getCurrentFlowElement()).thenReturn(new AdhocSubProcess());
+    StringBuilder strb = new StringBuilder("foo");
+
+    // Act
+    executionTreeNode.internalToString(strb, "Prefix", true);
+
+    // Assert
+    verify(executionEntity).getCurrentFlowElement();
+    verify(executionEntity).getId();
+    verify(executionEntity).getParentId();
+    verify(executionEntity).isActive();
+    verify(executionEntity).isEnded();
+    verify(executionEntity).isScope();
+    verify(executionEntity).isMultiInstanceRoot();
+    assertEquals("fooPrefix└── 42 : null (AdhocSubProcess, parent id 42 (not active) (scope) (multi instance root)"
+        + " (ended)\n", strb.toString());
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}
+   */
+  @Test
+  public void testInternalToString3() {
+    // Arrange
+    when(executionEntity.isActive()).thenReturn(true);
+    when(executionEntity.isEnded()).thenReturn(false);
+    when(executionEntity.isScope()).thenReturn(true);
+    when(executionEntity.isMultiInstanceRoot()).thenReturn(true);
+    when(executionEntity.getId()).thenReturn("42");
+    when(executionEntity.getParentId()).thenReturn("42");
+    when(executionEntity.getCurrentFlowElement()).thenReturn(new AdhocSubProcess());
+    StringBuilder strb = new StringBuilder("foo");
+
+    // Act
+    executionTreeNode.internalToString(strb, "Prefix", true);
+
+    // Assert
+    verify(executionEntity).getCurrentFlowElement();
+    verify(executionEntity).getId();
+    verify(executionEntity).getParentId();
+    verify(executionEntity).isActive();
+    verify(executionEntity).isEnded();
+    verify(executionEntity).isScope();
+    verify(executionEntity).isMultiInstanceRoot();
+    assertEquals("fooPrefix└── 42 : null (AdhocSubProcess, parent id 42 (active) (scope) (multi instance root)\n",
+        strb.toString());
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}
+   */
+  @Test
+  public void testInternalToString4() {
+    // Arrange
+    when(executionEntity.isActive()).thenReturn(true);
+    when(executionEntity.isEnded()).thenReturn(true);
+    when(executionEntity.isScope()).thenReturn(false);
+    when(executionEntity.isMultiInstanceRoot()).thenReturn(true);
+    when(executionEntity.getId()).thenReturn("42");
+    when(executionEntity.getParentId()).thenReturn("42");
+    when(executionEntity.getCurrentFlowElement()).thenReturn(new AdhocSubProcess());
+    StringBuilder strb = new StringBuilder("foo");
+
+    // Act
+    executionTreeNode.internalToString(strb, "Prefix", true);
+
+    // Assert
+    verify(executionEntity).getCurrentFlowElement();
+    verify(executionEntity).getId();
+    verify(executionEntity).getParentId();
+    verify(executionEntity).isActive();
+    verify(executionEntity).isEnded();
+    verify(executionEntity).isScope();
+    verify(executionEntity).isMultiInstanceRoot();
+    assertEquals("fooPrefix└── 42 : null (AdhocSubProcess, parent id 42 (active) (multi instance root) (ended)\n",
+        strb.toString());
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}
+   */
+  @Test
+  public void testInternalToString5() {
+    // Arrange
+    when(executionEntity.isActive()).thenReturn(true);
+    when(executionEntity.isEnded()).thenReturn(true);
+    when(executionEntity.isScope()).thenReturn(true);
+    when(executionEntity.isMultiInstanceRoot()).thenReturn(false);
+    when(executionEntity.getId()).thenReturn("42");
+    when(executionEntity.getParentId()).thenReturn("42");
+    when(executionEntity.getCurrentFlowElement()).thenReturn(new AdhocSubProcess());
+    StringBuilder strb = new StringBuilder("foo");
+
+    // Act
+    executionTreeNode.internalToString(strb, "Prefix", true);
+
+    // Assert
+    verify(executionEntity).getCurrentFlowElement();
+    verify(executionEntity).getId();
+    verify(executionEntity).getParentId();
+    verify(executionEntity).isActive();
+    verify(executionEntity).isEnded();
+    verify(executionEntity).isScope();
+    verify(executionEntity).isMultiInstanceRoot();
+    assertEquals("fooPrefix└── 42 : null (AdhocSubProcess, parent id 42 (active) (scope) (ended)\n", strb.toString());
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}
+   */
+  @Test
+  public void testInternalToString6() {
+    // Arrange
+    when(executionEntity.isActive()).thenReturn(true);
+    when(executionEntity.isEnded()).thenReturn(true);
+    when(executionEntity.isScope()).thenReturn(true);
+    when(executionEntity.isMultiInstanceRoot()).thenReturn(true);
+    when(executionEntity.getId()).thenReturn("42");
+    when(executionEntity.getParentId()).thenReturn("42");
+    when(executionEntity.getCurrentFlowElement()).thenReturn(null);
+    StringBuilder strb = new StringBuilder("foo");
+
+    // Act
+    executionTreeNode.internalToString(strb, "Prefix", true);
+
+    // Assert
+    verify(executionEntity).getCurrentFlowElement();
+    verify(executionEntity).getId();
+    verify(executionEntity).getParentId();
+    verify(executionEntity).isActive();
+    verify(executionEntity).isEnded();
+    verify(executionEntity).isScope();
+    verify(executionEntity).isMultiInstanceRoot();
+    assertEquals("fooPrefix└── 42 : , parent id 42 (active) (scope) (multi instance root) (ended)\n", strb.toString());
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}
+   */
+  @Test
+  public void testInternalToString7() {
     // Arrange
     when(executionEntity.isActive()).thenReturn(true);
     when(executionEntity.isEnded()).thenReturn(true);
@@ -581,19 +432,59 @@ public class ExecutionTreeNodeDiffblueTest {
   }
 
   /**
-   * Test {@link ExecutionTreeNode#getCurrentFlowElementId()}.
-   * <ul>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ExecutionTreeNode#getCurrentFlowElementId()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String ExecutionTreeNode.getCurrentFlowElementId()"})
-  public void testGetCurrentFlowElementId_thenReturnEmptyString() {
+  public void testGetCurrentFlowElementId() {
     // Arrange, Act and Assert
     assertEquals("", (new ExecutionTreeNode(ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
         .getCurrentFlowElementId());
+  }
+
+  /**
+   * Method under test: {@link ExecutionTreeNode#getCurrentFlowElementId()}
+   */
+  @Test
+  public void testGetCurrentFlowElementId2() {
+    // Arrange
+    ExecutionEntityImpl executionEntity = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+    executionEntity.setLockTime(mock(Date.class));
+
+    // Act and Assert
+    assertEquals("", (new ExecutionTreeNode(executionEntity)).getCurrentFlowElementId());
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>{@link ExecutionTreeNode#ExecutionTreeNode(ExecutionEntity)}
+   *   <li>{@link ExecutionTreeNode#setChildren(List)}
+   *   <li>{@link ExecutionTreeNode#setExecutionEntity(ExecutionEntity)}
+   *   <li>{@link ExecutionTreeNode#setParent(ExecutionTreeNode)}
+   *   <li>{@link ExecutionTreeNode#getChildren()}
+   *   <li>{@link ExecutionTreeNode#getExecutionEntity()}
+   *   <li>{@link ExecutionTreeNode#getParent()}
+   * </ul>
+   */
+  @Test
+  public void testGettersAndSetters() {
+    // Arrange and Act
+    ExecutionTreeNode actualExecutionTreeNode = new ExecutionTreeNode(
+        ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    ArrayList<ExecutionTreeNode> children = new ArrayList<>();
+    actualExecutionTreeNode.setChildren(children);
+    ExecutionEntityImpl executionEntity = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+    actualExecutionTreeNode.setExecutionEntity(executionEntity);
+    ExecutionTreeNode parent = new ExecutionTreeNode(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    actualExecutionTreeNode.setParent(parent);
+    List<ExecutionTreeNode> actualChildren = actualExecutionTreeNode.getChildren();
+    ExecutionEntity actualExecutionEntity = actualExecutionTreeNode.getExecutionEntity();
+    ExecutionTreeNode actualParent = actualExecutionTreeNode.getParent();
+
+    // Assert that nothing has changed
+    assertTrue(actualChildren.isEmpty());
+    assertSame(children, actualChildren);
+    assertSame(parent, actualParent);
+    assertSame(executionEntity, actualExecutionEntity);
   }
 }

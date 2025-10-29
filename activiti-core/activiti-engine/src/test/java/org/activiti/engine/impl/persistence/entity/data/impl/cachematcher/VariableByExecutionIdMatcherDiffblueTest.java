@@ -17,52 +17,31 @@ package org.activiti.engine.impl.persistence.entity.data.impl.cachematcher;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.persistence.entity.VariableInstanceEntity;
 import org.activiti.engine.impl.persistence.entity.VariableInstanceEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class VariableByExecutionIdMatcherDiffblueTest {
   /**
-   * Test {@link VariableByExecutionIdMatcher#isRetained(VariableInstanceEntity, Object)} with {@code VariableInstanceEntity}, {@code Object}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableByExecutionIdMatcher#isRetained(VariableInstanceEntity, Object)}
+   * Method under test:
+   * {@link VariableByExecutionIdMatcher#isRetained(VariableInstanceEntity, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean VariableByExecutionIdMatcher.isRetained(VariableInstanceEntity, Object)"})
-  public void testIsRetainedWithVariableInstanceEntityObject_given42_when42_thenReturnTrue() {
+  public void testIsRetained() {
     // Arrange
     VariableByExecutionIdMatcher variableByExecutionIdMatcher = new VariableByExecutionIdMatcher();
 
-    VariableInstanceEntityImpl variableInstanceEntity = new VariableInstanceEntityImpl();
-    variableInstanceEntity.setExecutionId("42");
-
     // Act and Assert
-    assertTrue(variableByExecutionIdMatcher.isRetained(variableInstanceEntity, "42"));
+    assertFalse(variableByExecutionIdMatcher.isRetained(new VariableInstanceEntityImpl(), JSONObject.NULL));
   }
 
   /**
-   * Test {@link VariableByExecutionIdMatcher#isRetained(VariableInstanceEntity, Object)} with {@code VariableInstanceEntity}, {@code Object}.
-   * <ul>
-   *   <li>When {@code Parameter}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableByExecutionIdMatcher#isRetained(VariableInstanceEntity, Object)}
+   * Method under test:
+   * {@link VariableByExecutionIdMatcher#isRetained(VariableInstanceEntity, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean VariableByExecutionIdMatcher.isRetained(VariableInstanceEntity, Object)"})
-  public void testIsRetainedWithVariableInstanceEntityObject_whenParameter_thenReturnFalse() {
+  public void testIsRetained2() {
     // Arrange
     VariableByExecutionIdMatcher variableByExecutionIdMatcher = new VariableByExecutionIdMatcher();
 
@@ -74,21 +53,18 @@ public class VariableByExecutionIdMatcherDiffblueTest {
   }
 
   /**
-   * Test {@link VariableByExecutionIdMatcher#isRetained(VariableInstanceEntity, Object)} with {@code VariableInstanceEntity}, {@code Object}.
-   * <ul>
-   *   <li>When {@link VariableInstanceEntityImpl} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableByExecutionIdMatcher#isRetained(VariableInstanceEntity, Object)}
+   * Method under test:
+   * {@link VariableByExecutionIdMatcher#isRetained(VariableInstanceEntity, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean VariableByExecutionIdMatcher.isRetained(VariableInstanceEntity, Object)"})
-  public void testIsRetainedWithVariableInstanceEntityObject_whenVariableInstanceEntityImpl() {
+  public void testIsRetained3() {
     // Arrange
     VariableByExecutionIdMatcher variableByExecutionIdMatcher = new VariableByExecutionIdMatcher();
 
+    VariableInstanceEntityImpl variableInstanceEntity = new VariableInstanceEntityImpl();
+    variableInstanceEntity.setExecutionId("42");
+
     // Act and Assert
-    assertFalse(variableByExecutionIdMatcher.isRetained(new VariableInstanceEntityImpl(), JSONObject.NULL));
+    assertTrue(variableByExecutionIdMatcher.isRetained(variableInstanceEntity, "42"));
   }
 }

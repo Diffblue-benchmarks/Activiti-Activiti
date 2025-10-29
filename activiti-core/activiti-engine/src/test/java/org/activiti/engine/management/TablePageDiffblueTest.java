@@ -18,18 +18,54 @@ package org.activiti.engine.management;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiFunction;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class TablePageDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link TablePage#getSize()}
+   */
+  @Test
+  public void testGetSize() {
+    // Arrange
+    TablePage tablePage = new TablePage();
+    tablePage.setFirstResult(1L);
+    tablePage.setRows(new ArrayList<>());
+    tablePage.setTableName("Table Name");
+    tablePage.setTotal(1L);
+
+    // Act and Assert
+    assertEquals(0L, tablePage.getSize());
+  }
+
+  /**
+   * Method under test: {@link TablePage#getSize()}
+   */
+  @Test
+  public void testGetSize2() {
+    // Arrange
+    HashMap<String, Object> stringObjectMap = new HashMap<>();
+    stringObjectMap.computeIfPresent("foo", mock(BiFunction.class));
+
+    ArrayList<Map<String, Object>> rowData = new ArrayList<>();
+    rowData.add(stringObjectMap);
+
+    TablePage tablePage = new TablePage();
+    tablePage.setFirstResult(1L);
+    tablePage.setRows(rowData);
+    tablePage.setTableName("Table Name");
+    tablePage.setTotal(1L);
+
+    // Act and Assert
+    assertEquals(1L, tablePage.getSize());
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link TablePage}
@@ -44,10 +80,6 @@ public class TablePageDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void TablePage.<init>()", "long TablePage.getFirstResult()", "List TablePage.getRows()",
-      "String TablePage.getTableName()", "long TablePage.getTotal()", "void TablePage.setFirstResult(long)",
-      "void TablePage.setRows(List)", "void TablePage.setTableName(String)", "void TablePage.setTotal(long)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     TablePage actualTablePage = new TablePage();
@@ -60,35 +92,11 @@ public class TablePageDiffblueTest {
     List<Map<String, Object>> actualRows = actualTablePage.getRows();
     String actualTableName = actualTablePage.getTableName();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("Table Name", actualTableName);
     assertEquals(1L, actualFirstResult);
     assertEquals(1L, actualTablePage.getTotal());
     assertTrue(actualRows.isEmpty());
     assertSame(rowData, actualRows);
-  }
-
-  /**
-   * Test {@link TablePage#getSize()}.
-   * <ul>
-   *   <li>Given {@link TablePage} (default constructor) FirstResult is one.</li>
-   *   <li>Then return zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TablePage#getSize()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"long TablePage.getSize()"})
-  public void testGetSize_givenTablePageFirstResultIsOne_thenReturnZero() {
-    // Arrange
-    TablePage tablePage = new TablePage();
-    tablePage.setFirstResult(1L);
-    tablePage.setRows(new ArrayList<>());
-    tablePage.setTableName("Table Name");
-    tablePage.setTotal(1L);
-
-    // Act and Assert
-    assertEquals(0L, tablePage.getSize());
   }
 }

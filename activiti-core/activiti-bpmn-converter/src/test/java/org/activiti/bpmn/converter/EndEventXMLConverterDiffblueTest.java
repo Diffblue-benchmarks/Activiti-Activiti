@@ -16,34 +16,25 @@
 package org.activiti.bpmn.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import javax.xml.stream.XMLStreamWriter;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.EndEvent;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class EndEventXMLConverterDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link EndEventXMLConverter}
-   *   <li>{@link EndEventXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
+   *   <li>
+   * {@link EndEventXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
    *   <li>{@link EndEventXMLConverter#getBpmnElementType()}
    *   <li>{@link EndEventXMLConverter#getXMLElementName()}
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void EndEventXMLConverter.<init>()", "Class EndEventXMLConverter.getBpmnElementType()",
-      "java.lang.String EndEventXMLConverter.getXMLElementName()",
-      "void EndEventXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)"})
   void testGettersAndSetters() throws Exception {
     // Arrange and Act
     EndEventXMLConverter actualEndEventXMLConverter = new EndEventXMLConverter();
@@ -52,7 +43,7 @@ class EndEventXMLConverterDiffblueTest {
     actualEndEventXMLConverter.writeAdditionalAttributes(element, model, new IndentingXMLStreamWriter(null));
     Class<? extends BaseElement> actualBpmnElementType = actualEndEventXMLConverter.getBpmnElementType();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("endEvent", actualEndEventXMLConverter.getXMLElementName());
     Class<EndEvent> expectedBpmnElementType = EndEvent.class;
     assertEquals(expectedBpmnElementType, actualBpmnElementType);

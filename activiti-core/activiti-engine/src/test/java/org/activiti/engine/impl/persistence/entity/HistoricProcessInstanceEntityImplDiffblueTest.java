@@ -18,27 +18,331 @@ package org.activiti.engine.impl.persistence.entity;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.activiti.engine.impl.variable.BigDecimalType;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class HistoricProcessInstanceEntityImplDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test:
+   * {@link HistoricProcessInstanceEntityImpl#getPersistentState()}
+   */
+  @Test
+  public void testGetPersistentState() {
+    // Arrange and Act
+    Object actualPersistentState = (new HistoricProcessInstanceEntityImpl()).getPersistentState();
+
+    // Assert
+    assertTrue(actualPersistentState instanceof Map);
+    assertEquals(12, ((Map<String, Object>) actualPersistentState).size());
+    assertNull(((Map<String, Object>) actualPersistentState).get("businessKey"));
+    assertNull(((Map<String, Object>) actualPersistentState).get("deleteReason"));
+    assertNull(((Map<String, Object>) actualPersistentState).get("deploymentId"));
+    assertNull(((Map<String, Object>) actualPersistentState).get("durationInMillis"));
+    assertNull(((Map<String, Object>) actualPersistentState).get("endStateName"));
+    assertNull(((Map<String, Object>) actualPersistentState).get("endTime"));
+    assertNull(((Map<String, Object>) actualPersistentState).get("name"));
+    assertNull(((Map<String, Object>) actualPersistentState).get("processDefinitionId"));
+    assertNull(((Map<String, Object>) actualPersistentState).get("processDefinitionName"));
+    assertNull(((Map<String, Object>) actualPersistentState).get("processDefinitionVersion"));
+    assertNull(((Map<String, Object>) actualPersistentState).get("superProcessInstanceId"));
+  }
+
+  /**
+   * Method under test: {@link HistoricProcessInstanceEntityImpl#getName()}
+   */
+  @Test
+  public void testGetName() {
+    // Arrange, Act and Assert
+    assertNull((new HistoricProcessInstanceEntityImpl()).getName());
+  }
+
+  /**
+   * Method under test: {@link HistoricProcessInstanceEntityImpl#getName()}
+   */
+  @Test
+  public void testGetName2() {
+    // Arrange
+    HistoricProcessInstanceEntityImpl historicProcessInstanceEntityImpl = new HistoricProcessInstanceEntityImpl();
+    historicProcessInstanceEntityImpl.setLocalizedName("foo");
+
+    // Act and Assert
+    assertEquals("foo", historicProcessInstanceEntityImpl.getName());
+  }
+
+  /**
+   * Method under test: {@link HistoricProcessInstanceEntityImpl#getName()}
+   */
+  @Test
+  public void testGetName3() {
+    // Arrange
+    HistoricProcessInstanceEntityImpl historicProcessInstanceEntityImpl = new HistoricProcessInstanceEntityImpl();
+    historicProcessInstanceEntityImpl.setLocalizedName("");
+
+    // Act and Assert
+    assertNull(historicProcessInstanceEntityImpl.getName());
+  }
+
+  /**
+   * Method under test: {@link HistoricProcessInstanceEntityImpl#getName()}
+   */
+  @Test
+  public void testGetName4() {
+    // Arrange
+    HistoricProcessInstanceEntityImpl historicProcessInstanceEntityImpl = new HistoricProcessInstanceEntityImpl();
+    historicProcessInstanceEntityImpl.setStartTime(mock(Date.class));
+
+    // Act and Assert
+    assertNull(historicProcessInstanceEntityImpl.getName());
+  }
+
+  /**
+   * Method under test: {@link HistoricProcessInstanceEntityImpl#getDescription()}
+   */
+  @Test
+  public void testGetDescription() {
+    // Arrange, Act and Assert
+    assertNull((new HistoricProcessInstanceEntityImpl()).getDescription());
+  }
+
+  /**
+   * Method under test: {@link HistoricProcessInstanceEntityImpl#getDescription()}
+   */
+  @Test
+  public void testGetDescription2() {
+    // Arrange
+    HistoricProcessInstanceEntityImpl historicProcessInstanceEntityImpl = new HistoricProcessInstanceEntityImpl();
+    historicProcessInstanceEntityImpl.setLocalizedDescription("foo");
+
+    // Act and Assert
+    assertEquals("foo", historicProcessInstanceEntityImpl.getDescription());
+  }
+
+  /**
+   * Method under test: {@link HistoricProcessInstanceEntityImpl#getDescription()}
+   */
+  @Test
+  public void testGetDescription3() {
+    // Arrange
+    HistoricProcessInstanceEntityImpl historicProcessInstanceEntityImpl = new HistoricProcessInstanceEntityImpl();
+    historicProcessInstanceEntityImpl.setLocalizedDescription("");
+
+    // Act and Assert
+    assertNull(historicProcessInstanceEntityImpl.getDescription());
+  }
+
+  /**
+   * Method under test: {@link HistoricProcessInstanceEntityImpl#getDescription()}
+   */
+  @Test
+  public void testGetDescription4() {
+    // Arrange
+    HistoricProcessInstanceEntityImpl historicProcessInstanceEntityImpl = new HistoricProcessInstanceEntityImpl();
+    historicProcessInstanceEntityImpl.setStartTime(mock(Date.class));
+
+    // Act and Assert
+    assertNull(historicProcessInstanceEntityImpl.getDescription());
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceEntityImpl#getProcessVariables()}
+   */
+  @Test
+  public void testGetProcessVariables() {
+    // Arrange, Act and Assert
+    assertTrue((new HistoricProcessInstanceEntityImpl()).getProcessVariables().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceEntityImpl#getProcessVariables()}
+   */
+  @Test
+  public void testGetProcessVariables2() {
+    // Arrange
+    HistoricProcessInstanceEntityImpl historicProcessInstanceEntityImpl = new HistoricProcessInstanceEntityImpl();
+    historicProcessInstanceEntityImpl.setQueryVariables(new ArrayList<>());
+
+    // Act and Assert
+    assertTrue(historicProcessInstanceEntityImpl.getProcessVariables().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceEntityImpl#getProcessVariables()}
+   */
+  @Test
+  public void testGetProcessVariables3() {
+    // Arrange
+    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
+    historicVariableInstanceEntityImpl.setCachedValue(JSONObject.NULL);
+    historicVariableInstanceEntityImpl
+        .setCreateTime(java.util.Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl.setDeleted(true);
+    historicVariableInstanceEntityImpl.setDoubleValue(10.0d);
+    historicVariableInstanceEntityImpl.setExecutionId("42");
+    historicVariableInstanceEntityImpl.setInserted(true);
+    historicVariableInstanceEntityImpl.setLastUpdatedTime(
+        java.util.Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl.setLongValue(42L);
+    historicVariableInstanceEntityImpl.setName("Name");
+    historicVariableInstanceEntityImpl.setProcessInstanceId("42");
+    historicVariableInstanceEntityImpl.setRevision(1);
+    historicVariableInstanceEntityImpl.setTextValue("42");
+    historicVariableInstanceEntityImpl.setTextValue2("42");
+    historicVariableInstanceEntityImpl.setUpdated(true);
+    historicVariableInstanceEntityImpl.setVariableType(new BigDecimalType());
+    historicVariableInstanceEntityImpl.setId(null);
+    historicVariableInstanceEntityImpl.setTaskId(null);
+
+    ArrayList<HistoricVariableInstanceEntity> queryVariables = new ArrayList<>();
+    queryVariables.add(historicVariableInstanceEntityImpl);
+
+    HistoricProcessInstanceEntityImpl historicProcessInstanceEntityImpl = new HistoricProcessInstanceEntityImpl();
+    historicProcessInstanceEntityImpl.setQueryVariables(queryVariables);
+
+    // Act and Assert
+    assertTrue(historicProcessInstanceEntityImpl.getProcessVariables().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceEntityImpl#getProcessVariables()}
+   */
+  @Test
+  public void testGetProcessVariables4() {
+    // Arrange
+    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
+    historicVariableInstanceEntityImpl.setCachedValue(JSONObject.NULL);
+    historicVariableInstanceEntityImpl
+        .setCreateTime(java.util.Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl.setDeleted(true);
+    historicVariableInstanceEntityImpl.setDoubleValue(10.0d);
+    historicVariableInstanceEntityImpl.setExecutionId("42");
+    historicVariableInstanceEntityImpl.setInserted(true);
+    historicVariableInstanceEntityImpl.setLastUpdatedTime(
+        java.util.Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl.setLongValue(42L);
+    historicVariableInstanceEntityImpl.setName("Name");
+    historicVariableInstanceEntityImpl.setProcessInstanceId("42");
+    historicVariableInstanceEntityImpl.setRevision(1);
+    historicVariableInstanceEntityImpl.setTextValue("42");
+    historicVariableInstanceEntityImpl.setTextValue2("42");
+    historicVariableInstanceEntityImpl.setUpdated(true);
+    historicVariableInstanceEntityImpl.setVariableType(new BigDecimalType());
+    historicVariableInstanceEntityImpl.setId("foo");
+    historicVariableInstanceEntityImpl.setTaskId(null);
+
+    ArrayList<HistoricVariableInstanceEntity> queryVariables = new ArrayList<>();
+    queryVariables.add(historicVariableInstanceEntityImpl);
+
+    HistoricProcessInstanceEntityImpl historicProcessInstanceEntityImpl = new HistoricProcessInstanceEntityImpl();
+    historicProcessInstanceEntityImpl.setQueryVariables(queryVariables);
+
+    // Act
+    Map<String, Object> actualProcessVariables = historicProcessInstanceEntityImpl.getProcessVariables();
+
+    // Assert
+    assertEquals(1, actualProcessVariables.size());
+    assertTrue(actualProcessVariables.containsKey("Name"));
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceEntityImpl#getProcessVariables()}
+   */
+  @Test
+  public void testGetProcessVariables5() {
+    // Arrange
+    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
+    historicVariableInstanceEntityImpl.setCachedValue(JSONObject.NULL);
+    historicVariableInstanceEntityImpl
+        .setCreateTime(java.util.Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl.setDeleted(true);
+    historicVariableInstanceEntityImpl.setDoubleValue(10.0d);
+    historicVariableInstanceEntityImpl.setExecutionId("42");
+    historicVariableInstanceEntityImpl.setInserted(true);
+    historicVariableInstanceEntityImpl.setLastUpdatedTime(
+        java.util.Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl.setLongValue(42L);
+    historicVariableInstanceEntityImpl.setName("Name");
+    historicVariableInstanceEntityImpl.setProcessInstanceId("42");
+    historicVariableInstanceEntityImpl.setRevision(1);
+    historicVariableInstanceEntityImpl.setTextValue("42");
+    historicVariableInstanceEntityImpl.setTextValue2("42");
+    historicVariableInstanceEntityImpl.setUpdated(true);
+    historicVariableInstanceEntityImpl.setVariableType(new BigDecimalType());
+    historicVariableInstanceEntityImpl.setId("foo");
+    historicVariableInstanceEntityImpl.setTaskId("foo");
+
+    ArrayList<HistoricVariableInstanceEntity> queryVariables = new ArrayList<>();
+    queryVariables.add(historicVariableInstanceEntityImpl);
+
+    HistoricProcessInstanceEntityImpl historicProcessInstanceEntityImpl = new HistoricProcessInstanceEntityImpl();
+    historicProcessInstanceEntityImpl.setQueryVariables(queryVariables);
+
+    // Act and Assert
+    assertTrue(historicProcessInstanceEntityImpl.getProcessVariables().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceEntityImpl#getQueryVariables()}
+   */
+  @Test
+  public void testGetQueryVariables() {
+    // Arrange, Act and Assert
+    assertNull((new HistoricProcessInstanceEntityImpl()).getQueryVariables());
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceEntityImpl#getQueryVariables()}
+   */
+  @Test
+  public void testGetQueryVariables2() {
+    // Arrange
+    HistoricProcessInstanceEntityImpl historicProcessInstanceEntityImpl = new HistoricProcessInstanceEntityImpl();
+    ArrayList<HistoricVariableInstanceEntity> queryVariables = new ArrayList<>();
+    historicProcessInstanceEntityImpl.setQueryVariables(queryVariables);
+
+    // Act
+    List<HistoricVariableInstanceEntity> actualQueryVariables = historicProcessInstanceEntityImpl.getQueryVariables();
+
+    // Assert
+    assertTrue(actualQueryVariables.isEmpty());
+    assertSame(queryVariables, actualQueryVariables);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceEntityImpl#getQueryVariables()}
+   */
+  @Test
+  public void testGetQueryVariables3() {
+    // Arrange
+    HistoricProcessInstanceEntityImpl historicProcessInstanceEntityImpl = new HistoricProcessInstanceEntityImpl();
+    historicProcessInstanceEntityImpl.setStartTime(mock(Date.class));
+
+    // Act and Assert
+    assertNull(historicProcessInstanceEntityImpl.getQueryVariables());
+  }
+
+  /**
    * Methods under test:
    * <ul>
-   *   <li>{@link HistoricProcessInstanceEntityImpl#HistoricProcessInstanceEntityImpl()}
+   *   <li>
+   * {@link HistoricProcessInstanceEntityImpl#HistoricProcessInstanceEntityImpl()}
    *   <li>{@link HistoricProcessInstanceEntityImpl#setBusinessKey(String)}
    *   <li>{@link HistoricProcessInstanceEntityImpl#setDeploymentId(String)}
    *   <li>{@link HistoricProcessInstanceEntityImpl#setDescription(String)}
@@ -47,12 +351,15 @@ public class HistoricProcessInstanceEntityImplDiffblueTest {
    *   <li>{@link HistoricProcessInstanceEntityImpl#setLocalizedName(String)}
    *   <li>{@link HistoricProcessInstanceEntityImpl#setName(String)}
    *   <li>{@link HistoricProcessInstanceEntityImpl#setProcessDefinitionKey(String)}
-   *   <li>{@link HistoricProcessInstanceEntityImpl#setProcessDefinitionName(String)}
-   *   <li>{@link HistoricProcessInstanceEntityImpl#setProcessDefinitionVersion(Integer)}
+   *   <li>
+   * {@link HistoricProcessInstanceEntityImpl#setProcessDefinitionName(String)}
+   *   <li>
+   * {@link HistoricProcessInstanceEntityImpl#setProcessDefinitionVersion(Integer)}
    *   <li>{@link HistoricProcessInstanceEntityImpl#setQueryVariables(List)}
    *   <li>{@link HistoricProcessInstanceEntityImpl#setStartActivityId(String)}
    *   <li>{@link HistoricProcessInstanceEntityImpl#setStartUserId(String)}
-   *   <li>{@link HistoricProcessInstanceEntityImpl#setSuperProcessInstanceId(String)}
+   *   <li>
+   * {@link HistoricProcessInstanceEntityImpl#setSuperProcessInstanceId(String)}
    *   <li>{@link HistoricProcessInstanceEntityImpl#setTenantId(String)}
    *   <li>{@link HistoricProcessInstanceEntityImpl#toString()}
    *   <li>{@link HistoricProcessInstanceEntityImpl#getBusinessKey()}
@@ -70,36 +377,6 @@ public class HistoricProcessInstanceEntityImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricProcessInstanceEntityImpl.<init>()",
-      "String HistoricProcessInstanceEntityImpl.getBusinessKey()",
-      "String HistoricProcessInstanceEntityImpl.getDeploymentId()",
-      "String HistoricProcessInstanceEntityImpl.getEndActivityId()",
-      "String HistoricProcessInstanceEntityImpl.getLocalizedDescription()",
-      "String HistoricProcessInstanceEntityImpl.getLocalizedName()",
-      "String HistoricProcessInstanceEntityImpl.getProcessDefinitionKey()",
-      "String HistoricProcessInstanceEntityImpl.getProcessDefinitionName()",
-      "Integer HistoricProcessInstanceEntityImpl.getProcessDefinitionVersion()",
-      "String HistoricProcessInstanceEntityImpl.getStartActivityId()",
-      "String HistoricProcessInstanceEntityImpl.getStartUserId()",
-      "String HistoricProcessInstanceEntityImpl.getSuperProcessInstanceId()",
-      "String HistoricProcessInstanceEntityImpl.getTenantId()",
-      "void HistoricProcessInstanceEntityImpl.setBusinessKey(String)",
-      "void HistoricProcessInstanceEntityImpl.setDeploymentId(String)",
-      "void HistoricProcessInstanceEntityImpl.setDescription(String)",
-      "void HistoricProcessInstanceEntityImpl.setEndActivityId(String)",
-      "void HistoricProcessInstanceEntityImpl.setLocalizedDescription(String)",
-      "void HistoricProcessInstanceEntityImpl.setLocalizedName(String)",
-      "void HistoricProcessInstanceEntityImpl.setName(String)",
-      "void HistoricProcessInstanceEntityImpl.setProcessDefinitionKey(String)",
-      "void HistoricProcessInstanceEntityImpl.setProcessDefinitionName(String)",
-      "void HistoricProcessInstanceEntityImpl.setProcessDefinitionVersion(Integer)",
-      "void HistoricProcessInstanceEntityImpl.setQueryVariables(List)",
-      "void HistoricProcessInstanceEntityImpl.setStartActivityId(String)",
-      "void HistoricProcessInstanceEntityImpl.setStartUserId(String)",
-      "void HistoricProcessInstanceEntityImpl.setSuperProcessInstanceId(String)",
-      "void HistoricProcessInstanceEntityImpl.setTenantId(String)",
-      "String HistoricProcessInstanceEntityImpl.toString()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     HistoricProcessInstanceEntityImpl actualHistoricProcessInstanceEntityImpl = new HistoricProcessInstanceEntityImpl();
@@ -131,7 +408,7 @@ public class HistoricProcessInstanceEntityImplDiffblueTest {
     String actualStartUserId = actualHistoricProcessInstanceEntityImpl.getStartUserId();
     String actualSuperProcessInstanceId = actualHistoricProcessInstanceEntityImpl.getSuperProcessInstanceId();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("42", actualDeploymentId);
     assertEquals("42", actualEndActivityId);
     assertEquals("42", actualStartActivityId);
@@ -144,13 +421,6 @@ public class HistoricProcessInstanceEntityImplDiffblueTest {
     assertEquals("Localized Name", actualLocalizedName);
     assertEquals("Process Definition Key", actualProcessDefinitionKey);
     assertEquals("Process Definition Name", actualProcessDefinitionName);
-    assertNull(actualHistoricProcessInstanceEntityImpl.getDurationInMillis());
-    assertNull(actualHistoricProcessInstanceEntityImpl.getId());
-    assertNull(actualHistoricProcessInstanceEntityImpl.getDeleteReason());
-    assertNull(actualHistoricProcessInstanceEntityImpl.getProcessDefinitionId());
-    assertNull(actualHistoricProcessInstanceEntityImpl.getProcessInstanceId());
-    assertNull(actualHistoricProcessInstanceEntityImpl.getEndTime());
-    assertNull(actualHistoricProcessInstanceEntityImpl.getStartTime());
     assertEquals(1, actualProcessDefinitionVersion.intValue());
     assertFalse(actualHistoricProcessInstanceEntityImpl.isDeleted());
     assertFalse(actualHistoricProcessInstanceEntityImpl.isInserted());
@@ -159,13 +429,10 @@ public class HistoricProcessInstanceEntityImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricProcessInstanceEntityImpl#HistoricProcessInstanceEntityImpl(ExecutionEntity)}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceEntityImpl#HistoricProcessInstanceEntityImpl(ExecutionEntity)}
+   * Method under test:
+   * {@link HistoricProcessInstanceEntityImpl#HistoricProcessInstanceEntityImpl(ExecutionEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricProcessInstanceEntityImpl.<init>(ExecutionEntity)"})
   public void testNewHistoricProcessInstanceEntityImpl() {
     // Arrange and Act
     HistoricProcessInstanceEntityImpl actualHistoricProcessInstanceEntityImpl = new HistoricProcessInstanceEntityImpl(
@@ -177,6 +444,13 @@ public class HistoricProcessInstanceEntityImplDiffblueTest {
     assertEquals("", actualHistoricProcessInstanceEntityImpl.getTenantId());
     assertNull(actualHistoricProcessInstanceEntityImpl.getProcessDefinitionVersion());
     assertNull(actualHistoricProcessInstanceEntityImpl.getDurationInMillis());
+    assertEquals(12, ((Map<String, Object>) persistentState).size());
+    assertNull(((Map<String, Object>) persistentState).get("businessKey"));
+    assertNull(((Map<String, Object>) persistentState).get("deploymentId"));
+    assertNull(((Map<String, Object>) persistentState).get("durationInMillis"));
+    assertNull(((Map<String, Object>) persistentState).get("endStateName"));
+    assertNull(((Map<String, Object>) persistentState).get("name"));
+    assertNull(((Map<String, Object>) persistentState).get("processDefinitionId"));
     assertNull(actualHistoricProcessInstanceEntityImpl.getId());
     assertNull(actualHistoricProcessInstanceEntityImpl.getBusinessKey());
     assertNull(actualHistoricProcessInstanceEntityImpl.getDeploymentId());
@@ -199,31 +473,18 @@ public class HistoricProcessInstanceEntityImplDiffblueTest {
     assertNull(actualHistoricProcessInstanceEntityImpl.getStartTime());
     assertNull(actualHistoricProcessInstanceEntityImpl.getQueryVariables());
     assertNull(actualHistoricProcessInstanceEntityImpl.queryVariables);
-    assertEquals(12, ((Map<String, Object>) persistentState).size());
     assertFalse(actualHistoricProcessInstanceEntityImpl.isDeleted());
     assertFalse(actualHistoricProcessInstanceEntityImpl.isInserted());
     assertFalse(actualHistoricProcessInstanceEntityImpl.isUpdated());
-    assertTrue(((Map<String, Object>) persistentState).containsKey("businessKey"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("deploymentId"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("durationInMillis"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("endStateName"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("name"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("processDefinitionId"));
     assertTrue(actualHistoricProcessInstanceEntityImpl.getProcessVariables().isEmpty());
   }
 
   /**
-   * Test {@link HistoricProcessInstanceEntityImpl#HistoricProcessInstanceEntityImpl(ExecutionEntity)}.
-   * <ul>
-   *   <li>Given {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceEntityImpl#HistoricProcessInstanceEntityImpl(ExecutionEntity)}
+   * Method under test:
+   * {@link HistoricProcessInstanceEntityImpl#HistoricProcessInstanceEntityImpl(ExecutionEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricProcessInstanceEntityImpl.<init>(ExecutionEntity)"})
-  public void testNewHistoricProcessInstanceEntityImpl_givenNull() {
+  public void testNewHistoricProcessInstanceEntityImpl2() {
     // Arrange
     ExecutionEntityImpl processInstance = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
     processInstance.setTenantId(null);
@@ -238,6 +499,13 @@ public class HistoricProcessInstanceEntityImplDiffblueTest {
     assertEquals("", actualHistoricProcessInstanceEntityImpl.getTenantId());
     assertNull(actualHistoricProcessInstanceEntityImpl.getProcessDefinitionVersion());
     assertNull(actualHistoricProcessInstanceEntityImpl.getDurationInMillis());
+    assertEquals(12, ((Map<String, Object>) persistentState).size());
+    assertNull(((Map<String, Object>) persistentState).get("businessKey"));
+    assertNull(((Map<String, Object>) persistentState).get("deploymentId"));
+    assertNull(((Map<String, Object>) persistentState).get("durationInMillis"));
+    assertNull(((Map<String, Object>) persistentState).get("endStateName"));
+    assertNull(((Map<String, Object>) persistentState).get("name"));
+    assertNull(((Map<String, Object>) persistentState).get("processDefinitionId"));
     assertNull(actualHistoricProcessInstanceEntityImpl.getId());
     assertNull(actualHistoricProcessInstanceEntityImpl.getBusinessKey());
     assertNull(actualHistoricProcessInstanceEntityImpl.getDeploymentId());
@@ -260,365 +528,64 @@ public class HistoricProcessInstanceEntityImplDiffblueTest {
     assertNull(actualHistoricProcessInstanceEntityImpl.getStartTime());
     assertNull(actualHistoricProcessInstanceEntityImpl.getQueryVariables());
     assertNull(actualHistoricProcessInstanceEntityImpl.queryVariables);
-    assertEquals(12, ((Map<String, Object>) persistentState).size());
     assertFalse(actualHistoricProcessInstanceEntityImpl.isDeleted());
     assertFalse(actualHistoricProcessInstanceEntityImpl.isInserted());
     assertFalse(actualHistoricProcessInstanceEntityImpl.isUpdated());
-    assertTrue(((Map<String, Object>) persistentState).containsKey("businessKey"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("deploymentId"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("durationInMillis"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("endStateName"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("name"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("processDefinitionId"));
     assertTrue(actualHistoricProcessInstanceEntityImpl.getProcessVariables().isEmpty());
   }
 
   /**
-   * Test {@link HistoricProcessInstanceEntityImpl#getPersistentState()}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceEntityImpl#getPersistentState()}
+   * Method under test:
+   * {@link HistoricProcessInstanceEntityImpl#HistoricProcessInstanceEntityImpl(ExecutionEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object HistoricProcessInstanceEntityImpl.getPersistentState()"})
-  public void testGetPersistentState() {
-    // Arrange and Act
-    Object actualPersistentState = (new HistoricProcessInstanceEntityImpl()).getPersistentState();
-
-    // Assert
-    assertTrue(actualPersistentState instanceof Map);
-    assertEquals(12, ((Map<String, Object>) actualPersistentState).size());
-    assertNull(((Map<String, Object>) actualPersistentState).get("businessKey"));
-    assertNull(((Map<String, Object>) actualPersistentState).get("deleteReason"));
-    assertNull(((Map<String, Object>) actualPersistentState).get("deploymentId"));
-    assertNull(((Map<String, Object>) actualPersistentState).get("durationInMillis"));
-    assertNull(((Map<String, Object>) actualPersistentState).get("endStateName"));
-    assertNull(((Map<String, Object>) actualPersistentState).get("endTime"));
-    assertNull(((Map<String, Object>) actualPersistentState).get("name"));
-    assertNull(((Map<String, Object>) actualPersistentState).get("processDefinitionId"));
-    assertNull(((Map<String, Object>) actualPersistentState).get("processDefinitionName"));
-    assertNull(((Map<String, Object>) actualPersistentState).get("processDefinitionVersion"));
-    assertNull(((Map<String, Object>) actualPersistentState).get("superProcessInstanceId"));
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceEntityImpl#getName()}.
-   * <ul>
-   *   <li>Given {@link HistoricProcessInstanceEntityImpl#HistoricProcessInstanceEntityImpl()} LocalizedName is empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceEntityImpl#getName()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String HistoricProcessInstanceEntityImpl.getName()"})
-  public void testGetName_givenHistoricProcessInstanceEntityImplLocalizedNameIsEmptyString() {
+  public void testNewHistoricProcessInstanceEntityImpl3() {
     // Arrange
-    HistoricProcessInstanceEntityImpl historicProcessInstanceEntityImpl = new HistoricProcessInstanceEntityImpl();
-    historicProcessInstanceEntityImpl.setLocalizedName("");
-
-    // Act and Assert
-    assertNull(historicProcessInstanceEntityImpl.getName());
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceEntityImpl#getName()}.
-   * <ul>
-   *   <li>Given {@link HistoricProcessInstanceEntityImpl#HistoricProcessInstanceEntityImpl()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceEntityImpl#getName()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String HistoricProcessInstanceEntityImpl.getName()"})
-  public void testGetName_givenHistoricProcessInstanceEntityImpl_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new HistoricProcessInstanceEntityImpl()).getName());
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceEntityImpl#getName()}.
-   * <ul>
-   *   <li>Then return {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceEntityImpl#getName()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String HistoricProcessInstanceEntityImpl.getName()"})
-  public void testGetName_thenReturnFoo() {
-    // Arrange
-    HistoricProcessInstanceEntityImpl historicProcessInstanceEntityImpl = new HistoricProcessInstanceEntityImpl();
-    historicProcessInstanceEntityImpl.setLocalizedName("foo");
-
-    // Act and Assert
-    assertEquals("foo", historicProcessInstanceEntityImpl.getName());
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceEntityImpl#getDescription()}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceEntityImpl#getDescription()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String HistoricProcessInstanceEntityImpl.getDescription()"})
-  public void testGetDescription() {
-    // Arrange
-    HistoricProcessInstanceEntityImpl historicProcessInstanceEntityImpl = new HistoricProcessInstanceEntityImpl();
-    historicProcessInstanceEntityImpl.setLocalizedDescription("");
-
-    // Act and Assert
-    assertNull(historicProcessInstanceEntityImpl.getDescription());
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceEntityImpl#getDescription()}.
-   * <ul>
-   *   <li>Given {@link HistoricProcessInstanceEntityImpl#HistoricProcessInstanceEntityImpl()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceEntityImpl#getDescription()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String HistoricProcessInstanceEntityImpl.getDescription()"})
-  public void testGetDescription_givenHistoricProcessInstanceEntityImpl_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new HistoricProcessInstanceEntityImpl()).getDescription());
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceEntityImpl#getDescription()}.
-   * <ul>
-   *   <li>Then return {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceEntityImpl#getDescription()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String HistoricProcessInstanceEntityImpl.getDescription()"})
-  public void testGetDescription_thenReturnFoo() {
-    // Arrange
-    HistoricProcessInstanceEntityImpl historicProcessInstanceEntityImpl = new HistoricProcessInstanceEntityImpl();
-    historicProcessInstanceEntityImpl.setLocalizedDescription("foo");
-
-    // Act and Assert
-    assertEquals("foo", historicProcessInstanceEntityImpl.getDescription());
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceEntityImpl#getProcessVariables()}.
-   * <ul>
-   *   <li>Given {@link HistoricProcessInstanceEntityImpl#HistoricProcessInstanceEntityImpl()}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceEntityImpl#getProcessVariables()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Map HistoricProcessInstanceEntityImpl.getProcessVariables()"})
-  public void testGetProcessVariables_givenHistoricProcessInstanceEntityImpl_thenReturnEmpty() {
-    // Arrange, Act and Assert
-    assertTrue((new HistoricProcessInstanceEntityImpl()).getProcessVariables().isEmpty());
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceEntityImpl#getProcessVariables()}.
-   * <ul>
-   *   <li>Given {@link HistoricVariableInstanceEntityImpl} (default constructor) Id is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceEntityImpl#getProcessVariables()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Map HistoricProcessInstanceEntityImpl.getProcessVariables()"})
-  public void testGetProcessVariables_givenHistoricVariableInstanceEntityImplIdIsNull() {
-    // Arrange
-    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
-    historicVariableInstanceEntityImpl.setCachedValue(JSONObject.NULL);
-    historicVariableInstanceEntityImpl
-        .setCreateTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    historicVariableInstanceEntityImpl.setDeleted(true);
-    historicVariableInstanceEntityImpl.setDoubleValue(10.0d);
-    historicVariableInstanceEntityImpl.setExecutionId("42");
-    historicVariableInstanceEntityImpl.setInserted(true);
-    historicVariableInstanceEntityImpl
-        .setLastUpdatedTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    historicVariableInstanceEntityImpl.setLongValue(42L);
-    historicVariableInstanceEntityImpl.setName("Name");
-    historicVariableInstanceEntityImpl.setProcessInstanceId("42");
-    historicVariableInstanceEntityImpl.setRevision(1);
-    historicVariableInstanceEntityImpl.setTextValue("42");
-    historicVariableInstanceEntityImpl.setTextValue2("42");
-    historicVariableInstanceEntityImpl.setUpdated(true);
-    historicVariableInstanceEntityImpl.setVariableType(new BigDecimalType());
-    historicVariableInstanceEntityImpl.setId(null);
-    historicVariableInstanceEntityImpl.setTaskId(null);
-
-    ArrayList<HistoricVariableInstanceEntity> queryVariables = new ArrayList<>();
-    queryVariables.add(historicVariableInstanceEntityImpl);
-
-    HistoricProcessInstanceEntityImpl historicProcessInstanceEntityImpl = new HistoricProcessInstanceEntityImpl();
-    historicProcessInstanceEntityImpl.setQueryVariables(queryVariables);
-
-    // Act and Assert
-    assertTrue(historicProcessInstanceEntityImpl.getProcessVariables().isEmpty());
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceEntityImpl#getProcessVariables()}.
-   * <ul>
-   *   <li>Given {@link HistoricVariableInstanceEntityImpl} (default constructor) TaskId is {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceEntityImpl#getProcessVariables()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Map HistoricProcessInstanceEntityImpl.getProcessVariables()"})
-  public void testGetProcessVariables_givenHistoricVariableInstanceEntityImplTaskIdIsFoo() {
-    // Arrange
-    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
-    historicVariableInstanceEntityImpl.setCachedValue(JSONObject.NULL);
-    historicVariableInstanceEntityImpl
-        .setCreateTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    historicVariableInstanceEntityImpl.setDeleted(true);
-    historicVariableInstanceEntityImpl.setDoubleValue(10.0d);
-    historicVariableInstanceEntityImpl.setExecutionId("42");
-    historicVariableInstanceEntityImpl.setInserted(true);
-    historicVariableInstanceEntityImpl
-        .setLastUpdatedTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    historicVariableInstanceEntityImpl.setLongValue(42L);
-    historicVariableInstanceEntityImpl.setName("Name");
-    historicVariableInstanceEntityImpl.setProcessInstanceId("42");
-    historicVariableInstanceEntityImpl.setRevision(1);
-    historicVariableInstanceEntityImpl.setTextValue("42");
-    historicVariableInstanceEntityImpl.setTextValue2("42");
-    historicVariableInstanceEntityImpl.setUpdated(true);
-    historicVariableInstanceEntityImpl.setVariableType(new BigDecimalType());
-    historicVariableInstanceEntityImpl.setId("foo");
-    historicVariableInstanceEntityImpl.setTaskId("foo");
-
-    ArrayList<HistoricVariableInstanceEntity> queryVariables = new ArrayList<>();
-    queryVariables.add(historicVariableInstanceEntityImpl);
-
-    HistoricProcessInstanceEntityImpl historicProcessInstanceEntityImpl = new HistoricProcessInstanceEntityImpl();
-    historicProcessInstanceEntityImpl.setQueryVariables(queryVariables);
-
-    // Act and Assert
-    assertTrue(historicProcessInstanceEntityImpl.getProcessVariables().isEmpty());
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceEntityImpl#getProcessVariables()}.
-   * <ul>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceEntityImpl#getProcessVariables()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Map HistoricProcessInstanceEntityImpl.getProcessVariables()"})
-  public void testGetProcessVariables_thenReturnEmpty() {
-    // Arrange
-    HistoricProcessInstanceEntityImpl historicProcessInstanceEntityImpl = new HistoricProcessInstanceEntityImpl();
-    historicProcessInstanceEntityImpl.setQueryVariables(new ArrayList<>());
-
-    // Act and Assert
-    assertTrue(historicProcessInstanceEntityImpl.getProcessVariables().isEmpty());
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceEntityImpl#getProcessVariables()}.
-   * <ul>
-   *   <li>Then return size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceEntityImpl#getProcessVariables()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Map HistoricProcessInstanceEntityImpl.getProcessVariables()"})
-  public void testGetProcessVariables_thenReturnSizeIsOne() {
-    // Arrange
-    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
-    historicVariableInstanceEntityImpl.setCachedValue(JSONObject.NULL);
-    historicVariableInstanceEntityImpl
-        .setCreateTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    historicVariableInstanceEntityImpl.setDeleted(true);
-    historicVariableInstanceEntityImpl.setDoubleValue(10.0d);
-    historicVariableInstanceEntityImpl.setExecutionId("42");
-    historicVariableInstanceEntityImpl.setInserted(true);
-    historicVariableInstanceEntityImpl
-        .setLastUpdatedTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    historicVariableInstanceEntityImpl.setLongValue(42L);
-    historicVariableInstanceEntityImpl.setName("Name");
-    historicVariableInstanceEntityImpl.setProcessInstanceId("42");
-    historicVariableInstanceEntityImpl.setRevision(1);
-    historicVariableInstanceEntityImpl.setTextValue("42");
-    historicVariableInstanceEntityImpl.setTextValue2("42");
-    historicVariableInstanceEntityImpl.setUpdated(true);
-    historicVariableInstanceEntityImpl.setVariableType(new BigDecimalType());
-    historicVariableInstanceEntityImpl.setId("foo");
-    historicVariableInstanceEntityImpl.setTaskId(null);
-
-    ArrayList<HistoricVariableInstanceEntity> queryVariables = new ArrayList<>();
-    queryVariables.add(historicVariableInstanceEntityImpl);
-
-    HistoricProcessInstanceEntityImpl historicProcessInstanceEntityImpl = new HistoricProcessInstanceEntityImpl();
-    historicProcessInstanceEntityImpl.setQueryVariables(queryVariables);
+    ExecutionEntityImpl processInstance = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+    processInstance.setLockTime(mock(java.sql.Date.class));
 
     // Act
-    Map<String, Object> actualProcessVariables = historicProcessInstanceEntityImpl.getProcessVariables();
+    HistoricProcessInstanceEntityImpl actualHistoricProcessInstanceEntityImpl = new HistoricProcessInstanceEntityImpl(
+        processInstance);
 
     // Assert
-    assertEquals(1, actualProcessVariables.size());
-    assertTrue(actualProcessVariables.containsKey("Name"));
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceEntityImpl#getQueryVariables()}.
-   * <ul>
-   *   <li>Given {@link HistoricProcessInstanceEntityImpl#HistoricProcessInstanceEntityImpl()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceEntityImpl#getQueryVariables()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"List HistoricProcessInstanceEntityImpl.getQueryVariables()"})
-  public void testGetQueryVariables_givenHistoricProcessInstanceEntityImpl_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new HistoricProcessInstanceEntityImpl()).getQueryVariables());
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceEntityImpl#getQueryVariables()}.
-   * <ul>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceEntityImpl#getQueryVariables()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"List HistoricProcessInstanceEntityImpl.getQueryVariables()"})
-  public void testGetQueryVariables_thenReturnEmpty() {
-    // Arrange
-    HistoricProcessInstanceEntityImpl historicProcessInstanceEntityImpl = new HistoricProcessInstanceEntityImpl();
-    historicProcessInstanceEntityImpl.setQueryVariables(new ArrayList<>());
-
-    // Act and Assert
-    assertTrue(historicProcessInstanceEntityImpl.getQueryVariables().isEmpty());
+    Object persistentState = actualHistoricProcessInstanceEntityImpl.getPersistentState();
+    assertTrue(persistentState instanceof Map);
+    assertEquals("", actualHistoricProcessInstanceEntityImpl.getTenantId());
+    assertNull(actualHistoricProcessInstanceEntityImpl.getProcessDefinitionVersion());
+    assertNull(actualHistoricProcessInstanceEntityImpl.getDurationInMillis());
+    assertEquals(12, ((Map<String, Object>) persistentState).size());
+    assertNull(((Map<String, Object>) persistentState).get("businessKey"));
+    assertNull(((Map<String, Object>) persistentState).get("deploymentId"));
+    assertNull(((Map<String, Object>) persistentState).get("durationInMillis"));
+    assertNull(((Map<String, Object>) persistentState).get("endStateName"));
+    assertNull(((Map<String, Object>) persistentState).get("name"));
+    assertNull(((Map<String, Object>) persistentState).get("processDefinitionId"));
+    assertNull(actualHistoricProcessInstanceEntityImpl.getId());
+    assertNull(actualHistoricProcessInstanceEntityImpl.getBusinessKey());
+    assertNull(actualHistoricProcessInstanceEntityImpl.getDeploymentId());
+    assertNull(actualHistoricProcessInstanceEntityImpl.getDescription());
+    assertNull(actualHistoricProcessInstanceEntityImpl.getEndActivityId());
+    assertNull(actualHistoricProcessInstanceEntityImpl.getLocalizedDescription());
+    assertNull(actualHistoricProcessInstanceEntityImpl.getLocalizedName());
+    assertNull(actualHistoricProcessInstanceEntityImpl.getName());
+    assertNull(actualHistoricProcessInstanceEntityImpl.getProcessDefinitionKey());
+    assertNull(actualHistoricProcessInstanceEntityImpl.getProcessDefinitionName());
+    assertNull(actualHistoricProcessInstanceEntityImpl.getStartActivityId());
+    assertNull(actualHistoricProcessInstanceEntityImpl.getStartUserId());
+    assertNull(actualHistoricProcessInstanceEntityImpl.getSuperProcessInstanceId());
+    assertNull(actualHistoricProcessInstanceEntityImpl.getDeleteReason());
+    assertNull(actualHistoricProcessInstanceEntityImpl.getProcessDefinitionId());
+    assertNull(actualHistoricProcessInstanceEntityImpl.getProcessInstanceId());
+    assertNull(actualHistoricProcessInstanceEntityImpl.description);
+    assertNull(actualHistoricProcessInstanceEntityImpl.name);
+    assertNull(actualHistoricProcessInstanceEntityImpl.getEndTime());
+    assertNull(actualHistoricProcessInstanceEntityImpl.getStartTime());
+    assertNull(actualHistoricProcessInstanceEntityImpl.getQueryVariables());
+    assertNull(actualHistoricProcessInstanceEntityImpl.queryVariables);
+    assertFalse(actualHistoricProcessInstanceEntityImpl.isDeleted());
+    assertFalse(actualHistoricProcessInstanceEntityImpl.isInserted());
+    assertFalse(actualHistoricProcessInstanceEntityImpl.isUpdated());
+    assertTrue(actualHistoricProcessInstanceEntityImpl.getProcessVariables().isEmpty());
   }
 }

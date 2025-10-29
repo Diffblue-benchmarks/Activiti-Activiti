@@ -16,48 +16,21 @@
 package org.activiti.engine.impl.calendar;
 
 import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.impl.util.DefaultClockImpl;
 import org.activiti.engine.runtime.ClockReader;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class DurationHelperDiffblueTest {
   /**
-   * Test {@link DurationHelper#DurationHelper(String, int, ClockReader)}.
-   * <ul>
-   *   <li>When {@code /}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DurationHelper#DurationHelper(String, int, ClockReader)}
+   * Method under test:
+   * {@link DurationHelper#DurationHelper(String, int, ClockReader)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DurationHelper.<init>(String, int, ClockReader)"})
-  public void testNewDurationHelper_whenSlash_thenThrowActivitiIllegalArgumentException() throws Exception {
+  public void testNewDurationHelper() throws Exception {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> new DurationHelper("/", 3, new DefaultClockImpl()));
 
-  }
-
-  /**
-   * Test {@link DurationHelper#DurationHelper(String, ClockReader)}.
-   * <ul>
-   *   <li>When {@code /}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DurationHelper#DurationHelper(String, ClockReader)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DurationHelper.<init>(String, ClockReader)"})
-  public void testNewDurationHelper_whenSlash_thenThrowActivitiIllegalArgumentException2() throws Exception {
-    // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> new DurationHelper("/", new DefaultClockImpl()));
-
   }
 }

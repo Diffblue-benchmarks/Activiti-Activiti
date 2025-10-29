@@ -17,26 +17,15 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class GetProcessInstanceCommentsCmdDiffblueTest {
   /**
-   * Test {@link GetProcessInstanceCommentsCmd#GetProcessInstanceCommentsCmd(String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then return {@link GetProcessInstanceCommentsCmd#type} is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GetProcessInstanceCommentsCmd#GetProcessInstanceCommentsCmd(String)}
+   * Method under test:
+   * {@link GetProcessInstanceCommentsCmd#GetProcessInstanceCommentsCmd(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void GetProcessInstanceCommentsCmd.<init>(String)",
-      "void GetProcessInstanceCommentsCmd.<init>(String, String)"})
-  public void testNewGetProcessInstanceCommentsCmd_when42_thenReturnTypeIsNull() {
+  public void testNewGetProcessInstanceCommentsCmd() {
     // Arrange and Act
     GetProcessInstanceCommentsCmd actualGetProcessInstanceCommentsCmd = new GetProcessInstanceCommentsCmd("42");
 
@@ -46,19 +35,11 @@ public class GetProcessInstanceCommentsCmdDiffblueTest {
   }
 
   /**
-   * Test {@link GetProcessInstanceCommentsCmd#GetProcessInstanceCommentsCmd(String, String)}.
-   * <ul>
-   *   <li>When {@code Type}.</li>
-   *   <li>Then return {@code Type}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GetProcessInstanceCommentsCmd#GetProcessInstanceCommentsCmd(String, String)}
+   * Method under test:
+   * {@link GetProcessInstanceCommentsCmd#GetProcessInstanceCommentsCmd(String, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void GetProcessInstanceCommentsCmd.<init>(String)",
-      "void GetProcessInstanceCommentsCmd.<init>(String, String)"})
-  public void testNewGetProcessInstanceCommentsCmd_whenType_thenReturnType() {
+  public void testNewGetProcessInstanceCommentsCmd2() {
     // Arrange and Act
     GetProcessInstanceCommentsCmd actualGetProcessInstanceCommentsCmd = new GetProcessInstanceCommentsCmd("42", "Type");
 

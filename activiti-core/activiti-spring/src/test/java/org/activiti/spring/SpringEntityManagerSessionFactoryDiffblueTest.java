@@ -18,21 +18,17 @@ package org.activiti.spring;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import jakarta.persistence.EntityManagerFactory;
+import org.hibernate.engine.spi.SessionFactoryDelegatingImpl;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class SpringEntityManagerSessionFactoryDiffblueTest {
   /**
-   * Test {@link SpringEntityManagerSessionFactory#SpringEntityManagerSessionFactory(Object, boolean, boolean)}.
-   * <p>
-   * Method under test: {@link SpringEntityManagerSessionFactory#SpringEntityManagerSessionFactory(Object, boolean, boolean)}
+   * Method under test:
+   * {@link SpringEntityManagerSessionFactory#SpringEntityManagerSessionFactory(Object, boolean, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SpringEntityManagerSessionFactory.<init>(Object, boolean, boolean)"})
   public void testNewSpringEntityManagerSessionFactory() {
     // Arrange and Act
     SpringEntityManagerSessionFactory actualSpringEntityManagerSessionFactory = new SpringEntityManagerSessionFactory(
@@ -40,6 +36,23 @@ public class SpringEntityManagerSessionFactoryDiffblueTest {
 
     // Assert
     assertNull(actualSpringEntityManagerSessionFactory.entityManagerFactory);
+    assertTrue(actualSpringEntityManagerSessionFactory.closeEntityManager);
+    assertTrue(actualSpringEntityManagerSessionFactory.handleTransactions);
+    Class<EntityManagerFactory> expectedSessionType = EntityManagerFactory.class;
+    assertEquals(expectedSessionType, actualSpringEntityManagerSessionFactory.getSessionType());
+  }
+
+  /**
+   * Method under test:
+   * {@link SpringEntityManagerSessionFactory#SpringEntityManagerSessionFactory(Object, boolean, boolean)}
+   */
+  @Test
+  public void testNewSpringEntityManagerSessionFactory2() {
+    // Arrange and Act
+    SpringEntityManagerSessionFactory actualSpringEntityManagerSessionFactory = new SpringEntityManagerSessionFactory(
+        mock(SessionFactoryDelegatingImpl.class), true, true);
+
+    // Assert
     assertTrue(actualSpringEntityManagerSessionFactory.closeEntityManager);
     assertTrue(actualSpringEntityManagerSessionFactory.handleTransactions);
     Class<EntityManagerFactory> expectedSessionType = EntityManagerFactory.class;

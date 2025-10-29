@@ -30,7 +30,6 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -60,7 +59,6 @@ import org.activiti.api.runtime.shared.query.Pageable;
 import org.activiti.api.runtime.shared.security.SecurityManager;
 import org.activiti.core.common.spring.security.policies.ActivitiForbiddenException;
 import org.activiti.core.common.spring.security.policies.ProcessSecurityPoliciesManager;
-import org.activiti.core.common.spring.security.policies.SecurityPoliciesManager;
 import org.activiti.core.common.spring.security.policies.SecurityPolicyAccess;
 import org.activiti.engine.ActivitiObjectNotFoundException;
 import org.activiti.engine.RepositoryService;
@@ -74,7 +72,6 @@ import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandConfig;
 import org.activiti.engine.impl.interceptor.CommandContextInterceptor;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
-import org.activiti.engine.impl.persistence.entity.VariableInstance;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.runtime.ProcessInstanceQuery;
 import org.activiti.runtime.api.model.impl.APIDeploymentConverter;
@@ -82,23 +79,21 @@ import org.activiti.runtime.api.model.impl.APIProcessDefinitionConverter;
 import org.activiti.runtime.api.model.impl.APIProcessInstanceConverter;
 import org.activiti.runtime.api.model.impl.APIVariableInstanceConverter;
 import org.activiti.runtime.api.query.impl.PageImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.aot.DisabledInAotMode;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @ContextConfiguration(classes = {ProcessRuntimeImpl.class})
 @ExtendWith(SpringExtension.class)
 @DisabledInAotMode
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 class ProcessRuntimeImplDiffblueTest {
   @MockBean
   private APIDeploymentConverter aPIDeploymentConverter;
@@ -111,6 +106,9 @@ class ProcessRuntimeImplDiffblueTest {
 
   @MockBean
   private APIVariableInstanceConverter aPIVariableInstanceConverter;
+
+  @MockBean
+  private ApplicationEventPublisher applicationEventPublisher;
 
   @MockBean
   private ProcessRuntimeConfiguration processRuntimeConfiguration;
@@ -137,18 +135,10 @@ class ProcessRuntimeImplDiffblueTest {
   private TaskService taskService;
 
   /**
-   * Test {@link ProcessRuntimeImpl#processDefinition(String)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiObjectNotFoundException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ProcessRuntimeImpl#processDefinition(String)}
    */
   @Test
-  @DisplayName("Test processDefinition(String); then throw ActivitiObjectNotFoundException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.process.model.ProcessDefinition ProcessRuntimeImpl.processDefinition(String)"})
-  void testProcessDefinition_thenThrowActivitiObjectNotFoundException() throws SecurityException {
+  void testProcessDefinition() throws SecurityException {
     // Arrange
     when(repositoryService.createProcessDefinitionQuery()).thenReturn(new ProcessDefinitionQueryImpl());
     when(securityManager.getAuthenticatedUserGroups())
@@ -163,30 +153,68 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#processDefinitions(Pageable, GetProcessDefinitionsPayload)} with {@code pageable}, {@code getProcessDefinitionsPayload}.
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#processDefinitions(Pageable, GetProcessDefinitionsPayload)}
+   * Method under test: {@link ProcessRuntimeImpl#processDefinitions(Pageable)}
    */
   @Test
-  @DisplayName("Test processDefinitions(Pageable, GetProcessDefinitionsPayload) with 'pageable', 'getProcessDefinitionsPayload'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Page ProcessRuntimeImpl.processDefinitions(Pageable, GetProcessDefinitionsPayload)"})
-  void testProcessDefinitionsWithPageableGetProcessDefinitionsPayload() {
-    // Arrange, Act and Assert
-    assertThrows(IllegalStateException.class,
-        () -> processRuntimeImpl.processDefinitions(Pageable.of(1, 3), (GetProcessDefinitionsPayload) null));
+  void testProcessDefinitions() throws SecurityException {
+    // Arrange
+    when(repositoryService.createProcessDefinitionQuery()).thenReturn(new ProcessDefinitionQueryImpl());
+
+    HashSet<String> processDefinitionKeys = new HashSet<>();
+    processDefinitionKeys.add("foo");
+
+    GetProcessDefinitionsPayload getProcessDefinitionsPayload = new GetProcessDefinitionsPayload();
+    getProcessDefinitionsPayload.setProcessDefinitionKeys(processDefinitionKeys);
+    when(processSecurityPoliciesManager.restrictProcessDefQuery(Mockito.<SecurityPolicyAccess>any()))
+        .thenReturn(getProcessDefinitionsPayload);
+    when(securityManager.getAuthenticatedUserGroups())
+        .thenThrow(new ActivitiObjectNotFoundException("An error occurred"));
+    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
+
+    // Act and Assert
+    assertThrows(ActivitiObjectNotFoundException.class, () -> processRuntimeImpl.processDefinitions(Pageable.of(1, 3)));
+    verify(securityManager).getAuthenticatedUserGroups();
+    verify(securityManager).getAuthenticatedUserId();
+    verify(processSecurityPoliciesManager).restrictProcessDefQuery(eq(SecurityPolicyAccess.READ));
+    verify(repositoryService).createProcessDefinitionQuery();
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#processDefinitions(Pageable, GetProcessDefinitionsPayload)} with {@code pageable}, {@code getProcessDefinitionsPayload}.
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#processDefinitions(Pageable, GetProcessDefinitionsPayload)}
+   * Method under test:
+   * {@link ProcessRuntimeImpl#processDefinitions(Pageable, List)}
    */
   @Test
-  @DisplayName("Test processDefinitions(Pageable, GetProcessDefinitionsPayload) with 'pageable', 'getProcessDefinitionsPayload'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Page ProcessRuntimeImpl.processDefinitions(Pageable, GetProcessDefinitionsPayload)"})
-  void testProcessDefinitionsWithPageableGetProcessDefinitionsPayload2() throws SecurityException {
+  void testProcessDefinitions2() throws SecurityException {
+    // Arrange
+    when(repositoryService.createProcessDefinitionQuery()).thenReturn(new ProcessDefinitionQueryImpl());
+
+    HashSet<String> processDefinitionKeys = new HashSet<>();
+    processDefinitionKeys.add("foo");
+
+    GetProcessDefinitionsPayload getProcessDefinitionsPayload = new GetProcessDefinitionsPayload();
+    getProcessDefinitionsPayload.setProcessDefinitionKeys(processDefinitionKeys);
+    when(processSecurityPoliciesManager.restrictProcessDefQuery(Mockito.<SecurityPolicyAccess>any()))
+        .thenReturn(getProcessDefinitionsPayload);
+    when(securityManager.getAuthenticatedUserGroups())
+        .thenThrow(new ActivitiObjectNotFoundException("An error occurred"));
+    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
+    Pageable pageable = Pageable.of(1, 3);
+
+    // Act and Assert
+    assertThrows(ActivitiObjectNotFoundException.class,
+        () -> processRuntimeImpl.processDefinitions(pageable, new ArrayList<>()));
+    verify(securityManager).getAuthenticatedUserGroups();
+    verify(securityManager).getAuthenticatedUserId();
+    verify(processSecurityPoliciesManager).restrictProcessDefQuery(eq(SecurityPolicyAccess.READ));
+    verify(repositoryService).createProcessDefinitionQuery();
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessRuntimeImpl#processDefinitions(Pageable, GetProcessDefinitionsPayload)}
+   */
+  @Test
+  void testProcessDefinitions3() throws SecurityException {
     // Arrange
     when(repositoryService.createProcessDefinitionQuery()).thenReturn(new ProcessDefinitionQueryImpl());
 
@@ -212,33 +240,30 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#processDefinitions(Pageable, GetProcessDefinitionsPayload, List)} with {@code pageable}, {@code getProcessDefinitionsPayload}, {@code include}.
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#processDefinitions(Pageable, GetProcessDefinitionsPayload, List)}
+   * Method under test:
+   * {@link ProcessRuntimeImpl#processDefinitions(Pageable, GetProcessDefinitionsPayload)}
    */
   @Test
-  @DisplayName("Test processDefinitions(Pageable, GetProcessDefinitionsPayload, List) with 'pageable', 'getProcessDefinitionsPayload', 'include'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Page ProcessRuntimeImpl.processDefinitions(Pageable, GetProcessDefinitionsPayload, List)"})
-  void testProcessDefinitionsWithPageableGetProcessDefinitionsPayloadInclude() {
+  void testProcessDefinitions4() {
     // Arrange
-    Pageable pageable = Pageable.of(1, 3);
+    HashSet<String> processDefinitionKeys = new HashSet<>();
+    processDefinitionKeys.add("foo");
+    GetProcessDefinitionsPayload getProcessDefinitionsPayload = mock(GetProcessDefinitionsPayload.class);
+    doNothing().when(getProcessDefinitionsPayload).setProcessDefinitionKeys(Mockito.<Set<String>>any());
+    getProcessDefinitionsPayload.setProcessDefinitionKeys(processDefinitionKeys);
 
     // Act and Assert
     assertThrows(IllegalStateException.class,
-        () -> processRuntimeImpl.processDefinitions(pageable, null, new ArrayList<>()));
+        () -> processRuntimeImpl.processDefinitions(Pageable.of(1, 3), (GetProcessDefinitionsPayload) null));
+    verify(getProcessDefinitionsPayload).setProcessDefinitionKeys(isA(Set.class));
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#processDefinitions(Pageable, GetProcessDefinitionsPayload, List)} with {@code pageable}, {@code getProcessDefinitionsPayload}, {@code include}.
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#processDefinitions(Pageable, GetProcessDefinitionsPayload, List)}
+   * Method under test:
+   * {@link ProcessRuntimeImpl#processDefinitions(Pageable, GetProcessDefinitionsPayload, List)}
    */
   @Test
-  @DisplayName("Test processDefinitions(Pageable, GetProcessDefinitionsPayload, List) with 'pageable', 'getProcessDefinitionsPayload', 'include'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Page ProcessRuntimeImpl.processDefinitions(Pageable, GetProcessDefinitionsPayload, List)"})
-  void testProcessDefinitionsWithPageableGetProcessDefinitionsPayloadInclude2() throws SecurityException {
+  void testProcessDefinitions5() throws SecurityException {
     // Arrange
     when(repositoryService.createProcessDefinitionQuery()).thenReturn(new ProcessDefinitionQueryImpl());
 
@@ -265,84 +290,30 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#processDefinitions(Pageable, List)} with {@code pageable}, {@code include}.
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#processDefinitions(Pageable, List)}
+   * Method under test:
+   * {@link ProcessRuntimeImpl#processDefinitions(Pageable, GetProcessDefinitionsPayload, List)}
    */
   @Test
-  @DisplayName("Test processDefinitions(Pageable, List) with 'pageable', 'include'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Page ProcessRuntimeImpl.processDefinitions(Pageable, List)"})
-  void testProcessDefinitionsWithPageableInclude() throws SecurityException {
+  void testProcessDefinitions6() {
     // Arrange
-    when(repositoryService.createProcessDefinitionQuery()).thenReturn(new ProcessDefinitionQueryImpl());
-
     HashSet<String> processDefinitionKeys = new HashSet<>();
     processDefinitionKeys.add("foo");
-
-    GetProcessDefinitionsPayload getProcessDefinitionsPayload = new GetProcessDefinitionsPayload();
+    GetProcessDefinitionsPayload getProcessDefinitionsPayload = mock(GetProcessDefinitionsPayload.class);
+    doNothing().when(getProcessDefinitionsPayload).setProcessDefinitionKeys(Mockito.<Set<String>>any());
     getProcessDefinitionsPayload.setProcessDefinitionKeys(processDefinitionKeys);
-    when(processSecurityPoliciesManager.restrictProcessDefQuery(Mockito.<SecurityPolicyAccess>any()))
-        .thenReturn(getProcessDefinitionsPayload);
-    when(securityManager.getAuthenticatedUserGroups())
-        .thenThrow(new ActivitiObjectNotFoundException("An error occurred"));
-    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
     Pageable pageable = Pageable.of(1, 3);
 
     // Act and Assert
-    assertThrows(ActivitiObjectNotFoundException.class,
-        () -> processRuntimeImpl.processDefinitions(pageable, new ArrayList<>()));
-    verify(securityManager).getAuthenticatedUserGroups();
-    verify(securityManager).getAuthenticatedUserId();
-    verify(processSecurityPoliciesManager).restrictProcessDefQuery(eq(SecurityPolicyAccess.READ));
-    verify(repositoryService).createProcessDefinitionQuery();
+    assertThrows(IllegalStateException.class,
+        () -> processRuntimeImpl.processDefinitions(pageable, null, new ArrayList<>()));
+    verify(getProcessDefinitionsPayload).setProcessDefinitionKeys(isA(Set.class));
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#processDefinitions(Pageable)} with {@code pageable}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiObjectNotFoundException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#processDefinitions(Pageable)}
-   */
-  @Test
-  @DisplayName("Test processDefinitions(Pageable) with 'pageable'; then throw ActivitiObjectNotFoundException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Page ProcessRuntimeImpl.processDefinitions(Pageable)"})
-  void testProcessDefinitionsWithPageable_thenThrowActivitiObjectNotFoundException() throws SecurityException {
-    // Arrange
-    when(repositoryService.createProcessDefinitionQuery()).thenReturn(new ProcessDefinitionQueryImpl());
-
-    HashSet<String> processDefinitionKeys = new HashSet<>();
-    processDefinitionKeys.add("foo");
-
-    GetProcessDefinitionsPayload getProcessDefinitionsPayload = new GetProcessDefinitionsPayload();
-    getProcessDefinitionsPayload.setProcessDefinitionKeys(processDefinitionKeys);
-    when(processSecurityPoliciesManager.restrictProcessDefQuery(Mockito.<SecurityPolicyAccess>any()))
-        .thenReturn(getProcessDefinitionsPayload);
-    when(securityManager.getAuthenticatedUserGroups())
-        .thenThrow(new ActivitiObjectNotFoundException("An error occurred"));
-    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
-
-    // Act and Assert
-    assertThrows(ActivitiObjectNotFoundException.class, () -> processRuntimeImpl.processDefinitions(Pageable.of(1, 3)));
-    verify(securityManager).getAuthenticatedUserGroups();
-    verify(securityManager).getAuthenticatedUserId();
-    verify(processSecurityPoliciesManager).restrictProcessDefQuery(eq(SecurityPolicyAccess.READ));
-    verify(repositoryService).createProcessDefinitionQuery();
-  }
-
-  /**
-   * Test {@link ProcessRuntimeImpl#processInstances(Pageable)} with {@code pageable}.
-   * <p>
    * Method under test: {@link ProcessRuntimeImpl#processInstances(Pageable)}
    */
   @Test
-  @DisplayName("Test processInstances(Pageable) with 'pageable'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Page ProcessRuntimeImpl.processInstances(Pageable)"})
-  void testProcessInstancesWithPageable() {
+  void testProcessInstances() {
     // Arrange
     when(runtimeService.createProcessInstanceQuery()).thenReturn(new ProcessInstanceQueryImpl());
 
@@ -364,15 +335,170 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#processInstances(Pageable)} with {@code pageable}.
-   * <p>
    * Method under test: {@link ProcessRuntimeImpl#processInstances(Pageable)}
    */
   @Test
-  @DisplayName("Test processInstances(Pageable) with 'pageable'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Page ProcessRuntimeImpl.processInstances(Pageable)"})
-  void testProcessInstancesWithPageable2() {
+  void testProcessInstances2() {
+    // Arrange
+    ProcessInstanceQuery processInstanceQuery = mock(ProcessInstanceQuery.class);
+    when(processInstanceQuery.listPage(anyInt(), anyInt())).thenReturn(new ArrayList<>());
+    when(processInstanceQuery.count()).thenReturn(3L);
+    when(processInstanceQuery.involvedUser(Mockito.<String>any())).thenReturn(new ProcessInstanceQueryImpl());
+    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQuery);
+
+    GetProcessInstancesPayload getProcessInstancesPayload = new GetProcessInstancesPayload();
+    getProcessInstancesPayload.setActiveOnly(true);
+    getProcessInstancesPayload.setBusinessKey("Business Key");
+    getProcessInstancesPayload.setParentProcessInstanceId("42");
+    getProcessInstancesPayload.setProcessDefinitionKeys(new HashSet<>());
+    getProcessInstancesPayload.setSuspendedOnly(true);
+    when(processSecurityPoliciesManager.restrictProcessInstQuery(Mockito.<SecurityPolicyAccess>any()))
+        .thenReturn(getProcessInstancesPayload);
+    ArrayList<org.activiti.api.process.model.ProcessInstance> processInstanceList = new ArrayList<>();
+    when(aPIProcessInstanceConverter.from(Mockito.<Collection<org.activiti.engine.runtime.ProcessInstance>>any()))
+        .thenReturn(processInstanceList);
+    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
+
+    // Act
+    Page<org.activiti.api.process.model.ProcessInstance> actualProcessInstancesResult = processRuntimeImpl
+        .processInstances(Pageable.of(1, 3));
+
+    // Assert
+    verify(securityManager).getAuthenticatedUserId();
+    verify(processSecurityPoliciesManager).restrictProcessInstQuery(eq(SecurityPolicyAccess.READ));
+    verify(runtimeService).createProcessInstanceQuery();
+    verify(processInstanceQuery).count();
+    verify(processInstanceQuery).listPage(eq(1), eq(3));
+    verify(processInstanceQuery).involvedUser(eq("42"));
+    verify(aPIProcessInstanceConverter).from(isA(Collection.class));
+    assertTrue(actualProcessInstancesResult instanceof PageImpl);
+    assertEquals(3, actualProcessInstancesResult.getTotalItems());
+    List<org.activiti.api.process.model.ProcessInstance> content = actualProcessInstancesResult.getContent();
+    assertTrue(content.isEmpty());
+    assertSame(processInstanceList, content);
+  }
+
+  /**
+   * Method under test: {@link ProcessRuntimeImpl#processInstances(Pageable)}
+   */
+  @Test
+  void testProcessInstances3() {
+    // Arrange
+    ProcessInstanceQuery processInstanceQuery = mock(ProcessInstanceQuery.class);
+    when(processInstanceQuery.listPage(anyInt(), anyInt())).thenReturn(new ArrayList<>());
+    when(processInstanceQuery.count()).thenReturn(3L);
+    when(processInstanceQuery.involvedUser(Mockito.<String>any())).thenReturn(new ProcessInstanceQueryImpl());
+    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQuery);
+    GetProcessInstancesPayload getProcessInstancesPayload = mock(GetProcessInstancesPayload.class);
+    when(getProcessInstancesPayload.getProcessDefinitionKeys()).thenReturn(new HashSet<>());
+    doNothing().when(getProcessInstancesPayload).setActiveOnly(anyBoolean());
+    doNothing().when(getProcessInstancesPayload).setBusinessKey(Mockito.<String>any());
+    doNothing().when(getProcessInstancesPayload).setParentProcessInstanceId(Mockito.<String>any());
+    doNothing().when(getProcessInstancesPayload).setProcessDefinitionKeys(Mockito.<Set<String>>any());
+    doNothing().when(getProcessInstancesPayload).setSuspendedOnly(anyBoolean());
+    getProcessInstancesPayload.setActiveOnly(true);
+    getProcessInstancesPayload.setBusinessKey("Business Key");
+    getProcessInstancesPayload.setParentProcessInstanceId("42");
+    getProcessInstancesPayload.setProcessDefinitionKeys(new HashSet<>());
+    getProcessInstancesPayload.setSuspendedOnly(true);
+    when(processSecurityPoliciesManager.restrictProcessInstQuery(Mockito.<SecurityPolicyAccess>any()))
+        .thenReturn(getProcessInstancesPayload);
+    ArrayList<org.activiti.api.process.model.ProcessInstance> processInstanceList = new ArrayList<>();
+    when(aPIProcessInstanceConverter.from(Mockito.<Collection<org.activiti.engine.runtime.ProcessInstance>>any()))
+        .thenReturn(processInstanceList);
+    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
+
+    // Act
+    Page<org.activiti.api.process.model.ProcessInstance> actualProcessInstancesResult = processRuntimeImpl
+        .processInstances(Pageable.of(1, 3));
+
+    // Assert
+    verify(getProcessInstancesPayload).getProcessDefinitionKeys();
+    verify(getProcessInstancesPayload).setActiveOnly(eq(true));
+    verify(getProcessInstancesPayload).setBusinessKey(eq("Business Key"));
+    verify(getProcessInstancesPayload).setParentProcessInstanceId(eq("42"));
+    verify(getProcessInstancesPayload).setProcessDefinitionKeys(isA(Set.class));
+    verify(getProcessInstancesPayload).setSuspendedOnly(eq(true));
+    verify(securityManager).getAuthenticatedUserId();
+    verify(processSecurityPoliciesManager).restrictProcessInstQuery(eq(SecurityPolicyAccess.READ));
+    verify(runtimeService).createProcessInstanceQuery();
+    verify(processInstanceQuery).count();
+    verify(processInstanceQuery).listPage(eq(1), eq(3));
+    verify(processInstanceQuery).involvedUser(eq("42"));
+    verify(aPIProcessInstanceConverter).from(isA(Collection.class));
+    assertTrue(actualProcessInstancesResult instanceof PageImpl);
+    assertEquals(3, actualProcessInstancesResult.getTotalItems());
+    List<org.activiti.api.process.model.ProcessInstance> content = actualProcessInstancesResult.getContent();
+    assertTrue(content.isEmpty());
+    assertSame(processInstanceList, content);
+  }
+
+  /**
+   * Method under test: {@link ProcessRuntimeImpl#processInstances(Pageable)}
+   */
+  @Test
+  void testProcessInstances4() {
+    // Arrange
+    ProcessInstanceQuery processInstanceQuery = mock(ProcessInstanceQuery.class);
+    when(processInstanceQuery.processDefinitionKeys(Mockito.<Set<String>>any()))
+        .thenReturn(new ProcessInstanceQueryImpl());
+    when(processInstanceQuery.listPage(anyInt(), anyInt())).thenReturn(new ArrayList<>());
+    when(processInstanceQuery.count()).thenReturn(3L);
+    when(processInstanceQuery.involvedUser(Mockito.<String>any())).thenReturn(new ProcessInstanceQueryImpl());
+    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQuery);
+
+    HashSet<String> stringSet = new HashSet<>();
+    stringSet.add("foo");
+    GetProcessInstancesPayload getProcessInstancesPayload = mock(GetProcessInstancesPayload.class);
+    when(getProcessInstancesPayload.getProcessDefinitionKeys()).thenReturn(stringSet);
+    doNothing().when(getProcessInstancesPayload).setActiveOnly(anyBoolean());
+    doNothing().when(getProcessInstancesPayload).setBusinessKey(Mockito.<String>any());
+    doNothing().when(getProcessInstancesPayload).setParentProcessInstanceId(Mockito.<String>any());
+    doNothing().when(getProcessInstancesPayload).setProcessDefinitionKeys(Mockito.<Set<String>>any());
+    doNothing().when(getProcessInstancesPayload).setSuspendedOnly(anyBoolean());
+    getProcessInstancesPayload.setActiveOnly(true);
+    getProcessInstancesPayload.setBusinessKey("Business Key");
+    getProcessInstancesPayload.setParentProcessInstanceId("42");
+    getProcessInstancesPayload.setProcessDefinitionKeys(new HashSet<>());
+    getProcessInstancesPayload.setSuspendedOnly(true);
+    when(processSecurityPoliciesManager.restrictProcessInstQuery(Mockito.<SecurityPolicyAccess>any()))
+        .thenReturn(getProcessInstancesPayload);
+    ArrayList<org.activiti.api.process.model.ProcessInstance> processInstanceList = new ArrayList<>();
+    when(aPIProcessInstanceConverter.from(Mockito.<Collection<org.activiti.engine.runtime.ProcessInstance>>any()))
+        .thenReturn(processInstanceList);
+    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
+
+    // Act
+    Page<org.activiti.api.process.model.ProcessInstance> actualProcessInstancesResult = processRuntimeImpl
+        .processInstances(Pageable.of(1, 3));
+
+    // Assert
+    verify(getProcessInstancesPayload, atLeast(1)).getProcessDefinitionKeys();
+    verify(getProcessInstancesPayload).setActiveOnly(eq(true));
+    verify(getProcessInstancesPayload).setBusinessKey(eq("Business Key"));
+    verify(getProcessInstancesPayload).setParentProcessInstanceId(eq("42"));
+    verify(getProcessInstancesPayload).setProcessDefinitionKeys(isA(Set.class));
+    verify(getProcessInstancesPayload).setSuspendedOnly(eq(true));
+    verify(securityManager).getAuthenticatedUserId();
+    verify(processSecurityPoliciesManager).restrictProcessInstQuery(eq(SecurityPolicyAccess.READ));
+    verify(runtimeService).createProcessInstanceQuery();
+    verify(processInstanceQuery).count();
+    verify(processInstanceQuery).listPage(eq(1), eq(3));
+    verify(processInstanceQuery).involvedUser(eq("42"));
+    verify(processInstanceQuery).processDefinitionKeys(isA(Set.class));
+    verify(aPIProcessInstanceConverter).from(isA(Collection.class));
+    assertTrue(actualProcessInstancesResult instanceof PageImpl);
+    assertEquals(3, actualProcessInstancesResult.getTotalItems());
+    List<org.activiti.api.process.model.ProcessInstance> content = actualProcessInstancesResult.getContent();
+    assertTrue(content.isEmpty());
+    assertSame(processInstanceList, content);
+  }
+
+  /**
+   * Method under test: {@link ProcessRuntimeImpl#processInstances(Pageable)}
+   */
+  @Test
+  void testProcessInstances5() {
     // Arrange
     ProcessInstanceQuery processInstanceQuery = mock(ProcessInstanceQuery.class);
     when(processInstanceQuery.processDefinitionKeys(Mockito.<Set<String>>any()))
@@ -414,29 +540,11 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)} with {@code pageable}, {@code getProcessInstancesPayload}.
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)}
+   * Method under test:
+   * {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)}
    */
   @Test
-  @DisplayName("Test processInstances(Pageable, GetProcessInstancesPayload) with 'pageable', 'getProcessInstancesPayload'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Page ProcessRuntimeImpl.processInstances(Pageable, GetProcessInstancesPayload)"})
-  void testProcessInstancesWithPageableGetProcessInstancesPayload() {
-    // Arrange, Act and Assert
-    assertThrows(IllegalStateException.class, () -> processRuntimeImpl.processInstances(Pageable.of(1, 3), null));
-  }
-
-  /**
-   * Test {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)} with {@code pageable}, {@code getProcessInstancesPayload}.
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)}
-   */
-  @Test
-  @DisplayName("Test processInstances(Pageable, GetProcessInstancesPayload) with 'pageable', 'getProcessInstancesPayload'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Page ProcessRuntimeImpl.processInstances(Pageable, GetProcessInstancesPayload)"})
-  void testProcessInstancesWithPageableGetProcessInstancesPayload2() {
+  void testProcessInstances6() {
     // Arrange
     when(runtimeService.createProcessInstanceQuery()).thenReturn(new ProcessInstanceQueryImpl());
 
@@ -467,15 +575,11 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)} with {@code pageable}, {@code getProcessInstancesPayload}.
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)}
+   * Method under test:
+   * {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)}
    */
   @Test
-  @DisplayName("Test processInstances(Pageable, GetProcessInstancesPayload) with 'pageable', 'getProcessInstancesPayload'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Page ProcessRuntimeImpl.processInstances(Pageable, GetProcessInstancesPayload)"})
-  void testProcessInstancesWithPageableGetProcessInstancesPayload3() {
+  void testProcessInstances7() {
     // Arrange
     ProcessInstanceQuery processInstanceQuery = mock(ProcessInstanceQuery.class);
     when(processInstanceQuery.listPage(anyInt(), anyInt())).thenReturn(new ArrayList<>());
@@ -496,7 +600,9 @@ class ProcessRuntimeImplDiffblueTest {
     getProcessInstancesPayload.setSuspendedOnly(true);
     when(processSecurityPoliciesManager.restrictProcessInstQuery(Mockito.<SecurityPolicyAccess>any()))
         .thenReturn(getProcessInstancesPayload);
-    when(aPIProcessInstanceConverter.from(Mockito.<Collection<ProcessInstance>>any())).thenReturn(new ArrayList<>());
+    ArrayList<org.activiti.api.process.model.ProcessInstance> processInstanceList = new ArrayList<>();
+    when(aPIProcessInstanceConverter.from(Mockito.<Collection<org.activiti.engine.runtime.ProcessInstance>>any()))
+        .thenReturn(processInstanceList);
     when(securityManager.getAuthenticatedUserId()).thenReturn("42");
     Pageable pageable = Pageable.of(1, 3);
 
@@ -504,7 +610,8 @@ class ProcessRuntimeImplDiffblueTest {
     getProcessInstancesPayload2.setActiveOnly(true);
     getProcessInstancesPayload2.setBusinessKey("Business Key");
     getProcessInstancesPayload2.setParentProcessInstanceId("42");
-    getProcessInstancesPayload2.setProcessDefinitionKeys(new HashSet<>());
+    HashSet<String> processDefinitionKeys = new HashSet<>();
+    getProcessInstancesPayload2.setProcessDefinitionKeys(processDefinitionKeys);
     getProcessInstancesPayload2.setSuspendedOnly(true);
 
     // Act
@@ -525,20 +632,20 @@ class ProcessRuntimeImplDiffblueTest {
     verify(aPIProcessInstanceConverter).from(isA(Collection.class));
     assertTrue(actualProcessInstancesResult instanceof PageImpl);
     assertEquals(3, actualProcessInstancesResult.getTotalItems());
-    assertTrue(actualProcessInstancesResult.getContent().isEmpty());
-    assertTrue(getProcessInstancesPayload2.getProcessDefinitionKeys().isEmpty());
+    List<org.activiti.api.process.model.ProcessInstance> content = actualProcessInstancesResult.getContent();
+    assertTrue(content.isEmpty());
+    Set<String> processDefinitionKeys2 = getProcessInstancesPayload2.getProcessDefinitionKeys();
+    assertTrue(processDefinitionKeys2.isEmpty());
+    assertSame(processInstanceList, content);
+    assertSame(processDefinitionKeys, processDefinitionKeys2);
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)} with {@code pageable}, {@code getProcessInstancesPayload}.
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)}
+   * Method under test:
+   * {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)}
    */
   @Test
-  @DisplayName("Test processInstances(Pageable, GetProcessInstancesPayload) with 'pageable', 'getProcessInstancesPayload'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Page ProcessRuntimeImpl.processInstances(Pageable, GetProcessInstancesPayload)"})
-  void testProcessInstancesWithPageableGetProcessInstancesPayload4() {
+  void testProcessInstances8() {
     // Arrange
     ProcessInstanceQuery processInstanceQuery = mock(ProcessInstanceQuery.class);
     when(processInstanceQuery.listPage(anyInt(), anyInt())).thenReturn(new ArrayList<>());
@@ -564,7 +671,9 @@ class ProcessRuntimeImplDiffblueTest {
     getProcessInstancesPayload.setSuspendedOnly(true);
     when(processSecurityPoliciesManager.restrictProcessInstQuery(Mockito.<SecurityPolicyAccess>any()))
         .thenReturn(getProcessInstancesPayload);
-    when(aPIProcessInstanceConverter.from(Mockito.<Collection<ProcessInstance>>any())).thenReturn(new ArrayList<>());
+    ArrayList<org.activiti.api.process.model.ProcessInstance> processInstanceList = new ArrayList<>();
+    when(aPIProcessInstanceConverter.from(Mockito.<Collection<org.activiti.engine.runtime.ProcessInstance>>any()))
+        .thenReturn(processInstanceList);
     when(securityManager.getAuthenticatedUserId()).thenReturn("42");
     Pageable pageable = Pageable.of(1, 3);
 
@@ -572,7 +681,8 @@ class ProcessRuntimeImplDiffblueTest {
     getProcessInstancesPayload2.setActiveOnly(true);
     getProcessInstancesPayload2.setBusinessKey("Business Key");
     getProcessInstancesPayload2.setParentProcessInstanceId("42");
-    getProcessInstancesPayload2.setProcessDefinitionKeys(new HashSet<>());
+    HashSet<String> processDefinitionKeys = new HashSet<>();
+    getProcessInstancesPayload2.setProcessDefinitionKeys(processDefinitionKeys);
     getProcessInstancesPayload2.setSuspendedOnly(true);
 
     // Act
@@ -599,20 +709,20 @@ class ProcessRuntimeImplDiffblueTest {
     verify(aPIProcessInstanceConverter).from(isA(Collection.class));
     assertTrue(actualProcessInstancesResult instanceof PageImpl);
     assertEquals(3, actualProcessInstancesResult.getTotalItems());
-    assertTrue(actualProcessInstancesResult.getContent().isEmpty());
-    assertTrue(getProcessInstancesPayload2.getProcessDefinitionKeys().isEmpty());
+    List<org.activiti.api.process.model.ProcessInstance> content = actualProcessInstancesResult.getContent();
+    assertTrue(content.isEmpty());
+    Set<String> processDefinitionKeys2 = getProcessInstancesPayload2.getProcessDefinitionKeys();
+    assertTrue(processDefinitionKeys2.isEmpty());
+    assertSame(processInstanceList, content);
+    assertSame(processDefinitionKeys, processDefinitionKeys2);
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)} with {@code pageable}, {@code getProcessInstancesPayload}.
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)}
+   * Method under test:
+   * {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)}
    */
   @Test
-  @DisplayName("Test processInstances(Pageable, GetProcessInstancesPayload) with 'pageable', 'getProcessInstancesPayload'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Page ProcessRuntimeImpl.processInstances(Pageable, GetProcessInstancesPayload)"})
-  void testProcessInstancesWithPageableGetProcessInstancesPayload5() {
+  void testProcessInstances9() {
     // Arrange
     ProcessInstanceQuery processInstanceQuery = mock(ProcessInstanceQuery.class);
     when(processInstanceQuery.processDefinitionKeys(Mockito.<Set<String>>any()))
@@ -643,7 +753,9 @@ class ProcessRuntimeImplDiffblueTest {
     getProcessInstancesPayload.setSuspendedOnly(true);
     when(processSecurityPoliciesManager.restrictProcessInstQuery(Mockito.<SecurityPolicyAccess>any()))
         .thenReturn(getProcessInstancesPayload);
-    when(aPIProcessInstanceConverter.from(Mockito.<Collection<ProcessInstance>>any())).thenReturn(new ArrayList<>());
+    ArrayList<org.activiti.api.process.model.ProcessInstance> processInstanceList = new ArrayList<>();
+    when(aPIProcessInstanceConverter.from(Mockito.<Collection<org.activiti.engine.runtime.ProcessInstance>>any()))
+        .thenReturn(processInstanceList);
     when(securityManager.getAuthenticatedUserId()).thenReturn("42");
     Pageable pageable = Pageable.of(1, 3);
 
@@ -681,21 +793,19 @@ class ProcessRuntimeImplDiffblueTest {
     Set<String> processDefinitionKeys = getProcessInstancesPayload2.getProcessDefinitionKeys();
     assertEquals(1, processDefinitionKeys.size());
     assertEquals(3, actualProcessInstancesResult.getTotalItems());
-    assertTrue(actualProcessInstancesResult.getContent().isEmpty());
+    List<org.activiti.api.process.model.ProcessInstance> content = actualProcessInstancesResult.getContent();
+    assertTrue(content.isEmpty());
     assertTrue(processDefinitionKeys.contains("foo"));
+    assertSame(processInstanceList, content);
     assertSame(stringSet, processDefinitionKeys);
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)} with {@code pageable}, {@code getProcessInstancesPayload}.
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)}
+   * Method under test:
+   * {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)}
    */
   @Test
-  @DisplayName("Test processInstances(Pageable, GetProcessInstancesPayload) with 'pageable', 'getProcessInstancesPayload'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Page ProcessRuntimeImpl.processInstances(Pageable, GetProcessInstancesPayload)"})
-  void testProcessInstancesWithPageableGetProcessInstancesPayload6() {
+  void testProcessInstances10() {
     // Arrange
     ProcessInstanceQuery processInstanceQuery = mock(ProcessInstanceQuery.class);
     when(processInstanceQuery.listPage(anyInt(), anyInt())).thenReturn(new ArrayList<>());
@@ -724,7 +834,9 @@ class ProcessRuntimeImplDiffblueTest {
     getProcessInstancesPayload.setSuspendedOnly(true);
     when(processSecurityPoliciesManager.restrictProcessInstQuery(Mockito.<SecurityPolicyAccess>any()))
         .thenReturn(getProcessInstancesPayload);
-    when(aPIProcessInstanceConverter.from(Mockito.<Collection<ProcessInstance>>any())).thenReturn(new ArrayList<>());
+    ArrayList<org.activiti.api.process.model.ProcessInstance> processInstanceList = new ArrayList<>();
+    when(aPIProcessInstanceConverter.from(Mockito.<Collection<org.activiti.engine.runtime.ProcessInstance>>any()))
+        .thenReturn(processInstanceList);
     when(securityManager.getAuthenticatedUserId()).thenReturn("42");
     Pageable pageable = Pageable.of(1, 3);
     GetProcessInstancesPayload getProcessInstancesPayload2 = mock(GetProcessInstancesPayload.class);
@@ -778,199 +890,22 @@ class ProcessRuntimeImplDiffblueTest {
     verify(aPIProcessInstanceConverter).from(isA(Collection.class));
     assertTrue(actualProcessInstancesResult instanceof PageImpl);
     assertEquals(3, actualProcessInstancesResult.getTotalItems());
-    assertTrue(actualProcessInstancesResult.getContent().isEmpty());
+    List<org.activiti.api.process.model.ProcessInstance> content = actualProcessInstancesResult.getContent();
+    assertTrue(content.isEmpty());
+    assertSame(processInstanceList, content);
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#processInstances(Pageable)} with {@code pageable}.
-   * <ul>
-   *   <li>Then calls {@link ProcessInstanceQuery#processDefinitionKeys(Set)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#processInstances(Pageable)}
-   */
-  @Test
-  @DisplayName("Test processInstances(Pageable) with 'pageable'; then calls processDefinitionKeys(Set)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Page ProcessRuntimeImpl.processInstances(Pageable)"})
-  void testProcessInstancesWithPageable_thenCallsProcessDefinitionKeys() {
-    // Arrange
-    ProcessInstanceQuery processInstanceQuery = mock(ProcessInstanceQuery.class);
-    when(processInstanceQuery.processDefinitionKeys(Mockito.<Set<String>>any()))
-        .thenReturn(new ProcessInstanceQueryImpl());
-    when(processInstanceQuery.listPage(anyInt(), anyInt())).thenReturn(new ArrayList<>());
-    when(processInstanceQuery.count()).thenReturn(3L);
-    when(processInstanceQuery.involvedUser(Mockito.<String>any())).thenReturn(new ProcessInstanceQueryImpl());
-    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQuery);
-
-    HashSet<String> stringSet = new HashSet<>();
-    stringSet.add("foo");
-    GetProcessInstancesPayload getProcessInstancesPayload = mock(GetProcessInstancesPayload.class);
-    when(getProcessInstancesPayload.getProcessDefinitionKeys()).thenReturn(stringSet);
-    doNothing().when(getProcessInstancesPayload).setActiveOnly(anyBoolean());
-    doNothing().when(getProcessInstancesPayload).setBusinessKey(Mockito.<String>any());
-    doNothing().when(getProcessInstancesPayload).setParentProcessInstanceId(Mockito.<String>any());
-    doNothing().when(getProcessInstancesPayload).setProcessDefinitionKeys(Mockito.<Set<String>>any());
-    doNothing().when(getProcessInstancesPayload).setSuspendedOnly(anyBoolean());
-    getProcessInstancesPayload.setActiveOnly(true);
-    getProcessInstancesPayload.setBusinessKey("Business Key");
-    getProcessInstancesPayload.setParentProcessInstanceId("42");
-    getProcessInstancesPayload.setProcessDefinitionKeys(new HashSet<>());
-    getProcessInstancesPayload.setSuspendedOnly(true);
-    when(processSecurityPoliciesManager.restrictProcessInstQuery(Mockito.<SecurityPolicyAccess>any()))
-        .thenReturn(getProcessInstancesPayload);
-    when(aPIProcessInstanceConverter.from(Mockito.<Collection<ProcessInstance>>any())).thenReturn(new ArrayList<>());
-    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
-
-    // Act
-    Page<org.activiti.api.process.model.ProcessInstance> actualProcessInstancesResult = processRuntimeImpl
-        .processInstances(Pageable.of(1, 3));
-
-    // Assert
-    verify(getProcessInstancesPayload, atLeast(1)).getProcessDefinitionKeys();
-    verify(getProcessInstancesPayload).setActiveOnly(eq(true));
-    verify(getProcessInstancesPayload).setBusinessKey(eq("Business Key"));
-    verify(getProcessInstancesPayload).setParentProcessInstanceId(eq("42"));
-    verify(getProcessInstancesPayload).setProcessDefinitionKeys(isA(Set.class));
-    verify(getProcessInstancesPayload).setSuspendedOnly(eq(true));
-    verify(securityManager).getAuthenticatedUserId();
-    verify(processSecurityPoliciesManager).restrictProcessInstQuery(eq(SecurityPolicyAccess.READ));
-    verify(runtimeService).createProcessInstanceQuery();
-    verify(processInstanceQuery).count();
-    verify(processInstanceQuery).listPage(eq(1), eq(3));
-    verify(processInstanceQuery).involvedUser(eq("42"));
-    verify(processInstanceQuery).processDefinitionKeys(isA(Set.class));
-    verify(aPIProcessInstanceConverter).from(isA(Collection.class));
-    assertTrue(actualProcessInstancesResult instanceof PageImpl);
-    assertEquals(3, actualProcessInstancesResult.getTotalItems());
-    assertTrue(actualProcessInstancesResult.getContent().isEmpty());
-  }
-
-  /**
-   * Test {@link ProcessRuntimeImpl#processInstances(Pageable)} with {@code pageable}.
-   * <ul>
-   *   <li>Then return {@link PageImpl}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#processInstances(Pageable)}
-   */
-  @Test
-  @DisplayName("Test processInstances(Pageable) with 'pageable'; then return PageImpl")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Page ProcessRuntimeImpl.processInstances(Pageable)"})
-  void testProcessInstancesWithPageable_thenReturnPageImpl() {
-    // Arrange
-    ProcessInstanceQuery processInstanceQuery = mock(ProcessInstanceQuery.class);
-    when(processInstanceQuery.listPage(anyInt(), anyInt())).thenReturn(new ArrayList<>());
-    when(processInstanceQuery.count()).thenReturn(3L);
-    when(processInstanceQuery.involvedUser(Mockito.<String>any())).thenReturn(new ProcessInstanceQueryImpl());
-    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQuery);
-
-    GetProcessInstancesPayload getProcessInstancesPayload = new GetProcessInstancesPayload();
-    getProcessInstancesPayload.setActiveOnly(true);
-    getProcessInstancesPayload.setBusinessKey("Business Key");
-    getProcessInstancesPayload.setParentProcessInstanceId("42");
-    getProcessInstancesPayload.setProcessDefinitionKeys(new HashSet<>());
-    getProcessInstancesPayload.setSuspendedOnly(true);
-    when(processSecurityPoliciesManager.restrictProcessInstQuery(Mockito.<SecurityPolicyAccess>any()))
-        .thenReturn(getProcessInstancesPayload);
-    when(aPIProcessInstanceConverter.from(Mockito.<Collection<ProcessInstance>>any())).thenReturn(new ArrayList<>());
-    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
-
-    // Act
-    Page<org.activiti.api.process.model.ProcessInstance> actualProcessInstancesResult = processRuntimeImpl
-        .processInstances(Pageable.of(1, 3));
-
-    // Assert
-    verify(securityManager).getAuthenticatedUserId();
-    verify(processSecurityPoliciesManager).restrictProcessInstQuery(eq(SecurityPolicyAccess.READ));
-    verify(runtimeService).createProcessInstanceQuery();
-    verify(processInstanceQuery).count();
-    verify(processInstanceQuery).listPage(eq(1), eq(3));
-    verify(processInstanceQuery).involvedUser(eq("42"));
-    verify(aPIProcessInstanceConverter).from(isA(Collection.class));
-    assertTrue(actualProcessInstancesResult instanceof PageImpl);
-    assertEquals(3, actualProcessInstancesResult.getTotalItems());
-    assertTrue(actualProcessInstancesResult.getContent().isEmpty());
-  }
-
-  /**
-   * Test {@link ProcessRuntimeImpl#processInstances(Pageable)} with {@code pageable}.
-   * <ul>
-   *   <li>Then return {@link PageImpl}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#processInstances(Pageable)}
-   */
-  @Test
-  @DisplayName("Test processInstances(Pageable) with 'pageable'; then return PageImpl")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Page ProcessRuntimeImpl.processInstances(Pageable)"})
-  void testProcessInstancesWithPageable_thenReturnPageImpl2() {
-    // Arrange
-    ProcessInstanceQuery processInstanceQuery = mock(ProcessInstanceQuery.class);
-    when(processInstanceQuery.listPage(anyInt(), anyInt())).thenReturn(new ArrayList<>());
-    when(processInstanceQuery.count()).thenReturn(3L);
-    when(processInstanceQuery.involvedUser(Mockito.<String>any())).thenReturn(new ProcessInstanceQueryImpl());
-    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQuery);
-    GetProcessInstancesPayload getProcessInstancesPayload = mock(GetProcessInstancesPayload.class);
-    when(getProcessInstancesPayload.getProcessDefinitionKeys()).thenReturn(new HashSet<>());
-    doNothing().when(getProcessInstancesPayload).setActiveOnly(anyBoolean());
-    doNothing().when(getProcessInstancesPayload).setBusinessKey(Mockito.<String>any());
-    doNothing().when(getProcessInstancesPayload).setParentProcessInstanceId(Mockito.<String>any());
-    doNothing().when(getProcessInstancesPayload).setProcessDefinitionKeys(Mockito.<Set<String>>any());
-    doNothing().when(getProcessInstancesPayload).setSuspendedOnly(anyBoolean());
-    getProcessInstancesPayload.setActiveOnly(true);
-    getProcessInstancesPayload.setBusinessKey("Business Key");
-    getProcessInstancesPayload.setParentProcessInstanceId("42");
-    getProcessInstancesPayload.setProcessDefinitionKeys(new HashSet<>());
-    getProcessInstancesPayload.setSuspendedOnly(true);
-    when(processSecurityPoliciesManager.restrictProcessInstQuery(Mockito.<SecurityPolicyAccess>any()))
-        .thenReturn(getProcessInstancesPayload);
-    when(aPIProcessInstanceConverter.from(Mockito.<Collection<ProcessInstance>>any())).thenReturn(new ArrayList<>());
-    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
-
-    // Act
-    Page<org.activiti.api.process.model.ProcessInstance> actualProcessInstancesResult = processRuntimeImpl
-        .processInstances(Pageable.of(1, 3));
-
-    // Assert
-    verify(getProcessInstancesPayload).getProcessDefinitionKeys();
-    verify(getProcessInstancesPayload).setActiveOnly(eq(true));
-    verify(getProcessInstancesPayload).setBusinessKey(eq("Business Key"));
-    verify(getProcessInstancesPayload).setParentProcessInstanceId(eq("42"));
-    verify(getProcessInstancesPayload).setProcessDefinitionKeys(isA(Set.class));
-    verify(getProcessInstancesPayload).setSuspendedOnly(eq(true));
-    verify(securityManager).getAuthenticatedUserId();
-    verify(processSecurityPoliciesManager).restrictProcessInstQuery(eq(SecurityPolicyAccess.READ));
-    verify(runtimeService).createProcessInstanceQuery();
-    verify(processInstanceQuery).count();
-    verify(processInstanceQuery).listPage(eq(1), eq(3));
-    verify(processInstanceQuery).involvedUser(eq("42"));
-    verify(aPIProcessInstanceConverter).from(isA(Collection.class));
-    assertTrue(actualProcessInstancesResult instanceof PageImpl);
-    assertEquals(3, actualProcessInstancesResult.getTotalItems());
-    assertTrue(actualProcessInstancesResult.getContent().isEmpty());
-  }
-
-  /**
-   * Test {@link ProcessRuntimeImpl#start(StartMessagePayload)} with {@code messagePayload}.
-   * <ul>
-   *   <li>Then return {@link ProcessInstanceImpl} (default constructor).</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ProcessRuntimeImpl#start(StartMessagePayload)}
    */
   @Test
-  @DisplayName("Test start(StartMessagePayload) with 'messagePayload'; then return ProcessInstanceImpl (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.start(StartMessagePayload)"})
-  void testStartWithMessagePayload_thenReturnProcessInstanceImpl() {
+  void testStart() {
     // Arrange
     when(runtimeService.startProcessInstanceByMessage(Mockito.<String>any(), Mockito.<String>any(),
         Mockito.<Map<String, Object>>any())).thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
     ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
-    when(aPIProcessInstanceConverter.from(Mockito.<ProcessInstance>any())).thenReturn(processInstanceImpl);
+    when(aPIProcessInstanceConverter.from(Mockito.<org.activiti.engine.runtime.ProcessInstance>any()))
+        .thenReturn(processInstanceImpl);
     doNothing().when(processVariablesPayloadValidator)
         .checkStartMessagePayloadVariables(Mockito.<StartMessagePayload>any(), Mockito.<String>any());
 
@@ -982,23 +917,15 @@ class ProcessRuntimeImplDiffblueTest {
     verify(runtimeService).startProcessInstanceByMessage(isNull(), isNull(), isA(Map.class));
     verify(processVariablesPayloadValidator).checkStartMessagePayloadVariables(isA(StartMessagePayload.class),
         isNull());
-    verify(aPIProcessInstanceConverter).from(isA(ProcessInstance.class));
+    verify(aPIProcessInstanceConverter).from(isA(org.activiti.engine.runtime.ProcessInstance.class));
     assertSame(processInstanceImpl, actualStartResult);
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#start(StartMessagePayload)} with {@code messagePayload}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiObjectNotFoundException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ProcessRuntimeImpl#start(StartMessagePayload)}
    */
   @Test
-  @DisplayName("Test start(StartMessagePayload) with 'messagePayload'; then throw ActivitiObjectNotFoundException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.start(StartMessagePayload)"})
-  void testStartWithMessagePayload_thenThrowActivitiObjectNotFoundException() {
+  void testStart2() {
     // Arrange
     doThrow(new ActivitiObjectNotFoundException("An error occurred")).when(processVariablesPayloadValidator)
         .checkStartMessagePayloadVariables(Mockito.<StartMessagePayload>any(), Mockito.<String>any());
@@ -1010,18 +937,10 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#start(StartProcessPayload)} with {@code startProcessPayload}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiObjectNotFoundException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ProcessRuntimeImpl#start(StartProcessPayload)}
    */
   @Test
-  @DisplayName("Test start(StartProcessPayload) with 'startProcessPayload'; then throw ActivitiObjectNotFoundException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.start(StartProcessPayload)"})
-  void testStartWithStartProcessPayload_thenThrowActivitiObjectNotFoundException() throws SecurityException {
+  void testStart3() throws SecurityException {
     // Arrange
     when(repositoryService.createProcessDefinitionQuery()).thenReturn(new ProcessDefinitionQueryImpl());
     when(securityManager.getAuthenticatedUserGroups())
@@ -1036,54 +955,18 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#startCreatedProcess(String, StartProcessPayload)}.
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#startCreatedProcess(String, StartProcessPayload)}
+   * Method under test:
+   * {@link ProcessRuntimeImpl#startCreatedProcess(String, StartProcessPayload)}
    */
   @Test
-  @DisplayName("Test startCreatedProcess(String, StartProcessPayload)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.startCreatedProcess(String, StartProcessPayload)"})
   void testStartCreatedProcess() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
     when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
         .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    when(runtimeService.createProcessInstanceQuery())
-        .thenReturn(new ProcessInstanceQueryImpl(new CommandExecutorImpl(new CommandConfig(), first)));
-    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
-    when(securityManager.getAuthenticatedUserId()).thenThrow(new ActivitiObjectNotFoundException("An error occurred"));
-
-    // Act and Assert
-    assertThrows(ActivitiObjectNotFoundException.class,
-        () -> processRuntimeImpl.startCreatedProcess("42", new StartProcessPayload()));
-    verify(securityManager).getAuthenticatedUserId();
-    verify(processSecurityPoliciesManager).canWrite(isNull());
-    verify(runtimeService).createProcessInstanceQuery();
-    verify(first).execute(isA(CommandConfig.class), isA(Command.class));
-  }
-
-  /**
-   * Test {@link ProcessRuntimeImpl#startCreatedProcess(String, StartProcessPayload)}.
-   * <ul>
-   *   <li>Given {@link SecurityManager} {@link SecurityManager#getAuthenticatedUserId()} return {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#startCreatedProcess(String, StartProcessPayload)}
-   */
-  @Test
-  @DisplayName("Test startCreatedProcess(String, StartProcessPayload); given SecurityManager getAuthenticatedUserId() return '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.startCreatedProcess(String, StartProcessPayload)"})
-  void testStartCreatedProcess_givenSecurityManagerGetAuthenticatedUserIdReturn42() {
-    // Arrange
-    CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
-        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    when(runtimeService.createProcessInstanceQuery())
-        .thenReturn(new ProcessInstanceQueryImpl(new CommandExecutorImpl(new CommandConfig(), first)));
+    ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl(
+        new CommandExecutorImpl(new CommandConfig(), first));
+    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl);
     when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
     when(securityManager.getAuthenticatedUserId()).thenReturn("42");
 
@@ -1097,24 +980,42 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#startCreatedProcess(String, StartProcessPayload)}.
-   * <ul>
-   *   <li>Then throw {@link NotFoundException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#startCreatedProcess(String, StartProcessPayload)}
+   * Method under test:
+   * {@link ProcessRuntimeImpl#startCreatedProcess(String, StartProcessPayload)}
    */
   @Test
-  @DisplayName("Test startCreatedProcess(String, StartProcessPayload); then throw NotFoundException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.startCreatedProcess(String, StartProcessPayload)"})
-  void testStartCreatedProcess_thenThrowNotFoundException() {
+  void testStartCreatedProcess2() {
+    // Arrange
+    CommandContextInterceptor first = mock(CommandContextInterceptor.class);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
+        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl(
+        new CommandExecutorImpl(new CommandConfig(), first));
+    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl);
+    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
+    when(securityManager.getAuthenticatedUserId()).thenThrow(new ActivitiObjectNotFoundException("An error occurred"));
+
+    // Act and Assert
+    assertThrows(ActivitiObjectNotFoundException.class,
+        () -> processRuntimeImpl.startCreatedProcess("42", new StartProcessPayload()));
+    verify(securityManager).getAuthenticatedUserId();
+    verify(processSecurityPoliciesManager).canWrite(isNull());
+    verify(runtimeService).createProcessInstanceQuery();
+    verify(first).execute(isA(CommandConfig.class), isA(Command.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessRuntimeImpl#startCreatedProcess(String, StartProcessPayload)}
+   */
+  @Test
+  void testStartCreatedProcess3() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
     when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(null);
-    when(runtimeService.createProcessInstanceQuery())
-        .thenReturn(new ProcessInstanceQueryImpl(new CommandExecutorImpl(new CommandConfig(), first)));
+    ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl(
+        new CommandExecutorImpl(new CommandConfig(), first));
+    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl);
 
     // Act and Assert
     assertThrows(NotFoundException.class,
@@ -1124,19 +1025,11 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#create(CreateProcessInstancePayload)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiObjectNotFoundException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#create(CreateProcessInstancePayload)}
+   * Method under test:
+   * {@link ProcessRuntimeImpl#create(CreateProcessInstancePayload)}
    */
   @Test
-  @DisplayName("Test create(CreateProcessInstancePayload); then throw ActivitiObjectNotFoundException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.create(CreateProcessInstancePayload)"})
-  void testCreate_thenThrowActivitiObjectNotFoundException() throws SecurityException {
+  void testCreate() throws SecurityException {
     // Arrange
     when(repositoryService.createProcessDefinitionQuery()).thenReturn(new ProcessDefinitionQueryImpl());
     when(securityManager.getAuthenticatedUserGroups())
@@ -1152,16 +1045,34 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#suspend(SuspendProcessPayload)}.
-   * <p>
    * Method under test: {@link ProcessRuntimeImpl#suspend(SuspendProcessPayload)}
    */
   @Test
-  @DisplayName("Test suspend(SuspendProcessPayload)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.suspend(SuspendProcessPayload)"})
   void testSuspend() {
+    // Arrange
+    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl.singleResult())
+        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
+    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
+    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
+    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
+
+    // Act and Assert
+    assertThrows(ActivitiForbiddenException.class, () -> processRuntimeImpl.suspend(new SuspendProcessPayload()));
+    verify(securityManager).getAuthenticatedUserId();
+    verify(processSecurityPoliciesManager).canWrite(isNull());
+    verify(runtimeService).createProcessInstanceQuery();
+    verify(processInstanceQueryImpl).singleResult();
+    verify(processInstanceQueryImpl2).processInstanceId(isNull());
+  }
+
+  /**
+   * Method under test: {@link ProcessRuntimeImpl#suspend(SuspendProcessPayload)}
+   */
+  @Test
+  void testSuspend2() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
     when(processInstanceQueryImpl.singleResult())
@@ -1182,172 +1093,10 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#suspend(SuspendProcessPayload)}.
-   * <p>
    * Method under test: {@link ProcessRuntimeImpl#suspend(SuspendProcessPayload)}
    */
   @Test
-  @DisplayName("Test suspend(SuspendProcessPayload)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.suspend(SuspendProcessPayload)"})
-  void testSuspend2() {
-    // Arrange
-    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
-    when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
-    when(executionEntityImpl.getStartUserId()).thenReturn("42");
-    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl.singleResult()).thenReturn(executionEntityImpl);
-    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
-    doNothing().when(runtimeService).suspendProcessInstanceById(Mockito.<String>any());
-    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
-    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
-    when(aPIProcessInstanceConverter.from(Mockito.<ProcessInstance>any()))
-        .thenThrow(new ActivitiObjectNotFoundException("An error occurred"));
-    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
-
-    // Act and Assert
-    assertThrows(ActivitiObjectNotFoundException.class, () -> processRuntimeImpl.suspend(new SuspendProcessPayload()));
-    verify(securityManager).getAuthenticatedUserId();
-    verify(processSecurityPoliciesManager).canWrite(eq("Process Definition Key"));
-    verify(runtimeService, atLeast(1)).createProcessInstanceQuery();
-    verify(runtimeService).suspendProcessInstanceById(isNull());
-    verify(processInstanceQueryImpl, atLeast(1)).singleResult();
-    verify(processInstanceQueryImpl2, atLeast(1)).processInstanceId(isNull());
-    verify(executionEntityImpl).getProcessDefinitionKey();
-    verify(executionEntityImpl).getStartUserId();
-    verify(aPIProcessInstanceConverter).from(isA(ProcessInstance.class));
-  }
-
-  /**
-   * Test {@link ProcessRuntimeImpl#suspend(SuspendProcessPayload)}.
-   * <ul>
-   *   <li>Then calls {@link ExecutionEntityImpl#getProcessInstanceId()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#suspend(SuspendProcessPayload)}
-   */
-  @Test
-  @DisplayName("Test suspend(SuspendProcessPayload); then calls getProcessInstanceId()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.suspend(SuspendProcessPayload)"})
-  void testSuspend_thenCallsGetProcessInstanceId() {
-    // Arrange
-    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
-    when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
-    when(executionEntityImpl.getProcessInstanceId()).thenReturn("42");
-    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl.singleResult()).thenReturn(executionEntityImpl);
-    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
-    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
-    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(false);
-
-    // Act and Assert
-    assertThrows(ActivitiForbiddenException.class, () -> processRuntimeImpl.suspend(new SuspendProcessPayload()));
-    verify(processSecurityPoliciesManager).canWrite(eq("Process Definition Key"));
-    verify(runtimeService).createProcessInstanceQuery();
-    verify(processInstanceQueryImpl).singleResult();
-    verify(processInstanceQueryImpl2).processInstanceId(isNull());
-    verify(executionEntityImpl).getProcessDefinitionKey();
-    verify(executionEntityImpl).getProcessInstanceId();
-  }
-
-  /**
-   * Test {@link ProcessRuntimeImpl#suspend(SuspendProcessPayload)}.
-   * <ul>
-   *   <li>Then return {@link ProcessInstanceImpl} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#suspend(SuspendProcessPayload)}
-   */
-  @Test
-  @DisplayName("Test suspend(SuspendProcessPayload); then return ProcessInstanceImpl (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.suspend(SuspendProcessPayload)"})
-  void testSuspend_thenReturnProcessInstanceImpl() {
-    // Arrange
-    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
-    when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
-    when(executionEntityImpl.getStartUserId()).thenReturn("42");
-    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl.singleResult()).thenReturn(executionEntityImpl);
-    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
-    doNothing().when(runtimeService).suspendProcessInstanceById(Mockito.<String>any());
-    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
-    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
-    ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
-    when(aPIProcessInstanceConverter.from(Mockito.<ProcessInstance>any())).thenReturn(processInstanceImpl);
-    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
-
-    // Act
-    org.activiti.api.process.model.ProcessInstance actualSuspendResult = processRuntimeImpl
-        .suspend(new SuspendProcessPayload());
-
-    // Assert
-    verify(securityManager).getAuthenticatedUserId();
-    verify(processSecurityPoliciesManager).canWrite(eq("Process Definition Key"));
-    verify(runtimeService, atLeast(1)).createProcessInstanceQuery();
-    verify(runtimeService).suspendProcessInstanceById(isNull());
-    verify(processInstanceQueryImpl, atLeast(1)).singleResult();
-    verify(processInstanceQueryImpl2, atLeast(1)).processInstanceId(isNull());
-    verify(executionEntityImpl).getProcessDefinitionKey();
-    verify(executionEntityImpl).getStartUserId();
-    verify(aPIProcessInstanceConverter).from(isA(ProcessInstance.class));
-    assertSame(processInstanceImpl, actualSuspendResult);
-  }
-
-  /**
-   * Test {@link ProcessRuntimeImpl#suspend(SuspendProcessPayload)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiForbiddenException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#suspend(SuspendProcessPayload)}
-   */
-  @Test
-  @DisplayName("Test suspend(SuspendProcessPayload); then throw ActivitiForbiddenException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.suspend(SuspendProcessPayload)"})
-  void testSuspend_thenThrowActivitiForbiddenException() {
-    // Arrange
-    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl.singleResult())
-        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
-    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
-    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
-    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
-
-    // Act and Assert
-    assertThrows(ActivitiForbiddenException.class, () -> processRuntimeImpl.suspend(new SuspendProcessPayload()));
-    verify(securityManager).getAuthenticatedUserId();
-    verify(processSecurityPoliciesManager).canWrite(isNull());
-    verify(runtimeService).createProcessInstanceQuery();
-    verify(processInstanceQueryImpl).singleResult();
-    verify(processInstanceQueryImpl2).processInstanceId(isNull());
-  }
-
-  /**
-   * Test {@link ProcessRuntimeImpl#suspend(SuspendProcessPayload)}.
-   * <ul>
-   *   <li>Then throw {@link NotFoundException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#suspend(SuspendProcessPayload)}
-   */
-  @Test
-  @DisplayName("Test suspend(SuspendProcessPayload); then throw NotFoundException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.suspend(SuspendProcessPayload)"})
-  void testSuspend_thenThrowNotFoundException() {
+  void testSuspend3() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
     when(processInstanceQueryImpl.singleResult()).thenReturn(null);
@@ -1363,15 +1112,131 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#resume(ResumeProcessPayload)}.
-   * <p>
+   * Method under test: {@link ProcessRuntimeImpl#suspend(SuspendProcessPayload)}
+   */
+  @Test
+  void testSuspend4() {
+    // Arrange
+    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
+    when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
+    when(executionEntityImpl.getStartUserId()).thenReturn("42");
+    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl.singleResult()).thenReturn(executionEntityImpl);
+    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
+    doNothing().when(runtimeService).suspendProcessInstanceById(Mockito.<String>any());
+    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
+    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
+    ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
+    when(aPIProcessInstanceConverter.from(Mockito.<org.activiti.engine.runtime.ProcessInstance>any()))
+        .thenReturn(processInstanceImpl);
+    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
+
+    // Act
+    org.activiti.api.process.model.ProcessInstance actualSuspendResult = processRuntimeImpl
+        .suspend(new SuspendProcessPayload());
+
+    // Assert
+    verify(securityManager).getAuthenticatedUserId();
+    verify(processSecurityPoliciesManager).canWrite(eq("Process Definition Key"));
+    verify(runtimeService, atLeast(1)).createProcessInstanceQuery();
+    verify(runtimeService).suspendProcessInstanceById(isNull());
+    verify(processInstanceQueryImpl, atLeast(1)).singleResult();
+    verify(processInstanceQueryImpl2, atLeast(1)).processInstanceId(isNull());
+    verify(executionEntityImpl).getProcessDefinitionKey();
+    verify(executionEntityImpl).getStartUserId();
+    verify(aPIProcessInstanceConverter).from(isA(org.activiti.engine.runtime.ProcessInstance.class));
+    assertSame(processInstanceImpl, actualSuspendResult);
+  }
+
+  /**
+   * Method under test: {@link ProcessRuntimeImpl#suspend(SuspendProcessPayload)}
+   */
+  @Test
+  void testSuspend5() {
+    // Arrange
+    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
+    when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
+    when(executionEntityImpl.getStartUserId()).thenReturn("42");
+    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl.singleResult()).thenReturn(executionEntityImpl);
+    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
+    doNothing().when(runtimeService).suspendProcessInstanceById(Mockito.<String>any());
+    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
+    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
+    when(aPIProcessInstanceConverter.from(Mockito.<org.activiti.engine.runtime.ProcessInstance>any()))
+        .thenThrow(new ActivitiObjectNotFoundException("An error occurred"));
+    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
+
+    // Act and Assert
+    assertThrows(ActivitiObjectNotFoundException.class, () -> processRuntimeImpl.suspend(new SuspendProcessPayload()));
+    verify(securityManager).getAuthenticatedUserId();
+    verify(processSecurityPoliciesManager).canWrite(eq("Process Definition Key"));
+    verify(runtimeService, atLeast(1)).createProcessInstanceQuery();
+    verify(runtimeService).suspendProcessInstanceById(isNull());
+    verify(processInstanceQueryImpl, atLeast(1)).singleResult();
+    verify(processInstanceQueryImpl2, atLeast(1)).processInstanceId(isNull());
+    verify(executionEntityImpl).getProcessDefinitionKey();
+    verify(executionEntityImpl).getStartUserId();
+    verify(aPIProcessInstanceConverter).from(isA(org.activiti.engine.runtime.ProcessInstance.class));
+  }
+
+  /**
+   * Method under test: {@link ProcessRuntimeImpl#suspend(SuspendProcessPayload)}
+   */
+  @Test
+  void testSuspend6() {
+    // Arrange
+    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
+    when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
+    when(executionEntityImpl.getProcessInstanceId()).thenReturn("42");
+    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl.singleResult()).thenReturn(executionEntityImpl);
+    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
+    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
+    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(false);
+
+    // Act and Assert
+    assertThrows(ActivitiForbiddenException.class, () -> processRuntimeImpl.suspend(new SuspendProcessPayload()));
+    verify(processSecurityPoliciesManager).canWrite(eq("Process Definition Key"));
+    verify(runtimeService).createProcessInstanceQuery();
+    verify(processInstanceQueryImpl).singleResult();
+    verify(processInstanceQueryImpl2).processInstanceId(isNull());
+    verify(executionEntityImpl).getProcessDefinitionKey();
+    verify(executionEntityImpl).getProcessInstanceId();
+  }
+
+  /**
    * Method under test: {@link ProcessRuntimeImpl#resume(ResumeProcessPayload)}
    */
   @Test
-  @DisplayName("Test resume(ResumeProcessPayload)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.resume(ResumeProcessPayload)"})
   void testResume() {
+    // Arrange
+    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl.singleResult())
+        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
+    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
+    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
+    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
+
+    // Act and Assert
+    assertThrows(ActivitiForbiddenException.class, () -> processRuntimeImpl.resume(new ResumeProcessPayload()));
+    verify(securityManager).getAuthenticatedUserId();
+    verify(processSecurityPoliciesManager).canWrite(isNull());
+    verify(runtimeService).createProcessInstanceQuery();
+    verify(processInstanceQueryImpl).singleResult();
+    verify(processInstanceQueryImpl2).processInstanceId(isNull());
+  }
+
+  /**
+   * Method under test: {@link ProcessRuntimeImpl#resume(ResumeProcessPayload)}
+   */
+  @Test
+  void testResume2() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
     when(processInstanceQueryImpl.singleResult())
@@ -1392,167 +1257,10 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#resume(ResumeProcessPayload)}.
-   * <p>
    * Method under test: {@link ProcessRuntimeImpl#resume(ResumeProcessPayload)}
    */
   @Test
-  @DisplayName("Test resume(ResumeProcessPayload)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.resume(ResumeProcessPayload)"})
-  void testResume2() {
-    // Arrange
-    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
-    when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
-    when(executionEntityImpl.getStartUserId()).thenReturn("42");
-    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl.singleResult()).thenReturn(executionEntityImpl);
-    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
-    doNothing().when(runtimeService).activateProcessInstanceById(Mockito.<String>any());
-    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
-    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
-    when(aPIProcessInstanceConverter.from(Mockito.<ProcessInstance>any()))
-        .thenThrow(new ActivitiObjectNotFoundException("An error occurred"));
-    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
-
-    // Act and Assert
-    assertThrows(ActivitiObjectNotFoundException.class, () -> processRuntimeImpl.resume(new ResumeProcessPayload()));
-    verify(securityManager).getAuthenticatedUserId();
-    verify(processSecurityPoliciesManager).canWrite(eq("Process Definition Key"));
-    verify(runtimeService).activateProcessInstanceById(isNull());
-    verify(runtimeService, atLeast(1)).createProcessInstanceQuery();
-    verify(processInstanceQueryImpl, atLeast(1)).singleResult();
-    verify(processInstanceQueryImpl2, atLeast(1)).processInstanceId(isNull());
-    verify(executionEntityImpl).getProcessDefinitionKey();
-    verify(executionEntityImpl).getStartUserId();
-    verify(aPIProcessInstanceConverter).from(isA(ProcessInstance.class));
-  }
-
-  /**
-   * Test {@link ProcessRuntimeImpl#resume(ResumeProcessPayload)}.
-   * <ul>
-   *   <li>Then calls {@link ExecutionEntityImpl#getProcessInstanceId()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#resume(ResumeProcessPayload)}
-   */
-  @Test
-  @DisplayName("Test resume(ResumeProcessPayload); then calls getProcessInstanceId()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.resume(ResumeProcessPayload)"})
-  void testResume_thenCallsGetProcessInstanceId() {
-    // Arrange
-    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
-    when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
-    when(executionEntityImpl.getProcessInstanceId()).thenReturn("42");
-    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl.singleResult()).thenReturn(executionEntityImpl);
-    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
-    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
-    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(false);
-
-    // Act and Assert
-    assertThrows(ActivitiForbiddenException.class, () -> processRuntimeImpl.resume(new ResumeProcessPayload()));
-    verify(processSecurityPoliciesManager).canWrite(eq("Process Definition Key"));
-    verify(runtimeService).createProcessInstanceQuery();
-    verify(processInstanceQueryImpl).singleResult();
-    verify(processInstanceQueryImpl2).processInstanceId(isNull());
-    verify(executionEntityImpl).getProcessDefinitionKey();
-    verify(executionEntityImpl).getProcessInstanceId();
-  }
-
-  /**
-   * Test {@link ProcessRuntimeImpl#resume(ResumeProcessPayload)}.
-   * <ul>
-   *   <li>Then return {@link ProcessInstanceImpl} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#resume(ResumeProcessPayload)}
-   */
-  @Test
-  @DisplayName("Test resume(ResumeProcessPayload); then return ProcessInstanceImpl (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.resume(ResumeProcessPayload)"})
-  void testResume_thenReturnProcessInstanceImpl() {
-    // Arrange
-    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
-    when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
-    when(executionEntityImpl.getStartUserId()).thenReturn("42");
-    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl.singleResult()).thenReturn(executionEntityImpl);
-    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
-    doNothing().when(runtimeService).activateProcessInstanceById(Mockito.<String>any());
-    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
-    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
-    ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
-    when(aPIProcessInstanceConverter.from(Mockito.<ProcessInstance>any())).thenReturn(processInstanceImpl);
-    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
-
-    // Act
-    org.activiti.api.process.model.ProcessInstance actualResumeResult = processRuntimeImpl
-        .resume(new ResumeProcessPayload());
-
-    // Assert
-    verify(securityManager).getAuthenticatedUserId();
-    verify(processSecurityPoliciesManager).canWrite(eq("Process Definition Key"));
-    verify(runtimeService).activateProcessInstanceById(isNull());
-    verify(runtimeService, atLeast(1)).createProcessInstanceQuery();
-    verify(processInstanceQueryImpl, atLeast(1)).singleResult();
-    verify(processInstanceQueryImpl2, atLeast(1)).processInstanceId(isNull());
-    verify(executionEntityImpl).getProcessDefinitionKey();
-    verify(executionEntityImpl).getStartUserId();
-    verify(aPIProcessInstanceConverter).from(isA(ProcessInstance.class));
-    assertSame(processInstanceImpl, actualResumeResult);
-  }
-
-  /**
-   * Test {@link ProcessRuntimeImpl#resume(ResumeProcessPayload)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiForbiddenException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#resume(ResumeProcessPayload)}
-   */
-  @Test
-  @DisplayName("Test resume(ResumeProcessPayload); then throw ActivitiForbiddenException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.resume(ResumeProcessPayload)"})
-  void testResume_thenThrowActivitiForbiddenException() {
-    // Arrange
-    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl.singleResult())
-        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
-    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
-    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
-    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
-
-    // Act and Assert
-    assertThrows(ActivitiForbiddenException.class, () -> processRuntimeImpl.resume(new ResumeProcessPayload()));
-    verify(securityManager).getAuthenticatedUserId();
-    verify(processSecurityPoliciesManager).canWrite(isNull());
-    verify(runtimeService).createProcessInstanceQuery();
-    verify(processInstanceQueryImpl).singleResult();
-    verify(processInstanceQueryImpl2).processInstanceId(isNull());
-  }
-
-  /**
-   * Test {@link ProcessRuntimeImpl#resume(ResumeProcessPayload)}.
-   * <ul>
-   *   <li>Then throw {@link NotFoundException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#resume(ResumeProcessPayload)}
-   */
-  @Test
-  @DisplayName("Test resume(ResumeProcessPayload); then throw NotFoundException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.resume(ResumeProcessPayload)"})
-  void testResume_thenThrowNotFoundException() {
+  void testResume3() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
     when(processInstanceQueryImpl.singleResult()).thenReturn(null);
@@ -1568,15 +1276,131 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#delete(DeleteProcessPayload)}.
-   * <p>
+   * Method under test: {@link ProcessRuntimeImpl#resume(ResumeProcessPayload)}
+   */
+  @Test
+  void testResume4() {
+    // Arrange
+    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
+    when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
+    when(executionEntityImpl.getStartUserId()).thenReturn("42");
+    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl.singleResult()).thenReturn(executionEntityImpl);
+    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
+    doNothing().when(runtimeService).activateProcessInstanceById(Mockito.<String>any());
+    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
+    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
+    ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
+    when(aPIProcessInstanceConverter.from(Mockito.<org.activiti.engine.runtime.ProcessInstance>any()))
+        .thenReturn(processInstanceImpl);
+    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
+
+    // Act
+    org.activiti.api.process.model.ProcessInstance actualResumeResult = processRuntimeImpl
+        .resume(new ResumeProcessPayload());
+
+    // Assert
+    verify(securityManager).getAuthenticatedUserId();
+    verify(processSecurityPoliciesManager).canWrite(eq("Process Definition Key"));
+    verify(runtimeService).activateProcessInstanceById(isNull());
+    verify(runtimeService, atLeast(1)).createProcessInstanceQuery();
+    verify(processInstanceQueryImpl, atLeast(1)).singleResult();
+    verify(processInstanceQueryImpl2, atLeast(1)).processInstanceId(isNull());
+    verify(executionEntityImpl).getProcessDefinitionKey();
+    verify(executionEntityImpl).getStartUserId();
+    verify(aPIProcessInstanceConverter).from(isA(org.activiti.engine.runtime.ProcessInstance.class));
+    assertSame(processInstanceImpl, actualResumeResult);
+  }
+
+  /**
+   * Method under test: {@link ProcessRuntimeImpl#resume(ResumeProcessPayload)}
+   */
+  @Test
+  void testResume5() {
+    // Arrange
+    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
+    when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
+    when(executionEntityImpl.getStartUserId()).thenReturn("42");
+    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl.singleResult()).thenReturn(executionEntityImpl);
+    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
+    doNothing().when(runtimeService).activateProcessInstanceById(Mockito.<String>any());
+    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
+    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
+    when(aPIProcessInstanceConverter.from(Mockito.<org.activiti.engine.runtime.ProcessInstance>any()))
+        .thenThrow(new ActivitiObjectNotFoundException("An error occurred"));
+    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
+
+    // Act and Assert
+    assertThrows(ActivitiObjectNotFoundException.class, () -> processRuntimeImpl.resume(new ResumeProcessPayload()));
+    verify(securityManager).getAuthenticatedUserId();
+    verify(processSecurityPoliciesManager).canWrite(eq("Process Definition Key"));
+    verify(runtimeService).activateProcessInstanceById(isNull());
+    verify(runtimeService, atLeast(1)).createProcessInstanceQuery();
+    verify(processInstanceQueryImpl, atLeast(1)).singleResult();
+    verify(processInstanceQueryImpl2, atLeast(1)).processInstanceId(isNull());
+    verify(executionEntityImpl).getProcessDefinitionKey();
+    verify(executionEntityImpl).getStartUserId();
+    verify(aPIProcessInstanceConverter).from(isA(org.activiti.engine.runtime.ProcessInstance.class));
+  }
+
+  /**
+   * Method under test: {@link ProcessRuntimeImpl#resume(ResumeProcessPayload)}
+   */
+  @Test
+  void testResume6() {
+    // Arrange
+    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
+    when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
+    when(executionEntityImpl.getProcessInstanceId()).thenReturn("42");
+    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl.singleResult()).thenReturn(executionEntityImpl);
+    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
+    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
+    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(false);
+
+    // Act and Assert
+    assertThrows(ActivitiForbiddenException.class, () -> processRuntimeImpl.resume(new ResumeProcessPayload()));
+    verify(processSecurityPoliciesManager).canWrite(eq("Process Definition Key"));
+    verify(runtimeService).createProcessInstanceQuery();
+    verify(processInstanceQueryImpl).singleResult();
+    verify(processInstanceQueryImpl2).processInstanceId(isNull());
+    verify(executionEntityImpl).getProcessDefinitionKey();
+    verify(executionEntityImpl).getProcessInstanceId();
+  }
+
+  /**
    * Method under test: {@link ProcessRuntimeImpl#delete(DeleteProcessPayload)}
    */
   @Test
-  @DisplayName("Test delete(DeleteProcessPayload)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.delete(DeleteProcessPayload)"})
   void testDelete() {
+    // Arrange
+    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl.singleResult())
+        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
+    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
+    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
+    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
+
+    // Act and Assert
+    assertThrows(ActivitiForbiddenException.class, () -> processRuntimeImpl.delete(new DeleteProcessPayload()));
+    verify(securityManager).getAuthenticatedUserId();
+    verify(processSecurityPoliciesManager).canWrite(isNull());
+    verify(runtimeService).createProcessInstanceQuery();
+    verify(processInstanceQueryImpl).singleResult();
+    verify(processInstanceQueryImpl2).processInstanceId(isNull());
+  }
+
+  /**
+   * Method under test: {@link ProcessRuntimeImpl#delete(DeleteProcessPayload)}
+   */
+  @Test
+  void testDelete2() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
     when(processInstanceQueryImpl.singleResult())
@@ -1597,15 +1421,29 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#delete(DeleteProcessPayload)}.
-   * <p>
    * Method under test: {@link ProcessRuntimeImpl#delete(DeleteProcessPayload)}
    */
   @Test
-  @DisplayName("Test delete(DeleteProcessPayload)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.delete(DeleteProcessPayload)"})
-  void testDelete2() {
+  void testDelete3() {
+    // Arrange
+    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl.singleResult()).thenReturn(null);
+    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
+    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
+
+    // Act and Assert
+    assertThrows(NotFoundException.class, () -> processRuntimeImpl.delete(new DeleteProcessPayload()));
+    verify(runtimeService).createProcessInstanceQuery();
+    verify(processInstanceQueryImpl).singleResult();
+    verify(processInstanceQueryImpl2).processInstanceId(isNull());
+  }
+
+  /**
+   * Method under test: {@link ProcessRuntimeImpl#delete(DeleteProcessPayload)}
+   */
+  @Test
+  void testDelete4() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
     when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
@@ -1617,7 +1455,45 @@ class ProcessRuntimeImplDiffblueTest {
     doNothing().when(runtimeService).deleteProcessInstance(Mockito.<String>any(), Mockito.<String>any());
     when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
     when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
-    when(aPIProcessInstanceConverter.from(Mockito.<ProcessInstance>any()))
+    ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
+    when(aPIProcessInstanceConverter.from(Mockito.<org.activiti.engine.runtime.ProcessInstance>any()))
+        .thenReturn(processInstanceImpl);
+    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
+
+    // Act
+    org.activiti.api.process.model.ProcessInstance actualDeleteResult = processRuntimeImpl
+        .delete(new DeleteProcessPayload());
+
+    // Assert
+    verify(securityManager).getAuthenticatedUserId();
+    verify(processSecurityPoliciesManager).canWrite(eq("Process Definition Key"));
+    verify(runtimeService).createProcessInstanceQuery();
+    verify(runtimeService).deleteProcessInstance(isNull(), isNull());
+    verify(processInstanceQueryImpl).singleResult();
+    verify(processInstanceQueryImpl2).processInstanceId(isNull());
+    verify(executionEntityImpl).getProcessDefinitionKey();
+    verify(executionEntityImpl).getStartUserId();
+    verify(aPIProcessInstanceConverter).from(isA(org.activiti.engine.runtime.ProcessInstance.class));
+    assertSame(processInstanceImpl, actualDeleteResult);
+  }
+
+  /**
+   * Method under test: {@link ProcessRuntimeImpl#delete(DeleteProcessPayload)}
+   */
+  @Test
+  void testDelete5() {
+    // Arrange
+    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
+    when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
+    when(executionEntityImpl.getStartUserId()).thenReturn("42");
+    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl.singleResult()).thenReturn(executionEntityImpl);
+    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
+    doNothing().when(runtimeService).deleteProcessInstance(Mockito.<String>any(), Mockito.<String>any());
+    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
+    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
+    when(aPIProcessInstanceConverter.from(Mockito.<org.activiti.engine.runtime.ProcessInstance>any()))
         .thenThrow(new ActivitiObjectNotFoundException("An error occurred"));
     when(securityManager.getAuthenticatedUserId()).thenReturn("42");
 
@@ -1631,22 +1507,14 @@ class ProcessRuntimeImplDiffblueTest {
     verify(processInstanceQueryImpl2).processInstanceId(isNull());
     verify(executionEntityImpl).getProcessDefinitionKey();
     verify(executionEntityImpl).getStartUserId();
-    verify(aPIProcessInstanceConverter).from(isA(ProcessInstance.class));
+    verify(aPIProcessInstanceConverter).from(isA(org.activiti.engine.runtime.ProcessInstance.class));
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#delete(DeleteProcessPayload)}.
-   * <ul>
-   *   <li>Then calls {@link ExecutionEntityImpl#getProcessInstanceId()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ProcessRuntimeImpl#delete(DeleteProcessPayload)}
    */
   @Test
-  @DisplayName("Test delete(DeleteProcessPayload); then calls getProcessInstanceId()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.delete(DeleteProcessPayload)"})
-  void testDelete_thenCallsGetProcessInstanceId() {
+  void testDelete6() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
     when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
@@ -1669,201 +1537,10 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#delete(DeleteProcessPayload)}.
-   * <ul>
-   *   <li>Then return {@link ProcessInstanceImpl} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#delete(DeleteProcessPayload)}
-   */
-  @Test
-  @DisplayName("Test delete(DeleteProcessPayload); then return ProcessInstanceImpl (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.delete(DeleteProcessPayload)"})
-  void testDelete_thenReturnProcessInstanceImpl() {
-    // Arrange
-    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
-    when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
-    when(executionEntityImpl.getStartUserId()).thenReturn("42");
-    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl.singleResult()).thenReturn(executionEntityImpl);
-    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
-    doNothing().when(runtimeService).deleteProcessInstance(Mockito.<String>any(), Mockito.<String>any());
-    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
-    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
-    ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
-    when(aPIProcessInstanceConverter.from(Mockito.<ProcessInstance>any())).thenReturn(processInstanceImpl);
-    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
-
-    // Act
-    org.activiti.api.process.model.ProcessInstance actualDeleteResult = processRuntimeImpl
-        .delete(new DeleteProcessPayload());
-
-    // Assert
-    verify(securityManager).getAuthenticatedUserId();
-    verify(processSecurityPoliciesManager).canWrite(eq("Process Definition Key"));
-    verify(runtimeService).createProcessInstanceQuery();
-    verify(runtimeService).deleteProcessInstance(isNull(), isNull());
-    verify(processInstanceQueryImpl).singleResult();
-    verify(processInstanceQueryImpl2).processInstanceId(isNull());
-    verify(executionEntityImpl).getProcessDefinitionKey();
-    verify(executionEntityImpl).getStartUserId();
-    verify(aPIProcessInstanceConverter).from(isA(ProcessInstance.class));
-    assertSame(processInstanceImpl, actualDeleteResult);
-  }
-
-  /**
-   * Test {@link ProcessRuntimeImpl#delete(DeleteProcessPayload)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiForbiddenException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#delete(DeleteProcessPayload)}
-   */
-  @Test
-  @DisplayName("Test delete(DeleteProcessPayload); then throw ActivitiForbiddenException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.delete(DeleteProcessPayload)"})
-  void testDelete_thenThrowActivitiForbiddenException() {
-    // Arrange
-    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl.singleResult())
-        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
-    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
-    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
-    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
-
-    // Act and Assert
-    assertThrows(ActivitiForbiddenException.class, () -> processRuntimeImpl.delete(new DeleteProcessPayload()));
-    verify(securityManager).getAuthenticatedUserId();
-    verify(processSecurityPoliciesManager).canWrite(isNull());
-    verify(runtimeService).createProcessInstanceQuery();
-    verify(processInstanceQueryImpl).singleResult();
-    verify(processInstanceQueryImpl2).processInstanceId(isNull());
-  }
-
-  /**
-   * Test {@link ProcessRuntimeImpl#delete(DeleteProcessPayload)}.
-   * <ul>
-   *   <li>Then throw {@link NotFoundException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#delete(DeleteProcessPayload)}
-   */
-  @Test
-  @DisplayName("Test delete(DeleteProcessPayload); then throw NotFoundException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.delete(DeleteProcessPayload)"})
-  void testDelete_thenThrowNotFoundException() {
-    // Arrange
-    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl.singleResult()).thenReturn(null);
-    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
-    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
-
-    // Act and Assert
-    assertThrows(NotFoundException.class, () -> processRuntimeImpl.delete(new DeleteProcessPayload()));
-    verify(runtimeService).createProcessInstanceQuery();
-    verify(processInstanceQueryImpl).singleResult();
-    verify(processInstanceQueryImpl2).processInstanceId(isNull());
-  }
-
-  /**
-   * Test {@link ProcessRuntimeImpl#variables(GetVariablesPayload)}.
-   * <ul>
-   *   <li>Given {@link ExecutionEntityImpl} {@link ExecutionEntityImpl#getStartUserId()} return {@code 42}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ProcessRuntimeImpl#variables(GetVariablesPayload)}
    */
   @Test
-  @DisplayName("Test variables(GetVariablesPayload); given ExecutionEntityImpl getStartUserId() return '42'; then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List ProcessRuntimeImpl.variables(GetVariablesPayload)"})
-  void testVariables_givenExecutionEntityImplGetStartUserIdReturn42_thenReturnEmpty() {
-    // Arrange
-    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
-    when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
-    when(executionEntityImpl.getStartUserId()).thenReturn("42");
-    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl.singleResult()).thenReturn(executionEntityImpl);
-    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
-    when(runtimeService.getVariableInstances(Mockito.<String>any())).thenReturn(new HashMap<>());
-    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
-    when(processSecurityPoliciesManager.canRead(Mockito.<String>any())).thenReturn(true);
-    when(aPIProcessInstanceConverter.from(Mockito.<ProcessInstance>any())).thenReturn(new ProcessInstanceImpl());
-    when(aPIVariableInstanceConverter.from(Mockito.<Collection<VariableInstance>>any())).thenReturn(new ArrayList<>());
-    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
-
-    // Act
-    List<org.activiti.api.model.shared.model.VariableInstance> actualVariablesResult = processRuntimeImpl
-        .variables(new GetVariablesPayload());
-
-    // Assert
-    verify(securityManager).getAuthenticatedUserId();
-    verify(processSecurityPoliciesManager).canRead(eq("Process Definition Key"));
-    verify(runtimeService).createProcessInstanceQuery();
-    verify(runtimeService).getVariableInstances(isNull());
-    verify(processInstanceQueryImpl).singleResult();
-    verify(processInstanceQueryImpl2).processInstanceId(isNull());
-    verify(executionEntityImpl).getProcessDefinitionKey();
-    verify(executionEntityImpl).getStartUserId();
-    verify(aPIProcessInstanceConverter).from(isA(ProcessInstance.class));
-    verify(aPIVariableInstanceConverter).from(isA(Collection.class));
-    assertTrue(actualVariablesResult.isEmpty());
-  }
-
-  /**
-   * Test {@link ProcessRuntimeImpl#variables(GetVariablesPayload)}.
-   * <ul>
-   *   <li>Given {@link ProcessSecurityPoliciesManager} {@link SecurityPoliciesManager#canRead(String)} return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#variables(GetVariablesPayload)}
-   */
-  @Test
-  @DisplayName("Test variables(GetVariablesPayload); given ProcessSecurityPoliciesManager canRead(String) return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List ProcessRuntimeImpl.variables(GetVariablesPayload)"})
-  void testVariables_givenProcessSecurityPoliciesManagerCanReadReturnFalse() {
-    // Arrange
-    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
-    when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
-    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl.singleResult()).thenReturn(executionEntityImpl);
-    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
-    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
-    when(processSecurityPoliciesManager.canRead(Mockito.<String>any())).thenReturn(false);
-
-    // Act and Assert
-    assertThrows(ActivitiObjectNotFoundException.class, () -> processRuntimeImpl.variables(new GetVariablesPayload()));
-    verify(processSecurityPoliciesManager).canRead(eq("Process Definition Key"));
-    verify(runtimeService).createProcessInstanceQuery();
-    verify(processInstanceQueryImpl).singleResult();
-    verify(processInstanceQueryImpl2).processInstanceId(isNull());
-    verify(executionEntityImpl).getProcessDefinitionKey();
-  }
-
-  /**
-   * Test {@link ProcessRuntimeImpl#variables(GetVariablesPayload)}.
-   * <ul>
-   *   <li>Then calls {@link SecurityManager#getAuthenticatedUserGroups()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#variables(GetVariablesPayload)}
-   */
-  @Test
-  @DisplayName("Test variables(GetVariablesPayload); then calls getAuthenticatedUserGroups()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List ProcessRuntimeImpl.variables(GetVariablesPayload)"})
-  void testVariables_thenCallsGetAuthenticatedUserGroups() throws SecurityException {
+  void testVariables() throws SecurityException {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
     when(processInstanceQueryImpl.singleResult())
@@ -1889,18 +1566,10 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#variables(GetVariablesPayload)}.
-   * <ul>
-   *   <li>Then throw {@link NotFoundException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ProcessRuntimeImpl#variables(GetVariablesPayload)}
    */
   @Test
-  @DisplayName("Test variables(GetVariablesPayload); then throw NotFoundException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List ProcessRuntimeImpl.variables(GetVariablesPayload)"})
-  void testVariables_thenThrowNotFoundException() {
+  void testVariables2() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
     when(processInstanceQueryImpl.singleResult()).thenReturn(null);
@@ -1916,15 +1585,104 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}.
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}
+   * Method under test: {@link ProcessRuntimeImpl#variables(GetVariablesPayload)}
    */
   @Test
-  @DisplayName("Test removeVariables(RemoveProcessVariablesPayload)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessRuntimeImpl.removeVariables(RemoveProcessVariablesPayload)"})
+  void testVariables3() {
+    // Arrange
+    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
+    when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
+    when(executionEntityImpl.getStartUserId()).thenReturn("42");
+    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl.singleResult()).thenReturn(executionEntityImpl);
+    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
+    when(runtimeService.getVariableInstances(Mockito.<String>any())).thenReturn(new HashMap<>());
+    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
+    when(processSecurityPoliciesManager.canRead(Mockito.<String>any())).thenReturn(true);
+    when(aPIProcessInstanceConverter.from(Mockito.<org.activiti.engine.runtime.ProcessInstance>any()))
+        .thenReturn(new ProcessInstanceImpl());
+    ArrayList<org.activiti.api.model.shared.model.VariableInstance> variableInstanceList = new ArrayList<>();
+    when(aPIVariableInstanceConverter
+        .from(Mockito.<Collection<org.activiti.engine.impl.persistence.entity.VariableInstance>>any()))
+        .thenReturn(variableInstanceList);
+    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
+
+    // Act
+    List<org.activiti.api.model.shared.model.VariableInstance> actualVariablesResult = processRuntimeImpl
+        .variables(new GetVariablesPayload());
+
+    // Assert
+    verify(securityManager).getAuthenticatedUserId();
+    verify(processSecurityPoliciesManager).canRead(eq("Process Definition Key"));
+    verify(runtimeService).createProcessInstanceQuery();
+    verify(runtimeService).getVariableInstances(isNull());
+    verify(processInstanceQueryImpl).singleResult();
+    verify(processInstanceQueryImpl2).processInstanceId(isNull());
+    verify(executionEntityImpl).getProcessDefinitionKey();
+    verify(executionEntityImpl).getStartUserId();
+    verify(aPIProcessInstanceConverter).from(isA(org.activiti.engine.runtime.ProcessInstance.class));
+    verify(aPIVariableInstanceConverter).from(isA(Collection.class));
+    assertTrue(actualVariablesResult.isEmpty());
+    assertSame(variableInstanceList, actualVariablesResult);
+  }
+
+  /**
+   * Method under test: {@link ProcessRuntimeImpl#variables(GetVariablesPayload)}
+   */
+  @Test
+  void testVariables4() {
+    // Arrange
+    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
+    when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
+    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl.singleResult()).thenReturn(executionEntityImpl);
+    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
+    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
+    when(processSecurityPoliciesManager.canRead(Mockito.<String>any())).thenReturn(false);
+
+    // Act and Assert
+    assertThrows(ActivitiObjectNotFoundException.class, () -> processRuntimeImpl.variables(new GetVariablesPayload()));
+    verify(processSecurityPoliciesManager).canRead(eq("Process Definition Key"));
+    verify(runtimeService).createProcessInstanceQuery();
+    verify(processInstanceQueryImpl).singleResult();
+    verify(processInstanceQueryImpl2).processInstanceId(isNull());
+    verify(executionEntityImpl).getProcessDefinitionKey();
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}
+   */
+  @Test
   void testRemoveVariables() {
+    // Arrange
+    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl.singleResult())
+        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
+    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
+    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
+    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
+
+    // Act and Assert
+    assertThrows(ActivitiForbiddenException.class,
+        () -> processRuntimeImpl.removeVariables(new RemoveProcessVariablesPayload()));
+    verify(securityManager).getAuthenticatedUserId();
+    verify(processSecurityPoliciesManager).canWrite(isNull());
+    verify(runtimeService).createProcessInstanceQuery();
+    verify(processInstanceQueryImpl).singleResult();
+    verify(processInstanceQueryImpl2).processInstanceId(isNull());
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}
+   */
+  @Test
+  void testRemoveVariables2() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
     when(processInstanceQueryImpl.singleResult())
@@ -1946,15 +1704,65 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}.
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}
+   * Method under test:
+   * {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}
    */
   @Test
-  @DisplayName("Test removeVariables(RemoveProcessVariablesPayload)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessRuntimeImpl.removeVariables(RemoveProcessVariablesPayload)"})
-  void testRemoveVariables2() {
+  void testRemoveVariables3() {
+    // Arrange
+    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl.singleResult()).thenReturn(null);
+    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
+    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
+
+    // Act and Assert
+    assertThrows(NotFoundException.class,
+        () -> processRuntimeImpl.removeVariables(new RemoveProcessVariablesPayload()));
+    verify(runtimeService).createProcessInstanceQuery();
+    verify(processInstanceQueryImpl).singleResult();
+    verify(processInstanceQueryImpl2).processInstanceId(isNull());
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}
+   */
+  @Test
+  void testRemoveVariables4() {
+    // Arrange
+    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
+    when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
+    when(executionEntityImpl.getStartUserId()).thenReturn("42");
+    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl.singleResult()).thenReturn(executionEntityImpl);
+    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
+    doNothing().when(runtimeService).removeVariables(Mockito.<String>any(), Mockito.<Collection<String>>any());
+    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
+    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
+    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
+
+    // Act
+    processRuntimeImpl.removeVariables(new RemoveProcessVariablesPayload());
+
+    // Assert that nothing has changed
+    verify(securityManager).getAuthenticatedUserId();
+    verify(processSecurityPoliciesManager).canWrite(eq("Process Definition Key"));
+    verify(runtimeService).createProcessInstanceQuery();
+    verify(runtimeService).removeVariables(isNull(), isA(Collection.class));
+    verify(processInstanceQueryImpl).singleResult();
+    verify(processInstanceQueryImpl2).processInstanceId(isNull());
+    verify(executionEntityImpl).getProcessDefinitionKey();
+    verify(executionEntityImpl).getStartUserId();
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}
+   */
+  @Test
+  void testRemoveVariables5() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
     when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
@@ -1983,18 +1791,11 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}.
-   * <ul>
-   *   <li>Then calls {@link ExecutionEntityImpl#getProcessInstanceId()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}
+   * Method under test:
+   * {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}
    */
   @Test
-  @DisplayName("Test removeVariables(RemoveProcessVariablesPayload); then calls getProcessInstanceId()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessRuntimeImpl.removeVariables(RemoveProcessVariablesPayload)"})
-  void testRemoveVariables_thenCallsGetProcessInstanceId() {
+  void testRemoveVariables6() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
     when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
@@ -2018,58 +1819,11 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}.
-   * <ul>
-   *   <li>Then calls {@link RuntimeService#removeVariables(String, Collection)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}
+   * Method under test:
+   * {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}
    */
   @Test
-  @DisplayName("Test removeVariables(RemoveProcessVariablesPayload); then calls removeVariables(String, Collection)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessRuntimeImpl.removeVariables(RemoveProcessVariablesPayload)"})
-  void testRemoveVariables_thenCallsRemoveVariables() {
-    // Arrange
-    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
-    when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
-    when(executionEntityImpl.getStartUserId()).thenReturn("42");
-    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl.singleResult()).thenReturn(executionEntityImpl);
-    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
-    doNothing().when(runtimeService).removeVariables(Mockito.<String>any(), Mockito.<Collection<String>>any());
-    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
-    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
-    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
-
-    // Act
-    processRuntimeImpl.removeVariables(new RemoveProcessVariablesPayload());
-
-    // Assert
-    verify(securityManager).getAuthenticatedUserId();
-    verify(processSecurityPoliciesManager).canWrite(eq("Process Definition Key"));
-    verify(runtimeService).createProcessInstanceQuery();
-    verify(runtimeService).removeVariables(isNull(), isA(Collection.class));
-    verify(processInstanceQueryImpl).singleResult();
-    verify(processInstanceQueryImpl2).processInstanceId(isNull());
-    verify(executionEntityImpl).getProcessDefinitionKey();
-    verify(executionEntityImpl).getStartUserId();
-  }
-
-  /**
-   * Test {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiForbiddenException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}
-   */
-  @Test
-  @DisplayName("Test removeVariables(RemoveProcessVariablesPayload); then throw ActivitiForbiddenException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessRuntimeImpl.removeVariables(RemoveProcessVariablesPayload)"})
-  void testRemoveVariables_thenThrowActivitiForbiddenException() {
+  void testSetVariables() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
     when(processInstanceQueryImpl.singleResult())
@@ -2082,7 +1836,7 @@ class ProcessRuntimeImplDiffblueTest {
 
     // Act and Assert
     assertThrows(ActivitiForbiddenException.class,
-        () -> processRuntimeImpl.removeVariables(new RemoveProcessVariablesPayload()));
+        () -> processRuntimeImpl.setVariables(new SetProcessVariablesPayload()));
     verify(securityManager).getAuthenticatedUserId();
     verify(processSecurityPoliciesManager).canWrite(isNull());
     verify(runtimeService).createProcessInstanceQuery();
@@ -2091,43 +1845,11 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}.
-   * <ul>
-   *   <li>Then throw {@link NotFoundException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}
+   * Method under test:
+   * {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}
    */
   @Test
-  @DisplayName("Test removeVariables(RemoveProcessVariablesPayload); then throw NotFoundException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessRuntimeImpl.removeVariables(RemoveProcessVariablesPayload)"})
-  void testRemoveVariables_thenThrowNotFoundException() {
-    // Arrange
-    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl.singleResult()).thenReturn(null);
-    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
-    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
-
-    // Act and Assert
-    assertThrows(NotFoundException.class,
-        () -> processRuntimeImpl.removeVariables(new RemoveProcessVariablesPayload()));
-    verify(runtimeService).createProcessInstanceQuery();
-    verify(processInstanceQueryImpl).singleResult();
-    verify(processInstanceQueryImpl2).processInstanceId(isNull());
-  }
-
-  /**
-   * Test {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}.
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}
-   */
-  @Test
-  @DisplayName("Test setVariables(SetProcessVariablesPayload)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessRuntimeImpl.setVariables(SetProcessVariablesPayload)"})
-  void testSetVariables() {
+  void testSetVariables2() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
     when(processInstanceQueryImpl.singleResult())
@@ -2149,15 +1871,69 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}.
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}
+   * Method under test:
+   * {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}
    */
   @Test
-  @DisplayName("Test setVariables(SetProcessVariablesPayload)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessRuntimeImpl.setVariables(SetProcessVariablesPayload)"})
-  void testSetVariables2() {
+  void testSetVariables3() {
+    // Arrange
+    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl.singleResult()).thenReturn(null);
+    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
+    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
+
+    // Act and Assert
+    assertThrows(NotFoundException.class, () -> processRuntimeImpl.setVariables(new SetProcessVariablesPayload()));
+    verify(runtimeService).createProcessInstanceQuery();
+    verify(processInstanceQueryImpl).singleResult();
+    verify(processInstanceQueryImpl2).processInstanceId(isNull());
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}
+   */
+  @Test
+  void testSetVariables4() {
+    // Arrange
+    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
+    when(executionEntityImpl.getProcessDefinitionId()).thenReturn("42");
+    when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
+    when(executionEntityImpl.getStartUserId()).thenReturn("42");
+    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl.singleResult()).thenReturn(executionEntityImpl);
+    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
+    doNothing().when(runtimeService).setVariables(Mockito.<String>any(), Mockito.<Map<String, Object>>any());
+    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
+    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
+    doNothing().when(processVariablesPayloadValidator)
+        .checkPayloadVariables(Mockito.<SetProcessVariablesPayload>any(), Mockito.<String>any());
+    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
+
+    // Act
+    processRuntimeImpl.setVariables(new SetProcessVariablesPayload());
+
+    // Assert that nothing has changed
+    verify(securityManager).getAuthenticatedUserId();
+    verify(processSecurityPoliciesManager).canWrite(eq("Process Definition Key"));
+    verify(runtimeService).createProcessInstanceQuery();
+    verify(runtimeService).setVariables(isNull(), isA(Map.class));
+    verify(processInstanceQueryImpl).singleResult();
+    verify(processInstanceQueryImpl2).processInstanceId(isNull());
+    verify(executionEntityImpl).getProcessDefinitionId();
+    verify(executionEntityImpl).getProcessDefinitionKey();
+    verify(executionEntityImpl).getStartUserId();
+    verify(processVariablesPayloadValidator).checkPayloadVariables(isA(SetProcessVariablesPayload.class), eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}
+   */
+  @Test
+  void testSetVariables5() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
     when(executionEntityImpl.getProcessDefinitionId()).thenReturn("42");
@@ -2188,18 +1964,11 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}.
-   * <ul>
-   *   <li>Then calls {@link ExecutionEntityImpl#getProcessInstanceId()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}
+   * Method under test:
+   * {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}
    */
   @Test
-  @DisplayName("Test setVariables(SetProcessVariablesPayload); then calls getProcessInstanceId()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessRuntimeImpl.setVariables(SetProcessVariablesPayload)"})
-  void testSetVariables_thenCallsGetProcessInstanceId() {
+  void testSetVariables6() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
     when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
@@ -2223,123 +1992,10 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}.
-   * <ul>
-   *   <li>Then calls {@link RuntimeService#setVariables(String, Map)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}
-   */
-  @Test
-  @DisplayName("Test setVariables(SetProcessVariablesPayload); then calls setVariables(String, Map)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessRuntimeImpl.setVariables(SetProcessVariablesPayload)"})
-  void testSetVariables_thenCallsSetVariables() {
-    // Arrange
-    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
-    when(executionEntityImpl.getProcessDefinitionId()).thenReturn("42");
-    when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
-    when(executionEntityImpl.getStartUserId()).thenReturn("42");
-    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl.singleResult()).thenReturn(executionEntityImpl);
-    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
-    doNothing().when(runtimeService).setVariables(Mockito.<String>any(), Mockito.<Map<String, Object>>any());
-    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
-    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
-    doNothing().when(processVariablesPayloadValidator)
-        .checkPayloadVariables(Mockito.<SetProcessVariablesPayload>any(), Mockito.<String>any());
-    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
-
-    // Act
-    processRuntimeImpl.setVariables(new SetProcessVariablesPayload());
-
-    // Assert
-    verify(securityManager).getAuthenticatedUserId();
-    verify(processSecurityPoliciesManager).canWrite(eq("Process Definition Key"));
-    verify(runtimeService).createProcessInstanceQuery();
-    verify(runtimeService).setVariables(isNull(), isA(Map.class));
-    verify(processInstanceQueryImpl).singleResult();
-    verify(processInstanceQueryImpl2).processInstanceId(isNull());
-    verify(executionEntityImpl).getProcessDefinitionId();
-    verify(executionEntityImpl).getProcessDefinitionKey();
-    verify(executionEntityImpl).getStartUserId();
-    verify(processVariablesPayloadValidator).checkPayloadVariables(isA(SetProcessVariablesPayload.class), eq("42"));
-  }
-
-  /**
-   * Test {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiForbiddenException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}
-   */
-  @Test
-  @DisplayName("Test setVariables(SetProcessVariablesPayload); then throw ActivitiForbiddenException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessRuntimeImpl.setVariables(SetProcessVariablesPayload)"})
-  void testSetVariables_thenThrowActivitiForbiddenException() {
-    // Arrange
-    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl.singleResult())
-        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
-    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
-    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
-    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
-
-    // Act and Assert
-    assertThrows(ActivitiForbiddenException.class,
-        () -> processRuntimeImpl.setVariables(new SetProcessVariablesPayload()));
-    verify(securityManager).getAuthenticatedUserId();
-    verify(processSecurityPoliciesManager).canWrite(isNull());
-    verify(runtimeService).createProcessInstanceQuery();
-    verify(processInstanceQueryImpl).singleResult();
-    verify(processInstanceQueryImpl2).processInstanceId(isNull());
-  }
-
-  /**
-   * Test {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}.
-   * <ul>
-   *   <li>Then throw {@link NotFoundException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}
-   */
-  @Test
-  @DisplayName("Test setVariables(SetProcessVariablesPayload); then throw NotFoundException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessRuntimeImpl.setVariables(SetProcessVariablesPayload)"})
-  void testSetVariables_thenThrowNotFoundException() {
-    // Arrange
-    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl.singleResult()).thenReturn(null);
-    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
-    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
-
-    // Act and Assert
-    assertThrows(NotFoundException.class, () -> processRuntimeImpl.setVariables(new SetProcessVariablesPayload()));
-    verify(runtimeService).createProcessInstanceQuery();
-    verify(processInstanceQueryImpl).singleResult();
-    verify(processInstanceQueryImpl2).processInstanceId(isNull());
-  }
-
-  /**
-   * Test {@link ProcessRuntimeImpl#signal(SignalPayload)}.
-   * <ul>
-   *   <li>Then calls {@link ProcessVariablesPayloadValidator#checkSignalPayloadVariables(SignalPayload, String)}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ProcessRuntimeImpl#signal(SignalPayload)}
    */
   @Test
-  @DisplayName("Test signal(SignalPayload); then calls checkSignalPayloadVariables(SignalPayload, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessRuntimeImpl.signal(SignalPayload)"})
-  void testSignal_thenCallsCheckSignalPayloadVariables() {
+  void testSignal() {
     // Arrange
     doNothing().when(processVariablesPayloadValidator)
         .checkSignalPayloadVariables(Mockito.<SignalPayload>any(), Mockito.<String>any());
@@ -2352,18 +2008,10 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#signal(SignalPayload)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiObjectNotFoundException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ProcessRuntimeImpl#signal(SignalPayload)}
    */
   @Test
-  @DisplayName("Test signal(SignalPayload); then throw ActivitiObjectNotFoundException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessRuntimeImpl.signal(SignalPayload)"})
-  void testSignal_thenThrowActivitiObjectNotFoundException() {
+  void testSignal2() {
     // Arrange
     doThrow(new ActivitiObjectNotFoundException("An error occurred")).when(processVariablesPayloadValidator)
         .checkSignalPayloadVariables(Mockito.<SignalPayload>any(), Mockito.<String>any());
@@ -2374,19 +2022,10 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#processDefinitionMeta(String)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiObjectNotFoundException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ProcessRuntimeImpl#processDefinitionMeta(String)}
    */
   @Test
-  @DisplayName("Test processDefinitionMeta(String); then throw ActivitiObjectNotFoundException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.process.model.ProcessDefinitionMeta ProcessRuntimeImpl.processDefinitionMeta(String)"})
-  void testProcessDefinitionMeta_thenThrowActivitiObjectNotFoundException() throws SecurityException {
+  void testProcessDefinitionMeta() throws SecurityException {
     // Arrange
     when(repositoryService.createProcessDefinitionQuery()).thenReturn(new ProcessDefinitionQueryImpl());
     when(securityManager.getAuthenticatedUserGroups())
@@ -2402,14 +2041,9 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#update(UpdateProcessPayload)}.
-   * <p>
    * Method under test: {@link ProcessRuntimeImpl#update(UpdateProcessPayload)}
    */
   @Test
-  @DisplayName("Test update(UpdateProcessPayload)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.update(UpdateProcessPayload)"})
   void testUpdate() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
@@ -2431,14 +2065,9 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#update(UpdateProcessPayload)}.
-   * <p>
    * Method under test: {@link ProcessRuntimeImpl#update(UpdateProcessPayload)}
    */
   @Test
-  @DisplayName("Test update(UpdateProcessPayload)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.update(UpdateProcessPayload)"})
   void testUpdate2() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
@@ -2460,15 +2089,29 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#update(UpdateProcessPayload)}.
-   * <p>
    * Method under test: {@link ProcessRuntimeImpl#update(UpdateProcessPayload)}
    */
   @Test
-  @DisplayName("Test update(UpdateProcessPayload)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.update(UpdateProcessPayload)"})
   void testUpdate3() {
+    // Arrange
+    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl.singleResult()).thenReturn(null);
+    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
+    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
+
+    // Act and Assert
+    assertThrows(NotFoundException.class, () -> processRuntimeImpl.update(new UpdateProcessPayload()));
+    verify(runtimeService).createProcessInstanceQuery();
+    verify(processInstanceQueryImpl).singleResult();
+    verify(processInstanceQueryImpl2).processInstanceId(isNull());
+  }
+
+  /**
+   * Method under test: {@link ProcessRuntimeImpl#update(UpdateProcessPayload)}
+   */
+  @Test
+  void testUpdate4() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
     when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
@@ -2479,7 +2122,43 @@ class ProcessRuntimeImplDiffblueTest {
     when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
     when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
     when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
-    when(aPIProcessInstanceConverter.from(Mockito.<ProcessInstance>any()))
+    ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
+    when(aPIProcessInstanceConverter.from(Mockito.<org.activiti.engine.runtime.ProcessInstance>any()))
+        .thenReturn(processInstanceImpl);
+    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
+
+    // Act
+    org.activiti.api.process.model.ProcessInstance actualUpdateResult = processRuntimeImpl
+        .update(new UpdateProcessPayload());
+
+    // Assert
+    verify(securityManager).getAuthenticatedUserId();
+    verify(processSecurityPoliciesManager).canWrite(eq("Process Definition Key"));
+    verify(runtimeService, atLeast(1)).createProcessInstanceQuery();
+    verify(processInstanceQueryImpl, atLeast(1)).singleResult();
+    verify(processInstanceQueryImpl2, atLeast(1)).processInstanceId(isNull());
+    verify(executionEntityImpl).getProcessDefinitionKey();
+    verify(executionEntityImpl).getStartUserId();
+    verify(aPIProcessInstanceConverter).from(isA(org.activiti.engine.runtime.ProcessInstance.class));
+    assertSame(processInstanceImpl, actualUpdateResult);
+  }
+
+  /**
+   * Method under test: {@link ProcessRuntimeImpl#update(UpdateProcessPayload)}
+   */
+  @Test
+  void testUpdate5() {
+    // Arrange
+    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
+    when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
+    when(executionEntityImpl.getStartUserId()).thenReturn("42");
+    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl.singleResult()).thenReturn(executionEntityImpl);
+    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
+    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
+    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
+    when(aPIProcessInstanceConverter.from(Mockito.<org.activiti.engine.runtime.ProcessInstance>any()))
         .thenThrow(new ActivitiObjectNotFoundException("An error occurred"));
     when(securityManager.getAuthenticatedUserId()).thenReturn("42");
 
@@ -2492,19 +2171,80 @@ class ProcessRuntimeImplDiffblueTest {
     verify(processInstanceQueryImpl2, atLeast(1)).processInstanceId(isNull());
     verify(executionEntityImpl).getProcessDefinitionKey();
     verify(executionEntityImpl).getStartUserId();
-    verify(aPIProcessInstanceConverter).from(isA(ProcessInstance.class));
+    verify(aPIProcessInstanceConverter).from(isA(org.activiti.engine.runtime.ProcessInstance.class));
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#update(UpdateProcessPayload)}.
-   * <p>
    * Method under test: {@link ProcessRuntimeImpl#update(UpdateProcessPayload)}
    */
   @Test
-  @DisplayName("Test update(UpdateProcessPayload)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.update(UpdateProcessPayload)"})
-  void testUpdate4() {
+  void testUpdate6() {
+    // Arrange
+    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
+    when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
+    when(executionEntityImpl.getProcessInstanceId()).thenReturn("42");
+    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl.singleResult()).thenReturn(executionEntityImpl);
+    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
+    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
+    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(false);
+
+    // Act and Assert
+    assertThrows(ActivitiForbiddenException.class, () -> processRuntimeImpl.update(new UpdateProcessPayload()));
+    verify(processSecurityPoliciesManager).canWrite(eq("Process Definition Key"));
+    verify(runtimeService).createProcessInstanceQuery();
+    verify(processInstanceQueryImpl).singleResult();
+    verify(processInstanceQueryImpl2).processInstanceId(isNull());
+    verify(executionEntityImpl).getProcessDefinitionKey();
+    verify(executionEntityImpl).getProcessInstanceId();
+  }
+
+  /**
+   * Method under test: {@link ProcessRuntimeImpl#update(UpdateProcessPayload)}
+   */
+  @Test
+  void testUpdate7() {
+    // Arrange
+    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
+    when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
+    when(executionEntityImpl.getStartUserId()).thenReturn("42");
+    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl.singleResult()).thenReturn(executionEntityImpl);
+    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
+    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
+    doNothing().when(runtimeService).setProcessInstanceName(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(runtimeService).updateBusinessKey(Mockito.<String>any(), Mockito.<String>any());
+    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
+    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
+    ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
+    when(aPIProcessInstanceConverter.from(Mockito.<org.activiti.engine.runtime.ProcessInstance>any()))
+        .thenReturn(processInstanceImpl);
+    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
+
+    // Act
+    org.activiti.api.process.model.ProcessInstance actualUpdateResult = processRuntimeImpl
+        .update(new UpdateProcessPayload("42", "42", "The characteristics of someone or something", "42"));
+
+    // Assert
+    verify(securityManager).getAuthenticatedUserId();
+    verify(processSecurityPoliciesManager).canWrite(eq("Process Definition Key"));
+    verify(runtimeService, atLeast(1)).createProcessInstanceQuery();
+    verify(runtimeService).setProcessInstanceName(eq("42"), eq("42"));
+    verify(runtimeService).updateBusinessKey(eq("42"), eq("42"));
+    verify(processInstanceQueryImpl, atLeast(1)).singleResult();
+    verify(processInstanceQueryImpl2, atLeast(1)).processInstanceId(eq("42"));
+    verify(executionEntityImpl).getProcessDefinitionKey();
+    verify(executionEntityImpl).getStartUserId();
+    verify(aPIProcessInstanceConverter).from(isA(org.activiti.engine.runtime.ProcessInstance.class));
+    assertSame(processInstanceImpl, actualUpdateResult);
+  }
+
+  /**
+   * Method under test: {@link ProcessRuntimeImpl#update(UpdateProcessPayload)}
+   */
+  @Test
+  void testUpdate8() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
     when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
@@ -2533,15 +2273,10 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#update(UpdateProcessPayload)}.
-   * <p>
    * Method under test: {@link ProcessRuntimeImpl#update(UpdateProcessPayload)}
    */
   @Test
-  @DisplayName("Test update(UpdateProcessPayload)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.update(UpdateProcessPayload)"})
-  void testUpdate5() {
+  void testUpdate9() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
     when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
@@ -2570,169 +2305,10 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#update(UpdateProcessPayload)}.
-   * <ul>
-   *   <li>Given {@link RuntimeService} {@link RuntimeService#setProcessInstanceName(String, String)} does nothing.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#update(UpdateProcessPayload)}
-   */
-  @Test
-  @DisplayName("Test update(UpdateProcessPayload); given RuntimeService setProcessInstanceName(String, String) does nothing")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.update(UpdateProcessPayload)"})
-  void testUpdate_givenRuntimeServiceSetProcessInstanceNameDoesNothing() {
-    // Arrange
-    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
-    when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
-    when(executionEntityImpl.getStartUserId()).thenReturn("42");
-    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl.singleResult()).thenReturn(executionEntityImpl);
-    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
-    doNothing().when(runtimeService).setProcessInstanceName(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(runtimeService).updateBusinessKey(Mockito.<String>any(), Mockito.<String>any());
-    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
-    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
-    ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
-    when(aPIProcessInstanceConverter.from(Mockito.<ProcessInstance>any())).thenReturn(processInstanceImpl);
-    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
-
-    // Act
-    org.activiti.api.process.model.ProcessInstance actualUpdateResult = processRuntimeImpl
-        .update(new UpdateProcessPayload("42", "42", "The characteristics of someone or something", "42"));
-
-    // Assert
-    verify(securityManager).getAuthenticatedUserId();
-    verify(processSecurityPoliciesManager).canWrite(eq("Process Definition Key"));
-    verify(runtimeService, atLeast(1)).createProcessInstanceQuery();
-    verify(runtimeService).setProcessInstanceName(eq("42"), eq("42"));
-    verify(runtimeService).updateBusinessKey(eq("42"), eq("42"));
-    verify(processInstanceQueryImpl, atLeast(1)).singleResult();
-    verify(processInstanceQueryImpl2, atLeast(1)).processInstanceId(eq("42"));
-    verify(executionEntityImpl).getProcessDefinitionKey();
-    verify(executionEntityImpl).getStartUserId();
-    verify(aPIProcessInstanceConverter).from(isA(ProcessInstance.class));
-    assertSame(processInstanceImpl, actualUpdateResult);
-  }
-
-  /**
-   * Test {@link ProcessRuntimeImpl#update(UpdateProcessPayload)}.
-   * <ul>
-   *   <li>Then calls {@link ExecutionEntityImpl#getProcessInstanceId()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#update(UpdateProcessPayload)}
-   */
-  @Test
-  @DisplayName("Test update(UpdateProcessPayload); then calls getProcessInstanceId()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.update(UpdateProcessPayload)"})
-  void testUpdate_thenCallsGetProcessInstanceId() {
-    // Arrange
-    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
-    when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
-    when(executionEntityImpl.getProcessInstanceId()).thenReturn("42");
-    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl.singleResult()).thenReturn(executionEntityImpl);
-    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
-    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
-    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(false);
-
-    // Act and Assert
-    assertThrows(ActivitiForbiddenException.class, () -> processRuntimeImpl.update(new UpdateProcessPayload()));
-    verify(processSecurityPoliciesManager).canWrite(eq("Process Definition Key"));
-    verify(runtimeService).createProcessInstanceQuery();
-    verify(processInstanceQueryImpl).singleResult();
-    verify(processInstanceQueryImpl2).processInstanceId(isNull());
-    verify(executionEntityImpl).getProcessDefinitionKey();
-    verify(executionEntityImpl).getProcessInstanceId();
-  }
-
-  /**
-   * Test {@link ProcessRuntimeImpl#update(UpdateProcessPayload)}.
-   * <ul>
-   *   <li>Then return {@link ProcessInstanceImpl} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#update(UpdateProcessPayload)}
-   */
-  @Test
-  @DisplayName("Test update(UpdateProcessPayload); then return ProcessInstanceImpl (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.update(UpdateProcessPayload)"})
-  void testUpdate_thenReturnProcessInstanceImpl() {
-    // Arrange
-    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
-    when(executionEntityImpl.getProcessDefinitionKey()).thenReturn("Process Definition Key");
-    when(executionEntityImpl.getStartUserId()).thenReturn("42");
-    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl.singleResult()).thenReturn(executionEntityImpl);
-    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
-    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
-    when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
-    ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
-    when(aPIProcessInstanceConverter.from(Mockito.<ProcessInstance>any())).thenReturn(processInstanceImpl);
-    when(securityManager.getAuthenticatedUserId()).thenReturn("42");
-
-    // Act
-    org.activiti.api.process.model.ProcessInstance actualUpdateResult = processRuntimeImpl
-        .update(new UpdateProcessPayload());
-
-    // Assert
-    verify(securityManager).getAuthenticatedUserId();
-    verify(processSecurityPoliciesManager).canWrite(eq("Process Definition Key"));
-    verify(runtimeService, atLeast(1)).createProcessInstanceQuery();
-    verify(processInstanceQueryImpl, atLeast(1)).singleResult();
-    verify(processInstanceQueryImpl2, atLeast(1)).processInstanceId(isNull());
-    verify(executionEntityImpl).getProcessDefinitionKey();
-    verify(executionEntityImpl).getStartUserId();
-    verify(aPIProcessInstanceConverter).from(isA(ProcessInstance.class));
-    assertSame(processInstanceImpl, actualUpdateResult);
-  }
-
-  /**
-   * Test {@link ProcessRuntimeImpl#update(UpdateProcessPayload)}.
-   * <ul>
-   *   <li>Then throw {@link NotFoundException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#update(UpdateProcessPayload)}
-   */
-  @Test
-  @DisplayName("Test update(UpdateProcessPayload); then throw NotFoundException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.update(UpdateProcessPayload)"})
-  void testUpdate_thenThrowNotFoundException() {
-    // Arrange
-    ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl.singleResult()).thenReturn(null);
-    ProcessInstanceQueryImpl processInstanceQueryImpl2 = mock(ProcessInstanceQueryImpl.class);
-    when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
-    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
-
-    // Act and Assert
-    assertThrows(NotFoundException.class, () -> processRuntimeImpl.update(new UpdateProcessPayload()));
-    verify(runtimeService).createProcessInstanceQuery();
-    verify(processInstanceQueryImpl).singleResult();
-    verify(processInstanceQueryImpl2).processInstanceId(isNull());
-  }
-
-  /**
-   * Test {@link ProcessRuntimeImpl#receive(ReceiveMessagePayload)}.
-   * <ul>
-   *   <li>Then calls {@link ProcessVariablesPayloadValidator#checkReceiveMessagePayloadVariables(ReceiveMessagePayload, String)}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ProcessRuntimeImpl#receive(ReceiveMessagePayload)}
    */
   @Test
-  @DisplayName("Test receive(ReceiveMessagePayload); then calls checkReceiveMessagePayloadVariables(ReceiveMessagePayload, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessRuntimeImpl.receive(ReceiveMessagePayload)"})
-  void testReceive_thenCallsCheckReceiveMessagePayloadVariables() {
+  void testReceive() {
     // Arrange
     doNothing().when(processVariablesPayloadValidator)
         .checkReceiveMessagePayloadVariables(Mockito.<ReceiveMessagePayload>any(), Mockito.<String>any());
@@ -2746,18 +2322,10 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#receive(ReceiveMessagePayload)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiObjectNotFoundException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ProcessRuntimeImpl#receive(ReceiveMessagePayload)}
    */
   @Test
-  @DisplayName("Test receive(ReceiveMessagePayload); then throw ActivitiObjectNotFoundException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessRuntimeImpl.receive(ReceiveMessagePayload)"})
-  void testReceive_thenThrowActivitiObjectNotFoundException() {
+  void testReceive2() {
     // Arrange
     doThrow(new ActivitiObjectNotFoundException("An error occurred")).when(processVariablesPayloadValidator)
         .checkReceiveMessagePayloadVariables(Mockito.<ReceiveMessagePayload>any(), Mockito.<String>any());
@@ -2769,15 +2337,10 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#getProcessDefinitionAndCheckUserHasRights(String, String)}.
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#getProcessDefinitionAndCheckUserHasRights(String, String)}
+   * Method under test:
+   * {@link ProcessRuntimeImpl#getProcessDefinitionAndCheckUserHasRights(String, String)}
    */
   @Test
-  @DisplayName("Test getProcessDefinitionAndCheckUserHasRights(String, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.process.model.ProcessDefinition ProcessRuntimeImpl.getProcessDefinitionAndCheckUserHasRights(String, String)"})
   void testGetProcessDefinitionAndCheckUserHasRights() throws SecurityException {
     // Arrange
     when(repositoryService.createProcessDefinitionQuery()).thenReturn(new ProcessDefinitionQueryImpl());
@@ -2794,18 +2357,10 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#selectLatestDeployment()}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiObjectNotFoundException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ProcessRuntimeImpl#selectLatestDeployment()}
    */
   @Test
-  @DisplayName("Test selectLatestDeployment(); then throw ActivitiObjectNotFoundException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.process.model.Deployment ProcessRuntimeImpl.selectLatestDeployment()"})
-  void testSelectLatestDeployment_thenThrowActivitiObjectNotFoundException() {
+  void testSelectLatestDeployment() {
     // Arrange
     when(repositoryService.createDeploymentQuery()).thenThrow(new ActivitiObjectNotFoundException("An error occurred"));
 
@@ -2815,26 +2370,33 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#internalProcessInstance(String)}.
-   * <ul>
-   *   <li>Then return createWithEmptyRelationshipCollections.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ProcessRuntimeImpl#internalProcessInstance(String)}
    */
   @Test
-  @DisplayName("Test internalProcessInstance(String); then return createWithEmptyRelationshipCollections")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ProcessInstance ProcessRuntimeImpl.internalProcessInstance(String)"})
-  void testInternalProcessInstance_thenReturnCreateWithEmptyRelationshipCollections() {
+  void testInternalProcessInstance() {
+    // Arrange
+    when(runtimeService.createProcessInstanceQuery())
+        .thenThrow(new ActivitiObjectNotFoundException("An error occurred"));
+
+    // Act and Assert
+    assertThrows(ActivitiObjectNotFoundException.class, () -> processRuntimeImpl.internalProcessInstance("42"));
+    verify(runtimeService).createProcessInstanceQuery();
+  }
+
+  /**
+   * Method under test: {@link ProcessRuntimeImpl#internalProcessInstance(String)}
+   */
+  @Test
+  void testInternalProcessInstance2() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
         .createWithEmptyRelationshipCollections();
     when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
         .thenReturn(createWithEmptyRelationshipCollectionsResult);
-    when(runtimeService.createProcessInstanceQuery())
-        .thenReturn(new ProcessInstanceQueryImpl(new CommandExecutorImpl(new CommandConfig(), first)));
+    ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl(
+        new CommandExecutorImpl(new CommandConfig(), first));
+    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl);
 
     // Act
     ProcessInstance actualInternalProcessInstanceResult = processRuntimeImpl.internalProcessInstance("42");
@@ -2846,45 +2408,16 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#internalProcessInstance(String)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiObjectNotFoundException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ProcessRuntimeImpl#internalProcessInstance(String)}
    */
   @Test
-  @DisplayName("Test internalProcessInstance(String); then throw ActivitiObjectNotFoundException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ProcessInstance ProcessRuntimeImpl.internalProcessInstance(String)"})
-  void testInternalProcessInstance_thenThrowActivitiObjectNotFoundException() {
-    // Arrange
-    when(runtimeService.createProcessInstanceQuery())
-        .thenThrow(new ActivitiObjectNotFoundException("An error occurred"));
-
-    // Act and Assert
-    assertThrows(ActivitiObjectNotFoundException.class, () -> processRuntimeImpl.internalProcessInstance("42"));
-    verify(runtimeService).createProcessInstanceQuery();
-  }
-
-  /**
-   * Test {@link ProcessRuntimeImpl#internalProcessInstance(String)}.
-   * <ul>
-   *   <li>Then throw {@link NotFoundException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessRuntimeImpl#internalProcessInstance(String)}
-   */
-  @Test
-  @DisplayName("Test internalProcessInstance(String); then throw NotFoundException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ProcessInstance ProcessRuntimeImpl.internalProcessInstance(String)"})
-  void testInternalProcessInstance_thenThrowNotFoundException() {
+  void testInternalProcessInstance3() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
     when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(null);
-    when(runtimeService.createProcessInstanceQuery())
-        .thenReturn(new ProcessInstanceQueryImpl(new CommandExecutorImpl(new CommandConfig(), first)));
+    ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl(
+        new CommandExecutorImpl(new CommandConfig(), first));
+    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl);
 
     // Act and Assert
     assertThrows(NotFoundException.class, () -> processRuntimeImpl.internalProcessInstance("42"));

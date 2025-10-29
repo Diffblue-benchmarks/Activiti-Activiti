@@ -20,12 +20,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.event.ActivitiVariableEvent;
-import org.activiti.engine.delegate.event.impl.ActivitiEventImpl;
 import org.activiti.engine.delegate.event.impl.ActivitiVariableEventImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,48 +35,29 @@ class VariableEventFilterDiffblueTest {
   private VariableEventFilter variableEventFilter;
 
   /**
-   * Test {@link VariableEventFilter#shouldEmmitEvent(ActivitiVariableEvent)}.
-   * <ul>
-   *   <li>Given {@code foo}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableEventFilter#shouldEmmitEvent(ActivitiVariableEvent)}
+   * Method under test:
+   * {@link VariableEventFilter#shouldEmmitEvent(ActivitiVariableEvent)}
    */
   @Test
-  @DisplayName("Test shouldEmmitEvent(ActivitiVariableEvent); given 'foo'; then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean VariableEventFilter.shouldEmmitEvent(ActivitiVariableEvent)"})
-  void testShouldEmmitEvent_givenFoo_thenReturnFalse() {
+  void testShouldEmmitEvent() {
     // Arrange
     ActivitiVariableEventImpl event = mock(ActivitiVariableEventImpl.class);
-    when(event.getExecutionId()).thenReturn("foo");
-    when(event.getProcessInstanceId()).thenReturn("42");
-    when(event.getTaskId()).thenReturn(null);
+    when(event.getTaskId()).thenReturn("42");
 
     // Act
     boolean actualShouldEmmitEventResult = variableEventFilter.shouldEmmitEvent(event);
 
     // Assert
-    verify(event).getExecutionId();
-    verify(event).getProcessInstanceId();
     verify(event).getTaskId();
-    assertFalse(actualShouldEmmitEventResult);
+    assertTrue(actualShouldEmmitEventResult);
   }
 
   /**
-   * Test {@link VariableEventFilter#shouldEmmitEvent(ActivitiVariableEvent)}.
-   * <ul>
-   *   <li>When {@link ActivitiVariableEventImpl} {@link ActivitiEventImpl#getExecutionId()} return {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableEventFilter#shouldEmmitEvent(ActivitiVariableEvent)}
+   * Method under test:
+   * {@link VariableEventFilter#shouldEmmitEvent(ActivitiVariableEvent)}
    */
   @Test
-  @DisplayName("Test shouldEmmitEvent(ActivitiVariableEvent); when ActivitiVariableEventImpl getExecutionId() return '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean VariableEventFilter.shouldEmmitEvent(ActivitiVariableEvent)"})
-  void testShouldEmmitEvent_whenActivitiVariableEventImplGetExecutionIdReturn42() {
+  void testShouldEmmitEvent2() {
     // Arrange
     ActivitiVariableEventImpl event = mock(ActivitiVariableEventImpl.class);
     when(event.getExecutionId()).thenReturn("42");
@@ -98,27 +75,24 @@ class VariableEventFilterDiffblueTest {
   }
 
   /**
-   * Test {@link VariableEventFilter#shouldEmmitEvent(ActivitiVariableEvent)}.
-   * <ul>
-   *   <li>When {@link ActivitiVariableEventImpl} {@link ActivitiVariableEventImpl#getTaskId()} return {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableEventFilter#shouldEmmitEvent(ActivitiVariableEvent)}
+   * Method under test:
+   * {@link VariableEventFilter#shouldEmmitEvent(ActivitiVariableEvent)}
    */
   @Test
-  @DisplayName("Test shouldEmmitEvent(ActivitiVariableEvent); when ActivitiVariableEventImpl getTaskId() return '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean VariableEventFilter.shouldEmmitEvent(ActivitiVariableEvent)"})
-  void testShouldEmmitEvent_whenActivitiVariableEventImplGetTaskIdReturn42() {
+  void testShouldEmmitEvent3() {
     // Arrange
     ActivitiVariableEventImpl event = mock(ActivitiVariableEventImpl.class);
-    when(event.getTaskId()).thenReturn("42");
+    when(event.getExecutionId()).thenReturn("foo");
+    when(event.getProcessInstanceId()).thenReturn("42");
+    when(event.getTaskId()).thenReturn(null);
 
     // Act
     boolean actualShouldEmmitEventResult = variableEventFilter.shouldEmmitEvent(event);
 
     // Assert
+    verify(event).getExecutionId();
+    verify(event).getProcessInstanceId();
     verify(event).getTaskId();
-    assertTrue(actualShouldEmmitEventResult);
+    assertFalse(actualShouldEmmitEventResult);
   }
 }

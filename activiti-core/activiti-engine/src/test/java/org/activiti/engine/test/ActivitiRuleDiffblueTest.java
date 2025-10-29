@@ -26,8 +26,6 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
@@ -64,205 +62,18 @@ import org.activiti.engine.impl.interceptor.SessionFactory;
 import org.activiti.engine.impl.util.DefaultClockImpl;
 import org.activiti.engine.test.mock.ActivitiMockSupport;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.internal.AssumptionViolatedException;
+import org.junit.internal.runners.statements.Fail;
 import org.junit.runner.Description;
+import org.junit.runners.model.Statement;
 import org.mockito.Mockito;
 
 public class ActivitiRuleDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link ActivitiRule#ActivitiRule()}
-   *   <li>{@link ActivitiRule#setConfigurationResource(String)}
-   *   <li>{@link ActivitiRule#setHistoricDataService(HistoryService)}
-   *   <li>{@link ActivitiRule#setManagementService(ManagementService)}
-   *   <li>{@link ActivitiRule#setProcessEngineConfiguration(ProcessEngineConfigurationImpl)}
-   *   <li>{@link ActivitiRule#setRepositoryService(RepositoryService)}
-   *   <li>{@link ActivitiRule#setRuntimeService(RuntimeService)}
-   *   <li>{@link ActivitiRule#setTaskService(TaskService)}
-   *   <li>{@link ActivitiRule#configureProcessEngine()}
-   *   <li>{@link ActivitiRule#failed(Throwable, Description)}
-   *   <li>{@link ActivitiRule#skipped(AssumptionViolatedException, Description)}
-   *   <li>{@link ActivitiRule#succeeded(Description)}
-   *   <li>{@link ActivitiRule#getConfigurationResource()}
-   *   <li>{@link ActivitiRule#getHistoryService()}
-   *   <li>{@link ActivitiRule#getManagementService()}
-   *   <li>{@link ActivitiRule#getMockSupport()}
-   *   <li>{@link ActivitiRule#getProcessEngine()}
-   *   <li>{@link ActivitiRule#getRepositoryService()}
-   *   <li>{@link ActivitiRule#getRuntimeService()}
-   *   <li>{@link ActivitiRule#getTaskService()}
-   *   <li>{@link ActivitiRule#mockSupport()}
-   * </ul>
+   * Method under test: {@link ActivitiRule#apply(Statement, Description)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiRule.<init>()", "void ActivitiRule.<init>(String)",
-      "void ActivitiRule.configureProcessEngine()", "void ActivitiRule.failed(Throwable, Description)",
-      "String ActivitiRule.getConfigurationResource()", "HistoryService ActivitiRule.getHistoryService()",
-      "ManagementService ActivitiRule.getManagementService()", "ActivitiMockSupport ActivitiRule.getMockSupport()",
-      "ProcessEngine ActivitiRule.getProcessEngine()", "RepositoryService ActivitiRule.getRepositoryService()",
-      "RuntimeService ActivitiRule.getRuntimeService()", "TaskService ActivitiRule.getTaskService()",
-      "ActivitiMockSupport ActivitiRule.mockSupport()", "void ActivitiRule.setConfigurationResource(String)",
-      "void ActivitiRule.setHistoricDataService(HistoryService)",
-      "void ActivitiRule.setManagementService(ManagementService)",
-      "void ActivitiRule.setProcessEngineConfiguration(ProcessEngineConfigurationImpl)",
-      "void ActivitiRule.setRepositoryService(RepositoryService)",
-      "void ActivitiRule.setRuntimeService(RuntimeService)", "void ActivitiRule.setTaskService(TaskService)",
-      "void ActivitiRule.skipped(AssumptionViolatedException, Description)",
-      "void ActivitiRule.succeeded(Description)"})
-  public void testGettersAndSetters() {
-    // Arrange and Act
-    ActivitiRule actualActivitiRule = new ActivitiRule();
-    actualActivitiRule.setConfigurationResource("Configuration Resource");
-    HistoryServiceImpl historicDataService = new HistoryServiceImpl(new JtaProcessEngineConfiguration());
-    actualActivitiRule.setHistoricDataService(historicDataService);
-    ManagementServiceImpl managementService = new ManagementServiceImpl();
-    actualActivitiRule.setManagementService(managementService);
-    actualActivitiRule.setProcessEngineConfiguration(new JtaProcessEngineConfiguration());
-    RepositoryServiceImpl repositoryService = new RepositoryServiceImpl();
-    actualActivitiRule.setRepositoryService(repositoryService);
-    RuntimeServiceImpl runtimeService = new RuntimeServiceImpl();
-    actualActivitiRule.setRuntimeService(runtimeService);
-    TaskServiceImpl taskService = new TaskServiceImpl(new JtaProcessEngineConfiguration());
-    actualActivitiRule.setTaskService(taskService);
-    actualActivitiRule.configureProcessEngine();
-    actualActivitiRule.failed(new Throwable(), null);
-    actualActivitiRule.skipped(new AssumptionViolatedException("Assumption"), null);
-    actualActivitiRule.succeeded(null);
-    String actualConfigurationResource = actualActivitiRule.getConfigurationResource();
-    HistoryService actualHistoryService = actualActivitiRule.getHistoryService();
-    ManagementService actualManagementService = actualActivitiRule.getManagementService();
-    ActivitiMockSupport actualMockSupport = actualActivitiRule.getMockSupport();
-    ProcessEngine actualProcessEngine = actualActivitiRule.getProcessEngine();
-    RepositoryService actualRepositoryService = actualActivitiRule.getRepositoryService();
-    RuntimeService actualRuntimeService = actualActivitiRule.getRuntimeService();
-    TaskService actualTaskService = actualActivitiRule.getTaskService();
-
-    // Assert
-    assertTrue(actualHistoryService instanceof HistoryServiceImpl);
-    assertTrue(actualManagementService instanceof ManagementServiceImpl);
-    assertTrue(actualRepositoryService instanceof RepositoryServiceImpl);
-    assertTrue(actualRuntimeService instanceof RuntimeServiceImpl);
-    assertTrue(actualTaskService instanceof TaskServiceImpl);
-    assertEquals("Configuration Resource", actualConfigurationResource);
-    assertNull(actualProcessEngine);
-    assertNull(actualMockSupport);
-    assertNull(actualActivitiRule.mockSupport());
-    assertSame(historicDataService, actualHistoryService);
-    assertSame(managementService, actualManagementService);
-    assertSame(repositoryService, actualRepositoryService);
-    assertSame(runtimeService, actualRuntimeService);
-    assertSame(taskService, actualTaskService);
-  }
-
-  /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@code Configuration Resource}.</li>
-   * </ul>
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link ActivitiRule#ActivitiRule(String)}
-   *   <li>{@link ActivitiRule#setConfigurationResource(String)}
-   *   <li>{@link ActivitiRule#setHistoricDataService(HistoryService)}
-   *   <li>{@link ActivitiRule#setManagementService(ManagementService)}
-   *   <li>{@link ActivitiRule#setProcessEngineConfiguration(ProcessEngineConfigurationImpl)}
-   *   <li>{@link ActivitiRule#setRepositoryService(RepositoryService)}
-   *   <li>{@link ActivitiRule#setRuntimeService(RuntimeService)}
-   *   <li>{@link ActivitiRule#setTaskService(TaskService)}
-   *   <li>{@link ActivitiRule#configureProcessEngine()}
-   *   <li>{@link ActivitiRule#failed(Throwable, Description)}
-   *   <li>{@link ActivitiRule#skipped(AssumptionViolatedException, Description)}
-   *   <li>{@link ActivitiRule#succeeded(Description)}
-   *   <li>{@link ActivitiRule#getConfigurationResource()}
-   *   <li>{@link ActivitiRule#getHistoryService()}
-   *   <li>{@link ActivitiRule#getManagementService()}
-   *   <li>{@link ActivitiRule#getMockSupport()}
-   *   <li>{@link ActivitiRule#getProcessEngine()}
-   *   <li>{@link ActivitiRule#getRepositoryService()}
-   *   <li>{@link ActivitiRule#getRuntimeService()}
-   *   <li>{@link ActivitiRule#getTaskService()}
-   *   <li>{@link ActivitiRule#mockSupport()}
-   * </ul>
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiRule.<init>()", "void ActivitiRule.<init>(String)",
-      "void ActivitiRule.configureProcessEngine()", "void ActivitiRule.failed(Throwable, Description)",
-      "String ActivitiRule.getConfigurationResource()", "HistoryService ActivitiRule.getHistoryService()",
-      "ManagementService ActivitiRule.getManagementService()", "ActivitiMockSupport ActivitiRule.getMockSupport()",
-      "ProcessEngine ActivitiRule.getProcessEngine()", "RepositoryService ActivitiRule.getRepositoryService()",
-      "RuntimeService ActivitiRule.getRuntimeService()", "TaskService ActivitiRule.getTaskService()",
-      "ActivitiMockSupport ActivitiRule.mockSupport()", "void ActivitiRule.setConfigurationResource(String)",
-      "void ActivitiRule.setHistoricDataService(HistoryService)",
-      "void ActivitiRule.setManagementService(ManagementService)",
-      "void ActivitiRule.setProcessEngineConfiguration(ProcessEngineConfigurationImpl)",
-      "void ActivitiRule.setRepositoryService(RepositoryService)",
-      "void ActivitiRule.setRuntimeService(RuntimeService)", "void ActivitiRule.setTaskService(TaskService)",
-      "void ActivitiRule.skipped(AssumptionViolatedException, Description)",
-      "void ActivitiRule.succeeded(Description)"})
-  public void testGettersAndSetters_whenConfigurationResource() {
-    // Arrange and Act
-    ActivitiRule actualActivitiRule = new ActivitiRule("Configuration Resource");
-    actualActivitiRule.setConfigurationResource("Configuration Resource");
-    HistoryServiceImpl historicDataService = new HistoryServiceImpl(new JtaProcessEngineConfiguration());
-    actualActivitiRule.setHistoricDataService(historicDataService);
-    ManagementServiceImpl managementService = new ManagementServiceImpl();
-    actualActivitiRule.setManagementService(managementService);
-    actualActivitiRule.setProcessEngineConfiguration(new JtaProcessEngineConfiguration());
-    RepositoryServiceImpl repositoryService = new RepositoryServiceImpl();
-    actualActivitiRule.setRepositoryService(repositoryService);
-    RuntimeServiceImpl runtimeService = new RuntimeServiceImpl();
-    actualActivitiRule.setRuntimeService(runtimeService);
-    TaskServiceImpl taskService = new TaskServiceImpl(new JtaProcessEngineConfiguration());
-    actualActivitiRule.setTaskService(taskService);
-    actualActivitiRule.configureProcessEngine();
-    actualActivitiRule.failed(new Throwable(), null);
-    actualActivitiRule.skipped(new AssumptionViolatedException("Assumption"), null);
-    actualActivitiRule.succeeded(null);
-    String actualConfigurationResource = actualActivitiRule.getConfigurationResource();
-    HistoryService actualHistoryService = actualActivitiRule.getHistoryService();
-    ManagementService actualManagementService = actualActivitiRule.getManagementService();
-    ActivitiMockSupport actualMockSupport = actualActivitiRule.getMockSupport();
-    ProcessEngine actualProcessEngine = actualActivitiRule.getProcessEngine();
-    RepositoryService actualRepositoryService = actualActivitiRule.getRepositoryService();
-    RuntimeService actualRuntimeService = actualActivitiRule.getRuntimeService();
-    TaskService actualTaskService = actualActivitiRule.getTaskService();
-
-    // Assert
-    assertTrue(actualHistoryService instanceof HistoryServiceImpl);
-    assertTrue(actualManagementService instanceof ManagementServiceImpl);
-    assertTrue(actualRepositoryService instanceof RepositoryServiceImpl);
-    assertTrue(actualRuntimeService instanceof RuntimeServiceImpl);
-    assertTrue(actualTaskService instanceof TaskServiceImpl);
-    assertEquals("Configuration Resource", actualConfigurationResource);
-    assertNull(actualProcessEngine);
-    assertNull(actualMockSupport);
-    assertNull(actualActivitiRule.mockSupport());
-    assertSame(historicDataService, actualHistoryService);
-    assertSame(managementService, actualManagementService);
-    assertSame(repositoryService, actualRepositoryService);
-    assertSame(runtimeService, actualRuntimeService);
-    assertSame(taskService, actualTaskService);
-  }
-
-  /**
-   * Test {@link ActivitiRule#ActivitiRule(ProcessEngine)}.
-   * <ul>
-   *   <li>Then HistoryService return {@link HistoryServiceImpl}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ActivitiRule#ActivitiRule(ProcessEngine)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiRule.<init>(ProcessEngine)"})
-  public void testNewActivitiRule_thenHistoryServiceReturnHistoryServiceImpl() {
+  public void testApply() {
     // Arrange
     ProcessEngineLifecycleListener processEngineLifecycleListener = mock(ProcessEngineLifecycleListener.class);
     doNothing().when(processEngineLifecycleListener).onProcessEngineBuilt(Mockito.<ProcessEngine>any());
@@ -273,27 +84,24 @@ public class ActivitiRuleDiffblueTest {
         .thenReturn(new HashMap<>());
     when(processEngineConfiguration.getDynamicBpmnService())
         .thenReturn(new DynamicBpmnServiceImpl(new JtaProcessEngineConfiguration()));
-    HistoryServiceImpl historyServiceImpl = new HistoryServiceImpl(new JtaProcessEngineConfiguration());
-    when(processEngineConfiguration.getHistoryService()).thenReturn(historyServiceImpl);
-    ManagementServiceImpl managementServiceImpl = new ManagementServiceImpl();
-    when(processEngineConfiguration.getManagementService()).thenReturn(managementServiceImpl);
+    when(processEngineConfiguration.getHistoryService())
+        .thenReturn(new HistoryServiceImpl(new JtaProcessEngineConfiguration()));
+    when(processEngineConfiguration.getManagementService()).thenReturn(new ManagementServiceImpl());
     when(processEngineConfiguration.getProcessEngineLifecycleListener()).thenReturn(processEngineLifecycleListener);
-    RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
-    when(processEngineConfiguration.getRepositoryService()).thenReturn(repositoryServiceImpl);
-    RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
-    when(processEngineConfiguration.getRuntimeService()).thenReturn(runtimeServiceImpl);
-    TaskServiceImpl taskServiceImpl = new TaskServiceImpl(new JtaProcessEngineConfiguration());
-    when(processEngineConfiguration.getTaskService()).thenReturn(taskServiceImpl);
+    when(processEngineConfiguration.getRepositoryService()).thenReturn(new RepositoryServiceImpl());
+    when(processEngineConfiguration.getRuntimeService()).thenReturn(new RuntimeServiceImpl());
+    when(processEngineConfiguration.getTaskService())
+        .thenReturn(new TaskServiceImpl(new JtaProcessEngineConfiguration()));
     when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
     when(processEngineConfiguration.getAsyncExecutor()).thenReturn(new DefaultAsyncJobExecutor());
     when(processEngineConfiguration.getTransactionContextFactory()).thenReturn(mock(TransactionContextFactory.class));
     CommandConfig defaultConfig = new CommandConfig();
     when(processEngineConfiguration.getCommandExecutor())
         .thenReturn(new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor()));
-    ProcessEngineImpl processEngine = new ProcessEngineImpl(processEngineConfiguration);
+    ActivitiRule activitiRule = new ActivitiRule(new ProcessEngineImpl(processEngineConfiguration));
 
     // Act
-    ActivitiRule actualActivitiRule = new ActivitiRule(processEngine);
+    activitiRule.apply(new Fail(new Throwable()), null);
 
     // Assert
     verify(processEngineConfiguration).getAsyncExecutor();
@@ -311,41 +119,28 @@ public class ActivitiRuleDiffblueTest {
     verify(processEngineConfiguration).getTaskService();
     verify(processEngineConfiguration).getTransactionContextFactory();
     verify(processEngineConfiguration).isUsingRelationalDatabase();
-    HistoryService historyService = actualActivitiRule.getHistoryService();
-    assertTrue(historyService instanceof HistoryServiceImpl);
-    ManagementService managementService = actualActivitiRule.getManagementService();
-    assertTrue(managementService instanceof ManagementServiceImpl);
-    ProcessEngine processEngine2 = actualActivitiRule.getProcessEngine();
-    assertTrue(processEngine2 instanceof ProcessEngineImpl);
-    RepositoryService repositoryService = actualActivitiRule.getRepositoryService();
-    assertTrue(repositoryService instanceof RepositoryServiceImpl);
-    RuntimeService runtimeService = actualActivitiRule.getRuntimeService();
-    assertTrue(runtimeService instanceof RuntimeServiceImpl);
-    TaskService taskService = actualActivitiRule.getTaskService();
-    assertTrue(taskService instanceof TaskServiceImpl);
-    assertEquals("activiti.cfg.xml", actualActivitiRule.getConfigurationResource());
-    assertNull(actualActivitiRule.deploymentId);
-    assertNull(actualActivitiRule.getMockSupport());
-    assertNull(actualActivitiRule.mockSupport());
-    assertSame(historyServiceImpl, historyService);
-    assertSame(managementServiceImpl, managementService);
-    assertSame(processEngine, processEngine2);
-    assertSame(repositoryServiceImpl, repositoryService);
-    assertSame(runtimeServiceImpl, runtimeService);
-    assertSame(taskServiceImpl, taskService);
-    ProcessEngineConfiguration expectedProcessEngineConfiguration = actualActivitiRule.processEngineConfiguration;
-    assertSame(expectedProcessEngineConfiguration, processEngine.getProcessEngineConfiguration());
   }
 
   /**
-   * Test {@link ActivitiRule#starting(Description)}.
-   * <p>
    * Method under test: {@link ActivitiRule#starting(Description)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiRule.starting(Description)"})
   public void testStarting() {
+    // Arrange
+    ActivitiRule activitiRule = new ActivitiRule("activiti.cfg.xml");
+    Description description = mock(Description.class);
+    when(description.getClassName()).thenReturn("Class Name");
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> activitiRule.starting(description));
+    verify(description, atLeast(1)).getClassName();
+  }
+
+  /**
+   * Method under test: {@link ActivitiRule#starting(Description)}
+   */
+  @Test
+  public void testStarting2() {
     // Arrange
     ActivitiRule activitiRule = new ActivitiRule("activiti.cfg.xml");
     activitiRule.setProcessEngineConfiguration(new JtaProcessEngineConfiguration());
@@ -358,17 +153,10 @@ public class ActivitiRuleDiffblueTest {
   }
 
   /**
-   * Test {@link ActivitiRule#starting(Description)}.
-   * <ul>
-   *   <li>Given {@link ActivitiException#ActivitiException(String)} with message is {@code An error occurred}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ActivitiRule#starting(Description)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiRule.starting(Description)"})
-  public void testStarting_givenActivitiExceptionWithMessageIsAnErrorOccurred() {
+  public void testStarting3() {
     // Arrange
     ActivitiRule activitiRule = new ActivitiRule("activiti.cfg.xml");
     Description description = mock(Description.class);
@@ -380,40 +168,10 @@ public class ActivitiRuleDiffblueTest {
   }
 
   /**
-   * Test {@link ActivitiRule#starting(Description)}.
-   * <ul>
-   *   <li>Given {@code Class Name}.</li>
-   *   <li>When {@link Description} {@link Description#getClassName()} return {@code Class Name}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ActivitiRule#starting(Description)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiRule.starting(Description)"})
-  public void testStarting_givenClassName_whenDescriptionGetClassNameReturnClassName() {
-    // Arrange
-    ActivitiRule activitiRule = new ActivitiRule("activiti.cfg.xml");
-    Description description = mock(Description.class);
-    when(description.getClassName()).thenReturn("Class Name");
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> activitiRule.starting(description));
-    verify(description, atLeast(1)).getClassName();
-  }
-
-  /**
-   * Test {@link ActivitiRule#initializeServices()}.
-   * <ul>
-   *   <li>Then calls {@link ProcessEngineConfiguration#getAsyncExecutor()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ActivitiRule#initializeServices()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiRule.initializeServices()"})
-  public void testInitializeServices_thenCallsGetAsyncExecutor() {
+  public void testInitializeServices() {
     // Arrange
     ProcessEngineLifecycleListener processEngineLifecycleListener = mock(ProcessEngineLifecycleListener.class);
     doNothing().when(processEngineLifecycleListener).onProcessEngineBuilt(Mockito.<ProcessEngine>any());
@@ -465,13 +223,9 @@ public class ActivitiRuleDiffblueTest {
   }
 
   /**
-   * Test {@link ActivitiRule#initializeMockSupport()}.
-   * <p>
    * Method under test: {@link ActivitiRule#initializeMockSupport()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiRule.initializeMockSupport()"})
   public void testInitializeMockSupport() {
     // Arrange
     ActivitiRule activitiRule = new ActivitiRule("Configuration Resource");
@@ -480,17 +234,14 @@ public class ActivitiRuleDiffblueTest {
     activitiRule.initializeMockSupport();
 
     // Assert that nothing has changed
+    assertNull(activitiRule.getMockSupport());
     assertNull(activitiRule.mockSupport());
   }
 
   /**
-   * Test {@link ActivitiRule#initializeMockSupport()}.
-   * <p>
    * Method under test: {@link ActivitiRule#initializeMockSupport()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiRule.initializeMockSupport()"})
   public void testInitializeMockSupport2() {
     // Arrange
     ProcessEngineLifecycleListener processEngineLifecycleListener = mock(ProcessEngineLifecycleListener.class);
@@ -554,40 +305,10 @@ public class ActivitiRuleDiffblueTest {
   }
 
   /**
-   * Test {@link ActivitiRule#finished(Description)}.
-   * <ul>
-   *   <li>Given {@link ActivitiException#ActivitiException(String)} with message is {@code An error occurred}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ActivitiRule#finished(Description)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiRule.finished(Description)"})
-  public void testFinished_givenActivitiExceptionWithMessageIsAnErrorOccurred() {
-    // Arrange
-    ActivitiRule activitiRule = new ActivitiRule("Configuration Resource");
-    Description description = mock(Description.class);
-    when(description.getClassName()).thenThrow(new ActivitiException("An error occurred"));
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> activitiRule.finished(description));
-    verify(description).getClassName();
-  }
-
-  /**
-   * Test {@link ActivitiRule#finished(Description)}.
-   * <ul>
-   *   <li>Given {@code Class Name}.</li>
-   *   <li>When {@link Description} {@link Description#getClassName()} return {@code Class Name}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ActivitiRule#finished(Description)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiRule.finished(Description)"})
-  public void testFinished_givenClassName_whenDescriptionGetClassNameReturnClassName() {
+  public void testFinished() {
     // Arrange
     ActivitiRule activitiRule = new ActivitiRule("Configuration Resource");
     Description description = mock(Description.class);
@@ -599,17 +320,25 @@ public class ActivitiRuleDiffblueTest {
   }
 
   /**
-   * Test {@link ActivitiRule#setCurrentTime(Date)}.
-   * <ul>
-   *   <li>Then calls {@link ProcessEngineConfiguration#getClock()}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link ActivitiRule#finished(Description)}
+   */
+  @Test
+  public void testFinished2() {
+    // Arrange
+    ActivitiRule activitiRule = new ActivitiRule("Configuration Resource");
+    Description description = mock(Description.class);
+    when(description.getClassName()).thenThrow(new ActivitiException("An error occurred"));
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> activitiRule.finished(description));
+    verify(description).getClassName();
+  }
+
+  /**
    * Method under test: {@link ActivitiRule#setCurrentTime(Date)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiRule.setCurrentTime(Date)"})
-  public void testSetCurrentTime_thenCallsGetClock() {
+  public void testSetCurrentTime() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration.getClock()).thenReturn(new DefaultClockImpl());
@@ -625,13 +354,9 @@ public class ActivitiRuleDiffblueTest {
   }
 
   /**
-   * Test {@link ActivitiRule#setProcessEngine(ProcessEngine)}.
-   * <p>
    * Method under test: {@link ActivitiRule#setProcessEngine(ProcessEngine)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiRule.setProcessEngine(ProcessEngine)"})
   public void testSetProcessEngine() {
     // Arrange
     ActivitiRule activitiRule = new ActivitiRule();
@@ -689,6 +414,230 @@ public class ActivitiRuleDiffblueTest {
     assertSame(runtimeServiceImpl, activitiRule.getRuntimeService());
     assertSame(taskServiceImpl, activitiRule.getTaskService());
     ProcessEngineConfiguration expectedProcessEngineConfiguration = activitiRule.processEngineConfiguration;
+    assertSame(expectedProcessEngineConfiguration, processEngine.getProcessEngineConfiguration());
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>{@link ActivitiRule#ActivitiRule()}
+   *   <li>{@link ActivitiRule#setConfigurationResource(String)}
+   *   <li>{@link ActivitiRule#setHistoricDataService(HistoryService)}
+   *   <li>{@link ActivitiRule#setManagementService(ManagementService)}
+   *   <li>
+   * {@link ActivitiRule#setProcessEngineConfiguration(ProcessEngineConfigurationImpl)}
+   *   <li>{@link ActivitiRule#setRepositoryService(RepositoryService)}
+   *   <li>{@link ActivitiRule#setRuntimeService(RuntimeService)}
+   *   <li>{@link ActivitiRule#setTaskService(TaskService)}
+   *   <li>{@link ActivitiRule#configureProcessEngine()}
+   *   <li>{@link ActivitiRule#failed(Throwable, Description)}
+   *   <li>{@link ActivitiRule#skipped(AssumptionViolatedException, Description)}
+   *   <li>{@link ActivitiRule#succeeded(Description)}
+   *   <li>{@link ActivitiRule#getConfigurationResource()}
+   *   <li>{@link ActivitiRule#getHistoryService()}
+   *   <li>{@link ActivitiRule#getManagementService()}
+   *   <li>{@link ActivitiRule#getMockSupport()}
+   *   <li>{@link ActivitiRule#getProcessEngine()}
+   *   <li>{@link ActivitiRule#getRepositoryService()}
+   *   <li>{@link ActivitiRule#getRuntimeService()}
+   *   <li>{@link ActivitiRule#getTaskService()}
+   *   <li>{@link ActivitiRule#mockSupport()}
+   * </ul>
+   */
+  @Test
+  public void testGettersAndSetters() {
+    // Arrange and Act
+    ActivitiRule actualActivitiRule = new ActivitiRule();
+    actualActivitiRule.setConfigurationResource("Configuration Resource");
+    HistoryServiceImpl historicDataService = new HistoryServiceImpl(new JtaProcessEngineConfiguration());
+    actualActivitiRule.setHistoricDataService(historicDataService);
+    ManagementServiceImpl managementService = new ManagementServiceImpl();
+    actualActivitiRule.setManagementService(managementService);
+    actualActivitiRule.setProcessEngineConfiguration(new JtaProcessEngineConfiguration());
+    RepositoryServiceImpl repositoryService = new RepositoryServiceImpl();
+    actualActivitiRule.setRepositoryService(repositoryService);
+    RuntimeServiceImpl runtimeService = new RuntimeServiceImpl();
+    actualActivitiRule.setRuntimeService(runtimeService);
+    TaskServiceImpl taskService = new TaskServiceImpl(new JtaProcessEngineConfiguration());
+    actualActivitiRule.setTaskService(taskService);
+    actualActivitiRule.configureProcessEngine();
+    actualActivitiRule.failed(new Throwable(), null);
+    actualActivitiRule.skipped(new AssumptionViolatedException("Assumption"), null);
+    actualActivitiRule.succeeded(null);
+    String actualConfigurationResource = actualActivitiRule.getConfigurationResource();
+    HistoryService actualHistoryService = actualActivitiRule.getHistoryService();
+    ManagementService actualManagementService = actualActivitiRule.getManagementService();
+    actualActivitiRule.getMockSupport();
+    actualActivitiRule.getProcessEngine();
+    RepositoryService actualRepositoryService = actualActivitiRule.getRepositoryService();
+    RuntimeService actualRuntimeService = actualActivitiRule.getRuntimeService();
+    TaskService actualTaskService = actualActivitiRule.getTaskService();
+    actualActivitiRule.mockSupport();
+
+    // Assert that nothing has changed
+    assertTrue(actualHistoryService instanceof HistoryServiceImpl);
+    assertTrue(actualManagementService instanceof ManagementServiceImpl);
+    assertTrue(actualRepositoryService instanceof RepositoryServiceImpl);
+    assertTrue(actualRuntimeService instanceof RuntimeServiceImpl);
+    assertTrue(actualTaskService instanceof TaskServiceImpl);
+    assertEquals("Configuration Resource", actualConfigurationResource);
+    assertSame(historicDataService, actualHistoryService);
+    assertSame(managementService, actualManagementService);
+    assertSame(repositoryService, actualRepositoryService);
+    assertSame(runtimeService, actualRuntimeService);
+    assertSame(taskService, actualTaskService);
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>{@link ActivitiRule#ActivitiRule(String)}
+   *   <li>{@link ActivitiRule#setConfigurationResource(String)}
+   *   <li>{@link ActivitiRule#setHistoricDataService(HistoryService)}
+   *   <li>{@link ActivitiRule#setManagementService(ManagementService)}
+   *   <li>
+   * {@link ActivitiRule#setProcessEngineConfiguration(ProcessEngineConfigurationImpl)}
+   *   <li>{@link ActivitiRule#setRepositoryService(RepositoryService)}
+   *   <li>{@link ActivitiRule#setRuntimeService(RuntimeService)}
+   *   <li>{@link ActivitiRule#setTaskService(TaskService)}
+   *   <li>{@link ActivitiRule#configureProcessEngine()}
+   *   <li>{@link ActivitiRule#failed(Throwable, Description)}
+   *   <li>{@link ActivitiRule#skipped(AssumptionViolatedException, Description)}
+   *   <li>{@link ActivitiRule#succeeded(Description)}
+   *   <li>{@link ActivitiRule#getConfigurationResource()}
+   *   <li>{@link ActivitiRule#getHistoryService()}
+   *   <li>{@link ActivitiRule#getManagementService()}
+   *   <li>{@link ActivitiRule#getMockSupport()}
+   *   <li>{@link ActivitiRule#getProcessEngine()}
+   *   <li>{@link ActivitiRule#getRepositoryService()}
+   *   <li>{@link ActivitiRule#getRuntimeService()}
+   *   <li>{@link ActivitiRule#getTaskService()}
+   *   <li>{@link ActivitiRule#mockSupport()}
+   * </ul>
+   */
+  @Test
+  public void testGettersAndSetters2() {
+    // Arrange and Act
+    ActivitiRule actualActivitiRule = new ActivitiRule("Configuration Resource");
+    actualActivitiRule.setConfigurationResource("Configuration Resource");
+    HistoryServiceImpl historicDataService = new HistoryServiceImpl(new JtaProcessEngineConfiguration());
+    actualActivitiRule.setHistoricDataService(historicDataService);
+    ManagementServiceImpl managementService = new ManagementServiceImpl();
+    actualActivitiRule.setManagementService(managementService);
+    actualActivitiRule.setProcessEngineConfiguration(new JtaProcessEngineConfiguration());
+    RepositoryServiceImpl repositoryService = new RepositoryServiceImpl();
+    actualActivitiRule.setRepositoryService(repositoryService);
+    RuntimeServiceImpl runtimeService = new RuntimeServiceImpl();
+    actualActivitiRule.setRuntimeService(runtimeService);
+    TaskServiceImpl taskService = new TaskServiceImpl(new JtaProcessEngineConfiguration());
+    actualActivitiRule.setTaskService(taskService);
+    actualActivitiRule.configureProcessEngine();
+    actualActivitiRule.failed(new Throwable(), null);
+    actualActivitiRule.skipped(new AssumptionViolatedException("Assumption"), null);
+    actualActivitiRule.succeeded(null);
+    String actualConfigurationResource = actualActivitiRule.getConfigurationResource();
+    HistoryService actualHistoryService = actualActivitiRule.getHistoryService();
+    ManagementService actualManagementService = actualActivitiRule.getManagementService();
+    actualActivitiRule.getMockSupport();
+    actualActivitiRule.getProcessEngine();
+    RepositoryService actualRepositoryService = actualActivitiRule.getRepositoryService();
+    RuntimeService actualRuntimeService = actualActivitiRule.getRuntimeService();
+    TaskService actualTaskService = actualActivitiRule.getTaskService();
+    actualActivitiRule.mockSupport();
+
+    // Assert that nothing has changed
+    assertTrue(actualHistoryService instanceof HistoryServiceImpl);
+    assertTrue(actualManagementService instanceof ManagementServiceImpl);
+    assertTrue(actualRepositoryService instanceof RepositoryServiceImpl);
+    assertTrue(actualRuntimeService instanceof RuntimeServiceImpl);
+    assertTrue(actualTaskService instanceof TaskServiceImpl);
+    assertEquals("Configuration Resource", actualConfigurationResource);
+    assertSame(historicDataService, actualHistoryService);
+    assertSame(managementService, actualManagementService);
+    assertSame(repositoryService, actualRepositoryService);
+    assertSame(runtimeService, actualRuntimeService);
+    assertSame(taskService, actualTaskService);
+  }
+
+  /**
+   * Method under test: {@link ActivitiRule#ActivitiRule(ProcessEngine)}
+   */
+  @Test
+  public void testNewActivitiRule() {
+    // Arrange
+    ProcessEngineLifecycleListener processEngineLifecycleListener = mock(ProcessEngineLifecycleListener.class);
+    doNothing().when(processEngineLifecycleListener).onProcessEngineBuilt(Mockito.<ProcessEngine>any());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.isUsingRelationalDatabase()).thenReturn(false);
+    when(processEngineConfiguration.getProcessEngineName()).thenReturn("Process Engine Name");
+    Mockito.<Map<Class<?>, SessionFactory>>when(processEngineConfiguration.getSessionFactories())
+        .thenReturn(new HashMap<>());
+    when(processEngineConfiguration.getDynamicBpmnService())
+        .thenReturn(new DynamicBpmnServiceImpl(new JtaProcessEngineConfiguration()));
+    HistoryServiceImpl historyServiceImpl = new HistoryServiceImpl(new JtaProcessEngineConfiguration());
+    when(processEngineConfiguration.getHistoryService()).thenReturn(historyServiceImpl);
+    ManagementServiceImpl managementServiceImpl = new ManagementServiceImpl();
+    when(processEngineConfiguration.getManagementService()).thenReturn(managementServiceImpl);
+    when(processEngineConfiguration.getProcessEngineLifecycleListener()).thenReturn(processEngineLifecycleListener);
+    RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
+    when(processEngineConfiguration.getRepositoryService()).thenReturn(repositoryServiceImpl);
+    RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
+    when(processEngineConfiguration.getRuntimeService()).thenReturn(runtimeServiceImpl);
+    TaskServiceImpl taskServiceImpl = new TaskServiceImpl(new JtaProcessEngineConfiguration());
+    when(processEngineConfiguration.getTaskService()).thenReturn(taskServiceImpl);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
+    when(processEngineConfiguration.getAsyncExecutor()).thenReturn(new DefaultAsyncJobExecutor());
+    when(processEngineConfiguration.getTransactionContextFactory()).thenReturn(mock(TransactionContextFactory.class));
+    CommandConfig defaultConfig = new CommandConfig();
+    when(processEngineConfiguration.getCommandExecutor())
+        .thenReturn(new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor()));
+    ProcessEngineImpl processEngine = new ProcessEngineImpl(processEngineConfiguration);
+
+    // Act
+    ActivitiRule actualActivitiRule = new ActivitiRule(processEngine);
+
+    // Assert
+    verify(processEngineConfiguration).getAsyncExecutor();
+    verify(processEngineConfiguration, atLeast(1)).getProcessEngineLifecycleListener();
+    verify(processEngineConfiguration).getProcessEngineName();
+    verify(processEngineLifecycleListener).onProcessEngineBuilt(isA(ProcessEngine.class));
+    verify(processEngineConfiguration).getCommandExecutor();
+    verify(processEngineConfiguration).getDynamicBpmnService();
+    verify(processEngineConfiguration).getEventDispatcher();
+    verify(processEngineConfiguration).getHistoryService();
+    verify(processEngineConfiguration).getManagementService();
+    verify(processEngineConfiguration).getRepositoryService();
+    verify(processEngineConfiguration).getRuntimeService();
+    verify(processEngineConfiguration).getSessionFactories();
+    verify(processEngineConfiguration).getTaskService();
+    verify(processEngineConfiguration).getTransactionContextFactory();
+    verify(processEngineConfiguration).isUsingRelationalDatabase();
+    HistoryService historyService = actualActivitiRule.getHistoryService();
+    assertTrue(historyService instanceof HistoryServiceImpl);
+    ManagementService managementService = actualActivitiRule.getManagementService();
+    assertTrue(managementService instanceof ManagementServiceImpl);
+    RepositoryService repositoryService = actualActivitiRule.getRepositoryService();
+    assertTrue(repositoryService instanceof RepositoryServiceImpl);
+    RuntimeService runtimeService = actualActivitiRule.getRuntimeService();
+    assertTrue(runtimeService instanceof RuntimeServiceImpl);
+    TaskService taskService = actualActivitiRule.getTaskService();
+    assertTrue(taskService instanceof TaskServiceImpl);
+    assertEquals("activiti.cfg.xml", actualActivitiRule.getConfigurationResource());
+    assertNull(actualActivitiRule.deploymentId);
+    assertNull(((HistoryServiceImpl) historyService).getCommandExecutor());
+    assertNull(((ManagementServiceImpl) managementService).getCommandExecutor());
+    assertNull(((RepositoryServiceImpl) repositoryService).getCommandExecutor());
+    assertNull(((RuntimeServiceImpl) runtimeService).getCommandExecutor());
+    assertNull(((TaskServiceImpl) taskService).getCommandExecutor());
+    assertNull(actualActivitiRule.getMockSupport());
+    assertNull(actualActivitiRule.mockSupport());
+    assertSame(historyServiceImpl, historyService);
+    assertSame(managementServiceImpl, managementService);
+    assertSame(processEngine, actualActivitiRule.getProcessEngine());
+    assertSame(repositoryServiceImpl, repositoryService);
+    assertSame(runtimeServiceImpl, runtimeService);
+    assertSame(taskServiceImpl, taskService);
+    ProcessEngineConfiguration expectedProcessEngineConfiguration = actualActivitiRule.processEngineConfiguration;
     assertSame(expectedProcessEngineConfiguration, processEngine.getProcessEngineConfiguration());
   }
 }

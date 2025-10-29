@@ -20,124 +20,34 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class GetTasksPayloadDiffblueTest {
   /**
-   * Test {@link GetTasksPayload#GetTasksPayload()}.
-   * <p>
-   * Method under test: {@link GetTasksPayload#GetTasksPayload()}
+   * Method under test: {@link GetTasksPayload#isStandalone()}
    */
   @Test
-  @DisplayName("Test new GetTasksPayload()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void GetTasksPayload.<init>()"})
-  void testNewGetTasksPayload() {
-    // Arrange and Act
-    GetTasksPayload actualGetTasksPayload = new GetTasksPayload();
-
-    // Assert
-    assertNull(actualGetTasksPayload.getAssigneeId());
-    assertNull(actualGetTasksPayload.getParentTaskId());
-    assertNull(actualGetTasksPayload.getProcessInstanceId());
-    assertNull(actualGetTasksPayload.getGroups());
-    assertTrue(actualGetTasksPayload.isStandalone());
+  void testIsStandalone() {
+    // Arrange, Act and Assert
+    assertTrue((new GetTasksPayload()).isStandalone());
   }
 
   /**
-   * Test {@link GetTasksPayload#GetTasksPayload(String, List, String, String)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
-   *   <li>Then return Groups is {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GetTasksPayload#GetTasksPayload(String, List, String, String)}
+   * Method under test: {@link GetTasksPayload#isStandalone()}
    */
   @Test
-  @DisplayName("Test new GetTasksPayload(String, List, String, String); given '42'; when ArrayList() add '42'; then return Groups is ArrayList()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void GetTasksPayload.<init>(String, List, String, String)"})
-  void testNewGetTasksPayload_given42_whenArrayListAdd42_thenReturnGroupsIsArrayList() {
+  void testIsStandalone2() {
     // Arrange
-    ArrayList<String> groups = new ArrayList<>();
-    groups.add("42");
-    groups.add("foo");
+    GetTasksPayload getTasksPayload = new GetTasksPayload();
+    getTasksPayload.setProcessInstanceId("foo");
 
-    // Act
-    GetTasksPayload actualGetTasksPayload = new GetTasksPayload("42", groups, "42", "42");
-
-    // Assert
-    assertEquals("42", actualGetTasksPayload.getAssigneeId());
-    assertEquals("42", actualGetTasksPayload.getParentTaskId());
-    assertEquals("42", actualGetTasksPayload.getProcessInstanceId());
-    assertFalse(actualGetTasksPayload.isStandalone());
-    assertSame(groups, actualGetTasksPayload.getGroups());
+    // Act and Assert
+    assertFalse(getTasksPayload.isStandalone());
   }
 
   /**
-   * Test {@link GetTasksPayload#GetTasksPayload(String, List, String, String)}.
-   * <ul>
-   *   <li>Given {@code foo}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
-   *   <li>Then return Groups is {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GetTasksPayload#GetTasksPayload(String, List, String, String)}
-   */
-  @Test
-  @DisplayName("Test new GetTasksPayload(String, List, String, String); given 'foo'; when ArrayList() add 'foo'; then return Groups is ArrayList()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void GetTasksPayload.<init>(String, List, String, String)"})
-  void testNewGetTasksPayload_givenFoo_whenArrayListAddFoo_thenReturnGroupsIsArrayList() {
-    // Arrange
-    ArrayList<String> groups = new ArrayList<>();
-    groups.add("foo");
-
-    // Act
-    GetTasksPayload actualGetTasksPayload = new GetTasksPayload("42", groups, "42", "42");
-
-    // Assert
-    assertEquals("42", actualGetTasksPayload.getAssigneeId());
-    assertEquals("42", actualGetTasksPayload.getParentTaskId());
-    assertEquals("42", actualGetTasksPayload.getProcessInstanceId());
-    assertFalse(actualGetTasksPayload.isStandalone());
-    assertSame(groups, actualGetTasksPayload.getGroups());
-  }
-
-  /**
-   * Test {@link GetTasksPayload#GetTasksPayload(String, List, String, String)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return Groups Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GetTasksPayload#GetTasksPayload(String, List, String, String)}
-   */
-  @Test
-  @DisplayName("Test new GetTasksPayload(String, List, String, String); when ArrayList(); then return Groups Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void GetTasksPayload.<init>(String, List, String, String)"})
-  void testNewGetTasksPayload_whenArrayList_thenReturnGroupsEmpty() {
-    // Arrange and Act
-    GetTasksPayload actualGetTasksPayload = new GetTasksPayload("42", new ArrayList<>(), "42", "42");
-
-    // Assert
-    assertEquals("42", actualGetTasksPayload.getAssigneeId());
-    assertEquals("42", actualGetTasksPayload.getParentTaskId());
-    assertEquals("42", actualGetTasksPayload.getProcessInstanceId());
-    assertFalse(actualGetTasksPayload.isStandalone());
-    assertTrue(actualGetTasksPayload.getGroups().isEmpty());
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link GetTasksPayload#setAssigneeId(String)}
@@ -152,13 +62,6 @@ class GetTasksPayloadDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String GetTasksPayload.getAssigneeId()", "List GetTasksPayload.getGroups()",
-      "String GetTasksPayload.getId()", "String GetTasksPayload.getParentTaskId()",
-      "String GetTasksPayload.getProcessInstanceId()", "void GetTasksPayload.setAssigneeId(String)",
-      "void GetTasksPayload.setGroups(List)", "void GetTasksPayload.setParentTaskId(String)",
-      "void GetTasksPayload.setProcessInstanceId(String)"})
   void testGettersAndSetters() {
     // Arrange
     GetTasksPayload getTasksPayload = new GetTasksPayload();
@@ -174,7 +77,7 @@ class GetTasksPayloadDiffblueTest {
     getTasksPayload.getId();
     String actualParentTaskId = getTasksPayload.getParentTaskId();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("42", actualAssigneeId);
     assertEquals("42", actualParentTaskId);
     assertEquals("42", getTasksPayload.getProcessInstanceId());
@@ -183,42 +86,86 @@ class GetTasksPayloadDiffblueTest {
   }
 
   /**
-   * Test {@link GetTasksPayload#isStandalone()}.
-   * <ul>
-   *   <li>Given {@link GetTasksPayload#GetTasksPayload()} ProcessInstanceId is {@code foo}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GetTasksPayload#isStandalone()}
+   * Method under test: {@link GetTasksPayload#GetTasksPayload()}
    */
   @Test
-  @DisplayName("Test isStandalone(); given GetTasksPayload() ProcessInstanceId is 'foo'; then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean GetTasksPayload.isStandalone()"})
-  void testIsStandalone_givenGetTasksPayloadProcessInstanceIdIsFoo_thenReturnFalse() {
-    // Arrange
-    GetTasksPayload getTasksPayload = new GetTasksPayload();
-    getTasksPayload.setProcessInstanceId("foo");
+  void testNewGetTasksPayload() {
+    // Arrange and Act
+    GetTasksPayload actualGetTasksPayload = new GetTasksPayload();
 
-    // Act and Assert
-    assertFalse(getTasksPayload.isStandalone());
+    // Assert
+    assertNull(actualGetTasksPayload.getAssigneeId());
+    assertNull(actualGetTasksPayload.getParentTaskId());
+    assertNull(actualGetTasksPayload.getProcessInstanceId());
+    assertNull(actualGetTasksPayload.getGroups());
+    assertTrue(actualGetTasksPayload.isStandalone());
   }
 
   /**
-   * Test {@link GetTasksPayload#isStandalone()}.
-   * <ul>
-   *   <li>Given {@link GetTasksPayload#GetTasksPayload()}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GetTasksPayload#isStandalone()}
+   * Method under test:
+   * {@link GetTasksPayload#GetTasksPayload(String, List, String, String)}
    */
   @Test
-  @DisplayName("Test isStandalone(); given GetTasksPayload(); then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean GetTasksPayload.isStandalone()"})
-  void testIsStandalone_givenGetTasksPayload_thenReturnTrue() {
-    // Arrange, Act and Assert
-    assertTrue((new GetTasksPayload()).isStandalone());
+  void testNewGetTasksPayload2() {
+    // Arrange
+    ArrayList<String> groups = new ArrayList<>();
+
+    // Act
+    GetTasksPayload actualGetTasksPayload = new GetTasksPayload("42", groups, "42", "42");
+
+    // Assert
+    assertEquals("42", actualGetTasksPayload.getAssigneeId());
+    assertEquals("42", actualGetTasksPayload.getParentTaskId());
+    assertEquals("42", actualGetTasksPayload.getProcessInstanceId());
+    assertFalse(actualGetTasksPayload.isStandalone());
+    List<String> groups2 = actualGetTasksPayload.getGroups();
+    assertTrue(groups2.isEmpty());
+    assertSame(groups, groups2);
+  }
+
+  /**
+   * Method under test:
+   * {@link GetTasksPayload#GetTasksPayload(String, List, String, String)}
+   */
+  @Test
+  void testNewGetTasksPayload3() {
+    // Arrange
+    ArrayList<String> groups = new ArrayList<>();
+    groups.add("foo");
+
+    // Act
+    GetTasksPayload actualGetTasksPayload = new GetTasksPayload("42", groups, "42", "42");
+
+    // Assert
+    assertEquals("42", actualGetTasksPayload.getAssigneeId());
+    assertEquals("42", actualGetTasksPayload.getParentTaskId());
+    assertEquals("42", actualGetTasksPayload.getProcessInstanceId());
+    List<String> groups2 = actualGetTasksPayload.getGroups();
+    assertEquals(1, groups2.size());
+    assertEquals("foo", groups2.get(0));
+    assertFalse(actualGetTasksPayload.isStandalone());
+    assertSame(groups, groups2);
+  }
+
+  /**
+   * Method under test:
+   * {@link GetTasksPayload#GetTasksPayload(String, List, String, String)}
+   */
+  @Test
+  void testNewGetTasksPayload4() {
+    // Arrange
+    ArrayList<String> groups = new ArrayList<>();
+    groups.add("42");
+    groups.add("foo");
+
+    // Act
+    GetTasksPayload actualGetTasksPayload = new GetTasksPayload("42", groups, "42", "42");
+
+    // Assert
+    assertEquals("42", actualGetTasksPayload.getAssigneeId());
+    assertEquals("42", actualGetTasksPayload.getParentTaskId());
+    assertEquals("42", actualGetTasksPayload.getProcessInstanceId());
+    assertFalse(actualGetTasksPayload.isStandalone());
+    assertSame(groups, actualGetTasksPayload.getGroups());
   }
 }

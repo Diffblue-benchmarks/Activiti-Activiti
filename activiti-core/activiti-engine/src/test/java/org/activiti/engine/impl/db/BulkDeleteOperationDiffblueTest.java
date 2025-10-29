@@ -21,47 +21,18 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.defaults.DefaultSqlSession;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class BulkDeleteOperationDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link BulkDeleteOperation#BulkDeleteOperation(String, Object)}
-   *   <li>{@link BulkDeleteOperation#toString()}
-   * </ul>
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void BulkDeleteOperation.<init>(String, Object)", "String BulkDeleteOperation.toString()"})
-  public void testGettersAndSetters() {
-    // Arrange, Act and Assert
-    assertEquals("bulk delete: MD(null)", (new BulkDeleteOperation("MD", JSONObject.NULL)).toString());
-  }
-
-  /**
-   * Test {@link BulkDeleteOperation#execute(SqlSession)}.
-   * <ul>
-   *   <li>Given one.</li>
-   *   <li>When {@link DefaultSqlSession} {@link DefaultSqlSession#delete(String, Object)} return one.</li>
-   *   <li>Then calls {@link DefaultSqlSession#delete(String, Object)}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BulkDeleteOperation#execute(SqlSession)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void BulkDeleteOperation.execute(SqlSession)"})
-  public void testExecute_givenOne_whenDefaultSqlSessionDeleteReturnOne_thenCallsDelete() {
+  public void testExecute() {
     // Arrange
     BulkDeleteOperation bulkDeleteOperation = new BulkDeleteOperation("MD", JSONObject.NULL);
     DefaultSqlSession sqlSession = mock(DefaultSqlSession.class);
@@ -70,7 +41,20 @@ public class BulkDeleteOperationDiffblueTest {
     // Act
     bulkDeleteOperation.execute(sqlSession);
 
-    // Assert
+    // Assert that nothing has changed
     verify(sqlSession).delete(eq("MD"), isA(Object.class));
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>{@link BulkDeleteOperation#BulkDeleteOperation(String, Object)}
+   *   <li>{@link BulkDeleteOperation#toString()}
+   * </ul>
+   */
+  @Test
+  public void testGettersAndSetters() {
+    // Arrange, Act and Assert
+    assertEquals("bulk delete: MD(null)", (new BulkDeleteOperation("MD", JSONObject.NULL)).toString());
   }
 }

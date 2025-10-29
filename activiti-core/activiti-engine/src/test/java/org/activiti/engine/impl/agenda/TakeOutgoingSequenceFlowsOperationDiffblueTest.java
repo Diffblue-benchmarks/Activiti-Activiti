@@ -22,70 +22,23 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.engine.ActivitiEngineAgendaFactory;
-import org.activiti.engine.Agenda;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class TakeOutgoingSequenceFlowsOperationDiffblueTest {
   /**
-   * Test {@link TakeOutgoingSequenceFlowsOperation#TakeOutgoingSequenceFlowsOperation(CommandContext, ExecutionEntity, boolean)}.
-   * <p>
-   * Method under test: {@link TakeOutgoingSequenceFlowsOperation#TakeOutgoingSequenceFlowsOperation(CommandContext, ExecutionEntity, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void TakeOutgoingSequenceFlowsOperation.<init>(CommandContext, ExecutionEntity, boolean)"})
-  public void testNewTakeOutgoingSequenceFlowsOperation() {
-    // Arrange
-    ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
-    DefaultActivitiEngineAgenda defaultActivitiEngineAgenda = new DefaultActivitiEngineAgenda(null);
-    when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any())).thenReturn(defaultActivitiEngineAgenda);
-
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext = new CommandContext(mock(Command.class), processEngineConfiguration);
-
-    ExecutionEntityImpl executionEntity = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-
-    // Act
-    TakeOutgoingSequenceFlowsOperation actualTakeOutgoingSequenceFlowsOperation = new TakeOutgoingSequenceFlowsOperation(
-        commandContext, executionEntity, true);
-
-    // Assert
-    verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
-    Agenda agenda = actualTakeOutgoingSequenceFlowsOperation.getAgenda();
-    assertTrue(agenda instanceof DefaultActivitiEngineAgenda);
-    ExecutionEntity execution = actualTakeOutgoingSequenceFlowsOperation.getExecution();
-    assertTrue(execution instanceof ExecutionEntityImpl);
-    assertTrue(actualTakeOutgoingSequenceFlowsOperation.evaluateConditions);
-    assertSame(defaultActivitiEngineAgenda, agenda);
-    assertSame(commandContext, actualTakeOutgoingSequenceFlowsOperation.getCommandContext());
-    assertSame(executionEntity, execution);
-  }
-
-  /**
-   * Test {@link TakeOutgoingSequenceFlowsOperation#run()}.
-   * <ul>
-   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TakeOutgoingSequenceFlowsOperation#run()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void TakeOutgoingSequenceFlowsOperation.run()"})
-  public void testRun_thenCallsCreateAgenda() {
+  public void testRun() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
     when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
@@ -99,22 +52,16 @@ public class TakeOutgoingSequenceFlowsOperationDiffblueTest {
     (new TakeOutgoingSequenceFlowsOperation(commandContext,
         ExecutionEntityImpl.createWithEmptyRelationshipCollections(), true)).run();
 
-    // Assert
+    // Assert that nothing has changed
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
   }
 
   /**
-   * Test {@link TakeOutgoingSequenceFlowsOperation#cleanupExecutions(FlowElement)}.
-   * <ul>
-   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TakeOutgoingSequenceFlowsOperation#cleanupExecutions(FlowElement)}
+   * Method under test:
+   * {@link TakeOutgoingSequenceFlowsOperation#cleanupExecutions(FlowElement)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void TakeOutgoingSequenceFlowsOperation.cleanupExecutions(FlowElement)"})
-  public void testCleanupExecutions_thenCallsCreateAgenda() {
+  public void testCleanupExecutions() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
     when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
@@ -130,23 +77,16 @@ public class TakeOutgoingSequenceFlowsOperationDiffblueTest {
     // Act
     takeOutgoingSequenceFlowsOperation.cleanupExecutions(new AdhocSubProcess());
 
-    // Assert
+    // Assert that nothing has changed
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
   }
 
   /**
-   * Test {@link TakeOutgoingSequenceFlowsOperation#findNextParentScopeExecutionWithAllEndedChildExecutions(ExecutionEntity, ExecutionEntity)}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TakeOutgoingSequenceFlowsOperation#findNextParentScopeExecutionWithAllEndedChildExecutions(ExecutionEntity, ExecutionEntity)}
+   * Method under test:
+   * {@link TakeOutgoingSequenceFlowsOperation#findNextParentScopeExecutionWithAllEndedChildExecutions(ExecutionEntity, ExecutionEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ExecutionEntity TakeOutgoingSequenceFlowsOperation.findNextParentScopeExecutionWithAllEndedChildExecutions(ExecutionEntity, ExecutionEntity)"})
-  public void testFindNextParentScopeExecutionWithAllEndedChildExecutions_thenReturnNull() {
+  public void testFindNextParentScopeExecutionWithAllEndedChildExecutions() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
     when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
@@ -171,18 +111,11 @@ public class TakeOutgoingSequenceFlowsOperationDiffblueTest {
   }
 
   /**
-   * Test {@link TakeOutgoingSequenceFlowsOperation#allChildExecutionsEnded(ExecutionEntity, ExecutionEntity)}.
-   * <ul>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TakeOutgoingSequenceFlowsOperation#allChildExecutionsEnded(ExecutionEntity, ExecutionEntity)}
+   * Method under test:
+   * {@link TakeOutgoingSequenceFlowsOperation#allChildExecutionsEnded(ExecutionEntity, ExecutionEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "boolean TakeOutgoingSequenceFlowsOperation.allChildExecutionsEnded(ExecutionEntity, ExecutionEntity)"})
-  public void testAllChildExecutionsEnded_thenReturnTrue() {
+  public void testAllChildExecutionsEnded() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
     when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
@@ -203,5 +136,34 @@ public class TakeOutgoingSequenceFlowsOperationDiffblueTest {
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
     assertTrue(actualAllChildExecutionsEndedResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link TakeOutgoingSequenceFlowsOperation#TakeOutgoingSequenceFlowsOperation(CommandContext, ExecutionEntity, boolean)}
+   */
+  @Test
+  public void testNewTakeOutgoingSequenceFlowsOperation() {
+    // Arrange
+    ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
+    DefaultActivitiEngineAgenda defaultActivitiEngineAgenda = new DefaultActivitiEngineAgenda(null);
+    when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any())).thenReturn(defaultActivitiEngineAgenda);
+
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
+    CommandContext commandContext = new CommandContext(mock(Command.class), processEngineConfiguration);
+
+    ExecutionEntityImpl executionEntity = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+
+    // Act
+    TakeOutgoingSequenceFlowsOperation actualTakeOutgoingSequenceFlowsOperation = new TakeOutgoingSequenceFlowsOperation(
+        commandContext, executionEntity, true);
+
+    // Assert
+    verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
+    assertTrue(actualTakeOutgoingSequenceFlowsOperation.evaluateConditions);
+    assertSame(defaultActivitiEngineAgenda, actualTakeOutgoingSequenceFlowsOperation.getAgenda());
+    assertSame(commandContext, actualTakeOutgoingSequenceFlowsOperation.getCommandContext());
+    assertSame(executionEntity, actualTakeOutgoingSequenceFlowsOperation.getExecution());
   }
 }

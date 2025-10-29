@@ -21,38 +21,29 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.activiti.api.process.model.events.BPMNTimerFailedEvent;
 import org.activiti.api.process.runtime.events.listener.BPMNElementEventListener;
-import org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener;
 import org.activiti.api.runtime.event.impl.BPMNTimerFailedEventImpl;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.impl.ActivitiActivityCancelledEventImpl;
 import org.activiti.runtime.api.event.impl.BPMNTimerConverter;
 import org.activiti.runtime.api.event.impl.ToTimerFailedConverter;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class TimerFailedListenerDelegateDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>{@link TimerFailedListenerDelegate#TimerFailedListenerDelegate(List, ToTimerFailedConverter)}
+   *   <li>
+   * {@link TimerFailedListenerDelegate#TimerFailedListenerDelegate(List, ToTimerFailedConverter)}
    *   <li>{@link TimerFailedListenerDelegate#isFailOnException()}
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void TimerFailedListenerDelegate.<init>(List, ToTimerFailedConverter)",
-      "boolean TimerFailedListenerDelegate.isFailOnException()"})
   void testGettersAndSetters() {
     // Arrange
     ArrayList<BPMNElementEventListener<BPMNTimerFailedEvent>> processRuntimeEventListeners = new ArrayList<>();
@@ -63,19 +54,29 @@ class TimerFailedListenerDelegateDiffblueTest {
   }
 
   /**
-   * Test {@link TimerFailedListenerDelegate#onEvent(ActivitiEvent)}.
-   * <ul>
-   *   <li>Given {@link BPMNElementEventListener} {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)} does nothing.</li>
-   *   <li>Then calls {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TimerFailedListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
-  @DisplayName("Test onEvent(ActivitiEvent); given BPMNElementEventListener onEvent(RuntimeEvent) does nothing; then calls onEvent(RuntimeEvent)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void TimerFailedListenerDelegate.onEvent(ActivitiEvent)"})
-  void testOnEvent_givenBPMNElementEventListenerOnEventDoesNothing_thenCallsOnEvent() {
+  void testOnEvent() {
+    // Arrange
+    ToTimerFailedConverter converter = mock(ToTimerFailedConverter.class);
+    Optional<BPMNTimerFailedEvent> ofResult = Optional.of(new BPMNTimerFailedEventImpl());
+    when(converter.from(Mockito.<ActivitiEvent>any())).thenReturn(ofResult);
+    TimerFailedListenerDelegate timerFailedListenerDelegate = new TimerFailedListenerDelegate(new ArrayList<>(),
+        converter);
+
+    // Act
+    timerFailedListenerDelegate.onEvent(new ActivitiActivityCancelledEventImpl());
+
+    // Assert that nothing has changed
+    verify(converter).from(isA(ActivitiEvent.class));
+  }
+
+  /**
+   * Method under test: {@link TimerFailedListenerDelegate#onEvent(ActivitiEvent)}
+   */
+  @Test
+  void testOnEvent2() {
     // Arrange
     BPMNElementEventListener<BPMNTimerFailedEvent> bpmnElementEventListener = mock(BPMNElementEventListener.class);
     doNothing().when(bpmnElementEventListener).onEvent(Mockito.<BPMNTimerFailedEvent>any());
@@ -93,33 +94,6 @@ class TimerFailedListenerDelegateDiffblueTest {
 
     // Assert
     verify(bpmnElementEventListener).onEvent(isA(BPMNTimerFailedEvent.class));
-    verify(converter).from(isA(ActivitiEvent.class));
-  }
-
-  /**
-   * Test {@link TimerFailedListenerDelegate#onEvent(ActivitiEvent)}.
-   * <ul>
-   *   <li>Then calls {@link ToTimerFailedConverter#from(ActivitiEvent)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TimerFailedListenerDelegate#onEvent(ActivitiEvent)}
-   */
-  @Test
-  @DisplayName("Test onEvent(ActivitiEvent); then calls from(ActivitiEvent)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void TimerFailedListenerDelegate.onEvent(ActivitiEvent)"})
-  void testOnEvent_thenCallsFrom() {
-    // Arrange
-    ToTimerFailedConverter converter = mock(ToTimerFailedConverter.class);
-    Optional<BPMNTimerFailedEvent> ofResult = Optional.of(new BPMNTimerFailedEventImpl());
-    when(converter.from(Mockito.<ActivitiEvent>any())).thenReturn(ofResult);
-    TimerFailedListenerDelegate timerFailedListenerDelegate = new TimerFailedListenerDelegate(new ArrayList<>(),
-        converter);
-
-    // Act
-    timerFailedListenerDelegate.onEvent(new ActivitiActivityCancelledEventImpl());
-
-    // Assert
     verify(converter).from(isA(ActivitiEvent.class));
   }
 }

@@ -19,48 +19,20 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import java.util.Map;
+import org.activiti.core.el.CustomFunctionProvider;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.persistence.entity.AttachmentEntity;
 import org.activiti.engine.impl.persistence.entity.AttachmentEntityImpl;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class MybatisAttachmentDataManagerDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link MybatisAttachmentDataManager#MybatisAttachmentDataManager(ProcessEngineConfigurationImpl)}
-   *   <li>{@link MybatisAttachmentDataManager#getManagedEntityClass()}
-   * </ul>
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void MybatisAttachmentDataManager.<init>(ProcessEngineConfigurationImpl)",
-      "Class MybatisAttachmentDataManager.getManagedEntityClass()"})
-  public void testGettersAndSetters() {
-    // Arrange and Act
-    Class<? extends AttachmentEntity> actualManagedEntityClass = (new MybatisAttachmentDataManager(
-        new JtaProcessEngineConfiguration())).getManagedEntityClass();
-
-    // Assert
-    Class<AttachmentEntityImpl> expectedManagedEntityClass = AttachmentEntityImpl.class;
-    assertEquals(expectedManagedEntityClass, actualManagedEntityClass);
-  }
-
-  /**
-   * Test {@link MybatisAttachmentDataManager#create()}.
-   * <p>
    * Method under test: {@link MybatisAttachmentDataManager#create()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"AttachmentEntity MybatisAttachmentDataManager.create()"})
   public void testCreate() {
     // Arrange and Act
     AttachmentEntity actualCreateResult = (new MybatisAttachmentDataManager(new JtaProcessEngineConfiguration()))
@@ -70,6 +42,9 @@ public class MybatisAttachmentDataManagerDiffblueTest {
     Object persistentState = actualCreateResult.getPersistentState();
     assertTrue(persistentState instanceof Map);
     assertTrue(actualCreateResult instanceof AttachmentEntityImpl);
+    assertEquals(2, ((Map<String, Object>) persistentState).size());
+    assertNull(((Map<String, Object>) persistentState).get("description"));
+    assertNull(((Map<String, Object>) persistentState).get("name"));
     assertNull(actualCreateResult.getUserId());
     assertNull(actualCreateResult.getId());
     assertNull(actualCreateResult.getContentId());
@@ -82,12 +57,65 @@ public class MybatisAttachmentDataManagerDiffblueTest {
     assertNull(actualCreateResult.getTime());
     assertNull(actualCreateResult.getContent());
     assertEquals(1, actualCreateResult.getRevision());
-    assertEquals(2, ((Map<String, Object>) persistentState).size());
     assertEquals(2, actualCreateResult.getRevisionNext());
     assertFalse(actualCreateResult.isDeleted());
     assertFalse(actualCreateResult.isInserted());
     assertFalse(actualCreateResult.isUpdated());
-    assertTrue(((Map<String, Object>) persistentState).containsKey("description"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("name"));
+  }
+
+  /**
+   * Method under test: {@link MybatisAttachmentDataManager#create()}
+   */
+  @Test
+  public void testCreate2() {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
+
+    // Act
+    AttachmentEntity actualCreateResult = (new MybatisAttachmentDataManager(processEngineConfiguration)).create();
+
+    // Assert
+    Object persistentState = actualCreateResult.getPersistentState();
+    assertTrue(persistentState instanceof Map);
+    assertTrue(actualCreateResult instanceof AttachmentEntityImpl);
+    assertEquals(2, ((Map<String, Object>) persistentState).size());
+    assertNull(((Map<String, Object>) persistentState).get("description"));
+    assertNull(((Map<String, Object>) persistentState).get("name"));
+    assertNull(actualCreateResult.getUserId());
+    assertNull(actualCreateResult.getId());
+    assertNull(actualCreateResult.getContentId());
+    assertNull(actualCreateResult.getDescription());
+    assertNull(actualCreateResult.getName());
+    assertNull(actualCreateResult.getProcessInstanceId());
+    assertNull(actualCreateResult.getTaskId());
+    assertNull(actualCreateResult.getType());
+    assertNull(actualCreateResult.getUrl());
+    assertNull(actualCreateResult.getTime());
+    assertNull(actualCreateResult.getContent());
+    assertEquals(1, actualCreateResult.getRevision());
+    assertEquals(2, actualCreateResult.getRevisionNext());
+    assertFalse(actualCreateResult.isDeleted());
+    assertFalse(actualCreateResult.isInserted());
+    assertFalse(actualCreateResult.isUpdated());
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>
+   * {@link MybatisAttachmentDataManager#MybatisAttachmentDataManager(ProcessEngineConfigurationImpl)}
+   *   <li>{@link MybatisAttachmentDataManager#getManagedEntityClass()}
+   * </ul>
+   */
+  @Test
+  public void testGettersAndSetters() {
+    // Arrange and Act
+    Class<? extends AttachmentEntity> actualManagedEntityClass = (new MybatisAttachmentDataManager(
+        new JtaProcessEngineConfiguration())).getManagedEntityClass();
+
+    // Assert
+    Class<AttachmentEntityImpl> expectedManagedEntityClass = AttachmentEntityImpl.class;
+    assertEquals(expectedManagedEntityClass, actualManagedEntityClass);
   }
 }

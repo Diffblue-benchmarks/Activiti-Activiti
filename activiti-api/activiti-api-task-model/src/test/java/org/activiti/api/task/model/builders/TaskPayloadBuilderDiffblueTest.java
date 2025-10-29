@@ -22,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.task.model.payloads.AssignTaskPayload;
 import org.activiti.api.task.model.payloads.AssignTasksPayload;
@@ -37,20 +36,13 @@ import org.activiti.api.task.model.payloads.GetTasksPayload;
 import org.activiti.api.task.model.payloads.SaveTaskPayload;
 import org.activiti.api.task.model.payloads.UpdateTaskPayload;
 import org.activiti.api.task.model.payloads.UpdateTaskVariablePayload;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class TaskPayloadBuilderDiffblueTest {
   /**
-   * Test {@link TaskPayloadBuilder#tasks()}.
-   * <p>
    * Method under test: {@link TaskPayloadBuilder#tasks()}
    */
   @Test
-  @DisplayName("Test tasks()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"GetTasksPayloadBuilder TaskPayloadBuilder.tasks()"})
   void testTasks() {
     // Arrange, Act and Assert
     GetTasksPayload buildResult = TaskPayloadBuilder.tasks().build();
@@ -62,14 +54,10 @@ class TaskPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link TaskPayloadBuilder#tasksForProcess(ProcessInstance)}.
-   * <p>
-   * Method under test: {@link TaskPayloadBuilder#tasksForProcess(ProcessInstance)}
+   * Method under test:
+   * {@link TaskPayloadBuilder#tasksForProcess(ProcessInstance)}
    */
   @Test
-  @DisplayName("Test tasksForProcess(ProcessInstance)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"GetTasksPayloadBuilder TaskPayloadBuilder.tasksForProcess(ProcessInstance)"})
   void testTasksForProcess() {
     // Arrange
     ProcessInstance processInstance = mock(ProcessInstance.class);
@@ -89,14 +77,9 @@ class TaskPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link TaskPayloadBuilder#complete()}.
-   * <p>
    * Method under test: {@link TaskPayloadBuilder#complete()}
    */
   @Test
-  @DisplayName("Test complete()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.task.model.builders.CompleteTaskPayloadBuilder TaskPayloadBuilder.complete()"})
   void testComplete() {
     // Arrange, Act and Assert
     CompleteTaskPayload buildResult = TaskPayloadBuilder.complete().build();
@@ -105,14 +88,9 @@ class TaskPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link TaskPayloadBuilder#save()}.
-   * <p>
    * Method under test: {@link TaskPayloadBuilder#save()}
    */
   @Test
-  @DisplayName("Test save()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.task.model.builders.SaveTaskPayloadBuilder TaskPayloadBuilder.save()"})
   void testSave() {
     // Arrange, Act and Assert
     SaveTaskPayload buildResult = TaskPayloadBuilder.save().build();
@@ -121,14 +99,9 @@ class TaskPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link TaskPayloadBuilder#claim()}.
-   * <p>
    * Method under test: {@link TaskPayloadBuilder#claim()}
    */
   @Test
-  @DisplayName("Test claim()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.task.model.builders.ClaimTaskPayloadBuilder TaskPayloadBuilder.claim()"})
   void testClaim() {
     // Arrange, Act and Assert
     ClaimTaskPayload buildResult = TaskPayloadBuilder.claim().build();
@@ -137,29 +110,18 @@ class TaskPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link TaskPayloadBuilder#release()}.
-   * <p>
    * Method under test: {@link TaskPayloadBuilder#release()}
    */
   @Test
-  @DisplayName("Test release()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.task.model.builders.ReleaseTaskPayloadBuilder TaskPayloadBuilder.release()"})
   void testRelease() {
     // Arrange, Act and Assert
     assertNull(TaskPayloadBuilder.release().build().getTaskId());
   }
 
   /**
-   * Test {@link TaskPayloadBuilder#createVariable()}.
-   * <p>
    * Method under test: {@link TaskPayloadBuilder#createVariable()}
    */
   @Test
-  @DisplayName("Test createVariable()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.task.model.builders.CreateTaskVariablePayloadBuilder TaskPayloadBuilder.createVariable()"})
   void testCreateVariable() {
     // Arrange, Act and Assert
     CreateTaskVariablePayload buildResult = TaskPayloadBuilder.createVariable().build();
@@ -169,15 +131,9 @@ class TaskPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link TaskPayloadBuilder#updateVariable()}.
-   * <p>
    * Method under test: {@link TaskPayloadBuilder#updateVariable()}
    */
   @Test
-  @DisplayName("Test updateVariable()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.task.model.builders.UpdateTaskVariablePayloadBuilder TaskPayloadBuilder.updateVariable()"})
   void testUpdateVariable() {
     // Arrange, Act and Assert
     UpdateTaskVariablePayload buildResult = TaskPayloadBuilder.updateVariable().build();
@@ -187,29 +143,18 @@ class TaskPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link TaskPayloadBuilder#variables()}.
-   * <p>
    * Method under test: {@link TaskPayloadBuilder#variables()}
    */
   @Test
-  @DisplayName("Test variables()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.task.model.builders.GetTaskVariablesPayloadBuilder TaskPayloadBuilder.variables()"})
   void testVariables() {
     // Arrange, Act and Assert
     assertNull(TaskPayloadBuilder.variables().build().getTaskId());
   }
 
   /**
-   * Test {@link TaskPayloadBuilder#update()}.
-   * <p>
    * Method under test: {@link TaskPayloadBuilder#update()}
    */
   @Test
-  @DisplayName("Test update()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.task.model.builders.UpdateTaskPayloadBuilder TaskPayloadBuilder.update()"})
   void testUpdate() {
     // Arrange, Act and Assert
     UpdateTaskPayload buildResult = TaskPayloadBuilder.update().build();
@@ -224,14 +169,9 @@ class TaskPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link TaskPayloadBuilder#delete()}.
-   * <p>
    * Method under test: {@link TaskPayloadBuilder#delete()}
    */
   @Test
-  @DisplayName("Test delete()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.task.model.builders.DeleteTaskPayloadBuilder TaskPayloadBuilder.delete()"})
   void testDelete() {
     // Arrange, Act and Assert
     DeleteTaskPayload buildResult = TaskPayloadBuilder.delete().build();
@@ -241,14 +181,9 @@ class TaskPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link TaskPayloadBuilder#create()}.
-   * <p>
    * Method under test: {@link TaskPayloadBuilder#create()}
    */
   @Test
-  @DisplayName("Test create()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.task.model.builders.CreateTaskPayloadBuilder TaskPayloadBuilder.create()"})
   void testCreate() {
     // Arrange, Act and Assert
     CreateTaskPayload buildResult = TaskPayloadBuilder.create().build();
@@ -264,14 +199,9 @@ class TaskPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link TaskPayloadBuilder#assign()}.
-   * <p>
    * Method under test: {@link TaskPayloadBuilder#assign()}
    */
   @Test
-  @DisplayName("Test assign()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"org.activiti.api.task.model.builders.AssignTaskPayloadBuilder TaskPayloadBuilder.assign()"})
   void testAssign() {
     // Arrange, Act and Assert
     AssignTaskPayload buildResult = TaskPayloadBuilder.assign().build();
@@ -280,15 +210,9 @@ class TaskPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link TaskPayloadBuilder#assignMultiple()}.
-   * <p>
    * Method under test: {@link TaskPayloadBuilder#assignMultiple()}
    */
   @Test
-  @DisplayName("Test assignMultiple()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.task.model.builders.AssignTasksPayloadBuilder TaskPayloadBuilder.assignMultiple()"})
   void testAssignMultiple() {
     // Arrange, Act and Assert
     AssignTasksPayload buildResult = TaskPayloadBuilder.assignMultiple().build();
@@ -297,15 +221,9 @@ class TaskPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link TaskPayloadBuilder#addCandidateUsers()}.
-   * <p>
    * Method under test: {@link TaskPayloadBuilder#addCandidateUsers()}
    */
   @Test
-  @DisplayName("Test addCandidateUsers()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.task.model.builders.CandidateUsersPayloadBuilder TaskPayloadBuilder.addCandidateUsers()"})
   void testAddCandidateUsers() {
     // Arrange, Act and Assert
     CandidateUsersPayload buildResult = TaskPayloadBuilder.addCandidateUsers().build();
@@ -314,15 +232,9 @@ class TaskPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link TaskPayloadBuilder#deleteCandidateUsers()}.
-   * <p>
    * Method under test: {@link TaskPayloadBuilder#deleteCandidateUsers()}
    */
   @Test
-  @DisplayName("Test deleteCandidateUsers()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.task.model.builders.CandidateUsersPayloadBuilder TaskPayloadBuilder.deleteCandidateUsers()"})
   void testDeleteCandidateUsers() {
     // Arrange, Act and Assert
     CandidateUsersPayload buildResult = TaskPayloadBuilder.deleteCandidateUsers().build();
@@ -331,15 +243,9 @@ class TaskPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link TaskPayloadBuilder#addCandidateGroups()}.
-   * <p>
    * Method under test: {@link TaskPayloadBuilder#addCandidateGroups()}
    */
   @Test
-  @DisplayName("Test addCandidateGroups()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.task.model.builders.CandidateGroupsPayloadBuilder TaskPayloadBuilder.addCandidateGroups()"})
   void testAddCandidateGroups() {
     // Arrange, Act and Assert
     CandidateGroupsPayload buildResult = TaskPayloadBuilder.addCandidateGroups().build();
@@ -348,15 +254,9 @@ class TaskPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link TaskPayloadBuilder#deleteCandidateGroups()}.
-   * <p>
    * Method under test: {@link TaskPayloadBuilder#deleteCandidateGroups()}
    */
   @Test
-  @DisplayName("Test deleteCandidateGroups()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.task.model.builders.CandidateGroupsPayloadBuilder TaskPayloadBuilder.deleteCandidateGroups()"})
   void testDeleteCandidateGroups() {
     // Arrange, Act and Assert
     CandidateGroupsPayload buildResult = TaskPayloadBuilder.deleteCandidateGroups().build();

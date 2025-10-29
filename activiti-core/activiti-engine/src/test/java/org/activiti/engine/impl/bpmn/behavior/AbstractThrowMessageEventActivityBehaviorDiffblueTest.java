@@ -22,30 +22,25 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.MessageEventDefinition;
 import org.activiti.bpmn.model.ThrowEvent;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultMessageExecutionContext;
+import org.activiti.engine.impl.bpmn.parser.factory.MessageExecutionContext;
 import org.activiti.engine.impl.delegate.MessagePayloadMappingProvider;
 import org.activiti.engine.impl.delegate.ThrowMessage;
 import org.activiti.engine.impl.delegate.ThrowMessageDelegate;
 import org.activiti.engine.impl.el.ExpressionManager;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class AbstractThrowMessageEventActivityBehaviorDiffblueTest {
   /**
-   * Test {@link AbstractThrowMessageEventActivityBehavior#getMessageEventDefinition()}.
-   * <p>
-   * Method under test: {@link AbstractThrowMessageEventActivityBehavior#getMessageEventDefinition()}
+   * Method under test:
+   * {@link AbstractThrowMessageEventActivityBehavior#getMessageEventDefinition()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"MessageEventDefinition AbstractThrowMessageEventActivityBehavior.getMessageEventDefinition()"})
   public void testGetMessageEventDefinition() {
     // Arrange
     ThrowEvent throwEvent = new ThrowEvent();
@@ -62,13 +57,33 @@ public class AbstractThrowMessageEventActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractThrowMessageEventActivityBehavior#getDelegate()}.
-   * <p>
-   * Method under test: {@link AbstractThrowMessageEventActivityBehavior#getDelegate()}
+   * Method under test:
+   * {@link AbstractThrowMessageEventActivityBehavior#getThrowMessage(DelegateExecution)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ThrowMessageDelegate AbstractThrowMessageEventActivityBehavior.getDelegate()"})
+  public void testGetThrowMessage() {
+    // Arrange
+    MessageExecutionContext messageExecutionContext = mock(MessageExecutionContext.class);
+    ThrowMessage throwMessage = new ThrowMessage("Name");
+    when(messageExecutionContext.createThrowMessage(Mockito.<DelegateExecution>any())).thenReturn(throwMessage);
+    ThrowEvent throwEvent = new ThrowEvent();
+    IntermediateThrowMessageEventActivityBehavior intermediateThrowMessageEventActivityBehavior = new IntermediateThrowMessageEventActivityBehavior(
+        throwEvent, new MessageEventDefinition(), mock(ThrowMessageDelegate.class), messageExecutionContext);
+
+    // Act
+    ThrowMessage actualThrowMessage = intermediateThrowMessageEventActivityBehavior
+        .getThrowMessage(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+
+    // Assert
+    verify(messageExecutionContext).createThrowMessage(isA(DelegateExecution.class));
+    assertSame(throwMessage, actualThrowMessage);
+  }
+
+  /**
+   * Method under test:
+   * {@link AbstractThrowMessageEventActivityBehavior#getDelegate()}
+   */
+  @Test
   public void testGetDelegate() {
     // Arrange
     ThrowMessageDelegate delegate = mock(ThrowMessageDelegate.class);
@@ -87,17 +102,29 @@ public class AbstractThrowMessageEventActivityBehaviorDiffblueTest {
 
     // Assert
     verify(delegate).send(isA(DelegateExecution.class), isA(ThrowMessage.class));
+    assertTrue(execution.getEventSubscriptions().isEmpty());
+    assertTrue(execution.getExecutions().isEmpty());
+    assertTrue(execution.getIdentityLinks().isEmpty());
+    assertTrue(execution.getJobs().isEmpty());
+    assertTrue(execution.getTasks().isEmpty());
+    assertTrue(execution.getTimerJobs().isEmpty());
+    assertTrue(execution.getProcessVariables().isEmpty());
+    assertTrue(execution.getTransientVariables().isEmpty());
+    assertTrue(execution.getTransientVariablesLocal().isEmpty());
+    assertTrue(execution.getUsedVariablesCache().isEmpty());
+    assertTrue(execution.getVariableInstanceEntities().isEmpty());
+    assertTrue(execution.getVariableInstances().isEmpty());
+    assertTrue(execution.getVariableInstancesLocal().isEmpty());
+    assertTrue(execution.getVariables().isEmpty());
+    assertTrue(execution.getVariablesLocal().isEmpty());
     assertTrue(actualSendResult);
   }
 
   /**
-   * Test {@link AbstractThrowMessageEventActivityBehavior#getDelegate()}.
-   * <p>
-   * Method under test: {@link AbstractThrowMessageEventActivityBehavior#getDelegate()}
+   * Method under test:
+   * {@link AbstractThrowMessageEventActivityBehavior#getDelegate()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ThrowMessageDelegate AbstractThrowMessageEventActivityBehavior.getDelegate()"})
   public void testGetDelegate2() {
     // Arrange
     ThrowMessageDelegate delegate = mock(ThrowMessageDelegate.class);
@@ -117,17 +144,28 @@ public class AbstractThrowMessageEventActivityBehaviorDiffblueTest {
     // Assert
     verify(delegate).send(isA(DelegateExecution.class), isA(ThrowMessage.class));
     assertFalse(actualSendResult);
+    assertTrue(execution.getEventSubscriptions().isEmpty());
+    assertTrue(execution.getExecutions().isEmpty());
+    assertTrue(execution.getIdentityLinks().isEmpty());
+    assertTrue(execution.getJobs().isEmpty());
+    assertTrue(execution.getTasks().isEmpty());
+    assertTrue(execution.getTimerJobs().isEmpty());
+    assertTrue(execution.getProcessVariables().isEmpty());
+    assertTrue(execution.getTransientVariables().isEmpty());
+    assertTrue(execution.getTransientVariablesLocal().isEmpty());
+    assertTrue(execution.getUsedVariablesCache().isEmpty());
+    assertTrue(execution.getVariableInstanceEntities().isEmpty());
+    assertTrue(execution.getVariableInstances().isEmpty());
+    assertTrue(execution.getVariableInstancesLocal().isEmpty());
+    assertTrue(execution.getVariables().isEmpty());
+    assertTrue(execution.getVariablesLocal().isEmpty());
   }
 
   /**
-   * Test {@link AbstractThrowMessageEventActivityBehavior#getMessageExecutionContext()}.
-   * <p>
-   * Method under test: {@link AbstractThrowMessageEventActivityBehavior#getMessageExecutionContext()}
+   * Method under test:
+   * {@link AbstractThrowMessageEventActivityBehavior#getMessageExecutionContext()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.parser.factory.MessageExecutionContext AbstractThrowMessageEventActivityBehavior.getMessageExecutionContext()"})
   public void testGetMessageExecutionContext() {
     // Arrange
     ThrowEvent throwEvent = new ThrowEvent();

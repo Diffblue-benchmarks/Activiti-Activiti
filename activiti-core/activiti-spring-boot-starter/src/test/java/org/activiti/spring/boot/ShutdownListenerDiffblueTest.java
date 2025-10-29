@@ -18,12 +18,8 @@ package org.activiti.spring.boot;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +27,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWebApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.event.ContextClosedEvent;
-import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.aot.DisabledInAotMode;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -47,18 +42,11 @@ class ShutdownListenerDiffblueTest {
   private ShutdownListener shutdownListener;
 
   /**
-   * Test {@link ShutdownListener#onApplicationEvent(ContextClosedEvent)} with {@code ContextClosedEvent}.
-   * <ul>
-   *   <li>Then calls {@link ProcessEngineConfiguration#getAsyncExecutor()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ShutdownListener#onApplicationEvent(ContextClosedEvent)}
+   * Method under test:
+   * {@link ShutdownListener#onApplicationEvent(ContextClosedEvent)}
    */
   @Test
-  @DisplayName("Test onApplicationEvent(ContextClosedEvent) with 'ContextClosedEvent'; then calls getAsyncExecutor()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ShutdownListener.onApplicationEvent(ContextClosedEvent)"})
-  void testOnApplicationEventWithContextClosedEvent_thenCallsGetAsyncExecutor() {
+  void testOnApplicationEvent() {
     // Arrange
     when(processEngineConfigurationImpl.getAsyncExecutor()).thenReturn(new DefaultAsyncJobExecutor());
 
@@ -70,18 +58,11 @@ class ShutdownListenerDiffblueTest {
   }
 
   /**
-   * Test {@link ShutdownListener#onApplicationEvent(ContextClosedEvent)} with {@code ContextClosedEvent}.
-   * <ul>
-   *   <li>Then calls {@link AbstractApplicationContext#getParent()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ShutdownListener#onApplicationEvent(ContextClosedEvent)}
+   * Method under test:
+   * {@link ShutdownListener#onApplicationEvent(ContextClosedEvent)}
    */
   @Test
-  @DisplayName("Test onApplicationEvent(ContextClosedEvent) with 'ContextClosedEvent'; then calls getParent()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ShutdownListener.onApplicationEvent(ContextClosedEvent)"})
-  void testOnApplicationEventWithContextClosedEvent_thenCallsGetParent() {
+  void testOnApplicationEvent2() {
     // Arrange
     AnnotationConfigApplicationContext source = mock(AnnotationConfigApplicationContext.class);
     when(source.getParent()).thenReturn(new AnnotationConfigReactiveWebApplicationContext());
@@ -89,7 +70,7 @@ class ShutdownListenerDiffblueTest {
     // Act
     shutdownListener.onApplicationEvent(new ContextClosedEvent(source));
 
-    // Assert
+    // Assert that nothing has changed
     verify(source).getParent();
   }
 }

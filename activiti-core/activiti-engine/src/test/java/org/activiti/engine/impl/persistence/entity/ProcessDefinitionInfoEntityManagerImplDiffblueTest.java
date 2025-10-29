@@ -23,19 +23,15 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventDispatcher;
 import org.activiti.engine.delegate.event.impl.ActivitiEventDispatcherImpl;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
-import org.activiti.engine.impl.persistence.entity.data.DataManager;
 import org.activiti.engine.impl.persistence.entity.data.ProcessDefinitionInfoDataManager;
 import org.activiti.engine.impl.persistence.entity.data.impl.MybatisProcessDefinitionInfoDataManager;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -54,19 +50,14 @@ public class ProcessDefinitionInfoEntityManagerImplDiffblueTest {
   private ProcessEngineConfigurationImpl processEngineConfigurationImpl;
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>{@link ProcessDefinitionInfoEntityManagerImpl#ProcessDefinitionInfoEntityManagerImpl(ProcessEngineConfigurationImpl, ProcessDefinitionInfoDataManager)}
+   *   <li>
+   * {@link ProcessDefinitionInfoEntityManagerImpl#ProcessDefinitionInfoEntityManagerImpl(ProcessEngineConfigurationImpl, ProcessDefinitionInfoDataManager)}
    *   <li>{@link ProcessDefinitionInfoEntityManagerImpl#getDataManager()}
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void ProcessDefinitionInfoEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, ProcessDefinitionInfoDataManager)",
-      "DataManager ProcessDefinitionInfoEntityManagerImpl.getDataManager()"})
   public void testGettersAndSetters() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
@@ -80,14 +71,10 @@ public class ProcessDefinitionInfoEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessDefinitionInfoEntityManagerImpl#insertProcessDefinitionInfo(ProcessDefinitionInfoEntity)}.
-   * <p>
-   * Method under test: {@link ProcessDefinitionInfoEntityManagerImpl#insertProcessDefinitionInfo(ProcessDefinitionInfoEntity)}
+   * Method under test:
+   * {@link ProcessDefinitionInfoEntityManagerImpl#insertProcessDefinitionInfo(ProcessDefinitionInfoEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void ProcessDefinitionInfoEntityManagerImpl.insertProcessDefinitionInfo(ProcessDefinitionInfoEntity)"})
   public void testInsertProcessDefinitionInfo() {
     // Arrange
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
@@ -106,50 +93,11 @@ public class ProcessDefinitionInfoEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessDefinitionInfoEntityManagerImpl#insertProcessDefinitionInfo(ProcessDefinitionInfoEntity)}.
-   * <ul>
-   *   <li>Given {@link ActivitiEventDispatcher} {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessDefinitionInfoEntityManagerImpl#insertProcessDefinitionInfo(ProcessDefinitionInfoEntity)}
+   * Method under test:
+   * {@link ProcessDefinitionInfoEntityManagerImpl#insertProcessDefinitionInfo(ProcessDefinitionInfoEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void ProcessDefinitionInfoEntityManagerImpl.insertProcessDefinitionInfo(ProcessDefinitionInfoEntity)"})
-  public void testInsertProcessDefinitionInfo_givenActivitiEventDispatcherIsEnabledReturnFalse() {
-    // Arrange
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    ProcessDefinitionInfoDataManager processDefinitionInfoDataManager = mock(ProcessDefinitionInfoDataManager.class);
-    doNothing().when(processDefinitionInfoDataManager).insert(Mockito.<ProcessDefinitionInfoEntity>any());
-    ProcessDefinitionInfoEntityManagerImpl processDefinitionInfoEntityManagerImpl = new ProcessDefinitionInfoEntityManagerImpl(
-        processEngineConfiguration, processDefinitionInfoDataManager);
-
-    // Act
-    processDefinitionInfoEntityManagerImpl.insertProcessDefinitionInfo(new ProcessDefinitionInfoEntityImpl());
-
-    // Assert
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfiguration).getEventDispatcher();
-    verify(processDefinitionInfoDataManager).insert(isA(ProcessDefinitionInfoEntity.class));
-  }
-
-  /**
-   * Test {@link ProcessDefinitionInfoEntityManagerImpl#insertProcessDefinitionInfo(ProcessDefinitionInfoEntity)}.
-   * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessDefinitionInfoEntityManagerImpl#insertProcessDefinitionInfo(ProcessDefinitionInfoEntity)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void ProcessDefinitionInfoEntityManagerImpl.insertProcessDefinitionInfo(ProcessDefinitionInfoEntity)"})
-  public void testInsertProcessDefinitionInfo_thenCallsDispatchEvent() {
+  public void testInsertProcessDefinitionInfo2() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
@@ -172,14 +120,35 @@ public class ProcessDefinitionInfoEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessDefinitionInfoEntityManagerImpl#updateProcessDefinitionInfo(ProcessDefinitionInfoEntity)}.
-   * <p>
-   * Method under test: {@link ProcessDefinitionInfoEntityManagerImpl#updateProcessDefinitionInfo(ProcessDefinitionInfoEntity)}
+   * Method under test:
+   * {@link ProcessDefinitionInfoEntityManagerImpl#insertProcessDefinitionInfo(ProcessDefinitionInfoEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void ProcessDefinitionInfoEntityManagerImpl.updateProcessDefinitionInfo(ProcessDefinitionInfoEntity)"})
+  public void testInsertProcessDefinitionInfo3() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    ProcessDefinitionInfoDataManager processDefinitionInfoDataManager = mock(ProcessDefinitionInfoDataManager.class);
+    doNothing().when(processDefinitionInfoDataManager).insert(Mockito.<ProcessDefinitionInfoEntity>any());
+    ProcessDefinitionInfoEntityManagerImpl processDefinitionInfoEntityManagerImpl = new ProcessDefinitionInfoEntityManagerImpl(
+        processEngineConfiguration, processDefinitionInfoDataManager);
+
+    // Act
+    processDefinitionInfoEntityManagerImpl.insertProcessDefinitionInfo(new ProcessDefinitionInfoEntityImpl());
+
+    // Assert
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration).getEventDispatcher();
+    verify(processDefinitionInfoDataManager).insert(isA(ProcessDefinitionInfoEntity.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessDefinitionInfoEntityManagerImpl#updateProcessDefinitionInfo(ProcessDefinitionInfoEntity)}
+   */
+  @Test
   public void testUpdateProcessDefinitionInfo() {
     // Arrange
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
@@ -199,18 +168,39 @@ public class ProcessDefinitionInfoEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessDefinitionInfoEntityManagerImpl#updateProcessDefinitionInfo(ProcessDefinitionInfoEntity)}.
-   * <ul>
-   *   <li>Given {@link ActivitiEventDispatcher} {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessDefinitionInfoEntityManagerImpl#updateProcessDefinitionInfo(ProcessDefinitionInfoEntity)}
+   * Method under test:
+   * {@link ProcessDefinitionInfoEntityManagerImpl#updateProcessDefinitionInfo(ProcessDefinitionInfoEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void ProcessDefinitionInfoEntityManagerImpl.updateProcessDefinitionInfo(ProcessDefinitionInfoEntity)"})
-  public void testUpdateProcessDefinitionInfo_givenActivitiEventDispatcherIsEnabledReturnFalse() {
+  public void testUpdateProcessDefinitionInfo2() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    ProcessDefinitionInfoDataManager processDefinitionInfoDataManager = mock(ProcessDefinitionInfoDataManager.class);
+    when(processDefinitionInfoDataManager.update(Mockito.<ProcessDefinitionInfoEntity>any()))
+        .thenReturn(new ProcessDefinitionInfoEntityImpl());
+    ProcessDefinitionInfoEntityManagerImpl processDefinitionInfoEntityManagerImpl = new ProcessDefinitionInfoEntityManagerImpl(
+        processEngineConfiguration, processDefinitionInfoDataManager);
+
+    // Act
+    processDefinitionInfoEntityManagerImpl.updateProcessDefinitionInfo(new ProcessDefinitionInfoEntityImpl());
+
+    // Assert
+    verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processDefinitionInfoDataManager).update(isA(ProcessDefinitionInfoEntity.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessDefinitionInfoEntityManagerImpl#updateProcessDefinitionInfo(ProcessDefinitionInfoEntity)}
+   */
+  @Test
+  public void testUpdateProcessDefinitionInfo3() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     when(activitiEventDispatcher.isEnabled()).thenReturn(false);
@@ -232,48 +222,10 @@ public class ProcessDefinitionInfoEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessDefinitionInfoEntityManagerImpl#updateProcessDefinitionInfo(ProcessDefinitionInfoEntity)}.
-   * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessDefinitionInfoEntityManagerImpl#updateProcessDefinitionInfo(ProcessDefinitionInfoEntity)}
+   * Method under test:
+   * {@link ProcessDefinitionInfoEntityManagerImpl#deleteProcessDefinitionInfo(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void ProcessDefinitionInfoEntityManagerImpl.updateProcessDefinitionInfo(ProcessDefinitionInfoEntity)"})
-  public void testUpdateProcessDefinitionInfo_thenCallsDispatchEvent() {
-    // Arrange
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    ProcessDefinitionInfoDataManager processDefinitionInfoDataManager = mock(ProcessDefinitionInfoDataManager.class);
-    when(processDefinitionInfoDataManager.update(Mockito.<ProcessDefinitionInfoEntity>any()))
-        .thenReturn(new ProcessDefinitionInfoEntityImpl());
-    ProcessDefinitionInfoEntityManagerImpl processDefinitionInfoEntityManagerImpl = new ProcessDefinitionInfoEntityManagerImpl(
-        processEngineConfiguration, processDefinitionInfoDataManager);
-
-    // Act
-    processDefinitionInfoEntityManagerImpl.updateProcessDefinitionInfo(new ProcessDefinitionInfoEntityImpl());
-
-    // Assert
-    verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(processDefinitionInfoDataManager).update(isA(ProcessDefinitionInfoEntity.class));
-  }
-
-  /**
-   * Test {@link ProcessDefinitionInfoEntityManagerImpl#deleteProcessDefinitionInfo(String)}.
-   * <p>
-   * Method under test: {@link ProcessDefinitionInfoEntityManagerImpl#deleteProcessDefinitionInfo(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ProcessDefinitionInfoEntityManagerImpl.deleteProcessDefinitionInfo(String)"})
   public void testDeleteProcessDefinitionInfo() {
     // Arrange
     when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
@@ -291,14 +243,61 @@ public class ProcessDefinitionInfoEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessDefinitionInfoEntityManagerImpl#deleteProcessDefinitionInfo(String)}.
-   * <p>
-   * Method under test: {@link ProcessDefinitionInfoEntityManagerImpl#deleteProcessDefinitionInfo(String)}
+   * Method under test:
+   * {@link ProcessDefinitionInfoEntityManagerImpl#deleteProcessDefinitionInfo(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ProcessDefinitionInfoEntityManagerImpl.deleteProcessDefinitionInfo(String)"})
   public void testDeleteProcessDefinitionInfo2() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    doNothing().when(processDefinitionInfoDataManager).delete(Mockito.<ProcessDefinitionInfoEntity>any());
+    when(processDefinitionInfoDataManager.findProcessDefinitionInfoByProcessDefinitionId(Mockito.<String>any()))
+        .thenReturn(new ProcessDefinitionInfoEntityImpl());
+
+    // Act
+    processDefinitionInfoEntityManagerImpl.deleteProcessDefinitionInfo("42");
+
+    // Assert
+    verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfigurationImpl, atLeast(1)).getEventDispatcher();
+    verify(processDefinitionInfoDataManager).delete(isA(ProcessDefinitionInfoEntity.class));
+    verify(processDefinitionInfoDataManager).findProcessDefinitionInfoByProcessDefinitionId(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessDefinitionInfoEntityManagerImpl#deleteProcessDefinitionInfo(String)}
+   */
+  @Test
+  public void testDeleteProcessDefinitionInfo3() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
+    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    doNothing().when(processDefinitionInfoDataManager).delete(Mockito.<ProcessDefinitionInfoEntity>any());
+    when(processDefinitionInfoDataManager.findProcessDefinitionInfoByProcessDefinitionId(Mockito.<String>any()))
+        .thenReturn(new ProcessDefinitionInfoEntityImpl());
+
+    // Act
+    processDefinitionInfoEntityManagerImpl.deleteProcessDefinitionInfo("42");
+
+    // Assert
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfigurationImpl).getEventDispatcher();
+    verify(processDefinitionInfoDataManager).delete(isA(ProcessDefinitionInfoEntity.class));
+    verify(processDefinitionInfoDataManager).findProcessDefinitionInfoByProcessDefinitionId(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessDefinitionInfoEntityManagerImpl#deleteProcessDefinitionInfo(String)}
+   */
+  @Test
+  public void testDeleteProcessDefinitionInfo4() {
     // Arrange
     when(processDefinitionInfoDataManager.findProcessDefinitionInfoByProcessDefinitionId(Mockito.<String>any()))
         .thenReturn(null);
@@ -311,136 +310,11 @@ public class ProcessDefinitionInfoEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessDefinitionInfoEntityManagerImpl#deleteProcessDefinitionInfo(String)}.
-   * <ul>
-   *   <li>Given {@link ActivitiEventDispatcher} {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessDefinitionInfoEntityManagerImpl#deleteProcessDefinitionInfo(String)}
+   * Method under test:
+   * {@link ProcessDefinitionInfoEntityManagerImpl#updateInfoJson(String, byte[])}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ProcessDefinitionInfoEntityManagerImpl.deleteProcessDefinitionInfo(String)"})
-  public void testDeleteProcessDefinitionInfo_givenActivitiEventDispatcherIsEnabledReturnFalse() {
-    // Arrange
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
-    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    doNothing().when(processDefinitionInfoDataManager).delete(Mockito.<ProcessDefinitionInfoEntity>any());
-    when(processDefinitionInfoDataManager.findProcessDefinitionInfoByProcessDefinitionId(Mockito.<String>any()))
-        .thenReturn(new ProcessDefinitionInfoEntityImpl());
-
-    // Act
-    processDefinitionInfoEntityManagerImpl.deleteProcessDefinitionInfo("42");
-
-    // Assert
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfigurationImpl).getEventDispatcher();
-    verify(processDefinitionInfoDataManager).delete(isA(ProcessDefinitionInfoEntity.class));
-    verify(processDefinitionInfoDataManager).findProcessDefinitionInfoByProcessDefinitionId(eq("42"));
-  }
-
-  /**
-   * Test {@link ProcessDefinitionInfoEntityManagerImpl#deleteProcessDefinitionInfo(String)}.
-   * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessDefinitionInfoEntityManagerImpl#deleteProcessDefinitionInfo(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ProcessDefinitionInfoEntityManagerImpl.deleteProcessDefinitionInfo(String)"})
-  public void testDeleteProcessDefinitionInfo_thenCallsDispatchEvent() {
-    // Arrange
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    doNothing().when(processDefinitionInfoDataManager).delete(Mockito.<ProcessDefinitionInfoEntity>any());
-    when(processDefinitionInfoDataManager.findProcessDefinitionInfoByProcessDefinitionId(Mockito.<String>any()))
-        .thenReturn(new ProcessDefinitionInfoEntityImpl());
-
-    // Act
-    processDefinitionInfoEntityManagerImpl.deleteProcessDefinitionInfo("42");
-
-    // Assert
-    verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfigurationImpl, atLeast(1)).getEventDispatcher();
-    verify(processDefinitionInfoDataManager).delete(isA(ProcessDefinitionInfoEntity.class));
-    verify(processDefinitionInfoDataManager).findProcessDefinitionInfoByProcessDefinitionId(eq("42"));
-  }
-
-  /**
-   * Test {@link ProcessDefinitionInfoEntityManagerImpl#updateInfoJson(String, byte[])}.
-   * <p>
-   * Method under test: {@link ProcessDefinitionInfoEntityManagerImpl#updateInfoJson(String, byte[])}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ProcessDefinitionInfoEntityManagerImpl.updateInfoJson(String, byte[])"})
-  public void testUpdateInfoJson() {
-    // Arrange
-    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
-    when(processDefinitionInfoDataManager.update(Mockito.<ProcessDefinitionInfoEntity>any()))
-        .thenReturn(new ProcessDefinitionInfoEntityImpl());
-    when(processDefinitionInfoDataManager.findById(Mockito.<String>any()))
-        .thenReturn(new ProcessDefinitionInfoEntityImpl());
-
-    // Act
-    processDefinitionInfoEntityManagerImpl.updateInfoJson("42", null);
-
-    // Assert
-    verify(processEngineConfigurationImpl, atLeast(1)).getEventDispatcher();
-    verify(processDefinitionInfoDataManager).findById(eq("42"));
-    verify(processDefinitionInfoDataManager).update(isA(ProcessDefinitionInfoEntity.class));
-  }
-
-  /**
-   * Test {@link ProcessDefinitionInfoEntityManagerImpl#updateInfoJson(String, byte[])}.
-   * <ul>
-   *   <li>Given {@link ActivitiEventDispatcher} {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessDefinitionInfoEntityManagerImpl#updateInfoJson(String, byte[])}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ProcessDefinitionInfoEntityManagerImpl.updateInfoJson(String, byte[])"})
-  public void testUpdateInfoJson_givenActivitiEventDispatcherIsEnabledReturnFalse() {
-    // Arrange
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
-    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processDefinitionInfoDataManager.update(Mockito.<ProcessDefinitionInfoEntity>any()))
-        .thenReturn(new ProcessDefinitionInfoEntityImpl());
-    when(processDefinitionInfoDataManager.findById(Mockito.<String>any()))
-        .thenReturn(new ProcessDefinitionInfoEntityImpl());
-
-    // Act
-    processDefinitionInfoEntityManagerImpl.updateInfoJson("42", null);
-
-    // Assert
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfigurationImpl).getEventDispatcher();
-    verify(processDefinitionInfoDataManager).findById(eq("42"));
-    verify(processDefinitionInfoDataManager).update(isA(ProcessDefinitionInfoEntity.class));
-  }
-
-  /**
-   * Test {@link ProcessDefinitionInfoEntityManagerImpl#updateInfoJson(String, byte[])}.
-   * <ul>
-   *   <li>Given {@link ProcessDefinitionInfoDataManager} {@link DataManager#findById(String)} return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessDefinitionInfoEntityManagerImpl#updateInfoJson(String, byte[])}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ProcessDefinitionInfoEntityManagerImpl.updateInfoJson(String, byte[])"})
-  public void testUpdateInfoJson_givenProcessDefinitionInfoDataManagerFindByIdReturnNull()
-      throws UnsupportedEncodingException {
+  public void testUpdateInfoJson() throws UnsupportedEncodingException {
     // Arrange
     when(processDefinitionInfoDataManager.findById(Mockito.<String>any())).thenReturn(null);
 
@@ -452,47 +326,10 @@ public class ProcessDefinitionInfoEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessDefinitionInfoEntityManagerImpl#updateInfoJson(String, byte[])}.
-   * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessDefinitionInfoEntityManagerImpl#updateInfoJson(String, byte[])}
+   * Method under test:
+   * {@link ProcessDefinitionInfoEntityManagerImpl#findProcessDefinitionInfoByProcessDefinitionId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ProcessDefinitionInfoEntityManagerImpl.updateInfoJson(String, byte[])"})
-  public void testUpdateInfoJson_thenCallsDispatchEvent() {
-    // Arrange
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processDefinitionInfoDataManager.update(Mockito.<ProcessDefinitionInfoEntity>any()))
-        .thenReturn(new ProcessDefinitionInfoEntityImpl());
-    when(processDefinitionInfoDataManager.findById(Mockito.<String>any()))
-        .thenReturn(new ProcessDefinitionInfoEntityImpl());
-
-    // Act
-    processDefinitionInfoEntityManagerImpl.updateInfoJson("42", null);
-
-    // Assert
-    verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfigurationImpl, atLeast(1)).getEventDispatcher();
-    verify(processDefinitionInfoDataManager).findById(eq("42"));
-    verify(processDefinitionInfoDataManager).update(isA(ProcessDefinitionInfoEntity.class));
-  }
-
-  /**
-   * Test {@link ProcessDefinitionInfoEntityManagerImpl#findProcessDefinitionInfoByProcessDefinitionId(String)}.
-   * <p>
-   * Method under test: {@link ProcessDefinitionInfoEntityManagerImpl#findProcessDefinitionInfoByProcessDefinitionId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ProcessDefinitionInfoEntity ProcessDefinitionInfoEntityManagerImpl.findProcessDefinitionInfoByProcessDefinitionId(String)"})
   public void testFindProcessDefinitionInfoByProcessDefinitionId() {
     // Arrange
     ProcessDefinitionInfoEntityImpl processDefinitionInfoEntityImpl = new ProcessDefinitionInfoEntityImpl();

@@ -18,26 +18,27 @@ package org.activiti.api.runtime.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.BPMNActivity;
 import org.activiti.api.process.model.events.BPMNActivityEvent;
-import org.activiti.api.process.model.events.BPMNActivityEvent.ActivityEvents;
 import org.activiti.api.runtime.model.impl.BPMNActivityImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class BPMNActivityCompletedEventImplDiffblueTest {
   /**
-   * Test {@link BPMNActivityCompletedEventImpl#BPMNActivityCompletedEventImpl()}.
-   * <p>
-   * Method under test: {@link BPMNActivityCompletedEventImpl#BPMNActivityCompletedEventImpl()}
+   * Method under test: {@link BPMNActivityCompletedEventImpl#getEventType()}
    */
   @Test
-  @DisplayName("Test new BPMNActivityCompletedEventImpl()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BPMNActivityCompletedEventImpl.<init>()"})
+  void testGetEventType() {
+    // Arrange, Act and Assert
+    assertEquals(BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
+        (new BPMNActivityCompletedEventImpl()).getEventType());
+  }
+
+  /**
+   * Method under test:
+   * {@link BPMNActivityCompletedEventImpl#BPMNActivityCompletedEventImpl()}
+   */
+  @Test
   void testNewBPMNActivityCompletedEventImpl() {
     // Arrange and Act
     BPMNActivityCompletedEventImpl actualBpmnActivityCompletedEventImpl = new BPMNActivityCompletedEventImpl();
@@ -50,18 +51,15 @@ class BPMNActivityCompletedEventImplDiffblueTest {
     assertNull(actualBpmnActivityCompletedEventImpl.getProcessDefinitionKey());
     assertNull(actualBpmnActivityCompletedEventImpl.getProcessInstanceId());
     assertNull(actualBpmnActivityCompletedEventImpl.getEntity());
-    assertEquals(ActivityEvents.ACTIVITY_COMPLETED, actualBpmnActivityCompletedEventImpl.getEventType());
+    assertEquals(BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
+        actualBpmnActivityCompletedEventImpl.getEventType());
   }
 
   /**
-   * Test {@link BPMNActivityCompletedEventImpl#BPMNActivityCompletedEventImpl(BPMNActivity)}.
-   * <p>
-   * Method under test: {@link BPMNActivityCompletedEventImpl#BPMNActivityCompletedEventImpl(BPMNActivity)}
+   * Method under test:
+   * {@link BPMNActivityCompletedEventImpl#BPMNActivityCompletedEventImpl(BPMNActivity)}
    */
   @Test
-  @DisplayName("Test new BPMNActivityCompletedEventImpl(BPMNActivity)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BPMNActivityCompletedEventImpl.<init>(BPMNActivity)"})
   void testNewBPMNActivityCompletedEventImpl2() {
     // Arrange
     BPMNActivityImpl entity = new BPMNActivityImpl("42", "Activity Name", "Activity Type");
@@ -70,29 +68,14 @@ class BPMNActivityCompletedEventImplDiffblueTest {
     BPMNActivityCompletedEventImpl actualBpmnActivityCompletedEventImpl = new BPMNActivityCompletedEventImpl(entity);
 
     // Assert
-    BPMNActivity entity2 = actualBpmnActivityCompletedEventImpl.getEntity();
-    assertTrue(entity2 instanceof BPMNActivityImpl);
     assertNull(actualBpmnActivityCompletedEventImpl.getProcessDefinitionVersion());
     assertNull(actualBpmnActivityCompletedEventImpl.getBusinessKey());
     assertNull(actualBpmnActivityCompletedEventImpl.getParentProcessInstanceId());
     assertNull(actualBpmnActivityCompletedEventImpl.getProcessDefinitionId());
     assertNull(actualBpmnActivityCompletedEventImpl.getProcessDefinitionKey());
     assertNull(actualBpmnActivityCompletedEventImpl.getProcessInstanceId());
-    assertEquals(ActivityEvents.ACTIVITY_COMPLETED, actualBpmnActivityCompletedEventImpl.getEventType());
-    assertSame(entity, entity2);
-  }
-
-  /**
-   * Test {@link BPMNActivityCompletedEventImpl#getEventType()}.
-   * <p>
-   * Method under test: {@link BPMNActivityCompletedEventImpl#getEventType()}
-   */
-  @Test
-  @DisplayName("Test getEventType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ActivityEvents BPMNActivityCompletedEventImpl.getEventType()"})
-  void testGetEventType() {
-    // Arrange, Act and Assert
-    assertEquals(ActivityEvents.ACTIVITY_COMPLETED, (new BPMNActivityCompletedEventImpl()).getEventType());
+    assertEquals(BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED,
+        actualBpmnActivityCompletedEventImpl.getEventType());
+    assertSame(entity, actualBpmnActivityCompletedEventImpl.getEntity());
   }
 }

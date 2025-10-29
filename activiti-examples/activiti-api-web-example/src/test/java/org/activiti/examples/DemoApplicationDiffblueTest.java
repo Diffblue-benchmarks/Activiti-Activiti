@@ -16,12 +16,12 @@
 package org.activiti.examples;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.api.process.model.ProcessDefinition;
@@ -30,25 +30,15 @@ import org.activiti.api.process.runtime.ProcessRuntime;
 import org.activiti.api.runtime.model.impl.ProcessInstanceImpl;
 import org.activiti.api.runtime.shared.query.Pageable;
 import org.activiti.runtime.api.query.impl.PageImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class DemoApplicationDiffblueTest {
   /**
-   * Test {@link DemoApplication#processFile(String)}.
-   * <ul>
-   *   <li>Then return a string.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DemoApplication#processFile(String)}
    */
   @Test
-  @DisplayName("Test processFile(String); then return a string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String DemoApplication.processFile(String)"})
-  void testProcessFile_thenReturnAString() {
+  void testProcessFile() {
     // Arrange
     ProcessRuntime processRuntime = mock(ProcessRuntime.class);
     when(processRuntime.start(Mockito.<StartProcessPayload>any())).thenReturn(new ProcessInstanceImpl());
@@ -66,22 +56,14 @@ class DemoApplicationDiffblueTest {
   }
 
   /**
-   * Test {@link DemoApplication#getProcessDefinition()}.
-   * <ul>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DemoApplication#getProcessDefinition()}
    */
   @Test
-  @DisplayName("Test getProcessDefinition(); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List DemoApplication.getProcessDefinition()"})
-  void testGetProcessDefinition_thenReturnEmpty() {
+  void testGetProcessDefinition() {
     // Arrange
     ProcessRuntime processRuntime = mock(ProcessRuntime.class);
-    when(processRuntime.processDefinitions(Mockito.<Pageable>any()))
-        .thenReturn(new PageImpl<>(new ArrayList<>(), 1000));
+    ArrayList<ProcessDefinition> content = new ArrayList<>();
+    when(processRuntime.processDefinitions(Mockito.<Pageable>any())).thenReturn(new PageImpl<>(content, 1000));
 
     // Act
     List<ProcessDefinition> actualProcessDefinition = (new DemoApplication(processRuntime)).getProcessDefinition();
@@ -89,5 +71,6 @@ class DemoApplicationDiffblueTest {
     // Assert
     verify(processRuntime).processDefinitions(isA(Pageable.class));
     assertTrue(actualProcessDefinition.isEmpty());
+    assertSame(content, actualProcessDefinition);
   }
 }

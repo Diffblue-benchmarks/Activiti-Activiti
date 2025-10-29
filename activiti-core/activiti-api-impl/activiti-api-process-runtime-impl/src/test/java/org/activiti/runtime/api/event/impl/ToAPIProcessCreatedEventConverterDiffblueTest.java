@@ -24,10 +24,8 @@ import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Optional;
 import org.activiti.api.process.model.events.ProcessRuntimeEvent;
-import org.activiti.api.process.model.events.ProcessRuntimeEvent.ProcessEvents;
 import org.activiti.api.process.runtime.events.ProcessCreatedEvent;
 import org.activiti.api.runtime.model.impl.ProcessInstanceImpl;
 import org.activiti.engine.delegate.event.ActivitiEntityEvent;
@@ -35,10 +33,7 @@ import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.delegate.event.impl.ActivitiEntityEventImpl;
 import org.activiti.engine.delegate.event.impl.ActivitiProcessCancelledEventImpl;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
-import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.runtime.api.model.impl.APIProcessInstanceConverter;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -59,35 +54,41 @@ class ToAPIProcessCreatedEventConverterDiffblueTest {
   private ToAPIProcessCreatedEventConverter toAPIProcessCreatedEventConverter;
 
   /**
-   * Test {@link ToAPIProcessCreatedEventConverter#from(ActivitiEntityEvent)} with {@code ActivitiEntityEvent}.
-   * <p>
-   * Method under test: {@link ToAPIProcessCreatedEventConverter#from(ActivitiEntityEvent)}
+   * Method under test:
+   * {@link ToAPIProcessCreatedEventConverter#from(ActivitiEntityEvent)}
    */
   @Test
-  @DisplayName("Test from(ActivitiEntityEvent) with 'ActivitiEntityEvent'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Optional ToAPIProcessCreatedEventConverter.from(ActivitiEntityEvent)"})
-  void testFromWithActivitiEntityEvent() {
-    // Arrange, Act and Assert
-    assertFalse(
-        toAPIProcessCreatedEventConverter.from(new ActivitiEntityEventImpl("Entity", ActivitiEventType.ENTITY_CREATED))
-            .isPresent());
+  void testFrom() {
+    // Arrange
+    ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
+    when(aPIProcessInstanceConverter.from(Mockito.<org.activiti.engine.runtime.ProcessInstance>any()))
+        .thenReturn(processInstanceImpl);
+
+    // Act
+    Optional<ProcessCreatedEvent> actualFromResult = toAPIProcessCreatedEventConverter
+        .from(new ActivitiProcessCancelledEventImpl(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+
+    // Assert
+    verify(aPIProcessInstanceConverter).from((org.activiti.engine.runtime.ProcessInstance) isNull());
+    ProcessCreatedEvent getResult = actualFromResult.get();
+    assertTrue(getResult instanceof ProcessCreatedEventImpl);
+    assertNull(getResult.getProcessDefinitionVersion());
+    assertNull(getResult.getBusinessKey());
+    assertNull(getResult.getParentProcessInstanceId());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionKey());
+    assertNull(getResult.getProcessInstanceId());
+    assertEquals(ProcessRuntimeEvent.ProcessEvents.PROCESS_CREATED, getResult.getEventType());
+    assertTrue(actualFromResult.isPresent());
+    assertSame(processInstanceImpl, getResult.getEntity());
   }
 
   /**
-   * Test {@link ToAPIProcessCreatedEventConverter#from(ActivitiEntityEvent)} with {@code ActivitiEntityEvent}.
-   * <ul>
-   *   <li>Given {@code false}.</li>
-   *   <li>Then calls {@link ExecutionEntityImpl#isProcessInstanceType()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ToAPIProcessCreatedEventConverter#from(ActivitiEntityEvent)}
+   * Method under test:
+   * {@link ToAPIProcessCreatedEventConverter#from(ActivitiEntityEvent)}
    */
   @Test
-  @DisplayName("Test from(ActivitiEntityEvent) with 'ActivitiEntityEvent'; given 'false'; then calls isProcessInstanceType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Optional ToAPIProcessCreatedEventConverter.from(ActivitiEntityEvent)"})
-  void testFromWithActivitiEntityEvent_givenFalse_thenCallsIsProcessInstanceType() {
+  void testFrom2() {
     // Arrange
     ExecutionEntityImpl processInstance = mock(ExecutionEntityImpl.class);
     when(processInstance.isProcessInstanceType()).thenReturn(false);
@@ -102,40 +103,14 @@ class ToAPIProcessCreatedEventConverterDiffblueTest {
   }
 
   /**
-   * Test {@link ToAPIProcessCreatedEventConverter#from(ActivitiEntityEvent)} with {@code ActivitiEntityEvent}.
-   * <ul>
-   *   <li>Then {@link Optional#get()} Entity return {@link ProcessInstanceImpl}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ToAPIProcessCreatedEventConverter#from(ActivitiEntityEvent)}
+   * Method under test:
+   * {@link ToAPIProcessCreatedEventConverter#from(ActivitiEntityEvent)}
    */
   @Test
-  @DisplayName("Test from(ActivitiEntityEvent) with 'ActivitiEntityEvent'; then get() Entity return ProcessInstanceImpl")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Optional ToAPIProcessCreatedEventConverter.from(ActivitiEntityEvent)"})
-  void testFromWithActivitiEntityEvent_thenGetEntityReturnProcessInstanceImpl() {
-    // Arrange
-    ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
-    when(aPIProcessInstanceConverter.from(Mockito.<ProcessInstance>any())).thenReturn(processInstanceImpl);
-
-    // Act
-    Optional<ProcessCreatedEvent> actualFromResult = toAPIProcessCreatedEventConverter
-        .from(new ActivitiProcessCancelledEventImpl(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
-
-    // Assert
-    verify(aPIProcessInstanceConverter).from((ProcessInstance) isNull());
-    ProcessCreatedEvent getResult = actualFromResult.get();
-    org.activiti.api.process.model.ProcessInstance entity = getResult.getEntity();
-    assertTrue(entity instanceof ProcessInstanceImpl);
-    assertTrue(getResult instanceof ProcessCreatedEventImpl);
-    assertNull(getResult.getProcessDefinitionVersion());
-    assertNull(getResult.getBusinessKey());
-    assertNull(getResult.getParentProcessInstanceId());
-    assertNull(getResult.getProcessDefinitionId());
-    assertNull(getResult.getProcessDefinitionKey());
-    assertNull(getResult.getProcessInstanceId());
-    assertEquals(ProcessEvents.PROCESS_CREATED, getResult.getEventType());
-    assertTrue(actualFromResult.isPresent());
-    assertSame(processInstanceImpl, entity);
+  void testFrom3() {
+    // Arrange, Act and Assert
+    assertFalse(
+        toAPIProcessCreatedEventConverter.from(new ActivitiEntityEventImpl("Entity", ActivitiEventType.ENTITY_CREATED))
+            .isPresent());
   }
 }

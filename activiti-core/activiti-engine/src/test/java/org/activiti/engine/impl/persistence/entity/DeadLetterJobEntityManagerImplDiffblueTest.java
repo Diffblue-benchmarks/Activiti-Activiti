@@ -29,11 +29,10 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import org.activiti.core.el.CustomFunctionProvider;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventDispatcher;
 import org.activiti.engine.delegate.event.impl.ActivitiEventDispatcherImpl;
@@ -47,7 +46,6 @@ import org.activiti.engine.impl.persistence.entity.data.ExecutionDataManager;
 import org.activiti.engine.impl.persistence.entity.data.impl.MybatisDeadLetterJobDataManager;
 import org.activiti.engine.runtime.Job;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -62,46 +60,18 @@ public class DeadLetterJobEntityManagerImplDiffblueTest {
   @InjectMocks
   private DeadLetterJobEntityManagerImpl deadLetterJobEntityManagerImpl;
 
-  /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link DeadLetterJobEntityManagerImpl#DeadLetterJobEntityManagerImpl(ProcessEngineConfigurationImpl, DeadLetterJobDataManager)}
-   *   <li>{@link DeadLetterJobEntityManagerImpl#setJobDataManager(DeadLetterJobDataManager)}
-   * </ul>
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void DeadLetterJobEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, DeadLetterJobDataManager)",
-      "void DeadLetterJobEntityManagerImpl.setJobDataManager(DeadLetterJobDataManager)"})
-  public void testGettersAndSetters() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-
-    // Act
-    DeadLetterJobEntityManagerImpl actualDeadLetterJobEntityManagerImpl = new DeadLetterJobEntityManagerImpl(
-        processEngineConfiguration, new MybatisDeadLetterJobDataManager(new JtaProcessEngineConfiguration()));
-    MybatisDeadLetterJobDataManager jobDataManager = new MybatisDeadLetterJobDataManager(
-        new JtaProcessEngineConfiguration());
-    actualDeadLetterJobEntityManagerImpl.setJobDataManager(jobDataManager);
-
-    // Assert
-    assertSame(jobDataManager, actualDeadLetterJobEntityManagerImpl.getDataManager());
-  }
+  @Mock
+  private ProcessEngineConfigurationImpl processEngineConfigurationImpl;
 
   /**
-   * Test {@link DeadLetterJobEntityManagerImpl#findJobsByExecutionId(String)}.
-   * <p>
-   * Method under test: {@link DeadLetterJobEntityManagerImpl#findJobsByExecutionId(String)}
+   * Method under test:
+   * {@link DeadLetterJobEntityManagerImpl#findJobsByExecutionId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"List DeadLetterJobEntityManagerImpl.findJobsByExecutionId(String)"})
   public void testFindJobsByExecutionId() {
     // Arrange
-    when(deadLetterJobDataManager.findJobsByExecutionId(Mockito.<String>any())).thenReturn(new ArrayList<>());
+    ArrayList<DeadLetterJobEntity> deadLetterJobEntityList = new ArrayList<>();
+    when(deadLetterJobDataManager.findJobsByExecutionId(Mockito.<String>any())).thenReturn(deadLetterJobEntityList);
 
     // Act
     List<DeadLetterJobEntity> actualFindJobsByExecutionIdResult = deadLetterJobEntityManagerImpl
@@ -110,24 +80,20 @@ public class DeadLetterJobEntityManagerImplDiffblueTest {
     // Assert
     verify(deadLetterJobDataManager).findJobsByExecutionId(eq("42"));
     assertTrue(actualFindJobsByExecutionIdResult.isEmpty());
+    assertSame(deadLetterJobEntityList, actualFindJobsByExecutionIdResult);
   }
 
   /**
-   * Test {@link DeadLetterJobEntityManagerImpl#findJobsByQueryCriteria(DeadLetterJobQueryImpl, Page)}.
-   * <ul>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeadLetterJobEntityManagerImpl#findJobsByQueryCriteria(DeadLetterJobQueryImpl, Page)}
+   * Method under test:
+   * {@link DeadLetterJobEntityManagerImpl#findJobsByQueryCriteria(DeadLetterJobQueryImpl, Page)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"List DeadLetterJobEntityManagerImpl.findJobsByQueryCriteria(DeadLetterJobQueryImpl, Page)"})
-  public void testFindJobsByQueryCriteria_thenReturnEmpty() {
+  public void testFindJobsByQueryCriteria() {
     // Arrange
     DeadLetterJobDataManager jobDataManager = mock(DeadLetterJobDataManager.class);
+    ArrayList<Job> jobList = new ArrayList<>();
     when(jobDataManager.findJobsByQueryCriteria(Mockito.<DeadLetterJobQueryImpl>any(), Mockito.<Page>any()))
-        .thenReturn(new ArrayList<>());
+        .thenReturn(jobList);
     DeadLetterJobEntityManagerImpl deadLetterJobEntityManagerImpl = new DeadLetterJobEntityManagerImpl(
         new JtaProcessEngineConfiguration(), jobDataManager);
     DeadLetterJobQueryImpl jobQuery = new DeadLetterJobQueryImpl();
@@ -139,20 +105,15 @@ public class DeadLetterJobEntityManagerImplDiffblueTest {
     // Assert
     verify(jobDataManager).findJobsByQueryCriteria(isA(DeadLetterJobQueryImpl.class), isA(Page.class));
     assertTrue(actualFindJobsByQueryCriteriaResult.isEmpty());
+    assertSame(jobList, actualFindJobsByQueryCriteriaResult);
   }
 
   /**
-   * Test {@link DeadLetterJobEntityManagerImpl#findJobCountByQueryCriteria(DeadLetterJobQueryImpl)}.
-   * <ul>
-   *   <li>Then return three.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeadLetterJobEntityManagerImpl#findJobCountByQueryCriteria(DeadLetterJobQueryImpl)}
+   * Method under test:
+   * {@link DeadLetterJobEntityManagerImpl#findJobCountByQueryCriteria(DeadLetterJobQueryImpl)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"long DeadLetterJobEntityManagerImpl.findJobCountByQueryCriteria(DeadLetterJobQueryImpl)"})
-  public void testFindJobCountByQueryCriteria_thenReturnThree() {
+  public void testFindJobCountByQueryCriteria() {
     // Arrange
     DeadLetterJobDataManager jobDataManager = mock(DeadLetterJobDataManager.class);
     when(jobDataManager.findJobCountByQueryCriteria(Mockito.<DeadLetterJobQueryImpl>any())).thenReturn(3L);
@@ -169,13 +130,10 @@ public class DeadLetterJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link DeadLetterJobEntityManagerImpl#updateJobTenantIdForDeployment(String, String)}.
-   * <p>
-   * Method under test: {@link DeadLetterJobEntityManagerImpl#updateJobTenantIdForDeployment(String, String)}
+   * Method under test:
+   * {@link DeadLetterJobEntityManagerImpl#updateJobTenantIdForDeployment(String, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeadLetterJobEntityManagerImpl.updateJobTenantIdForDeployment(String, String)"})
   public void testUpdateJobTenantIdForDeployment() {
     // Arrange
     doNothing().when(deadLetterJobDataManager)
@@ -189,14 +147,11 @@ public class DeadLetterJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity)} with {@code DeadLetterJobEntity}.
-   * <p>
-   * Method under test: {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity)}
+   * Method under test:
+   * {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeadLetterJobEntityManagerImpl.insert(DeadLetterJobEntity)"})
-  public void testInsertWithDeadLetterJobEntity() {
+  public void testInsert() {
     // Arrange
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
     when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
@@ -209,21 +164,47 @@ public class DeadLetterJobEntityManagerImplDiffblueTest {
     // Act
     deadLetterJobEntityManagerImpl.insert(jobEntity);
 
-    // Assert that nothing has changed
+    // Assert
     verify(processEngineConfiguration).getEventDispatcher();
     verify(jobDataManager).insert(isA(DeadLetterJobEntity.class));
     assertEquals("", jobEntity.getTenantId());
   }
 
   /**
-   * Test {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity)} with {@code DeadLetterJobEntity}.
-   * <p>
-   * Method under test: {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity)}
+   * Method under test:
+   * {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeadLetterJobEntityManagerImpl.insert(DeadLetterJobEntity)"})
-  public void testInsertWithDeadLetterJobEntity2() {
+  public void testInsert2() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    DeadLetterJobDataManager jobDataManager = mock(DeadLetterJobDataManager.class);
+    doNothing().when(jobDataManager).insert(Mockito.<DeadLetterJobEntity>any());
+    DeadLetterJobEntityManagerImpl deadLetterJobEntityManagerImpl = new DeadLetterJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
+    DeadLetterJobEntityImpl jobEntity = new DeadLetterJobEntityImpl();
+
+    // Act
+    deadLetterJobEntityManagerImpl.insert(jobEntity);
+
+    // Assert
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration).getEventDispatcher();
+    verify(jobDataManager).insert(isA(DeadLetterJobEntity.class));
+    assertEquals("", jobEntity.getTenantId());
+  }
+
+  /**
+   * Method under test:
+   * {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity)}
+   */
+  @Test
+  public void testInsert3() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     when(activitiEventDispatcher.isEnabled()).thenReturn(false);
@@ -238,7 +219,7 @@ public class DeadLetterJobEntityManagerImplDiffblueTest {
     // Act
     deadLetterJobEntityManagerImpl.insert(jobEntity);
 
-    // Assert that nothing has changed
+    // Assert
     verify(activitiEventDispatcher).isEnabled();
     verify(processEngineConfiguration).getEventDispatcher();
     verify(jobDataManager).insert(isA(DeadLetterJobEntity.class));
@@ -246,14 +227,11 @@ public class DeadLetterJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity)} with {@code DeadLetterJobEntity}.
-   * <p>
-   * Method under test: {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity)}
+   * Method under test:
+   * {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeadLetterJobEntityManagerImpl.insert(DeadLetterJobEntity)"})
-  public void testInsertWithDeadLetterJobEntity3() {
+  public void testInsert4() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
@@ -284,7 +262,7 @@ public class DeadLetterJobEntityManagerImplDiffblueTest {
     // Act
     deadLetterJobEntityManagerImpl.insert(jobEntity);
 
-    // Assert that nothing has changed
+    // Assert
     verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
     verify(activitiEventDispatcher).isEnabled();
     verify(processEngineConfiguration).getEventDispatcher();
@@ -296,14 +274,11 @@ public class DeadLetterJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity)} with {@code DeadLetterJobEntity}.
-   * <p>
-   * Method under test: {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity)}
+   * Method under test:
+   * {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeadLetterJobEntityManagerImpl.insert(DeadLetterJobEntity)"})
-  public void testInsertWithDeadLetterJobEntity4() {
+  public void testInsert5() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
@@ -339,7 +314,7 @@ public class DeadLetterJobEntityManagerImplDiffblueTest {
     // Act
     deadLetterJobEntityManagerImpl.insert(jobEntity);
 
-    // Assert that nothing has changed
+    // Assert
     verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
     verify(activitiEventDispatcher).isEnabled();
     verify(performanceSettings).isEnableExecutionRelationshipCounts();
@@ -356,347 +331,11 @@ public class DeadLetterJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity, boolean)} with {@code DeadLetterJobEntity}, {@code boolean}.
-   * <p>
-   * Method under test: {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity, boolean)}
+   * Method under test:
+   * {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeadLetterJobEntityManagerImpl.insert(DeadLetterJobEntity, boolean)"})
-  public void testInsertWithDeadLetterJobEntityBoolean() {
-    // Arrange
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
-    DeadLetterJobDataManager jobDataManager = mock(DeadLetterJobDataManager.class);
-    doNothing().when(jobDataManager).insert(Mockito.<DeadLetterJobEntity>any());
-    DeadLetterJobEntityManagerImpl deadLetterJobEntityManagerImpl = new DeadLetterJobEntityManagerImpl(
-        processEngineConfiguration, jobDataManager);
-    DeadLetterJobEntityImpl jobEntity = new DeadLetterJobEntityImpl();
-
-    // Act
-    deadLetterJobEntityManagerImpl.insert(jobEntity, true);
-
-    // Assert that nothing has changed
-    verify(processEngineConfiguration).getEventDispatcher();
-    verify(jobDataManager).insert(isA(DeadLetterJobEntity.class));
-    assertEquals("", jobEntity.getTenantId());
-  }
-
-  /**
-   * Test {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity, boolean)} with {@code DeadLetterJobEntity}, {@code boolean}.
-   * <p>
-   * Method under test: {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeadLetterJobEntityManagerImpl.insert(DeadLetterJobEntity, boolean)"})
-  public void testInsertWithDeadLetterJobEntityBoolean2() {
-    // Arrange
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    DeadLetterJobDataManager jobDataManager = mock(DeadLetterJobDataManager.class);
-    doNothing().when(jobDataManager).insert(Mockito.<DeadLetterJobEntity>any());
-    DeadLetterJobEntityManagerImpl deadLetterJobEntityManagerImpl = new DeadLetterJobEntityManagerImpl(
-        processEngineConfiguration, jobDataManager);
-    DeadLetterJobEntityImpl jobEntity = new DeadLetterJobEntityImpl();
-
-    // Act
-    deadLetterJobEntityManagerImpl.insert(jobEntity, true);
-
-    // Assert that nothing has changed
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfiguration).getEventDispatcher();
-    verify(jobDataManager).insert(isA(DeadLetterJobEntity.class));
-    assertEquals("", jobEntity.getTenantId());
-  }
-
-  /**
-   * Test {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity, boolean)} with {@code DeadLetterJobEntity}, {@code boolean}.
-   * <p>
-   * Method under test: {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeadLetterJobEntityManagerImpl.insert(DeadLetterJobEntity, boolean)"})
-  public void testInsertWithDeadLetterJobEntityBoolean3() {
-    // Arrange
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
-    when(executionDataManager.findById(Mockito.<String>any()))
-        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    ExecutionEntityManagerImpl executionEntityManagerImpl = new ExecutionEntityManagerImpl(
-        new JtaProcessEngineConfiguration(), executionDataManager);
-
-    PerformanceSettings performanceSettings = new PerformanceSettings();
-    performanceSettings.setEnableEagerExecutionTreeFetching(true);
-    performanceSettings.setEnableExecutionRelationshipCounts(true);
-    performanceSettings.setEnableLocalization(true);
-    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManagerImpl);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    DeadLetterJobDataManager jobDataManager = mock(DeadLetterJobDataManager.class);
-    doNothing().when(jobDataManager).insert(Mockito.<DeadLetterJobEntity>any());
-    DeadLetterJobEntityManagerImpl deadLetterJobEntityManagerImpl = new DeadLetterJobEntityManagerImpl(
-        processEngineConfiguration, jobDataManager);
-
-    DeadLetterJobEntityImpl jobEntity = new DeadLetterJobEntityImpl();
-    jobEntity.setExecutionId("42");
-
-    // Act
-    deadLetterJobEntityManagerImpl.insert(jobEntity, true);
-
-    // Assert that nothing has changed
-    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfiguration).getEventDispatcher();
-    verify(processEngineConfiguration).getExecutionEntityManager();
-    verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
-    verify(executionDataManager).findById(eq("42"));
-    verify(jobDataManager).insert(isA(DeadLetterJobEntity.class));
-    assertEquals("", jobEntity.getTenantId());
-  }
-
-  /**
-   * Test {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity, boolean)} with {@code DeadLetterJobEntity}, {@code boolean}.
-   * <p>
-   * Method under test: {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeadLetterJobEntityManagerImpl.insert(DeadLetterJobEntity, boolean)"})
-  public void testInsertWithDeadLetterJobEntityBoolean4() {
-    // Arrange
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
-    when(executionDataManager.findById(Mockito.<String>any()))
-        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    ExecutionEntityManagerImpl executionEntityManagerImpl = new ExecutionEntityManagerImpl(
-        new JtaProcessEngineConfiguration(), executionDataManager);
-
-    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
-    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(false);
-    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
-    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
-    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
-    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
-    performanceSettings.setEnableEagerExecutionTreeFetching(true);
-    performanceSettings.setEnableExecutionRelationshipCounts(true);
-    performanceSettings.setEnableLocalization(true);
-    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManagerImpl);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    DeadLetterJobDataManager jobDataManager = mock(DeadLetterJobDataManager.class);
-    doNothing().when(jobDataManager).insert(Mockito.<DeadLetterJobEntity>any());
-    DeadLetterJobEntityManagerImpl deadLetterJobEntityManagerImpl = new DeadLetterJobEntityManagerImpl(
-        processEngineConfiguration, jobDataManager);
-
-    DeadLetterJobEntityImpl jobEntity = new DeadLetterJobEntityImpl();
-    jobEntity.setExecutionId("42");
-
-    // Act
-    deadLetterJobEntityManagerImpl.insert(jobEntity, true);
-
-    // Assert that nothing has changed
-    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
-    verify(activitiEventDispatcher).isEnabled();
-    verify(performanceSettings).isEnableExecutionRelationshipCounts();
-    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
-    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
-    verify(performanceSettings).setEnableLocalization(eq(true));
-    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
-    verify(processEngineConfiguration).getEventDispatcher();
-    verify(processEngineConfiguration).getExecutionEntityManager();
-    verify(processEngineConfiguration).getPerformanceSettings();
-    verify(executionDataManager).findById(eq("42"));
-    verify(jobDataManager).insert(isA(DeadLetterJobEntity.class));
-    assertEquals("", jobEntity.getTenantId());
-  }
-
-  /**
-   * Test {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity, boolean)} with {@code DeadLetterJobEntity}, {@code boolean}.
-   * <p>
-   * Method under test: {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeadLetterJobEntityManagerImpl.insert(DeadLetterJobEntity, boolean)"})
-  public void testInsertWithDeadLetterJobEntityBoolean5() {
-    // Arrange
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
-    when(executionEntityImpl.getDeadLetterJobCount()).thenReturn(3);
-    doNothing().when(executionEntityImpl).setDeadLetterJobCount(anyInt());
-    when(executionEntityImpl.isCountEnabled()).thenReturn(true);
-    when(executionEntityImpl.getTenantId()).thenReturn(null);
-    ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
-    when(executionDataManager.findById(Mockito.<String>any())).thenReturn(executionEntityImpl);
-    ExecutionEntityManagerImpl executionEntityManagerImpl = new ExecutionEntityManagerImpl(
-        new JtaProcessEngineConfiguration(), executionDataManager);
-
-    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
-    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
-    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
-    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
-    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
-    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
-    performanceSettings.setEnableEagerExecutionTreeFetching(true);
-    performanceSettings.setEnableExecutionRelationshipCounts(true);
-    performanceSettings.setEnableLocalization(true);
-    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManagerImpl);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    DeadLetterJobDataManager jobDataManager = mock(DeadLetterJobDataManager.class);
-    doNothing().when(jobDataManager).insert(Mockito.<DeadLetterJobEntity>any());
-    DeadLetterJobEntityManagerImpl deadLetterJobEntityManagerImpl = new DeadLetterJobEntityManagerImpl(
-        processEngineConfiguration, jobDataManager);
-
-    DeadLetterJobEntityImpl jobEntity = new DeadLetterJobEntityImpl();
-    jobEntity.setExecutionId("42");
-
-    // Act
-    deadLetterJobEntityManagerImpl.insert(jobEntity, true);
-
-    // Assert that nothing has changed
-    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
-    verify(activitiEventDispatcher).isEnabled();
-    verify(performanceSettings, atLeast(1)).isEnableExecutionRelationshipCounts();
-    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
-    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
-    verify(performanceSettings).setEnableLocalization(eq(true));
-    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
-    verify(processEngineConfiguration).getEventDispatcher();
-    verify(processEngineConfiguration).getExecutionEntityManager();
-    verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
-    verify(executionEntityImpl).getDeadLetterJobCount();
-    verify(executionEntityImpl).getTenantId();
-    verify(executionEntityImpl).isCountEnabled();
-    verify(executionEntityImpl).setDeadLetterJobCount(eq(4));
-    verify(executionDataManager).findById(eq("42"));
-    verify(jobDataManager).insert(isA(DeadLetterJobEntity.class));
-    assertEquals("", jobEntity.getTenantId());
-  }
-
-  /**
-   * Test {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity, boolean)} with {@code DeadLetterJobEntity}, {@code boolean}.
-   * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeadLetterJobEntityManagerImpl.insert(DeadLetterJobEntity, boolean)"})
-  public void testInsertWithDeadLetterJobEntityBoolean_thenCallsDispatchEvent() {
-    // Arrange
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    DeadLetterJobDataManager jobDataManager = mock(DeadLetterJobDataManager.class);
-    doNothing().when(jobDataManager).insert(Mockito.<DeadLetterJobEntity>any());
-    DeadLetterJobEntityManagerImpl deadLetterJobEntityManagerImpl = new DeadLetterJobEntityManagerImpl(
-        processEngineConfiguration, jobDataManager);
-    DeadLetterJobEntityImpl jobEntity = new DeadLetterJobEntityImpl();
-
-    // Act
-    deadLetterJobEntityManagerImpl.insert(jobEntity, true);
-
-    // Assert that nothing has changed
-    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfiguration).getEventDispatcher();
-    verify(jobDataManager).insert(isA(DeadLetterJobEntity.class));
-    assertEquals("", jobEntity.getTenantId());
-  }
-
-  /**
-   * Test {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity, boolean)} with {@code DeadLetterJobEntity}, {@code boolean}.
-   * <ul>
-   *   <li>Then calls {@link EntityManager#findById(String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeadLetterJobEntityManagerImpl.insert(DeadLetterJobEntity, boolean)"})
-  public void testInsertWithDeadLetterJobEntityBoolean_thenCallsFindById() {
-    // Arrange
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
-    when(executionEntityManager.findById(Mockito.<String>any()))
-        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
-    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
-    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
-    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
-    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
-    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
-    performanceSettings.setEnableEagerExecutionTreeFetching(true);
-    performanceSettings.setEnableExecutionRelationshipCounts(true);
-    performanceSettings.setEnableLocalization(true);
-    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManager);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    DeadLetterJobDataManager jobDataManager = mock(DeadLetterJobDataManager.class);
-    doNothing().when(jobDataManager).insert(Mockito.<DeadLetterJobEntity>any());
-    DeadLetterJobEntityManagerImpl deadLetterJobEntityManagerImpl = new DeadLetterJobEntityManagerImpl(
-        processEngineConfiguration, jobDataManager);
-
-    DeadLetterJobEntityImpl jobEntity = new DeadLetterJobEntityImpl();
-    jobEntity.setExecutionId("42");
-
-    // Act
-    deadLetterJobEntityManagerImpl.insert(jobEntity, true);
-
-    // Assert that nothing has changed
-    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
-    verify(activitiEventDispatcher).isEnabled();
-    verify(performanceSettings, atLeast(1)).isEnableExecutionRelationshipCounts();
-    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
-    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
-    verify(performanceSettings).setEnableLocalization(eq(true));
-    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
-    verify(processEngineConfiguration).getEventDispatcher();
-    verify(processEngineConfiguration).getExecutionEntityManager();
-    verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
-    verify(executionEntityManager).findById(eq("42"));
-    verify(jobDataManager).insert(isA(DeadLetterJobEntity.class));
-    assertEquals("", jobEntity.getTenantId());
-  }
-
-  /**
-   * Test {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity, boolean)} with {@code DeadLetterJobEntity}, {@code boolean}.
-   * <ul>
-   *   <li>Then {@link DeadLetterJobEntityImpl} (default constructor) TenantId is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeadLetterJobEntityManagerImpl.insert(DeadLetterJobEntity, boolean)"})
-  public void testInsertWithDeadLetterJobEntityBoolean_thenDeadLetterJobEntityImplTenantIdIs42() {
+  public void testInsert6() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
@@ -734,7 +373,7 @@ public class DeadLetterJobEntityManagerImplDiffblueTest {
     jobEntity.setExecutionId("42");
 
     // Act
-    deadLetterJobEntityManagerImpl.insert(jobEntity, true);
+    deadLetterJobEntityManagerImpl.insert(jobEntity);
 
     // Assert
     verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
@@ -757,17 +396,210 @@ public class DeadLetterJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity, boolean)} with {@code DeadLetterJobEntity}, {@code boolean}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity, boolean)}
+   * Method under test:
+   * {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeadLetterJobEntityManagerImpl.insert(DeadLetterJobEntity, boolean)"})
-  public void testInsertWithDeadLetterJobEntityBoolean_whenFalse() {
+  public void testInsert7() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
+    when(executionEntityImpl.getDeadLetterJobCount()).thenReturn(3);
+    doNothing().when(executionEntityImpl).setDeadLetterJobCount(anyInt());
+    when(executionEntityImpl.isCountEnabled()).thenReturn(true);
+    when(executionEntityImpl.getTenantId()).thenReturn(null);
+    ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
+    when(executionDataManager.findById(Mockito.<String>any())).thenReturn(executionEntityImpl);
+    ExecutionEntityManagerImpl executionEntityManagerImpl = new ExecutionEntityManagerImpl(
+        new JtaProcessEngineConfiguration(), executionDataManager);
+
+    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
+    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
+    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
+    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
+    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
+    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
+    performanceSettings.setEnableEagerExecutionTreeFetching(true);
+    performanceSettings.setEnableExecutionRelationshipCounts(true);
+    performanceSettings.setEnableLocalization(true);
+    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
+    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManagerImpl);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    DeadLetterJobDataManager jobDataManager = mock(DeadLetterJobDataManager.class);
+    doNothing().when(jobDataManager).insert(Mockito.<DeadLetterJobEntity>any());
+    DeadLetterJobEntityManagerImpl deadLetterJobEntityManagerImpl = new DeadLetterJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
+
+    DeadLetterJobEntityImpl jobEntity = new DeadLetterJobEntityImpl();
+    jobEntity.setExecutionId("42");
+
+    // Act
+    deadLetterJobEntityManagerImpl.insert(jobEntity);
+
+    // Assert
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher).isEnabled();
+    verify(performanceSettings, atLeast(1)).isEnableExecutionRelationshipCounts();
+    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
+    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
+    verify(performanceSettings).setEnableLocalization(eq(true));
+    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
+    verify(processEngineConfiguration).getEventDispatcher();
+    verify(processEngineConfiguration).getExecutionEntityManager();
+    verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
+    verify(executionEntityImpl).getDeadLetterJobCount();
+    verify(executionEntityImpl).getTenantId();
+    verify(executionEntityImpl).isCountEnabled();
+    verify(executionEntityImpl).setDeadLetterJobCount(eq(4));
+    verify(executionDataManager).findById(eq("42"));
+    verify(jobDataManager).insert(isA(DeadLetterJobEntity.class));
+    assertEquals("", jobEntity.getTenantId());
+  }
+
+  /**
+   * Method under test:
+   * {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity)}
+   */
+  @Test
+  public void testInsert8() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
+    when(executionEntityManager.findById(Mockito.<String>any()))
+        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
+    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
+    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
+    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
+    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
+    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
+    performanceSettings.setEnableEagerExecutionTreeFetching(true);
+    performanceSettings.setEnableExecutionRelationshipCounts(true);
+    performanceSettings.setEnableLocalization(true);
+    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
+    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManager);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    DeadLetterJobDataManager jobDataManager = mock(DeadLetterJobDataManager.class);
+    doNothing().when(jobDataManager).insert(Mockito.<DeadLetterJobEntity>any());
+    DeadLetterJobEntityManagerImpl deadLetterJobEntityManagerImpl = new DeadLetterJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
+
+    DeadLetterJobEntityImpl jobEntity = new DeadLetterJobEntityImpl();
+    jobEntity.setExecutionId("42");
+
+    // Act
+    deadLetterJobEntityManagerImpl.insert(jobEntity);
+
+    // Assert
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher).isEnabled();
+    verify(performanceSettings, atLeast(1)).isEnableExecutionRelationshipCounts();
+    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
+    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
+    verify(performanceSettings).setEnableLocalization(eq(true));
+    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
+    verify(processEngineConfiguration).getEventDispatcher();
+    verify(processEngineConfiguration).getExecutionEntityManager();
+    verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
+    verify(executionEntityManager).findById(eq("42"));
+    verify(jobDataManager).insert(isA(DeadLetterJobEntity.class));
+    assertEquals("", jobEntity.getTenantId());
+  }
+
+  /**
+   * Method under test:
+   * {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity, boolean)}
+   */
+  @Test
+  public void testInsert9() {
+    // Arrange
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
+    DeadLetterJobDataManager jobDataManager = mock(DeadLetterJobDataManager.class);
+    doNothing().when(jobDataManager).insert(Mockito.<DeadLetterJobEntity>any());
+    DeadLetterJobEntityManagerImpl deadLetterJobEntityManagerImpl = new DeadLetterJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
+    DeadLetterJobEntityImpl jobEntity = new DeadLetterJobEntityImpl();
+
+    // Act
+    deadLetterJobEntityManagerImpl.insert(jobEntity, true);
+
+    // Assert
+    verify(processEngineConfiguration).getEventDispatcher();
+    verify(jobDataManager).insert(isA(DeadLetterJobEntity.class));
+    assertEquals("", jobEntity.getTenantId());
+  }
+
+  /**
+   * Method under test:
+   * {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity, boolean)}
+   */
+  @Test
+  public void testInsert10() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    DeadLetterJobDataManager jobDataManager = mock(DeadLetterJobDataManager.class);
+    doNothing().when(jobDataManager).insert(Mockito.<DeadLetterJobEntity>any());
+    DeadLetterJobEntityManagerImpl deadLetterJobEntityManagerImpl = new DeadLetterJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
+    DeadLetterJobEntityImpl jobEntity = new DeadLetterJobEntityImpl();
+
+    // Act
+    deadLetterJobEntityManagerImpl.insert(jobEntity, true);
+
+    // Assert
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration).getEventDispatcher();
+    verify(jobDataManager).insert(isA(DeadLetterJobEntity.class));
+    assertEquals("", jobEntity.getTenantId());
+  }
+
+  /**
+   * Method under test:
+   * {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity, boolean)}
+   */
+  @Test
+  public void testInsert11() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    DeadLetterJobDataManager jobDataManager = mock(DeadLetterJobDataManager.class);
+    doNothing().when(jobDataManager).insert(Mockito.<DeadLetterJobEntity>any());
+    DeadLetterJobEntityManagerImpl deadLetterJobEntityManagerImpl = new DeadLetterJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
+    DeadLetterJobEntityImpl jobEntity = new DeadLetterJobEntityImpl();
+
+    // Act
+    deadLetterJobEntityManagerImpl.insert(jobEntity, true);
+
+    // Assert
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration).getEventDispatcher();
+    verify(jobDataManager).insert(isA(DeadLetterJobEntity.class));
+    assertEquals("", jobEntity.getTenantId());
+  }
+
+  /**
+   * Method under test:
+   * {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity, boolean)}
+   */
+  @Test
+  public void testInsert12() {
     // Arrange
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
     when(processEngineConfiguration.getEventDispatcher()).thenReturn(mock(ActivitiEventDispatcher.class));
@@ -780,40 +612,77 @@ public class DeadLetterJobEntityManagerImplDiffblueTest {
     // Act
     deadLetterJobEntityManagerImpl.insert(jobEntity, false);
 
-    // Assert that nothing has changed
+    // Assert
     verify(processEngineConfiguration).getEventDispatcher();
     verify(jobDataManager).insert(isA(DeadLetterJobEntity.class));
     assertEquals("", jobEntity.getTenantId());
   }
 
   /**
-   * Test {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity)} with {@code DeadLetterJobEntity}.
-   * <ul>
-   *   <li>Given {@link ExecutionEntityImpl} {@link ExecutionEntityImpl#getTenantId()} return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity)}
+   * Method under test:
+   * {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeadLetterJobEntityManagerImpl.insert(DeadLetterJobEntity)"})
-  public void testInsertWithDeadLetterJobEntity_givenExecutionEntityImplGetTenantIdReturnNull() {
+  public void testInsert13() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
     when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
-    when(executionEntityImpl.getDeadLetterJobCount()).thenReturn(3);
-    doNothing().when(executionEntityImpl).setDeadLetterJobCount(anyInt());
-    when(executionEntityImpl.isCountEnabled()).thenReturn(true);
-    when(executionEntityImpl.getTenantId()).thenReturn(null);
     ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
-    when(executionDataManager.findById(Mockito.<String>any())).thenReturn(executionEntityImpl);
+    when(executionDataManager.findById(Mockito.<String>any()))
+        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    ExecutionEntityManagerImpl executionEntityManagerImpl = new ExecutionEntityManagerImpl(
+        new JtaProcessEngineConfiguration(), executionDataManager);
+
+    PerformanceSettings performanceSettings = new PerformanceSettings();
+    performanceSettings.setEnableEagerExecutionTreeFetching(true);
+    performanceSettings.setEnableExecutionRelationshipCounts(true);
+    performanceSettings.setEnableLocalization(true);
+    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
+    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManagerImpl);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    DeadLetterJobDataManager jobDataManager = mock(DeadLetterJobDataManager.class);
+    doNothing().when(jobDataManager).insert(Mockito.<DeadLetterJobEntity>any());
+    DeadLetterJobEntityManagerImpl deadLetterJobEntityManagerImpl = new DeadLetterJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
+
+    DeadLetterJobEntityImpl jobEntity = new DeadLetterJobEntityImpl();
+    jobEntity.setExecutionId("42");
+
+    // Act
+    deadLetterJobEntityManagerImpl.insert(jobEntity, true);
+
+    // Assert
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration).getEventDispatcher();
+    verify(processEngineConfiguration).getExecutionEntityManager();
+    verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
+    verify(executionDataManager).findById(eq("42"));
+    verify(jobDataManager).insert(isA(DeadLetterJobEntity.class));
+    assertEquals("", jobEntity.getTenantId());
+  }
+
+  /**
+   * Method under test:
+   * {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity, boolean)}
+   */
+  @Test
+  public void testInsert14() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
+    when(executionDataManager.findById(Mockito.<String>any()))
+        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
     ExecutionEntityManagerImpl executionEntityManagerImpl = new ExecutionEntityManagerImpl(
         new JtaProcessEngineConfiguration(), executionDataManager);
 
     PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
-    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
+    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(false);
     doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
     doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
     doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
@@ -835,135 +704,30 @@ public class DeadLetterJobEntityManagerImplDiffblueTest {
     jobEntity.setExecutionId("42");
 
     // Act
-    deadLetterJobEntityManagerImpl.insert(jobEntity);
+    deadLetterJobEntityManagerImpl.insert(jobEntity, true);
 
-    // Assert that nothing has changed
+    // Assert
     verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
     verify(activitiEventDispatcher).isEnabled();
-    verify(performanceSettings, atLeast(1)).isEnableExecutionRelationshipCounts();
+    verify(performanceSettings).isEnableExecutionRelationshipCounts();
     verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
     verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
     verify(performanceSettings).setEnableLocalization(eq(true));
     verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
     verify(processEngineConfiguration).getEventDispatcher();
     verify(processEngineConfiguration).getExecutionEntityManager();
-    verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
-    verify(executionEntityImpl).getDeadLetterJobCount();
-    verify(executionEntityImpl).getTenantId();
-    verify(executionEntityImpl).isCountEnabled();
-    verify(executionEntityImpl).setDeadLetterJobCount(eq(4));
+    verify(processEngineConfiguration).getPerformanceSettings();
     verify(executionDataManager).findById(eq("42"));
     verify(jobDataManager).insert(isA(DeadLetterJobEntity.class));
     assertEquals("", jobEntity.getTenantId());
   }
 
   /**
-   * Test {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity)} with {@code DeadLetterJobEntity}.
-   * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity)}
+   * Method under test:
+   * {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeadLetterJobEntityManagerImpl.insert(DeadLetterJobEntity)"})
-  public void testInsertWithDeadLetterJobEntity_thenCallsDispatchEvent() {
-    // Arrange
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    DeadLetterJobDataManager jobDataManager = mock(DeadLetterJobDataManager.class);
-    doNothing().when(jobDataManager).insert(Mockito.<DeadLetterJobEntity>any());
-    DeadLetterJobEntityManagerImpl deadLetterJobEntityManagerImpl = new DeadLetterJobEntityManagerImpl(
-        processEngineConfiguration, jobDataManager);
-    DeadLetterJobEntityImpl jobEntity = new DeadLetterJobEntityImpl();
-
-    // Act
-    deadLetterJobEntityManagerImpl.insert(jobEntity);
-
-    // Assert that nothing has changed
-    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfiguration).getEventDispatcher();
-    verify(jobDataManager).insert(isA(DeadLetterJobEntity.class));
-    assertEquals("", jobEntity.getTenantId());
-  }
-
-  /**
-   * Test {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity)} with {@code DeadLetterJobEntity}.
-   * <ul>
-   *   <li>Then calls {@link EntityManager#findById(String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeadLetterJobEntityManagerImpl.insert(DeadLetterJobEntity)"})
-  public void testInsertWithDeadLetterJobEntity_thenCallsFindById() {
-    // Arrange
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
-    when(executionEntityManager.findById(Mockito.<String>any()))
-        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
-    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
-    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
-    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
-    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
-    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
-    performanceSettings.setEnableEagerExecutionTreeFetching(true);
-    performanceSettings.setEnableExecutionRelationshipCounts(true);
-    performanceSettings.setEnableLocalization(true);
-    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManager);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    DeadLetterJobDataManager jobDataManager = mock(DeadLetterJobDataManager.class);
-    doNothing().when(jobDataManager).insert(Mockito.<DeadLetterJobEntity>any());
-    DeadLetterJobEntityManagerImpl deadLetterJobEntityManagerImpl = new DeadLetterJobEntityManagerImpl(
-        processEngineConfiguration, jobDataManager);
-
-    DeadLetterJobEntityImpl jobEntity = new DeadLetterJobEntityImpl();
-    jobEntity.setExecutionId("42");
-
-    // Act
-    deadLetterJobEntityManagerImpl.insert(jobEntity);
-
-    // Assert that nothing has changed
-    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
-    verify(activitiEventDispatcher).isEnabled();
-    verify(performanceSettings, atLeast(1)).isEnableExecutionRelationshipCounts();
-    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
-    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
-    verify(performanceSettings).setEnableLocalization(eq(true));
-    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
-    verify(processEngineConfiguration).getEventDispatcher();
-    verify(processEngineConfiguration).getExecutionEntityManager();
-    verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
-    verify(executionEntityManager).findById(eq("42"));
-    verify(jobDataManager).insert(isA(DeadLetterJobEntity.class));
-    assertEquals("", jobEntity.getTenantId());
-  }
-
-  /**
-   * Test {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity)} with {@code DeadLetterJobEntity}.
-   * <ul>
-   *   <li>Then {@link DeadLetterJobEntityImpl} (default constructor) TenantId is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeadLetterJobEntityManagerImpl.insert(DeadLetterJobEntity)"})
-  public void testInsertWithDeadLetterJobEntity_thenDeadLetterJobEntityImplTenantIdIs42() {
+  public void testInsert15() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
@@ -1001,7 +765,7 @@ public class DeadLetterJobEntityManagerImplDiffblueTest {
     jobEntity.setExecutionId("42");
 
     // Act
-    deadLetterJobEntityManagerImpl.insert(jobEntity);
+    deadLetterJobEntityManagerImpl.insert(jobEntity, true);
 
     // Assert
     verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
@@ -1024,184 +788,25 @@ public class DeadLetterJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link DeadLetterJobEntityManagerImpl#delete(DeadLetterJobEntity)} with {@code DeadLetterJobEntity}.
-   * <p>
-   * Method under test: {@link DeadLetterJobEntityManagerImpl#delete(DeadLetterJobEntity)}
+   * Method under test:
+   * {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeadLetterJobEntityManagerImpl.delete(DeadLetterJobEntity)"})
-  public void testDeleteWithDeadLetterJobEntity() {
-    // Arrange
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
-    DeadLetterJobDataManager jobDataManager = mock(DeadLetterJobDataManager.class);
-    doNothing().when(jobDataManager).delete(Mockito.<DeadLetterJobEntity>any());
-    DeadLetterJobEntityManagerImpl deadLetterJobEntityManagerImpl = new DeadLetterJobEntityManagerImpl(
-        processEngineConfiguration, jobDataManager);
-
-    // Act
-    deadLetterJobEntityManagerImpl.delete(new DeadLetterJobEntityImpl());
-
-    // Assert
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(jobDataManager).delete(isA(DeadLetterJobEntity.class));
-  }
-
-  /**
-   * Test {@link DeadLetterJobEntityManagerImpl#delete(DeadLetterJobEntity)} with {@code DeadLetterJobEntity}.
-   * <p>
-   * Method under test: {@link DeadLetterJobEntityManagerImpl#delete(DeadLetterJobEntity)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeadLetterJobEntityManagerImpl.delete(DeadLetterJobEntity)"})
-  public void testDeleteWithDeadLetterJobEntity2() {
-    // Arrange
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    DeadLetterJobDataManager jobDataManager = mock(DeadLetterJobDataManager.class);
-    doNothing().when(jobDataManager).delete(Mockito.<DeadLetterJobEntity>any());
-    DeadLetterJobEntityManagerImpl deadLetterJobEntityManagerImpl = new DeadLetterJobEntityManagerImpl(
-        processEngineConfiguration, jobDataManager);
-
-    // Act
-    deadLetterJobEntityManagerImpl.delete(new DeadLetterJobEntityImpl());
-
-    // Assert
-    verify(activitiEventDispatcher, atLeast(1)).isEnabled();
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(jobDataManager).delete(isA(DeadLetterJobEntity.class));
-  }
-
-  /**
-   * Test {@link DeadLetterJobEntityManagerImpl#delete(DeadLetterJobEntity)} with {@code DeadLetterJobEntity}.
-   * <p>
-   * Method under test: {@link DeadLetterJobEntityManagerImpl#delete(DeadLetterJobEntity)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeadLetterJobEntityManagerImpl.delete(DeadLetterJobEntity)"})
-  public void testDeleteWithDeadLetterJobEntity3() {
+  public void testInsert16() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
     when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-
-    PerformanceSettings performanceSettings = new PerformanceSettings();
-    performanceSettings.setEnableEagerExecutionTreeFetching(true);
-    performanceSettings.setEnableExecutionRelationshipCounts(true);
-    performanceSettings.setEnableLocalization(true);
-    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
+    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
+    when(executionEntityImpl.getDeadLetterJobCount()).thenReturn(3);
+    doNothing().when(executionEntityImpl).setDeadLetterJobCount(anyInt());
+    when(executionEntityImpl.isCountEnabled()).thenReturn(true);
+    when(executionEntityImpl.getTenantId()).thenReturn(null);
     ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
-    when(executionDataManager.findById(Mockito.<String>any()))
-        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getExecutionEntityManager())
-        .thenReturn(new ExecutionEntityManagerImpl(new JtaProcessEngineConfiguration(), executionDataManager));
-    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    DeadLetterJobDataManager jobDataManager = mock(DeadLetterJobDataManager.class);
-    doNothing().when(jobDataManager).delete(Mockito.<DeadLetterJobEntity>any());
-    DeadLetterJobEntityManagerImpl deadLetterJobEntityManagerImpl = new DeadLetterJobEntityManagerImpl(
-        processEngineConfiguration, jobDataManager);
-    DeadLetterJobEntityImpl jobEntity = mock(DeadLetterJobEntityImpl.class);
-    when(jobEntity.getExecutionId()).thenReturn("42");
-    when(jobEntity.getProcessDefinitionId()).thenReturn("42");
-    when(jobEntity.getProcessInstanceId()).thenReturn("42");
-    when(jobEntity.getExceptionByteArrayRef()).thenReturn(new ByteArrayRef());
+    when(executionDataManager.findById(Mockito.<String>any())).thenReturn(executionEntityImpl);
+    ExecutionEntityManagerImpl executionEntityManagerImpl = new ExecutionEntityManagerImpl(
+        new JtaProcessEngineConfiguration(), executionDataManager);
 
-    // Act
-    deadLetterJobEntityManagerImpl.delete(jobEntity);
-
-    // Assert
-    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
-    verify(activitiEventDispatcher, atLeast(1)).isEnabled();
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfiguration).getExecutionEntityManager();
-    verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
-    verify(jobEntity).getExceptionByteArrayRef();
-    verify(jobEntity, atLeast(1)).getExecutionId();
-    verify(jobEntity).getProcessDefinitionId();
-    verify(jobEntity).getProcessInstanceId();
-    verify(jobDataManager).delete(isA(DeadLetterJobEntity.class));
-    verify(executionDataManager).findById(eq("42"));
-  }
-
-  /**
-   * Test {@link DeadLetterJobEntityManagerImpl#delete(DeadLetterJobEntity)} with {@code DeadLetterJobEntity}.
-   * <p>
-   * Method under test: {@link DeadLetterJobEntityManagerImpl#delete(DeadLetterJobEntity)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeadLetterJobEntityManagerImpl.delete(DeadLetterJobEntity)"})
-  public void testDeleteWithDeadLetterJobEntity4() {
-    // Arrange
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
-    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(false);
-    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
-    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
-    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
-    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
-    performanceSettings.setEnableEagerExecutionTreeFetching(true);
-    performanceSettings.setEnableExecutionRelationshipCounts(true);
-    performanceSettings.setEnableLocalization(true);
-    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    DeadLetterJobDataManager jobDataManager = mock(DeadLetterJobDataManager.class);
-    doNothing().when(jobDataManager).delete(Mockito.<DeadLetterJobEntity>any());
-    DeadLetterJobEntityManagerImpl deadLetterJobEntityManagerImpl = new DeadLetterJobEntityManagerImpl(
-        processEngineConfiguration, jobDataManager);
-    DeadLetterJobEntityImpl jobEntity = mock(DeadLetterJobEntityImpl.class);
-    when(jobEntity.getExecutionId()).thenReturn("42");
-    when(jobEntity.getProcessDefinitionId()).thenReturn("42");
-    when(jobEntity.getProcessInstanceId()).thenReturn("42");
-    when(jobEntity.getExceptionByteArrayRef()).thenReturn(new ByteArrayRef());
-
-    // Act
-    deadLetterJobEntityManagerImpl.delete(jobEntity);
-
-    // Assert
-    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
-    verify(activitiEventDispatcher, atLeast(1)).isEnabled();
-    verify(performanceSettings).isEnableExecutionRelationshipCounts();
-    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
-    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
-    verify(performanceSettings).setEnableLocalization(eq(true));
-    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfiguration).getPerformanceSettings();
-    verify(jobEntity).getExceptionByteArrayRef();
-    verify(jobEntity, atLeast(1)).getExecutionId();
-    verify(jobEntity).getProcessDefinitionId();
-    verify(jobEntity).getProcessInstanceId();
-    verify(jobDataManager).delete(isA(DeadLetterJobEntity.class));
-  }
-
-  /**
-   * Test {@link DeadLetterJobEntityManagerImpl#delete(DeadLetterJobEntity)} with {@code DeadLetterJobEntity}.
-   * <ul>
-   *   <li>Then calls {@link ByteArrayRef#delete()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeadLetterJobEntityManagerImpl#delete(DeadLetterJobEntity)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeadLetterJobEntityManagerImpl.delete(DeadLetterJobEntity)"})
-  public void testDeleteWithDeadLetterJobEntity_thenCallsDelete() {
-    // Arrange
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
     PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
     when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
     doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
@@ -1212,212 +817,101 @@ public class DeadLetterJobEntityManagerImplDiffblueTest {
     performanceSettings.setEnableExecutionRelationshipCounts(true);
     performanceSettings.setEnableLocalization(true);
     performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-    ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
-    when(executionEntityManager.findById(Mockito.<String>any()))
-        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManager);
     when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
+    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManagerImpl);
     when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     DeadLetterJobDataManager jobDataManager = mock(DeadLetterJobDataManager.class);
-    doNothing().when(jobDataManager).delete(Mockito.<DeadLetterJobEntity>any());
+    doNothing().when(jobDataManager).insert(Mockito.<DeadLetterJobEntity>any());
     DeadLetterJobEntityManagerImpl deadLetterJobEntityManagerImpl = new DeadLetterJobEntityManagerImpl(
         processEngineConfiguration, jobDataManager);
-    ByteArrayRef byteArrayRef = mock(ByteArrayRef.class);
-    doNothing().when(byteArrayRef).delete();
-    DeadLetterJobEntityImpl jobEntity = mock(DeadLetterJobEntityImpl.class);
-    when(jobEntity.getExecutionId()).thenReturn("42");
-    when(jobEntity.getProcessDefinitionId()).thenReturn("42");
-    when(jobEntity.getProcessInstanceId()).thenReturn("42");
-    when(jobEntity.getExceptionByteArrayRef()).thenReturn(byteArrayRef);
+
+    DeadLetterJobEntityImpl jobEntity = new DeadLetterJobEntityImpl();
+    jobEntity.setExecutionId("42");
 
     // Act
-    deadLetterJobEntityManagerImpl.delete(jobEntity);
+    deadLetterJobEntityManagerImpl.insert(jobEntity, true);
 
     // Assert
     verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
-    verify(activitiEventDispatcher, atLeast(1)).isEnabled();
+    verify(activitiEventDispatcher).isEnabled();
     verify(performanceSettings, atLeast(1)).isEnableExecutionRelationshipCounts();
     verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
     verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
     verify(performanceSettings).setEnableLocalization(eq(true));
     verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration).getEventDispatcher();
     verify(processEngineConfiguration).getExecutionEntityManager();
     verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
-    verify(jobEntity).getExceptionByteArrayRef();
-    verify(jobEntity, atLeast(1)).getExecutionId();
-    verify(jobEntity).getProcessDefinitionId();
-    verify(jobEntity).getProcessInstanceId();
-    verify(byteArrayRef).delete();
-    verify(executionEntityManager).findById(eq("42"));
-    verify(jobDataManager).delete(isA(DeadLetterJobEntity.class));
+    verify(executionEntityImpl).getDeadLetterJobCount();
+    verify(executionEntityImpl).getTenantId();
+    verify(executionEntityImpl).isCountEnabled();
+    verify(executionEntityImpl).setDeadLetterJobCount(eq(4));
+    verify(executionDataManager).findById(eq("42"));
+    verify(jobDataManager).insert(isA(DeadLetterJobEntity.class));
+    assertEquals("", jobEntity.getTenantId());
   }
 
   /**
-   * Test {@link DeadLetterJobEntityManagerImpl#delete(DeadLetterJobEntity)} with {@code DeadLetterJobEntity}.
-   * <ul>
-   *   <li>Then calls {@link EntityManager#findById(String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeadLetterJobEntityManagerImpl#delete(DeadLetterJobEntity)}
+   * Method under test:
+   * {@link DeadLetterJobEntityManagerImpl#insert(DeadLetterJobEntity, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeadLetterJobEntityManagerImpl.delete(DeadLetterJobEntity)"})
-  public void testDeleteWithDeadLetterJobEntity_thenCallsFindById() {
+  public void testInsert17() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
     when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-
-    PerformanceSettings performanceSettings = new PerformanceSettings();
-    performanceSettings.setEnableEagerExecutionTreeFetching(true);
-    performanceSettings.setEnableExecutionRelationshipCounts(true);
-    performanceSettings.setEnableLocalization(true);
-    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
     ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
     when(executionEntityManager.findById(Mockito.<String>any()))
         .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManager);
-    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    DeadLetterJobDataManager jobDataManager = mock(DeadLetterJobDataManager.class);
-    doNothing().when(jobDataManager).delete(Mockito.<DeadLetterJobEntity>any());
-    DeadLetterJobEntityManagerImpl deadLetterJobEntityManagerImpl = new DeadLetterJobEntityManagerImpl(
-        processEngineConfiguration, jobDataManager);
-    DeadLetterJobEntityImpl jobEntity = mock(DeadLetterJobEntityImpl.class);
-    when(jobEntity.getExecutionId()).thenReturn("42");
-    when(jobEntity.getProcessDefinitionId()).thenReturn("42");
-    when(jobEntity.getProcessInstanceId()).thenReturn("42");
-    when(jobEntity.getExceptionByteArrayRef()).thenReturn(new ByteArrayRef());
-
-    // Act
-    deadLetterJobEntityManagerImpl.delete(jobEntity);
-
-    // Assert
-    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
-    verify(activitiEventDispatcher, atLeast(1)).isEnabled();
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfiguration).getExecutionEntityManager();
-    verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
-    verify(jobEntity).getExceptionByteArrayRef();
-    verify(jobEntity, atLeast(1)).getExecutionId();
-    verify(jobEntity).getProcessDefinitionId();
-    verify(jobEntity).getProcessInstanceId();
-    verify(executionEntityManager).findById(eq("42"));
-    verify(jobDataManager).delete(isA(DeadLetterJobEntity.class));
-  }
-
-  /**
-   * Test {@link DeadLetterJobEntityManagerImpl#delete(DeadLetterJobEntity)} with {@code DeadLetterJobEntity}.
-   * <ul>
-   *   <li>Then calls {@link ExecutionEntityImpl#getDeadLetterJobCount()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeadLetterJobEntityManagerImpl#delete(DeadLetterJobEntity)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeadLetterJobEntityManagerImpl.delete(DeadLetterJobEntity)"})
-  public void testDeleteWithDeadLetterJobEntity_thenCallsGetDeadLetterJobCount() {
-    // Arrange
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-
-    PerformanceSettings performanceSettings = new PerformanceSettings();
+    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
+    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
+    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
+    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
+    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
+    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
     performanceSettings.setEnableEagerExecutionTreeFetching(true);
     performanceSettings.setEnableExecutionRelationshipCounts(true);
     performanceSettings.setEnableLocalization(true);
     performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
-    when(executionEntityImpl.getDeadLetterJobCount()).thenReturn(3);
-    doNothing().when(executionEntityImpl).setDeadLetterJobCount(anyInt());
-    when(executionEntityImpl.isCountEnabled()).thenReturn(true);
-    ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
-    when(executionDataManager.findById(Mockito.<String>any())).thenReturn(executionEntityImpl);
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getExecutionEntityManager())
-        .thenReturn(new ExecutionEntityManagerImpl(new JtaProcessEngineConfiguration(), executionDataManager));
     when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
+    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManager);
     when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     DeadLetterJobDataManager jobDataManager = mock(DeadLetterJobDataManager.class);
-    doNothing().when(jobDataManager).delete(Mockito.<DeadLetterJobEntity>any());
+    doNothing().when(jobDataManager).insert(Mockito.<DeadLetterJobEntity>any());
     DeadLetterJobEntityManagerImpl deadLetterJobEntityManagerImpl = new DeadLetterJobEntityManagerImpl(
         processEngineConfiguration, jobDataManager);
-    DeadLetterJobEntityImpl jobEntity = mock(DeadLetterJobEntityImpl.class);
-    when(jobEntity.getExecutionId()).thenReturn("42");
-    when(jobEntity.getProcessDefinitionId()).thenReturn("42");
-    when(jobEntity.getProcessInstanceId()).thenReturn("42");
-    when(jobEntity.getExceptionByteArrayRef()).thenReturn(new ByteArrayRef());
+
+    DeadLetterJobEntityImpl jobEntity = new DeadLetterJobEntityImpl();
+    jobEntity.setExecutionId("42");
 
     // Act
-    deadLetterJobEntityManagerImpl.delete(jobEntity);
+    deadLetterJobEntityManagerImpl.insert(jobEntity, true);
 
     // Assert
     verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
-    verify(activitiEventDispatcher, atLeast(1)).isEnabled();
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(activitiEventDispatcher).isEnabled();
+    verify(performanceSettings, atLeast(1)).isEnableExecutionRelationshipCounts();
+    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
+    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
+    verify(performanceSettings).setEnableLocalization(eq(true));
+    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
+    verify(processEngineConfiguration).getEventDispatcher();
     verify(processEngineConfiguration).getExecutionEntityManager();
     verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
-    verify(jobEntity).getExceptionByteArrayRef();
-    verify(jobEntity, atLeast(1)).getExecutionId();
-    verify(jobEntity).getProcessDefinitionId();
-    verify(jobEntity).getProcessInstanceId();
-    verify(executionEntityImpl).getDeadLetterJobCount();
-    verify(executionEntityImpl).isCountEnabled();
-    verify(executionEntityImpl).setDeadLetterJobCount(eq(2));
-    verify(jobDataManager).delete(isA(DeadLetterJobEntity.class));
-    verify(executionDataManager).findById(eq("42"));
+    verify(executionEntityManager).findById(eq("42"));
+    verify(jobDataManager).insert(isA(DeadLetterJobEntity.class));
+    assertEquals("", jobEntity.getTenantId());
   }
 
   /**
-   * Test {@link DeadLetterJobEntityManagerImpl#delete(DeadLetterJobEntity)} with {@code DeadLetterJobEntity}.
-   * <ul>
-   *   <li>When {@link DeadLetterJobEntityImpl} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeadLetterJobEntityManagerImpl#delete(DeadLetterJobEntity)}
+   * Method under test:
+   * {@link DeadLetterJobEntityManagerImpl#deleteExceptionByteArrayRef(DeadLetterJobEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeadLetterJobEntityManagerImpl.delete(DeadLetterJobEntity)"})
-  public void testDeleteWithDeadLetterJobEntity_whenDeadLetterJobEntityImpl() {
-    // Arrange
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    DeadLetterJobDataManager jobDataManager = mock(DeadLetterJobDataManager.class);
-    doNothing().when(jobDataManager).delete(Mockito.<DeadLetterJobEntity>any());
-    DeadLetterJobEntityManagerImpl deadLetterJobEntityManagerImpl = new DeadLetterJobEntityManagerImpl(
-        processEngineConfiguration, jobDataManager);
-
-    // Act
-    deadLetterJobEntityManagerImpl.delete(new DeadLetterJobEntityImpl());
-
-    // Assert
-    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
-    verify(activitiEventDispatcher, atLeast(1)).isEnabled();
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(jobDataManager).delete(isA(DeadLetterJobEntity.class));
-  }
-
-  /**
-   * Test {@link DeadLetterJobEntityManagerImpl#deleteExceptionByteArrayRef(DeadLetterJobEntity)}.
-   * <ul>
-   *   <li>Then calls {@link AbstractJobEntityImpl#getExceptionByteArrayRef()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeadLetterJobEntityManagerImpl#deleteExceptionByteArrayRef(DeadLetterJobEntity)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeadLetterJobEntityManagerImpl.deleteExceptionByteArrayRef(DeadLetterJobEntity)"})
-  public void testDeleteExceptionByteArrayRef_thenCallsGetExceptionByteArrayRef() {
+  public void testDeleteExceptionByteArrayRef() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     DeadLetterJobEntityManagerImpl deadLetterJobEntityManagerImpl = new DeadLetterJobEntityManagerImpl(
@@ -1430,23 +924,17 @@ public class DeadLetterJobEntityManagerImplDiffblueTest {
     // Act
     deadLetterJobEntityManagerImpl.deleteExceptionByteArrayRef(jobEntity);
 
-    // Assert
+    // Assert that nothing has changed
     verify(jobEntity).getExceptionByteArrayRef();
     verify(byteArrayRef).delete();
   }
 
   /**
-   * Test {@link DeadLetterJobEntityManagerImpl#createDeadLetterJob(AbstractJobEntity)}.
-   * <ul>
-   *   <li>Then PersistentState return {@link Map}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeadLetterJobEntityManagerImpl#createDeadLetterJob(AbstractJobEntity)}
+   * Method under test:
+   * {@link DeadLetterJobEntityManagerImpl#createDeadLetterJob(AbstractJobEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"DeadLetterJobEntity DeadLetterJobEntityManagerImpl.createDeadLetterJob(AbstractJobEntity)"})
-  public void testCreateDeadLetterJob_thenPersistentStateReturnMap() {
+  public void testCreateDeadLetterJob() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     DeadLetterJobEntityManagerImpl deadLetterJobEntityManagerImpl = new DeadLetterJobEntityManagerImpl(
@@ -1461,6 +949,9 @@ public class DeadLetterJobEntityManagerImplDiffblueTest {
     assertTrue(persistentState instanceof Map);
     assertTrue(actualCreateDeadLetterJobResult instanceof DeadLetterJobEntityImpl);
     assertEquals("", actualCreateDeadLetterJobResult.getTenantId());
+    assertEquals(3, ((Map<String, Integer>) persistentState).size());
+    assertNull(((Map<String, Integer>) persistentState).get("duedate"));
+    assertNull(((Map<String, Integer>) persistentState).get("exceptionMessage"));
     assertNull(actualCreateDeadLetterJobResult.getExceptionStacktrace());
     assertNull(actualCreateDeadLetterJobResult.getJobHandlerConfiguration());
     assertNull(actualCreateDeadLetterJobResult.getJobHandlerType());
@@ -1474,28 +965,69 @@ public class DeadLetterJobEntityManagerImplDiffblueTest {
     assertNull(actualCreateDeadLetterJobResult.getEndDate());
     assertNull(actualCreateDeadLetterJobResult.getDuedate());
     assertNull(actualCreateDeadLetterJobResult.getExceptionByteArrayRef());
+    assertEquals(0, ((Map<String, Integer>) persistentState).get("retries").intValue());
     assertEquals(0, actualCreateDeadLetterJobResult.getMaxIterations());
     assertEquals(0, actualCreateDeadLetterJobResult.getRetries());
     assertEquals(1, actualCreateDeadLetterJobResult.getRevision());
     assertEquals(2, actualCreateDeadLetterJobResult.getRevisionNext());
-    assertEquals(3, ((Map<String, Integer>) persistentState).size());
     assertFalse(actualCreateDeadLetterJobResult.isDeleted());
     assertFalse(actualCreateDeadLetterJobResult.isInserted());
     assertFalse(actualCreateDeadLetterJobResult.isUpdated());
-    assertTrue(((Map<String, Integer>) persistentState).containsKey("duedate"));
-    assertTrue(((Map<String, Integer>) persistentState).containsKey("exceptionMessage"));
-    assertTrue(((Map<String, Integer>) persistentState).containsKey("retries"));
     assertTrue(actualCreateDeadLetterJobResult.isExclusive());
   }
 
   /**
-   * Test {@link DeadLetterJobEntityManagerImpl#getDataManager()}.
-   * <p>
+   * Method under test:
+   * {@link DeadLetterJobEntityManagerImpl#createDeadLetterJob(AbstractJobEntity)}
+   */
+  @Test
+  public void testCreateDeadLetterJob2() {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
+    DeadLetterJobEntityManagerImpl deadLetterJobEntityManagerImpl = new DeadLetterJobEntityManagerImpl(
+        processEngineConfiguration, new MybatisDeadLetterJobDataManager(new JtaProcessEngineConfiguration()));
+
+    // Act
+    DeadLetterJobEntity actualCreateDeadLetterJobResult = deadLetterJobEntityManagerImpl
+        .createDeadLetterJob(new DeadLetterJobEntityImpl());
+
+    // Assert
+    Object persistentState = actualCreateDeadLetterJobResult.getPersistentState();
+    assertTrue(persistentState instanceof Map);
+    assertTrue(actualCreateDeadLetterJobResult instanceof DeadLetterJobEntityImpl);
+    assertEquals("", actualCreateDeadLetterJobResult.getTenantId());
+    assertEquals(3, ((Map<String, Integer>) persistentState).size());
+    assertNull(((Map<String, Integer>) persistentState).get("duedate"));
+    assertNull(((Map<String, Integer>) persistentState).get("exceptionMessage"));
+    assertNull(actualCreateDeadLetterJobResult.getExceptionStacktrace());
+    assertNull(actualCreateDeadLetterJobResult.getJobHandlerConfiguration());
+    assertNull(actualCreateDeadLetterJobResult.getJobHandlerType());
+    assertNull(actualCreateDeadLetterJobResult.getJobType());
+    assertNull(actualCreateDeadLetterJobResult.getRepeat());
+    assertNull(actualCreateDeadLetterJobResult.getId());
+    assertNull(actualCreateDeadLetterJobResult.getExceptionMessage());
+    assertNull(actualCreateDeadLetterJobResult.getExecutionId());
+    assertNull(actualCreateDeadLetterJobResult.getProcessDefinitionId());
+    assertNull(actualCreateDeadLetterJobResult.getProcessInstanceId());
+    assertNull(actualCreateDeadLetterJobResult.getEndDate());
+    assertNull(actualCreateDeadLetterJobResult.getDuedate());
+    assertNull(actualCreateDeadLetterJobResult.getExceptionByteArrayRef());
+    assertEquals(0, ((Map<String, Integer>) persistentState).get("retries").intValue());
+    assertEquals(0, actualCreateDeadLetterJobResult.getMaxIterations());
+    assertEquals(0, actualCreateDeadLetterJobResult.getRetries());
+    assertEquals(1, actualCreateDeadLetterJobResult.getRevision());
+    assertEquals(2, actualCreateDeadLetterJobResult.getRevisionNext());
+    assertFalse(actualCreateDeadLetterJobResult.isDeleted());
+    assertFalse(actualCreateDeadLetterJobResult.isInserted());
+    assertFalse(actualCreateDeadLetterJobResult.isUpdated());
+    assertTrue(actualCreateDeadLetterJobResult.isExclusive());
+  }
+
+  /**
    * Method under test: {@link DeadLetterJobEntityManagerImpl#getDataManager()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"DeadLetterJobDataManager DeadLetterJobEntityManagerImpl.getDataManager()"})
   public void testGetDataManager() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
@@ -1504,5 +1036,45 @@ public class DeadLetterJobEntityManagerImplDiffblueTest {
 
     // Act and Assert
     assertSame(deadLetterJobEntityManagerImpl.jobDataManager, deadLetterJobEntityManagerImpl.getDataManager());
+  }
+
+  /**
+   * Method under test: {@link DeadLetterJobEntityManagerImpl#getDataManager()}
+   */
+  @Test
+  public void testGetDataManager2() {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
+    DeadLetterJobEntityManagerImpl deadLetterJobEntityManagerImpl = new DeadLetterJobEntityManagerImpl(
+        processEngineConfiguration, new MybatisDeadLetterJobDataManager(new JtaProcessEngineConfiguration()));
+
+    // Act and Assert
+    assertSame(deadLetterJobEntityManagerImpl.jobDataManager, deadLetterJobEntityManagerImpl.getDataManager());
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>
+   * {@link DeadLetterJobEntityManagerImpl#DeadLetterJobEntityManagerImpl(ProcessEngineConfigurationImpl, DeadLetterJobDataManager)}
+   *   <li>
+   * {@link DeadLetterJobEntityManagerImpl#setJobDataManager(DeadLetterJobDataManager)}
+   * </ul>
+   */
+  @Test
+  public void testGettersAndSetters() {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+
+    // Act
+    DeadLetterJobEntityManagerImpl actualDeadLetterJobEntityManagerImpl = new DeadLetterJobEntityManagerImpl(
+        processEngineConfiguration, new MybatisDeadLetterJobDataManager(new JtaProcessEngineConfiguration()));
+    MybatisDeadLetterJobDataManager jobDataManager = new MybatisDeadLetterJobDataManager(
+        new JtaProcessEngineConfiguration());
+    actualDeadLetterJobEntityManagerImpl.setJobDataManager(jobDataManager);
+
+    // Assert
+    assertSame(jobDataManager, actualDeadLetterJobEntityManagerImpl.getDataManager());
   }
 }

@@ -20,33 +20,47 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import javax.xml.stream.XMLStreamWriter;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.Association;
 import org.activiti.bpmn.model.AssociationDirection;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class AssociationXMLConverterDiffblueTest {
   /**
-   * Test {@link AssociationXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}.
+   * Methods under test:
    * <ul>
-   *   <li>Given {@code ONE}.</li>
-   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeAttribute(String, String)}.</li>
+   *   <li>default or parameterless constructor of {@link AssociationXMLConverter}
+   *   <li>
+   * {@link AssociationXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
+   *   <li>{@link AssociationXMLConverter#getBpmnElementType()}
+   *   <li>{@link AssociationXMLConverter#getXMLElementName()}
    * </ul>
-   * <p>
-   * Method under test: {@link AssociationXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter); given 'ONE'; then calls writeAttribute(String, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AssociationXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)"})
-  void testWriteAdditionalAttributes_givenOne_thenCallsWriteAttribute() throws Exception {
+  void testGettersAndSetters() throws Exception {
+    // Arrange and Act
+    AssociationXMLConverter actualAssociationXMLConverter = new AssociationXMLConverter();
+    ActivitiListener element = new ActivitiListener();
+    BpmnModel model = new BpmnModel();
+    actualAssociationXMLConverter.writeAdditionalChildElements(element, model, new IndentingXMLStreamWriter(null));
+    Class<? extends BaseElement> actualBpmnElementType = actualAssociationXMLConverter.getBpmnElementType();
+
+    // Assert that nothing has changed
+    assertEquals("association", actualAssociationXMLConverter.getXMLElementName());
+    Class<Association> expectedBpmnElementType = Association.class;
+    assertEquals(expectedBpmnElementType, actualBpmnElementType);
+  }
+
+  /**
+   * Method under test:
+   * {@link AssociationXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
+   */
+  @Test
+  void testWriteAdditionalAttributes() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
 
@@ -59,38 +73,7 @@ class AssociationXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeAdditionalAttributes(element, model, new IndentingXMLStreamWriter(writer));
 
-    // Assert
+    // Assert that nothing has changed
     verify(writer).writeAttribute(eq("associationDirection"), eq("One"));
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>default or parameterless constructor of {@link AssociationXMLConverter}
-   *   <li>{@link AssociationXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
-   *   <li>{@link AssociationXMLConverter#getBpmnElementType()}
-   *   <li>{@link AssociationXMLConverter#getXMLElementName()}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AssociationXMLConverter.<init>()", "Class AssociationXMLConverter.getBpmnElementType()",
-      "String AssociationXMLConverter.getXMLElementName()",
-      "void AssociationXMLConverter.writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)"})
-  void testGettersAndSetters() throws Exception {
-    // Arrange and Act
-    AssociationXMLConverter actualAssociationXMLConverter = new AssociationXMLConverter();
-    ActivitiListener element = new ActivitiListener();
-    BpmnModel model = new BpmnModel();
-    actualAssociationXMLConverter.writeAdditionalChildElements(element, model, new IndentingXMLStreamWriter(null));
-    Class<? extends BaseElement> actualBpmnElementType = actualAssociationXMLConverter.getBpmnElementType();
-
-    // Assert
-    assertEquals("association", actualAssociationXMLConverter.getXMLElementName());
-    Class<Association> expectedBpmnElementType = Association.class;
-    assertEquals(expectedBpmnElementType, actualBpmnElementType);
   }
 }

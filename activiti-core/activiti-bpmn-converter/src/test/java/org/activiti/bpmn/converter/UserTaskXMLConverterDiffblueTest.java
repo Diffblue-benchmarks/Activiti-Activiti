@@ -23,160 +23,94 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import javax.xml.stream.XMLStreamWriter;
-import org.activiti.bpmn.converter.UserTaskXMLConverter.CustomIdentityLinkParser;
-import org.activiti.bpmn.converter.UserTaskXMLConverter.HumanPerformerParser;
-import org.activiti.bpmn.converter.UserTaskXMLConverter.PotentialOwnerParser;
 import org.activiti.bpmn.converter.child.BaseChildElementParser;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.CustomProperty;
 import org.activiti.bpmn.model.UserTask;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class UserTaskXMLConverterDiffblueTest {
   /**
-   * Test CustomIdentityLinkParser getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>{@link CustomIdentityLinkParser#CustomIdentityLinkParser(UserTaskXMLConverter)}
-   *   <li>{@link CustomIdentityLinkParser#getElementName()}
+   *   <li>
+   * {@link UserTaskXMLConverter.CustomIdentityLinkParser#CustomIdentityLinkParser(UserTaskXMLConverter)}
+   *   <li>{@link UserTaskXMLConverter.CustomIdentityLinkParser#getElementName()}
    * </ul>
    */
   @Test
-  @DisplayName("Test CustomIdentityLinkParser getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void CustomIdentityLinkParser.<init>(UserTaskXMLConverter)",
-      "String CustomIdentityLinkParser.getElementName()"})
   void testCustomIdentityLinkParserGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals("customResource", ((new UserTaskXMLConverter()).new CustomIdentityLinkParser()).getElementName());
   }
 
   /**
-   * Test HumanPerformerParser getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>{@link HumanPerformerParser#HumanPerformerParser(UserTaskXMLConverter)}
-   *   <li>{@link HumanPerformerParser#getElementName()}
+   *   <li>
+   * {@link UserTaskXMLConverter.HumanPerformerParser#HumanPerformerParser(UserTaskXMLConverter)}
+   *   <li>{@link UserTaskXMLConverter.HumanPerformerParser#getElementName()}
    * </ul>
    */
   @Test
-  @DisplayName("Test HumanPerformerParser getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void HumanPerformerParser.<init>(UserTaskXMLConverter)",
-      "String HumanPerformerParser.getElementName()"})
   void testHumanPerformerParserGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals("humanPerformer", ((new UserTaskXMLConverter()).new HumanPerformerParser()).getElementName());
   }
 
   /**
-   * Test new {@link UserTaskXMLConverter} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link UserTaskXMLConverter}
-   */
-  @Test
-  @DisplayName("Test new UserTaskXMLConverter (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void UserTaskXMLConverter.<init>()"})
-  void testNewUserTaskXMLConverter() {
-    // Arrange and Act
-    UserTaskXMLConverter actualUserTaskXMLConverter = new UserTaskXMLConverter();
-
-    // Assert
-    Map<String, BaseChildElementParser> stringBaseChildElementParserMap = actualUserTaskXMLConverter.childParserMap;
-    assertEquals(3, stringBaseChildElementParserMap.size());
-    BaseChildElementParser getResult = stringBaseChildElementParserMap.get("customResource");
-    assertTrue(getResult instanceof CustomIdentityLinkParser);
-    BaseChildElementParser getResult2 = stringBaseChildElementParserMap.get("humanPerformer");
-    assertTrue(getResult2 instanceof HumanPerformerParser);
-    BaseChildElementParser getResult3 = stringBaseChildElementParserMap.get("potentialOwner");
-    assertTrue(getResult3 instanceof PotentialOwnerParser);
-    assertEquals("customResource", getResult.getElementName());
-    assertEquals("humanPerformer", getResult2.getElementName());
-    assertEquals("potentialOwner", getResult3.getElementName());
-    assertEquals("userTask", actualUserTaskXMLConverter.getXMLElementName());
-    Class<UserTask> expectedBpmnElementType = UserTask.class;
-    assertEquals(expectedBpmnElementType, actualUserTaskXMLConverter.getBpmnElementType());
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>{@link UserTaskXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
-   *   <li>{@link UserTaskXMLConverter#getBpmnElementType()}
-   *   <li>{@link UserTaskXMLConverter#getXMLElementName()}
+   *   <li>
+   * {@link UserTaskXMLConverter.PotentialOwnerParser#PotentialOwnerParser(UserTaskXMLConverter)}
+   *   <li>{@link UserTaskXMLConverter.PotentialOwnerParser#getElementName()}
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Class UserTaskXMLConverter.getBpmnElementType()",
-      "String UserTaskXMLConverter.getXMLElementName()",
-      "void UserTaskXMLConverter.writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)"})
-  void testGettersAndSetters() throws Exception {
-    // Arrange
-    UserTaskXMLConverter userTaskXMLConverter = new UserTaskXMLConverter();
-    ActivitiListener element = new ActivitiListener();
-    BpmnModel model = new BpmnModel();
-
-    // Act
-    userTaskXMLConverter.writeAdditionalChildElements(element, model, new IndentingXMLStreamWriter(null));
-    Class<? extends BaseElement> actualBpmnElementType = userTaskXMLConverter.getBpmnElementType();
-
-    // Assert
-    assertEquals("userTask", userTaskXMLConverter.getXMLElementName());
-    Class<UserTask> expectedBpmnElementType = UserTask.class;
-    assertEquals(expectedBpmnElementType, actualBpmnElementType);
-  }
-
-  /**
-   * Test PotentialOwnerParser getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link PotentialOwnerParser#PotentialOwnerParser(UserTaskXMLConverter)}
-   *   <li>{@link PotentialOwnerParser#getElementName()}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test PotentialOwnerParser getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PotentialOwnerParser.<init>(UserTaskXMLConverter)",
-      "String PotentialOwnerParser.getElementName()"})
   void testPotentialOwnerParserGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals("potentialOwner", ((new UserTaskXMLConverter()).new PotentialOwnerParser()).getElementName());
   }
 
   /**
-   * Test {@link UserTaskXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}.
-   * <ul>
-   *   <li>Given {@link CustomProperty} (default constructor) SimpleValue is empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link UserTaskXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}
+   * Method under test:
+   * {@link UserTaskXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter); given CustomProperty (default constructor) SimpleValue is empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean UserTaskXMLConverter.writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)"})
-  void testWriteExtensionChildElements_givenCustomPropertySimpleValueIsEmptyString() throws Exception {
+  void testWriteExtensionChildElements() throws Exception {
+    // Arrange
+    UserTaskXMLConverter userTaskXMLConverter = new UserTaskXMLConverter();
+
+    CustomProperty customProperty = new CustomProperty();
+    customProperty.setSimpleValue(null);
+
+    ArrayList<CustomProperty> customProperties = new ArrayList<>();
+    customProperties.add(customProperty);
+
+    UserTask element = new UserTask();
+    element.setCustomProperties(customProperties);
+    element.setCustomUserIdentityLinks(new HashMap<>());
+    element.setCustomGroupIdentityLinks(new HashMap<>());
+
+    // Act and Assert
+    assertTrue(userTaskXMLConverter.writeExtensionChildElements(element, true, new IndentingXMLStreamWriter(null)));
+  }
+
+  /**
+   * Method under test:
+   * {@link UserTaskXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}
+   */
+  @Test
+  void testWriteExtensionChildElements2() throws Exception {
     // Arrange
     UserTaskXMLConverter userTaskXMLConverter = new UserTaskXMLConverter();
 
@@ -196,50 +130,11 @@ class UserTaskXMLConverterDiffblueTest {
   }
 
   /**
-   * Test {@link UserTaskXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}.
-   * <ul>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link UserTaskXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}
+   * Method under test:
+   * {@link UserTaskXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter); then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean UserTaskXMLConverter.writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)"})
-  void testWriteExtensionChildElements_thenReturnTrue() throws Exception {
-    // Arrange
-    UserTaskXMLConverter userTaskXMLConverter = new UserTaskXMLConverter();
-
-    CustomProperty customProperty = new CustomProperty();
-    customProperty.setSimpleValue(null);
-
-    ArrayList<CustomProperty> customProperties = new ArrayList<>();
-    customProperties.add(customProperty);
-
-    UserTask element = new UserTask();
-    element.setCustomProperties(customProperties);
-    element.setCustomUserIdentityLinks(new HashMap<>());
-    element.setCustomGroupIdentityLinks(new HashMap<>());
-
-    // Act and Assert
-    assertTrue(userTaskXMLConverter.writeExtensionChildElements(element, true, new IndentingXMLStreamWriter(null)));
-  }
-
-  /**
-   * Test {@link UserTaskXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link UserTaskXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}
-   */
-  @Test
-  @DisplayName("Test writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter); when 'false'; then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean UserTaskXMLConverter.writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)"})
-  void testWriteExtensionChildElements_whenFalse_thenReturnFalse() throws Exception {
+  void testWriteExtensionChildElements3() throws Exception {
     // Arrange
     UserTaskXMLConverter userTaskXMLConverter = new UserTaskXMLConverter();
 
@@ -259,15 +154,37 @@ class UserTaskXMLConverterDiffblueTest {
   }
 
   /**
-   * Test {@link UserTaskXMLConverter#writeCustomIdentities(BaseElement, boolean, XMLStreamWriter)} with {@code element}, {@code didWriteExtensionStartElement}, {@code xtw}.
-   * <p>
-   * Method under test: {@link UserTaskXMLConverter#writeCustomIdentities(BaseElement, boolean, XMLStreamWriter)}
+   * Methods under test:
+   * <ul>
+   *   <li>
+   * {@link UserTaskXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
+   *   <li>{@link UserTaskXMLConverter#getBpmnElementType()}
+   *   <li>{@link UserTaskXMLConverter#getXMLElementName()}
+   * </ul>
    */
   @Test
-  @DisplayName("Test writeCustomIdentities(BaseElement, boolean, XMLStreamWriter) with 'element', 'didWriteExtensionStartElement', 'xtw'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean UserTaskXMLConverter.writeCustomIdentities(BaseElement, boolean, XMLStreamWriter)"})
-  void testWriteCustomIdentitiesWithElementDidWriteExtensionStartElementXtw() throws Exception {
+  void testGettersAndSetters() throws Exception {
+    // Arrange
+    UserTaskXMLConverter userTaskXMLConverter = new UserTaskXMLConverter();
+    ActivitiListener element = new ActivitiListener();
+    BpmnModel model = new BpmnModel();
+
+    // Act
+    userTaskXMLConverter.writeAdditionalChildElements(element, model, new IndentingXMLStreamWriter(null));
+    Class<? extends BaseElement> actualBpmnElementType = userTaskXMLConverter.getBpmnElementType();
+
+    // Assert that nothing has changed
+    assertEquals("userTask", userTaskXMLConverter.getXMLElementName());
+    Class<UserTask> expectedBpmnElementType = UserTask.class;
+    assertEquals(expectedBpmnElementType, actualBpmnElementType);
+  }
+
+  /**
+   * Method under test:
+   * {@link UserTaskXMLConverter#writeCustomIdentities(BaseElement, boolean, XMLStreamWriter)}
+   */
+  @Test
+  void testWriteCustomIdentities() throws Exception {
     // Arrange
     UserTaskXMLConverter userTaskXMLConverter = new UserTaskXMLConverter();
 
@@ -280,15 +197,11 @@ class UserTaskXMLConverterDiffblueTest {
   }
 
   /**
-   * Test {@link UserTaskXMLConverter#writeCustomIdentities(BaseElement, boolean, XMLStreamWriter)} with {@code element}, {@code didWriteExtensionStartElement}, {@code xtw}.
-   * <p>
-   * Method under test: {@link UserTaskXMLConverter#writeCustomIdentities(BaseElement, boolean, XMLStreamWriter)}
+   * Method under test:
+   * {@link UserTaskXMLConverter#writeCustomIdentities(BaseElement, boolean, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeCustomIdentities(BaseElement, boolean, XMLStreamWriter) with 'element', 'didWriteExtensionStartElement', 'xtw'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean UserTaskXMLConverter.writeCustomIdentities(BaseElement, boolean, XMLStreamWriter)"})
-  void testWriteCustomIdentitiesWithElementDidWriteExtensionStartElementXtw2() throws Exception {
+  void testWriteCustomIdentities2() throws Exception {
     // Arrange
     UserTaskXMLConverter userTaskXMLConverter = new UserTaskXMLConverter();
 
@@ -301,15 +214,11 @@ class UserTaskXMLConverterDiffblueTest {
   }
 
   /**
-   * Test {@link UserTaskXMLConverter#writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)} with {@code userTask}, {@code identityType}, {@code users}, {@code groups}, {@code xtw}.
-   * <p>
-   * Method under test: {@link UserTaskXMLConverter#writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)}
+   * Method under test:
+   * {@link UserTaskXMLConverter#writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter) with 'userTask', 'identityType', 'users', 'groups', 'xtw'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void UserTaskXMLConverter.writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)"})
-  void testWriteCustomIdentitiesWithUserTaskIdentityTypeUsersGroupsXtw() throws Exception {
+  void testWriteCustomIdentities3() throws Exception {
     // Arrange
     UserTaskXMLConverter userTaskXMLConverter = new UserTaskXMLConverter();
     UserTask userTask = new UserTask();
@@ -325,7 +234,7 @@ class UserTaskXMLConverterDiffblueTest {
     // Act
     userTaskXMLConverter.writeCustomIdentities(userTask, "Identity Type", users, groups, xtw);
 
-    // Assert
+    // Assert that nothing has changed
     verify(xtw).writeAttribute(eq("name"), eq("Identity Type"));
     verify(xtw).writeCharacters(eq(""));
     verify(xtw, atLeast(1)).writeEndElement();
@@ -334,15 +243,92 @@ class UserTaskXMLConverterDiffblueTest {
   }
 
   /**
-   * Test {@link UserTaskXMLConverter#writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)} with {@code userTask}, {@code identityType}, {@code users}, {@code groups}, {@code xtw}.
-   * <p>
-   * Method under test: {@link UserTaskXMLConverter#writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)}
+   * Method under test:
+   * {@link UserTaskXMLConverter#writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter) with 'userTask', 'identityType', 'users', 'groups', 'xtw'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void UserTaskXMLConverter.writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)"})
-  void testWriteCustomIdentitiesWithUserTaskIdentityTypeUsersGroupsXtw2() throws Exception {
+  void testWriteCustomIdentities4() throws Exception {
+    // Arrange
+    UserTaskXMLConverter userTaskXMLConverter = new UserTaskXMLConverter();
+    UserTask userTask = new UserTask();
+    HashSet<String> users = new HashSet<>();
+    HashSet<String> groups = new HashSet<>();
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    userTaskXMLConverter.writeCustomIdentities(userTask, "null", users, groups, xtw);
+
+    // Assert that nothing has changed
+    verify(xtw).writeCharacters(eq(""));
+    verify(xtw, atLeast(1)).writeEndElement();
+    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(xtw).writeStartElement(eq("activiti"), eq("customResource"), eq("http://activiti.org/bpmn"));
+  }
+
+  /**
+   * Method under test:
+   * {@link UserTaskXMLConverter#writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)}
+   */
+  @Test
+  void testWriteCustomIdentities5() throws Exception {
+    // Arrange
+    UserTaskXMLConverter userTaskXMLConverter = new UserTaskXMLConverter();
+    UserTask userTask = new UserTask();
+    HashSet<String> users = new HashSet<>();
+    HashSet<String> groups = new HashSet<>();
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    userTaskXMLConverter.writeCustomIdentities(userTask, null, users, groups, xtw);
+
+    // Assert that nothing has changed
+    verify(xtw).writeCharacters(eq(""));
+    verify(xtw, atLeast(1)).writeEndElement();
+    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(xtw).writeStartElement(eq("activiti"), eq("customResource"), eq("http://activiti.org/bpmn"));
+  }
+
+  /**
+   * Method under test:
+   * {@link UserTaskXMLConverter#writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)}
+   */
+  @Test
+  void testWriteCustomIdentities6() throws Exception {
+    // Arrange
+    UserTaskXMLConverter userTaskXMLConverter = new UserTaskXMLConverter();
+    UserTask userTask = new UserTask();
+    HashSet<String> users = new HashSet<>();
+    HashSet<String> groups = new HashSet<>();
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    userTaskXMLConverter.writeCustomIdentities(userTask, "", users, groups, xtw);
+
+    // Assert that nothing has changed
+    verify(xtw).writeCharacters(eq(""));
+    verify(xtw, atLeast(1)).writeEndElement();
+    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(xtw).writeStartElement(eq("activiti"), eq("customResource"), eq("http://activiti.org/bpmn"));
+  }
+
+  /**
+   * Method under test:
+   * {@link UserTaskXMLConverter#writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)}
+   */
+  @Test
+  void testWriteCustomIdentities7() throws Exception {
     // Arrange
     UserTaskXMLConverter userTaskXMLConverter = new UserTaskXMLConverter();
     UserTask userTask = new UserTask();
@@ -369,15 +355,11 @@ class UserTaskXMLConverterDiffblueTest {
   }
 
   /**
-   * Test {@link UserTaskXMLConverter#writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)} with {@code userTask}, {@code identityType}, {@code users}, {@code groups}, {@code xtw}.
-   * <p>
-   * Method under test: {@link UserTaskXMLConverter#writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)}
+   * Method under test:
+   * {@link UserTaskXMLConverter#writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter) with 'userTask', 'identityType', 'users', 'groups', 'xtw'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void UserTaskXMLConverter.writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)"})
-  void testWriteCustomIdentitiesWithUserTaskIdentityTypeUsersGroupsXtw3() throws Exception {
+  void testWriteCustomIdentities8() throws Exception {
     // Arrange
     UserTaskXMLConverter userTaskXMLConverter = new UserTaskXMLConverter();
     UserTask userTask = new UserTask();
@@ -404,15 +386,11 @@ class UserTaskXMLConverterDiffblueTest {
   }
 
   /**
-   * Test {@link UserTaskXMLConverter#writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)} with {@code userTask}, {@code identityType}, {@code users}, {@code groups}, {@code xtw}.
-   * <p>
-   * Method under test: {@link UserTaskXMLConverter#writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)}
+   * Method under test:
+   * {@link UserTaskXMLConverter#writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter) with 'userTask', 'identityType', 'users', 'groups', 'xtw'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void UserTaskXMLConverter.writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)"})
-  void testWriteCustomIdentitiesWithUserTaskIdentityTypeUsersGroupsXtw4() throws Exception {
+  void testWriteCustomIdentities9() throws Exception {
     // Arrange
     UserTaskXMLConverter userTaskXMLConverter = new UserTaskXMLConverter();
     UserTask userTask = new UserTask();
@@ -440,15 +418,11 @@ class UserTaskXMLConverterDiffblueTest {
   }
 
   /**
-   * Test {@link UserTaskXMLConverter#writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)} with {@code userTask}, {@code identityType}, {@code users}, {@code groups}, {@code xtw}.
-   * <p>
-   * Method under test: {@link UserTaskXMLConverter#writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)}
+   * Method under test:
+   * {@link UserTaskXMLConverter#writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter) with 'userTask', 'identityType', 'users', 'groups', 'xtw'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void UserTaskXMLConverter.writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)"})
-  void testWriteCustomIdentitiesWithUserTaskIdentityTypeUsersGroupsXtw5() throws Exception {
+  void testWriteCustomIdentities10() throws Exception {
     // Arrange
     UserTaskXMLConverter userTaskXMLConverter = new UserTaskXMLConverter();
     UserTask userTask = new UserTask();
@@ -476,104 +450,28 @@ class UserTaskXMLConverterDiffblueTest {
   }
 
   /**
-   * Test {@link UserTaskXMLConverter#writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)} with {@code userTask}, {@code identityType}, {@code users}, {@code groups}, {@code xtw}.
-   * <ul>
-   *   <li>When empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link UserTaskXMLConverter#writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)}
+   * Method under test: default or parameterless constructor of
+   * {@link UserTaskXMLConverter}
    */
   @Test
-  @DisplayName("Test writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter) with 'userTask', 'identityType', 'users', 'groups', 'xtw'; when empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void UserTaskXMLConverter.writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)"})
-  void testWriteCustomIdentitiesWithUserTaskIdentityTypeUsersGroupsXtw_whenEmptyString() throws Exception {
-    // Arrange
-    UserTaskXMLConverter userTaskXMLConverter = new UserTaskXMLConverter();
-    UserTask userTask = new UserTask();
-    HashSet<String> users = new HashSet<>();
-    HashSet<String> groups = new HashSet<>();
-    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
-    doNothing().when(xtw).writeEndElement();
-    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
-    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-
-    // Act
-    userTaskXMLConverter.writeCustomIdentities(userTask, "", users, groups, xtw);
+  void testNewUserTaskXMLConverter() {
+    // Arrange and Act
+    UserTaskXMLConverter actualUserTaskXMLConverter = new UserTaskXMLConverter();
 
     // Assert
-    verify(xtw).writeCharacters(eq(""));
-    verify(xtw, atLeast(1)).writeEndElement();
-    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any());
-    verify(xtw).writeStartElement(eq("activiti"), eq("customResource"), eq("http://activiti.org/bpmn"));
-  }
-
-  /**
-   * Test {@link UserTaskXMLConverter#writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)} with {@code userTask}, {@code identityType}, {@code users}, {@code groups}, {@code xtw}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link UserTaskXMLConverter#writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)}
-   */
-  @Test
-  @DisplayName("Test writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter) with 'userTask', 'identityType', 'users', 'groups', 'xtw'; when 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void UserTaskXMLConverter.writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)"})
-  void testWriteCustomIdentitiesWithUserTaskIdentityTypeUsersGroupsXtw_whenNull() throws Exception {
-    // Arrange
-    UserTaskXMLConverter userTaskXMLConverter = new UserTaskXMLConverter();
-    UserTask userTask = new UserTask();
-    HashSet<String> users = new HashSet<>();
-    HashSet<String> groups = new HashSet<>();
-    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
-    doNothing().when(xtw).writeEndElement();
-    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
-    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-
-    // Act
-    userTaskXMLConverter.writeCustomIdentities(userTask, "null", users, groups, xtw);
-
-    // Assert
-    verify(xtw).writeCharacters(eq(""));
-    verify(xtw, atLeast(1)).writeEndElement();
-    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any());
-    verify(xtw).writeStartElement(eq("activiti"), eq("customResource"), eq("http://activiti.org/bpmn"));
-  }
-
-  /**
-   * Test {@link UserTaskXMLConverter#writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)} with {@code userTask}, {@code identityType}, {@code users}, {@code groups}, {@code xtw}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link UserTaskXMLConverter#writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)}
-   */
-  @Test
-  @DisplayName("Test writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter) with 'userTask', 'identityType', 'users', 'groups', 'xtw'; when 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void UserTaskXMLConverter.writeCustomIdentities(UserTask, String, Set, Set, XMLStreamWriter)"})
-  void testWriteCustomIdentitiesWithUserTaskIdentityTypeUsersGroupsXtw_whenNull2() throws Exception {
-    // Arrange
-    UserTaskXMLConverter userTaskXMLConverter = new UserTaskXMLConverter();
-    UserTask userTask = new UserTask();
-    HashSet<String> users = new HashSet<>();
-    HashSet<String> groups = new HashSet<>();
-    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
-    doNothing().when(xtw).writeEndElement();
-    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
-    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-
-    // Act
-    userTaskXMLConverter.writeCustomIdentities(userTask, null, users, groups, xtw);
-
-    // Assert
-    verify(xtw).writeCharacters(eq(""));
-    verify(xtw, atLeast(1)).writeEndElement();
-    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any());
-    verify(xtw).writeStartElement(eq("activiti"), eq("customResource"), eq("http://activiti.org/bpmn"));
+    Map<String, BaseChildElementParser> stringBaseChildElementParserMap = actualUserTaskXMLConverter.childParserMap;
+    assertEquals(3, stringBaseChildElementParserMap.size());
+    BaseChildElementParser getResult = stringBaseChildElementParserMap.get("customResource");
+    assertTrue(getResult instanceof UserTaskXMLConverter.CustomIdentityLinkParser);
+    BaseChildElementParser getResult2 = stringBaseChildElementParserMap.get("humanPerformer");
+    assertTrue(getResult2 instanceof UserTaskXMLConverter.HumanPerformerParser);
+    BaseChildElementParser getResult3 = stringBaseChildElementParserMap.get("potentialOwner");
+    assertTrue(getResult3 instanceof UserTaskXMLConverter.PotentialOwnerParser);
+    assertEquals("customResource", getResult.getElementName());
+    assertEquals("humanPerformer", getResult2.getElementName());
+    assertEquals("potentialOwner", getResult3.getElementName());
+    assertEquals("userTask", actualUserTaskXMLConverter.getXMLElementName());
+    Class<UserTask> expectedBpmnElementType = UserTask.class;
+    assertEquals(expectedBpmnElementType, actualUserTaskXMLConverter.getBpmnElementType());
   }
 }

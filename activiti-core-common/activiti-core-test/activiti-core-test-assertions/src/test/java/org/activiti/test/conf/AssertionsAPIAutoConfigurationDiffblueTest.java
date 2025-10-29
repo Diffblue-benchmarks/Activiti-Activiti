@@ -16,17 +16,14 @@
 package org.activiti.test.conf;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import org.activiti.test.assertions.AwaitTaskAssertions;
 import org.activiti.test.operations.AwaitableProcessOperations;
 import org.activiti.test.operations.AwaitableTaskOperations;
 import org.activiti.test.operations.ProcessOperations;
 import org.activiti.test.operations.TaskOperations;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
@@ -36,7 +33,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ContextConfiguration(classes = {AssertionsAPIAutoConfiguration.class})
 @ExtendWith(SpringExtension.class)
 @DisabledInAotMode
-@ExtendWith(MockitoExtension.class)
 class AssertionsAPIAutoConfigurationDiffblueTest {
   @Autowired
   private AssertionsAPIAutoConfiguration assertionsAPIAutoConfiguration;
@@ -48,35 +44,53 @@ class AssertionsAPIAutoConfigurationDiffblueTest {
   private TaskOperations taskOperations;
 
   /**
-   * Test {@link AssertionsAPIAutoConfiguration#processOperations(ProcessOperations, boolean)}.
-   * <ul>
-   *   <li>Then return {@link AwaitableProcessOperations}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AssertionsAPIAutoConfiguration#processOperations(ProcessOperations, boolean)}
+   * Method under test:
+   * {@link AssertionsAPIAutoConfiguration#processOperations(ProcessOperations, boolean)}
    */
   @Test
-  @DisplayName("Test processOperations(ProcessOperations, boolean); then return AwaitableProcessOperations")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ProcessOperations AssertionsAPIAutoConfiguration.processOperations(ProcessOperations, boolean)"})
-  void testProcessOperations_thenReturnAwaitableProcessOperations() {
+  void testProcessOperations() {
     // Arrange, Act and Assert
     assertTrue(assertionsAPIAutoConfiguration.processOperations(new AwaitableProcessOperations(null, true),
+        true) instanceof AwaitableProcessOperations);
+    assertTrue(assertionsAPIAutoConfiguration.processOperations(
+        new AwaitableProcessOperations(mock(AwaitableProcessOperations.class), true),
         true) instanceof AwaitableProcessOperations);
   }
 
   /**
-   * Test {@link AssertionsAPIAutoConfiguration#taskOperations(TaskOperations, boolean)}.
-   * <p>
-   * Method under test: {@link AssertionsAPIAutoConfiguration#taskOperations(TaskOperations, boolean)}
+   * Method under test:
+   * {@link AssertionsAPIAutoConfiguration#taskOperations(TaskOperations, boolean)}
    */
   @Test
-  @DisplayName("Test taskOperations(TaskOperations, boolean)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TaskOperations AssertionsAPIAutoConfiguration.taskOperations(TaskOperations, boolean)"})
   void testTaskOperations() {
-    // Arrange, Act and Assert
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+
+    // Arrange
+    AssertionsAPIAutoConfiguration assertionsAPIAutoConfiguration = new AssertionsAPIAutoConfiguration();
+
+    // Act and Assert
     assertTrue(assertionsAPIAutoConfiguration.taskOperations(new AwaitableTaskOperations(null, true),
         true) instanceof AwaitableTaskOperations);
+  }
+
+  /**
+   * Method under test:
+   * {@link AssertionsAPIAutoConfiguration#taskOperations(TaskOperations, boolean)}
+   */
+  @Test
+  void testTaskOperations2() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+
+    // Arrange
+    AssertionsAPIAutoConfiguration assertionsAPIAutoConfiguration = new AssertionsAPIAutoConfiguration();
+
+    // Act
+    TaskOperations actualTaskOperationsResult = assertionsAPIAutoConfiguration
+        .taskOperations(new AwaitableTaskOperations(mock(AwaitableTaskOperations.class), true), true);
+
+    // Assert
+    assertTrue(actualTaskOperationsResult.claim(null) instanceof AwaitTaskAssertions);
+    assertTrue(actualTaskOperationsResult.complete(null) instanceof AwaitTaskAssertions);
+    assertTrue(actualTaskOperationsResult instanceof AwaitableTaskOperations);
   }
 }

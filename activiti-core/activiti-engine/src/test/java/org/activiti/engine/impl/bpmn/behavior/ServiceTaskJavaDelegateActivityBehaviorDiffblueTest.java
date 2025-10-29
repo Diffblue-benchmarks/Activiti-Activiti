@@ -18,21 +18,15 @@ package org.activiti.engine.impl.bpmn.behavior;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.JavaDelegate;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ServiceTaskJavaDelegateActivityBehaviorDiffblueTest {
   /**
-   * Test {@link ServiceTaskJavaDelegateActivityBehavior#ServiceTaskJavaDelegateActivityBehavior()}.
-   * <p>
-   * Method under test: {@link ServiceTaskJavaDelegateActivityBehavior#ServiceTaskJavaDelegateActivityBehavior()}
+   * Method under test:
+   * {@link ServiceTaskJavaDelegateActivityBehavior#ServiceTaskJavaDelegateActivityBehavior()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ServiceTaskJavaDelegateActivityBehavior.<init>()"})
   public void testNewServiceTaskJavaDelegateActivityBehavior() {
     // Arrange and Act
     ServiceTaskJavaDelegateActivityBehavior actualServiceTaskJavaDelegateActivityBehavior = new ServiceTaskJavaDelegateActivityBehavior();
@@ -45,13 +39,10 @@ public class ServiceTaskJavaDelegateActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test {@link ServiceTaskJavaDelegateActivityBehavior#ServiceTaskJavaDelegateActivityBehavior(JavaDelegate)}.
-   * <p>
-   * Method under test: {@link ServiceTaskJavaDelegateActivityBehavior#ServiceTaskJavaDelegateActivityBehavior(JavaDelegate)}
+   * Method under test:
+   * {@link ServiceTaskJavaDelegateActivityBehavior#ServiceTaskJavaDelegateActivityBehavior(JavaDelegate)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ServiceTaskJavaDelegateActivityBehavior.<init>(JavaDelegate)"})
   public void testNewServiceTaskJavaDelegateActivityBehavior2() {
     // Arrange and Act
     ServiceTaskJavaDelegateActivityBehavior actualServiceTaskJavaDelegateActivityBehavior = new ServiceTaskJavaDelegateActivityBehavior(

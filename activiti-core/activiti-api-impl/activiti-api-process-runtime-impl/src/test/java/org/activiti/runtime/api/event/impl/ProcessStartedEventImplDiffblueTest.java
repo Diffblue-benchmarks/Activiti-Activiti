@@ -18,51 +18,39 @@ package org.activiti.runtime.api.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import java.sql.Date;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.events.ProcessRuntimeEvent;
-import org.activiti.api.process.model.events.ProcessRuntimeEvent.ProcessEvents;
 import org.activiti.api.runtime.model.impl.ProcessInstanceImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ProcessStartedEventImplDiffblueTest {
   /**
-   * Test {@link ProcessStartedEventImpl#ProcessStartedEventImpl(ProcessInstance)}.
-   * <p>
-   * Method under test: {@link ProcessStartedEventImpl#ProcessStartedEventImpl(ProcessInstance)}
+   * Method under test: {@link ProcessStartedEventImpl#getEventType()}
    */
   @Test
-  @DisplayName("Test new ProcessStartedEventImpl(ProcessInstance)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessStartedEventImpl.<init>(ProcessInstance)"})
-  void testNewProcessStartedEventImpl() {
-    // Arrange
-    ProcessInstanceImpl entity = new ProcessInstanceImpl();
-
-    // Act
-    ProcessStartedEventImpl actualProcessStartedEventImpl = new ProcessStartedEventImpl(entity);
-
-    // Assert
-    ProcessInstance entity2 = actualProcessStartedEventImpl.getEntity();
-    assertTrue(entity2 instanceof ProcessInstanceImpl);
-    assertNull(actualProcessStartedEventImpl.getProcessDefinitionVersion());
-    assertNull(actualProcessStartedEventImpl.getBusinessKey());
-    assertNull(actualProcessStartedEventImpl.getParentProcessInstanceId());
-    assertNull(actualProcessStartedEventImpl.getProcessDefinitionId());
-    assertNull(actualProcessStartedEventImpl.getProcessDefinitionKey());
-    assertNull(actualProcessStartedEventImpl.getProcessInstanceId());
-    assertNull(actualProcessStartedEventImpl.getNestedProcessDefinitionId());
-    assertNull(actualProcessStartedEventImpl.getNestedProcessInstanceId());
-    assertEquals(ProcessEvents.PROCESS_STARTED, actualProcessStartedEventImpl.getEventType());
-    assertSame(entity, entity2);
+  void testGetEventType() {
+    // Arrange, Act and Assert
+    assertEquals(ProcessRuntimeEvent.ProcessEvents.PROCESS_STARTED,
+        (new ProcessStartedEventImpl(new ProcessInstanceImpl())).getEventType());
   }
 
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link ProcessStartedEventImpl#getEventType()}
+   */
+  @Test
+  void testGetEventType2() {
+    // Arrange
+    ProcessInstanceImpl entity = new ProcessInstanceImpl();
+    entity.setStartDate(mock(Date.class));
+
+    // Act and Assert
+    assertEquals(ProcessRuntimeEvent.ProcessEvents.PROCESS_STARTED,
+        (new ProcessStartedEventImpl(entity)).getEventType());
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>{@link ProcessStartedEventImpl#setNestedProcessDefinitionId(String)}
@@ -73,12 +61,6 @@ class ProcessStartedEventImplDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ProcessStartedEventImpl.getNestedProcessDefinitionId()",
-      "String ProcessStartedEventImpl.getNestedProcessInstanceId()",
-      "void ProcessStartedEventImpl.setNestedProcessDefinitionId(String)",
-      "void ProcessStartedEventImpl.setNestedProcessInstanceId(String)", "String ProcessStartedEventImpl.toString()"})
   void testGettersAndSetters() {
     // Arrange
     ProcessStartedEventImpl processStartedEventImpl = new ProcessStartedEventImpl(new ProcessInstanceImpl());
@@ -89,23 +71,59 @@ class ProcessStartedEventImplDiffblueTest {
     processStartedEventImpl.toString();
     String actualNestedProcessDefinitionId = processStartedEventImpl.getNestedProcessDefinitionId();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("42", actualNestedProcessDefinitionId);
     assertEquals("42", processStartedEventImpl.getNestedProcessInstanceId());
   }
 
   /**
-   * Test {@link ProcessStartedEventImpl#getEventType()}.
-   * <p>
-   * Method under test: {@link ProcessStartedEventImpl#getEventType()}
+   * Method under test:
+   * {@link ProcessStartedEventImpl#ProcessStartedEventImpl(ProcessInstance)}
    */
   @Test
-  @DisplayName("Test getEventType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ProcessRuntimeEvent.ProcessEvents ProcessStartedEventImpl.getEventType()"})
-  void testGetEventType() {
-    // Arrange, Act and Assert
-    assertEquals(ProcessEvents.PROCESS_STARTED,
-        (new ProcessStartedEventImpl(new ProcessInstanceImpl())).getEventType());
+  void testNewProcessStartedEventImpl() {
+    // Arrange
+    ProcessInstanceImpl entity = new ProcessInstanceImpl();
+
+    // Act
+    ProcessStartedEventImpl actualProcessStartedEventImpl = new ProcessStartedEventImpl(entity);
+
+    // Assert
+    assertNull(actualProcessStartedEventImpl.getProcessDefinitionVersion());
+    assertNull(actualProcessStartedEventImpl.getBusinessKey());
+    assertNull(actualProcessStartedEventImpl.getParentProcessInstanceId());
+    assertNull(actualProcessStartedEventImpl.getProcessDefinitionId());
+    assertNull(actualProcessStartedEventImpl.getProcessDefinitionKey());
+    assertNull(actualProcessStartedEventImpl.getProcessInstanceId());
+    assertNull(actualProcessStartedEventImpl.getNestedProcessDefinitionId());
+    assertNull(actualProcessStartedEventImpl.getNestedProcessInstanceId());
+    assertEquals(ProcessRuntimeEvent.ProcessEvents.PROCESS_STARTED, actualProcessStartedEventImpl.getEventType());
+    assertSame(entity, actualProcessStartedEventImpl.getEntity());
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessStartedEventImpl#ProcessStartedEventImpl(ProcessInstance)}
+   */
+  @Test
+  void testNewProcessStartedEventImpl2() {
+    // Arrange
+    ProcessInstanceImpl entity = new ProcessInstanceImpl();
+    entity.setStartDate(mock(Date.class));
+
+    // Act
+    ProcessStartedEventImpl actualProcessStartedEventImpl = new ProcessStartedEventImpl(entity);
+
+    // Assert
+    assertNull(actualProcessStartedEventImpl.getProcessDefinitionVersion());
+    assertNull(actualProcessStartedEventImpl.getBusinessKey());
+    assertNull(actualProcessStartedEventImpl.getParentProcessInstanceId());
+    assertNull(actualProcessStartedEventImpl.getProcessDefinitionId());
+    assertNull(actualProcessStartedEventImpl.getProcessDefinitionKey());
+    assertNull(actualProcessStartedEventImpl.getProcessInstanceId());
+    assertNull(actualProcessStartedEventImpl.getNestedProcessDefinitionId());
+    assertNull(actualProcessStartedEventImpl.getNestedProcessInstanceId());
+    assertEquals(ProcessRuntimeEvent.ProcessEvents.PROCESS_STARTED, actualProcessStartedEventImpl.getEventType());
+    assertSame(entity, actualProcessStartedEventImpl.getEntity());
   }
 }

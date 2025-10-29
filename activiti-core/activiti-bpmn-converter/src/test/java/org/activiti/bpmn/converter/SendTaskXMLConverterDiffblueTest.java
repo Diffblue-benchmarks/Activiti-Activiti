@@ -21,32 +21,21 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import javax.xml.stream.XMLStreamWriter;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.SendTask;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class SendTaskXMLConverterDiffblueTest {
   /**
-   * Test {@link SendTaskXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}.
-   * <ul>
-   *   <li>Given {@code Type}.</li>
-   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeAttribute(String, String, String, String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SendTaskXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
+   * Method under test:
+   * {@link SendTaskXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter); given 'Type'; then calls writeAttribute(String, String, String, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SendTaskXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)"})
-  void testWriteAdditionalAttributes_givenType_thenCallsWriteAttribute() throws Exception {
+  void testWriteAdditionalAttributes() throws Exception {
     // Arrange
     SendTaskXMLConverter sendTaskXMLConverter = new SendTaskXMLConverter();
 
@@ -60,69 +49,21 @@ class SendTaskXMLConverterDiffblueTest {
     // Act
     sendTaskXMLConverter.writeAdditionalAttributes(element, model, new IndentingXMLStreamWriter(writer));
 
-    // Assert
+    // Assert that nothing has changed
     verify(writer).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("type"), eq("Type"));
   }
 
   /**
-   * Test {@link SendTaskXMLConverter#parseOperationRef(String, BpmnModel)}.
-   * <ul>
-   *   <li>When empty string.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SendTaskXMLConverter#parseOperationRef(String, BpmnModel)}
-   */
-  @Test
-  @DisplayName("Test parseOperationRef(String, BpmnModel); when empty string; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String SendTaskXMLConverter.parseOperationRef(String, BpmnModel)"})
-  void testParseOperationRef_whenEmptyString_thenReturnNull() {
-    // Arrange
-    SendTaskXMLConverter sendTaskXMLConverter = new SendTaskXMLConverter();
-
-    // Act and Assert
-    assertNull(sendTaskXMLConverter.parseOperationRef("", new BpmnModel()));
-  }
-
-  /**
-   * Test {@link SendTaskXMLConverter#parseOperationRef(String, BpmnModel)}.
-   * <ul>
-   *   <li>When {@code Operation Ref}.</li>
-   *   <li>Then return {@code null:Operation Ref}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SendTaskXMLConverter#parseOperationRef(String, BpmnModel)}
-   */
-  @Test
-  @DisplayName("Test parseOperationRef(String, BpmnModel); when 'Operation Ref'; then return 'null:Operation Ref'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String SendTaskXMLConverter.parseOperationRef(String, BpmnModel)"})
-  void testParseOperationRef_whenOperationRef_thenReturnNullOperationRef() {
-    // Arrange
-    SendTaskXMLConverter sendTaskXMLConverter = new SendTaskXMLConverter();
-
-    // Act and Assert
-    assertEquals("null:Operation Ref", sendTaskXMLConverter.parseOperationRef("Operation Ref", new BpmnModel()));
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link SendTaskXMLConverter}
-   *   <li>{@link SendTaskXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
+   *   <li>
+   * {@link SendTaskXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
    *   <li>{@link SendTaskXMLConverter#getBpmnElementType()}
    *   <li>{@link SendTaskXMLConverter#getXMLElementName()}
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SendTaskXMLConverter.<init>()", "Class SendTaskXMLConverter.getBpmnElementType()",
-      "String SendTaskXMLConverter.getXMLElementName()",
-      "void SendTaskXMLConverter.writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)"})
   void testGettersAndSetters() throws Exception {
     // Arrange and Act
     SendTaskXMLConverter actualSendTaskXMLConverter = new SendTaskXMLConverter();
@@ -131,9 +72,35 @@ class SendTaskXMLConverterDiffblueTest {
     actualSendTaskXMLConverter.writeAdditionalChildElements(element, model, new IndentingXMLStreamWriter(null));
     Class<? extends BaseElement> actualBpmnElementType = actualSendTaskXMLConverter.getBpmnElementType();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("sendTask", actualSendTaskXMLConverter.getXMLElementName());
     Class<SendTask> expectedBpmnElementType = SendTask.class;
     assertEquals(expectedBpmnElementType, actualBpmnElementType);
+  }
+
+  /**
+   * Method under test:
+   * {@link SendTaskXMLConverter#parseOperationRef(String, BpmnModel)}
+   */
+  @Test
+  void testParseOperationRef() {
+    // Arrange
+    SendTaskXMLConverter sendTaskXMLConverter = new SendTaskXMLConverter();
+
+    // Act and Assert
+    assertEquals("null:Operation Ref", sendTaskXMLConverter.parseOperationRef("Operation Ref", new BpmnModel()));
+  }
+
+  /**
+   * Method under test:
+   * {@link SendTaskXMLConverter#parseOperationRef(String, BpmnModel)}
+   */
+  @Test
+  void testParseOperationRef2() {
+    // Arrange
+    SendTaskXMLConverter sendTaskXMLConverter = new SendTaskXMLConverter();
+
+    // Act and Assert
+    assertNull(sendTaskXMLConverter.parseOperationRef("", new BpmnModel()));
   }
 }

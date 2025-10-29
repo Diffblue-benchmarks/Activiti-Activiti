@@ -18,25 +18,26 @@ package org.activiti.api.runtime.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.BPMNMessage;
 import org.activiti.api.process.model.events.BPMNMessageEvent;
-import org.activiti.api.process.model.events.BPMNMessageEvent.MessageEvents;
 import org.activiti.api.runtime.model.impl.BPMNMessageImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class BPMNMessageReceivedEventImplDiffblueTest {
   /**
-   * Test {@link BPMNMessageReceivedEventImpl#BPMNMessageReceivedEventImpl()}.
-   * <p>
-   * Method under test: {@link BPMNMessageReceivedEventImpl#BPMNMessageReceivedEventImpl()}
+   * Method under test: {@link BPMNMessageReceivedEventImpl#getEventType()}
    */
   @Test
-  @DisplayName("Test new BPMNMessageReceivedEventImpl()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BPMNMessageReceivedEventImpl.<init>()"})
+  void testGetEventType() {
+    // Arrange, Act and Assert
+    assertEquals(BPMNMessageEvent.MessageEvents.MESSAGE_RECEIVED, (new BPMNMessageReceivedEventImpl()).getEventType());
+  }
+
+  /**
+   * Method under test:
+   * {@link BPMNMessageReceivedEventImpl#BPMNMessageReceivedEventImpl()}
+   */
+  @Test
   void testNewBPMNMessageReceivedEventImpl() {
     // Arrange and Act
     BPMNMessageReceivedEventImpl actualBpmnMessageReceivedEventImpl = new BPMNMessageReceivedEventImpl();
@@ -49,18 +50,14 @@ class BPMNMessageReceivedEventImplDiffblueTest {
     assertNull(actualBpmnMessageReceivedEventImpl.getProcessDefinitionKey());
     assertNull(actualBpmnMessageReceivedEventImpl.getProcessInstanceId());
     assertNull(actualBpmnMessageReceivedEventImpl.getEntity());
-    assertEquals(MessageEvents.MESSAGE_RECEIVED, actualBpmnMessageReceivedEventImpl.getEventType());
+    assertEquals(BPMNMessageEvent.MessageEvents.MESSAGE_RECEIVED, actualBpmnMessageReceivedEventImpl.getEventType());
   }
 
   /**
-   * Test {@link BPMNMessageReceivedEventImpl#BPMNMessageReceivedEventImpl(BPMNMessage)}.
-   * <p>
-   * Method under test: {@link BPMNMessageReceivedEventImpl#BPMNMessageReceivedEventImpl(BPMNMessage)}
+   * Method under test:
+   * {@link BPMNMessageReceivedEventImpl#BPMNMessageReceivedEventImpl(BPMNMessage)}
    */
   @Test
-  @DisplayName("Test new BPMNMessageReceivedEventImpl(BPMNMessage)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BPMNMessageReceivedEventImpl.<init>(BPMNMessage)"})
   void testNewBPMNMessageReceivedEventImpl2() {
     // Arrange
     BPMNMessageImpl entity = new BPMNMessageImpl("42");
@@ -75,21 +72,7 @@ class BPMNMessageReceivedEventImplDiffblueTest {
     assertNull(actualBpmnMessageReceivedEventImpl.getProcessDefinitionId());
     assertNull(actualBpmnMessageReceivedEventImpl.getProcessDefinitionKey());
     assertNull(actualBpmnMessageReceivedEventImpl.getProcessInstanceId());
-    assertEquals(MessageEvents.MESSAGE_RECEIVED, actualBpmnMessageReceivedEventImpl.getEventType());
+    assertEquals(BPMNMessageEvent.MessageEvents.MESSAGE_RECEIVED, actualBpmnMessageReceivedEventImpl.getEventType());
     assertSame(entity, actualBpmnMessageReceivedEventImpl.getEntity());
-  }
-
-  /**
-   * Test {@link BPMNMessageReceivedEventImpl#getEventType()}.
-   * <p>
-   * Method under test: {@link BPMNMessageReceivedEventImpl#getEventType()}
-   */
-  @Test
-  @DisplayName("Test getEventType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BPMNMessageEvent.MessageEvents BPMNMessageReceivedEventImpl.getEventType()"})
-  void testGetEventType() {
-    // Arrange, Act and Assert
-    assertEquals(MessageEvents.MESSAGE_RECEIVED, (new BPMNMessageReceivedEventImpl()).getEventType());
   }
 }

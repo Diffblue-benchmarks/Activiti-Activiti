@@ -20,23 +20,16 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.payloads.UpdateProcessPayload;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class UpdateProcessPayloadBuilderDiffblueTest {
   /**
-   * Test {@link UpdateProcessPayloadBuilder#withProcessInstance(ProcessInstance)}.
-   * <p>
-   * Method under test: {@link UpdateProcessPayloadBuilder#withProcessInstance(ProcessInstance)}
+   * Method under test:
+   * {@link UpdateProcessPayloadBuilder#withProcessInstance(ProcessInstance)}
    */
   @Test
-  @DisplayName("Test withProcessInstance(ProcessInstance)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"UpdateProcessPayloadBuilder UpdateProcessPayloadBuilder.withProcessInstance(ProcessInstance)"})
   void testWithProcessInstance() {
     // Arrange
     UpdateProcessPayloadBuilder updateResult = ProcessPayloadBuilder.update();
@@ -60,12 +53,11 @@ class UpdateProcessPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link UpdateProcessPayloadBuilder#build()}.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link UpdateProcessPayloadBuilder#build()}
-   *   <li>default or parameterless constructor of {@link UpdateProcessPayloadBuilder}
+   *   <li>default or parameterless constructor of
+   * {@link UpdateProcessPayloadBuilder}
    *   <li>{@link UpdateProcessPayloadBuilder#withBusinessKey(String)}
    *   <li>{@link UpdateProcessPayloadBuilder#withDescription(String)}
    *   <li>{@link UpdateProcessPayloadBuilder#withName(String)}
@@ -73,14 +65,6 @@ class UpdateProcessPayloadBuilderDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test build()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void UpdateProcessPayloadBuilder.<init>()",
-      "UpdateProcessPayload UpdateProcessPayloadBuilder.build()",
-      "UpdateProcessPayloadBuilder UpdateProcessPayloadBuilder.withBusinessKey(String)",
-      "UpdateProcessPayloadBuilder UpdateProcessPayloadBuilder.withDescription(String)",
-      "UpdateProcessPayloadBuilder UpdateProcessPayloadBuilder.withName(String)",
-      "UpdateProcessPayloadBuilder UpdateProcessPayloadBuilder.withProcessInstanceId(String)"})
   void testBuild() {
     // Arrange and Act
     UpdateProcessPayload actualBuildResult = (new UpdateProcessPayloadBuilder()).withBusinessKey("Business Key")

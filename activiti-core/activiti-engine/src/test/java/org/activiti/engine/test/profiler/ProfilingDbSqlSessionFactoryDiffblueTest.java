@@ -18,21 +18,29 @@ package org.activiti.engine.test.profiler;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import javax.sql.DataSource;
+import org.activiti.engine.impl.interceptor.CommandContext;
+import org.activiti.engine.impl.interceptor.Session;
+import org.activiti.engine.impl.persistence.cache.EntityCacheImpl;
+import org.apache.ibatis.mapping.Environment;
+import org.apache.ibatis.session.Configuration;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.defaults.DefaultSqlSession;
+import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
+import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ProfilingDbSqlSessionFactoryDiffblueTest {
   /**
-   * Test new {@link ProfilingDbSqlSessionFactory} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link ProfilingDbSqlSessionFactory}
+   * Method under test: default or parameterless constructor of
+   * {@link ProfilingDbSqlSessionFactory}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ProfilingDbSqlSessionFactory.<init>()"})
   public void testNewProfilingDbSqlSessionFactory() {
     // Arrange and Act
     ProfilingDbSqlSessionFactory actualProfilingDbSqlSessionFactory = new ProfilingDbSqlSessionFactory();
@@ -54,5 +62,34 @@ public class ProfilingDbSqlSessionFactoryDiffblueTest {
     assertTrue(actualProfilingDbSqlSessionFactory.getSelectStatements().isEmpty());
     assertTrue(actualProfilingDbSqlSessionFactory.getUpdateStatements().isEmpty());
     assertTrue(actualProfilingDbSqlSessionFactory.isDbHistoryUsed());
+  }
+
+  /**
+   * Method under test:
+   * {@link ProfilingDbSqlSessionFactory#openSession(CommandContext)}
+   */
+  @Test
+  public void testOpenSession() {
+    // Arrange
+    ProfilingDbSqlSessionFactory profilingDbSqlSessionFactory = new ProfilingDbSqlSessionFactory();
+    Configuration configuration = new Configuration(
+        new Environment("42", new JdbcTransactionFactory(), mock(DataSource.class)));
+    profilingDbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
+    CommandContext commandContext = mock(CommandContext.class);
+    when(commandContext.getEntityCache()).thenReturn(new EntityCacheImpl());
+
+    // Act
+    Session actualOpenSessionResult = profilingDbSqlSessionFactory.openSession(commandContext);
+
+    // Assert
+    verify(commandContext).getEntityCache();
+    assertTrue(actualOpenSessionResult instanceof ProfilingDbSqlSession);
+    SqlSession sqlSession = ((ProfilingDbSqlSession) actualOpenSessionResult).getSqlSession();
+    assertTrue(sqlSession instanceof DefaultSqlSession);
+    assertNull(((ProfilingDbSqlSession) actualOpenSessionResult).getCurrentCommandExecution());
+    assertNull(((ProfilingDbSqlSession) actualOpenSessionResult).commandExecutionResult);
+    assertSame(profilingDbSqlSessionFactory,
+        ((ProfilingDbSqlSession) actualOpenSessionResult).getDbSqlSessionFactory());
+    assertSame(configuration, sqlSession.getConfiguration());
   }
 }

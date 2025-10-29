@@ -17,51 +17,10 @@ package org.activiti.api.task.model.payloads;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class AssignTaskPayloadDiffblueTest {
   /**
-   * Test {@link AssignTaskPayload#AssignTaskPayload()}.
-   * <p>
-   * Method under test: {@link AssignTaskPayload#AssignTaskPayload()}
-   */
-  @Test
-  @DisplayName("Test new AssignTaskPayload()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AssignTaskPayload.<init>()"})
-  void testNewAssignTaskPayload() {
-    // Arrange and Act
-    AssignTaskPayload actualAssignTaskPayload = new AssignTaskPayload();
-
-    // Assert
-    assertNull(actualAssignTaskPayload.getAssignee());
-    assertNull(actualAssignTaskPayload.getTaskId());
-  }
-
-  /**
-   * Test {@link AssignTaskPayload#AssignTaskPayload(String, String)}.
-   * <p>
-   * Method under test: {@link AssignTaskPayload#AssignTaskPayload(String, String)}
-   */
-  @Test
-  @DisplayName("Test new AssignTaskPayload(String, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AssignTaskPayload.<init>(String, String)"})
-  void testNewAssignTaskPayload2() {
-    // Arrange and Act
-    AssignTaskPayload actualAssignTaskPayload = new AssignTaskPayload("42", "Assignee");
-
-    // Assert
-    assertEquals("42", actualAssignTaskPayload.getTaskId());
-    assertEquals("Assignee", actualAssignTaskPayload.getAssignee());
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link AssignTaskPayload#setAssignee(String)}
@@ -72,11 +31,6 @@ class AssignTaskPayloadDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String AssignTaskPayload.getAssignee()", "String AssignTaskPayload.getId()",
-      "String AssignTaskPayload.getTaskId()", "void AssignTaskPayload.setAssignee(String)",
-      "void AssignTaskPayload.setTaskId(String)"})
   void testGettersAndSetters() {
     // Arrange
     AssignTaskPayload assignTaskPayload = new AssignTaskPayload();
@@ -87,8 +41,35 @@ class AssignTaskPayloadDiffblueTest {
     String actualAssignee = assignTaskPayload.getAssignee();
     assignTaskPayload.getId();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("42", assignTaskPayload.getTaskId());
     assertEquals("Assignee", actualAssignee);
+  }
+
+  /**
+   * Method under test: {@link AssignTaskPayload#AssignTaskPayload()}
+   */
+  @Test
+  void testNewAssignTaskPayload() {
+    // Arrange and Act
+    AssignTaskPayload actualAssignTaskPayload = new AssignTaskPayload();
+
+    // Assert
+    assertNull(actualAssignTaskPayload.getAssignee());
+    assertNull(actualAssignTaskPayload.getTaskId());
+  }
+
+  /**
+   * Method under test:
+   * {@link AssignTaskPayload#AssignTaskPayload(String, String)}
+   */
+  @Test
+  void testNewAssignTaskPayload2() {
+    // Arrange and Act
+    AssignTaskPayload actualAssignTaskPayload = new AssignTaskPayload("42", "Assignee");
+
+    // Assert
+    assertEquals("42", actualAssignTaskPayload.getTaskId());
+    assertEquals("Assignee", actualAssignTaskPayload.getAssignee());
   }
 }

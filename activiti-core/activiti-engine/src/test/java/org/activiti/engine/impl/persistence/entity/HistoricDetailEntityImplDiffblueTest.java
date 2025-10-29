@@ -18,41 +18,49 @@ package org.activiti.engine.impl.persistence.entity;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
-import java.util.Date;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class HistoricDetailEntityImplDiffblueTest {
+  @InjectMocks
+  private HistoricDetailAssignmentEntityImpl historicDetailAssignmentEntityImpl;
+
   /**
-   * Test {@link HistoricDetailEntityImpl#getProcessInstanceId()}.
-   * <p>
    * Method under test: {@link HistoricDetailEntityImpl#getProcessInstanceId()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String HistoricDetailEntityImpl.getProcessInstanceId()"})
   public void testGetProcessInstanceId() {
     // Arrange, Act and Assert
     assertNull((new HistoricDetailAssignmentEntityImpl()).getProcessInstanceId());
   }
 
   /**
-   * Test {@link HistoricDetailEntityImpl#setProcessInstanceId(String)}.
-   * <p>
-   * Method under test: {@link HistoricDetailEntityImpl#setProcessInstanceId(String)}
+   * Method under test: {@link HistoricDetailEntityImpl#getProcessInstanceId()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricDetailEntityImpl.setProcessInstanceId(String)"})
-  public void testSetProcessInstanceId() {
+  public void testGetProcessInstanceId2() {
     // Arrange
     HistoricDetailAssignmentEntityImpl historicDetailAssignmentEntityImpl = new HistoricDetailAssignmentEntityImpl();
+    historicDetailAssignmentEntityImpl.setTime(mock(Date.class));
 
-    // Act
+    // Act and Assert
+    assertNull(historicDetailAssignmentEntityImpl.getProcessInstanceId());
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricDetailEntityImpl#setProcessInstanceId(String)}
+   */
+  @Test
+  public void testSetProcessInstanceId() {
+    // Arrange and Act
     historicDetailAssignmentEntityImpl.setProcessInstanceId("42");
 
     // Assert
@@ -60,31 +68,34 @@ public class HistoricDetailEntityImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricDetailEntityImpl#getActivityInstanceId()}.
-   * <p>
    * Method under test: {@link HistoricDetailEntityImpl#getActivityInstanceId()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String HistoricDetailEntityImpl.getActivityInstanceId()"})
   public void testGetActivityInstanceId() {
     // Arrange, Act and Assert
     assertNull((new HistoricDetailAssignmentEntityImpl()).getActivityInstanceId());
   }
 
   /**
-   * Test {@link HistoricDetailEntityImpl#setActivityInstanceId(String)}.
-   * <p>
-   * Method under test: {@link HistoricDetailEntityImpl#setActivityInstanceId(String)}
+   * Method under test: {@link HistoricDetailEntityImpl#getActivityInstanceId()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricDetailEntityImpl.setActivityInstanceId(String)"})
-  public void testSetActivityInstanceId() {
+  public void testGetActivityInstanceId2() {
     // Arrange
     HistoricDetailAssignmentEntityImpl historicDetailAssignmentEntityImpl = new HistoricDetailAssignmentEntityImpl();
+    historicDetailAssignmentEntityImpl.setTime(mock(Date.class));
 
-    // Act
+    // Act and Assert
+    assertNull(historicDetailAssignmentEntityImpl.getActivityInstanceId());
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricDetailEntityImpl#setActivityInstanceId(String)}
+   */
+  @Test
+  public void testSetActivityInstanceId() {
+    // Arrange and Act
     historicDetailAssignmentEntityImpl.setActivityInstanceId("42");
 
     // Assert
@@ -92,31 +103,33 @@ public class HistoricDetailEntityImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricDetailEntityImpl#getTaskId()}.
-   * <p>
    * Method under test: {@link HistoricDetailEntityImpl#getTaskId()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String HistoricDetailEntityImpl.getTaskId()"})
   public void testGetTaskId() {
     // Arrange, Act and Assert
     assertNull((new HistoricDetailAssignmentEntityImpl()).getTaskId());
   }
 
   /**
-   * Test {@link HistoricDetailEntityImpl#setTaskId(String)}.
-   * <p>
+   * Method under test: {@link HistoricDetailEntityImpl#getTaskId()}
+   */
+  @Test
+  public void testGetTaskId2() {
+    // Arrange
+    HistoricDetailAssignmentEntityImpl historicDetailAssignmentEntityImpl = new HistoricDetailAssignmentEntityImpl();
+    historicDetailAssignmentEntityImpl.setTime(mock(Date.class));
+
+    // Act and Assert
+    assertNull(historicDetailAssignmentEntityImpl.getTaskId());
+  }
+
+  /**
    * Method under test: {@link HistoricDetailEntityImpl#setTaskId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricDetailEntityImpl.setTaskId(String)"})
   public void testSetTaskId() {
-    // Arrange
-    HistoricDetailAssignmentEntityImpl historicDetailAssignmentEntityImpl = new HistoricDetailAssignmentEntityImpl();
-
-    // Act
+    // Arrange and Act
     historicDetailAssignmentEntityImpl.setTaskId("42");
 
     // Assert
@@ -124,31 +137,33 @@ public class HistoricDetailEntityImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricDetailEntityImpl#getExecutionId()}.
-   * <p>
    * Method under test: {@link HistoricDetailEntityImpl#getExecutionId()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String HistoricDetailEntityImpl.getExecutionId()"})
   public void testGetExecutionId() {
     // Arrange, Act and Assert
     assertNull((new HistoricDetailAssignmentEntityImpl()).getExecutionId());
   }
 
   /**
-   * Test {@link HistoricDetailEntityImpl#setExecutionId(String)}.
-   * <p>
+   * Method under test: {@link HistoricDetailEntityImpl#getExecutionId()}
+   */
+  @Test
+  public void testGetExecutionId2() {
+    // Arrange
+    HistoricDetailAssignmentEntityImpl historicDetailAssignmentEntityImpl = new HistoricDetailAssignmentEntityImpl();
+    historicDetailAssignmentEntityImpl.setTime(mock(Date.class));
+
+    // Act and Assert
+    assertNull(historicDetailAssignmentEntityImpl.getExecutionId());
+  }
+
+  /**
    * Method under test: {@link HistoricDetailEntityImpl#setExecutionId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricDetailEntityImpl.setExecutionId(String)"})
   public void testSetExecutionId() {
-    // Arrange
-    HistoricDetailAssignmentEntityImpl historicDetailAssignmentEntityImpl = new HistoricDetailAssignmentEntityImpl();
-
-    // Act
+    // Arrange and Act
     historicDetailAssignmentEntityImpl.setExecutionId("42");
 
     // Assert
@@ -156,30 +171,36 @@ public class HistoricDetailEntityImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricDetailEntityImpl#getTime()}.
-   * <p>
    * Method under test: {@link HistoricDetailEntityImpl#getTime()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Date HistoricDetailEntityImpl.getTime()"})
   public void testGetTime() {
     // Arrange, Act and Assert
     assertNull((new HistoricDetailAssignmentEntityImpl()).getTime());
   }
 
   /**
-   * Test {@link HistoricDetailEntityImpl#setTime(Date)}.
-   * <p>
+   * Method under test: {@link HistoricDetailEntityImpl#getTime()}
+   */
+  @Test
+  public void testGetTime2() {
+    // Arrange
+    HistoricDetailAssignmentEntityImpl historicDetailAssignmentEntityImpl = new HistoricDetailAssignmentEntityImpl();
+    historicDetailAssignmentEntityImpl.setTime(mock(java.sql.Date.class));
+
+    // Act and Assert
+    assertSame(historicDetailAssignmentEntityImpl.time, historicDetailAssignmentEntityImpl.getTime());
+  }
+
+  /**
    * Method under test: {@link HistoricDetailEntityImpl#setTime(Date)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricDetailEntityImpl.setTime(Date)"})
   public void testSetTime() {
     // Arrange
     HistoricDetailAssignmentEntityImpl historicDetailAssignmentEntityImpl = new HistoricDetailAssignmentEntityImpl();
-    Date time = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    java.util.Date time = java.util.Date
+        .from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act
     historicDetailAssignmentEntityImpl.setTime(time);
@@ -189,31 +210,49 @@ public class HistoricDetailEntityImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricDetailEntityImpl#getDetailType()}.
-   * <p>
+   * Method under test: {@link HistoricDetailEntityImpl#setTime(java.util.Date)}
+   */
+  @Test
+  public void testSetTime2() {
+    // Arrange
+    HistoricDetailAssignmentEntityImpl historicDetailAssignmentEntityImpl = new HistoricDetailAssignmentEntityImpl();
+    java.sql.Date time = mock(java.sql.Date.class);
+
+    // Act
+    historicDetailAssignmentEntityImpl.setTime(time);
+
+    // Assert
+    assertSame(time, historicDetailAssignmentEntityImpl.getTime());
+  }
+
+  /**
    * Method under test: {@link HistoricDetailEntityImpl#getDetailType()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String HistoricDetailEntityImpl.getDetailType()"})
   public void testGetDetailType() {
     // Arrange, Act and Assert
     assertNull((new HistoricDetailAssignmentEntityImpl()).getDetailType());
   }
 
   /**
-   * Test {@link HistoricDetailEntityImpl#setDetailType(String)}.
-   * <p>
+   * Method under test: {@link HistoricDetailEntityImpl#getDetailType()}
+   */
+  @Test
+  public void testGetDetailType2() {
+    // Arrange
+    HistoricDetailAssignmentEntityImpl historicDetailAssignmentEntityImpl = new HistoricDetailAssignmentEntityImpl();
+    historicDetailAssignmentEntityImpl.setTime(mock(Date.class));
+
+    // Act and Assert
+    assertNull(historicDetailAssignmentEntityImpl.getDetailType());
+  }
+
+  /**
    * Method under test: {@link HistoricDetailEntityImpl#setDetailType(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricDetailEntityImpl.setDetailType(String)"})
   public void testSetDetailType() {
-    // Arrange
-    HistoricDetailAssignmentEntityImpl historicDetailAssignmentEntityImpl = new HistoricDetailAssignmentEntityImpl();
-
-    // Act
+    // Arrange and Act
     historicDetailAssignmentEntityImpl.setDetailType("Detail Type");
 
     // Assert

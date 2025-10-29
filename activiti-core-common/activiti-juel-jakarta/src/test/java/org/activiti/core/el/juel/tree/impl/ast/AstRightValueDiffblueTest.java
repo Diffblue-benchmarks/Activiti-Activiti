@@ -18,10 +18,10 @@ package org.activiti.core.el.juel.tree.impl.ast;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
 import jakarta.el.ELException;
 import jakarta.el.ValueExpression;
@@ -30,34 +30,39 @@ import org.activiti.core.el.juel.ObjectValueExpression;
 import org.activiti.core.el.juel.misc.TypeConverter;
 import org.activiti.core.el.juel.tree.Bindings;
 import org.activiti.core.el.juel.util.SimpleContext;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class AstRightValueDiffblueTest {
   /**
-   * Test {@link AstRightValue#isLiteralText()}.
-   * <p>
    * Method under test: {@link AstRightValue#isLiteralText()}
    */
   @Test
-  @DisplayName("Test isLiteralText()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean AstRightValue.isLiteralText()"})
   void testIsLiteralText() {
     // Arrange, Act and Assert
     assertFalse((new AstNull()).isLiteralText());
   }
 
   /**
-   * Test {@link AstRightValue#getType(Bindings, ELContext)}.
-   * <p>
+   * Method under test: {@link AstRightValue#isLiteralText()}
+   */
+  @Test
+  void testIsLiteralText2() {
+    // Arrange
+    AstNull astNull = new AstNull();
+    StringBuilder b = new StringBuilder("foo");
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    astNull.appendStructure(b,
+        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
+
+    // Act and Assert
+    assertFalse(astNull.isLiteralText());
+  }
+
+  /**
    * Method under test: {@link AstRightValue#getType(Bindings, ELContext)}
    */
   @Test
-  @DisplayName("Test getType(Bindings, ELContext)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Class AstRightValue.getType(Bindings, ELContext)"})
   void testGetType() {
     // Arrange
     AstNull astNull = new AstNull();
@@ -71,14 +76,9 @@ class AstRightValueDiffblueTest {
   }
 
   /**
-   * Test {@link AstRightValue#isReadOnly(Bindings, ELContext)}.
-   * <p>
    * Method under test: {@link AstRightValue#isReadOnly(Bindings, ELContext)}
    */
   @Test
-  @DisplayName("Test isReadOnly(Bindings, ELContext)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean AstRightValue.isReadOnly(Bindings, ELContext)"})
   void testIsReadOnly() {
     // Arrange
     AstNull astNull = new AstNull();
@@ -92,14 +92,10 @@ class AstRightValueDiffblueTest {
   }
 
   /**
-   * Test {@link AstRightValue#setValue(Bindings, ELContext, Object)}.
-   * <p>
-   * Method under test: {@link AstRightValue#setValue(Bindings, ELContext, Object)}
+   * Method under test:
+   * {@link AstRightValue#setValue(Bindings, ELContext, Object)}
    */
   @Test
-  @DisplayName("Test setValue(Bindings, ELContext, Object)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AstRightValue.setValue(Bindings, ELContext, Object)"})
   void testSetValue() {
     // Arrange
     AstNull astNull = new AstNull();
@@ -113,14 +109,10 @@ class AstRightValueDiffblueTest {
   }
 
   /**
-   * Test {@link AstRightValue#getMethodInfo(Bindings, ELContext, Class, Class[])}.
-   * <p>
-   * Method under test: {@link AstRightValue#getMethodInfo(Bindings, ELContext, Class, Class[])}
+   * Method under test:
+   * {@link AstRightValue#getMethodInfo(Bindings, ELContext, Class, Class[])}
    */
   @Test
-  @DisplayName("Test getMethodInfo(Bindings, ELContext, Class, Class[])")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"jakarta.el.MethodInfo AstRightValue.getMethodInfo(Bindings, ELContext, Class, Class[])"})
   void testGetMethodInfo() {
     // Arrange
     AstNull astNull = new AstNull();
@@ -138,18 +130,16 @@ class AstRightValueDiffblueTest {
     assertNull(astNull.getMethodInfo(bindings, context, returnType, paramTypes));
     assertEquals(1, paramTypes.length);
     Class<Object> expectedResultClass = Object.class;
-    assertEquals(expectedResultClass, paramTypes[0]);
+    Class<?> resultClass = paramTypes[0];
+    assertEquals(expectedResultClass, resultClass);
+    assertSame(forNameResult, resultClass);
   }
 
   /**
-   * Test {@link AstRightValue#invoke(Bindings, ELContext, Class, Class[], Object[])}.
-   * <p>
-   * Method under test: {@link AstRightValue#invoke(Bindings, ELContext, Class, Class[], Object[])}
+   * Method under test:
+   * {@link AstRightValue#invoke(Bindings, ELContext, Class, Class[], Object[])}
    */
   @Test
-  @DisplayName("Test invoke(Bindings, ELContext, Class, Class[], Object[])")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object AstRightValue.invoke(Bindings, ELContext, Class, Class[], Object[])"})
   void testInvoke() {
     // Arrange
     AstNull astNull = new AstNull();
@@ -168,42 +158,62 @@ class AstRightValueDiffblueTest {
   }
 
   /**
-   * Test {@link AstRightValue#isLeftValue()}.
-   * <p>
    * Method under test: {@link AstRightValue#isLeftValue()}
    */
   @Test
-  @DisplayName("Test isLeftValue()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean AstRightValue.isLeftValue()"})
   void testIsLeftValue() {
     // Arrange, Act and Assert
     assertFalse((new AstNull()).isLeftValue());
   }
 
   /**
-   * Test {@link AstRightValue#isMethodInvocation()}.
-   * <p>
+   * Method under test: {@link AstRightValue#isLeftValue()}
+   */
+  @Test
+  void testIsLeftValue2() {
+    // Arrange
+    AstNull astNull = new AstNull();
+    StringBuilder b = new StringBuilder("foo");
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    astNull.appendStructure(b,
+        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
+
+    // Act and Assert
+    assertFalse(astNull.isLeftValue());
+  }
+
+  /**
    * Method under test: {@link AstRightValue#isMethodInvocation()}
    */
   @Test
-  @DisplayName("Test isMethodInvocation()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean AstRightValue.isMethodInvocation()"})
   void testIsMethodInvocation() {
     // Arrange, Act and Assert
     assertFalse((new AstNull()).isMethodInvocation());
   }
 
   /**
-   * Test {@link AstRightValue#getValueReference(Bindings, ELContext)}.
-   * <p>
-   * Method under test: {@link AstRightValue#getValueReference(Bindings, ELContext)}
+   * Method under test: {@link AstRightValue#isMethodInvocation()}
    */
   @Test
-  @DisplayName("Test getValueReference(Bindings, ELContext)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"jakarta.el.ValueReference AstRightValue.getValueReference(Bindings, ELContext)"})
+  void testIsMethodInvocation2() {
+    // Arrange
+    AstNull astNull = new AstNull();
+    StringBuilder b = new StringBuilder("foo");
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    astNull.appendStructure(b,
+        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
+
+    // Act and Assert
+    assertFalse(astNull.isMethodInvocation());
+  }
+
+  /**
+   * Method under test:
+   * {@link AstRightValue#getValueReference(Bindings, ELContext)}
+   */
+  @Test
   void testGetValueReference() {
     // Arrange
     AstNull astNull = new AstNull();

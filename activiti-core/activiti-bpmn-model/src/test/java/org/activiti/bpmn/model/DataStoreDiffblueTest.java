@@ -19,27 +19,39 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.util.List;
 import java.util.Map;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class DataStoreDiffblueTest {
   /**
-   * Test {@link DataStore#clone()}.
-   * <ul>
-   *   <li>Given {@link DataStore} (default constructor) ExtensionElements is {@code null}.</li>
-   *   <li>Then return Id is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DataStore#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"DataStore DataStore.clone()"})
-  public void testClone_givenDataStoreExtensionElementsIsNull_thenReturnIdIsNull() {
+  public void testClone() {
+    // Arrange and Act
+    DataStore actualCloneResult = (new DataStore()).clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDataState());
+    assertNull(actualCloneResult.getItemSubjectRef());
+    assertNull(actualCloneResult.getName());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link DataStore#clone()}
+   */
+  @Test
+  public void testClone2() {
     // Arrange
     DataStore dataStore = new DataStore();
     dataStore.setExtensionElements(null);
@@ -60,20 +72,17 @@ public class DataStoreDiffblueTest {
   }
 
   /**
-   * Test {@link DataStore#clone()}.
-   * <ul>
-   *   <li>Given {@link DataStore} (default constructor).</li>
-   *   <li>Then return Id is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DataStore#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"DataStore DataStore.clone()"})
-  public void testClone_givenDataStore_thenReturnIdIsNull() {
-    // Arrange and Act
-    DataStore actualCloneResult = (new DataStore()).clone();
+  public void testClone3() {
+    // Arrange
+    DataStore dataStore = new DataStore();
+    ExtensionAttribute attribute = new ExtensionAttribute("Name");
+    dataStore.addAttribute(attribute);
+
+    // Act
+    DataStore actualCloneResult = dataStore.clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
@@ -82,65 +91,68 @@ public class DataStoreDiffblueTest {
     assertNull(actualCloneResult.getName());
     assertEquals(0, actualCloneResult.getXmlColumnNumber());
     assertEquals(0, actualCloneResult.getXmlRowNumber());
-    assertTrue(actualCloneResult.getAttributes().isEmpty());
-    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link DataStore#clone()}.
-   * <ul>
-   *   <li>Then return Attributes size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DataStore#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"DataStore DataStore.clone()"})
-  public void testClone_thenReturnAttributesSizeIsOne() {
-    // Arrange
-    DataStore dataStore = new DataStore();
-    ExtensionAttribute attribute = new ExtensionAttribute("Name");
-    dataStore.addAttribute(attribute);
-
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = dataStore.clone().getAttributes();
+    Map<String, List<ExtensionAttribute>> attributes = actualCloneResult.getAttributes();
     assertEquals(1, attributes.size());
     List<ExtensionAttribute> getResult = attributes.get("Name");
     assertEquals(1, getResult.size());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
     assertSame(attribute, getResult.get(0));
   }
 
   /**
-   * Test {@link DataStore#clone()}.
-   * <ul>
-   *   <li>Then return Attributes size is two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DataStore#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"DataStore DataStore.clone()"})
-  public void testClone_thenReturnAttributesSizeIsTwo() {
+  public void testClone4() {
     // Arrange
     DataStore dataStore = new DataStore();
     ExtensionAttribute attribute = new ExtensionAttribute("42");
     dataStore.addAttribute(attribute);
-    dataStore.addAttribute(new ExtensionAttribute("Name"));
+    ExtensionAttribute attribute2 = new ExtensionAttribute("Name");
+    dataStore.addAttribute(attribute2);
 
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = dataStore.clone().getAttributes();
+    // Act
+    DataStore actualCloneResult = dataStore.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDataState());
+    assertNull(actualCloneResult.getItemSubjectRef());
+    assertNull(actualCloneResult.getName());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    Map<String, List<ExtensionAttribute>> attributes = actualCloneResult.getAttributes();
     assertEquals(2, attributes.size());
     List<ExtensionAttribute> getResult = attributes.get("42");
     assertEquals(1, getResult.size());
-    assertTrue(attributes.containsKey("Name"));
+    List<ExtensionAttribute> getResult2 = attributes.get("Name");
+    assertEquals(1, getResult2.size());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
     assertSame(attribute, getResult.get(0));
+    assertSame(attribute2, getResult2.get(0));
   }
 
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link DataStore#setValues(DataStore)}
+   */
+  @Test
+  public void testSetValues() {
+    // Arrange
+    DataStore dataStore = new DataStore();
+    ExtensionAttribute attribute = mock(ExtensionAttribute.class);
+    when(attribute.getName()).thenReturn("Name");
+
+    DataStore otherElement = new DataStore();
+    otherElement.addAttribute(attribute);
+
+    // Act
+    dataStore.setValues(otherElement);
+
+    // Assert
+    verify(attribute, atLeast(1)).getName();
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link DataStore}
@@ -153,10 +165,6 @@ public class DataStoreDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DataStore.<init>()", "String DataStore.getDataState()",
-      "String DataStore.getItemSubjectRef()", "String DataStore.getName()", "void DataStore.setDataState(String)",
-      "void DataStore.setItemSubjectRef(String)", "void DataStore.setName(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     DataStore actualDataStore = new DataStore();
@@ -166,11 +174,10 @@ public class DataStoreDiffblueTest {
     String actualDataState = actualDataStore.getDataState();
     String actualItemSubjectRef = actualDataStore.getItemSubjectRef();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("Data State", actualDataState);
     assertEquals("Hello from the Dreaming Spires", actualItemSubjectRef);
     assertEquals("Name", actualDataStore.getName());
-    assertNull(actualDataStore.getId());
     assertEquals(0, actualDataStore.getXmlColumnNumber());
     assertEquals(0, actualDataStore.getXmlRowNumber());
     assertTrue(actualDataStore.getAttributes().isEmpty());

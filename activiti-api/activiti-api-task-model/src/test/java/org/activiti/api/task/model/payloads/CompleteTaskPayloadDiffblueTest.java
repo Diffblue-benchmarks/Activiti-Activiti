@@ -19,53 +19,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import java.util.function.BiFunction;
 import org.junit.jupiter.api.Test;
 
 class CompleteTaskPayloadDiffblueTest {
   /**
-   * Test {@link CompleteTaskPayload#CompleteTaskPayload()}.
-   * <p>
-   * Method under test: {@link CompleteTaskPayload#CompleteTaskPayload()}
-   */
-  @Test
-  @DisplayName("Test new CompleteTaskPayload()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void CompleteTaskPayload.<init>()"})
-  void testNewCompleteTaskPayload() {
-    // Arrange and Act
-    CompleteTaskPayload actualCompleteTaskPayload = new CompleteTaskPayload();
-
-    // Assert
-    assertNull(actualCompleteTaskPayload.getTaskId());
-    assertNull(actualCompleteTaskPayload.getVariables());
-  }
-
-  /**
-   * Test {@link CompleteTaskPayload#CompleteTaskPayload(String, Map)}.
-   * <p>
-   * Method under test: {@link CompleteTaskPayload#CompleteTaskPayload(String, Map)}
-   */
-  @Test
-  @DisplayName("Test new CompleteTaskPayload(String, Map)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void CompleteTaskPayload.<init>(String, Map)"})
-  void testNewCompleteTaskPayload2() {
-    // Arrange and Act
-    CompleteTaskPayload actualCompleteTaskPayload = new CompleteTaskPayload("42", new HashMap<>());
-
-    // Assert
-    assertEquals("42", actualCompleteTaskPayload.getTaskId());
-    assertTrue(actualCompleteTaskPayload.getVariables().isEmpty());
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link CompleteTaskPayload#setTaskId(String)}
@@ -76,11 +37,6 @@ class CompleteTaskPayloadDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String CompleteTaskPayload.getId()", "String CompleteTaskPayload.getTaskId()",
-      "Map CompleteTaskPayload.getVariables()", "void CompleteTaskPayload.setTaskId(String)",
-      "void CompleteTaskPayload.setVariables(Map)"})
   void testGettersAndSetters() {
     // Arrange
     CompleteTaskPayload completeTaskPayload = new CompleteTaskPayload();
@@ -93,9 +49,61 @@ class CompleteTaskPayloadDiffblueTest {
     String actualTaskId = completeTaskPayload.getTaskId();
     Map<String, Object> actualVariables = completeTaskPayload.getVariables();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("42", actualTaskId);
     assertTrue(actualVariables.isEmpty());
     assertSame(variables, actualVariables);
+  }
+
+  /**
+   * Method under test: {@link CompleteTaskPayload#CompleteTaskPayload()}
+   */
+  @Test
+  void testNewCompleteTaskPayload() {
+    // Arrange and Act
+    CompleteTaskPayload actualCompleteTaskPayload = new CompleteTaskPayload();
+
+    // Assert
+    assertNull(actualCompleteTaskPayload.getTaskId());
+    assertNull(actualCompleteTaskPayload.getVariables());
+  }
+
+  /**
+   * Method under test:
+   * {@link CompleteTaskPayload#CompleteTaskPayload(String, Map)}
+   */
+  @Test
+  void testNewCompleteTaskPayload2() {
+    // Arrange
+    HashMap<String, Object> variables = new HashMap<>();
+
+    // Act
+    CompleteTaskPayload actualCompleteTaskPayload = new CompleteTaskPayload("42", variables);
+
+    // Assert
+    assertEquals("42", actualCompleteTaskPayload.getTaskId());
+    Map<String, Object> variables2 = actualCompleteTaskPayload.getVariables();
+    assertTrue(variables2.isEmpty());
+    assertSame(variables, variables2);
+  }
+
+  /**
+   * Method under test:
+   * {@link CompleteTaskPayload#CompleteTaskPayload(String, Map)}
+   */
+  @Test
+  void testNewCompleteTaskPayload3() {
+    // Arrange
+    HashMap<String, Object> variables = new HashMap<>();
+    variables.computeIfPresent("foo", mock(BiFunction.class));
+
+    // Act
+    CompleteTaskPayload actualCompleteTaskPayload = new CompleteTaskPayload("42", variables);
+
+    // Assert
+    assertEquals("42", actualCompleteTaskPayload.getTaskId());
+    Map<String, Object> variables2 = actualCompleteTaskPayload.getVariables();
+    assertTrue(variables2.isEmpty());
+    assertSame(variables, variables2);
   }
 }

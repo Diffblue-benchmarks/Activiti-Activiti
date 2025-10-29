@@ -15,24 +15,38 @@
  */
 package org.activiti.api.model.shared;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.junit.jupiter.api.Test;
 
 class ResultDiffblueTest {
   /**
-   * Test {@link Result#getEntity()}.
-   * <p>
+   * Method under test: {@link Result#getPayload()}
+   */
+  @Test
+  void testGetPayload() {
+    // Arrange
+    Payload payload = mock(Payload.class);
+    when(payload.getId()).thenReturn("42");
+
+    // Act
+    String actualId = (new EmptyResult(payload)).getPayload().getId();
+
+    // Assert
+    verify(payload).getId();
+    assertEquals("42", actualId);
+  }
+
+  /**
    * Method under test: {@link Result#getEntity()}
    */
   @Test
-  @DisplayName("Test getEntity()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.Object Result.getEntity()"})
   void testGetEntity() {
     // Arrange, Act and Assert
     assertNull((new EmptyResult()).getEntity());
+    assertNull((new EmptyResult(mock(Payload.class))).getEntity());
   }
 }

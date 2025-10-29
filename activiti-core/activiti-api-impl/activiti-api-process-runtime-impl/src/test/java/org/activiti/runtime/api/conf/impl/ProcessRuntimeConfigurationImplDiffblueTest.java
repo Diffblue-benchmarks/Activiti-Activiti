@@ -16,13 +16,10 @@
 package org.activiti.runtime.api.conf.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.activiti.api.model.shared.event.RuntimeEvent;
 import org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener;
 import org.activiti.api.runtime.shared.events.VariableEventListener;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,28 +48,20 @@ class ProcessRuntimeConfigurationImplDiffblueTest {
   private VariableEventListener<RuntimeEvent<?, ?>> variableEventListener;
 
   /**
-   * Test {@link ProcessRuntimeConfigurationImpl#processEventListeners()}.
-   * <p>
-   * Method under test: {@link ProcessRuntimeConfigurationImpl#processEventListeners()}
+   * Method under test:
+   * {@link ProcessRuntimeConfigurationImpl#processEventListeners()}
    */
   @Test
-  @DisplayName("Test processEventListeners()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List ProcessRuntimeConfigurationImpl.processEventListeners()"})
   void testProcessEventListeners() {
     // Arrange, Act and Assert
     assertEquals(1, processRuntimeConfigurationImpl.processEventListeners().size());
   }
 
   /**
-   * Test {@link ProcessRuntimeConfigurationImpl#variableEventListeners()}.
-   * <p>
-   * Method under test: {@link ProcessRuntimeConfigurationImpl#variableEventListeners()}
+   * Method under test:
+   * {@link ProcessRuntimeConfigurationImpl#variableEventListeners()}
    */
   @Test
-  @DisplayName("Test variableEventListeners()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List ProcessRuntimeConfigurationImpl.variableEventListeners()"})
   void testVariableEventListeners() {
     // Arrange, Act and Assert
     assertEquals(1, processRuntimeConfigurationImpl.variableEventListeners().size());

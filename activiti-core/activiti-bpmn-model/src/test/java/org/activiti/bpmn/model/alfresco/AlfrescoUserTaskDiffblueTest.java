@@ -19,72 +19,80 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.bpmn.model.ActivitiListener;
+import org.activiti.bpmn.model.BoundaryEvent;
 import org.activiti.bpmn.model.FieldExtension;
 import org.activiti.bpmn.model.FormProperty;
+import org.activiti.bpmn.model.MultiInstanceLoopCharacteristics;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class AlfrescoUserTaskDiffblueTest {
   /**
-   * Test {@link AlfrescoUserTask#clone()}.
-   * <ul>
-   *   <li>Given {@link ActivitiListener} (default constructor) FieldExtensions is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AlfrescoUserTask#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"AlfrescoUserTask AlfrescoUserTask.clone()"})
-  public void testClone_givenActivitiListenerFieldExtensionsIsNull() {
-    // Arrange
-    ActivitiListener activitiListener = new ActivitiListener();
-    activitiListener.setFieldExtensions(null);
+  public void testClone() {
+    // Arrange and Act
+    AlfrescoUserTask actualCloneResult = (new AlfrescoUserTask()).clone();
 
-    ArrayList<ActivitiListener> taskListeners = new ArrayList<>();
-    taskListeners.add(activitiListener);
-
-    AlfrescoUserTask alfrescoUserTask = new AlfrescoUserTask();
-    alfrescoUserTask.setFormProperties(null);
-    alfrescoUserTask.setTaskListeners(taskListeners);
-
-    // Act and Assert
-    List<ActivitiListener> taskListeners2 = alfrescoUserTask.clone().getTaskListeners();
-    assertEquals(1, taskListeners2.size());
-    ActivitiListener getResult = taskListeners2.get(0);
-    assertNull(getResult.getInstance());
-    assertNull(getResult.getCustomPropertiesResolverImplementation());
-    assertNull(getResult.getCustomPropertiesResolverImplementationType());
-    assertNull(getResult.getEvent());
-    assertNull(getResult.getImplementation());
-    assertNull(getResult.getImplementationType());
-    assertNull(getResult.getOnTransaction());
-    assertNull(getResult.getId());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(getResult.getFieldExtensions().isEmpty());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
+    // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getAssignee());
+    assertNull(actualCloneResult.getBusinessCalendarName());
+    assertNull(actualCloneResult.getCategory());
+    assertNull(actualCloneResult.getDueDate());
+    assertNull(actualCloneResult.getExtensionId());
+    assertNull(actualCloneResult.getFormKey());
+    assertNull(actualCloneResult.getOwner());
+    assertNull(actualCloneResult.getPriority());
+    assertNull(actualCloneResult.getSkipExpression());
+    assertNull(actualCloneResult.getRunAs());
+    assertNull(actualCloneResult.getScriptProcessor());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getIoSpecification());
+    assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertFalse(actualCloneResult.isExtended());
+    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getCandidateGroups().isEmpty());
+    assertTrue(actualCloneResult.getCandidateUsers().isEmpty());
+    assertTrue(actualCloneResult.getCustomProperties().isEmpty());
+    assertTrue(actualCloneResult.getFormProperties().isEmpty());
+    assertTrue(actualCloneResult.getTaskListeners().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getCustomGroupIdentityLinks().isEmpty());
+    assertTrue(actualCloneResult.getCustomUserIdentityLinks().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
   }
 
   /**
-   * Test {@link AlfrescoUserTask#clone()}.
-   * <ul>
-   *   <li>Given {@link AlfrescoUserTask} (default constructor) TaskListeners is {@code null}.</li>
-   *   <li>Then return Behavior is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AlfrescoUserTask#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"AlfrescoUserTask AlfrescoUserTask.clone()"})
-  public void testClone_givenAlfrescoUserTaskTaskListenersIsNull_thenReturnBehaviorIsNull() {
+  public void testClone2() {
     // Arrange
     AlfrescoUserTask alfrescoUserTask = new AlfrescoUserTask();
     alfrescoUserTask.setFormProperties(null);
@@ -142,25 +150,39 @@ public class AlfrescoUserTaskDiffblueTest {
   }
 
   /**
-   * Test {@link AlfrescoUserTask#clone()}.
-   * <ul>
-   *   <li>Given {@link AlfrescoUserTask} (default constructor).</li>
-   *   <li>Then return Behavior is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AlfrescoUserTask#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"AlfrescoUserTask AlfrescoUserTask.clone()"})
-  public void testClone_givenAlfrescoUserTask_thenReturnBehaviorIsNull() {
-    // Arrange and Act
-    AlfrescoUserTask actualCloneResult = (new AlfrescoUserTask()).clone();
+  public void testClone3() {
+    // Arrange
+    ActivitiListener activitiListener = new ActivitiListener();
+    activitiListener.setFieldExtensions(null);
+
+    ArrayList<ActivitiListener> taskListeners = new ArrayList<>();
+    taskListeners.add(activitiListener);
+
+    AlfrescoUserTask alfrescoUserTask = new AlfrescoUserTask();
+    alfrescoUserTask.setFormProperties(null);
+    alfrescoUserTask.setTaskListeners(taskListeners);
+
+    // Act
+    AlfrescoUserTask actualCloneResult = alfrescoUserTask.clone();
 
     // Assert
+    List<ActivitiListener> taskListeners2 = actualCloneResult.getTaskListeners();
+    assertEquals(1, taskListeners2.size());
+    ActivitiListener getResult = taskListeners2.get(0);
+    assertNull(getResult.getInstance());
     assertNull(actualCloneResult.getBehavior());
+    assertNull(getResult.getCustomPropertiesResolverImplementation());
+    assertNull(getResult.getCustomPropertiesResolverImplementationType());
+    assertNull(getResult.getEvent());
+    assertNull(getResult.getImplementation());
+    assertNull(getResult.getImplementationType());
+    assertNull(getResult.getOnTransaction());
     assertNull(actualCloneResult.getDefaultFlow());
     assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    assertNull(getResult.getId());
     assertNull(actualCloneResult.getId());
     assertNull(actualCloneResult.getDocumentation());
     assertNull(actualCloneResult.getName());
@@ -179,7 +201,185 @@ public class AlfrescoUserTaskDiffblueTest {
     assertNull(actualCloneResult.getIoSpecification());
     assertNull(actualCloneResult.getLoopCharacteristics());
     assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, getResult.getXmlColumnNumber());
     assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlRowNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertFalse(actualCloneResult.isExtended());
+    assertTrue(getResult.getFieldExtensions().isEmpty());
+    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getCandidateGroups().isEmpty());
+    assertTrue(actualCloneResult.getCandidateUsers().isEmpty());
+    assertTrue(actualCloneResult.getCustomProperties().isEmpty());
+    assertTrue(actualCloneResult.getFormProperties().isEmpty());
+    assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(getResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getCustomGroupIdentityLinks().isEmpty());
+    assertTrue(actualCloneResult.getCustomUserIdentityLinks().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+  }
+
+  /**
+   * Method under test: {@link AlfrescoUserTask#clone()}
+   */
+  @Test
+  public void testClone4() {
+    // Arrange
+    ActivitiListener activitiListener = new ActivitiListener();
+    activitiListener.setFieldExtensions(new ArrayList<>());
+
+    ArrayList<ActivitiListener> taskListeners = new ArrayList<>();
+    taskListeners.add(activitiListener);
+
+    AlfrescoUserTask alfrescoUserTask = new AlfrescoUserTask();
+    alfrescoUserTask.setFormProperties(null);
+    alfrescoUserTask.setTaskListeners(taskListeners);
+
+    // Act
+    AlfrescoUserTask actualCloneResult = alfrescoUserTask.clone();
+
+    // Assert
+    List<ActivitiListener> taskListeners2 = actualCloneResult.getTaskListeners();
+    assertEquals(1, taskListeners2.size());
+    ActivitiListener getResult = taskListeners2.get(0);
+    assertNull(getResult.getInstance());
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(getResult.getCustomPropertiesResolverImplementation());
+    assertNull(getResult.getCustomPropertiesResolverImplementationType());
+    assertNull(getResult.getEvent());
+    assertNull(getResult.getImplementation());
+    assertNull(getResult.getImplementationType());
+    assertNull(getResult.getOnTransaction());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    assertNull(getResult.getId());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getAssignee());
+    assertNull(actualCloneResult.getBusinessCalendarName());
+    assertNull(actualCloneResult.getCategory());
+    assertNull(actualCloneResult.getDueDate());
+    assertNull(actualCloneResult.getExtensionId());
+    assertNull(actualCloneResult.getFormKey());
+    assertNull(actualCloneResult.getOwner());
+    assertNull(actualCloneResult.getPriority());
+    assertNull(actualCloneResult.getSkipExpression());
+    assertNull(actualCloneResult.getRunAs());
+    assertNull(actualCloneResult.getScriptProcessor());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getIoSpecification());
+    assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlRowNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertFalse(actualCloneResult.isExtended());
+    assertTrue(getResult.getFieldExtensions().isEmpty());
+    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getCandidateGroups().isEmpty());
+    assertTrue(actualCloneResult.getCandidateUsers().isEmpty());
+    assertTrue(actualCloneResult.getCustomProperties().isEmpty());
+    assertTrue(actualCloneResult.getFormProperties().isEmpty());
+    assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(getResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getCustomGroupIdentityLinks().isEmpty());
+    assertTrue(actualCloneResult.getCustomUserIdentityLinks().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+  }
+
+  /**
+   * Method under test: {@link AlfrescoUserTask#clone()}
+   */
+  @Test
+  public void testClone5() {
+    // Arrange
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(new FieldExtension());
+
+    ActivitiListener activitiListener = new ActivitiListener();
+    activitiListener.setFieldExtensions(fieldExtensions);
+
+    ArrayList<ActivitiListener> taskListeners = new ArrayList<>();
+    taskListeners.add(activitiListener);
+
+    AlfrescoUserTask alfrescoUserTask = new AlfrescoUserTask();
+    alfrescoUserTask.setFormProperties(null);
+    alfrescoUserTask.setTaskListeners(taskListeners);
+
+    // Act
+    AlfrescoUserTask actualCloneResult = alfrescoUserTask.clone();
+
+    // Assert
+    List<ActivitiListener> taskListeners2 = actualCloneResult.getTaskListeners();
+    assertEquals(1, taskListeners2.size());
+    ActivitiListener getResult = taskListeners2.get(0);
+    assertNull(getResult.getInstance());
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(getResult.getCustomPropertiesResolverImplementation());
+    assertNull(getResult.getCustomPropertiesResolverImplementationType());
+    assertNull(getResult.getEvent());
+    assertNull(getResult.getImplementation());
+    assertNull(getResult.getImplementationType());
+    assertNull(getResult.getOnTransaction());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    assertNull(getResult.getId());
+    List<FieldExtension> fieldExtensions2 = getResult.getFieldExtensions();
+    assertEquals(1, fieldExtensions2.size());
+    FieldExtension getResult2 = fieldExtensions2.get(0);
+    assertNull(getResult2.getId());
+    assertNull(actualCloneResult.getId());
+    assertNull(getResult2.getExpression());
+    assertNull(getResult2.getFieldName());
+    assertNull(getResult2.getStringValue());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getAssignee());
+    assertNull(actualCloneResult.getBusinessCalendarName());
+    assertNull(actualCloneResult.getCategory());
+    assertNull(actualCloneResult.getDueDate());
+    assertNull(actualCloneResult.getExtensionId());
+    assertNull(actualCloneResult.getFormKey());
+    assertNull(actualCloneResult.getOwner());
+    assertNull(actualCloneResult.getPriority());
+    assertNull(actualCloneResult.getSkipExpression());
+    assertNull(actualCloneResult.getRunAs());
+    assertNull(actualCloneResult.getScriptProcessor());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getIoSpecification());
+    assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult2.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlRowNumber());
+    assertEquals(0, getResult2.getXmlRowNumber());
     assertEquals(0, actualCloneResult.getXmlRowNumber());
     assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
     assertFalse(actualCloneResult.isForCompensation());
@@ -197,8 +397,11 @@ public class AlfrescoUserTaskDiffblueTest {
     assertTrue(actualCloneResult.getCandidateUsers().isEmpty());
     assertTrue(actualCloneResult.getCustomProperties().isEmpty());
     assertTrue(actualCloneResult.getFormProperties().isEmpty());
-    assertTrue(actualCloneResult.getTaskListeners().isEmpty());
+    assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(getResult2.getAttributes().isEmpty());
     assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(getResult.getExtensionElements().isEmpty());
+    assertTrue(getResult2.getExtensionElements().isEmpty());
     assertTrue(actualCloneResult.getExtensionElements().isEmpty());
     assertTrue(actualCloneResult.getCustomGroupIdentityLinks().isEmpty());
     assertTrue(actualCloneResult.getCustomUserIdentityLinks().isEmpty());
@@ -206,18 +409,10 @@ public class AlfrescoUserTaskDiffblueTest {
   }
 
   /**
-   * Test {@link AlfrescoUserTask#clone()}.
-   * <ul>
-   *   <li>Given {@link FormProperty} (default constructor) FormValues is {@code null}.</li>
-   *   <li>Then return FormProperties size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AlfrescoUserTask#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"AlfrescoUserTask AlfrescoUserTask.clone()"})
-  public void testClone_givenFormPropertyFormValuesIsNull_thenReturnFormPropertiesSizeIsOne() {
+  public void testClone6() {
     // Arrange
     FormProperty formProperty = new FormProperty();
     formProperty.setFormValues(null);
@@ -229,40 +424,79 @@ public class AlfrescoUserTaskDiffblueTest {
     alfrescoUserTask.setFormProperties(formProperties);
     alfrescoUserTask.setTaskListeners(null);
 
-    // Act and Assert
-    List<FormProperty> formProperties2 = alfrescoUserTask.clone().getFormProperties();
+    // Act
+    AlfrescoUserTask actualCloneResult = alfrescoUserTask.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    List<FormProperty> formProperties2 = actualCloneResult.getFormProperties();
     assertEquals(1, formProperties2.size());
     FormProperty getResult = formProperties2.get(0);
     assertNull(getResult.getId());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
     assertNull(getResult.getDatePattern());
     assertNull(getResult.getDefaultExpression());
     assertNull(getResult.getExpression());
     assertNull(getResult.getName());
     assertNull(getResult.getType());
     assertNull(getResult.getVariable());
+    assertNull(actualCloneResult.getAssignee());
+    assertNull(actualCloneResult.getBusinessCalendarName());
+    assertNull(actualCloneResult.getCategory());
+    assertNull(actualCloneResult.getDueDate());
+    assertNull(actualCloneResult.getExtensionId());
+    assertNull(actualCloneResult.getFormKey());
+    assertNull(actualCloneResult.getOwner());
+    assertNull(actualCloneResult.getPriority());
+    assertNull(actualCloneResult.getSkipExpression());
+    assertNull(actualCloneResult.getRunAs());
+    assertNull(actualCloneResult.getScriptProcessor());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getIoSpecification());
+    assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
     assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
     assertEquals(0, getResult.getXmlRowNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
     assertFalse(getResult.isRequired());
+    assertFalse(actualCloneResult.isExtended());
+    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
     assertTrue(getResult.getFormValues().isEmpty());
+    assertTrue(actualCloneResult.getCandidateGroups().isEmpty());
+    assertTrue(actualCloneResult.getCandidateUsers().isEmpty());
+    assertTrue(actualCloneResult.getCustomProperties().isEmpty());
+    assertTrue(actualCloneResult.getTaskListeners().isEmpty());
     assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
     assertTrue(getResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getCustomGroupIdentityLinks().isEmpty());
+    assertTrue(actualCloneResult.getCustomUserIdentityLinks().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
     assertTrue(getResult.isReadable());
     assertTrue(getResult.isWriteable());
   }
 
   /**
-   * Test {@link AlfrescoUserTask#clone()}.
-   * <ul>
-   *   <li>Given {@link FormProperty} (default constructor) FormValues is {@code null}.</li>
-   *   <li>Then return FormProperties size is two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AlfrescoUserTask#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"AlfrescoUserTask AlfrescoUserTask.clone()"})
-  public void testClone_givenFormPropertyFormValuesIsNull_thenReturnFormPropertiesSizeIsTwo() {
+  public void testClone7() {
     // Arrange
     FormProperty formProperty = new FormProperty();
     formProperty.setFormValues(null);
@@ -275,114 +509,118 @@ public class AlfrescoUserTaskDiffblueTest {
     alfrescoUserTask.setFormProperties(formProperties);
     alfrescoUserTask.setTaskListeners(null);
 
-    // Act and Assert
-    List<FormProperty> formProperties2 = alfrescoUserTask.clone().getFormProperties();
+    // Act
+    AlfrescoUserTask actualCloneResult = alfrescoUserTask.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    List<FormProperty> formProperties2 = actualCloneResult.getFormProperties();
     assertEquals(2, formProperties2.size());
-    FormProperty getResult = formProperties2.get(1);
+    FormProperty getResult = formProperties2.get(0);
     assertNull(getResult.getId());
+    FormProperty getResult2 = formProperties2.get(1);
+    assertNull(getResult2.getId());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
     assertNull(getResult.getDatePattern());
+    assertNull(getResult2.getDatePattern());
     assertNull(getResult.getDefaultExpression());
+    assertNull(getResult2.getDefaultExpression());
     assertNull(getResult.getExpression());
+    assertNull(getResult2.getExpression());
     assertNull(getResult.getName());
+    assertNull(getResult2.getName());
     assertNull(getResult.getType());
+    assertNull(getResult2.getType());
     assertNull(getResult.getVariable());
+    assertNull(getResult2.getVariable());
+    assertNull(actualCloneResult.getAssignee());
+    assertNull(actualCloneResult.getBusinessCalendarName());
+    assertNull(actualCloneResult.getCategory());
+    assertNull(actualCloneResult.getDueDate());
+    assertNull(actualCloneResult.getExtensionId());
+    assertNull(actualCloneResult.getFormKey());
+    assertNull(actualCloneResult.getOwner());
+    assertNull(actualCloneResult.getPriority());
+    assertNull(actualCloneResult.getSkipExpression());
+    assertNull(actualCloneResult.getRunAs());
+    assertNull(actualCloneResult.getScriptProcessor());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getIoSpecification());
+    assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
     assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult2.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
     assertEquals(0, getResult.getXmlRowNumber());
+    assertEquals(0, getResult2.getXmlRowNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
     assertFalse(getResult.isRequired());
+    assertFalse(getResult2.isRequired());
+    assertFalse(actualCloneResult.isExtended());
+    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
     assertTrue(getResult.getFormValues().isEmpty());
+    assertTrue(getResult2.getFormValues().isEmpty());
+    assertTrue(actualCloneResult.getCandidateGroups().isEmpty());
+    assertTrue(actualCloneResult.getCandidateUsers().isEmpty());
+    assertTrue(actualCloneResult.getCustomProperties().isEmpty());
+    assertTrue(actualCloneResult.getTaskListeners().isEmpty());
     assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(getResult2.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
     assertTrue(getResult.getExtensionElements().isEmpty());
+    assertTrue(getResult2.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getCustomGroupIdentityLinks().isEmpty());
+    assertTrue(actualCloneResult.getCustomUserIdentityLinks().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
     assertTrue(getResult.isReadable());
+    assertTrue(getResult2.isReadable());
     assertTrue(getResult.isWriteable());
+    assertTrue(getResult2.isWriteable());
   }
 
   /**
-   * Test {@link AlfrescoUserTask#clone()}.
-   * <ul>
-   *   <li>Then return TaskListeners first FieldExtensions size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AlfrescoUserTask#clone()}
+   * Method under test: {@link AlfrescoUserTask#setValues(AlfrescoUserTask)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"AlfrescoUserTask AlfrescoUserTask.clone()"})
-  public void testClone_thenReturnTaskListenersFirstFieldExtensionsSizeIsOne() {
+  public void testSetValues() {
     // Arrange
-    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
-    fieldExtensions.add(new FieldExtension());
-
-    ActivitiListener activitiListener = new ActivitiListener();
-    activitiListener.setFieldExtensions(fieldExtensions);
-
-    ArrayList<ActivitiListener> taskListeners = new ArrayList<>();
-    taskListeners.add(activitiListener);
-
     AlfrescoUserTask alfrescoUserTask = new AlfrescoUserTask();
-    alfrescoUserTask.setFormProperties(null);
-    alfrescoUserTask.setTaskListeners(taskListeners);
+    MultiInstanceLoopCharacteristics loopCharacteristics = mock(MultiInstanceLoopCharacteristics.class);
+    when(loopCharacteristics.clone()).thenReturn(new MultiInstanceLoopCharacteristics());
 
-    // Act and Assert
-    List<ActivitiListener> taskListeners2 = alfrescoUserTask.clone().getTaskListeners();
-    assertEquals(1, taskListeners2.size());
-    List<FieldExtension> fieldExtensions2 = taskListeners2.get(0).getFieldExtensions();
-    assertEquals(1, fieldExtensions2.size());
-    FieldExtension getResult = fieldExtensions2.get(0);
-    assertNull(getResult.getId());
-    assertNull(getResult.getExpression());
-    assertNull(getResult.getFieldName());
-    assertNull(getResult.getStringValue());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
+
+    AlfrescoUserTask otherElement = new AlfrescoUserTask();
+    otherElement.setLoopCharacteristics(loopCharacteristics);
+    otherElement.setIoSpecification(null);
+    otherElement.setDataInputAssociations(null);
+    otherElement.setDataOutputAssociations(null);
+    otherElement.setBoundaryEvents(boundaryEvents);
+
+    // Act
+    alfrescoUserTask.setValues(otherElement);
+
+    // Assert
+    verify(loopCharacteristics).clone();
   }
 
   /**
-   * Test {@link AlfrescoUserTask#clone()}.
-   * <ul>
-   *   <li>Then return TaskListeners first Instance is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AlfrescoUserTask#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"AlfrescoUserTask AlfrescoUserTask.clone()"})
-  public void testClone_thenReturnTaskListenersFirstInstanceIsNull() {
-    // Arrange
-    ActivitiListener activitiListener = new ActivitiListener();
-    activitiListener.setFieldExtensions(new ArrayList<>());
-
-    ArrayList<ActivitiListener> taskListeners = new ArrayList<>();
-    taskListeners.add(activitiListener);
-
-    AlfrescoUserTask alfrescoUserTask = new AlfrescoUserTask();
-    alfrescoUserTask.setFormProperties(null);
-    alfrescoUserTask.setTaskListeners(taskListeners);
-
-    // Act and Assert
-    List<ActivitiListener> taskListeners2 = alfrescoUserTask.clone().getTaskListeners();
-    assertEquals(1, taskListeners2.size());
-    ActivitiListener getResult = taskListeners2.get(0);
-    assertNull(getResult.getInstance());
-    assertNull(getResult.getCustomPropertiesResolverImplementation());
-    assertNull(getResult.getCustomPropertiesResolverImplementationType());
-    assertNull(getResult.getEvent());
-    assertNull(getResult.getImplementation());
-    assertNull(getResult.getImplementationType());
-    assertNull(getResult.getOnTransaction());
-    assertNull(getResult.getId());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(getResult.getFieldExtensions().isEmpty());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link AlfrescoUserTask}
@@ -393,10 +631,6 @@ public class AlfrescoUserTaskDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AlfrescoUserTask.<init>()", "String AlfrescoUserTask.getRunAs()",
-      "String AlfrescoUserTask.getScriptProcessor()", "void AlfrescoUserTask.setRunAs(String)",
-      "void AlfrescoUserTask.setScriptProcessor(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     AlfrescoUserTask actualAlfrescoUserTask = new AlfrescoUserTask();
@@ -404,27 +638,9 @@ public class AlfrescoUserTaskDiffblueTest {
     actualAlfrescoUserTask.setScriptProcessor("Script Processor");
     String actualRunAs = actualAlfrescoUserTask.getRunAs();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("Run As", actualRunAs);
     assertEquals("Script Processor", actualAlfrescoUserTask.getScriptProcessor());
-    assertNull(actualAlfrescoUserTask.getBehavior());
-    assertNull(actualAlfrescoUserTask.getDefaultFlow());
-    assertNull(actualAlfrescoUserTask.getFailedJobRetryTimeCycleValue());
-    assertNull(actualAlfrescoUserTask.getId());
-    assertNull(actualAlfrescoUserTask.getDocumentation());
-    assertNull(actualAlfrescoUserTask.getName());
-    assertNull(actualAlfrescoUserTask.getAssignee());
-    assertNull(actualAlfrescoUserTask.getBusinessCalendarName());
-    assertNull(actualAlfrescoUserTask.getCategory());
-    assertNull(actualAlfrescoUserTask.getDueDate());
-    assertNull(actualAlfrescoUserTask.getExtensionId());
-    assertNull(actualAlfrescoUserTask.getFormKey());
-    assertNull(actualAlfrescoUserTask.getOwner());
-    assertNull(actualAlfrescoUserTask.getPriority());
-    assertNull(actualAlfrescoUserTask.getSkipExpression());
-    assertNull(actualAlfrescoUserTask.getParentContainer());
-    assertNull(actualAlfrescoUserTask.getIoSpecification());
-    assertNull(actualAlfrescoUserTask.getLoopCharacteristics());
     assertEquals(0, actualAlfrescoUserTask.getXmlColumnNumber());
     assertEquals(0, actualAlfrescoUserTask.getXmlRowNumber());
     assertFalse(actualAlfrescoUserTask.isForCompensation());

@@ -22,25 +22,19 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import org.activiti.engine.impl.persistence.entity.VariableInstanceEntity;
 import org.activiti.engine.impl.persistence.entity.VariableInstanceEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class DeserializedObjectDiffblueTest {
   /**
-   * Test {@link DeserializedObject#DeserializedObject(SerializableType, Object, byte[], VariableInstanceEntity)}.
-   * <p>
-   * Method under test: {@link DeserializedObject#DeserializedObject(SerializableType, Object, byte[], VariableInstanceEntity)}
+   * Method under test:
+   * {@link DeserializedObject#DeserializedObject(SerializableType, Object, byte[], VariableInstanceEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeserializedObject.<init>(SerializableType, Object, byte[], VariableInstanceEntity)"})
   public void testNewDeserializedObject() throws UnsupportedEncodingException {
     // Arrange
     SerializableType type = new SerializableType(true);
@@ -54,13 +48,10 @@ public class DeserializedObjectDiffblueTest {
   }
 
   /**
-   * Test {@link DeserializedObject#verifyIfBytesOfSerializedObjectChanged()}.
-   * <p>
-   * Method under test: {@link DeserializedObject#verifyIfBytesOfSerializedObjectChanged()}
+   * Method under test:
+   * {@link DeserializedObject#verifyIfBytesOfSerializedObjectChanged()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeserializedObject.verifyIfBytesOfSerializedObjectChanged()"})
   public void testVerifyIfBytesOfSerializedObjectChanged() throws UnsupportedEncodingException {
     // Arrange
     VariableInstanceEntityImpl variableInstanceEntity = mock(VariableInstanceEntityImpl.class);
@@ -72,19 +63,16 @@ public class DeserializedObjectDiffblueTest {
     (new DeserializedObject(type, JSONObject.NULL, "AXAXAXAX".getBytes("UTF-8"), variableInstanceEntity))
         .verifyIfBytesOfSerializedObjectChanged();
 
-    // Assert
+    // Assert that nothing has changed
     verify(variableInstanceEntity).isDeleted();
     verify(variableInstanceEntity).getCachedValue();
   }
 
   /**
-   * Test {@link DeserializedObject#verifyIfBytesOfSerializedObjectChanged()}.
-   * <p>
-   * Method under test: {@link DeserializedObject#verifyIfBytesOfSerializedObjectChanged()}
+   * Method under test:
+   * {@link DeserializedObject#verifyIfBytesOfSerializedObjectChanged()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeserializedObject.verifyIfBytesOfSerializedObjectChanged()"})
   public void testVerifyIfBytesOfSerializedObjectChanged2() throws UnsupportedEncodingException {
     // Arrange
     LongJsonType type = mock(LongJsonType.class);
@@ -97,26 +85,18 @@ public class DeserializedObjectDiffblueTest {
     (new DeserializedObject(type, JSONObject.NULL, "AXAXAXAX".getBytes("UTF-8"), variableInstanceEntity))
         .verifyIfBytesOfSerializedObjectChanged();
 
-    // Assert
+    // Assert that nothing has changed
     verify(variableInstanceEntity).isDeleted();
     verify(variableInstanceEntity).getCachedValue();
     verify(type).serialize(isA(Object.class), isA(ValueFields.class));
   }
 
   /**
-   * Test {@link DeserializedObject#verifyIfBytesOfSerializedObjectChanged()}.
-   * <ul>
-   *   <li>Given {@code A}.</li>
-   *   <li>Then calls {@link LongJsonType#deserialize(byte[], ValueFields)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeserializedObject#verifyIfBytesOfSerializedObjectChanged()}
+   * Method under test:
+   * {@link DeserializedObject#verifyIfBytesOfSerializedObjectChanged()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeserializedObject.verifyIfBytesOfSerializedObjectChanged()"})
-  public void testVerifyIfBytesOfSerializedObjectChanged_givenA_thenCallsDeserialize()
-      throws UnsupportedEncodingException {
+  public void testVerifyIfBytesOfSerializedObjectChanged3() throws UnsupportedEncodingException {
     // Arrange
     LongJsonType type = mock(LongJsonType.class);
     when(type.serialize(Mockito.<Object>any(), Mockito.<ValueFields>any()))
@@ -130,7 +110,7 @@ public class DeserializedObjectDiffblueTest {
     (new DeserializedObject(type, JSONObject.NULL, "AXAXAXAX".getBytes("UTF-8"), variableInstanceEntity))
         .verifyIfBytesOfSerializedObjectChanged();
 
-    // Assert
+    // Assert that nothing has changed
     verify(variableInstanceEntity).isDeleted();
     verify(variableInstanceEntity).getCachedValue();
     verify(type).deserialize(isA(byte[].class), isA(ValueFields.class));

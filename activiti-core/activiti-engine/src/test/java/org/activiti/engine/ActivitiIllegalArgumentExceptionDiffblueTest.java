@@ -18,25 +18,15 @@ package org.activiti.engine;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ActivitiIllegalArgumentExceptionDiffblueTest {
   /**
-   * Test {@link ActivitiIllegalArgumentException#ActivitiIllegalArgumentException(String)}.
-   * <ul>
-   *   <li>Then return Cause is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ActivitiIllegalArgumentException#ActivitiIllegalArgumentException(String)}
+   * Method under test:
+   * {@link ActivitiIllegalArgumentException#ActivitiIllegalArgumentException(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiIllegalArgumentException.<init>(String)",
-      "void ActivitiIllegalArgumentException.<init>(String, Throwable)"})
-  public void testNewActivitiIllegalArgumentException_thenReturnCauseIsNull() {
+  public void testNewActivitiIllegalArgumentException() {
     // Arrange and Act
     ActivitiIllegalArgumentException actualActivitiIllegalArgumentException = new ActivitiIllegalArgumentException(
         "An error occurred");
@@ -48,19 +38,11 @@ public class ActivitiIllegalArgumentExceptionDiffblueTest {
   }
 
   /**
-   * Test {@link ActivitiIllegalArgumentException#ActivitiIllegalArgumentException(String, Throwable)}.
-   * <ul>
-   *   <li>When {@link Throwable#Throwable()}.</li>
-   *   <li>Then return Cause is {@link Throwable#Throwable()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ActivitiIllegalArgumentException#ActivitiIllegalArgumentException(String, Throwable)}
+   * Method under test:
+   * {@link ActivitiIllegalArgumentException#ActivitiIllegalArgumentException(String, Throwable)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiIllegalArgumentException.<init>(String)",
-      "void ActivitiIllegalArgumentException.<init>(String, Throwable)"})
-  public void testNewActivitiIllegalArgumentException_whenThrowable_thenReturnCauseIsThrowable() {
+  public void testNewActivitiIllegalArgumentException2() {
     // Arrange
     Throwable cause = new Throwable();
 

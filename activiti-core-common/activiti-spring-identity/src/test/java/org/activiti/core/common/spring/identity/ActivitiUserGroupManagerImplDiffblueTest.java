@@ -16,73 +16,37 @@
 package org.activiti.core.common.spring.identity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-@ExtendWith(MockitoExtension.class)
 class ActivitiUserGroupManagerImplDiffblueTest {
-  @InjectMocks
-  private ActivitiUserGroupManagerImpl activitiUserGroupManagerImpl;
-
-  @Mock
-  private UserDetailsService userDetailsService;
-
   /**
-   * Test {@link ActivitiUserGroupManagerImpl#ActivitiUserGroupManagerImpl(UserDetailsService)}.
-   * <p>
-   * Method under test: {@link ActivitiUserGroupManagerImpl#ActivitiUserGroupManagerImpl(UserDetailsService)}
-   */
-  @Test
-  @DisplayName("Test new ActivitiUserGroupManagerImpl(UserDetailsService)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ActivitiUserGroupManagerImpl.<init>(UserDetailsService)"})
-  void testNewActivitiUserGroupManagerImpl() {
-    // Arrange and Act
-    ActivitiUserGroupManagerImpl actualActivitiUserGroupManagerImpl = new ActivitiUserGroupManagerImpl(
-        new ExtendedInMemoryUserDetailsManager());
-
-    // Assert
-    assertTrue(actualActivitiUserGroupManagerImpl.getGroups().isEmpty());
-    assertTrue(actualActivitiUserGroupManagerImpl.getUsers().isEmpty());
-  }
-
-  /**
-   * Test {@link ActivitiUserGroupManagerImpl#getUserGroups(String)}.
-   * <ul>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ActivitiUserGroupManagerImpl#getUserGroups(String)}
    */
   @Test
-  @DisplayName("Test getUserGroups(String); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List ActivitiUserGroupManagerImpl.getUserGroups(String)"})
-  void testGetUserGroups_thenReturnEmpty() throws UsernameNotFoundException {
+  void testGetUserGroups() throws UsernameNotFoundException {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+
     // Arrange
+    ExtendedInMemoryUserDetailsManager userDetailsService = mock(ExtendedInMemoryUserDetailsManager.class);
     when(userDetailsService.loadUserByUsername(Mockito.<String>any()))
         .thenReturn(new User("janedoe", "iloveyou", new ArrayList<>()));
 
     // Act
-    List<String> actualUserGroups = activitiUserGroupManagerImpl.getUserGroups("janedoe");
+    List<String> actualUserGroups = (new ActivitiUserGroupManagerImpl(userDetailsService)).getUserGroups("janedoe");
 
     // Assert
     verify(userDetailsService).loadUserByUsername(eq("janedoe"));
@@ -90,26 +54,21 @@ class ActivitiUserGroupManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link ActivitiUserGroupManagerImpl#getUserGroups(String)}.
-   * <ul>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ActivitiUserGroupManagerImpl#getUserGroups(String)}
    */
   @Test
-  @DisplayName("Test getUserGroups(String); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List ActivitiUserGroupManagerImpl.getUserGroups(String)"})
-  void testGetUserGroups_thenReturnEmpty2() throws UsernameNotFoundException {
+  void testGetUserGroups2() throws UsernameNotFoundException {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+
     // Arrange
     ArrayList<GrantedAuthority> authorities = new ArrayList<>();
     authorities.add(new SimpleGrantedAuthority("Role"));
+    ExtendedInMemoryUserDetailsManager userDetailsService = mock(ExtendedInMemoryUserDetailsManager.class);
     when(userDetailsService.loadUserByUsername(Mockito.<String>any()))
         .thenReturn(new User("janedoe", "iloveyou", authorities));
 
     // Act
-    List<String> actualUserGroups = activitiUserGroupManagerImpl.getUserGroups("janedoe");
+    List<String> actualUserGroups = (new ActivitiUserGroupManagerImpl(userDetailsService)).getUserGroups("janedoe");
 
     // Assert
     verify(userDetailsService).loadUserByUsername(eq("janedoe"));
@@ -117,27 +76,22 @@ class ActivitiUserGroupManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link ActivitiUserGroupManagerImpl#getUserGroups(String)}.
-   * <ul>
-   *   <li>Then return size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ActivitiUserGroupManagerImpl#getUserGroups(String)}
    */
   @Test
-  @DisplayName("Test getUserGroups(String); then return size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List ActivitiUserGroupManagerImpl.getUserGroups(String)"})
-  void testGetUserGroups_thenReturnSizeIsOne() throws UsernameNotFoundException {
+  void testGetUserGroups3() throws UsernameNotFoundException {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+
     // Arrange
     ArrayList<GrantedAuthority> authorities = new ArrayList<>();
     authorities.add(new SimpleGrantedAuthority("GROUP_"));
     authorities.add(new SimpleGrantedAuthority("Role"));
+    ExtendedInMemoryUserDetailsManager userDetailsService = mock(ExtendedInMemoryUserDetailsManager.class);
     when(userDetailsService.loadUserByUsername(Mockito.<String>any()))
         .thenReturn(new User("janedoe", "iloveyou", authorities));
 
     // Act
-    List<String> actualUserGroups = activitiUserGroupManagerImpl.getUserGroups("janedoe");
+    List<String> actualUserGroups = (new ActivitiUserGroupManagerImpl(userDetailsService)).getUserGroups("janedoe");
 
     // Assert
     verify(userDetailsService).loadUserByUsername(eq("janedoe"));
@@ -146,53 +100,19 @@ class ActivitiUserGroupManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link ActivitiUserGroupManagerImpl#getUserRoles(String)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link SimpleGrantedAuthority#SimpleGrantedAuthority(String)} with {@code Role}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ActivitiUserGroupManagerImpl#getUserRoles(String)}
    */
   @Test
-  @DisplayName("Test getUserRoles(String); given ArrayList() add SimpleGrantedAuthority(String) with 'Role'; then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List ActivitiUserGroupManagerImpl.getUserRoles(String)"})
-  void testGetUserRoles_givenArrayListAddSimpleGrantedAuthorityWithRole_thenReturnEmpty()
-      throws UsernameNotFoundException {
+  void testGetUserRoles() throws UsernameNotFoundException {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+
     // Arrange
-    ArrayList<GrantedAuthority> authorities = new ArrayList<>();
-    authorities.add(new SimpleGrantedAuthority("Role"));
-    when(userDetailsService.loadUserByUsername(Mockito.<String>any()))
-        .thenReturn(new User("janedoe", "iloveyou", authorities));
-
-    // Act
-    List<String> actualUserRoles = activitiUserGroupManagerImpl.getUserRoles("janedoe");
-
-    // Assert
-    verify(userDetailsService).loadUserByUsername(eq("janedoe"));
-    assertTrue(actualUserRoles.isEmpty());
-  }
-
-  /**
-   * Test {@link ActivitiUserGroupManagerImpl#getUserRoles(String)}.
-   * <ul>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ActivitiUserGroupManagerImpl#getUserRoles(String)}
-   */
-  @Test
-  @DisplayName("Test getUserRoles(String); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List ActivitiUserGroupManagerImpl.getUserRoles(String)"})
-  void testGetUserRoles_thenReturnEmpty() throws UsernameNotFoundException {
-    // Arrange
+    ExtendedInMemoryUserDetailsManager userDetailsService = mock(ExtendedInMemoryUserDetailsManager.class);
     when(userDetailsService.loadUserByUsername(Mockito.<String>any()))
         .thenReturn(new User("janedoe", "iloveyou", new ArrayList<>()));
 
     // Act
-    List<String> actualUserRoles = activitiUserGroupManagerImpl.getUserRoles("janedoe");
+    List<String> actualUserRoles = (new ActivitiUserGroupManagerImpl(userDetailsService)).getUserRoles("janedoe");
 
     // Assert
     verify(userDetailsService).loadUserByUsername(eq("janedoe"));
@@ -200,27 +120,44 @@ class ActivitiUserGroupManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link ActivitiUserGroupManagerImpl#getUserRoles(String)}.
-   * <ul>
-   *   <li>Then return size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ActivitiUserGroupManagerImpl#getUserRoles(String)}
    */
   @Test
-  @DisplayName("Test getUserRoles(String); then return size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List ActivitiUserGroupManagerImpl.getUserRoles(String)"})
-  void testGetUserRoles_thenReturnSizeIsOne() throws UsernameNotFoundException {
+  void testGetUserRoles2() throws UsernameNotFoundException {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+
     // Arrange
     ArrayList<GrantedAuthority> authorities = new ArrayList<>();
-    authorities.add(new SimpleGrantedAuthority("ROLE_"));
     authorities.add(new SimpleGrantedAuthority("Role"));
+    ExtendedInMemoryUserDetailsManager userDetailsService = mock(ExtendedInMemoryUserDetailsManager.class);
     when(userDetailsService.loadUserByUsername(Mockito.<String>any()))
         .thenReturn(new User("janedoe", "iloveyou", authorities));
 
     // Act
-    List<String> actualUserRoles = activitiUserGroupManagerImpl.getUserRoles("janedoe");
+    List<String> actualUserRoles = (new ActivitiUserGroupManagerImpl(userDetailsService)).getUserRoles("janedoe");
+
+    // Assert
+    verify(userDetailsService).loadUserByUsername(eq("janedoe"));
+    assertTrue(actualUserRoles.isEmpty());
+  }
+
+  /**
+   * Method under test: {@link ActivitiUserGroupManagerImpl#getUserRoles(String)}
+   */
+  @Test
+  void testGetUserRoles3() throws UsernameNotFoundException {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+
+    // Arrange
+    ArrayList<GrantedAuthority> authorities = new ArrayList<>();
+    authorities.add(new SimpleGrantedAuthority("ROLE_"));
+    authorities.add(new SimpleGrantedAuthority("Role"));
+    ExtendedInMemoryUserDetailsManager userDetailsService = mock(ExtendedInMemoryUserDetailsManager.class);
+    when(userDetailsService.loadUserByUsername(Mockito.<String>any()))
+        .thenReturn(new User("janedoe", "iloveyou", authorities));
+
+    // Act
+    List<String> actualUserRoles = (new ActivitiUserGroupManagerImpl(userDetailsService)).getUserRoles("janedoe");
 
     // Assert
     verify(userDetailsService).loadUserByUsername(eq("janedoe"));
@@ -229,44 +166,81 @@ class ActivitiUserGroupManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link ActivitiUserGroupManagerImpl#getGroups()}.
-   * <ul>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ActivitiUserGroupManagerImpl#getGroups()}
    */
   @Test
-  @DisplayName("Test getGroups(); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List ActivitiUserGroupManagerImpl.getGroups()"})
-  void testGetGroups_thenReturnEmpty() {
+  void testGetGroups() {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
-    //   Run dcover create --keep-partial-tests to gain insights into why
-    //   a non-Spring test was created.
 
     // Arrange, Act and Assert
     assertTrue((new ActivitiUserGroupManagerImpl(new ExtendedInMemoryUserDetailsManager())).getGroups().isEmpty());
   }
 
   /**
-   * Test {@link ActivitiUserGroupManagerImpl#getUsers()}.
-   * <ul>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link ActivitiUserGroupManagerImpl#getGroups()}
+   */
+  @Test
+  void testGetGroups2() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+
+    // Arrange
+    ExtendedInMemoryUserDetailsManager userDetailsService = mock(ExtendedInMemoryUserDetailsManager.class);
+    ArrayList<String> stringList = new ArrayList<>();
+    when(userDetailsService.getGroups()).thenReturn(stringList);
+
+    // Act
+    List<String> actualGroups = (new ActivitiUserGroupManagerImpl(userDetailsService)).getGroups();
+
+    // Assert
+    verify(userDetailsService).getGroups();
+    assertTrue(actualGroups.isEmpty());
+    assertSame(stringList, actualGroups);
+  }
+
+  /**
    * Method under test: {@link ActivitiUserGroupManagerImpl#getUsers()}
    */
   @Test
-  @DisplayName("Test getUsers(); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List ActivitiUserGroupManagerImpl.getUsers()"})
-  void testGetUsers_thenReturnEmpty() {
+  void testGetUsers() {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
-    //   Run dcover create --keep-partial-tests to gain insights into why
-    //   a non-Spring test was created.
 
     // Arrange, Act and Assert
     assertTrue((new ActivitiUserGroupManagerImpl(new ExtendedInMemoryUserDetailsManager())).getUsers().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link ActivitiUserGroupManagerImpl#getUsers()}
+   */
+  @Test
+  void testGetUsers2() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+
+    // Arrange
+    ExtendedInMemoryUserDetailsManager userDetailsService = mock(ExtendedInMemoryUserDetailsManager.class);
+    ArrayList<String> stringList = new ArrayList<>();
+    when(userDetailsService.getUsers()).thenReturn(stringList);
+
+    // Act
+    List<String> actualUsers = (new ActivitiUserGroupManagerImpl(userDetailsService)).getUsers();
+
+    // Assert
+    verify(userDetailsService).getUsers();
+    assertTrue(actualUsers.isEmpty());
+    assertSame(stringList, actualUsers);
+  }
+
+  /**
+   * Method under test:
+   * {@link ActivitiUserGroupManagerImpl#ActivitiUserGroupManagerImpl(UserDetailsService)}
+   */
+  @Test
+  void testNewActivitiUserGroupManagerImpl() {
+    // Arrange and Act
+    ActivitiUserGroupManagerImpl actualActivitiUserGroupManagerImpl = new ActivitiUserGroupManagerImpl(
+        new ExtendedInMemoryUserDetailsManager());
+
+    // Assert
+    assertTrue(actualActivitiUserGroupManagerImpl.getGroups().isEmpty());
+    assertTrue(actualActivitiUserGroupManagerImpl.getUsers().isEmpty());
   }
 }

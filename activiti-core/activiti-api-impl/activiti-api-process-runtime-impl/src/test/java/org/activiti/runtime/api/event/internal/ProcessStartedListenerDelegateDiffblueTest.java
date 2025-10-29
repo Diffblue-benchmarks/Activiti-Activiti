@@ -16,32 +16,24 @@
 package org.activiti.runtime.api.event.internal;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.api.process.runtime.events.ProcessStartedEvent;
 import org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener;
 import org.activiti.runtime.api.event.impl.ToAPIProcessStartedEventConverter;
 import org.activiti.runtime.api.model.impl.APIProcessInstanceConverter;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ProcessStartedListenerDelegateDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>{@link ProcessStartedListenerDelegate#ProcessStartedListenerDelegate(List, ToAPIProcessStartedEventConverter)}
+   *   <li>
+   * {@link ProcessStartedListenerDelegate#ProcessStartedListenerDelegate(List, ToAPIProcessStartedEventConverter)}
    *   <li>{@link ProcessStartedListenerDelegate#isFailOnException()}
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessStartedListenerDelegate.<init>(List, ToAPIProcessStartedEventConverter)",
-      "boolean ProcessStartedListenerDelegate.isFailOnException()"})
   void testGettersAndSetters() {
     // Arrange
     ArrayList<ProcessRuntimeEventListener<ProcessStartedEvent>> listeners = new ArrayList<>();

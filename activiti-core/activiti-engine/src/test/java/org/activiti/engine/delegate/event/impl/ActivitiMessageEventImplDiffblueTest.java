@@ -18,27 +18,52 @@ package org.activiti.engine.delegate.event.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ActivitiMessageEventImplDiffblueTest {
   /**
-   * Test {@link ActivitiMessageEventImpl#ActivitiMessageEventImpl(ActivitiEventType)}.
+   * Methods under test:
    * <ul>
-   *   <li>When {@code ENTITY_CREATED}.</li>
-   *   <li>Then return MessageData is {@code null}.</li>
+   *   <li>{@link ActivitiMessageEventImpl#setMessageBusinessKey(String)}
+   *   <li>{@link ActivitiMessageEventImpl#setMessageCorrelationKey(String)}
+   *   <li>{@link ActivitiMessageEventImpl#setMessageData(Object)}
+   *   <li>{@link ActivitiMessageEventImpl#setMessageName(String)}
+   *   <li>{@link ActivitiMessageEventImpl#getMessageBusinessKey()}
+   *   <li>{@link ActivitiMessageEventImpl#getMessageCorrelationKey()}
+   *   <li>{@link ActivitiMessageEventImpl#getMessageData()}
+   *   <li>{@link ActivitiMessageEventImpl#getMessageName()}
    * </ul>
-   * <p>
-   * Method under test: {@link ActivitiMessageEventImpl#ActivitiMessageEventImpl(ActivitiEventType)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiMessageEventImpl.<init>(ActivitiEventType)"})
-  public void testNewActivitiMessageEventImpl_whenEntityCreated_thenReturnMessageDataIsNull() {
+  public void testGettersAndSetters() {
+    // Arrange
+    ActivitiMessageEventImpl activitiMessageEventImpl = new ActivitiMessageEventImpl(ActivitiEventType.ENTITY_CREATED);
+
+    // Act
+    activitiMessageEventImpl.setMessageBusinessKey("Business Key");
+    activitiMessageEventImpl.setMessageCorrelationKey("Correlation Key");
+    Object object = JSONObject.NULL;
+    activitiMessageEventImpl.setMessageData(object);
+    activitiMessageEventImpl.setMessageName("Message Name");
+    String actualMessageBusinessKey = activitiMessageEventImpl.getMessageBusinessKey();
+    String actualMessageCorrelationKey = activitiMessageEventImpl.getMessageCorrelationKey();
+    Object actualMessageData = activitiMessageEventImpl.getMessageData();
+
+    // Assert that nothing has changed
+    assertEquals("Business Key", actualMessageBusinessKey);
+    assertEquals("Correlation Key", actualMessageCorrelationKey);
+    assertEquals("Message Name", activitiMessageEventImpl.getMessageName());
+    assertSame(object, actualMessageData);
+  }
+
+  /**
+   * Method under test:
+   * {@link ActivitiMessageEventImpl#ActivitiMessageEventImpl(ActivitiEventType)}
+   */
+  @Test
+  public void testNewActivitiMessageEventImpl() {
     // Arrange and Act
     ActivitiMessageEventImpl actualActivitiMessageEventImpl = new ActivitiMessageEventImpl(
         ActivitiEventType.ENTITY_CREATED);
@@ -57,48 +82,5 @@ public class ActivitiMessageEventImplDiffblueTest {
     assertNull(actualActivitiMessageEventImpl.getMessageCorrelationKey());
     assertNull(actualActivitiMessageEventImpl.getMessageName());
     assertEquals(ActivitiEventType.ENTITY_CREATED, actualActivitiMessageEventImpl.getType());
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link ActivitiMessageEventImpl#setMessageBusinessKey(String)}
-   *   <li>{@link ActivitiMessageEventImpl#setMessageCorrelationKey(String)}
-   *   <li>{@link ActivitiMessageEventImpl#setMessageData(Object)}
-   *   <li>{@link ActivitiMessageEventImpl#setMessageName(String)}
-   *   <li>{@link ActivitiMessageEventImpl#getMessageBusinessKey()}
-   *   <li>{@link ActivitiMessageEventImpl#getMessageCorrelationKey()}
-   *   <li>{@link ActivitiMessageEventImpl#getMessageData()}
-   *   <li>{@link ActivitiMessageEventImpl#getMessageName()}
-   * </ul>
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String ActivitiMessageEventImpl.getMessageBusinessKey()",
-      "String ActivitiMessageEventImpl.getMessageCorrelationKey()", "Object ActivitiMessageEventImpl.getMessageData()",
-      "String ActivitiMessageEventImpl.getMessageName()", "void ActivitiMessageEventImpl.setMessageBusinessKey(String)",
-      "void ActivitiMessageEventImpl.setMessageCorrelationKey(String)",
-      "void ActivitiMessageEventImpl.setMessageData(Object)", "void ActivitiMessageEventImpl.setMessageName(String)"})
-  public void testGettersAndSetters() {
-    // Arrange
-    ActivitiMessageEventImpl activitiMessageEventImpl = new ActivitiMessageEventImpl(ActivitiEventType.ENTITY_CREATED);
-
-    // Act
-    activitiMessageEventImpl.setMessageBusinessKey("Business Key");
-    activitiMessageEventImpl.setMessageCorrelationKey("Correlation Key");
-    Object object = JSONObject.NULL;
-    activitiMessageEventImpl.setMessageData(object);
-    activitiMessageEventImpl.setMessageName("Message Name");
-    String actualMessageBusinessKey = activitiMessageEventImpl.getMessageBusinessKey();
-    String actualMessageCorrelationKey = activitiMessageEventImpl.getMessageCorrelationKey();
-    Object actualMessageData = activitiMessageEventImpl.getMessageData();
-
-    // Assert
-    assertEquals("Business Key", actualMessageBusinessKey);
-    assertEquals("Correlation Key", actualMessageCorrelationKey);
-    assertEquals("Message Name", activitiMessageEventImpl.getMessageName());
-    assertSame(object, actualMessageData);
   }
 }

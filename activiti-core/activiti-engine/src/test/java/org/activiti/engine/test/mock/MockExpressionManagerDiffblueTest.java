@@ -19,24 +19,18 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.CompositeELResolver;
 import jakarta.el.ELResolver;
 import org.activiti.engine.delegate.VariableScope;
 import org.activiti.engine.impl.el.NoExecutionVariableScope;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class MockExpressionManagerDiffblueTest {
   /**
-   * Test {@link MockExpressionManager#createElResolver(VariableScope)}.
-   * <p>
-   * Method under test: {@link MockExpressionManager#createElResolver(VariableScope)}
+   * Method under test:
+   * {@link MockExpressionManager#createElResolver(VariableScope)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ELResolver MockExpressionManager.createElResolver(VariableScope)"})
   public void testCreateElResolver() {
     // Arrange
     MockExpressionManager mockExpressionManager = new MockExpressionManager();
@@ -53,13 +47,10 @@ public class MockExpressionManagerDiffblueTest {
   }
 
   /**
-   * Test new {@link MockExpressionManager} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link MockExpressionManager}
+   * Method under test: default or parameterless constructor of
+   * {@link MockExpressionManager}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void MockExpressionManager.<init>()"})
   public void testNewMockExpressionManager() {
     // Arrange and Act
     MockExpressionManager actualMockExpressionManager = new MockExpressionManager();

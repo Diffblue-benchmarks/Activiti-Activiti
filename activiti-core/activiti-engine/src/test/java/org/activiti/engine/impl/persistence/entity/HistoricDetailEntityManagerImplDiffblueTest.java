@@ -26,8 +26,6 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -44,7 +42,6 @@ import org.activiti.engine.impl.HistoricDetailQueryImpl;
 import org.activiti.engine.impl.Page;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
-import org.activiti.engine.impl.db.HasRevision;
 import org.activiti.engine.impl.history.DefaultHistoryManager;
 import org.activiti.engine.impl.history.HistoryLevel;
 import org.activiti.engine.impl.persistence.entity.data.DataManager;
@@ -55,7 +52,6 @@ import org.activiti.engine.impl.util.json.JSONObject;
 import org.activiti.engine.impl.variable.BigDecimalType;
 import org.activiti.engine.impl.variable.VariableType;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -64,59 +60,20 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HistoricDetailEntityManagerImplDiffblueTest {
+  @Mock
+  private HistoricDetailDataManager historicDetailDataManager;
+
   @InjectMocks
   private HistoricDetailEntityManagerImpl historicDetailEntityManagerImpl;
 
   @Mock
   private ProcessEngineConfigurationImpl processEngineConfigurationImpl;
 
-  @Mock
-  private HistoricDetailDataManager historicDetailDataManager;
-
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link HistoricDetailEntityManagerImpl#HistoricDetailEntityManagerImpl(ProcessEngineConfigurationImpl, HistoricDetailDataManager)}
-   *   <li>{@link HistoricDetailEntityManagerImpl#setHistoricDetailDataManager(HistoricDetailDataManager)}
-   *   <li>{@link HistoricDetailEntityManagerImpl#getDataManager()}
-   *   <li>{@link HistoricDetailEntityManagerImpl#getHistoricDetailDataManager()}
-   * </ul>
+   * Method under test:
+   * {@link HistoricDetailEntityManagerImpl#copyAndInsertHistoricDetailVariableInstanceUpdateEntity(VariableInstanceEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void HistoricDetailEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, HistoricDetailDataManager)",
-      "DataManager HistoricDetailEntityManagerImpl.getDataManager()",
-      "HistoricDetailDataManager HistoricDetailEntityManagerImpl.getHistoricDetailDataManager()",
-      "void HistoricDetailEntityManagerImpl.setHistoricDetailDataManager(HistoricDetailDataManager)"})
-  public void testGettersAndSetters() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-
-    // Act
-    HistoricDetailEntityManagerImpl actualHistoricDetailEntityManagerImpl = new HistoricDetailEntityManagerImpl(
-        processEngineConfiguration, new MybatisHistoricDetailDataManager(new JtaProcessEngineConfiguration()));
-    MybatisHistoricDetailDataManager historicDetailDataManager = new MybatisHistoricDetailDataManager(
-        new JtaProcessEngineConfiguration());
-    actualHistoricDetailEntityManagerImpl.setHistoricDetailDataManager(historicDetailDataManager);
-    DataManager<HistoricDetailEntity> actualDataManager = actualHistoricDetailEntityManagerImpl.getDataManager();
-
-    // Assert
-    assertSame(historicDetailDataManager, actualDataManager);
-    assertSame(historicDetailDataManager, actualHistoricDetailEntityManagerImpl.getHistoricDetailDataManager());
-  }
-
-  /**
-   * Test {@link HistoricDetailEntityManagerImpl#copyAndInsertHistoricDetailVariableInstanceUpdateEntity(VariableInstanceEntity)}.
-   * <p>
-   * Method under test: {@link HistoricDetailEntityManagerImpl#copyAndInsertHistoricDetailVariableInstanceUpdateEntity(VariableInstanceEntity)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "HistoricDetailVariableInstanceUpdateEntity HistoricDetailEntityManagerImpl.copyAndInsertHistoricDetailVariableInstanceUpdateEntity(VariableInstanceEntity)"})
   public void testCopyAndInsertHistoricDetailVariableInstanceUpdateEntity() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
@@ -144,14 +101,10 @@ public class HistoricDetailEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricDetailEntityManagerImpl#copyAndInsertHistoricDetailVariableInstanceUpdateEntity(VariableInstanceEntity)}.
-   * <p>
-   * Method under test: {@link HistoricDetailEntityManagerImpl#copyAndInsertHistoricDetailVariableInstanceUpdateEntity(VariableInstanceEntity)}
+   * Method under test:
+   * {@link HistoricDetailEntityManagerImpl#copyAndInsertHistoricDetailVariableInstanceUpdateEntity(VariableInstanceEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "HistoricDetailVariableInstanceUpdateEntity HistoricDetailEntityManagerImpl.copyAndInsertHistoricDetailVariableInstanceUpdateEntity(VariableInstanceEntity)"})
   public void testCopyAndInsertHistoricDetailVariableInstanceUpdateEntity2() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -184,14 +137,10 @@ public class HistoricDetailEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricDetailEntityManagerImpl#copyAndInsertHistoricDetailVariableInstanceUpdateEntity(VariableInstanceEntity)}.
-   * <p>
-   * Method under test: {@link HistoricDetailEntityManagerImpl#copyAndInsertHistoricDetailVariableInstanceUpdateEntity(VariableInstanceEntity)}
+   * Method under test:
+   * {@link HistoricDetailEntityManagerImpl#copyAndInsertHistoricDetailVariableInstanceUpdateEntity(VariableInstanceEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "HistoricDetailVariableInstanceUpdateEntity HistoricDetailEntityManagerImpl.copyAndInsertHistoricDetailVariableInstanceUpdateEntity(VariableInstanceEntity)"})
   public void testCopyAndInsertHistoricDetailVariableInstanceUpdateEntity3() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -222,19 +171,11 @@ public class HistoricDetailEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricDetailEntityManagerImpl#copyAndInsertHistoricDetailVariableInstanceUpdateEntity(VariableInstanceEntity)}.
-   * <ul>
-   *   <li>Then calls {@link HasRevision#getRevision()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricDetailEntityManagerImpl#copyAndInsertHistoricDetailVariableInstanceUpdateEntity(VariableInstanceEntity)}
+   * Method under test:
+   * {@link HistoricDetailEntityManagerImpl#copyAndInsertHistoricDetailVariableInstanceUpdateEntity(VariableInstanceEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "HistoricDetailVariableInstanceUpdateEntity HistoricDetailEntityManagerImpl.copyAndInsertHistoricDetailVariableInstanceUpdateEntity(VariableInstanceEntity)"})
-  public void testCopyAndInsertHistoricDetailVariableInstanceUpdateEntity_thenCallsGetRevision()
-      throws UnsupportedEncodingException {
+  public void testCopyAndInsertHistoricDetailVariableInstanceUpdateEntity4() throws UnsupportedEncodingException {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
@@ -311,14 +252,11 @@ public class HistoricDetailEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricDetailEntityManagerImpl#delete(HistoricDetailEntity, boolean)} with {@code HistoricDetailEntity}, {@code boolean}.
-   * <p>
-   * Method under test: {@link HistoricDetailEntityManagerImpl#delete(HistoricDetailEntity, boolean)}
+   * Method under test:
+   * {@link HistoricDetailEntityManagerImpl#delete(HistoricDetailEntity, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricDetailEntityManagerImpl.delete(HistoricDetailEntity, boolean)"})
-  public void testDeleteWithHistoricDetailEntityBoolean() {
+  public void testDelete() {
     // Arrange
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
     when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
@@ -336,14 +274,38 @@ public class HistoricDetailEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricDetailEntityManagerImpl#delete(HistoricDetailEntity, boolean)} with {@code HistoricDetailEntity}, {@code boolean}.
-   * <p>
-   * Method under test: {@link HistoricDetailEntityManagerImpl#delete(HistoricDetailEntity, boolean)}
+   * Method under test:
+   * {@link HistoricDetailEntityManagerImpl#delete(HistoricDetailEntity, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricDetailEntityManagerImpl.delete(HistoricDetailEntity, boolean)"})
-  public void testDeleteWithHistoricDetailEntityBoolean2() {
+  public void testDelete2() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    HistoricDetailDataManager historicDetailDataManager = mock(HistoricDetailDataManager.class);
+    doNothing().when(historicDetailDataManager).delete(Mockito.<HistoricDetailEntity>any());
+    HistoricDetailEntityManagerImpl historicDetailEntityManagerImpl = new HistoricDetailEntityManagerImpl(
+        processEngineConfiguration, historicDetailDataManager);
+
+    // Act
+    historicDetailEntityManagerImpl.delete(new HistoricDetailAssignmentEntityImpl(), true);
+
+    // Assert
+    verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(historicDetailDataManager).delete(isA(HistoricDetailEntity.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricDetailEntityManagerImpl#delete(HistoricDetailEntity, boolean)}
+   */
+  @Test
+  public void testDelete3() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     when(activitiEventDispatcher.isEnabled()).thenReturn(false);
@@ -364,17 +326,11 @@ public class HistoricDetailEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricDetailEntityManagerImpl#delete(HistoricDetailEntity, boolean)} with {@code HistoricDetailEntity}, {@code boolean}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricDetailEntityManagerImpl#delete(HistoricDetailEntity, boolean)}
+   * Method under test:
+   * {@link HistoricDetailEntityManagerImpl#delete(HistoricDetailEntity, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricDetailEntityManagerImpl.delete(HistoricDetailEntity, boolean)"})
-  public void testDeleteWithHistoricDetailEntityBoolean_given42() {
+  public void testDelete4() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
@@ -417,17 +373,11 @@ public class HistoricDetailEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricDetailEntityManagerImpl#delete(HistoricDetailEntity, boolean)} with {@code HistoricDetailEntity}, {@code boolean}.
-   * <ul>
-   *   <li>Given {@link ByteArrayRef#ByteArrayRef()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricDetailEntityManagerImpl#delete(HistoricDetailEntity, boolean)}
+   * Method under test:
+   * {@link HistoricDetailEntityManagerImpl#delete(HistoricDetailEntity, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricDetailEntityManagerImpl.delete(HistoricDetailEntity, boolean)"})
-  public void testDeleteWithHistoricDetailEntityBoolean_givenByteArrayRef() {
+  public void testDelete5() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
@@ -453,17 +403,11 @@ public class HistoricDetailEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricDetailEntityManagerImpl#delete(HistoricDetailEntity, boolean)} with {@code HistoricDetailEntity}, {@code boolean}.
-   * <ul>
-   *   <li>Then calls {@link ByteArrayRef#delete()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricDetailEntityManagerImpl#delete(HistoricDetailEntity, boolean)}
+   * Method under test:
+   * {@link HistoricDetailEntityManagerImpl#delete(HistoricDetailEntity, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricDetailEntityManagerImpl.delete(HistoricDetailEntity, boolean)"})
-  public void testDeleteWithHistoricDetailEntityBoolean_thenCallsDelete() {
+  public void testDelete6() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
@@ -492,51 +436,11 @@ public class HistoricDetailEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricDetailEntityManagerImpl#delete(HistoricDetailEntity, boolean)} with {@code HistoricDetailEntity}, {@code boolean}.
-   * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricDetailEntityManagerImpl#delete(HistoricDetailEntity, boolean)}
+   * Method under test:
+   * {@link HistoricDetailEntityManagerImpl#delete(HistoricDetailEntity, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricDetailEntityManagerImpl.delete(HistoricDetailEntity, boolean)"})
-  public void testDeleteWithHistoricDetailEntityBoolean_thenCallsDispatchEvent() {
-    // Arrange
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    HistoricDetailDataManager historicDetailDataManager = mock(HistoricDetailDataManager.class);
-    doNothing().when(historicDetailDataManager).delete(Mockito.<HistoricDetailEntity>any());
-    HistoricDetailEntityManagerImpl historicDetailEntityManagerImpl = new HistoricDetailEntityManagerImpl(
-        processEngineConfiguration, historicDetailDataManager);
-
-    // Act
-    historicDetailEntityManagerImpl.delete(new HistoricDetailAssignmentEntityImpl(), true);
-
-    // Assert
-    verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(historicDetailDataManager).delete(isA(HistoricDetailEntity.class));
-  }
-
-  /**
-   * Test {@link HistoricDetailEntityManagerImpl#delete(HistoricDetailEntity, boolean)} with {@code HistoricDetailEntity}, {@code boolean}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   *   <li>Then calls {@link ByteArrayRef#delete()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricDetailEntityManagerImpl#delete(HistoricDetailEntity, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricDetailEntityManagerImpl.delete(HistoricDetailEntity, boolean)"})
-  public void testDeleteWithHistoricDetailEntityBoolean_whenFalse_thenCallsDelete() {
+  public void testDelete7() {
     // Arrange
     HistoricDetailDataManager historicDetailDataManager = mock(HistoricDetailDataManager.class);
     doNothing().when(historicDetailDataManager).delete(Mockito.<HistoricDetailEntity>any());
@@ -557,37 +461,31 @@ public class HistoricDetailEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByProcessInstanceId(String)}.
-   * <p>
-   * Method under test: {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByProcessInstanceId(String)}
+   * Method under test:
+   * {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByProcessInstanceId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricDetailEntityManagerImpl.deleteHistoricDetailsByProcessInstanceId(String)"})
   public void testDeleteHistoricDetailsByProcessInstanceId() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.NONE));
 
     // Act
     historicDetailEntityManagerImpl.deleteHistoricDetailsByProcessInstanceId("42");
 
-    // Assert
+    // Assert that nothing has changed
     verify(processEngineConfigurationImpl).getHistoryManager();
   }
 
   /**
-   * Test {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByProcessInstanceId(String)}.
-   * <p>
-   * Method under test: {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByProcessInstanceId(String)}
+   * Method under test:
+   * {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByProcessInstanceId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricDetailEntityManagerImpl.deleteHistoricDetailsByProcessInstanceId(String)"})
   public void testDeleteHistoricDetailsByProcessInstanceId2() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.AUDIT));
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.AUDIT));
     when(historicDetailDataManager.findHistoricDetailsByProcessInstanceId(Mockito.<String>any()))
         .thenReturn(new ArrayList<>());
 
@@ -600,18 +498,15 @@ public class HistoricDetailEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByProcessInstanceId(String)}.
-   * <p>
-   * Method under test: {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByProcessInstanceId(String)}
+   * Method under test:
+   * {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByProcessInstanceId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricDetailEntityManagerImpl.deleteHistoricDetailsByProcessInstanceId(String)"})
   public void testDeleteHistoricDetailsByProcessInstanceId3() {
     // Arrange
     when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.AUDIT));
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.AUDIT));
 
     ArrayList<HistoricDetailEntity> historicDetailEntityList = new ArrayList<>();
     historicDetailEntityList.add(new HistoricDetailAssignmentEntityImpl());
@@ -630,20 +525,49 @@ public class HistoricDetailEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByProcessInstanceId(String)}.
-   * <p>
-   * Method under test: {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByProcessInstanceId(String)}
+   * Method under test:
+   * {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByProcessInstanceId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricDetailEntityManagerImpl.deleteHistoricDetailsByProcessInstanceId(String)"})
   public void testDeleteHistoricDetailsByProcessInstanceId4() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    when(processEngineConfigurationImpl.getHistoryManager())
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.AUDIT));
+
+    ArrayList<HistoricDetailEntity> historicDetailEntityList = new ArrayList<>();
+    historicDetailEntityList.add(new HistoricDetailAssignmentEntityImpl());
+    doNothing().when(historicDetailDataManager).delete(Mockito.<HistoricDetailEntity>any());
+    when(historicDetailDataManager.findHistoricDetailsByProcessInstanceId(Mockito.<String>any()))
+        .thenReturn(historicDetailEntityList);
+
+    // Act
+    historicDetailEntityManagerImpl.deleteHistoricDetailsByProcessInstanceId("42");
+
+    // Assert
+    verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfigurationImpl, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfigurationImpl).getHistoryManager();
+    verify(historicDetailDataManager).delete(isA(HistoricDetailEntity.class));
+    verify(historicDetailDataManager).findHistoricDetailsByProcessInstanceId(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByProcessInstanceId(String)}
+   */
+  @Test
+  public void testDeleteHistoricDetailsByProcessInstanceId5() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     when(activitiEventDispatcher.isEnabled()).thenReturn(false);
     when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.AUDIT));
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.AUDIT));
 
     ArrayList<HistoricDetailEntity> historicDetailEntityList = new ArrayList<>();
     historicDetailEntityList.add(new HistoricDetailAssignmentEntityImpl());
@@ -663,21 +587,18 @@ public class HistoricDetailEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByProcessInstanceId(String)}.
-   * <p>
-   * Method under test: {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByProcessInstanceId(String)}
+   * Method under test:
+   * {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByProcessInstanceId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricDetailEntityManagerImpl.deleteHistoricDetailsByProcessInstanceId(String)"})
-  public void testDeleteHistoricDetailsByProcessInstanceId5() {
+  public void testDeleteHistoricDetailsByProcessInstanceId6() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
     when(activitiEventDispatcher.isEnabled()).thenReturn(true);
     when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.AUDIT));
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.AUDIT));
 
     HistoricDetailVariableInstanceUpdateEntityImpl historicDetailVariableInstanceUpdateEntityImpl = new HistoricDetailVariableInstanceUpdateEntityImpl();
     historicDetailVariableInstanceUpdateEntityImpl.setActivityInstanceId("42");
@@ -719,21 +640,18 @@ public class HistoricDetailEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByProcessInstanceId(String)}.
-   * <p>
-   * Method under test: {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByProcessInstanceId(String)}
+   * Method under test:
+   * {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByProcessInstanceId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricDetailEntityManagerImpl.deleteHistoricDetailsByProcessInstanceId(String)"})
-  public void testDeleteHistoricDetailsByProcessInstanceId6() {
+  public void testDeleteHistoricDetailsByProcessInstanceId7() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
     when(activitiEventDispatcher.isEnabled()).thenReturn(true);
     when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.AUDIT));
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.AUDIT));
     HistoricDetailVariableInstanceUpdateEntityImpl historicDetailVariableInstanceUpdateEntityImpl = mock(
         HistoricDetailVariableInstanceUpdateEntityImpl.class);
     when(historicDetailVariableInstanceUpdateEntityImpl.getByteArrayRef()).thenReturn(new ByteArrayRef());
@@ -758,24 +676,18 @@ public class HistoricDetailEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByProcessInstanceId(String)}.
-   * <ul>
-   *   <li>Then calls {@link ByteArrayRef#delete()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByProcessInstanceId(String)}
+   * Method under test:
+   * {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByProcessInstanceId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricDetailEntityManagerImpl.deleteHistoricDetailsByProcessInstanceId(String)"})
-  public void testDeleteHistoricDetailsByProcessInstanceId_thenCallsDelete() {
+  public void testDeleteHistoricDetailsByProcessInstanceId8() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
     when(activitiEventDispatcher.isEnabled()).thenReturn(true);
     when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.AUDIT));
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.AUDIT));
     ByteArrayRef byteArrayRef = mock(ByteArrayRef.class);
     doNothing().when(byteArrayRef).delete();
     HistoricDetailVariableInstanceUpdateEntityImpl historicDetailVariableInstanceUpdateEntityImpl = mock(
@@ -803,56 +715,11 @@ public class HistoricDetailEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByProcessInstanceId(String)}.
-   * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByProcessInstanceId(String)}
+   * Method under test:
+   * {@link HistoricDetailEntityManagerImpl#findHistoricDetailCountByQueryCriteria(HistoricDetailQueryImpl)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricDetailEntityManagerImpl.deleteHistoricDetailsByProcessInstanceId(String)"})
-  public void testDeleteHistoricDetailsByProcessInstanceId_thenCallsDispatchEvent() {
-    // Arrange
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.AUDIT));
-
-    ArrayList<HistoricDetailEntity> historicDetailEntityList = new ArrayList<>();
-    historicDetailEntityList.add(new HistoricDetailAssignmentEntityImpl());
-    doNothing().when(historicDetailDataManager).delete(Mockito.<HistoricDetailEntity>any());
-    when(historicDetailDataManager.findHistoricDetailsByProcessInstanceId(Mockito.<String>any()))
-        .thenReturn(historicDetailEntityList);
-
-    // Act
-    historicDetailEntityManagerImpl.deleteHistoricDetailsByProcessInstanceId("42");
-
-    // Assert
-    verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfigurationImpl, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfigurationImpl).getHistoryManager();
-    verify(historicDetailDataManager).delete(isA(HistoricDetailEntity.class));
-    verify(historicDetailDataManager).findHistoricDetailsByProcessInstanceId(eq("42"));
-  }
-
-  /**
-   * Test {@link HistoricDetailEntityManagerImpl#findHistoricDetailCountByQueryCriteria(HistoricDetailQueryImpl)}.
-   * <ul>
-   *   <li>Then return three.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricDetailEntityManagerImpl#findHistoricDetailCountByQueryCriteria(HistoricDetailQueryImpl)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "long HistoricDetailEntityManagerImpl.findHistoricDetailCountByQueryCriteria(HistoricDetailQueryImpl)"})
-  public void testFindHistoricDetailCountByQueryCriteria_thenReturnThree() {
+  public void testFindHistoricDetailCountByQueryCriteria() {
     // Arrange
     HistoricDetailDataManager historicDetailDataManager = mock(HistoricDetailDataManager.class);
     when(historicDetailDataManager.findHistoricDetailCountByQueryCriteria(Mockito.<HistoricDetailQueryImpl>any()))
@@ -870,22 +737,16 @@ public class HistoricDetailEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricDetailEntityManagerImpl#findHistoricDetailsByQueryCriteria(HistoricDetailQueryImpl, Page)}.
-   * <ul>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricDetailEntityManagerImpl#findHistoricDetailsByQueryCriteria(HistoricDetailQueryImpl, Page)}
+   * Method under test:
+   * {@link HistoricDetailEntityManagerImpl#findHistoricDetailsByQueryCriteria(HistoricDetailQueryImpl, Page)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "List HistoricDetailEntityManagerImpl.findHistoricDetailsByQueryCriteria(HistoricDetailQueryImpl, Page)"})
-  public void testFindHistoricDetailsByQueryCriteria_thenReturnEmpty() {
+  public void testFindHistoricDetailsByQueryCriteria() {
     // Arrange
     HistoricDetailDataManager historicDetailDataManager = mock(HistoricDetailDataManager.class);
+    ArrayList<HistoricDetail> historicDetailList = new ArrayList<>();
     when(historicDetailDataManager.findHistoricDetailsByQueryCriteria(Mockito.<HistoricDetailQueryImpl>any(),
-        Mockito.<Page>any())).thenReturn(new ArrayList<>());
+        Mockito.<Page>any())).thenReturn(historicDetailList);
     HistoricDetailEntityManagerImpl historicDetailEntityManagerImpl = new HistoricDetailEntityManagerImpl(
         new JtaProcessEngineConfiguration(), historicDetailDataManager);
     HistoricDetailQueryImpl historicVariableUpdateQuery = new HistoricDetailQueryImpl();
@@ -898,41 +759,55 @@ public class HistoricDetailEntityManagerImplDiffblueTest {
     verify(historicDetailDataManager).findHistoricDetailsByQueryCriteria(isA(HistoricDetailQueryImpl.class),
         isA(Page.class));
     assertTrue(actualFindHistoricDetailsByQueryCriteriaResult.isEmpty());
+    assertSame(historicDetailList, actualFindHistoricDetailsByQueryCriteriaResult);
   }
 
   /**
-   * Test {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByTaskId(String)}.
-   * <p>
-   * Method under test: {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByTaskId(String)}
+   * Method under test:
+   * {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByTaskId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricDetailEntityManagerImpl.deleteHistoricDetailsByTaskId(String)"})
   public void testDeleteHistoricDetailsByTaskId() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.NONE));
+
+    // Act
+    historicDetailEntityManagerImpl.deleteHistoricDetailsByTaskId("42");
+
+    // Assert that nothing has changed
+    verify(processEngineConfigurationImpl).getHistoryManager();
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByTaskId(String)}
+   */
+  @Test
+  public void testDeleteHistoricDetailsByTaskId2() {
+    // Arrange
+    when(processEngineConfigurationImpl.getHistoryManager())
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.FULL));
+    when(historicDetailDataManager.findHistoricDetailsByTaskId(Mockito.<String>any())).thenReturn(new ArrayList<>());
 
     // Act
     historicDetailEntityManagerImpl.deleteHistoricDetailsByTaskId("42");
 
     // Assert
     verify(processEngineConfigurationImpl).getHistoryManager();
+    verify(historicDetailDataManager).findHistoricDetailsByTaskId(eq("42"));
   }
 
   /**
-   * Test {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByTaskId(String)}.
-   * <p>
-   * Method under test: {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByTaskId(String)}
+   * Method under test:
+   * {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByTaskId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricDetailEntityManagerImpl.deleteHistoricDetailsByTaskId(String)"})
-  public void testDeleteHistoricDetailsByTaskId2() {
+  public void testDeleteHistoricDetailsByTaskId3() {
     // Arrange
     when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.FULL));
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.FULL));
 
     ArrayList<HistoricDetailEntity> historicDetailEntityList = new ArrayList<>();
     historicDetailEntityList.add(new HistoricDetailAssignmentEntityImpl());
@@ -951,20 +826,49 @@ public class HistoricDetailEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByTaskId(String)}.
-   * <p>
-   * Method under test: {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByTaskId(String)}
+   * Method under test:
+   * {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByTaskId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricDetailEntityManagerImpl.deleteHistoricDetailsByTaskId(String)"})
-  public void testDeleteHistoricDetailsByTaskId3() {
+  public void testDeleteHistoricDetailsByTaskId4() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    when(processEngineConfigurationImpl.getHistoryManager())
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.FULL));
+
+    ArrayList<HistoricDetailEntity> historicDetailEntityList = new ArrayList<>();
+    historicDetailEntityList.add(new HistoricDetailAssignmentEntityImpl());
+    doNothing().when(historicDetailDataManager).delete(Mockito.<HistoricDetailEntity>any());
+    when(historicDetailDataManager.findHistoricDetailsByTaskId(Mockito.<String>any()))
+        .thenReturn(historicDetailEntityList);
+
+    // Act
+    historicDetailEntityManagerImpl.deleteHistoricDetailsByTaskId("42");
+
+    // Assert
+    verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfigurationImpl, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfigurationImpl).getHistoryManager();
+    verify(historicDetailDataManager).delete(isA(HistoricDetailEntity.class));
+    verify(historicDetailDataManager).findHistoricDetailsByTaskId(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByTaskId(String)}
+   */
+  @Test
+  public void testDeleteHistoricDetailsByTaskId5() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     when(activitiEventDispatcher.isEnabled()).thenReturn(false);
     when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.FULL));
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.FULL));
 
     ArrayList<HistoricDetailEntity> historicDetailEntityList = new ArrayList<>();
     historicDetailEntityList.add(new HistoricDetailAssignmentEntityImpl());
@@ -984,21 +888,18 @@ public class HistoricDetailEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByTaskId(String)}.
-   * <p>
-   * Method under test: {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByTaskId(String)}
+   * Method under test:
+   * {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByTaskId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricDetailEntityManagerImpl.deleteHistoricDetailsByTaskId(String)"})
-  public void testDeleteHistoricDetailsByTaskId4() {
+  public void testDeleteHistoricDetailsByTaskId6() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
     when(activitiEventDispatcher.isEnabled()).thenReturn(true);
     when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.FULL));
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.FULL));
 
     HistoricDetailVariableInstanceUpdateEntityImpl historicDetailVariableInstanceUpdateEntityImpl = new HistoricDetailVariableInstanceUpdateEntityImpl();
     historicDetailVariableInstanceUpdateEntityImpl.setActivityInstanceId("42");
@@ -1040,21 +941,18 @@ public class HistoricDetailEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByTaskId(String)}.
-   * <p>
-   * Method under test: {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByTaskId(String)}
+   * Method under test:
+   * {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByTaskId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricDetailEntityManagerImpl.deleteHistoricDetailsByTaskId(String)"})
-  public void testDeleteHistoricDetailsByTaskId5() {
+  public void testDeleteHistoricDetailsByTaskId7() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
     when(activitiEventDispatcher.isEnabled()).thenReturn(true);
     when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.FULL));
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.FULL));
     HistoricDetailVariableInstanceUpdateEntityImpl historicDetailVariableInstanceUpdateEntityImpl = mock(
         HistoricDetailVariableInstanceUpdateEntityImpl.class);
     when(historicDetailVariableInstanceUpdateEntityImpl.getByteArrayRef()).thenReturn(new ByteArrayRef());
@@ -1079,24 +977,18 @@ public class HistoricDetailEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByTaskId(String)}.
-   * <ul>
-   *   <li>Then calls {@link ByteArrayRef#delete()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByTaskId(String)}
+   * Method under test:
+   * {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByTaskId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricDetailEntityManagerImpl.deleteHistoricDetailsByTaskId(String)"})
-  public void testDeleteHistoricDetailsByTaskId_thenCallsDelete() {
+  public void testDeleteHistoricDetailsByTaskId8() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
     when(activitiEventDispatcher.isEnabled()).thenReturn(true);
     when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.FULL));
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.FULL));
     ByteArrayRef byteArrayRef = mock(ByteArrayRef.class);
     doNothing().when(byteArrayRef).delete();
     HistoricDetailVariableInstanceUpdateEntityImpl historicDetailVariableInstanceUpdateEntityImpl = mock(
@@ -1124,84 +1016,16 @@ public class HistoricDetailEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByTaskId(String)}.
-   * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByTaskId(String)}
+   * Method under test:
+   * {@link HistoricDetailEntityManagerImpl#findHistoricDetailsByNativeQuery(Map, int, int)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricDetailEntityManagerImpl.deleteHistoricDetailsByTaskId(String)"})
-  public void testDeleteHistoricDetailsByTaskId_thenCallsDispatchEvent() {
-    // Arrange
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.FULL));
-
-    ArrayList<HistoricDetailEntity> historicDetailEntityList = new ArrayList<>();
-    historicDetailEntityList.add(new HistoricDetailAssignmentEntityImpl());
-    doNothing().when(historicDetailDataManager).delete(Mockito.<HistoricDetailEntity>any());
-    when(historicDetailDataManager.findHistoricDetailsByTaskId(Mockito.<String>any()))
-        .thenReturn(historicDetailEntityList);
-
-    // Act
-    historicDetailEntityManagerImpl.deleteHistoricDetailsByTaskId("42");
-
-    // Assert
-    verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfigurationImpl, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfigurationImpl).getHistoryManager();
-    verify(historicDetailDataManager).delete(isA(HistoricDetailEntity.class));
-    verify(historicDetailDataManager).findHistoricDetailsByTaskId(eq("42"));
-  }
-
-  /**
-   * Test {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByTaskId(String)}.
-   * <ul>
-   *   <li>Then calls {@link HistoricDetailDataManager#findHistoricDetailsByTaskId(String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricDetailEntityManagerImpl#deleteHistoricDetailsByTaskId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricDetailEntityManagerImpl.deleteHistoricDetailsByTaskId(String)"})
-  public void testDeleteHistoricDetailsByTaskId_thenCallsFindHistoricDetailsByTaskId() {
-    // Arrange
-    when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.FULL));
-    when(historicDetailDataManager.findHistoricDetailsByTaskId(Mockito.<String>any())).thenReturn(new ArrayList<>());
-
-    // Act
-    historicDetailEntityManagerImpl.deleteHistoricDetailsByTaskId("42");
-
-    // Assert
-    verify(processEngineConfigurationImpl).getHistoryManager();
-    verify(historicDetailDataManager).findHistoricDetailsByTaskId(eq("42"));
-  }
-
-  /**
-   * Test {@link HistoricDetailEntityManagerImpl#findHistoricDetailsByNativeQuery(Map, int, int)}.
-   * <ul>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricDetailEntityManagerImpl#findHistoricDetailsByNativeQuery(Map, int, int)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"List HistoricDetailEntityManagerImpl.findHistoricDetailsByNativeQuery(Map, int, int)"})
-  public void testFindHistoricDetailsByNativeQuery_thenReturnEmpty() {
+  public void testFindHistoricDetailsByNativeQuery() {
     // Arrange
     HistoricDetailDataManager historicDetailDataManager = mock(HistoricDetailDataManager.class);
+    ArrayList<HistoricDetail> historicDetailList = new ArrayList<>();
     when(historicDetailDataManager.findHistoricDetailsByNativeQuery(Mockito.<Map<String, Object>>any(), anyInt(),
-        anyInt())).thenReturn(new ArrayList<>());
+        anyInt())).thenReturn(historicDetailList);
     HistoricDetailEntityManagerImpl historicDetailEntityManagerImpl = new HistoricDetailEntityManagerImpl(
         new JtaProcessEngineConfiguration(), historicDetailDataManager);
 
@@ -1212,20 +1036,15 @@ public class HistoricDetailEntityManagerImplDiffblueTest {
     // Assert
     verify(historicDetailDataManager).findHistoricDetailsByNativeQuery(isA(Map.class), eq(1), eq(3));
     assertTrue(actualFindHistoricDetailsByNativeQueryResult.isEmpty());
+    assertSame(historicDetailList, actualFindHistoricDetailsByNativeQueryResult);
   }
 
   /**
-   * Test {@link HistoricDetailEntityManagerImpl#findHistoricDetailCountByNativeQuery(Map)}.
-   * <ul>
-   *   <li>Then return three.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricDetailEntityManagerImpl#findHistoricDetailCountByNativeQuery(Map)}
+   * Method under test:
+   * {@link HistoricDetailEntityManagerImpl#findHistoricDetailCountByNativeQuery(Map)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"long HistoricDetailEntityManagerImpl.findHistoricDetailCountByNativeQuery(Map)"})
-  public void testFindHistoricDetailCountByNativeQuery_thenReturnThree() {
+  public void testFindHistoricDetailCountByNativeQuery() {
     // Arrange
     HistoricDetailDataManager historicDetailDataManager = mock(HistoricDetailDataManager.class);
     when(historicDetailDataManager.findHistoricDetailCountByNativeQuery(Mockito.<Map<String, Object>>any()))
@@ -1240,5 +1059,34 @@ public class HistoricDetailEntityManagerImplDiffblueTest {
     // Assert
     verify(historicDetailDataManager).findHistoricDetailCountByNativeQuery(isA(Map.class));
     assertEquals(3L, actualFindHistoricDetailCountByNativeQueryResult);
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>
+   * {@link HistoricDetailEntityManagerImpl#HistoricDetailEntityManagerImpl(ProcessEngineConfigurationImpl, HistoricDetailDataManager)}
+   *   <li>
+   * {@link HistoricDetailEntityManagerImpl#setHistoricDetailDataManager(HistoricDetailDataManager)}
+   *   <li>{@link HistoricDetailEntityManagerImpl#getDataManager()}
+   *   <li>{@link HistoricDetailEntityManagerImpl#getHistoricDetailDataManager()}
+   * </ul>
+   */
+  @Test
+  public void testGettersAndSetters() {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+
+    // Act
+    HistoricDetailEntityManagerImpl actualHistoricDetailEntityManagerImpl = new HistoricDetailEntityManagerImpl(
+        processEngineConfiguration, new MybatisHistoricDetailDataManager(new JtaProcessEngineConfiguration()));
+    MybatisHistoricDetailDataManager historicDetailDataManager = new MybatisHistoricDetailDataManager(
+        new JtaProcessEngineConfiguration());
+    actualHistoricDetailEntityManagerImpl.setHistoricDetailDataManager(historicDetailDataManager);
+    DataManager<HistoricDetailEntity> actualDataManager = actualHistoricDetailEntityManagerImpl.getDataManager();
+
+    // Assert that nothing has changed
+    assertSame(historicDetailDataManager, actualDataManager);
+    assertSame(historicDetailDataManager, actualHistoricDetailEntityManagerImpl.getHistoricDetailDataManager());
   }
 }

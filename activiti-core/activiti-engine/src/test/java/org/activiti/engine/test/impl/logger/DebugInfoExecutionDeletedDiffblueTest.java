@@ -16,26 +16,43 @@
 package org.activiti.engine.test.impl.logger;
 
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import java.util.LinkedList;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.slf4j.Logger;
+import org.slf4j.helpers.SubstituteLogger;
 
 public class DebugInfoExecutionDeletedDiffblueTest {
   /**
-   * Test {@link DebugInfoExecutionDeleted#DebugInfoExecutionDeleted(ExecutionEntity)}.
-   * <p>
-   * Method under test: {@link DebugInfoExecutionDeleted#DebugInfoExecutionDeleted(ExecutionEntity)}
+   * Method under test:
+   * {@link DebugInfoExecutionDeleted#DebugInfoExecutionDeleted(ExecutionEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DebugInfoExecutionDeleted.<init>(ExecutionEntity)"})
   public void testNewDebugInfoExecutionDeleted() {
     // Arrange, Act and Assert
     assertTrue((new DebugInfoExecutionDeleted(ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
         .getExecutionTrees()
         .isEmpty());
+  }
+
+  /**
+   * Method under test: {@link DebugInfoExecutionDeleted#printOut(Logger)}
+   */
+  @Test
+  public void testPrintOut() {
+    // Arrange
+    ExecutionEntityImpl executionEntity = mock(ExecutionEntityImpl.class);
+    when(executionEntity.getId()).thenReturn("42");
+    DebugInfoExecutionDeleted debugInfoExecutionDeleted = new DebugInfoExecutionDeleted(executionEntity);
+
+    // Act
+    debugInfoExecutionDeleted.printOut(new SubstituteLogger("Name", new LinkedList<>(), true));
+
+    // Assert that nothing has changed
+    verify(executionEntity).getId();
   }
 }

@@ -20,13 +20,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -47,19 +44,10 @@ class MapToStringConverterDiffblueTest {
   private ObjectMapper objectMapper;
 
   /**
-   * Test {@link MapToStringConverter#convert(Map)} with {@code Map}.
-   * <ul>
-   *   <li>Given {@link ObjectMapper} {@link ObjectMapper#writeValueAsString(Object)} return {@code 42}.</li>
-   *   <li>Then return {@code 42}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link MapToStringConverter#convert(Map)}
    */
   @Test
-  @DisplayName("Test convert(Map) with 'Map'; given ObjectMapper writeValueAsString(Object) return '42'; then return '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String MapToStringConverter.convert(Map)"})
-  void testConvertWithMap_givenObjectMapperWriteValueAsStringReturn42_thenReturn42() throws JsonProcessingException {
+  void testConvert() throws JsonProcessingException {
     // Arrange
     when(objectMapper.writeValueAsString(Mockito.<Object>any())).thenReturn("42");
 
@@ -72,18 +60,10 @@ class MapToStringConverterDiffblueTest {
   }
 
   /**
-   * Test {@link MapToStringConverter#convert(Map)} with {@code Map}.
-   * <ul>
-   *   <li>Then throw {@link RuntimeException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link MapToStringConverter#convert(Map)}
    */
   @Test
-  @DisplayName("Test convert(Map) with 'Map'; then throw RuntimeException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String MapToStringConverter.convert(Map)"})
-  void testConvertWithMap_thenThrowRuntimeException() throws JsonProcessingException {
+  void testConvert2() throws JsonProcessingException {
     // Arrange
     when(objectMapper.writeValueAsString(Mockito.<Object>any())).thenThrow(new RuntimeException("foo"));
 

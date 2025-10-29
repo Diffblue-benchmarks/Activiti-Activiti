@@ -19,25 +19,40 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import java.util.HashMap;
+import java.util.List;
+import java.util.function.BiFunction;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class DataSpecDiffblueTest {
   /**
-   * Test {@link DataSpec#clone()}.
-   * <ul>
-   *   <li>Given {@link DataSpec} (default constructor) Collection is {@code true}.</li>
-   *   <li>Then return Collection.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DataSpec#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"DataSpec DataSpec.clone()"})
-  public void testClone_givenDataSpecCollectionIsTrue_thenReturnCollection() {
+  public void testClone() {
+    // Arrange and Act
+    DataSpec actualCloneResult = (new DataSpec()).clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getItemSubjectRef());
+    assertNull(actualCloneResult.getName());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.isCollection());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link DataSpec#clone()}
+   */
+  @Test
+  public void testClone2() {
     // Arrange
     DataSpec dataSpec = new DataSpec();
     dataSpec.setCollection(true);
@@ -57,20 +72,19 @@ public class DataSpecDiffblueTest {
   }
 
   /**
-   * Test {@link DataSpec#clone()}.
-   * <ul>
-   *   <li>Given {@link DataSpec} (default constructor).</li>
-   *   <li>Then return not Collection.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DataSpec#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"DataSpec DataSpec.clone()"})
-  public void testClone_givenDataSpec_thenReturnNotCollection() {
-    // Arrange and Act
-    DataSpec actualCloneResult = (new DataSpec()).clone();
+  public void testClone3() {
+    // Arrange
+    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
+    extensionElements.computeIfPresent("foo", mock(BiFunction.class));
+
+    DataSpec dataSpec = new DataSpec();
+    dataSpec.setExtensionElements(extensionElements);
+
+    // Act
+    DataSpec actualCloneResult = dataSpec.clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
@@ -84,8 +98,25 @@ public class DataSpecDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link DataSpec#setValues(DataSpec)}
+   */
+  @Test
+  public void testSetValues() {
+    // Arrange
+    ExtensionElement extensionElement = mock(ExtensionElement.class);
+    when(extensionElement.getName()).thenReturn("Name");
+
+    DataSpec dataSpec = new DataSpec();
+    dataSpec.addExtensionElement(extensionElement);
+
+    // Act
+    dataSpec.setValues(new DataSpec());
+
+    // Assert
+    verify(extensionElement, atLeast(1)).getName();
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link DataSpec}
@@ -98,10 +129,6 @@ public class DataSpecDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DataSpec.<init>()", "String DataSpec.getItemSubjectRef()", "String DataSpec.getName()",
-      "boolean DataSpec.isCollection()", "void DataSpec.setCollection(boolean)",
-      "void DataSpec.setItemSubjectRef(String)", "void DataSpec.setName(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     DataSpec actualDataSpec = new DataSpec();
@@ -112,10 +139,9 @@ public class DataSpecDiffblueTest {
     String actualName = actualDataSpec.getName();
     boolean actualIsCollectionResult = actualDataSpec.isCollection();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("Hello from the Dreaming Spires", actualItemSubjectRef);
     assertEquals("Name", actualName);
-    assertNull(actualDataSpec.getId());
     assertEquals(0, actualDataSpec.getXmlColumnNumber());
     assertEquals(0, actualDataSpec.getXmlRowNumber());
     assertTrue(actualDataSpec.getAttributes().isEmpty());

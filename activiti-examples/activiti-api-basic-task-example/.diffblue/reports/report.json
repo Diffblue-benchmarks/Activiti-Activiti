@@ -3,19 +3,19 @@
     "reportVersion" : "2.6"
   },
   "run" : {
-    "version" : "2025.02.02-08b2a5a-licensed",
-    "creationTimestamp" : "2025-10-21T18:36:58.703503864Z",
+    "version" : "2024.10.01-2ee2e3d-licensed",
+    "creationTimestamp" : "2025-10-28T11:31:52.893683331Z",
     "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
-    "totalTime" : 176.466,
-    "environmentDetectionTime" : 0.214,
-    "indexingTime" : 0.455,
-    "entryPointsTime" : 0.211,
-    "generationTime" : 61030.544,
-    "timeToFirstTest" : 68655.82,
-    "timeToLastTest" : 64705.426,
-    "indexQueryTime" : 5.001,
-    "verificationTime" : 1191.716,
-    "validationTime" : 46.094
+    "totalTime" : 64371.609,
+    "environmentDetectionTime" : 0.402,
+    "indexingTime" : 0.425,
+    "entryPointsTime" : 0.396,
+    "generationTime" : 53770.686,
+    "timeToFirstTest" : 87.907,
+    "timeToLastTest" : 90.172,
+    "indexQueryTime" : 7.454,
+    "verificationTime" : 2003.875,
+    "validationTime" : 51.274
   },
   "codes" : {
     "R000" : "Success",
@@ -32,9 +32,9 @@
   "summary" : {
     "classesCount" : 4,
     "methodsCount" : 21,
-    "cumulativeDiffblueTestCount" : 3,
+    "cumulativeDiffblueTestCount" : 7,
     "cumulativeManualTestCount" : 1,
-    "completeTestCount" : 3,
+    "completeTestCount" : 7,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 159,
@@ -45,26 +45,26 @@
       "T012" : 3
     },
     "perMethodOutcome" : {
-      "R000" : 3,
+      "R000" : 5,
       "R002" : 1,
-      "R013" : 3,
+      "R013" : 1,
       "T004" : 8,
       "T005" : 2,
       "T006" : 1,
       "T012" : 3
     },
     "perTestOutcome" : {
-      "R000" : 3
+      "R000" : 7
     },
     "perTestValidation" : {
-      "V000" : 3,
-      "V003" : 1
+      "V000" : 7,
+      "V003" : 7
     }
   },
   "classes" : {
     "org.activiti.examples.DemoApplication" : {
       "methodsCount" : 7,
-      "completeTestCount" : 0,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 4,
@@ -72,10 +72,14 @@
         "T012" : 2
       },
       "perMethodOutcome" : {
+        "R000" : 2,
         "R002" : 1,
-        "R013" : 3,
+        "R013" : 1,
         "T006" : 1,
         "T012" : 2
+      },
+      "perTestOutcome" : {
+        "R000" : 2
       }
     },
     "org.activiti.examples.DemoApplicationConfiguration" : {
@@ -97,7 +101,7 @@
     },
     "org.activiti.examples.SecurityUtil" : {
       "methodsCount" : 2,
-      "completeTestCount" : 1,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2
@@ -107,7 +111,7 @@
         "T005" : 1
       },
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 3
       }
     },
     "org.activiti.examples.SecurityUtil$1" : {
@@ -199,19 +203,25 @@
       ]
     },
     "org.activiti.examples.DemoApplication.taskAssignedListener:()Lorg/activiti/api/task/runtime/events/listener/TaskRuntimeEventListener;" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
       "lineNumbers" : [
         105
       ]
     },
     "org.activiti.examples.DemoApplication.taskCompletedListener:()Lorg/activiti/api/task/runtime/events/listener/TaskRuntimeEventListener;" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
       "lineNumbers" : [
         112
       ]
@@ -351,12 +361,12 @@
       ]
     },
     "org.activiti.examples.SecurityUtil.logInAs:(Ljava/lang/String;)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 3
       },
       "lineNumbers" : [
         41,

@@ -19,27 +19,21 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import org.activiti.engine.impl.persistence.entity.HistoricDetailVariableInstanceUpdateEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.mockito.Mockito;
 
 public class UUIDTypeDiffblueTest {
   /**
-   * Test {@link UUIDType#getValue(ValueFields)}.
-   * <ul>
-   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor).</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link UUIDType#getValue(ValueFields)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object UUIDType.getValue(ValueFields)"})
-  public void testGetValue_whenHistoricDetailVariableInstanceUpdateEntityImpl_thenReturnNull() {
+  public void testGetValue() {
     // Arrange
     UUIDType uuidType = new UUIDType();
 
@@ -48,17 +42,10 @@ public class UUIDTypeDiffblueTest {
   }
 
   /**
-   * Test {@link UUIDType#setValue(Object, ValueFields)}.
-   * <ul>
-   *   <li>Then {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor) TextValue is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link UUIDType#setValue(Object, ValueFields)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void UUIDType.setValue(Object, ValueFields)"})
-  public void testSetValue_thenHistoricDetailVariableInstanceUpdateEntityImplTextValueIsNull() {
+  public void testSetValue() {
     // Arrange
     UUIDType uuidType = new UUIDType();
     HistoricDetailVariableInstanceUpdateEntityImpl valueFields = new HistoricDetailVariableInstanceUpdateEntityImpl();
@@ -71,17 +58,10 @@ public class UUIDTypeDiffblueTest {
   }
 
   /**
-   * Test {@link UUIDType#setValue(Object, ValueFields)}.
-   * <ul>
-   *   <li>Then {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor) TextValue is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link UUIDType#setValue(Object, ValueFields)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void UUIDType.setValue(Object, ValueFields)"})
-  public void testSetValue_thenHistoricDetailVariableInstanceUpdateEntityImplTextValueIsNull2() {
+  public void testSetValue2() {
     // Arrange
     UUIDType uuidType = new UUIDType();
     HistoricDetailVariableInstanceUpdateEntityImpl valueFields = new HistoricDetailVariableInstanceUpdateEntityImpl();
@@ -89,47 +69,38 @@ public class UUIDTypeDiffblueTest {
     // Act
     uuidType.setValue(null, valueFields);
 
-    // Assert that nothing has changed
+    // Assert
     assertNull(valueFields.getTextValue());
   }
 
   /**
-   * Test {@link UUIDType#isAbleToStore(Object)}.
-   * <ul>
-   *   <li>When {@link JSONObject#NULL}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link UUIDType#isAbleToStore(Object)}
+   * Method under test: {@link UUIDType#setValue(Object, ValueFields)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean UUIDType.isAbleToStore(Object)"})
-  public void testIsAbleToStore_whenNull_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse((new UUIDType()).isAbleToStore(JSONObject.NULL));
+  public void testSetValue3() {
+    // Arrange
+    UUIDType uuidType = new UUIDType();
+    ValueFields valueFields = mock(ValueFields.class);
+    doNothing().when(valueFields).setTextValue(Mockito.<String>any());
+
+    // Act
+    uuidType.setValue(JSONObject.NULL, valueFields);
+
+    // Assert
+    verify(valueFields).setTextValue(eq("null"));
   }
 
   /**
-   * Test {@link UUIDType#isAbleToStore(Object)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link UUIDType#isAbleToStore(Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean UUIDType.isAbleToStore(Object)"})
-  public void testIsAbleToStore_whenNull_thenReturnTrue() {
+  public void testIsAbleToStore() {
     // Arrange, Act and Assert
+    assertFalse((new UUIDType()).isAbleToStore(JSONObject.NULL));
     assertTrue((new UUIDType()).isAbleToStore(null));
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link UUIDType}
@@ -138,8 +109,6 @@ public class UUIDTypeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void UUIDType.<init>()", "String UUIDType.getTypeName()", "boolean UUIDType.isCachable()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     UUIDType actualUuidType = new UUIDType();

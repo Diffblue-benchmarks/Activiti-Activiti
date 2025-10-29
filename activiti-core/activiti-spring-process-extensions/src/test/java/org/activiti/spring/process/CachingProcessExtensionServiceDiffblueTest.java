@@ -19,10 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.spring.process.model.Extension;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -43,14 +40,10 @@ class CachingProcessExtensionServiceDiffblueTest {
   private ProcessExtensionService processExtensionService;
 
   /**
-   * Test {@link CachingProcessExtensionService#getExtensionsForId(String)}.
-   * <p>
-   * Method under test: {@link CachingProcessExtensionService#getExtensionsForId(String)}
+   * Method under test:
+   * {@link CachingProcessExtensionService#getExtensionsForId(String)}
    */
   @Test
-  @DisplayName("Test getExtensionsForId(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Extension CachingProcessExtensionService.getExtensionsForId(String)"})
   void testGetExtensionsForId() {
     // Arrange
     Extension extension = new Extension();

@@ -18,93 +18,37 @@ package org.activiti.bpmn.converter.child;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.SequenceFlow;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ExecutionListenerParserDiffblueTest {
   /**
-   * Test {@link ExecutionListenerParser#addListenerToParent(ActivitiListener, BaseElement)}.
-   * <ul>
-   *   <li>Given empty string.</li>
-   *   <li>When {@link ActivitiListener} (default constructor) Event is empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionListenerParser#addListenerToParent(ActivitiListener, BaseElement)}
+   * Method under test:
+   * {@link ExecutionListenerParser#addListenerToParent(ActivitiListener, BaseElement)}
    */
   @Test
-  @DisplayName("Test addListenerToParent(ActivitiListener, BaseElement); given empty string; when ActivitiListener (default constructor) Event is empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ExecutionListenerParser.addListenerToParent(ActivitiListener, BaseElement)"})
-  void testAddListenerToParent_givenEmptyString_whenActivitiListenerEventIsEmptyString() {
+  void testAddListenerToParent() {
     // Arrange
     ExecutionListenerParser executionListenerParser = new ExecutionListenerParser();
-
     ActivitiListener listener = new ActivitiListener();
-    listener.setEvent("");
-    SequenceFlow parentElement = new SequenceFlow("Source Ref", "Target Ref");
 
     // Act
-    executionListenerParser.addListenerToParent(listener, parentElement);
+    executionListenerParser.addListenerToParent(listener, new ActivitiListener());
 
-    // Assert
-    assertEquals("take", listener.getEvent());
-    List<ActivitiListener> executionListeners = parentElement.getExecutionListeners();
-    assertEquals(1, executionListeners.size());
-    assertSame(listener, executionListeners.get(0));
+    // Assert that nothing has changed
+    assertNull(listener.getEvent());
   }
 
   /**
-   * Test {@link ExecutionListenerParser#addListenerToParent(ActivitiListener, BaseElement)}.
-   * <ul>
-   *   <li>Given {@code Listener}.</li>
-   *   <li>Then {@link ActivitiListener} (default constructor) Event is {@code Listener}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionListenerParser#addListenerToParent(ActivitiListener, BaseElement)}
+   * Method under test:
+   * {@link ExecutionListenerParser#addListenerToParent(ActivitiListener, BaseElement)}
    */
   @Test
-  @DisplayName("Test addListenerToParent(ActivitiListener, BaseElement); given 'Listener'; then ActivitiListener (default constructor) Event is 'Listener'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ExecutionListenerParser.addListenerToParent(ActivitiListener, BaseElement)"})
-  void testAddListenerToParent_givenListener_thenActivitiListenerEventIsListener() {
-    // Arrange
-    ExecutionListenerParser executionListenerParser = new ExecutionListenerParser();
-
-    ActivitiListener listener = new ActivitiListener();
-    listener.setEvent("Listener");
-    SequenceFlow parentElement = new SequenceFlow("Source Ref", "Target Ref");
-
-    // Act
-    executionListenerParser.addListenerToParent(listener, parentElement);
-
-    // Assert
-    assertEquals("Listener", listener.getEvent());
-    List<ActivitiListener> executionListeners = parentElement.getExecutionListeners();
-    assertEquals(1, executionListeners.size());
-    assertSame(listener, executionListeners.get(0));
-  }
-
-  /**
-   * Test {@link ExecutionListenerParser#addListenerToParent(ActivitiListener, BaseElement)}.
-   * <ul>
-   *   <li>Given {@code null}.</li>
-   *   <li>When {@link ActivitiListener} (default constructor) Event is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionListenerParser#addListenerToParent(ActivitiListener, BaseElement)}
-   */
-  @Test
-  @DisplayName("Test addListenerToParent(ActivitiListener, BaseElement); given 'null'; when ActivitiListener (default constructor) Event is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ExecutionListenerParser.addListenerToParent(ActivitiListener, BaseElement)"})
-  void testAddListenerToParent_givenNull_whenActivitiListenerEventIsNull() {
+  void testAddListenerToParent2() {
     // Arrange
     ExecutionListenerParser executionListenerParser = new ExecutionListenerParser();
 
@@ -123,18 +67,34 @@ class ExecutionListenerParserDiffblueTest {
   }
 
   /**
-   * Test {@link ExecutionListenerParser#addListenerToParent(ActivitiListener, BaseElement)}.
-   * <ul>
-   *   <li>Then {@link AdhocSubProcess} (default constructor) ExecutionListeners size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionListenerParser#addListenerToParent(ActivitiListener, BaseElement)}
+   * Method under test:
+   * {@link ExecutionListenerParser#addListenerToParent(ActivitiListener, BaseElement)}
    */
   @Test
-  @DisplayName("Test addListenerToParent(ActivitiListener, BaseElement); then AdhocSubProcess (default constructor) ExecutionListeners size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ExecutionListenerParser.addListenerToParent(ActivitiListener, BaseElement)"})
-  void testAddListenerToParent_thenAdhocSubProcessExecutionListenersSizeIsOne() {
+  void testAddListenerToParent3() {
+    // Arrange
+    ExecutionListenerParser executionListenerParser = new ExecutionListenerParser();
+
+    ActivitiListener listener = new ActivitiListener();
+    listener.setEvent("Listener");
+    SequenceFlow parentElement = new SequenceFlow("Source Ref", "Target Ref");
+
+    // Act
+    executionListenerParser.addListenerToParent(listener, parentElement);
+
+    // Assert
+    assertEquals("Listener", listener.getEvent());
+    List<ActivitiListener> executionListeners = parentElement.getExecutionListeners();
+    assertEquals(1, executionListeners.size());
+    assertSame(listener, executionListeners.get(0));
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionListenerParser#addListenerToParent(ActivitiListener, BaseElement)}
+   */
+  @Test
+  void testAddListenerToParent4() {
     // Arrange
     ExecutionListenerParser executionListenerParser = new ExecutionListenerParser();
     ActivitiListener listener = new ActivitiListener();
@@ -151,33 +111,29 @@ class ExecutionListenerParserDiffblueTest {
   }
 
   /**
-   * Test {@link ExecutionListenerParser#addListenerToParent(ActivitiListener, BaseElement)}.
-   * <ul>
-   *   <li>When {@link ActivitiListener} (default constructor).</li>
-   *   <li>Then {@link ActivitiListener} (default constructor) Event is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionListenerParser#addListenerToParent(ActivitiListener, BaseElement)}
+   * Method under test:
+   * {@link ExecutionListenerParser#addListenerToParent(ActivitiListener, BaseElement)}
    */
   @Test
-  @DisplayName("Test addListenerToParent(ActivitiListener, BaseElement); when ActivitiListener (default constructor); then ActivitiListener (default constructor) Event is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ExecutionListenerParser.addListenerToParent(ActivitiListener, BaseElement)"})
-  void testAddListenerToParent_whenActivitiListener_thenActivitiListenerEventIsNull() {
+  void testAddListenerToParent5() {
     // Arrange
     ExecutionListenerParser executionListenerParser = new ExecutionListenerParser();
+
     ActivitiListener listener = new ActivitiListener();
+    listener.setEvent("");
+    SequenceFlow parentElement = new SequenceFlow("Source Ref", "Target Ref");
 
     // Act
-    executionListenerParser.addListenerToParent(listener, new ActivitiListener());
+    executionListenerParser.addListenerToParent(listener, parentElement);
 
-    // Assert that nothing has changed
-    assertNull(listener.getEvent());
+    // Assert
+    assertEquals("take", listener.getEvent());
+    List<ActivitiListener> executionListeners = parentElement.getExecutionListeners();
+    assertEquals(1, executionListeners.size());
+    assertSame(listener, executionListeners.get(0));
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ExecutionListenerParser}
@@ -185,10 +141,6 @@ class ExecutionListenerParserDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ExecutionListenerParser.<init>()",
-      "java.lang.String ExecutionListenerParser.getElementName()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals("executionListener", (new ExecutionListenerParser()).getElementName());

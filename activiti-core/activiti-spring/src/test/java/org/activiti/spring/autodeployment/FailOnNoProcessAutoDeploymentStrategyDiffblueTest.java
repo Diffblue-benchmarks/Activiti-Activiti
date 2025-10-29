@@ -16,31 +16,24 @@
 package org.activiti.spring.autodeployment;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.activiti.core.common.spring.project.ApplicationUpgradeContextService;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class FailOnNoProcessAutoDeploymentStrategyDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>{@link FailOnNoProcessAutoDeploymentStrategy#FailOnNoProcessAutoDeploymentStrategy(ApplicationUpgradeContextService)}
+   *   <li>
+   * {@link FailOnNoProcessAutoDeploymentStrategy#FailOnNoProcessAutoDeploymentStrategy(ApplicationUpgradeContextService)}
    *   <li>{@link FailOnNoProcessAutoDeploymentStrategy#getDeploymentMode()}
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void FailOnNoProcessAutoDeploymentStrategy.<init>(ApplicationUpgradeContextService)",
-      "java.lang.String FailOnNoProcessAutoDeploymentStrategy.getDeploymentMode()"})
   public void testGettersAndSetters() {
     // Arrange
-    JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
+    ObjectMapper objectMapper = new ObjectMapper();
 
     // Act and Assert
     assertEquals(FailOnNoProcessAutoDeploymentStrategy.DEPLOYMENT_MODE, (new FailOnNoProcessAutoDeploymentStrategy(

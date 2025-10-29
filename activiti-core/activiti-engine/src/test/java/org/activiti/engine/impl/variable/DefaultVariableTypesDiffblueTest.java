@@ -19,48 +19,25 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class DefaultVariableTypesDiffblueTest {
-  /**
-   * Test {@link DefaultVariableTypes#addType(VariableType, int)} with {@code type}, {@code index}.
-   * <ul>
-   *   <li>Then return {@link DefaultVariableTypes} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultVariableTypes#addType(VariableType, int)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"DefaultVariableTypes DefaultVariableTypes.addType(VariableType, int)"})
-  public void testAddTypeWithTypeIndex_thenReturnDefaultVariableTypes() {
-    // Arrange
-    DefaultVariableTypes defaultVariableTypes = new DefaultVariableTypes();
-    defaultVariableTypes.addType(new BigDecimalType());
-
-    // Act and Assert
-    assertSame(defaultVariableTypes, defaultVariableTypes.addType(new BigDecimalType(), 1));
-  }
+  @InjectMocks
+  private DefaultVariableTypes defaultVariableTypes;
 
   /**
-   * Test {@link DefaultVariableTypes#addType(VariableType)} with {@code type}.
-   * <ul>
-   *   <li>Then {@link DefaultVariableTypes} (default constructor) findVariableType {@code null} is {@link BigDecimalType} (default constructor).</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DefaultVariableTypes#addType(VariableType)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"DefaultVariableTypes DefaultVariableTypes.addType(VariableType)"})
-  public void testAddTypeWithType_thenDefaultVariableTypesFindVariableTypeNullIsBigDecimalType() {
+  public void testAddType() {
     // Arrange
     DefaultVariableTypes defaultVariableTypes = new DefaultVariableTypes();
     BigDecimalType type = new BigDecimalType();
@@ -74,17 +51,23 @@ public class DefaultVariableTypesDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultVariableTypes#setTypesList(List)}.
-   * <ul>
-   *   <li>Then {@link DefaultVariableTypes} (default constructor) findVariableType {@code null} is {@link BigDecimalType} (default constructor).</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link DefaultVariableTypes#addType(VariableType, int)}
+   */
+  @Test
+  public void testAddType2() {
+    // Arrange
+    DefaultVariableTypes defaultVariableTypes = new DefaultVariableTypes();
+    defaultVariableTypes.addType(new BigDecimalType());
+
+    // Act and Assert
+    assertSame(defaultVariableTypes, defaultVariableTypes.addType(new BigDecimalType(), 1));
+  }
+
+  /**
    * Method under test: {@link DefaultVariableTypes#setTypesList(List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultVariableTypes.setTypesList(List)"})
-  public void testSetTypesList_thenDefaultVariableTypesFindVariableTypeNullIsBigDecimalType() {
+  public void testSetTypesList() {
     // Arrange
     DefaultVariableTypes defaultVariableTypes = new DefaultVariableTypes();
 
@@ -100,27 +83,41 @@ public class DefaultVariableTypesDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultVariableTypes#getVariableType(String)}.
-   * <p>
    * Method under test: {@link DefaultVariableTypes#getVariableType(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"VariableType DefaultVariableTypes.getVariableType(String)"})
   public void testGetVariableType() {
     // Arrange, Act and Assert
-    assertNull((new DefaultVariableTypes()).getVariableType("Type Name"));
+    assertNull(defaultVariableTypes.getVariableType("Type Name"));
   }
 
   /**
-   * Test {@link DefaultVariableTypes#findVariableType(Object)}.
-   * <p>
    * Method under test: {@link DefaultVariableTypes#findVariableType(Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"VariableType DefaultVariableTypes.findVariableType(Object)"})
   public void testFindVariableType() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiException.class, () -> (new DefaultVariableTypes()).findVariableType(JSONObject.NULL));
+  }
+
+  /**
+   * Method under test: {@link DefaultVariableTypes#findVariableType(Object)}
+   */
+  @Test
+  public void testFindVariableType2() {
+    // Arrange
+    DefaultVariableTypes defaultVariableTypes = new DefaultVariableTypes();
+    defaultVariableTypes.addType(new BigDecimalType());
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> defaultVariableTypes.findVariableType(JSONObject.NULL));
+  }
+
+  /**
+   * Method under test: {@link DefaultVariableTypes#findVariableType(Object)}
+   */
+  @Test
+  public void testFindVariableType3() {
     // Arrange
     DefaultVariableTypes defaultVariableTypes = new DefaultVariableTypes();
     Class<Object> theClass = Object.class;
@@ -133,51 +130,10 @@ public class DefaultVariableTypesDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultVariableTypes#findVariableType(Object)}.
-   * <ul>
-   *   <li>Given {@link DefaultVariableTypes} (default constructor) addType {@link BigDecimalType} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultVariableTypes#findVariableType(Object)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"VariableType DefaultVariableTypes.findVariableType(Object)"})
-  public void testFindVariableType_givenDefaultVariableTypesAddTypeBigDecimalType() {
-    // Arrange
-    DefaultVariableTypes defaultVariableTypes = new DefaultVariableTypes();
-    defaultVariableTypes.addType(new BigDecimalType());
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> defaultVariableTypes.findVariableType(JSONObject.NULL));
-  }
-
-  /**
-   * Test {@link DefaultVariableTypes#findVariableType(Object)}.
-   * <ul>
-   *   <li>Given {@link DefaultVariableTypes} (default constructor).</li>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultVariableTypes#findVariableType(Object)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"VariableType DefaultVariableTypes.findVariableType(Object)"})
-  public void testFindVariableType_givenDefaultVariableTypes_thenThrowActivitiException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiException.class, () -> (new DefaultVariableTypes()).findVariableType(JSONObject.NULL));
-  }
-
-  /**
-   * Test {@link DefaultVariableTypes#getTypeIndex(VariableType)} with {@code type}.
-   * <p>
    * Method under test: {@link DefaultVariableTypes#getTypeIndex(VariableType)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"int DefaultVariableTypes.getTypeIndex(VariableType)"})
-  public void testGetTypeIndexWithType() {
+  public void testGetTypeIndex() {
     // Arrange
     DefaultVariableTypes defaultVariableTypes = new DefaultVariableTypes();
 
@@ -186,57 +142,19 @@ public class DefaultVariableTypesDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultVariableTypes#getTypeIndex(String)} with {@code typeName}.
-   * <ul>
-   *   <li>Given {@link DefaultVariableTypes} (default constructor).</li>
-   *   <li>Then return minus one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DefaultVariableTypes#getTypeIndex(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"int DefaultVariableTypes.getTypeIndex(String)"})
-  public void testGetTypeIndexWithTypeName_givenDefaultVariableTypes_thenReturnMinusOne() {
+  public void testGetTypeIndex2() {
     // Arrange, Act and Assert
-    assertEquals(-1, (new DefaultVariableTypes()).getTypeIndex("Type Name"));
+    assertEquals(-1, defaultVariableTypes.getTypeIndex("Type Name"));
   }
 
   /**
-   * Test {@link DefaultVariableTypes#getTypeIndex(String)} with {@code typeName}.
-   * <ul>
-   *   <li>Given {@code Object}.</li>
-   *   <li>Then return zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultVariableTypes#getTypeIndex(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"int DefaultVariableTypes.getTypeIndex(String)"})
-  public void testGetTypeIndexWithTypeName_givenJavaLangObject_thenReturnZero() {
-    // Arrange
-    DefaultVariableTypes defaultVariableTypes = new DefaultVariableTypes();
-    Class<Object> theClass = Object.class;
-    defaultVariableTypes.addType(new CustomObjectType("Type Name", theClass));
-
-    // Act and Assert
-    assertEquals(0, defaultVariableTypes.getTypeIndex("Type Name"));
-  }
-
-  /**
-   * Test {@link DefaultVariableTypes#removeType(VariableType)}.
-   * <ul>
-   *   <li>When {@link BigDecimalType} (default constructor).</li>
-   *   <li>Then return {@link DefaultVariableTypes} (default constructor).</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DefaultVariableTypes#removeType(VariableType)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"VariableTypes DefaultVariableTypes.removeType(VariableType)"})
-  public void testRemoveType_whenBigDecimalType_thenReturnDefaultVariableTypes() {
+  public void testRemoveType() {
     // Arrange
     DefaultVariableTypes defaultVariableTypes = new DefaultVariableTypes();
 

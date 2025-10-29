@@ -18,15 +18,10 @@ package org.activiti.spring.process.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class VariableDefinitionDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link VariableDefinition#VariableDefinition()}
@@ -35,36 +30,22 @@ class VariableDefinitionDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void VariableDefinition.<init>()", "Object VariableDefinition.getValue()",
-      "void VariableDefinition.setValue(Object)"})
   void testGettersAndSetters() {
     // Arrange and Act
     VariableDefinition actualVariableDefinition = new VariableDefinition();
     actualVariableDefinition.setValue("Value");
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("Value", actualVariableDefinition.getValue());
-    assertNull(actualVariableDefinition.getDisplay());
-    assertNull(actualVariableDefinition.getDescription());
-    assertNull(actualVariableDefinition.getDisplayName());
-    assertNull(actualVariableDefinition.getId());
-    assertNull(actualVariableDefinition.getName());
-    assertNull(actualVariableDefinition.getType());
     assertFalse(actualVariableDefinition.isAnalytics());
     assertFalse(actualVariableDefinition.isRequired());
   }
 
   /**
-   * Test {@link VariableDefinition#VariableDefinition(String, Object)}.
-   * <p>
-   * Method under test: {@link VariableDefinition#VariableDefinition(String, Object)}
+   * Method under test:
+   * {@link VariableDefinition#VariableDefinition(String, Object)}
    */
   @Test
-  @DisplayName("Test new VariableDefinition(String, Object)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void VariableDefinition.<init>(String, Object)"})
   void testNewVariableDefinition() {
     // Arrange and Act
     VariableDefinition actualVariableDefinition = new VariableDefinition("Type", "Value");

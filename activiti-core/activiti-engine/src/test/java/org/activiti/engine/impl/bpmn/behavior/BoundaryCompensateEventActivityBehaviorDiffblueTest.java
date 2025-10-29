@@ -17,22 +17,23 @@ package org.activiti.engine.impl.bpmn.behavior;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.BiFunction;
 import org.activiti.bpmn.model.CompensateEventDefinition;
+import org.activiti.bpmn.model.ExtensionElement;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class BoundaryCompensateEventActivityBehaviorDiffblueTest {
   /**
-   * Test {@link BoundaryCompensateEventActivityBehavior#BoundaryCompensateEventActivityBehavior(CompensateEventDefinition, boolean)}.
-   * <p>
-   * Method under test: {@link BoundaryCompensateEventActivityBehavior#BoundaryCompensateEventActivityBehavior(CompensateEventDefinition, boolean)}
+   * Method under test:
+   * {@link BoundaryCompensateEventActivityBehavior#BoundaryCompensateEventActivityBehavior(CompensateEventDefinition, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void BoundaryCompensateEventActivityBehavior.<init>(CompensateEventDefinition, boolean)"})
   public void testNewBoundaryCompensateEventActivityBehavior() {
     // Arrange and Act
     BoundaryCompensateEventActivityBehavior actualBoundaryCompensateEventActivityBehavior = new BoundaryCompensateEventActivityBehavior(
@@ -48,5 +49,36 @@ public class BoundaryCompensateEventActivityBehaviorDiffblueTest {
     assertTrue(compensateEventDefinition.getExtensionElements().isEmpty());
     assertTrue(compensateEventDefinition.isWaitForCompletion());
     assertTrue(actualBoundaryCompensateEventActivityBehavior.isInterrupting());
+  }
+
+  /**
+   * Method under test:
+   * {@link BoundaryCompensateEventActivityBehavior#BoundaryCompensateEventActivityBehavior(CompensateEventDefinition, boolean)}
+   */
+  @Test
+  public void testNewBoundaryCompensateEventActivityBehavior2() {
+    // Arrange
+    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
+    extensionElements.computeIfPresent("foo", mock(BiFunction.class));
+
+    CompensateEventDefinition compensateEventDefinition = new CompensateEventDefinition();
+    compensateEventDefinition.setExtensionElements(extensionElements);
+
+    // Act
+    BoundaryCompensateEventActivityBehavior actualBoundaryCompensateEventActivityBehavior = new BoundaryCompensateEventActivityBehavior(
+        compensateEventDefinition, true);
+
+    // Assert
+    CompensateEventDefinition compensateEventDefinition2 = actualBoundaryCompensateEventActivityBehavior.compensateEventDefinition;
+    assertNull(compensateEventDefinition2.getId());
+    assertNull(compensateEventDefinition2.getActivityRef());
+    assertEquals(0, compensateEventDefinition2.getXmlColumnNumber());
+    assertEquals(0, compensateEventDefinition2.getXmlRowNumber());
+    assertTrue(compensateEventDefinition2.getAttributes().isEmpty());
+    Map<String, List<ExtensionElement>> extensionElements2 = compensateEventDefinition2.getExtensionElements();
+    assertTrue(extensionElements2.isEmpty());
+    assertTrue(compensateEventDefinition2.isWaitForCompletion());
+    assertTrue(actualBoundaryCompensateEventActivityBehavior.isInterrupting());
+    assertSame(extensionElements, extensionElements2);
   }
 }

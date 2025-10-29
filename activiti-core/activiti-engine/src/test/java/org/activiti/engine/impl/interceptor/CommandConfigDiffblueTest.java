@@ -18,16 +18,11 @@ package org.activiti.engine.impl.interceptor;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.cfg.TransactionPropagation;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class CommandConfigDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link CommandConfig#CommandConfig(boolean, TransactionPropagation)}
@@ -36,10 +31,6 @@ public class CommandConfigDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CommandConfig.<init>(boolean, TransactionPropagation)",
-      "TransactionPropagation CommandConfig.getTransactionPropagation()",
-      "boolean CommandConfig.isContextReusePossible()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     CommandConfig actualCommandConfig = new CommandConfig(true, TransactionPropagation.REQUIRED);
@@ -51,67 +42,9 @@ public class CommandConfigDiffblueTest {
   }
 
   /**
-   * Test {@link CommandConfig#CommandConfig()}.
-   * <p>
-   * Method under test: {@link CommandConfig#CommandConfig()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CommandConfig.<init>()"})
-  public void testNewCommandConfig() {
-    // Arrange and Act
-    CommandConfig actualCommandConfig = new CommandConfig();
-
-    // Assert
-    assertEquals(TransactionPropagation.REQUIRED, actualCommandConfig.getTransactionPropagation());
-    assertTrue(actualCommandConfig.isContextReusePossible());
-  }
-
-  /**
-   * Test {@link CommandConfig#CommandConfig(boolean)}.
-   * <p>
-   * Method under test: {@link CommandConfig#CommandConfig(boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CommandConfig.<init>(boolean)"})
-  public void testNewCommandConfig2() {
-    // Arrange and Act
-    CommandConfig actualCommandConfig = new CommandConfig(true);
-
-    // Assert
-    assertEquals(TransactionPropagation.REQUIRED, actualCommandConfig.getTransactionPropagation());
-    assertTrue(actualCommandConfig.isContextReusePossible());
-  }
-
-  /**
-   * Test {@link CommandConfig#CommandConfig(CommandConfig)}.
-   * <ul>
-   *   <li>Then return TransactionPropagation is {@code REQUIRED}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CommandConfig#CommandConfig(CommandConfig)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CommandConfig.<init>(CommandConfig)"})
-  public void testNewCommandConfig_thenReturnTransactionPropagationIsRequired() {
-    // Arrange and Act
-    CommandConfig actualCommandConfig = new CommandConfig(new CommandConfig());
-
-    // Assert
-    assertEquals(TransactionPropagation.REQUIRED, actualCommandConfig.getTransactionPropagation());
-    assertTrue(actualCommandConfig.isContextReusePossible());
-  }
-
-  /**
-   * Test {@link CommandConfig#setContextReusePossible(boolean)}.
-   * <p>
    * Method under test: {@link CommandConfig#setContextReusePossible(boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"CommandConfig CommandConfig.setContextReusePossible(boolean)"})
   public void testSetContextReusePossible() {
     // Arrange and Act
     CommandConfig actualSetContextReusePossibleResult = (new CommandConfig()).setContextReusePossible(true);
@@ -122,13 +55,9 @@ public class CommandConfigDiffblueTest {
   }
 
   /**
-   * Test {@link CommandConfig#transactionRequired()}.
-   * <p>
    * Method under test: {@link CommandConfig#transactionRequired()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"CommandConfig CommandConfig.transactionRequired()"})
   public void testTransactionRequired() {
     // Arrange and Act
     CommandConfig actualTransactionRequiredResult = (new CommandConfig()).transactionRequired();
@@ -139,13 +68,9 @@ public class CommandConfigDiffblueTest {
   }
 
   /**
-   * Test {@link CommandConfig#transactionRequiresNew()}.
-   * <p>
    * Method under test: {@link CommandConfig#transactionRequiresNew()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"CommandConfig CommandConfig.transactionRequiresNew()"})
   public void testTransactionRequiresNew() {
     // Arrange and Act
     CommandConfig actualTransactionRequiresNewResult = (new CommandConfig()).transactionRequiresNew();
@@ -156,13 +81,9 @@ public class CommandConfigDiffblueTest {
   }
 
   /**
-   * Test {@link CommandConfig#transactionNotSupported()}.
-   * <p>
    * Method under test: {@link CommandConfig#transactionNotSupported()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"CommandConfig CommandConfig.transactionNotSupported()"})
   public void testTransactionNotSupported() {
     // Arrange and Act
     CommandConfig actualTransactionNotSupportedResult = (new CommandConfig()).transactionNotSupported();
@@ -170,5 +91,44 @@ public class CommandConfigDiffblueTest {
     // Assert
     assertEquals(TransactionPropagation.NOT_SUPPORTED, actualTransactionNotSupportedResult.getTransactionPropagation());
     assertFalse(actualTransactionNotSupportedResult.isContextReusePossible());
+  }
+
+  /**
+   * Method under test: {@link CommandConfig#CommandConfig()}
+   */
+  @Test
+  public void testNewCommandConfig() {
+    // Arrange and Act
+    CommandConfig actualCommandConfig = new CommandConfig();
+
+    // Assert
+    assertEquals(TransactionPropagation.REQUIRED, actualCommandConfig.getTransactionPropagation());
+    assertTrue(actualCommandConfig.isContextReusePossible());
+  }
+
+  /**
+   * Method under test: {@link CommandConfig#CommandConfig(CommandConfig)}
+   */
+  @Test
+  public void testNewCommandConfig2() {
+    // Arrange and Act
+    CommandConfig actualCommandConfig = new CommandConfig(new CommandConfig());
+
+    // Assert
+    assertEquals(TransactionPropagation.REQUIRED, actualCommandConfig.getTransactionPropagation());
+    assertTrue(actualCommandConfig.isContextReusePossible());
+  }
+
+  /**
+   * Method under test: {@link CommandConfig#CommandConfig(boolean)}
+   */
+  @Test
+  public void testNewCommandConfig3() {
+    // Arrange and Act
+    CommandConfig actualCommandConfig = new CommandConfig(true);
+
+    // Assert
+    assertEquals(TransactionPropagation.REQUIRED, actualCommandConfig.getTransactionPropagation());
+    assertTrue(actualCommandConfig.isContextReusePossible());
   }
 }

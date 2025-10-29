@@ -18,41 +18,52 @@ package org.activiti.engine.impl.event.logger;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.engine.impl.event.logger.handler.ActivityCompensatedEventHandler;
 import org.activiti.engine.impl.event.logger.handler.EventLoggerEventHandler;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class AbstractEventFlusherDiffblueTest {
   /**
-   * Test {@link AbstractEventFlusher#getEventHandlers()}.
-   * <p>
    * Method under test: {@link AbstractEventFlusher#getEventHandlers()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"List AbstractEventFlusher.getEventHandlers()"})
   public void testGetEventHandlers() {
-    // Arrange, Act and Assert
-    assertTrue((new DatabaseEventFlusher()).getEventHandlers().isEmpty());
+    // Arrange
+    DatabaseEventFlusher databaseEventFlusher = new DatabaseEventFlusher();
+
+    // Act
+    List<EventLoggerEventHandler> actualEventHandlers = databaseEventFlusher.getEventHandlers();
+
+    // Assert
+    assertTrue(actualEventHandlers.isEmpty());
+    assertSame(databaseEventFlusher.eventHandlers, actualEventHandlers);
   }
 
   /**
-   * Test {@link AbstractEventFlusher#setEventHandlers(List)}.
-   * <ul>
-   *   <li>Given {@link ActivityCompensatedEventHandler} (default constructor).</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AbstractEventFlusher#setEventHandlers(List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AbstractEventFlusher.setEventHandlers(List)"})
-  public void testSetEventHandlers_givenActivityCompensatedEventHandler() {
+  public void testSetEventHandlers() {
+    // Arrange
+    DatabaseEventFlusher databaseEventFlusher = new DatabaseEventFlusher();
+    ArrayList<EventLoggerEventHandler> eventHandlers = new ArrayList<>();
+
+    // Act
+    databaseEventFlusher.setEventHandlers(eventHandlers);
+
+    // Assert
+    assertSame(eventHandlers, databaseEventFlusher.getEventHandlers());
+  }
+
+  /**
+   * Method under test: {@link AbstractEventFlusher#setEventHandlers(List)}
+   */
+  @Test
+  public void testSetEventHandlers2() {
     // Arrange
     DatabaseEventFlusher databaseEventFlusher = new DatabaseEventFlusher();
 
@@ -67,17 +78,10 @@ public class AbstractEventFlusherDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractEventFlusher#setEventHandlers(List)}.
-   * <ul>
-   *   <li>Given {@link ActivityCompensatedEventHandler} (default constructor).</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AbstractEventFlusher#setEventHandlers(List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AbstractEventFlusher.setEventHandlers(List)"})
-  public void testSetEventHandlers_givenActivityCompensatedEventHandler2() {
+  public void testSetEventHandlers3() {
     // Arrange
     DatabaseEventFlusher databaseEventFlusher = new DatabaseEventFlusher();
 
@@ -93,40 +97,35 @@ public class AbstractEventFlusherDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractEventFlusher#setEventHandlers(List)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AbstractEventFlusher#setEventHandlers(List)}
+   * Method under test:
+   * {@link AbstractEventFlusher#addEventHandler(EventLoggerEventHandler)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AbstractEventFlusher.setEventHandlers(List)"})
-  public void testSetEventHandlers_whenArrayList() {
-    // Arrange
-    DatabaseEventFlusher databaseEventFlusher = new DatabaseEventFlusher();
-    ArrayList<EventLoggerEventHandler> eventHandlers = new ArrayList<>();
-
-    // Act
-    databaseEventFlusher.setEventHandlers(eventHandlers);
-
-    // Assert
-    assertSame(eventHandlers, databaseEventFlusher.getEventHandlers());
-  }
-
-  /**
-   * Test {@link AbstractEventFlusher#addEventHandler(EventLoggerEventHandler)}.
-   * <p>
-   * Method under test: {@link AbstractEventFlusher#addEventHandler(EventLoggerEventHandler)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AbstractEventFlusher.addEventHandler(EventLoggerEventHandler)"})
   public void testAddEventHandler() {
     // Arrange
     DatabaseEventFlusher databaseEventFlusher = new DatabaseEventFlusher();
     ActivityCompensatedEventHandler databaseEventLoggerEventHandler = new ActivityCompensatedEventHandler();
+
+    // Act
+    databaseEventFlusher.addEventHandler(databaseEventLoggerEventHandler);
+
+    // Assert
+    List<EventLoggerEventHandler> eventHandlers = databaseEventFlusher.getEventHandlers();
+    assertEquals(1, eventHandlers.size());
+    assertSame(databaseEventLoggerEventHandler, eventHandlers.get(0));
+  }
+
+  /**
+   * Method under test:
+   * {@link AbstractEventFlusher#addEventHandler(EventLoggerEventHandler)}
+   */
+  @Test
+  public void testAddEventHandler2() {
+    // Arrange
+    DatabaseEventFlusher databaseEventFlusher = new DatabaseEventFlusher();
+
+    ActivityCompensatedEventHandler databaseEventLoggerEventHandler = new ActivityCompensatedEventHandler();
+    databaseEventLoggerEventHandler.setTimeStamp(mock(Date.class));
 
     // Act
     databaseEventFlusher.addEventHandler(databaseEventLoggerEventHandler);

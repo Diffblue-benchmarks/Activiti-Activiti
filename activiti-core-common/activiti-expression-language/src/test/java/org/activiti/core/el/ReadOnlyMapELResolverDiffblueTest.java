@@ -18,42 +18,20 @@ package org.activiti.core.el;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import jakarta.el.ELContext;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import java.util.function.BiFunction;
 import org.junit.jupiter.api.Test;
 
 class ReadOnlyMapELResolverDiffblueTest {
   /**
-   * Test {@link ReadOnlyMapELResolver#ReadOnlyMapELResolver(Map)}.
-   * <p>
-   * Method under test: {@link ReadOnlyMapELResolver#ReadOnlyMapELResolver(Map)}
+   * Method under test:
+   * {@link ReadOnlyMapELResolver#getValue(ELContext, Object, Object)}
    */
   @Test
-  @DisplayName("Test new ReadOnlyMapELResolver(Map)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ReadOnlyMapELResolver.<init>(Map)"})
-  void testNewReadOnlyMapELResolver() {
-    // Arrange, Act and Assert
-    assertTrue((new ReadOnlyMapELResolver(new HashMap<>())).wrappedMap.isEmpty());
-  }
-
-  /**
-   * Test {@link ReadOnlyMapELResolver#getValue(ELContext, Object, Object)}.
-   * <ul>
-   *   <li>When {@code Base}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ReadOnlyMapELResolver#getValue(ELContext, Object, Object)}
-   */
-  @Test
-  @DisplayName("Test getValue(ELContext, Object, Object); when 'Base'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object ReadOnlyMapELResolver.getValue(ELContext, Object, Object)"})
-  void testGetValue_whenBase() {
+  void testGetValue() {
     // Arrange
     ReadOnlyMapELResolver readOnlyMapELResolver = new ReadOnlyMapELResolver(new HashMap<>());
 
@@ -62,18 +40,11 @@ class ReadOnlyMapELResolverDiffblueTest {
   }
 
   /**
-   * Test {@link ReadOnlyMapELResolver#getValue(ELContext, Object, Object)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ReadOnlyMapELResolver#getValue(ELContext, Object, Object)}
+   * Method under test:
+   * {@link ReadOnlyMapELResolver#getValue(ELContext, Object, Object)}
    */
   @Test
-  @DisplayName("Test getValue(ELContext, Object, Object); when 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object ReadOnlyMapELResolver.getValue(ELContext, Object, Object)"})
-  void testGetValue_whenNull() {
+  void testGetValue2() {
     // Arrange
     ReadOnlyMapELResolver readOnlyMapELResolver = new ReadOnlyMapELResolver(new HashMap<>());
 
@@ -82,14 +53,25 @@ class ReadOnlyMapELResolverDiffblueTest {
   }
 
   /**
-   * Test {@link ReadOnlyMapELResolver#isReadOnly(ELContext, Object, Object)}.
-   * <p>
-   * Method under test: {@link ReadOnlyMapELResolver#isReadOnly(ELContext, Object, Object)}
+   * Method under test:
+   * {@link ReadOnlyMapELResolver#getValue(ELContext, Object, Object)}
    */
   @Test
-  @DisplayName("Test isReadOnly(ELContext, Object, Object)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean ReadOnlyMapELResolver.isReadOnly(ELContext, Object, Object)"})
+  void testGetValue3() {
+    // Arrange
+    HashMap<Object, Object> map = new HashMap<>();
+    map.computeIfPresent("42", mock(BiFunction.class));
+    ReadOnlyMapELResolver readOnlyMapELResolver = new ReadOnlyMapELResolver(map);
+
+    // Act and Assert
+    assertNull(readOnlyMapELResolver.getValue(new ActivitiElContext(), "Base", "Property"));
+  }
+
+  /**
+   * Method under test:
+   * {@link ReadOnlyMapELResolver#isReadOnly(ELContext, Object, Object)}
+   */
+  @Test
   void testIsReadOnly() {
     // Arrange
     ReadOnlyMapELResolver readOnlyMapELResolver = new ReadOnlyMapELResolver(new HashMap<>());
@@ -99,14 +81,25 @@ class ReadOnlyMapELResolverDiffblueTest {
   }
 
   /**
-   * Test {@link ReadOnlyMapELResolver#getCommonPropertyType(ELContext, Object)}.
-   * <p>
-   * Method under test: {@link ReadOnlyMapELResolver#getCommonPropertyType(ELContext, Object)}
+   * Method under test:
+   * {@link ReadOnlyMapELResolver#isReadOnly(ELContext, Object, Object)}
    */
   @Test
-  @DisplayName("Test getCommonPropertyType(ELContext, Object)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Class ReadOnlyMapELResolver.getCommonPropertyType(ELContext, Object)"})
+  void testIsReadOnly2() {
+    // Arrange
+    HashMap<Object, Object> map = new HashMap<>();
+    map.computeIfPresent("42", mock(BiFunction.class));
+    ReadOnlyMapELResolver readOnlyMapELResolver = new ReadOnlyMapELResolver(map);
+
+    // Act and Assert
+    assertTrue(readOnlyMapELResolver.isReadOnly(new ActivitiElContext(), "Base", "Property"));
+  }
+
+  /**
+   * Method under test:
+   * {@link ReadOnlyMapELResolver#getCommonPropertyType(ELContext, Object)}
+   */
+  @Test
   void testGetCommonPropertyType() {
     // Arrange
     ReadOnlyMapELResolver readOnlyMapELResolver = new ReadOnlyMapELResolver(new HashMap<>());
@@ -120,14 +113,29 @@ class ReadOnlyMapELResolverDiffblueTest {
   }
 
   /**
-   * Test {@link ReadOnlyMapELResolver#getFeatureDescriptors(ELContext, Object)}.
-   * <p>
-   * Method under test: {@link ReadOnlyMapELResolver#getFeatureDescriptors(ELContext, Object)}
+   * Method under test:
+   * {@link ReadOnlyMapELResolver#getCommonPropertyType(ELContext, Object)}
    */
   @Test
-  @DisplayName("Test getFeatureDescriptors(ELContext, Object)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.util.Iterator ReadOnlyMapELResolver.getFeatureDescriptors(ELContext, Object)"})
+  void testGetCommonPropertyType2() {
+    // Arrange
+    HashMap<Object, Object> map = new HashMap<>();
+    map.computeIfPresent("42", mock(BiFunction.class));
+    ReadOnlyMapELResolver readOnlyMapELResolver = new ReadOnlyMapELResolver(map);
+
+    // Act
+    Class<?> actualCommonPropertyType = readOnlyMapELResolver.getCommonPropertyType(new ActivitiElContext(), "Arg");
+
+    // Assert
+    Class<Object> expectedCommonPropertyType = Object.class;
+    assertEquals(expectedCommonPropertyType, actualCommonPropertyType);
+  }
+
+  /**
+   * Method under test:
+   * {@link ReadOnlyMapELResolver#getFeatureDescriptors(ELContext, Object)}
+   */
+  @Test
   void testGetFeatureDescriptors() {
     // Arrange
     ReadOnlyMapELResolver readOnlyMapELResolver = new ReadOnlyMapELResolver(new HashMap<>());
@@ -137,14 +145,25 @@ class ReadOnlyMapELResolverDiffblueTest {
   }
 
   /**
-   * Test {@link ReadOnlyMapELResolver#getType(ELContext, Object, Object)}.
-   * <p>
-   * Method under test: {@link ReadOnlyMapELResolver#getType(ELContext, Object, Object)}
+   * Method under test:
+   * {@link ReadOnlyMapELResolver#getFeatureDescriptors(ELContext, Object)}
    */
   @Test
-  @DisplayName("Test getType(ELContext, Object, Object)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Class ReadOnlyMapELResolver.getType(ELContext, Object, Object)"})
+  void testGetFeatureDescriptors2() {
+    // Arrange
+    HashMap<Object, Object> map = new HashMap<>();
+    map.computeIfPresent("42", mock(BiFunction.class));
+    ReadOnlyMapELResolver readOnlyMapELResolver = new ReadOnlyMapELResolver(map);
+
+    // Act and Assert
+    assertNull(readOnlyMapELResolver.getFeatureDescriptors(new ActivitiElContext(), "Arg"));
+  }
+
+  /**
+   * Method under test:
+   * {@link ReadOnlyMapELResolver#getType(ELContext, Object, Object)}
+   */
+  @Test
   void testGetType() {
     // Arrange
     ReadOnlyMapELResolver readOnlyMapELResolver = new ReadOnlyMapELResolver(new HashMap<>());
@@ -155,5 +174,33 @@ class ReadOnlyMapELResolverDiffblueTest {
     // Assert
     Class<Object> expectedType = Object.class;
     assertEquals(expectedType, actualType);
+  }
+
+  /**
+   * Method under test:
+   * {@link ReadOnlyMapELResolver#getType(ELContext, Object, Object)}
+   */
+  @Test
+  void testGetType2() {
+    // Arrange
+    HashMap<Object, Object> map = new HashMap<>();
+    map.computeIfPresent("42", mock(BiFunction.class));
+    ReadOnlyMapELResolver readOnlyMapELResolver = new ReadOnlyMapELResolver(map);
+
+    // Act
+    Class<?> actualType = readOnlyMapELResolver.getType(new ActivitiElContext(), "Arg1", "Arg2");
+
+    // Assert
+    Class<Object> expectedType = Object.class;
+    assertEquals(expectedType, actualType);
+  }
+
+  /**
+   * Method under test: {@link ReadOnlyMapELResolver#ReadOnlyMapELResolver(Map)}
+   */
+  @Test
+  void testNewReadOnlyMapELResolver() {
+    // Arrange, Act and Assert
+    assertTrue((new ReadOnlyMapELResolver(new HashMap<>())).wrappedMap.isEmpty());
   }
 }

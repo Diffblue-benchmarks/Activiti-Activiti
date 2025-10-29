@@ -19,51 +19,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class PrimitiveStructureDefinitionDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link PrimitiveStructureDefinition#PrimitiveStructureDefinition(String, Class)}
-   *   <li>{@link PrimitiveStructureDefinition#getId()}
-   *   <li>{@link PrimitiveStructureDefinition#getPrimitiveClass()}
-   * </ul>
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void PrimitiveStructureDefinition.<init>(String, Class)",
-      "String PrimitiveStructureDefinition.getId()", "Class PrimitiveStructureDefinition.getPrimitiveClass()"})
-  public void testGettersAndSetters() {
-    // Arrange
-    Class<Object> primitiveClass = Object.class;
-
-    // Act
-    PrimitiveStructureDefinition actualPrimitiveStructureDefinition = new PrimitiveStructureDefinition("42",
-        primitiveClass);
-    String actualId = actualPrimitiveStructureDefinition.getId();
-    Class<?> actualPrimitiveClass = actualPrimitiveStructureDefinition.getPrimitiveClass();
-
-    // Assert
-    assertEquals("42", actualId);
-    Class<Object> expectedPrimitiveClass = Object.class;
-    assertEquals(expectedPrimitiveClass, actualPrimitiveClass);
-    assertSame(primitiveClass, actualPrimitiveClass);
-  }
-
-  /**
-   * Test {@link PrimitiveStructureDefinition#createInstance()}.
-   * <p>
    * Method under test: {@link PrimitiveStructureDefinition#createInstance()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"StructureInstance PrimitiveStructureDefinition.createInstance()"})
   public void testCreateInstance() {
     // Arrange
     Class<Object> primitiveClass = Object.class;
@@ -81,6 +43,35 @@ public class PrimitiveStructureDefinitionDiffblueTest {
     assertNull(toArrayResult[0]);
     assertEquals(1, toArrayResult.length);
     Class<Object> expectedPrimitiveClass = Object.class;
-    assertEquals(expectedPrimitiveClass, primitiveStructureDefinition.getPrimitiveClass());
+    Class<?> primitiveClass2 = primitiveStructureDefinition.getPrimitiveClass();
+    assertEquals(expectedPrimitiveClass, primitiveClass2);
+    assertSame(primitiveClass, primitiveClass2);
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>
+   * {@link PrimitiveStructureDefinition#PrimitiveStructureDefinition(String, Class)}
+   *   <li>{@link PrimitiveStructureDefinition#getId()}
+   *   <li>{@link PrimitiveStructureDefinition#getPrimitiveClass()}
+   * </ul>
+   */
+  @Test
+  public void testGettersAndSetters() {
+    // Arrange
+    Class<Object> primitiveClass = Object.class;
+
+    // Act
+    PrimitiveStructureDefinition actualPrimitiveStructureDefinition = new PrimitiveStructureDefinition("42",
+        primitiveClass);
+    String actualId = actualPrimitiveStructureDefinition.getId();
+    Class<?> actualPrimitiveClass = actualPrimitiveStructureDefinition.getPrimitiveClass();
+
+    // Assert
+    assertEquals("42", actualId);
+    Class<Object> expectedPrimitiveClass = Object.class;
+    assertEquals(expectedPrimitiveClass, actualPrimitiveClass);
+    assertSame(primitiveClass, actualPrimitiveClass);
   }
 }

@@ -17,21 +17,25 @@ package org.activiti.engine.impl.cfg.multitenant;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.interceptor.CommandContext;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ExecuteSchemaOperationCommandDiffblueTest {
   /**
-   * Test {@link ExecuteSchemaOperationCommand#ExecuteSchemaOperationCommand(String)}.
-   * <p>
-   * Method under test: {@link ExecuteSchemaOperationCommand#ExecuteSchemaOperationCommand(String)}
+   * Method under test:
+   * {@link ExecuteSchemaOperationCommand#execute(CommandContext)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecuteSchemaOperationCommand.<init>(String)"})
+  public void testExecute() {
+    // Arrange, Act and Assert
+    assertNull((new ExecuteSchemaOperationCommand("Schema Operation")).execute(null));
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecuteSchemaOperationCommand#ExecuteSchemaOperationCommand(String)}
+   */
+  @Test
   public void testNewExecuteSchemaOperationCommand() {
     // Arrange and Act
     ExecuteSchemaOperationCommand actualExecuteSchemaOperationCommand = new ExecuteSchemaOperationCommand(
@@ -40,22 +44,5 @@ public class ExecuteSchemaOperationCommandDiffblueTest {
     // Assert
     assertEquals("Schema Operation", actualExecuteSchemaOperationCommand.schemaOperation);
     assertNull(actualExecuteSchemaOperationCommand.tenantInfoHolder);
-  }
-
-  /**
-   * Test {@link ExecuteSchemaOperationCommand#execute(CommandContext)}.
-   * <ul>
-   *   <li>Given {@link ExecuteSchemaOperationCommand#ExecuteSchemaOperationCommand(String)} with {@code Schema Operation}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecuteSchemaOperationCommand#execute(CommandContext)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.lang.Void ExecuteSchemaOperationCommand.execute(CommandContext)"})
-  public void testExecute_givenExecuteSchemaOperationCommandWithSchemaOperation_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new ExecuteSchemaOperationCommand("Schema Operation")).execute(null));
   }
 }

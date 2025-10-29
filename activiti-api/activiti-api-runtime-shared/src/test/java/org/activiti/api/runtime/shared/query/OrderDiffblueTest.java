@@ -16,34 +16,23 @@
 package org.activiti.api.runtime.shared.query;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.activiti.api.runtime.shared.query.Order.Direction;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class OrderDiffblueTest {
   /**
-   * Test {@link Order#Order(String)}.
-   * <p>
-   * Method under test: {@link Order#Order(String)}
+   * Method under test: {@link Order#by(String, Order.Direction)}
    */
   @Test
-  @DisplayName("Test new Order(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Order.<init>(String)"})
-  void testNewOrder() {
+  void testBy() {
     // Arrange and Act
-    Order actualOrder = new Order("Property");
+    Order actualByResult = Order.by("Property", Order.Direction.ASC);
 
     // Assert
-    assertEquals("Property", actualOrder.getProperty());
-    assertEquals(Direction.ASC, actualOrder.getDirection());
+    assertEquals("Property", actualByResult.getProperty());
+    assertEquals(Order.Direction.ASC, actualByResult.getDirection());
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link Order#getDirection()}
@@ -51,36 +40,28 @@ class OrderDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Direction Order.getDirection()", "String Order.getProperty()"})
   void testGettersAndSetters() {
     // Arrange
-    Order byResult = Order.by("Property", Direction.ASC);
+    Order byResult = Order.by("Property", Order.Direction.ASC);
 
     // Act
-    Direction actualDirection = byResult.getDirection();
+    Order.Direction actualDirection = byResult.getDirection();
 
     // Assert
     assertEquals("Property", byResult.getProperty());
-    assertEquals(Direction.ASC, actualDirection);
+    assertEquals(Order.Direction.ASC, actualDirection);
   }
 
   /**
-   * Test {@link Order#by(String, Direction)}.
-   * <p>
-   * Method under test: {@link Order#by(String, Direction)}
+   * Method under test: {@link Order#Order(String)}
    */
   @Test
-  @DisplayName("Test by(String, Direction)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Order Order.by(String, Direction)"})
-  void testBy() {
+  void testNewOrder() {
     // Arrange and Act
-    Order actualByResult = Order.by("Property", Direction.ASC);
+    Order actualOrder = new Order("Property");
 
     // Assert
-    assertEquals("Property", actualByResult.getProperty());
-    assertEquals(Direction.ASC, actualByResult.getDirection());
+    assertEquals("Property", actualOrder.getProperty());
+    assertEquals(Order.Direction.ASC, actualOrder.getDirection());
   }
 }

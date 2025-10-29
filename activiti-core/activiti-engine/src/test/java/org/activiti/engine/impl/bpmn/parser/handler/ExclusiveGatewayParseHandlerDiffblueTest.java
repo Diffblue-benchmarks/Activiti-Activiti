@@ -17,8 +17,6 @@ package org.activiti.engine.impl.bpmn.parser.handler;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.ExclusiveGateway;
 import org.activiti.engine.impl.bpmn.behavior.ExclusiveGatewayActivityBehavior;
@@ -26,18 +24,14 @@ import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ExclusiveGatewayParseHandlerDiffblueTest {
   /**
-   * Test {@link ExclusiveGatewayParseHandler#executeParse(BpmnParse, ExclusiveGateway)} with {@code BpmnParse}, {@code ExclusiveGateway}.
-   * <p>
-   * Method under test: {@link ExclusiveGatewayParseHandler#executeParse(BpmnParse, ExclusiveGateway)}
+   * Method under test:
+   * {@link ExclusiveGatewayParseHandler#executeParse(BpmnParse, ExclusiveGateway)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExclusiveGatewayParseHandler.executeParse(BpmnParse, ExclusiveGateway)"})
-  public void testExecuteParseWithBpmnParseExclusiveGateway() {
+  public void testExecuteParse() {
     // Arrange
     ExclusiveGatewayParseHandler exclusiveGatewayParseHandler = new ExclusiveGatewayParseHandler();
 
@@ -54,18 +48,14 @@ public class ExclusiveGatewayParseHandlerDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of {@link ExclusiveGatewayParseHandler}
+   *   <li>default or parameterless constructor of
+   * {@link ExclusiveGatewayParseHandler}
    *   <li>{@link ExclusiveGatewayParseHandler#getHandledType()}
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExclusiveGatewayParseHandler.<init>()",
-      "Class ExclusiveGatewayParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends BaseElement> actualHandledType = (new ExclusiveGatewayParseHandler()).getHandledType();

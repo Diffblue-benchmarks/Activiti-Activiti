@@ -17,20 +17,14 @@ package org.activiti.engine.impl.persistence.entity;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class HistoricDetailTransitionInstanceEntityImplDiffblueTest {
   /**
-   * Test new {@link HistoricDetailTransitionInstanceEntityImpl} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link HistoricDetailTransitionInstanceEntityImpl}
+   * Method under test: default or parameterless constructor of
+   * {@link HistoricDetailTransitionInstanceEntityImpl}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricDetailTransitionInstanceEntityImpl.<init>()"})
   public void testNewHistoricDetailTransitionInstanceEntityImpl() {
     // Arrange and Act
     HistoricDetailTransitionInstanceEntityImpl actualHistoricDetailTransitionInstanceEntityImpl = new HistoricDetailTransitionInstanceEntityImpl();

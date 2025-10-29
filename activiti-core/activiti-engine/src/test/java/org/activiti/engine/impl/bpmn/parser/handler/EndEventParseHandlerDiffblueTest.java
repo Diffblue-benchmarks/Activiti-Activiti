@@ -18,8 +18,6 @@ package org.activiti.engine.impl.bpmn.parser.handler;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.CancelEventDefinition;
 import org.activiti.bpmn.model.EndEvent;
@@ -31,18 +29,14 @@ import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class EndEventParseHandlerDiffblueTest {
   /**
-   * Test {@link EndEventParseHandler#executeParse(BpmnParse, EndEvent)} with {@code BpmnParse}, {@code EndEvent}.
-   * <p>
-   * Method under test: {@link EndEventParseHandler#executeParse(BpmnParse, EndEvent)}
+   * Method under test:
+   * {@link EndEventParseHandler#executeParse(BpmnParse, EndEvent)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void EndEventParseHandler.executeParse(BpmnParse, EndEvent)"})
-  public void testExecuteParseWithBpmnParseEndEvent() {
+  public void testExecuteParse() {
     // Arrange
     EndEventParseHandler endEventParseHandler = new EndEventParseHandler();
 
@@ -59,14 +53,11 @@ public class EndEventParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link EndEventParseHandler#executeParse(BpmnParse, EndEvent)} with {@code BpmnParse}, {@code EndEvent}.
-   * <p>
-   * Method under test: {@link EndEventParseHandler#executeParse(BpmnParse, EndEvent)}
+   * Method under test:
+   * {@link EndEventParseHandler#executeParse(BpmnParse, EndEvent)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void EndEventParseHandler.executeParse(BpmnParse, EndEvent)"})
-  public void testExecuteParseWithBpmnParseEndEvent2() {
+  public void testExecuteParse2() {
     // Arrange
     EndEventParseHandler endEventParseHandler = new EndEventParseHandler();
 
@@ -85,14 +76,11 @@ public class EndEventParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link EndEventParseHandler#executeParse(BpmnParse, EndEvent)} with {@code BpmnParse}, {@code EndEvent}.
-   * <p>
-   * Method under test: {@link EndEventParseHandler#executeParse(BpmnParse, EndEvent)}
+   * Method under test:
+   * {@link EndEventParseHandler#executeParse(BpmnParse, EndEvent)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void EndEventParseHandler.executeParse(BpmnParse, EndEvent)"})
-  public void testExecuteParseWithBpmnParseEndEvent3() {
+  public void testExecuteParse3() {
     // Arrange
     EndEventParseHandler endEventParseHandler = new EndEventParseHandler();
 
@@ -114,14 +102,11 @@ public class EndEventParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link EndEventParseHandler#executeParse(BpmnParse, EndEvent)} with {@code BpmnParse}, {@code EndEvent}.
-   * <p>
-   * Method under test: {@link EndEventParseHandler#executeParse(BpmnParse, EndEvent)}
+   * Method under test:
+   * {@link EndEventParseHandler#executeParse(BpmnParse, EndEvent)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void EndEventParseHandler.executeParse(BpmnParse, EndEvent)"})
-  public void testExecuteParseWithBpmnParseEndEvent4() {
+  public void testExecuteParse4() {
     // Arrange
     EndEventParseHandler endEventParseHandler = new EndEventParseHandler();
 
@@ -140,8 +125,6 @@ public class EndEventParseHandlerDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link EndEventParseHandler}
@@ -149,8 +132,6 @@ public class EndEventParseHandlerDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void EndEventParseHandler.<init>()", "Class EndEventParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends BaseElement> actualHandledType = (new EndEventParseHandler()).getHandledType();

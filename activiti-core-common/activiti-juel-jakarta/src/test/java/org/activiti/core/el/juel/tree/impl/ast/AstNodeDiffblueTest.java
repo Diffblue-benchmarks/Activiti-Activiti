@@ -18,7 +18,6 @@ package org.activiti.core.el.juel.tree.impl.ast;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
 import jakarta.el.ValueExpression;
 import java.lang.reflect.Method;
@@ -26,24 +25,14 @@ import org.activiti.core.el.juel.ObjectValueExpression;
 import org.activiti.core.el.juel.misc.TypeConverter;
 import org.activiti.core.el.juel.tree.Bindings;
 import org.activiti.core.el.juel.util.SimpleContext;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class AstNodeDiffblueTest {
   /**
-   * Test {@link AstNode#getValue(Bindings, ELContext, Class)}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstNode#getValue(Bindings, ELContext, Class)}
    */
   @Test
-  @DisplayName("Test getValue(Bindings, ELContext, Class); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object AstNode.getValue(Bindings, ELContext, Class)"})
-  void testGetValue_thenReturnNull() {
+  void testGetValue() {
     // Arrange
     AstNull astNull = new AstNull();
     TypeConverter converter = mock(TypeConverter.class);
@@ -59,18 +48,10 @@ class AstNodeDiffblueTest {
   }
 
   /**
-   * Test {@link AstNode#getValue(Bindings, ELContext, Class)}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstNode#getValue(Bindings, ELContext, Class)}
    */
   @Test
-  @DisplayName("Test getValue(Bindings, ELContext, Class); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object AstNode.getValue(Bindings, ELContext, Class)"})
-  void testGetValue_thenReturnNull2() {
+  void testGetValue2() {
     // Arrange
     AstNull astNull = new AstNull();
     TypeConverter converter = mock(TypeConverter.class);
@@ -83,14 +64,9 @@ class AstNodeDiffblueTest {
   }
 
   /**
-   * Test {@link AstNode#getStructuralId(Bindings)}.
-   * <p>
    * Method under test: {@link AstNode#getStructuralId(Bindings)}
    */
   @Test
-  @DisplayName("Test getStructuralId(Bindings)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.String AstNode.getStructuralId(Bindings)"})
   void testGetStructuralId() {
     // Arrange
     AstNull astNull = new AstNull();
@@ -103,16 +79,28 @@ class AstNodeDiffblueTest {
   }
 
   /**
-   * Test {@link AstNode#findAccessibleMethod(Method)}.
-   * <p>
    * Method under test: {@link AstNode#findAccessibleMethod(Method)}
    */
   @Test
-  @DisplayName("Test findAccessibleMethod(Method)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Method AstNode.findAccessibleMethod(Method)"})
   void testFindAccessibleMethod() {
     // Arrange, Act and Assert
     assertNull((new AstNull()).findAccessibleMethod(null));
+  }
+
+  /**
+   * Method under test: {@link AstNode#findAccessibleMethod(Method)}
+   */
+  @Test
+  void testFindAccessibleMethod2() {
+    // Arrange
+    AstNull astNull = new AstNull();
+    StringBuilder b = new StringBuilder("foo");
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    astNull.appendStructure(b,
+        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
+
+    // Act and Assert
+    assertNull(astNull.findAccessibleMethod(null));
   }
 }

@@ -19,28 +19,28 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import java.util.Collection;
 import java.util.Map;
 import org.activiti.engine.impl.persistence.entity.JobEntity;
 import org.activiti.engine.impl.persistence.entity.JobEntityImpl;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class AcquiredJobEntitiesDiffblueTest {
+  @InjectMocks
+  private AcquiredJobEntities acquiredJobEntities;
+
   /**
-   * Test {@link AcquiredJobEntities#addJob(JobEntity)}.
-   * <ul>
-   *   <li>When {@link JobEntityImpl} (default constructor).</li>
-   *   <li>Then {@link AcquiredJobEntities} (default constructor) Jobs size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AcquiredJobEntities#addJob(JobEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AcquiredJobEntities.addJob(JobEntity)"})
-  public void testAddJob_whenJobEntityImpl_thenAcquiredJobEntitiesJobsSizeIsOne() {
+  public void testAddJob() {
     // Arrange
     AcquiredJobEntities acquiredJobEntities = new AcquiredJobEntities();
     JobEntityImpl job = new JobEntityImpl();
@@ -57,80 +57,99 @@ public class AcquiredJobEntitiesDiffblueTest {
   }
 
   /**
-   * Test {@link AcquiredJobEntities#getJobs()}.
-   * <p>
+   * Method under test: {@link AcquiredJobEntities#addJob(JobEntity)}
+   */
+  @Test
+  public void testAddJob2() {
+    // Arrange
+    AcquiredJobEntities acquiredJobEntities = new AcquiredJobEntities();
+    JobEntity job = mock(JobEntity.class);
+    when(job.getId()).thenReturn("42");
+
+    // Act
+    acquiredJobEntities.addJob(job);
+
+    // Assert
+    verify(job).getId();
+    assertEquals(1, acquiredJobEntities.getJobs().size());
+    Map<String, JobEntity> stringJobEntityMap = acquiredJobEntities.acquiredJobs;
+    assertEquals(1, stringJobEntityMap.size());
+    assertEquals(1, acquiredJobEntities.size());
+    assertSame(job, stringJobEntityMap.get("42"));
+  }
+
+  /**
    * Method under test: {@link AcquiredJobEntities#getJobs()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.util.Collection AcquiredJobEntities.getJobs()"})
   public void testGetJobs() {
     // Arrange, Act and Assert
     assertTrue((new AcquiredJobEntities()).getJobs().isEmpty());
   }
 
   /**
-   * Test {@link AcquiredJobEntities#contains(String)}.
-   * <ul>
-   *   <li>Given {@link AcquiredJobEntities} (default constructor).</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AcquiredJobEntities#contains(String)}
+   * Method under test: {@link AcquiredJobEntities#getJobs()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean AcquiredJobEntities.contains(String)"})
-  public void testContains_givenAcquiredJobEntities_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse((new AcquiredJobEntities()).contains("42"));
-  }
-
-  /**
-   * Test {@link AcquiredJobEntities#contains(String)}.
-   * <ul>
-   *   <li>Given {@link JobEntityImpl} (default constructor) Id is {@code 42}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AcquiredJobEntities#contains(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean AcquiredJobEntities.contains(String)"})
-  public void testContains_givenJobEntityImplIdIs42_thenReturnTrue() {
+  public void testGetJobs2() {
     // Arrange
-    JobEntityImpl job = new JobEntityImpl();
-    job.setId("42");
+    JobEntity job = mock(JobEntity.class);
+    when(job.getId()).thenReturn("42");
 
     AcquiredJobEntities acquiredJobEntities = new AcquiredJobEntities();
     acquiredJobEntities.addJob(job);
 
-    // Act and Assert
-    assertTrue(acquiredJobEntities.contains("42"));
+    // Act
+    Collection<JobEntity> actualJobs = acquiredJobEntities.getJobs();
+
+    // Assert
+    verify(job).getId();
+    assertEquals(1, actualJobs.size());
   }
 
   /**
-   * Test {@link AcquiredJobEntities#size()}.
-   * <p>
+   * Method under test: {@link AcquiredJobEntities#contains(String)}
+   */
+  @Test
+  public void testContains() {
+    // Arrange, Act and Assert
+    assertFalse(acquiredJobEntities.contains("42"));
+  }
+
+  /**
    * Method under test: {@link AcquiredJobEntities#size()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"int AcquiredJobEntities.size()"})
   public void testSize() {
     // Arrange, Act and Assert
     assertEquals(0, (new AcquiredJobEntities()).size());
   }
 
   /**
-   * Test new {@link AcquiredJobEntities} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link AcquiredJobEntities}
+   * Method under test: {@link AcquiredJobEntities#size()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AcquiredJobEntities.<init>()"})
+  public void testSize2() {
+    // Arrange
+    JobEntity job = mock(JobEntity.class);
+    when(job.getId()).thenReturn("42");
+
+    AcquiredJobEntities acquiredJobEntities = new AcquiredJobEntities();
+    acquiredJobEntities.addJob(job);
+
+    // Act
+    int actualSizeResult = acquiredJobEntities.size();
+
+    // Assert
+    verify(job).getId();
+    assertEquals(1, actualSizeResult);
+  }
+
+  /**
+   * Method under test: default or parameterless constructor of
+   * {@link AcquiredJobEntities}
+   */
+  @Test
   public void testNewAcquiredJobEntities() {
     // Arrange, Act and Assert
     assertTrue((new AcquiredJobEntities()).acquiredJobs.isEmpty());

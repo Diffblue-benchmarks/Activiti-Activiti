@@ -16,51 +16,24 @@
 package org.activiti.bpmn.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import javax.xml.stream.XMLStreamWriter;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class IndentingXMLStreamWriterDiffblueTest {
   /**
-   * Test {@link IndentingXMLStreamWriter#IndentingXMLStreamWriter(XMLStreamWriter)}.
-   * <p>
-   * Method under test: {@link IndentingXMLStreamWriter#IndentingXMLStreamWriter(XMLStreamWriter)}
-   */
-  @Test
-  @DisplayName("Test new IndentingXMLStreamWriter(XMLStreamWriter)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void IndentingXMLStreamWriter.<init>(XMLStreamWriter)"})
-  void testNewIndentingXMLStreamWriter() {
-    // Arrange, Act and Assert
-    assertEquals(2, (new IndentingXMLStreamWriter(null)).getIndentStep());
-  }
-
-  /**
-   * Test {@link IndentingXMLStreamWriter#getIndentStep()}.
-   * <p>
    * Method under test: {@link IndentingXMLStreamWriter#getIndentStep()}
    */
   @Test
-  @DisplayName("Test getIndentStep()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int IndentingXMLStreamWriter.getIndentStep()"})
   void testGetIndentStep() {
     // Arrange, Act and Assert
     assertEquals(2, (new IndentingXMLStreamWriter(null)).getIndentStep());
   }
 
   /**
-   * Test {@link IndentingXMLStreamWriter#setIndentStep(int)} with {@code indentStep}.
-   * <p>
    * Method under test: {@link IndentingXMLStreamWriter#setIndentStep(int)}
    */
   @Test
-  @DisplayName("Test setIndentStep(int) with 'indentStep'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void IndentingXMLStreamWriter.setIndentStep(int)"})
-  void testSetIndentStepWithIndentStep() {
+  void testSetIndentStep() {
     // Arrange
     IndentingXMLStreamWriter indentingXMLStreamWriter = new IndentingXMLStreamWriter(null);
 
@@ -69,5 +42,15 @@ class IndentingXMLStreamWriterDiffblueTest {
 
     // Assert
     assertEquals(1, indentingXMLStreamWriter.getIndentStep());
+  }
+
+  /**
+   * Method under test:
+   * {@link IndentingXMLStreamWriter#IndentingXMLStreamWriter(XMLStreamWriter)}
+   */
+  @Test
+  void testNewIndentingXMLStreamWriter() {
+    // Arrange, Act and Assert
+    assertEquals(2, (new IndentingXMLStreamWriter(null)).getIndentStep());
   }
 }

@@ -16,11 +16,8 @@
 package org.activiti.test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.lang.Character.UnicodeScript;
+import static org.mockito.Mockito.mock;
 import org.activiti.api.model.shared.event.RuntimeEvent;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,18 +31,10 @@ class LocalEventSourceDiffblueTest {
   private LocalEventSource localEventSource;
 
   /**
-   * Test {@link LocalEventSource#getEvents(Class)} with {@code eventType}.
-   * <ul>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link LocalEventSource#getEvents(Class)}
    */
   @Test
-  @DisplayName("Test getEvents(Class) with 'eventType'; then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.util.List LocalEventSource.getEvents(Class)"})
-  void testGetEventsWithEventType_thenReturnEmpty() {
+  void testGetEvents() {
     // Arrange
     Class<RuntimeEvent> forNameResult = RuntimeEvent.class;
 
@@ -54,92 +43,105 @@ class LocalEventSourceDiffblueTest {
   }
 
   /**
-   * Test {@link LocalEventSource#getEvents(Enum[])} with {@code eventTypes}.
-   * <p>
    * Method under test: {@link LocalEventSource#getEvents(Object[])}
    */
   @Test
-  @DisplayName("Test getEvents(Enum[]) with 'eventTypes'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.util.List LocalEventSource.getEvents(java.lang.Enum[])"})
-  void testGetEventsWithEventTypes() {
+  void testGetEvents2() {
     // Arrange, Act and Assert
-    assertTrue(localEventSource.getEvents(UnicodeScript.of(1)).isEmpty());
+    assertTrue(localEventSource.getEvents(Character.UnicodeScript.of(1)).isEmpty());
   }
 
   /**
-   * Test {@link LocalEventSource#getTaskEvents()}.
-   * <p>
    * Method under test: {@link LocalEventSource#getTaskEvents()}
    */
   @Test
-  @DisplayName("Test getTaskEvents()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.util.List LocalEventSource.getTaskEvents()"})
   void testGetTaskEvents() {
     // Arrange, Act and Assert
     assertTrue(localEventSource.getTaskEvents().isEmpty());
   }
 
   /**
-   * Test {@link LocalEventSource#getProcessInstanceEvents()}.
-   * <p>
    * Method under test: {@link LocalEventSource#getProcessInstanceEvents()}
    */
   @Test
-  @DisplayName("Test getProcessInstanceEvents()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.util.List LocalEventSource.getProcessInstanceEvents()"})
   void testGetProcessInstanceEvents() {
     // Arrange, Act and Assert
     assertTrue(localEventSource.getProcessInstanceEvents().isEmpty());
   }
 
   /**
-   * Test {@link LocalEventSource#getTimerFiredEvents()}.
-   * <p>
    * Method under test: {@link LocalEventSource#getTimerFiredEvents()}
    */
   @Test
-  @DisplayName("Test getTimerFiredEvents()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.util.List LocalEventSource.getTimerFiredEvents()"})
   void testGetTimerFiredEvents() {
     // Arrange, Act and Assert
     assertTrue(localEventSource.getTimerFiredEvents().isEmpty());
   }
 
   /**
-   * Test {@link LocalEventSource#getTimerScheduledEvents()}.
-   * <p>
    * Method under test: {@link LocalEventSource#getTimerScheduledEvents()}
    */
   @Test
-  @DisplayName("Test getTimerScheduledEvents()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.util.List LocalEventSource.getTimerScheduledEvents()"})
   void testGetTimerScheduledEvents() {
     // Arrange, Act and Assert
     assertTrue(localEventSource.getTimerScheduledEvents().isEmpty());
   }
 
   /**
-   * Test {@link LocalEventSource#getTimerCancelledEvents()}.
-   * <p>
    * Method under test: {@link LocalEventSource#getTimerCancelledEvents()}
    */
   @Test
-  @DisplayName("Test getTimerCancelledEvents()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.util.List LocalEventSource.getTimerCancelledEvents()"})
   void testGetTimerCancelledEvents() {
     // Arrange, Act and Assert
     assertTrue(localEventSource.getTimerCancelledEvents().isEmpty());
   }
 
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link LocalEventSource#clearEvents()}
+   */
+  @Test
+  void testClearEvents() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+
+    // Arrange
+    LocalEventSource localEventSource = new LocalEventSource();
+
+    // Act
+    localEventSource.clearEvents();
+
+    // Assert
+    assertTrue(localEventSource.getEvents().isEmpty());
+    assertTrue(localEventSource.getProcessInstanceEvents().isEmpty());
+    assertTrue(localEventSource.getTaskEvents().isEmpty());
+    assertTrue(localEventSource.getTimerCancelledEvents().isEmpty());
+    assertTrue(localEventSource.getTimerFiredEvents().isEmpty());
+    assertTrue(localEventSource.getTimerScheduledEvents().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link LocalEventSource#clearEvents()}
+   */
+  @Test
+  void testClearEvents2() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+
+    // Arrange
+    LocalEventSource localEventSource = new LocalEventSource();
+    localEventSource.addCollectedEvents(mock(RuntimeEvent.class));
+
+    // Act
+    localEventSource.clearEvents();
+
+    // Assert
+    assertTrue(localEventSource.getEvents().isEmpty());
+    assertTrue(localEventSource.getProcessInstanceEvents().isEmpty());
+    assertTrue(localEventSource.getTaskEvents().isEmpty());
+    assertTrue(localEventSource.getTimerCancelledEvents().isEmpty());
+    assertTrue(localEventSource.getTimerFiredEvents().isEmpty());
+    assertTrue(localEventSource.getTimerScheduledEvents().isEmpty());
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link LocalEventSource}
@@ -147,9 +149,6 @@ class LocalEventSourceDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void LocalEventSource.<init>()", "java.util.List LocalEventSource.getEvents()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertTrue((new LocalEventSource()).getEvents().isEmpty());

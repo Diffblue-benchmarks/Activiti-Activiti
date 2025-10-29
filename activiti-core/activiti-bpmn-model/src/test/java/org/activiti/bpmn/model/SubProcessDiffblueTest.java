@@ -20,30 +20,31 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiFunction;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class SubProcessDiffblueTest {
   /**
-   * Test {@link SubProcess#getFlowElement(String)}.
-   * <ul>
-   *   <li>Given {@link SubProcess} (default constructor) FlowElementMap is {@link HashMap#HashMap()}.</li>
-   *   <li>When {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SubProcess#getFlowElement(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"FlowElement SubProcess.getFlowElement(String)"})
-  public void testGetFlowElement_givenSubProcessFlowElementMapIsHashMap_whenNull() {
+  public void testGetFlowElement() {
+    // Arrange, Act and Assert
+    assertNull((new SubProcess()).getFlowElement("42"));
+    assertNull((new SubProcess()).getFlowElement(""));
+  }
+
+  /**
+   * Method under test: {@link SubProcess#getFlowElement(String)}
+   */
+  @Test
+  public void testGetFlowElement2() {
     // Arrange
     SubProcess subProcess = new SubProcess();
     subProcess.setFlowElementMap(new HashMap<>());
@@ -53,84 +54,48 @@ public class SubProcessDiffblueTest {
   }
 
   /**
-   * Test {@link SubProcess#getFlowElement(String)}.
-   * <ul>
-   *   <li>Given {@link SubProcess} (default constructor).</li>
-   *   <li>When {@code 42}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SubProcess#getFlowElement(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"FlowElement SubProcess.getFlowElement(String)"})
-  public void testGetFlowElement_givenSubProcess_when42() {
-    // Arrange, Act and Assert
-    assertNull((new SubProcess()).getFlowElement("42"));
+  public void testGetFlowElement3() {
+    // Arrange
+    HashMap<String, FlowElement> flowElementMap = new HashMap<>();
+    flowElementMap.computeIfPresent("foo", mock(BiFunction.class));
+
+    SubProcess subProcess = new SubProcess();
+    subProcess.setFlowElementMap(flowElementMap);
+
+    // Act and Assert
+    assertNull(subProcess.getFlowElement(null));
   }
 
   /**
-   * Test {@link SubProcess#getFlowElement(String)}.
-   * <ul>
-   *   <li>Given {@link SubProcess} (default constructor).</li>
-   *   <li>When empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SubProcess#getFlowElement(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"FlowElement SubProcess.getFlowElement(String)"})
-  public void testGetFlowElement_givenSubProcess_whenEmptyString() {
-    // Arrange, Act and Assert
-    assertNull((new SubProcess()).getFlowElement(""));
-  }
-
-  /**
-   * Test {@link SubProcess#addFlowElement(FlowElement)}.
-   * <p>
    * Method under test: {@link SubProcess#addFlowElement(FlowElement)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SubProcess.addFlowElement(FlowElement)"})
   public void testAddFlowElement() {
     // Arrange
     SubProcess subProcess = new SubProcess();
-    AdhocSubProcess parentContainer = new AdhocSubProcess();
-    subProcess.setParentContainer(parentContainer);
-
     AdhocSubProcess element = new AdhocSubProcess();
-    element.setId("Element");
 
     // Act
     subProcess.addFlowElement(element);
 
     // Assert
-    FlowElementsContainer parentContainer2 = element.getParentContainer();
-    FlowElementsContainer parentContainer3 = ((SubProcess) parentContainer2).getParentContainer();
-    assertTrue(parentContainer3 instanceof AdhocSubProcess);
-    assertTrue(parentContainer2 instanceof SubProcess);
-    assertSame(parentContainer, parentContainer3);
-    assertSame(parentContainer, ((SubProcess) parentContainer2).getSubProcess());
+    assertNull(subProcess.getParentContainer());
+    assertNull(subProcess.getSubProcess());
+    assertSame(subProcess, element.getParentContainer());
+    assertSame(subProcess, element.getSubProcess());
   }
 
   /**
-   * Test {@link SubProcess#addFlowElement(FlowElement)}.
-   * <p>
    * Method under test: {@link SubProcess#addFlowElement(FlowElement)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SubProcess.addFlowElement(FlowElement)"})
   public void testAddFlowElement2() {
     // Arrange
-    AdhocSubProcess parentContainer = new AdhocSubProcess();
-    AdhocSubProcess parentContainer2 = new AdhocSubProcess();
-    parentContainer.setParentContainer(parentContainer2);
-
     SubProcess subProcess = new SubProcess();
-    subProcess.setParentContainer(parentContainer);
+    subProcess.setParentContainer(null);
 
     AdhocSubProcess element = new AdhocSubProcess();
     element.setId("Element");
@@ -139,31 +104,20 @@ public class SubProcessDiffblueTest {
     subProcess.addFlowElement(element);
 
     // Assert
-    FlowElementsContainer parentContainer3 = element.getParentContainer();
-    FlowElementsContainer parentContainer4 = ((SubProcess) parentContainer3).getParentContainer();
-    FlowElementsContainer parentContainer5 = ((AdhocSubProcess) parentContainer4).getParentContainer();
-    assertTrue(parentContainer5 instanceof AdhocSubProcess);
-    assertTrue(parentContainer4 instanceof AdhocSubProcess);
-    assertTrue(parentContainer3 instanceof SubProcess);
-    assertSame(parentContainer2, parentContainer5);
-    assertSame(parentContainer2, ((AdhocSubProcess) parentContainer4).getSubProcess());
+    assertNull(subProcess.getParentContainer());
+    assertNull(subProcess.getSubProcess());
+    assertSame(subProcess, element.getParentContainer());
+    assertSame(subProcess, element.getSubProcess());
   }
 
   /**
-   * Test {@link SubProcess#addFlowElement(FlowElement)}.
-   * <p>
    * Method under test: {@link SubProcess#addFlowElement(FlowElement)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SubProcess.addFlowElement(FlowElement)"})
   public void testAddFlowElement3() {
     // Arrange
-    AdhocSubProcess parentContainer = new AdhocSubProcess();
-    Process parentContainer2 = new Process();
-    parentContainer.setParentContainer(parentContainer2);
-
     SubProcess subProcess = new SubProcess();
+    AdhocSubProcess parentContainer = new AdhocSubProcess();
     subProcess.setParentContainer(parentContainer);
 
     AdhocSubProcess element = new AdhocSubProcess();
@@ -173,91 +127,36 @@ public class SubProcessDiffblueTest {
     subProcess.addFlowElement(element);
 
     // Assert
-    FlowElementsContainer parentContainer3 = element.getParentContainer();
-    FlowElementsContainer parentContainer4 = ((SubProcess) parentContainer3).getParentContainer();
-    assertTrue(parentContainer4 instanceof AdhocSubProcess);
-    assertTrue(parentContainer3 instanceof SubProcess);
-    assertSame(parentContainer2, ((AdhocSubProcess) parentContainer4).getParentContainer());
+    assertSame(parentContainer, subProcess.getParentContainer());
+    assertSame(parentContainer, subProcess.getSubProcess());
+    assertSame(subProcess, element.getParentContainer());
+    assertSame(subProcess, element.getSubProcess());
   }
 
   /**
-   * Test {@link SubProcess#addFlowElement(FlowElement)}.
-   * <ul>
-   *   <li>Given empty string.</li>
-   *   <li>When {@link AdhocSubProcess} (default constructor) Id is empty string.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SubProcess#addFlowElement(FlowElement)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SubProcess.addFlowElement(FlowElement)"})
-  public void testAddFlowElement_givenEmptyString_whenAdhocSubProcessIdIsEmptyString() {
+  public void testAddFlowElement4() {
     // Arrange
     SubProcess subProcess = new SubProcess();
-    subProcess.setParentContainer(null);
-
-    AdhocSubProcess element = new AdhocSubProcess();
-    element.setId("");
+    BooleanDataObject element = new BooleanDataObject();
 
     // Act
     subProcess.addFlowElement(element);
 
     // Assert
-    FlowElementsContainer parentContainer = element.getParentContainer();
-    Collection<FlowElement> flowElements = parentContainer.getFlowElements();
-    assertEquals(1, flowElements.size());
-    assertTrue(flowElements instanceof List);
-    assertTrue(parentContainer instanceof SubProcess);
-    assertTrue(parentContainer.getFlowElementMap().isEmpty());
-    assertSame(element, ((List<FlowElement>) flowElements).get(0));
-    assertSame(parentContainer, element.getSubProcess());
+    assertNull(subProcess.getParentContainer());
+    assertNull(subProcess.getSubProcess());
+    assertSame(subProcess, element.getParentContainer());
+    assertSame(subProcess, element.getSubProcess());
   }
 
   /**
-   * Test {@link SubProcess#addFlowElement(FlowElement)}.
-   * <ul>
-   *   <li>Then {@link AdhocSubProcess} (default constructor) ParentContainer ParentContainer is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SubProcess#addFlowElement(FlowElement)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SubProcess.addFlowElement(FlowElement)"})
-  public void testAddFlowElement_thenAdhocSubProcessParentContainerParentContainerIsNull() {
-    // Arrange
-    SubProcess subProcess = new SubProcess();
-    subProcess.setParentContainer(null);
-
-    AdhocSubProcess element = new AdhocSubProcess();
-    element.setId("Element");
-
-    // Act
-    subProcess.addFlowElement(element);
-
-    // Assert
-    FlowElementsContainer parentContainer = element.getParentContainer();
-    assertTrue(parentContainer instanceof SubProcess);
-    assertNull(((SubProcess) parentContainer).getParentContainer());
-    assertNull(((SubProcess) parentContainer).getSubProcess());
-    Map<String, FlowElement> flowElementMap = parentContainer.getFlowElementMap();
-    assertEquals(1, flowElementMap.size());
-    assertSame(element, flowElementMap.get("Element"));
-  }
-
-  /**
-   * Test {@link SubProcess#addFlowElement(FlowElement)}.
-   * <ul>
-   *   <li>Then {@link AdhocSubProcess} (default constructor) ParentContainer ParentContainer is {@link Process} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SubProcess#addFlowElement(FlowElement)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SubProcess.addFlowElement(FlowElement)"})
-  public void testAddFlowElement_thenAdhocSubProcessParentContainerParentContainerIsProcess() {
+  public void testAddFlowElement5() {
     // Arrange
     SubProcess subProcess = new SubProcess();
     Process parentContainer = new Process();
@@ -270,86 +169,188 @@ public class SubProcessDiffblueTest {
     subProcess.addFlowElement(element);
 
     // Assert
-    FlowElementsContainer parentContainer2 = element.getParentContainer();
-    assertTrue(parentContainer2 instanceof SubProcess);
-    assertSame(parentContainer, ((SubProcess) parentContainer2).getParentContainer());
+    assertNull(subProcess.getSubProcess());
+    assertSame(parentContainer, subProcess.getParentContainer());
+    assertSame(subProcess, element.getParentContainer());
+    assertSame(subProcess, element.getSubProcess());
   }
 
   /**
-   * Test {@link SubProcess#addFlowElement(FlowElement)}.
-   * <ul>
-   *   <li>Then {@link BooleanDataObject} (default constructor) ParentContainer Artifacts {@link List}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SubProcess#addFlowElement(FlowElement)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SubProcess.addFlowElement(FlowElement)"})
-  public void testAddFlowElement_thenBooleanDataObjectParentContainerArtifactsList() {
+  public void testAddFlowElement6() {
     // Arrange
     SubProcess subProcess = new SubProcess();
-    BooleanDataObject element = new BooleanDataObject();
+    subProcess.setParentContainer(null);
 
-    // Act
-    subProcess.addFlowElement(element);
-
-    // Assert
-    FlowElementsContainer parentContainer = element.getParentContainer();
-    Collection<Artifact> artifacts = parentContainer.getArtifacts();
-    assertTrue(artifacts instanceof List);
-    Collection<FlowElement> flowElements = parentContainer.getFlowElements();
-    assertEquals(1, flowElements.size());
-    assertTrue(flowElements instanceof List);
-    assertTrue(parentContainer instanceof SubProcess);
-    assertTrue(artifacts.isEmpty());
-    assertSame(element, ((List<FlowElement>) flowElements).get(0));
-    assertSame(parentContainer, element.getSubProcess());
-  }
-
-  /**
-   * Test {@link SubProcess#addFlowElement(FlowElement)}.
-   * <ul>
-   *   <li>When {@link AdhocSubProcess} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SubProcess#addFlowElement(FlowElement)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SubProcess.addFlowElement(FlowElement)"})
-  public void testAddFlowElement_whenAdhocSubProcess() {
-    // Arrange
-    SubProcess subProcess = new SubProcess();
     AdhocSubProcess element = new AdhocSubProcess();
+    element.setId("");
 
     // Act
     subProcess.addFlowElement(element);
 
     // Assert
-    FlowElementsContainer parentContainer = element.getParentContainer();
-    Collection<FlowElement> flowElements = parentContainer.getFlowElements();
-    assertEquals(1, flowElements.size());
-    assertTrue(flowElements instanceof List);
-    assertTrue(parentContainer instanceof SubProcess);
-    assertTrue(parentContainer.getFlowElementMap().isEmpty());
-    assertSame(element, ((List<FlowElement>) flowElements).get(0));
-    assertSame(parentContainer, element.getSubProcess());
+    assertNull(subProcess.getParentContainer());
+    assertNull(subProcess.getSubProcess());
+    assertSame(subProcess, element.getParentContainer());
+    assertSame(subProcess, element.getSubProcess());
   }
 
   /**
-   * Test {@link SubProcess#addFlowElementToMap(FlowElement)}.
-   * <ul>
-   *   <li>Given empty string.</li>
-   *   <li>When {@link AdhocSubProcess} (default constructor) Id is empty string.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link SubProcess#addFlowElement(FlowElement)}
+   */
+  @Test
+  public void testAddFlowElement7() {
+    // Arrange
+    AdhocSubProcess parentContainer = new AdhocSubProcess();
+    parentContainer.setParentContainer(new AdhocSubProcess());
+
+    SubProcess subProcess = new SubProcess();
+    subProcess.setParentContainer(parentContainer);
+
+    AdhocSubProcess element = new AdhocSubProcess();
+    element.setId("Element");
+
+    // Act
+    subProcess.addFlowElement(element);
+
+    // Assert
+    assertSame(parentContainer, subProcess.getParentContainer());
+    assertSame(parentContainer, subProcess.getSubProcess());
+    assertSame(subProcess, element.getParentContainer());
+    assertSame(subProcess, element.getSubProcess());
+  }
+
+  /**
+   * Method under test: {@link SubProcess#addFlowElement(FlowElement)}
+   */
+  @Test
+  public void testAddFlowElement8() {
+    // Arrange
+    AdhocSubProcess parentContainer = new AdhocSubProcess();
+    parentContainer.setParentContainer(new Process());
+
+    SubProcess subProcess = new SubProcess();
+    subProcess.setParentContainer(parentContainer);
+
+    AdhocSubProcess element = new AdhocSubProcess();
+    element.setId("Element");
+
+    // Act
+    subProcess.addFlowElement(element);
+
+    // Assert
+    assertSame(parentContainer, subProcess.getParentContainer());
+    assertSame(parentContainer, subProcess.getSubProcess());
+    assertSame(subProcess, element.getParentContainer());
+    assertSame(subProcess, element.getSubProcess());
+  }
+
+  /**
    * Method under test: {@link SubProcess#addFlowElementToMap(FlowElement)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SubProcess.addFlowElementToMap(FlowElement)"})
-  public void testAddFlowElementToMap_givenEmptyString_whenAdhocSubProcessIdIsEmptyString() {
+  public void testAddFlowElementToMap() {
+    // Arrange
+    SubProcess subProcess = new SubProcess();
+
+    // Act
+    subProcess.addFlowElementToMap(new AdhocSubProcess());
+
+    // Assert that nothing has changed
+    assertTrue(subProcess.getFlowElementMap().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link SubProcess#addFlowElementToMap(FlowElement)}
+   */
+  @Test
+  public void testAddFlowElementToMap2() {
+    // Arrange
+    SubProcess subProcess = new SubProcess();
+    subProcess.setParentContainer(null);
+
+    // Act
+    subProcess.addFlowElementToMap(null);
+
+    // Assert that nothing has changed
+    assertTrue(subProcess.getFlowElementMap().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link SubProcess#addFlowElementToMap(FlowElement)}
+   */
+  @Test
+  public void testAddFlowElementToMap3() {
+    // Arrange
+    SubProcess subProcess = new SubProcess();
+    subProcess.setParentContainer(null);
+
+    AdhocSubProcess element = new AdhocSubProcess();
+    element.setId("Element");
+
+    // Act
+    subProcess.addFlowElementToMap(element);
+
+    // Assert
+    assertNull(subProcess.getParentContainer());
+    Map<String, FlowElement> flowElementMap = subProcess.getFlowElementMap();
+    assertEquals(1, flowElementMap.size());
+    assertSame(element, flowElementMap.get("Element"));
+  }
+
+  /**
+   * Method under test: {@link SubProcess#addFlowElementToMap(FlowElement)}
+   */
+  @Test
+  public void testAddFlowElementToMap4() {
+    // Arrange
+    SubProcess subProcess = new SubProcess();
+    AdhocSubProcess parentContainer = new AdhocSubProcess();
+    subProcess.setParentContainer(parentContainer);
+
+    AdhocSubProcess element = new AdhocSubProcess();
+    element.setId("Element");
+
+    // Act
+    subProcess.addFlowElementToMap(element);
+
+    // Assert
+    Map<String, FlowElement> flowElementMap = subProcess.getFlowElementMap();
+    assertEquals(1, flowElementMap.size());
+    assertSame(element, flowElementMap.get("Element"));
+    assertSame(parentContainer, subProcess.getParentContainer());
+  }
+
+  /**
+   * Method under test: {@link SubProcess#addFlowElementToMap(FlowElement)}
+   */
+  @Test
+  public void testAddFlowElementToMap5() {
+    // Arrange
+    SubProcess subProcess = new SubProcess();
+    Process parentContainer = new Process();
+    subProcess.setParentContainer(parentContainer);
+
+    AdhocSubProcess element = new AdhocSubProcess();
+    element.setId("Element");
+
+    // Act
+    subProcess.addFlowElementToMap(element);
+
+    // Assert
+    Map<String, FlowElement> flowElementMap = subProcess.getFlowElementMap();
+    assertEquals(1, flowElementMap.size());
+    assertSame(element, flowElementMap.get("Element"));
+    assertSame(parentContainer, subProcess.getParentContainer());
+  }
+
+  /**
+   * Method under test: {@link SubProcess#addFlowElementToMap(FlowElement)}
+   */
+  @Test
+  public void testAddFlowElementToMap6() {
     // Arrange
     SubProcess subProcess = new SubProcess();
     subProcess.setParentContainer(null);
@@ -365,168 +366,41 @@ public class SubProcessDiffblueTest {
   }
 
   /**
-   * Test {@link SubProcess#addFlowElementToMap(FlowElement)}.
-   * <ul>
-   *   <li>Given {@link SubProcess} (default constructor).</li>
-   *   <li>When {@link AdhocSubProcess} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SubProcess#addFlowElementToMap(FlowElement)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SubProcess.addFlowElementToMap(FlowElement)"})
-  public void testAddFlowElementToMap_givenSubProcess_whenAdhocSubProcess() {
-    // Arrange
-    SubProcess subProcess = new SubProcess();
-
-    // Act
-    subProcess.addFlowElementToMap(new AdhocSubProcess());
-
-    // Assert that nothing has changed
-    assertTrue(subProcess.getFlowElementMap().isEmpty());
-  }
-
-  /**
-   * Test {@link SubProcess#addFlowElementToMap(FlowElement)}.
-   * <ul>
-   *   <li>Then {@link SubProcess} (default constructor) FlowElementMap size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SubProcess#addFlowElementToMap(FlowElement)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SubProcess.addFlowElementToMap(FlowElement)"})
-  public void testAddFlowElementToMap_thenSubProcessFlowElementMapSizeIsOne() {
-    // Arrange
-    SubProcess subProcess = new SubProcess();
-    subProcess.setParentContainer(null);
-
-    AdhocSubProcess element = new AdhocSubProcess();
-    element.setId("Element");
-
-    // Act
-    subProcess.addFlowElementToMap(element);
-
-    // Assert
-    Map<String, FlowElement> flowElementMap = subProcess.getFlowElementMap();
-    assertEquals(1, flowElementMap.size());
-    assertSame(element, flowElementMap.get("Element"));
-  }
-
-  /**
-   * Test {@link SubProcess#addFlowElementToMap(FlowElement)}.
-   * <ul>
-   *   <li>Then {@link SubProcess} (default constructor) ParentContainer {@link AdhocSubProcess}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SubProcess#addFlowElementToMap(FlowElement)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SubProcess.addFlowElementToMap(FlowElement)"})
-  public void testAddFlowElementToMap_thenSubProcessParentContainerAdhocSubProcess() {
-    // Arrange
-    SubProcess subProcess = new SubProcess();
-    subProcess.setParentContainer(new AdhocSubProcess());
-
-    AdhocSubProcess element = new AdhocSubProcess();
-    element.setId("Element");
-
-    // Act
-    subProcess.addFlowElementToMap(element);
-
-    // Assert
-    FlowElementsContainer parentContainer = subProcess.getParentContainer();
-    assertTrue(parentContainer instanceof AdhocSubProcess);
-    Map<String, FlowElement> flowElementMap = subProcess.getFlowElementMap();
-    assertEquals(1, flowElementMap.size());
-    assertEquals(flowElementMap, parentContainer.getFlowElementMap());
-    assertSame(element, flowElementMap.get("Element"));
-  }
-
-  /**
-   * Test {@link SubProcess#addFlowElementToMap(FlowElement)}.
-   * <ul>
-   *   <li>Then {@link SubProcess} (default constructor) ParentContainer {@link Process}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SubProcess#addFlowElementToMap(FlowElement)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SubProcess.addFlowElementToMap(FlowElement)"})
-  public void testAddFlowElementToMap_thenSubProcessParentContainerProcess() {
-    // Arrange
-    SubProcess subProcess = new SubProcess();
-    subProcess.setParentContainer(new Process());
-
-    AdhocSubProcess element = new AdhocSubProcess();
-    element.setId("Element");
-
-    // Act
-    subProcess.addFlowElementToMap(element);
-
-    // Assert
-    FlowElementsContainer parentContainer = subProcess.getParentContainer();
-    assertTrue(parentContainer instanceof Process);
-    Map<String, FlowElement> flowElementMap = subProcess.getFlowElementMap();
-    assertEquals(1, flowElementMap.size());
-    assertEquals(flowElementMap, parentContainer.getFlowElementMap());
-    assertSame(element, flowElementMap.get("Element"));
-  }
-
-  /**
-   * Test {@link SubProcess#addFlowElementToMap(FlowElement)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link SubProcess} (default constructor) FlowElementMap Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SubProcess#addFlowElementToMap(FlowElement)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SubProcess.addFlowElementToMap(FlowElement)"})
-  public void testAddFlowElementToMap_whenNull_thenSubProcessFlowElementMapEmpty() {
-    // Arrange
-    SubProcess subProcess = new SubProcess();
-    subProcess.setParentContainer(null);
-
-    // Act
-    subProcess.addFlowElementToMap(null);
-
-    // Assert that nothing has changed
-    assertTrue(subProcess.getFlowElementMap().isEmpty());
-  }
-
-  /**
-   * Test {@link SubProcess#containsFlowElementId(String)}.
-   * <p>
    * Method under test: {@link SubProcess#containsFlowElementId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean SubProcess.containsFlowElementId(String)"})
   public void testContainsFlowElementId() {
     // Arrange, Act and Assert
     assertFalse((new SubProcess()).containsFlowElementId("42"));
   }
 
   /**
-   * Test {@link SubProcess#getArtifact(String)}.
-   * <ul>
-   *   <li>Given {@link Association} (default constructor) Id is {@code 42}.</li>
-   *   <li>Then return {@link Association} (default constructor).</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SubProcess#getArtifact(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Artifact SubProcess.getArtifact(String)"})
-  public void testGetArtifact_givenAssociationIdIs42_thenReturnAssociation() {
+  public void testGetArtifact() {
+    // Arrange, Act and Assert
+    assertNull((new SubProcess()).getArtifact("42"));
+  }
+
+  /**
+   * Method under test: {@link SubProcess#getArtifact(String)}
+   */
+  @Test
+  public void testGetArtifact2() {
+    // Arrange
+    SubProcess subProcess = new SubProcess();
+    subProcess.addArtifact(new Association());
+
+    // Act and Assert
+    assertNull(subProcess.getArtifact("42"));
+  }
+
+  /**
+   * Method under test: {@link SubProcess#getArtifact(String)}
+   */
+  @Test
+  public void testGetArtifact3() {
     // Arrange
     Association artifact = new Association();
     artifact.setId("42");
@@ -539,51 +413,9 @@ public class SubProcessDiffblueTest {
   }
 
   /**
-   * Test {@link SubProcess#getArtifact(String)}.
-   * <ul>
-   *   <li>Given {@link SubProcess} (default constructor) addArtifact {@link Association} (default constructor).</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SubProcess#getArtifact(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Artifact SubProcess.getArtifact(String)"})
-  public void testGetArtifact_givenSubProcessAddArtifactAssociation_thenReturnNull() {
-    // Arrange
-    SubProcess subProcess = new SubProcess();
-    subProcess.addArtifact(new Association());
-
-    // Act and Assert
-    assertNull(subProcess.getArtifact("42"));
-  }
-
-  /**
-   * Test {@link SubProcess#getArtifact(String)}.
-   * <ul>
-   *   <li>Given {@link SubProcess} (default constructor).</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SubProcess#getArtifact(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Artifact SubProcess.getArtifact(String)"})
-  public void testGetArtifact_givenSubProcess_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new SubProcess()).getArtifact("42"));
-  }
-
-  /**
-   * Test {@link SubProcess#addArtifact(Artifact)}.
-   * <p>
    * Method under test: {@link SubProcess#addArtifact(Artifact)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SubProcess.addArtifact(Artifact)"})
   public void testAddArtifact() {
     // Arrange
     SubProcess subProcess = new SubProcess();
@@ -599,23 +431,78 @@ public class SubProcessDiffblueTest {
     Collection<FlowElement> flowElements = subProcess.getFlowElements();
     assertTrue(flowElements instanceof List);
     assertTrue(flowElements.isEmpty());
+    assertTrue(subProcess.getDataInputAssociations().isEmpty());
+    assertTrue(subProcess.getDataOutputAssociations().isEmpty());
+    assertTrue(subProcess.getMapExceptions().isEmpty());
+    assertTrue(subProcess.getExecutionListeners().isEmpty());
+    assertTrue(subProcess.getIncomingFlows().isEmpty());
+    assertTrue(subProcess.getOutgoingFlows().isEmpty());
+    assertTrue(subProcess.getDataObjects().isEmpty());
     assertSame(artifact, ((List<Artifact>) artifacts).get(0));
   }
 
   /**
-   * Test {@link SubProcess#removeArtifact(String)}.
-   * <ul>
-   *   <li>Given {@link Association} (default constructor) Id is {@code 42}.</li>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then {@link SubProcess} (default constructor) Artifacts Empty.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SubProcess#removeArtifact(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SubProcess.removeArtifact(String)"})
-  public void testRemoveArtifact_givenAssociationIdIs42_when42_thenSubProcessArtifactsEmpty() {
+  public void testRemoveArtifact() {
+    // Arrange
+    SubProcess subProcess = new SubProcess();
+
+    // Act
+    subProcess.removeArtifact("42");
+
+    // Assert that nothing has changed
+    Collection<Artifact> artifacts = subProcess.getArtifacts();
+    assertTrue(artifacts instanceof List);
+    Collection<FlowElement> flowElements = subProcess.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertTrue(artifacts.isEmpty());
+    assertTrue(flowElements.isEmpty());
+    assertTrue(subProcess.getBoundaryEvents().isEmpty());
+    assertTrue(subProcess.getDataInputAssociations().isEmpty());
+    assertTrue(subProcess.getDataOutputAssociations().isEmpty());
+    assertTrue(subProcess.getMapExceptions().isEmpty());
+    assertTrue(subProcess.getExecutionListeners().isEmpty());
+    assertTrue(subProcess.getIncomingFlows().isEmpty());
+    assertTrue(subProcess.getOutgoingFlows().isEmpty());
+    assertTrue(subProcess.getDataObjects().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link SubProcess#removeArtifact(String)}
+   */
+  @Test
+  public void testRemoveArtifact2() {
+    // Arrange
+    SubProcess subProcess = new SubProcess();
+    subProcess.addArtifact(new Association());
+
+    // Act
+    subProcess.removeArtifact("42");
+
+    // Assert that nothing has changed
+    Collection<Artifact> artifacts = subProcess.getArtifacts();
+    assertEquals(1, artifacts.size());
+    assertTrue(artifacts instanceof List);
+    Collection<FlowElement> flowElements = subProcess.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertTrue(flowElements.isEmpty());
+    assertTrue(subProcess.getBoundaryEvents().isEmpty());
+    assertTrue(subProcess.getDataInputAssociations().isEmpty());
+    assertTrue(subProcess.getDataOutputAssociations().isEmpty());
+    assertTrue(subProcess.getMapExceptions().isEmpty());
+    assertTrue(subProcess.getExecutionListeners().isEmpty());
+    assertTrue(subProcess.getIncomingFlows().isEmpty());
+    assertTrue(subProcess.getOutgoingFlows().isEmpty());
+    assertTrue(subProcess.getDataObjects().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link SubProcess#removeArtifact(String)}
+   */
+  @Test
+  public void testRemoveArtifact3() {
     // Arrange
     Association artifact = new Association();
     artifact.setId("42");
@@ -633,78 +520,400 @@ public class SubProcessDiffblueTest {
     assertTrue(flowElements instanceof List);
     assertTrue(artifacts.isEmpty());
     assertTrue(flowElements.isEmpty());
+    assertTrue(subProcess.getBoundaryEvents().isEmpty());
+    assertTrue(subProcess.getDataInputAssociations().isEmpty());
+    assertTrue(subProcess.getDataOutputAssociations().isEmpty());
+    assertTrue(subProcess.getMapExceptions().isEmpty());
+    assertTrue(subProcess.getExecutionListeners().isEmpty());
+    assertTrue(subProcess.getIncomingFlows().isEmpty());
+    assertTrue(subProcess.getOutgoingFlows().isEmpty());
+    assertTrue(subProcess.getDataObjects().isEmpty());
   }
 
   /**
-   * Test {@link SubProcess#removeArtifact(String)}.
-   * <ul>
-   *   <li>Given {@link SubProcess} (default constructor).</li>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then {@link SubProcess} (default constructor) Artifacts Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SubProcess#removeArtifact(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SubProcess.removeArtifact(String)"})
-  public void testRemoveArtifact_givenSubProcess_when42_thenSubProcessArtifactsEmpty() {
-    // Arrange
-    SubProcess subProcess = new SubProcess();
-
-    // Act
-    subProcess.removeArtifact("42");
-
-    // Assert that nothing has changed
-    Collection<Artifact> artifacts = subProcess.getArtifacts();
-    assertTrue(artifacts instanceof List);
-    Collection<FlowElement> flowElements = subProcess.getFlowElements();
-    assertTrue(flowElements instanceof List);
-    assertTrue(artifacts.isEmpty());
-    assertTrue(flowElements.isEmpty());
-  }
-
-  /**
-   * Test {@link SubProcess#removeArtifact(String)}.
-   * <ul>
-   *   <li>Then {@link SubProcess} (default constructor) Artifacts size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SubProcess#removeArtifact(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SubProcess.removeArtifact(String)"})
-  public void testRemoveArtifact_thenSubProcessArtifactsSizeIsOne() {
-    // Arrange
-    SubProcess subProcess = new SubProcess();
-    subProcess.addArtifact(new Association());
-
-    // Act
-    subProcess.removeArtifact("42");
-
-    // Assert that nothing has changed
-    Collection<Artifact> artifacts = subProcess.getArtifacts();
-    assertEquals(1, artifacts.size());
-    assertTrue(artifacts instanceof List);
-    Collection<FlowElement> flowElements = subProcess.getFlowElements();
-    assertTrue(flowElements instanceof List);
-    assertTrue(flowElements.isEmpty());
-  }
-
-  /**
-   * Test {@link SubProcess#clone()}.
-   * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor) Id is {@code 42}.</li>
-   *   <li>Then return FlowElementMap size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SubProcess#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"SubProcess SubProcess.clone()"})
-  public void testClone_givenAdhocSubProcessIdIs42_thenReturnFlowElementMapSizeIsOne() {
+  public void testClone() {
+    // Arrange and Act
+    SubProcess actualCloneResult = (new SubProcess()).clone();
+
+    // Assert
+    Collection<Artifact> artifacts = actualCloneResult.getArtifacts();
+    assertTrue(artifacts instanceof List);
+    Collection<FlowElement> flowElements = actualCloneResult.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getIoSpecification());
+    assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertTrue(artifacts.isEmpty());
+    assertTrue(flowElements.isEmpty());
+    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getDataObjects().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getFlowElementMap().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+  }
+
+  /**
+   * Method under test: {@link SubProcess#clone()}
+   */
+  @Test
+  public void testClone2() {
+    // Arrange
+    SubProcess subProcess = new SubProcess();
+    AdhocSubProcess element = new AdhocSubProcess();
+    subProcess.addFlowElement(element);
+
+    // Act
+    SubProcess actualCloneResult = subProcess.clone();
+
+    // Assert
+    Collection<Artifact> artifacts = actualCloneResult.getArtifacts();
+    assertTrue(artifacts instanceof List);
+    Collection<FlowElement> flowElements = actualCloneResult.getFlowElements();
+    assertEquals(1, flowElements.size());
+    assertTrue(flowElements instanceof List);
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getIoSpecification());
+    assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertTrue(artifacts.isEmpty());
+    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getDataObjects().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getFlowElementMap().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+    assertSame(element, ((List<FlowElement>) flowElements).get(0));
+  }
+
+  /**
+   * Method under test: {@link SubProcess#clone()}
+   */
+  @Test
+  public void testClone3() {
+    // Arrange
+    SubProcess subProcess = new SubProcess();
+    Association artifact = new Association();
+    subProcess.addArtifact(artifact);
+    AdhocSubProcess element = new AdhocSubProcess();
+    subProcess.addFlowElement(element);
+
+    // Act
+    SubProcess actualCloneResult = subProcess.clone();
+
+    // Assert
+    Collection<Artifact> artifacts = actualCloneResult.getArtifacts();
+    assertEquals(1, artifacts.size());
+    assertTrue(artifacts instanceof List);
+    Collection<FlowElement> flowElements = actualCloneResult.getFlowElements();
+    assertEquals(1, flowElements.size());
+    assertTrue(flowElements instanceof List);
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getIoSpecification());
+    assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getDataObjects().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getFlowElementMap().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+    assertSame(element, ((List<FlowElement>) flowElements).get(0));
+    assertSame(artifact, ((List<Artifact>) artifacts).get(0));
+  }
+
+  /**
+   * Method under test: {@link SubProcess#clone()}
+   */
+  @Test
+  public void testClone4() {
+    // Arrange
+    SubProcess subProcess = new SubProcess();
+    subProcess.setForCompensation(true);
+    AdhocSubProcess element = new AdhocSubProcess();
+    subProcess.addFlowElement(element);
+
+    // Act
+    SubProcess actualCloneResult = subProcess.clone();
+
+    // Assert
+    Collection<Artifact> artifacts = actualCloneResult.getArtifacts();
+    assertTrue(artifacts instanceof List);
+    Collection<FlowElement> flowElements = actualCloneResult.getFlowElements();
+    assertEquals(1, flowElements.size());
+    assertTrue(flowElements instanceof List);
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getIoSpecification());
+    assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertTrue(artifacts.isEmpty());
+    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getDataObjects().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getFlowElementMap().isEmpty());
+    assertTrue(actualCloneResult.isForCompensation());
+    assertTrue(actualCloneResult.isExclusive());
+    assertSame(element, ((List<FlowElement>) flowElements).get(0));
+  }
+
+  /**
+   * Method under test: {@link SubProcess#clone()}
+   */
+  @Test
+  public void testClone5() {
+    // Arrange
+    SubProcess subProcess = new SubProcess();
+    subProcess.setLoopCharacteristics(new MultiInstanceLoopCharacteristics());
+    AdhocSubProcess element = new AdhocSubProcess();
+    subProcess.addFlowElement(element);
+
+    // Act
+    SubProcess actualCloneResult = subProcess.clone();
+
+    // Assert
+    Collection<Artifact> artifacts = actualCloneResult.getArtifacts();
+    assertTrue(artifacts instanceof List);
+    Collection<FlowElement> flowElements = actualCloneResult.getFlowElements();
+    assertEquals(1, flowElements.size());
+    assertTrue(flowElements instanceof List);
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    MultiInstanceLoopCharacteristics loopCharacteristics = actualCloneResult.getLoopCharacteristics();
+    assertNull(loopCharacteristics.getId());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(loopCharacteristics.getCompletionCondition());
+    assertNull(loopCharacteristics.getElementIndexVariable());
+    assertNull(loopCharacteristics.getElementVariable());
+    assertNull(loopCharacteristics.getInputDataItem());
+    assertNull(loopCharacteristics.getLoopCardinality());
+    assertNull(loopCharacteristics.getLoopDataOutputRef());
+    assertNull(loopCharacteristics.getOutputDataItem());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getIoSpecification());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, loopCharacteristics.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, loopCharacteristics.getXmlRowNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertFalse(loopCharacteristics.isSequential());
+    assertTrue(artifacts.isEmpty());
+    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getDataObjects().isEmpty());
+    assertTrue(loopCharacteristics.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(loopCharacteristics.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getFlowElementMap().isEmpty());
+    assertTrue(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertTrue(actualCloneResult.isExclusive());
+    assertSame(element, ((List<FlowElement>) flowElements).get(0));
+  }
+
+  /**
+   * Method under test: {@link SubProcess#clone()}
+   */
+  @Test
+  public void testClone6() {
+    // Arrange
+    SubProcess subProcess = new SubProcess();
+    subProcess.setIoSpecification(new IOSpecification());
+    AdhocSubProcess element = new AdhocSubProcess();
+    subProcess.addFlowElement(element);
+
+    // Act
+    SubProcess actualCloneResult = subProcess.clone();
+
+    // Assert
+    Collection<Artifact> artifacts = actualCloneResult.getArtifacts();
+    assertTrue(artifacts instanceof List);
+    Collection<FlowElement> flowElements = actualCloneResult.getFlowElements();
+    assertEquals(1, flowElements.size());
+    assertTrue(flowElements instanceof List);
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    IOSpecification ioSpecification = actualCloneResult.getIoSpecification();
+    assertNull(ioSpecification.getId());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, ioSpecification.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, ioSpecification.getXmlRowNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertTrue(artifacts.isEmpty());
+    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(ioSpecification.getDataInputRefs().isEmpty());
+    assertTrue(ioSpecification.getDataInputs().isEmpty());
+    assertTrue(ioSpecification.getDataOutputRefs().isEmpty());
+    assertTrue(ioSpecification.getDataOutputs().isEmpty());
+    assertTrue(actualCloneResult.getDataObjects().isEmpty());
+    assertTrue(ioSpecification.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(ioSpecification.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getFlowElementMap().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+    assertSame(element, ((List<FlowElement>) flowElements).get(0));
+  }
+
+  /**
+   * Method under test: {@link SubProcess#clone()}
+   */
+  @Test
+  public void testClone7() {
+    // Arrange
+    SubProcess subProcess = new SubProcess();
+    BooleanDataObject element = new BooleanDataObject();
+    subProcess.addFlowElement(element);
+
+    // Act
+    SubProcess actualCloneResult = subProcess.clone();
+
+    // Assert
+    Collection<Artifact> artifacts = actualCloneResult.getArtifacts();
+    assertTrue(artifacts instanceof List);
+    Collection<FlowElement> flowElements = actualCloneResult.getFlowElements();
+    assertEquals(1, flowElements.size());
+    assertTrue(flowElements instanceof List);
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getIoSpecification());
+    assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertTrue(artifacts.isEmpty());
+    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getDataObjects().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getFlowElementMap().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+    assertSame(element, ((List<FlowElement>) flowElements).get(0));
+  }
+
+  /**
+   * Method under test: {@link SubProcess#clone()}
+   */
+  @Test
+  public void testClone8() {
     // Arrange
     AdhocSubProcess element = new AdhocSubProcess();
     element.setId("42");
@@ -716,29 +925,50 @@ public class SubProcessDiffblueTest {
     SubProcess actualCloneResult = subProcess.clone();
 
     // Assert
+    Collection<Artifact> artifacts = actualCloneResult.getArtifacts();
+    assertTrue(artifacts instanceof List);
     Collection<FlowElement> flowElements = actualCloneResult.getFlowElements();
     assertEquals(1, flowElements.size());
     assertTrue(flowElements instanceof List);
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getIoSpecification());
+    assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
     Map<String, FlowElement> flowElementMap = actualCloneResult.getFlowElementMap();
     assertEquals(1, flowElementMap.size());
-    FlowElement getResult = flowElementMap.get("42");
-    assertTrue(getResult instanceof AdhocSubProcess);
-    assertSame(element, getResult);
-    assertSame(getResult, ((List<FlowElement>) flowElements).get(0));
+    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertTrue(artifacts.isEmpty());
+    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getDataObjects().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+    assertSame(element, ((List<FlowElement>) flowElements).get(0));
+    assertSame(element, flowElementMap.get("42"));
   }
 
   /**
-   * Test {@link SubProcess#clone()}.
-   * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor) Id is empty string.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SubProcess#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"SubProcess SubProcess.clone()"})
-  public void testClone_givenAdhocSubProcessIdIsEmptyString() {
+  public void testClone9() {
     // Arrange
     AdhocSubProcess element = new AdhocSubProcess();
     element.setId("");
@@ -746,233 +976,71 @@ public class SubProcessDiffblueTest {
     SubProcess subProcess = new SubProcess();
     subProcess.addFlowElement(element);
 
-    // Act and Assert
-    Collection<FlowElement> flowElements = subProcess.clone().getFlowElements();
-    assertEquals(1, flowElements.size());
-    assertTrue(flowElements instanceof List);
-    assertTrue(((List<FlowElement>) flowElements).get(0) instanceof AdhocSubProcess);
-  }
-
-  /**
-   * Test {@link SubProcess#clone()}.
-   * <ul>
-   *   <li>Given {@link SubProcess} (default constructor) addArtifact {@link Association} (default constructor).</li>
-   *   <li>Then return Artifacts size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SubProcess#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"SubProcess SubProcess.clone()"})
-  public void testClone_givenSubProcessAddArtifactAssociation_thenReturnArtifactsSizeIsOne() {
-    // Arrange
-    SubProcess subProcess = new SubProcess();
-    Association artifact = new Association();
-    subProcess.addArtifact(artifact);
-    subProcess.addFlowElement(new AdhocSubProcess());
-
     // Act
     SubProcess actualCloneResult = subProcess.clone();
 
     // Assert
     Collection<Artifact> artifacts = actualCloneResult.getArtifacts();
-    assertEquals(1, artifacts.size());
     assertTrue(artifacts instanceof List);
     Collection<FlowElement> flowElements = actualCloneResult.getFlowElements();
     assertEquals(1, flowElements.size());
-    FlowElement getResult = ((List<FlowElement>) flowElements).get(0);
-    Collection<Artifact> artifacts2 = ((AdhocSubProcess) getResult).getArtifacts();
-    assertTrue(artifacts2 instanceof List);
     assertTrue(flowElements instanceof List);
-    assertTrue(getResult instanceof AdhocSubProcess);
-    assertTrue(artifacts2.isEmpty());
-    assertSame(artifact, ((List<Artifact>) artifacts).get(0));
-  }
-
-  /**
-   * Test {@link SubProcess#clone()}.
-   * <ul>
-   *   <li>Given {@link SubProcess} (default constructor) ForCompensation is {@code true}.</li>
-   *   <li>Then return ForCompensation.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SubProcess#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"SubProcess SubProcess.clone()"})
-  public void testClone_givenSubProcessForCompensationIsTrue_thenReturnForCompensation() {
-    // Arrange
-    SubProcess subProcess = new SubProcess();
-    subProcess.setForCompensation(true);
-    subProcess.addFlowElement(new AdhocSubProcess());
-
-    // Act
-    SubProcess actualCloneResult = subProcess.clone();
-
-    // Assert
-    Collection<FlowElement> flowElements = actualCloneResult.getFlowElements();
-    assertEquals(1, flowElements.size());
-    assertTrue(flowElements instanceof List);
-    assertTrue(((List<FlowElement>) flowElements).get(0) instanceof AdhocSubProcess);
-    assertTrue(actualCloneResult.isForCompensation());
-  }
-
-  /**
-   * Test {@link SubProcess#clone()}.
-   * <ul>
-   *   <li>Given {@link SubProcess} (default constructor).</li>
-   *   <li>Then return IoSpecification is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SubProcess#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"SubProcess SubProcess.clone()"})
-  public void testClone_givenSubProcess_thenReturnIoSpecificationIsNull() {
-    // Arrange and Act
-    SubProcess actualCloneResult = (new SubProcess()).clone();
-
-    // Assert
-    Collection<Artifact> artifacts = actualCloneResult.getArtifacts();
-    assertTrue(artifacts instanceof List);
-    Collection<FlowElement> flowElements = actualCloneResult.getFlowElements();
-    assertTrue(flowElements instanceof List);
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getParentContainer());
     assertNull(actualCloneResult.getIoSpecification());
     assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
     assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
     assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
     assertTrue(artifacts.isEmpty());
-    assertTrue(flowElements.isEmpty());
+    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getDataObjects().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
     assertTrue(actualCloneResult.getFlowElementMap().isEmpty());
-  }
-
-  /**
-   * Test {@link SubProcess#clone()}.
-   * <ul>
-   *   <li>Then FlowElements first return {@link AdhocSubProcess}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SubProcess#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"SubProcess SubProcess.clone()"})
-  public void testClone_thenFlowElementsFirstReturnAdhocSubProcess() {
-    // Arrange
-    SubProcess subProcess = new SubProcess();
-    subProcess.addFlowElement(new AdhocSubProcess());
-
-    // Act and Assert
-    Collection<FlowElement> flowElements = subProcess.clone().getFlowElements();
-    assertEquals(1, flowElements.size());
-    assertTrue(flowElements instanceof List);
-    assertTrue(((List<FlowElement>) flowElements).get(0) instanceof AdhocSubProcess);
-  }
-
-  /**
-   * Test {@link SubProcess#clone()}.
-   * <ul>
-   *   <li>Then return FlowElements first is {@link BooleanDataObject} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SubProcess#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"SubProcess SubProcess.clone()"})
-  public void testClone_thenReturnFlowElementsFirstIsBooleanDataObject() {
-    // Arrange
-    SubProcess subProcess = new SubProcess();
-    BooleanDataObject element = new BooleanDataObject();
-    subProcess.addFlowElement(element);
-
-    // Act and Assert
-    Collection<FlowElement> flowElements = subProcess.clone().getFlowElements();
-    assertEquals(1, flowElements.size());
-    assertTrue(flowElements instanceof List);
+    assertTrue(actualCloneResult.isExclusive());
     assertSame(element, ((List<FlowElement>) flowElements).get(0));
   }
 
   /**
-   * Test {@link SubProcess#clone()}.
-   * <ul>
-   *   <li>Then return IoSpecification Id is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SubProcess#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"SubProcess SubProcess.clone()"})
-  public void testClone_thenReturnIoSpecificationIdIsNull() {
-    // Arrange
-    SubProcess subProcess = new SubProcess();
-    subProcess.setIoSpecification(new IOSpecification());
-    subProcess.addFlowElement(new AdhocSubProcess());
-
-    // Act and Assert
-    IOSpecification ioSpecification = subProcess.clone().getIoSpecification();
-    assertNull(ioSpecification.getId());
-    assertEquals(0, ioSpecification.getXmlColumnNumber());
-    assertEquals(0, ioSpecification.getXmlRowNumber());
-    assertTrue(ioSpecification.getDataInputRefs().isEmpty());
-    assertTrue(ioSpecification.getDataInputs().isEmpty());
-    assertTrue(ioSpecification.getDataOutputRefs().isEmpty());
-    assertTrue(ioSpecification.getDataOutputs().isEmpty());
-    assertTrue(ioSpecification.getAttributes().isEmpty());
-    assertTrue(ioSpecification.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link SubProcess#clone()}.
-   * <ul>
-   *   <li>Then return LoopCharacteristics Id is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SubProcess#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"SubProcess SubProcess.clone()"})
-  public void testClone_thenReturnLoopCharacteristicsIdIsNull() {
-    // Arrange
-    SubProcess subProcess = new SubProcess();
-    subProcess.setLoopCharacteristics(new MultiInstanceLoopCharacteristics());
-    subProcess.addFlowElement(new AdhocSubProcess());
-
-    // Act
-    SubProcess actualCloneResult = subProcess.clone();
-
-    // Assert
-    MultiInstanceLoopCharacteristics loopCharacteristics = actualCloneResult.getLoopCharacteristics();
-    assertNull(loopCharacteristics.getId());
-    assertNull(loopCharacteristics.getCompletionCondition());
-    assertNull(loopCharacteristics.getElementIndexVariable());
-    assertNull(loopCharacteristics.getElementVariable());
-    assertNull(loopCharacteristics.getInputDataItem());
-    assertNull(loopCharacteristics.getLoopCardinality());
-    assertNull(loopCharacteristics.getLoopDataOutputRef());
-    assertNull(loopCharacteristics.getOutputDataItem());
-    assertEquals(0, loopCharacteristics.getXmlColumnNumber());
-    assertEquals(0, loopCharacteristics.getXmlRowNumber());
-    assertFalse(loopCharacteristics.isSequential());
-    assertTrue(loopCharacteristics.getAttributes().isEmpty());
-    assertTrue(loopCharacteristics.getExtensionElements().isEmpty());
-    assertTrue(actualCloneResult.hasMultiInstanceLoopCharacteristics());
-  }
-
-  /**
-   * Test {@link SubProcess#setValues(SubProcess)} with {@code SubProcess}.
-   * <p>
    * Method under test: {@link SubProcess#setValues(SubProcess)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SubProcess.setValues(SubProcess)"})
-  public void testSetValuesWithSubProcess() {
+  public void testSetValues() {
+    // Arrange
+    SubProcess subProcess = new SubProcess();
+    SubProcess otherElement = new SubProcess();
+
+    // Act
+    subProcess.setValues(otherElement);
+
+    // Assert
+    Collection<FlowElement> flowElements = otherElement.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertTrue(flowElements.isEmpty());
+    assertTrue(otherElement.getFlowElementMap().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link SubProcess#setValues(SubProcess)}
+   */
+  @Test
+  public void testSetValues2() {
     // Arrange
     SubProcess subProcess = new SubProcess();
 
@@ -986,36 +1054,21 @@ public class SubProcessDiffblueTest {
     // Assert
     Collection<FlowElement> flowElements = otherElement.getFlowElements();
     assertEquals(1, flowElements.size());
-    FlowElement getResult = ((List<FlowElement>) flowElements).get(0);
-    FlowElementsContainer parentContainer = getResult.getParentContainer();
-    Collection<FlowElement> flowElements2 = parentContainer.getFlowElements();
-    assertEquals(1, flowElements2.size());
-    assertTrue(flowElements2 instanceof List);
     assertTrue(flowElements instanceof List);
-    assertTrue(getResult instanceof AdhocSubProcess);
-    assertTrue(parentContainer instanceof SubProcess);
-    assertNull(((SubProcess) parentContainer).getIoSpecification());
-    assertNull(((SubProcess) parentContainer).getLoopCharacteristics());
-    assertFalse(((SubProcess) parentContainer).hasMultiInstanceLoopCharacteristics());
-    assertFalse(((SubProcess) parentContainer).isForCompensation());
-    assertSame(element, ((List<FlowElement>) flowElements2).get(0));
+    assertTrue(otherElement.getFlowElementMap().isEmpty());
+    assertSame(element, ((List<FlowElement>) flowElements).get(0));
   }
 
   /**
-   * Test {@link SubProcess#setValues(SubProcess)} with {@code SubProcess}.
-   * <p>
    * Method under test: {@link SubProcess#setValues(SubProcess)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SubProcess.setValues(SubProcess)"})
-  public void testSetValuesWithSubProcess2() {
+  public void testSetValues3() {
     // Arrange
     SubProcess subProcess = new SubProcess();
 
     SubProcess otherElement = new SubProcess();
-    Association artifact = new Association();
-    otherElement.addArtifact(artifact);
+    otherElement.addArtifact(new Association());
     AdhocSubProcess element = new AdhocSubProcess();
     otherElement.addFlowElement(element);
 
@@ -1025,31 +1078,16 @@ public class SubProcessDiffblueTest {
     // Assert
     Collection<FlowElement> flowElements = otherElement.getFlowElements();
     assertEquals(1, flowElements.size());
-    FlowElement getResult = ((List<FlowElement>) flowElements).get(0);
-    FlowElementsContainer parentContainer = getResult.getParentContainer();
-    Collection<Artifact> artifacts = parentContainer.getArtifacts();
-    assertEquals(1, artifacts.size());
-    assertTrue(artifacts instanceof List);
-    Collection<FlowElement> flowElements2 = parentContainer.getFlowElements();
-    assertEquals(1, flowElements2.size());
-    assertTrue(flowElements2 instanceof List);
     assertTrue(flowElements instanceof List);
-    assertTrue(getResult instanceof AdhocSubProcess);
-    assertTrue(parentContainer instanceof SubProcess);
-    assertFalse(((SubProcess) parentContainer).isForCompensation());
-    assertSame(element, ((List<FlowElement>) flowElements2).get(0));
-    assertSame(artifact, ((List<Artifact>) artifacts).get(0));
+    assertTrue(otherElement.getFlowElementMap().isEmpty());
+    assertSame(element, ((List<FlowElement>) flowElements).get(0));
   }
 
   /**
-   * Test {@link SubProcess#setValues(SubProcess)} with {@code SubProcess}.
-   * <p>
    * Method under test: {@link SubProcess#setValues(SubProcess)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SubProcess.setValues(SubProcess)"})
-  public void testSetValuesWithSubProcess3() {
+  public void testSetValues4() {
     // Arrange
     SubProcess subProcess = new SubProcess();
 
@@ -1064,36 +1102,23 @@ public class SubProcessDiffblueTest {
     // Assert
     Collection<FlowElement> flowElements = otherElement.getFlowElements();
     assertEquals(1, flowElements.size());
-    FlowElement getResult = ((List<FlowElement>) flowElements).get(0);
-    FlowElementsContainer parentContainer = getResult.getParentContainer();
-    Collection<FlowElement> flowElements2 = parentContainer.getFlowElements();
-    assertEquals(1, flowElements2.size());
-    assertTrue(flowElements2 instanceof List);
     assertTrue(flowElements instanceof List);
-    assertTrue(getResult instanceof AdhocSubProcess);
-    assertTrue(parentContainer instanceof SubProcess);
-    assertNull(((SubProcess) parentContainer).getIoSpecification());
-    assertNull(((SubProcess) parentContainer).getLoopCharacteristics());
-    assertFalse(((SubProcess) parentContainer).hasMultiInstanceLoopCharacteristics());
-    assertTrue(((SubProcess) parentContainer).isForCompensation());
-    assertSame(element, ((List<FlowElement>) flowElements2).get(0));
+    assertTrue(otherElement.getFlowElementMap().isEmpty());
+    assertSame(element, ((List<FlowElement>) flowElements).get(0));
   }
 
   /**
-   * Test {@link SubProcess#setValues(SubProcess)} with {@code SubProcess}.
-   * <p>
    * Method under test: {@link SubProcess#setValues(SubProcess)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SubProcess.setValues(SubProcess)"})
-  public void testSetValuesWithSubProcess4() {
+  public void testSetValues5() {
     // Arrange
     SubProcess subProcess = new SubProcess();
 
     SubProcess otherElement = new SubProcess();
     otherElement.setLoopCharacteristics(new MultiInstanceLoopCharacteristics());
-    otherElement.addFlowElement(new AdhocSubProcess());
+    AdhocSubProcess element = new AdhocSubProcess();
+    otherElement.addFlowElement(element);
 
     // Act
     subProcess.setValues(otherElement);
@@ -1102,42 +1127,22 @@ public class SubProcessDiffblueTest {
     Collection<FlowElement> flowElements = otherElement.getFlowElements();
     assertEquals(1, flowElements.size());
     assertTrue(flowElements instanceof List);
-    FlowElement getResult = ((List<FlowElement>) flowElements).get(0);
-    assertTrue(getResult instanceof AdhocSubProcess);
-    FlowElementsContainer parentContainer = getResult.getParentContainer();
-    assertTrue(parentContainer instanceof SubProcess);
-    MultiInstanceLoopCharacteristics loopCharacteristics = ((SubProcess) parentContainer).getLoopCharacteristics();
-    assertNull(loopCharacteristics.getId());
-    assertNull(loopCharacteristics.getCompletionCondition());
-    assertNull(loopCharacteristics.getElementIndexVariable());
-    assertNull(loopCharacteristics.getElementVariable());
-    assertNull(loopCharacteristics.getInputDataItem());
-    assertNull(loopCharacteristics.getLoopCardinality());
-    assertNull(loopCharacteristics.getLoopDataOutputRef());
-    assertNull(loopCharacteristics.getOutputDataItem());
-    assertEquals(0, loopCharacteristics.getXmlColumnNumber());
-    assertEquals(0, loopCharacteristics.getXmlRowNumber());
-    assertFalse(loopCharacteristics.isSequential());
-    assertTrue(loopCharacteristics.getAttributes().isEmpty());
-    assertTrue(loopCharacteristics.getExtensionElements().isEmpty());
-    assertTrue(((SubProcess) parentContainer).hasMultiInstanceLoopCharacteristics());
+    assertTrue(otherElement.getFlowElementMap().isEmpty());
+    assertSame(element, ((List<FlowElement>) flowElements).get(0));
   }
 
   /**
-   * Test {@link SubProcess#setValues(SubProcess)} with {@code SubProcess}.
-   * <p>
    * Method under test: {@link SubProcess#setValues(SubProcess)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SubProcess.setValues(SubProcess)"})
-  public void testSetValuesWithSubProcess5() {
+  public void testSetValues6() {
     // Arrange
     SubProcess subProcess = new SubProcess();
 
     SubProcess otherElement = new SubProcess();
     otherElement.setIoSpecification(new IOSpecification());
-    otherElement.addFlowElement(new AdhocSubProcess());
+    AdhocSubProcess element = new AdhocSubProcess();
+    otherElement.addFlowElement(element);
 
     // Act
     subProcess.setValues(otherElement);
@@ -1146,31 +1151,38 @@ public class SubProcessDiffblueTest {
     Collection<FlowElement> flowElements = otherElement.getFlowElements();
     assertEquals(1, flowElements.size());
     assertTrue(flowElements instanceof List);
-    FlowElement getResult = ((List<FlowElement>) flowElements).get(0);
-    assertTrue(getResult instanceof AdhocSubProcess);
-    FlowElementsContainer parentContainer = getResult.getParentContainer();
-    assertTrue(parentContainer instanceof SubProcess);
-    IOSpecification ioSpecification = ((SubProcess) parentContainer).getIoSpecification();
-    assertNull(ioSpecification.getId());
-    assertEquals(0, ioSpecification.getXmlColumnNumber());
-    assertEquals(0, ioSpecification.getXmlRowNumber());
-    assertTrue(ioSpecification.getDataInputRefs().isEmpty());
-    assertTrue(ioSpecification.getDataInputs().isEmpty());
-    assertTrue(ioSpecification.getDataOutputRefs().isEmpty());
-    assertTrue(ioSpecification.getDataOutputs().isEmpty());
-    assertTrue(ioSpecification.getAttributes().isEmpty());
-    assertTrue(ioSpecification.getExtensionElements().isEmpty());
+    assertTrue(otherElement.getFlowElementMap().isEmpty());
+    assertSame(element, ((List<FlowElement>) flowElements).get(0));
   }
 
   /**
-   * Test {@link SubProcess#setValues(SubProcess)} with {@code SubProcess}.
-   * <p>
    * Method under test: {@link SubProcess#setValues(SubProcess)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SubProcess.setValues(SubProcess)"})
-  public void testSetValuesWithSubProcess6() {
+  public void testSetValues7() {
+    // Arrange
+    SubProcess subProcess = new SubProcess();
+
+    SubProcess otherElement = new SubProcess();
+    BooleanDataObject element = new BooleanDataObject();
+    otherElement.addFlowElement(element);
+
+    // Act
+    subProcess.setValues(otherElement);
+
+    // Assert
+    Collection<FlowElement> flowElements = otherElement.getFlowElements();
+    assertEquals(1, flowElements.size());
+    assertTrue(flowElements instanceof List);
+    assertTrue(otherElement.getFlowElementMap().isEmpty());
+    assertSame(element, ((List<FlowElement>) flowElements).get(0));
+  }
+
+  /**
+   * Method under test: {@link SubProcess#setValues(SubProcess)}
+   */
+  @Test
+  public void testSetValues8() {
     // Arrange
     SubProcess subProcess = new SubProcess();
 
@@ -1184,64 +1196,20 @@ public class SubProcessDiffblueTest {
     subProcess.setValues(otherElement);
 
     // Assert
+    Collection<FlowElement> flowElements = otherElement.getFlowElements();
+    assertEquals(1, flowElements.size());
+    assertTrue(flowElements instanceof List);
     Map<String, FlowElement> flowElementMap = otherElement.getFlowElementMap();
     assertEquals(1, flowElementMap.size());
-    FlowElement getResult = flowElementMap.get("42");
-    assertTrue(getResult instanceof AdhocSubProcess);
-    FlowElementsContainer parentContainer = getResult.getParentContainer();
-    assertTrue(parentContainer instanceof SubProcess);
-    assertSame(subProcess, parentContainer);
-    assertSame(subProcess, getResult.getSubProcess());
+    assertSame(element, ((List<FlowElement>) flowElements).get(0));
+    assertSame(element, flowElementMap.get("42"));
   }
 
   /**
-   * Test {@link SubProcess#setValues(SubProcess)} with {@code SubProcess}.
-   * <p>
    * Method under test: {@link SubProcess#setValues(SubProcess)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SubProcess.setValues(SubProcess)"})
-  public void testSetValuesWithSubProcess7() {
-    // Arrange
-    SubProcess subProcess = new SubProcess();
-    AdhocSubProcess parentContainer = new AdhocSubProcess();
-    subProcess.setParentContainer(parentContainer);
-
-    AdhocSubProcess element = new AdhocSubProcess();
-    element.setId("42");
-
-    SubProcess otherElement = new SubProcess();
-    otherElement.addFlowElement(element);
-
-    // Act
-    subProcess.setValues(otherElement);
-
-    // Assert
-    Map<String, FlowElement> flowElementMap = otherElement.getFlowElementMap();
-    assertEquals(1, flowElementMap.size());
-    FlowElement getResult = flowElementMap.get("42");
-    assertTrue(getResult instanceof AdhocSubProcess);
-    FlowElementsContainer parentContainer2 = getResult.getParentContainer();
-    FlowElementsContainer parentContainer3 = ((SubProcess) parentContainer2).getParentContainer();
-    assertTrue(parentContainer3 instanceof AdhocSubProcess);
-    assertTrue(parentContainer2 instanceof SubProcess);
-    assertSame(parentContainer, parentContainer3);
-    assertSame(parentContainer, ((SubProcess) parentContainer2).getSubProcess());
-  }
-
-  /**
-   * Test {@link SubProcess#setValues(SubProcess)} with {@code SubProcess}.
-   * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor) Id is empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SubProcess#setValues(SubProcess)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SubProcess.setValues(SubProcess)"})
-  public void testSetValuesWithSubProcess_givenAdhocSubProcessIdIsEmptyString() {
+  public void testSetValues9() {
     // Arrange
     SubProcess subProcess = new SubProcess();
 
@@ -1257,38 +1225,24 @@ public class SubProcessDiffblueTest {
     // Assert
     Collection<FlowElement> flowElements = otherElement.getFlowElements();
     assertEquals(1, flowElements.size());
-    FlowElement getResult = ((List<FlowElement>) flowElements).get(0);
-    FlowElementsContainer parentContainer = getResult.getParentContainer();
-    Collection<FlowElement> flowElements2 = parentContainer.getFlowElements();
-    assertEquals(1, flowElements2.size());
-    assertTrue(flowElements2 instanceof List);
     assertTrue(flowElements instanceof List);
-    assertTrue(getResult instanceof AdhocSubProcess);
-    assertTrue(parentContainer instanceof SubProcess);
-    assertNull(((SubProcess) parentContainer).getIoSpecification());
-    assertNull(((SubProcess) parentContainer).getLoopCharacteristics());
-    assertFalse(((SubProcess) parentContainer).hasMultiInstanceLoopCharacteristics());
-    assertFalse(((SubProcess) parentContainer).isForCompensation());
-    assertSame(element, ((List<FlowElement>) flowElements2).get(0));
+    assertTrue(otherElement.getFlowElementMap().isEmpty());
+    assertSame(element, ((List<FlowElement>) flowElements).get(0));
   }
 
   /**
-   * Test {@link SubProcess#setValues(SubProcess)} with {@code SubProcess}.
-   * <ul>
-   *   <li>Then {@link SubProcess} (default constructor) FlowElements first {@link BooleanDataObject}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SubProcess#setValues(SubProcess)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SubProcess.setValues(SubProcess)"})
-  public void testSetValuesWithSubProcess_thenSubProcessFlowElementsFirstBooleanDataObject() {
+  public void testSetValues10() {
     // Arrange
     SubProcess subProcess = new SubProcess();
+    subProcess.setParentContainer(new AdhocSubProcess());
+
+    AdhocSubProcess element = new AdhocSubProcess();
+    element.setId("42");
 
     SubProcess otherElement = new SubProcess();
-    BooleanDataObject element = new BooleanDataObject();
     otherElement.addFlowElement(element);
 
     // Act
@@ -1297,24 +1251,14 @@ public class SubProcessDiffblueTest {
     // Assert
     Collection<FlowElement> flowElements = otherElement.getFlowElements();
     assertEquals(1, flowElements.size());
-    FlowElement getResult = ((List<FlowElement>) flowElements).get(0);
-    FlowElementsContainer parentContainer = getResult.getParentContainer();
-    Collection<FlowElement> flowElements2 = parentContainer.getFlowElements();
-    assertEquals(1, flowElements2.size());
-    assertTrue(flowElements2 instanceof List);
     assertTrue(flowElements instanceof List);
-    assertTrue(getResult instanceof BooleanDataObject);
-    assertTrue(parentContainer instanceof SubProcess);
-    assertNull(((SubProcess) parentContainer).getIoSpecification());
-    assertNull(((SubProcess) parentContainer).getLoopCharacteristics());
-    assertFalse(((SubProcess) parentContainer).hasMultiInstanceLoopCharacteristics());
-    assertFalse(((SubProcess) parentContainer).isForCompensation());
-    assertSame(element, ((List<FlowElement>) flowElements2).get(0));
+    Map<String, FlowElement> flowElementMap = otherElement.getFlowElementMap();
+    assertEquals(1, flowElementMap.size());
+    assertSame(element, ((List<FlowElement>) flowElements).get(0));
+    assertSame(element, flowElementMap.get("42"));
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link SubProcess}
@@ -1327,11 +1271,6 @@ public class SubProcessDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SubProcess.<init>()", "Collection SubProcess.getArtifacts()",
-      "List SubProcess.getDataObjects()", "Map SubProcess.getFlowElementMap()",
-      "Collection SubProcess.getFlowElements()", "void SubProcess.setDataObjects(List)",
-      "void SubProcess.setFlowElementMap(Map)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     SubProcess actualSubProcess = new SubProcess();
@@ -1343,18 +1282,9 @@ public class SubProcessDiffblueTest {
     List<ValuedDataObject> actualDataObjects = actualSubProcess.getDataObjects();
     Map<String, FlowElement> actualFlowElementMap = actualSubProcess.getFlowElementMap();
 
-    // Assert
+    // Assert that nothing has changed
     assertTrue(actualArtifacts instanceof List);
     assertTrue(actualSubProcess.getFlowElements() instanceof List);
-    assertNull(actualSubProcess.getBehavior());
-    assertNull(actualSubProcess.getDefaultFlow());
-    assertNull(actualSubProcess.getFailedJobRetryTimeCycleValue());
-    assertNull(actualSubProcess.getId());
-    assertNull(actualSubProcess.getDocumentation());
-    assertNull(actualSubProcess.getName());
-    assertNull(actualSubProcess.getParentContainer());
-    assertNull(actualSubProcess.getIoSpecification());
-    assertNull(actualSubProcess.getLoopCharacteristics());
     assertEquals(0, actualSubProcess.getXmlColumnNumber());
     assertEquals(0, actualSubProcess.getXmlRowNumber());
     assertFalse(actualSubProcess.isForCompensation());

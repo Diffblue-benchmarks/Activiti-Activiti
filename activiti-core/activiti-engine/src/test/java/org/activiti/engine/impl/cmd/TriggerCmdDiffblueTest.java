@@ -17,46 +17,14 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
 import org.activiti.engine.impl.bpmn.behavior.CopyVariablesCalculator;
 import org.activiti.engine.impl.bpmn.behavior.VariablesPropagator;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class TriggerCmdDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link TriggerCmd#TriggerCmd(String, Map, VariablesPropagator)}
-   *   <li>{@link TriggerCmd#getSuspendedExceptionMessage()}
-   * </ul>
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void TriggerCmd.<init>(String, Map)", "void TriggerCmd.<init>(String, Map, Map)",
-      "void TriggerCmd.<init>(String, Map, VariablesPropagator)", "String TriggerCmd.getSuspendedExceptionMessage()"})
-  public void testGettersAndSetters() {
-    // Arrange
-    HashMap<String, Object> availableVariables = new HashMap<>();
-
-    // Act and Assert
-    assertEquals("Cannot trigger an execution that is suspended",
-        (new TriggerCmd("42", availableVariables, new VariablesPropagator(new CopyVariablesCalculator())))
-            .getSuspendedExceptionMessage());
-  }
-
-  /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@link HashMap#HashMap()}.</li>
-   *   <li>Then return {@link TriggerCmd#processVariables} Empty.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link TriggerCmd#TriggerCmd(String, Map)}
@@ -64,10 +32,7 @@ public class TriggerCmdDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void TriggerCmd.<init>(String, Map)", "void TriggerCmd.<init>(String, Map, Map)",
-      "void TriggerCmd.<init>(String, Map, VariablesPropagator)", "String TriggerCmd.getSuspendedExceptionMessage()"})
-  public void testGettersAndSetters_whenHashMap_thenReturnProcessVariablesEmpty() {
+  public void testGettersAndSetters() {
     // Arrange and Act
     TriggerCmd actualTriggerCmd = new TriggerCmd("42", new HashMap<>());
 
@@ -77,12 +42,6 @@ public class TriggerCmdDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@link HashMap#HashMap()}.</li>
-   *   <li>Then return {@link TriggerCmd#transientVariables} Empty.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link TriggerCmd#TriggerCmd(String, Map, Map)}
@@ -90,10 +49,7 @@ public class TriggerCmdDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void TriggerCmd.<init>(String, Map)", "void TriggerCmd.<init>(String, Map, Map)",
-      "void TriggerCmd.<init>(String, Map, VariablesPropagator)", "String TriggerCmd.getSuspendedExceptionMessage()"})
-  public void testGettersAndSetters_whenHashMap_thenReturnTransientVariablesEmpty() {
+  public void testGettersAndSetters2() {
     // Arrange
     HashMap<String, Object> processVariables = new HashMap<>();
 
@@ -104,5 +60,23 @@ public class TriggerCmdDiffblueTest {
     assertEquals("Cannot trigger an execution that is suspended", actualTriggerCmd.getSuspendedExceptionMessage());
     assertTrue(actualTriggerCmd.processVariables.isEmpty());
     assertTrue(actualTriggerCmd.transientVariables.isEmpty());
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>{@link TriggerCmd#TriggerCmd(String, Map, VariablesPropagator)}
+   *   <li>{@link TriggerCmd#getSuspendedExceptionMessage()}
+   * </ul>
+   */
+  @Test
+  public void testGettersAndSetters3() {
+    // Arrange
+    HashMap<String, Object> availableVariables = new HashMap<>();
+
+    // Act and Assert
+    assertEquals("Cannot trigger an execution that is suspended",
+        (new TriggerCmd("42", availableVariables, new VariablesPropagator(new CopyVariablesCalculator())))
+            .getSuspendedExceptionMessage());
   }
 }

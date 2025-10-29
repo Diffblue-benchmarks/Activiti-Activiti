@@ -16,11 +16,10 @@
 package org.activiti.common.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import java.time.DateTimeException;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,26 +33,6 @@ class DateFormatterProviderDiffblueTest {
   private DateFormatterProvider dateFormatterProvider;
 
   /**
-   * Test {@link DateFormatterProvider#DateFormatterProvider(String)}.
-   * <p>
-   * Method under test: {@link DateFormatterProvider#DateFormatterProvider(String)}
-   */
-  @Test
-  @DisplayName("Test new DateFormatterProvider(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DateFormatterProvider.<init>(String)"})
-  void testNewDateFormatterProvider() {
-    // Arrange and Act
-    DateFormatterProvider actualDateFormatterProvider = new DateFormatterProvider("2020-03-01");
-
-    // Assert
-    assertEquals("2020-03-01", actualDateFormatterProvider.getDateFormatPattern());
-    assertEquals("Z", actualDateFormatterProvider.getZoneId().toString());
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link DateFormatterProvider#setDateFormatPattern(String)}
@@ -62,10 +41,6 @@ class DateFormatterProviderDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String DateFormatterProvider.getDateFormatPattern()",
-      "java.time.ZoneId DateFormatterProvider.getZoneId()", "void DateFormatterProvider.setDateFormatPattern(String)"})
   void testGettersAndSetters() {
     // Arrange
     DateFormatterProvider dateFormatterProvider = new DateFormatterProvider("2020-03-01");
@@ -74,26 +49,43 @@ class DateFormatterProviderDiffblueTest {
     dateFormatterProvider.setDateFormatPattern("2020-03-01");
     String actualDateFormatPattern = dateFormatterProvider.getDateFormatPattern();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("2020-03-01", actualDateFormatPattern);
     assertEquals("Z", dateFormatterProvider.getZoneId().toString());
   }
 
   /**
-   * Test {@link DateFormatterProvider#toDate(Object)}.
-   * <ul>
-   *   <li>When forty-two.</li>
-   *   <li>Then throw {@link DateTimeException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DateFormatterProvider#toDate(Object)}
    */
   @Test
-  @DisplayName("Test toDate(Object); when forty-two; then throw DateTimeException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.util.Date DateFormatterProvider.toDate(Object)"})
-  void testToDate_whenFortyTwo_thenThrowDateTimeException() {
+  void testToDate() {
     // Arrange, Act and Assert
     assertThrows(DateTimeException.class, () -> dateFormatterProvider.toDate(42));
+  }
+
+  /**
+   * Method under test: {@link DateFormatterProvider#toDate(Object)}
+   */
+  @Test
+  void testToDate2() {
+    // Arrange
+    java.sql.Date date = mock(java.sql.Date.class);
+
+    // Act and Assert
+    assertSame(date, dateFormatterProvider.toDate(date));
+  }
+
+  /**
+   * Method under test:
+   * {@link DateFormatterProvider#DateFormatterProvider(String)}
+   */
+  @Test
+  void testNewDateFormatterProvider() {
+    // Arrange and Act
+    DateFormatterProvider actualDateFormatterProvider = new DateFormatterProvider("2020-03-01");
+
+    // Assert
+    assertEquals("2020-03-01", actualDateFormatterProvider.getDateFormatPattern());
+    assertEquals("Z", actualDateFormatterProvider.getZoneId().toString());
   }
 }

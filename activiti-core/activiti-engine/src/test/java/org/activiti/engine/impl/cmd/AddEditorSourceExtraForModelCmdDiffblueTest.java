@@ -17,21 +17,15 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class AddEditorSourceExtraForModelCmdDiffblueTest {
   /**
-   * Test {@link AddEditorSourceExtraForModelCmd#AddEditorSourceExtraForModelCmd(String, byte[])}.
-   * <p>
-   * Method under test: {@link AddEditorSourceExtraForModelCmd#AddEditorSourceExtraForModelCmd(String, byte[])}
+   * Method under test:
+   * {@link AddEditorSourceExtraForModelCmd#AddEditorSourceExtraForModelCmd(String, byte[])}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AddEditorSourceExtraForModelCmd.<init>(String, byte[])"})
   public void testNewAddEditorSourceExtraForModelCmd() throws UnsupportedEncodingException {
     // Arrange and Act
     AddEditorSourceExtraForModelCmd actualAddEditorSourceExtraForModelCmd = new AddEditorSourceExtraForModelCmd("42",

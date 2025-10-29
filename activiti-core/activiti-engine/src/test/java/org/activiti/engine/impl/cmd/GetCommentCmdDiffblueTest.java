@@ -17,44 +17,17 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class GetCommentCmdDiffblueTest {
   /**
-   * Test {@link GetCommentCmd#GetCommentCmd(String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then return {@link GetCommentCmd#commentId} is {@code 42}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link GetCommentCmd#GetCommentCmd(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void GetCommentCmd.<init>(String)"})
-  public void testNewGetCommentCmd_when42_thenReturnCommentIdIs42() {
+  public void testNewGetCommentCmd() {
     // Arrange, Act and Assert
     assertEquals("42", (new GetCommentCmd("42")).commentId);
-  }
-
-  /**
-   * Test {@link GetCommentCmd#GetCommentCmd(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GetCommentCmd#GetCommentCmd(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void GetCommentCmd.<init>(String)"})
-  public void testNewGetCommentCmd_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> new GetCommentCmd(null));
   }
 }

@@ -16,15 +16,10 @@
 package org.activiti.api.runtime.model.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class DeploymentImplDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link DeploymentImpl}
@@ -39,12 +34,6 @@ class DeploymentImplDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DeploymentImpl.<init>()", "String DeploymentImpl.getId()", "String DeploymentImpl.getName()",
-      "String DeploymentImpl.getProjectReleaseVersion()", "Integer DeploymentImpl.getVersion()",
-      "void DeploymentImpl.setId(String)", "void DeploymentImpl.setName(String)",
-      "void DeploymentImpl.setProjectReleaseVersion(String)", "void DeploymentImpl.setVersion(Integer)"})
   void testGettersAndSetters() {
     // Arrange and Act
     DeploymentImpl actualDeploymentImpl = new DeploymentImpl();
@@ -56,7 +45,7 @@ class DeploymentImplDiffblueTest {
     String actualName = actualDeploymentImpl.getName();
     String actualProjectReleaseVersion = actualDeploymentImpl.getProjectReleaseVersion();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("1.0.2", actualProjectReleaseVersion);
     assertEquals("42", actualId);
     assertEquals("Name", actualName);

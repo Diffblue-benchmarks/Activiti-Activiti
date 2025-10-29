@@ -18,36 +18,28 @@ package org.activiti.engine.impl.bpmn.listener;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
 import org.activiti.bpmn.model.Task;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class TransactionDependentTaskListenerExecutionScopeDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>{@link TransactionDependentTaskListenerExecutionScope#TransactionDependentTaskListenerExecutionScope(String, String, Task, Map, Map)}
-   *   <li>{@link TransactionDependentTaskListenerExecutionScope#getCustomPropertiesMap()}
+   *   <li>
+   * {@link TransactionDependentTaskListenerExecutionScope#TransactionDependentTaskListenerExecutionScope(String, String, Task, Map, Map)}
+   *   <li>
+   * {@link TransactionDependentTaskListenerExecutionScope#getCustomPropertiesMap()}
    *   <li>{@link TransactionDependentTaskListenerExecutionScope#getExecutionId()}
-   *   <li>{@link TransactionDependentTaskListenerExecutionScope#getExecutionVariables()}
-   *   <li>{@link TransactionDependentTaskListenerExecutionScope#getProcessInstanceId()}
+   *   <li>
+   * {@link TransactionDependentTaskListenerExecutionScope#getExecutionVariables()}
+   *   <li>
+   * {@link TransactionDependentTaskListenerExecutionScope#getProcessInstanceId()}
    *   <li>{@link TransactionDependentTaskListenerExecutionScope#getTask()}
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void TransactionDependentTaskListenerExecutionScope.<init>(String, String, Task, Map, Map)",
-      "Map TransactionDependentTaskListenerExecutionScope.getCustomPropertiesMap()",
-      "String TransactionDependentTaskListenerExecutionScope.getExecutionId()",
-      "Map TransactionDependentTaskListenerExecutionScope.getExecutionVariables()",
-      "String TransactionDependentTaskListenerExecutionScope.getProcessInstanceId()",
-      "Task TransactionDependentTaskListenerExecutionScope.getTask()"})
   public void testGettersAndSetters() {
     // Arrange
     Task task = new Task();

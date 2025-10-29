@@ -19,8 +19,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Optional;
@@ -29,22 +27,30 @@ import org.activiti.engine.impl.bpmn.parser.FieldDeclaration;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class BpmnMessagePayloadMappingProviderDiffblueTest {
   /**
-   * Test {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldDeclaration#FieldDeclaration()}.</li>
-   *   <li>Then return {@link Optional#get()} {@code null} is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}
+   * Method under test:
+   * {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Optional BpmnMessagePayloadMappingProvider.getMessagePayload(DelegateExecution)"})
-  public void testGetMessagePayload_givenArrayListAddFieldDeclaration_thenReturnGetNullIsNull() {
+  public void testGetMessagePayload() {
+    // Arrange
+    BpmnMessagePayloadMappingProvider bpmnMessagePayloadMappingProvider = new BpmnMessagePayloadMappingProvider(
+        new ArrayList<>());
+
+    // Act and Assert
+    assertFalse(bpmnMessagePayloadMappingProvider
+        .getMessagePayload(ExecutionEntityImpl.createWithEmptyRelationshipCollections())
+        .isPresent());
+  }
+
+  /**
+   * Method under test:
+   * {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}
+   */
+  @Test
+  public void testGetMessagePayload2() {
     // Arrange
     ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
     fieldDeclarations.add(new FieldDeclaration());
@@ -63,18 +69,11 @@ public class BpmnMessagePayloadMappingProviderDiffblueTest {
   }
 
   /**
-   * Test {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldDeclaration#FieldDeclaration()}.</li>
-   *   <li>Then return {@link Optional#get()} {@code null} is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}
+   * Method under test:
+   * {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Optional BpmnMessagePayloadMappingProvider.getMessagePayload(DelegateExecution)"})
-  public void testGetMessagePayload_givenArrayListAddFieldDeclaration_thenReturnGetNullIsNull2() {
+  public void testGetMessagePayload3() {
     // Arrange
     ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
     fieldDeclarations.add(new FieldDeclaration());
@@ -94,17 +93,11 @@ public class BpmnMessagePayloadMappingProviderDiffblueTest {
   }
 
   /**
-   * Test {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}.
-   * <ul>
-   *   <li>Then return {@link Optional#get()} containsKey {@code Name}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}
+   * Method under test:
+   * {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Optional BpmnMessagePayloadMappingProvider.getMessagePayload(DelegateExecution)"})
-  public void testGetMessagePayload_thenReturnGetContainsKeyName() {
+  public void testGetMessagePayload4() {
     // Arrange
     ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
     fieldDeclarations.add(new FieldDeclaration("Name", "Type", JSONObject.NULL));
@@ -120,27 +113,5 @@ public class BpmnMessagePayloadMappingProviderDiffblueTest {
     assertEquals(1, getResult.size());
     assertTrue(getResult.containsKey("Name"));
     assertTrue(actualMessagePayload.isPresent());
-  }
-
-  /**
-   * Test {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}.
-   * <ul>
-   *   <li>Then return not Present.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Optional BpmnMessagePayloadMappingProvider.getMessagePayload(DelegateExecution)"})
-  public void testGetMessagePayload_thenReturnNotPresent() {
-    // Arrange
-    BpmnMessagePayloadMappingProvider bpmnMessagePayloadMappingProvider = new BpmnMessagePayloadMappingProvider(
-        new ArrayList<>());
-
-    // Act and Assert
-    assertFalse(bpmnMessagePayloadMappingProvider
-        .getMessagePayload(ExecutionEntityImpl.createWithEmptyRelationshipCollections())
-        .isPresent());
   }
 }

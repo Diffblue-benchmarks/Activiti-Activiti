@@ -16,87 +16,35 @@
 package org.activiti.engine.impl.calendar;
 
 import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.text.ParseException;
 import java.util.TimeZone;
 import org.activiti.engine.impl.util.DefaultClockImpl;
 import org.activiti.engine.runtime.ClockReader;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class CronExpressionDiffblueTest {
   /**
-   * Test {@link CronExpression#CronExpression(String, ClockReader)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then throw {@link ParseException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link CronExpression#CronExpression(String, ClockReader)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CronExpression.<init>(String, ClockReader)"})
-  public void testNewCronExpression_when42_thenThrowParseException() throws ParseException {
-    // Arrange, Act and Assert
-    assertThrows(ParseException.class, () -> new CronExpression("42", new DefaultClockImpl()));
-
-  }
-
-  /**
-   * Test {@link CronExpression#CronExpression(String, ClockReader, TimeZone)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then throw {@link ParseException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CronExpression#CronExpression(String, ClockReader, TimeZone)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CronExpression.<init>(String, ClockReader, TimeZone)"})
-  public void testNewCronExpression_when42_thenThrowParseException2() throws ParseException {
-    // Arrange
-    DefaultClockImpl clockReader = new DefaultClockImpl();
-
-    // Act and Assert
-    assertThrows(ParseException.class,
-        () -> new CronExpression("42", clockReader, TimeZone.getTimeZone("America/Los_Angeles")));
-
-  }
-
-  /**
-   * Test {@link CronExpression#CronExpression(String, ClockReader)}.
-   * <ul>
-   *   <li>When {@code Cron Expression}.</li>
-   *   <li>Then throw {@link ParseException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CronExpression#CronExpression(String, ClockReader)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CronExpression.<init>(String, ClockReader)"})
-  public void testNewCronExpression_whenCronExpression_thenThrowParseException() throws ParseException {
+  public void testNewCronExpression() throws ParseException {
     // Arrange, Act and Assert
     assertThrows(ParseException.class, () -> new CronExpression("Cron Expression", new DefaultClockImpl()));
 
+    assertThrows(ParseException.class, () -> new CronExpression("L-9", new DefaultClockImpl()));
+    assertThrows(ParseException.class, () -> new CronExpression("L", new DefaultClockImpl()));
+    assertThrows(ParseException.class, () -> new CronExpression("LW", new DefaultClockImpl()));
+    assertThrows(ParseException.class, () -> new CronExpression("^L-[0-9]*[W]?", new DefaultClockImpl()));
+    assertThrows(IllegalArgumentException.class, () -> new CronExpression(null, new DefaultClockImpl()));
+    assertThrows(ParseException.class, () -> new CronExpression("42", new DefaultClockImpl()));
   }
 
   /**
-   * Test {@link CronExpression#CronExpression(String, ClockReader, TimeZone)}.
-   * <ul>
-   *   <li>When {@code Cron Expression}.</li>
-   *   <li>Then throw {@link ParseException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CronExpression#CronExpression(String, ClockReader, TimeZone)}
+   * Method under test:
+   * {@link CronExpression#CronExpression(String, ClockReader, TimeZone)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CronExpression.<init>(String, ClockReader, TimeZone)"})
-  public void testNewCronExpression_whenCronExpression_thenThrowParseException2() throws ParseException {
+  public void testNewCronExpression2() throws ParseException {
     // Arrange
     DefaultClockImpl clockReader = new DefaultClockImpl();
 
@@ -107,36 +55,11 @@ public class CronExpressionDiffblueTest {
   }
 
   /**
-   * Test {@link CronExpression#CronExpression(String, ClockReader)}.
-   * <ul>
-   *   <li>When {@code L-9}.</li>
-   *   <li>Then throw {@link ParseException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CronExpression#CronExpression(String, ClockReader)}
+   * Method under test:
+   * {@link CronExpression#CronExpression(String, ClockReader, TimeZone)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CronExpression.<init>(String, ClockReader)"})
-  public void testNewCronExpression_whenL9_thenThrowParseException() throws ParseException {
-    // Arrange, Act and Assert
-    assertThrows(ParseException.class, () -> new CronExpression("L-9", new DefaultClockImpl()));
-
-  }
-
-  /**
-   * Test {@link CronExpression#CronExpression(String, ClockReader, TimeZone)}.
-   * <ul>
-   *   <li>When {@code L-9}.</li>
-   *   <li>Then throw {@link ParseException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CronExpression#CronExpression(String, ClockReader, TimeZone)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CronExpression.<init>(String, ClockReader, TimeZone)"})
-  public void testNewCronExpression_whenL9_thenThrowParseException2() throws ParseException {
+  public void testNewCronExpression3() throws ParseException {
     // Arrange
     DefaultClockImpl clockReader = new DefaultClockImpl();
 
@@ -147,76 +70,11 @@ public class CronExpressionDiffblueTest {
   }
 
   /**
-   * Test {@link CronExpression#CronExpression(String, ClockReader)}.
-   * <ul>
-   *   <li>When {@code ^L-[0-9]*[W]?}.</li>
-   *   <li>Then throw {@link ParseException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CronExpression#CronExpression(String, ClockReader)}
+   * Method under test:
+   * {@link CronExpression#CronExpression(String, ClockReader, TimeZone)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CronExpression.<init>(String, ClockReader)"})
-  public void testNewCronExpression_whenL09W_thenThrowParseException() throws ParseException {
-    // Arrange, Act and Assert
-    assertThrows(ParseException.class, () -> new CronExpression("^L-[0-9]*[W]?", new DefaultClockImpl()));
-
-  }
-
-  /**
-   * Test {@link CronExpression#CronExpression(String, ClockReader, TimeZone)}.
-   * <ul>
-   *   <li>When {@code ^L-[0-9]*[W]?}.</li>
-   *   <li>Then throw {@link ParseException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CronExpression#CronExpression(String, ClockReader, TimeZone)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CronExpression.<init>(String, ClockReader, TimeZone)"})
-  public void testNewCronExpression_whenL09W_thenThrowParseException2() throws ParseException {
-    // Arrange
-    DefaultClockImpl clockReader = new DefaultClockImpl();
-
-    // Act and Assert
-    assertThrows(ParseException.class,
-        () -> new CronExpression("^L-[0-9]*[W]?", clockReader, TimeZone.getTimeZone("America/Los_Angeles")));
-
-  }
-
-  /**
-   * Test {@link CronExpression#CronExpression(String, ClockReader)}.
-   * <ul>
-   *   <li>When {@code L}.</li>
-   *   <li>Then throw {@link ParseException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CronExpression#CronExpression(String, ClockReader)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CronExpression.<init>(String, ClockReader)"})
-  public void testNewCronExpression_whenL_thenThrowParseException() throws ParseException {
-    // Arrange, Act and Assert
-    assertThrows(ParseException.class, () -> new CronExpression("L", new DefaultClockImpl()));
-
-  }
-
-  /**
-   * Test {@link CronExpression#CronExpression(String, ClockReader, TimeZone)}.
-   * <ul>
-   *   <li>When {@code L}.</li>
-   *   <li>Then throw {@link ParseException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CronExpression#CronExpression(String, ClockReader, TimeZone)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CronExpression.<init>(String, ClockReader, TimeZone)"})
-  public void testNewCronExpression_whenL_thenThrowParseException2() throws ParseException {
+  public void testNewCronExpression4() throws ParseException {
     // Arrange
     DefaultClockImpl clockReader = new DefaultClockImpl();
 
@@ -227,36 +85,11 @@ public class CronExpressionDiffblueTest {
   }
 
   /**
-   * Test {@link CronExpression#CronExpression(String, ClockReader)}.
-   * <ul>
-   *   <li>When {@code LW}.</li>
-   *   <li>Then throw {@link ParseException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CronExpression#CronExpression(String, ClockReader)}
+   * Method under test:
+   * {@link CronExpression#CronExpression(String, ClockReader, TimeZone)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CronExpression.<init>(String, ClockReader)"})
-  public void testNewCronExpression_whenLw_thenThrowParseException() throws ParseException {
-    // Arrange, Act and Assert
-    assertThrows(ParseException.class, () -> new CronExpression("LW", new DefaultClockImpl()));
-
-  }
-
-  /**
-   * Test {@link CronExpression#CronExpression(String, ClockReader, TimeZone)}.
-   * <ul>
-   *   <li>When {@code LW}.</li>
-   *   <li>Then throw {@link ParseException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CronExpression#CronExpression(String, ClockReader, TimeZone)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CronExpression.<init>(String, ClockReader, TimeZone)"})
-  public void testNewCronExpression_whenLw_thenThrowParseException2() throws ParseException {
+  public void testNewCronExpression5() throws ParseException {
     // Arrange
     DefaultClockImpl clockReader = new DefaultClockImpl();
 
@@ -267,42 +100,47 @@ public class CronExpressionDiffblueTest {
   }
 
   /**
-   * Test {@link CronExpression#CronExpression(String, ClockReader)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CronExpression#CronExpression(String, ClockReader)}
+   * Method under test:
+   * {@link CronExpression#CronExpression(String, ClockReader, TimeZone)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CronExpression.<init>(String, ClockReader)"})
-  public void testNewCronExpression_whenNull_thenThrowIllegalArgumentException() throws ParseException {
-    // Arrange, Act and Assert
-    assertThrows(IllegalArgumentException.class, () -> new CronExpression(null, new DefaultClockImpl()));
+  public void testNewCronExpression6() throws ParseException {
+    // Arrange
+    DefaultClockImpl clockReader = new DefaultClockImpl();
+
+    // Act and Assert
+    assertThrows(ParseException.class,
+        () -> new CronExpression("^L-[0-9]*[W]?", clockReader, TimeZone.getTimeZone("America/Los_Angeles")));
 
   }
 
   /**
-   * Test {@link CronExpression#CronExpression(String, ClockReader, TimeZone)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link IllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CronExpression#CronExpression(String, ClockReader, TimeZone)}
+   * Method under test:
+   * {@link CronExpression#CronExpression(String, ClockReader, TimeZone)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CronExpression.<init>(String, ClockReader, TimeZone)"})
-  public void testNewCronExpression_whenNull_thenThrowIllegalArgumentException2() throws ParseException {
+  public void testNewCronExpression7() throws ParseException {
     // Arrange
     DefaultClockImpl clockReader = new DefaultClockImpl();
 
     // Act and Assert
     assertThrows(IllegalArgumentException.class,
         () -> new CronExpression(null, clockReader, TimeZone.getTimeZone("America/Los_Angeles")));
+
+  }
+
+  /**
+   * Method under test:
+   * {@link CronExpression#CronExpression(String, ClockReader, TimeZone)}
+   */
+  @Test
+  public void testNewCronExpression8() throws ParseException {
+    // Arrange
+    DefaultClockImpl clockReader = new DefaultClockImpl();
+
+    // Act and Assert
+    assertThrows(ParseException.class,
+        () -> new CronExpression("42", clockReader, TimeZone.getTimeZone("America/Los_Angeles")));
 
   }
 }

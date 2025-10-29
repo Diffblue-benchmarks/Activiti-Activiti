@@ -16,28 +16,20 @@
 package org.activiti.runtime.api.event.impl;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import org.activiti.engine.delegate.event.ActivitiEntityEvent;
 import org.activiti.engine.delegate.event.impl.ActivitiProcessCancelledEventImpl;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.junit.jupiter.api.Test;
 
 class ToMessageSubscriptionCancelledConverterDiffblueTest {
   /**
-   * Test {@link ToMessageSubscriptionCancelledConverter#from(ActivitiEntityEvent)} with {@code ActivitiEntityEvent}.
-   * <ul>
-   *   <li>Then return not Present.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ToMessageSubscriptionCancelledConverter#from(ActivitiEntityEvent)}
+   * Method under test:
+   * {@link ToMessageSubscriptionCancelledConverter#from(ActivitiEntityEvent)}
    */
   @Test
-  @DisplayName("Test from(ActivitiEntityEvent) with 'ActivitiEntityEvent'; then return not Present")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.util.Optional ToMessageSubscriptionCancelledConverter.from(ActivitiEntityEvent)"})
-  void testFromWithActivitiEntityEvent_thenReturnNotPresent() {
+  void testFrom() {
     // Arrange
     ToMessageSubscriptionCancelledConverter toMessageSubscriptionCancelledConverter = new ToMessageSubscriptionCancelledConverter(
         new MessageSubscriptionConverter());
@@ -46,5 +38,21 @@ class ToMessageSubscriptionCancelledConverterDiffblueTest {
     assertFalse(toMessageSubscriptionCancelledConverter
         .from(new ActivitiProcessCancelledEventImpl(ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
         .isPresent());
+  }
+
+  /**
+   * Method under test:
+   * {@link ToMessageSubscriptionCancelledConverter#from(ActivitiEntityEvent)}
+   */
+  @Test
+  void testFrom2() {
+    // Arrange
+    ToMessageSubscriptionCancelledConverter toMessageSubscriptionCancelledConverter = new ToMessageSubscriptionCancelledConverter(
+        new MessageSubscriptionConverter());
+
+    // Act and Assert
+    assertFalse(
+        toMessageSubscriptionCancelledConverter.from(new ActivitiProcessCancelledEventImpl(mock(ProcessInstance.class)))
+            .isPresent());
   }
 }

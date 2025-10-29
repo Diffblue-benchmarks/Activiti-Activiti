@@ -15,15 +15,16 @@
  */
 package org.activiti.runtime.api.model.impl;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.activiti.api.task.model.TaskCandidateGroup;
 import org.activiti.api.task.model.impl.TaskCandidateGroupImpl;
 import org.activiti.engine.impl.persistence.entity.IdentityLinkEntityImpl;
 import org.activiti.engine.task.IdentityLink;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,18 +38,10 @@ class APITaskCandidateGroupConverterDiffblueTest {
   private APITaskCandidateGroupConverter aPITaskCandidateGroupConverter;
 
   /**
-   * Test {@link APITaskCandidateGroupConverter#from(IdentityLink)} with {@code IdentityLink}.
-   * <ul>
-   *   <li>Then return {@link TaskCandidateGroupImpl}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link APITaskCandidateGroupConverter#from(IdentityLink)}
    */
   @Test
-  @DisplayName("Test from(IdentityLink) with 'IdentityLink'; then return TaskCandidateGroupImpl")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TaskCandidateGroup APITaskCandidateGroupConverter.from(IdentityLink)"})
-  void testFromWithIdentityLink_thenReturnTaskCandidateGroupImpl() {
+  void testFrom() {
     // Arrange and Act
     TaskCandidateGroup actualFromResult = aPITaskCandidateGroupConverter.from(new IdentityLinkEntityImpl());
 
@@ -56,5 +49,26 @@ class APITaskCandidateGroupConverterDiffblueTest {
     assertTrue(actualFromResult instanceof TaskCandidateGroupImpl);
     assertNull(actualFromResult.getTaskId());
     assertNull(actualFromResult.getGroupId());
+  }
+
+  /**
+   * Method under test: {@link APITaskCandidateGroupConverter#from(IdentityLink)}
+   */
+  @Test
+  void testFrom2() {
+    // Arrange
+    IdentityLinkEntityImpl identityLink = mock(IdentityLinkEntityImpl.class);
+    when(identityLink.getGroupId()).thenReturn("42");
+    when(identityLink.getTaskId()).thenReturn("42");
+
+    // Act
+    TaskCandidateGroup actualFromResult = aPITaskCandidateGroupConverter.from(identityLink);
+
+    // Assert
+    verify(identityLink).getGroupId();
+    verify(identityLink).getTaskId();
+    assertTrue(actualFromResult instanceof TaskCandidateGroupImpl);
+    assertEquals("42", actualFromResult.getTaskId());
+    assertEquals("42", actualFromResult.getGroupId());
   }
 }

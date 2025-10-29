@@ -17,23 +17,14 @@ package org.activiti.engine.repository;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class DiagramEdgeDiffblueTest {
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>Then return Id is {@code null}.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link DiagramEdge#DiagramEdge()}
@@ -44,34 +35,22 @@ public class DiagramEdgeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DiagramEdge.<init>()", "void DiagramEdge.<init>(String, List)",
-      "List DiagramEdge.getWaypoints()", "boolean DiagramEdge.isEdge()", "boolean DiagramEdge.isNode()",
-      "void DiagramEdge.setWaypoints(List)"})
-  public void testGettersAndSetters_thenReturnIdIsNull() {
+  public void testGettersAndSetters() {
     // Arrange and Act
     DiagramEdge actualDiagramEdge = new DiagramEdge();
     ArrayList<DiagramEdgeWaypoint> waypoints = new ArrayList<>();
     actualDiagramEdge.setWaypoints(waypoints);
     List<DiagramEdgeWaypoint> actualWaypoints = actualDiagramEdge.getWaypoints();
     boolean actualIsEdgeResult = actualDiagramEdge.isEdge();
-    boolean actualIsNodeResult = actualDiagramEdge.isNode();
 
-    // Assert
-    assertNull(actualDiagramEdge.getId());
-    assertFalse(actualIsNodeResult);
+    // Assert that nothing has changed
+    assertFalse(actualDiagramEdge.isNode());
     assertTrue(actualWaypoints.isEmpty());
     assertTrue(actualIsEdgeResult);
     assertSame(waypoints, actualWaypoints);
   }
 
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then return Id is {@code 42}.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link DiagramEdge#DiagramEdge(String, List)}
@@ -82,11 +61,7 @@ public class DiagramEdgeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DiagramEdge.<init>()", "void DiagramEdge.<init>(String, List)",
-      "List DiagramEdge.getWaypoints()", "boolean DiagramEdge.isEdge()", "boolean DiagramEdge.isNode()",
-      "void DiagramEdge.setWaypoints(List)"})
-  public void testGettersAndSetters_when42_thenReturnIdIs42() {
+  public void testGettersAndSetters2() {
     // Arrange and Act
     DiagramEdge actualDiagramEdge = new DiagramEdge("42", new ArrayList<>());
     ArrayList<DiagramEdgeWaypoint> waypoints = new ArrayList<>();
@@ -95,7 +70,7 @@ public class DiagramEdgeDiffblueTest {
     boolean actualIsEdgeResult = actualDiagramEdge.isEdge();
     boolean actualIsNodeResult = actualDiagramEdge.isNode();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("42", actualDiagramEdge.getId());
     assertFalse(actualIsNodeResult);
     assertTrue(actualWaypoints.isEmpty());

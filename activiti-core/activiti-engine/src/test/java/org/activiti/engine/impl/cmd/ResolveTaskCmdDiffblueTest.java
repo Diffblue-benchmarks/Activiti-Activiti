@@ -17,17 +17,12 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ResolveTaskCmdDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link ResolveTaskCmd#ResolveTaskCmd(String, Map)}
@@ -35,9 +30,6 @@ public class ResolveTaskCmdDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ResolveTaskCmd.<init>(String, Map)", "void ResolveTaskCmd.<init>(String, Map, Map)",
-      "String ResolveTaskCmd.getSuspendedTaskException()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ResolveTaskCmd actualResolveTaskCmd = new ResolveTaskCmd("42", new HashMap<>());
@@ -48,11 +40,6 @@ public class ResolveTaskCmdDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>Then return {@link ResolveTaskCmd#transientVariables} Empty.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link ResolveTaskCmd#ResolveTaskCmd(String, Map, Map)}
@@ -60,10 +47,7 @@ public class ResolveTaskCmdDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ResolveTaskCmd.<init>(String, Map)", "void ResolveTaskCmd.<init>(String, Map, Map)",
-      "String ResolveTaskCmd.getSuspendedTaskException()"})
-  public void testGettersAndSetters_thenReturnTransientVariablesEmpty() {
+  public void testGettersAndSetters2() {
     // Arrange
     HashMap<String, Object> variables = new HashMap<>();
 

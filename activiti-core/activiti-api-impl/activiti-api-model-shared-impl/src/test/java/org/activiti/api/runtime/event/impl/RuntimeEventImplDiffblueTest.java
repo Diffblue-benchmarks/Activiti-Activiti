@@ -19,120 +19,113 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.activiti.api.runtime.model.impl.VariableInstanceImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class RuntimeEventImplDiffblueTest {
   /**
-   * Test {@link RuntimeEventImpl#getEntity()}.
-   * <p>
+   * Method under test: {@link RuntimeEventImpl#getId()}
+   */
+  @Test
+  void testGetId() {
+    // Arrange
+    VariableInstanceImpl<Object> entity = mock(VariableInstanceImpl.class);
+    when(entity.getProcessInstanceId()).thenReturn("42");
+
+    // Act
+    (new VariableCreatedEventImpl(entity, "42")).getId();
+
+    // Assert
+    verify(entity).getProcessInstanceId();
+  }
+
+  /**
    * Method under test: {@link RuntimeEventImpl#getEntity()}
    */
   @Test
-  @DisplayName("Test getEntity()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object RuntimeEventImpl.getEntity()"})
   void testGetEntity() {
     // Arrange, Act and Assert
     assertNull((new VariableCreatedEventImpl()).getEntity());
   }
 
   /**
-   * Test {@link RuntimeEventImpl#getProcessInstanceId()}.
-   * <p>
+   * Method under test: {@link RuntimeEventImpl#getTimestamp()}
+   */
+  @Test
+  void testGetTimestamp() {
+    // Arrange
+    VariableInstanceImpl<Object> entity = mock(VariableInstanceImpl.class);
+    when(entity.getProcessInstanceId()).thenReturn("42");
+
+    // Act
+    (new VariableCreatedEventImpl(entity, "42")).getTimestamp();
+
+    // Assert
+    verify(entity).getProcessInstanceId();
+  }
+
+  /**
    * Method under test: {@link RuntimeEventImpl#getProcessInstanceId()}
    */
   @Test
-  @DisplayName("Test getProcessInstanceId()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String RuntimeEventImpl.getProcessInstanceId()"})
   void testGetProcessInstanceId() {
     // Arrange, Act and Assert
     assertNull((new VariableCreatedEventImpl()).getProcessInstanceId());
   }
 
   /**
-   * Test {@link RuntimeEventImpl#getProcessDefinitionId()}.
-   * <p>
    * Method under test: {@link RuntimeEventImpl#getProcessDefinitionId()}
    */
   @Test
-  @DisplayName("Test getProcessDefinitionId()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String RuntimeEventImpl.getProcessDefinitionId()"})
   void testGetProcessDefinitionId() {
     // Arrange, Act and Assert
     assertNull((new VariableCreatedEventImpl()).getProcessDefinitionId());
   }
 
   /**
-   * Test {@link RuntimeEventImpl#getProcessDefinitionKey()}.
-   * <p>
    * Method under test: {@link RuntimeEventImpl#getProcessDefinitionKey()}
    */
   @Test
-  @DisplayName("Test getProcessDefinitionKey()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String RuntimeEventImpl.getProcessDefinitionKey()"})
   void testGetProcessDefinitionKey() {
     // Arrange, Act and Assert
     assertNull((new VariableCreatedEventImpl()).getProcessDefinitionKey());
   }
 
   /**
-   * Test {@link RuntimeEventImpl#getProcessDefinitionVersion()}.
-   * <p>
    * Method under test: {@link RuntimeEventImpl#getProcessDefinitionVersion()}
    */
   @Test
-  @DisplayName("Test getProcessDefinitionVersion()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Integer RuntimeEventImpl.getProcessDefinitionVersion()"})
   void testGetProcessDefinitionVersion() {
     // Arrange, Act and Assert
     assertNull((new VariableCreatedEventImpl()).getProcessDefinitionVersion());
   }
 
   /**
-   * Test {@link RuntimeEventImpl#getBusinessKey()}.
-   * <p>
    * Method under test: {@link RuntimeEventImpl#getBusinessKey()}
    */
   @Test
-  @DisplayName("Test getBusinessKey()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String RuntimeEventImpl.getBusinessKey()"})
   void testGetBusinessKey() {
     // Arrange, Act and Assert
     assertNull((new VariableCreatedEventImpl()).getBusinessKey());
   }
 
   /**
-   * Test {@link RuntimeEventImpl#getParentProcessInstanceId()}.
-   * <p>
    * Method under test: {@link RuntimeEventImpl#getParentProcessInstanceId()}
    */
   @Test
-  @DisplayName("Test getParentProcessInstanceId()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String RuntimeEventImpl.getParentProcessInstanceId()"})
   void testGetParentProcessInstanceId() {
     // Arrange, Act and Assert
     assertNull((new VariableCreatedEventImpl()).getParentProcessInstanceId());
   }
 
   /**
-   * Test {@link RuntimeEventImpl#setParentProcessInstanceId(String)}.
-   * <p>
-   * Method under test: {@link RuntimeEventImpl#setParentProcessInstanceId(String)}
+   * Method under test:
+   * {@link RuntimeEventImpl#setParentProcessInstanceId(String)}
    */
   @Test
-  @DisplayName("Test setParentProcessInstanceId(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void RuntimeEventImpl.setParentProcessInstanceId(String)"})
   void testSetParentProcessInstanceId() {
     // Arrange
     VariableCreatedEventImpl variableCreatedEventImpl = new VariableCreatedEventImpl();
@@ -145,14 +138,9 @@ class RuntimeEventImplDiffblueTest {
   }
 
   /**
-   * Test {@link RuntimeEventImpl#setProcessDefinitionId(String)}.
-   * <p>
    * Method under test: {@link RuntimeEventImpl#setProcessDefinitionId(String)}
    */
   @Test
-  @DisplayName("Test setProcessDefinitionId(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void RuntimeEventImpl.setProcessDefinitionId(String)"})
   void testSetProcessDefinitionId() {
     // Arrange
     VariableCreatedEventImpl variableCreatedEventImpl = new VariableCreatedEventImpl();
@@ -165,14 +153,9 @@ class RuntimeEventImplDiffblueTest {
   }
 
   /**
-   * Test {@link RuntimeEventImpl#setProcessDefinitionKey(String)}.
-   * <p>
    * Method under test: {@link RuntimeEventImpl#setProcessDefinitionKey(String)}
    */
   @Test
-  @DisplayName("Test setProcessDefinitionKey(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void RuntimeEventImpl.setProcessDefinitionKey(String)"})
   void testSetProcessDefinitionKey() {
     // Arrange
     VariableCreatedEventImpl variableCreatedEventImpl = new VariableCreatedEventImpl();
@@ -185,14 +168,10 @@ class RuntimeEventImplDiffblueTest {
   }
 
   /**
-   * Test {@link RuntimeEventImpl#setProcessDefinitionVersion(Integer)}.
-   * <p>
-   * Method under test: {@link RuntimeEventImpl#setProcessDefinitionVersion(Integer)}
+   * Method under test:
+   * {@link RuntimeEventImpl#setProcessDefinitionVersion(Integer)}
    */
   @Test
-  @DisplayName("Test setProcessDefinitionVersion(Integer)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void RuntimeEventImpl.setProcessDefinitionVersion(Integer)"})
   void testSetProcessDefinitionVersion() {
     // Arrange
     VariableCreatedEventImpl variableCreatedEventImpl = new VariableCreatedEventImpl();
@@ -205,14 +184,9 @@ class RuntimeEventImplDiffblueTest {
   }
 
   /**
-   * Test {@link RuntimeEventImpl#setBusinessKey(String)}.
-   * <p>
    * Method under test: {@link RuntimeEventImpl#setBusinessKey(String)}
    */
   @Test
-  @DisplayName("Test setBusinessKey(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void RuntimeEventImpl.setBusinessKey(String)"})
   void testSetBusinessKey() {
     // Arrange
     VariableCreatedEventImpl variableCreatedEventImpl = new VariableCreatedEventImpl();
@@ -225,14 +199,9 @@ class RuntimeEventImplDiffblueTest {
   }
 
   /**
-   * Test {@link RuntimeEventImpl#setProcessInstanceId(String)}.
-   * <p>
    * Method under test: {@link RuntimeEventImpl#setProcessInstanceId(String)}
    */
   @Test
-  @DisplayName("Test setProcessInstanceId(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void RuntimeEventImpl.setProcessInstanceId(String)"})
   void testSetProcessInstanceId() {
     // Arrange
     VariableCreatedEventImpl variableCreatedEventImpl = new VariableCreatedEventImpl();
@@ -245,14 +214,9 @@ class RuntimeEventImplDiffblueTest {
   }
 
   /**
-   * Test {@link RuntimeEventImpl#setEntity(Object)}.
-   * <p>
    * Method under test: {@link RuntimeEventImpl#setEntity(Object)}
    */
   @Test
-  @DisplayName("Test setEntity(Object)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void RuntimeEventImpl.setEntity(Object)"})
   void testSetEntity() {
     // Arrange
     VariableCreatedEventImpl variableCreatedEventImpl = new VariableCreatedEventImpl();
@@ -266,12 +230,22 @@ class RuntimeEventImplDiffblueTest {
   }
 
   /**
-   * Test {@link RuntimeEventImpl#equals(Object)}, and {@link RuntimeEventImpl#hashCode()}.
-   * <ul>
-   *   <li>When other is same.</li>
-   *   <li>Then return equal.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link RuntimeEventImpl#toString()}
+   */
+  @Test
+  void testToString() {
+    // Arrange
+    VariableInstanceImpl<Object> entity = mock(VariableInstanceImpl.class);
+    when(entity.getProcessInstanceId()).thenReturn("42");
+
+    // Act
+    (new VariableCreatedEventImpl(entity, "42")).toString();
+
+    // Assert
+    verify(entity).getProcessInstanceId();
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>{@link RuntimeEventImpl#equals(Object)}
@@ -279,9 +253,6 @@ class RuntimeEventImplDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean RuntimeEventImpl.equals(Object)", "int RuntimeEventImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
     VariableCreatedEventImpl variableCreatedEventImpl = new VariableCreatedEventImpl();
@@ -293,18 +264,9 @@ class RuntimeEventImplDiffblueTest {
   }
 
   /**
-   * Test {@link RuntimeEventImpl#equals(Object)}.
-   * <ul>
-   *   <li>When other is different.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link RuntimeEventImpl#equals(Object)}
    */
   @Test
-  @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean RuntimeEventImpl.equals(Object)", "int RuntimeEventImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange
     VariableCreatedEventImpl variableCreatedEventImpl = new VariableCreatedEventImpl();
@@ -314,18 +276,9 @@ class RuntimeEventImplDiffblueTest {
   }
 
   /**
-   * Test {@link RuntimeEventImpl#equals(Object)}.
-   * <ul>
-   *   <li>When other is different.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link RuntimeEventImpl#equals(Object)}
    */
   @Test
-  @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean RuntimeEventImpl.equals(Object)", "int RuntimeEventImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
     // Arrange
     VariableCreatedEventImpl variableCreatedEventImpl = new VariableCreatedEventImpl(new VariableInstanceImpl<>(),
@@ -336,19 +289,19 @@ class RuntimeEventImplDiffblueTest {
   }
 
   /**
-   * Test {@link RuntimeEventImpl#equals(Object)}.
-   * <ul>
-   *   <li>When other is different.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link RuntimeEventImpl#equals(Object)}
    */
   @Test
-  @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean RuntimeEventImpl.equals(Object)", "int RuntimeEventImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual3() {
+    // Arrange, Act and Assert
+    assertNotEquals(new VariableCreatedEventImpl(), mock(VariableDeletedEventImpl.class));
+  }
+
+  /**
+   * Method under test: {@link RuntimeEventImpl#equals(Object)}
+   */
+  @Test
+  void testEquals_whenOtherIsDifferent_thenReturnNotEqual4() {
     // Arrange
     VariableCreatedEventImpl variableCreatedEventImpl = new VariableCreatedEventImpl();
     variableCreatedEventImpl.setBusinessKey("Business Key");
@@ -358,36 +311,18 @@ class RuntimeEventImplDiffblueTest {
   }
 
   /**
-   * Test {@link RuntimeEventImpl#equals(Object)}.
-   * <ul>
-   *   <li>When other is {@code null}.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link RuntimeEventImpl#equals(Object)}
    */
   @Test
-  @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean RuntimeEventImpl.equals(Object)", "int RuntimeEventImpl.hashCode()"})
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new VariableCreatedEventImpl(), null);
   }
 
   /**
-   * Test {@link RuntimeEventImpl#equals(Object)}.
-   * <ul>
-   *   <li>When other is wrong type.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link RuntimeEventImpl#equals(Object)}
    */
   @Test
-  @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean RuntimeEventImpl.equals(Object)", "int RuntimeEventImpl.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new VariableCreatedEventImpl(), "Different type to RuntimeEventImpl");

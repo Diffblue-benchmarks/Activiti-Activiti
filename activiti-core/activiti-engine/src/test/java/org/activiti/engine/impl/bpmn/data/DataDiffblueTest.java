@@ -17,15 +17,10 @@ package org.activiti.engine.impl.bpmn.data;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class DataDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link Data#Data(String, String, ItemDefinition)}
@@ -35,9 +30,6 @@ public class DataDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Data.<init>(String, String, ItemDefinition)", "ItemDefinition Data.getDefinition()",
-      "String Data.getId()", "String Data.getName()"})
   public void testGettersAndSetters() {
     // Arrange
     ItemDefinition definition = new ItemDefinition("42", new SimpleStructureDefinition("42"));

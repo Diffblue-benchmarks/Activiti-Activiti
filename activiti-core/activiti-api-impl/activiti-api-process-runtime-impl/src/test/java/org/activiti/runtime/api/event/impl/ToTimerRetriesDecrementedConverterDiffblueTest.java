@@ -16,29 +16,22 @@
 package org.activiti.runtime.api.event.impl;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.delegate.event.impl.ActivitiActivityCancelledEventImpl;
 import org.activiti.engine.delegate.event.impl.ActivitiEntityEventImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import org.activiti.engine.delegate.event.impl.ActivitiProcessCancelledEventImpl;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.junit.jupiter.api.Test;
 
 class ToTimerRetriesDecrementedConverterDiffblueTest {
   /**
-   * Test {@link ToTimerRetriesDecrementedConverter#from(ActivitiEvent)}.
-   * <ul>
-   *   <li>Then return not Present.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ToTimerRetriesDecrementedConverter#from(ActivitiEvent)}
+   * Method under test:
+   * {@link ToTimerRetriesDecrementedConverter#from(ActivitiEvent)}
    */
   @Test
-  @DisplayName("Test from(ActivitiEvent); then return not Present")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.util.Optional ToTimerRetriesDecrementedConverter.from(ActivitiEvent)"})
-  void testFrom_thenReturnNotPresent() {
+  void testFrom() {
     // Arrange
     ToTimerRetriesDecrementedConverter toTimerRetriesDecrementedConverter = new ToTimerRetriesDecrementedConverter(
         new BPMNTimerConverter());
@@ -48,18 +41,11 @@ class ToTimerRetriesDecrementedConverterDiffblueTest {
   }
 
   /**
-   * Test {@link ToTimerRetriesDecrementedConverter#from(ActivitiEvent)}.
-   * <ul>
-   *   <li>When {@link ActivitiEntityEventImpl#ActivitiEntityEventImpl(Object, ActivitiEventType)} with {@code Entity} and type is {@code ENTITY_CREATED}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ToTimerRetriesDecrementedConverter#from(ActivitiEvent)}
+   * Method under test:
+   * {@link ToTimerRetriesDecrementedConverter#from(ActivitiEvent)}
    */
   @Test
-  @DisplayName("Test from(ActivitiEvent); when ActivitiEntityEventImpl(Object, ActivitiEventType) with 'Entity' and type is 'ENTITY_CREATED'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.util.Optional ToTimerRetriesDecrementedConverter.from(ActivitiEvent)"})
-  void testFrom_whenActivitiEntityEventImplWithEntityAndTypeIsEntityCreated() {
+  void testFrom2() {
     // Arrange
     ToTimerRetriesDecrementedConverter toTimerRetriesDecrementedConverter = new ToTimerRetriesDecrementedConverter(
         new BPMNTimerConverter());
@@ -67,6 +53,22 @@ class ToTimerRetriesDecrementedConverterDiffblueTest {
     // Act and Assert
     assertFalse(
         toTimerRetriesDecrementedConverter.from(new ActivitiEntityEventImpl("Entity", ActivitiEventType.ENTITY_CREATED))
+            .isPresent());
+  }
+
+  /**
+   * Method under test:
+   * {@link ToTimerRetriesDecrementedConverter#from(ActivitiEvent)}
+   */
+  @Test
+  void testFrom3() {
+    // Arrange
+    ToTimerRetriesDecrementedConverter toTimerRetriesDecrementedConverter = new ToTimerRetriesDecrementedConverter(
+        new BPMNTimerConverter());
+
+    // Act and Assert
+    assertFalse(
+        toTimerRetriesDecrementedConverter.from(new ActivitiProcessCancelledEventImpl(mock(ProcessInstance.class)))
             .isPresent());
   }
 }

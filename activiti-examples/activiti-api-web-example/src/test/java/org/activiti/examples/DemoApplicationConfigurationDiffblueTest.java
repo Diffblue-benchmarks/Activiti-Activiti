@@ -16,9 +16,6 @@
 package org.activiti.examples;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,15 +30,9 @@ class DemoApplicationConfigurationDiffblueTest {
   private DemoApplicationConfiguration demoApplicationConfiguration;
 
   /**
-   * Test {@link DemoApplicationConfiguration#userDetailsService()}.
-   * <p>
    * Method under test: {@link DemoApplicationConfiguration#userDetailsService()}
    */
   @Test
-  @DisplayName("Test userDetailsService()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.springframework.security.core.userdetails.UserDetailsService DemoApplicationConfiguration.userDetailsService()"})
   void testUserDetailsService() {
     // Arrange, Act and Assert
     assertTrue(demoApplicationConfiguration.userDetailsService() instanceof InMemoryUserDetailsManager);

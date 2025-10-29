@@ -19,57 +19,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ProcessDefinitionInfoEntityImplDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>default or parameterless constructor of {@link ProcessDefinitionInfoEntityImpl}
-   *   <li>{@link ProcessDefinitionInfoEntityImpl#setInfoJsonId(String)}
-   *   <li>{@link ProcessDefinitionInfoEntityImpl#setProcessDefinitionId(String)}
-   *   <li>{@link ProcessDefinitionInfoEntityImpl#getInfoJsonId()}
-   *   <li>{@link ProcessDefinitionInfoEntityImpl#getProcessDefinitionId()}
-   * </ul>
+   * Method under test:
+   * {@link ProcessDefinitionInfoEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ProcessDefinitionInfoEntityImpl.<init>()",
-      "String ProcessDefinitionInfoEntityImpl.getInfoJsonId()",
-      "String ProcessDefinitionInfoEntityImpl.getProcessDefinitionId()",
-      "void ProcessDefinitionInfoEntityImpl.setInfoJsonId(String)",
-      "void ProcessDefinitionInfoEntityImpl.setProcessDefinitionId(String)"})
-  public void testGettersAndSetters() {
-    // Arrange and Act
-    ProcessDefinitionInfoEntityImpl actualProcessDefinitionInfoEntityImpl = new ProcessDefinitionInfoEntityImpl();
-    actualProcessDefinitionInfoEntityImpl.setInfoJsonId("42");
-    actualProcessDefinitionInfoEntityImpl.setProcessDefinitionId("42");
-    String actualInfoJsonId = actualProcessDefinitionInfoEntityImpl.getInfoJsonId();
-
-    // Assert
-    assertEquals("42", actualInfoJsonId);
-    assertEquals("42", actualProcessDefinitionInfoEntityImpl.getProcessDefinitionId());
-    assertNull(actualProcessDefinitionInfoEntityImpl.getId());
-    assertEquals(1, actualProcessDefinitionInfoEntityImpl.getRevision());
-    assertFalse(actualProcessDefinitionInfoEntityImpl.isDeleted());
-    assertFalse(actualProcessDefinitionInfoEntityImpl.isInserted());
-    assertFalse(actualProcessDefinitionInfoEntityImpl.isUpdated());
-  }
-
-  /**
-   * Test {@link ProcessDefinitionInfoEntityImpl#getPersistentState()}.
-   * <p>
-   * Method under test: {@link ProcessDefinitionInfoEntityImpl#getPersistentState()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object ProcessDefinitionInfoEntityImpl.getPersistentState()"})
   public void testGetPersistentState() {
     // Arrange and Act
     Object actualPersistentState = (new ProcessDefinitionInfoEntityImpl()).getPersistentState();
@@ -79,5 +37,33 @@ public class ProcessDefinitionInfoEntityImplDiffblueTest {
     assertEquals(2, ((Map<String, Object>) actualPersistentState).size());
     assertNull(((Map<String, Object>) actualPersistentState).get("infoJsonId"));
     assertNull(((Map<String, Object>) actualPersistentState).get("processDefinitionId"));
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>default or parameterless constructor of
+   * {@link ProcessDefinitionInfoEntityImpl}
+   *   <li>{@link ProcessDefinitionInfoEntityImpl#setInfoJsonId(String)}
+   *   <li>{@link ProcessDefinitionInfoEntityImpl#setProcessDefinitionId(String)}
+   *   <li>{@link ProcessDefinitionInfoEntityImpl#getInfoJsonId()}
+   *   <li>{@link ProcessDefinitionInfoEntityImpl#getProcessDefinitionId()}
+   * </ul>
+   */
+  @Test
+  public void testGettersAndSetters() {
+    // Arrange and Act
+    ProcessDefinitionInfoEntityImpl actualProcessDefinitionInfoEntityImpl = new ProcessDefinitionInfoEntityImpl();
+    actualProcessDefinitionInfoEntityImpl.setInfoJsonId("42");
+    actualProcessDefinitionInfoEntityImpl.setProcessDefinitionId("42");
+    String actualInfoJsonId = actualProcessDefinitionInfoEntityImpl.getInfoJsonId();
+
+    // Assert that nothing has changed
+    assertEquals("42", actualInfoJsonId);
+    assertEquals("42", actualProcessDefinitionInfoEntityImpl.getProcessDefinitionId());
+    assertEquals(1, actualProcessDefinitionInfoEntityImpl.getRevision());
+    assertFalse(actualProcessDefinitionInfoEntityImpl.isDeleted());
+    assertFalse(actualProcessDefinitionInfoEntityImpl.isInserted());
+    assertFalse(actualProcessDefinitionInfoEntityImpl.isUpdated());
   }
 }

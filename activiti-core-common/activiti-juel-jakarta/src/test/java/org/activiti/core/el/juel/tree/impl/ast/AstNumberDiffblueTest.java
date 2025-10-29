@@ -18,7 +18,6 @@ package org.activiti.core.el.juel.tree.impl.ast;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
 import jakarta.el.ValueExpression;
 import java.lang.reflect.Method;
@@ -26,38 +25,13 @@ import org.activiti.core.el.juel.ObjectValueExpression;
 import org.activiti.core.el.juel.misc.TypeConverter;
 import org.activiti.core.el.juel.tree.Bindings;
 import org.activiti.core.el.juel.util.SimpleContext;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class AstNumberDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link AstNumber#AstNumber(Number)}
-   *   <li>{@link AstNumber#toString()}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AstNumber.<init>(Number)", "java.lang.String AstNumber.toString()"})
-  void testGettersAndSetters() {
-    // Arrange, Act and Assert
-    assertEquals("1", (new AstNumber(Integer.valueOf(1))).toString());
-  }
-
-  /**
-   * Test {@link AstNumber#eval(Bindings, ELContext)}.
-   * <p>
    * Method under test: {@link AstNumber#eval(Bindings, ELContext)}
    */
   @Test
-  @DisplayName("Test eval(Bindings, ELContext)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object AstNumber.eval(Bindings, ELContext)"})
   void testEval() {
     // Arrange
     Integer value = Integer.valueOf(1);
@@ -67,27 +41,15 @@ class AstNumberDiffblueTest {
     Bindings bindings = new Bindings(new Method[]{null},
         new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
 
-    // Act
-    Object actualEvalResult = astNumber.eval(bindings, new SimpleContext());
-
-    // Assert
-    assertEquals(1, ((Integer) actualEvalResult).intValue());
-    assertSame(value, actualEvalResult);
+    // Act and Assert
+    assertSame(value, astNumber.eval(bindings, new SimpleContext()));
   }
 
   /**
-   * Test {@link AstNumber#appendStructure(StringBuilder, Bindings)}.
-   * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foo1}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstNumber#appendStructure(StringBuilder, Bindings)}
    */
   @Test
-  @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foo1'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AstNumber.appendStructure(StringBuilder, Bindings)"})
-  void testAppendStructure_thenStringBuilderWithFooToStringIsFoo1() {
+  void testAppendStructure() {
     // Arrange
     AstNumber astNumber = new AstNumber(Integer.valueOf(1));
     StringBuilder b = new StringBuilder("foo");
@@ -100,5 +62,18 @@ class AstNumberDiffblueTest {
 
     // Assert
     assertEquals("foo1", b.toString());
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>{@link AstNumber#AstNumber(Number)}
+   *   <li>{@link AstNumber#toString()}
+   * </ul>
+   */
+  @Test
+  void testGettersAndSetters() {
+    // Arrange, Act and Assert
+    assertEquals("1", (new AstNumber(Integer.valueOf(1))).toString());
   }
 }

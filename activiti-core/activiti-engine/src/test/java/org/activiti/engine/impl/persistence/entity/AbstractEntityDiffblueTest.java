@@ -19,83 +19,128 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class AbstractEntityDiffblueTest {
+  @InjectMocks
+  private AttachmentEntityImpl attachmentEntityImpl;
+
   /**
-   * Test {@link AbstractEntity#getId()}.
-   * <p>
    * Method under test: {@link AbstractEntity#getId()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String AbstractEntity.getId()"})
   public void testGetId() {
     // Arrange, Act and Assert
     assertNull((new AttachmentEntityImpl()).getId());
   }
 
   /**
-   * Test {@link AbstractEntity#setId(String)}.
-   * <p>
-   * Method under test: {@link AbstractEntity#setId(String)}
+   * Method under test: {@link AbstractEntity#getId()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AbstractEntity.setId(String)"})
-  public void testSetId() {
+  public void testGetId2() {
     // Arrange
     AttachmentEntityImpl attachmentEntityImpl = new AttachmentEntityImpl();
+    attachmentEntityImpl.setContent(mock(ByteArrayEntity.class));
 
-    // Act
-    attachmentEntityImpl.setId("42");
-
-    // Assert
-    assertEquals("42", attachmentEntityImpl.getId());
+    // Act and Assert
+    assertNull(attachmentEntityImpl.getId());
   }
 
   /**
-   * Test {@link AbstractEntity#getRevisionNext()}.
-   * <p>
+   * Method under test: {@link AbstractEntity#setId(String)}
+   */
+  @Test
+  public void testSetId() {
+    // Arrange
+    AttachmentEntityImpl attachmentEntityImpl2 = new AttachmentEntityImpl();
+
+    // Act
+    attachmentEntityImpl2.setId("42");
+
+    // Assert
+    assertEquals("42", attachmentEntityImpl2.getId());
+  }
+
+  /**
+   * Method under test: {@link AbstractEntity#setId(String)}
+   */
+  @Test
+  public void testSetId2() {
+    // Arrange
+    AttachmentEntityImpl attachmentEntityImpl2 = new AttachmentEntityImpl();
+    attachmentEntityImpl2.setContent(mock(ByteArrayEntityImpl.class));
+
+    // Act
+    attachmentEntityImpl2.setId("42");
+
+    // Assert
+    assertEquals("42", attachmentEntityImpl2.getId());
+  }
+
+  /**
    * Method under test: {@link AbstractEntity#getRevisionNext()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"int AbstractEntity.getRevisionNext()"})
   public void testGetRevisionNext() {
     // Arrange, Act and Assert
     assertEquals(2, (new AttachmentEntityImpl()).getRevisionNext());
   }
 
   /**
-   * Test {@link AbstractEntity#getRevision()}.
-   * <p>
+   * Method under test: {@link AbstractEntity#getRevisionNext()}
+   */
+  @Test
+  public void testGetRevisionNext2() {
+    // Arrange
+    AttachmentEntityImpl attachmentEntityImpl = new AttachmentEntityImpl();
+    attachmentEntityImpl.setContent(mock(ByteArrayEntity.class));
+
+    // Act and Assert
+    assertEquals(2, attachmentEntityImpl.getRevisionNext());
+  }
+
+  /**
    * Method under test: {@link AbstractEntity#getRevision()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"int AbstractEntity.getRevision()"})
   public void testGetRevision() {
     // Arrange, Act and Assert
     assertEquals(1, (new AttachmentEntityImpl()).getRevision());
   }
 
   /**
-   * Test {@link AbstractEntity#isInserted()}.
-   * <ul>
-   *   <li>Given {@link AttachmentEntityImpl} (default constructor) Inserted is {@code true}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link AbstractEntity#getRevision()}
+   */
+  @Test
+  public void testGetRevision2() {
+    // Arrange
+    AttachmentEntityImpl attachmentEntityImpl = new AttachmentEntityImpl();
+    attachmentEntityImpl.setContent(mock(ByteArrayEntity.class));
+
+    // Act and Assert
+    assertEquals(1, attachmentEntityImpl.getRevision());
+  }
+
+  /**
    * Method under test: {@link AbstractEntity#isInserted()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean AbstractEntity.isInserted()"})
-  public void testIsInserted_givenAttachmentEntityImplInsertedIsTrue_thenReturnTrue() {
+  public void testIsInserted() {
+    // Arrange, Act and Assert
+    assertFalse((new AttachmentEntityImpl()).isInserted());
+  }
+
+  /**
+   * Method under test: {@link AbstractEntity#isInserted()}
+   */
+  @Test
+  public void testIsInserted2() {
     // Arrange
     AttachmentEntityImpl attachmentEntityImpl = new AttachmentEntityImpl();
     attachmentEntityImpl.setInserted(true);
@@ -105,30 +150,22 @@ public class AbstractEntityDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractEntity#isInserted()}.
-   * <ul>
-   *   <li>Given {@link AttachmentEntityImpl} (default constructor).</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AbstractEntity#isInserted()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean AbstractEntity.isInserted()"})
-  public void testIsInserted_givenAttachmentEntityImpl_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse((new AttachmentEntityImpl()).isInserted());
+  public void testIsInserted3() {
+    // Arrange
+    AttachmentEntityImpl attachmentEntityImpl = new AttachmentEntityImpl();
+    attachmentEntityImpl.setContent(mock(ByteArrayEntity.class));
+
+    // Act and Assert
+    assertFalse(attachmentEntityImpl.isInserted());
   }
 
   /**
-   * Test {@link AbstractEntity#setInserted(boolean)}.
-   * <p>
    * Method under test: {@link AbstractEntity#setInserted(boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AbstractEntity.setInserted(boolean)"})
   public void testSetInserted() {
     // Arrange
     AttachmentEntityImpl attachmentEntityImpl = new AttachmentEntityImpl();
@@ -141,18 +178,35 @@ public class AbstractEntityDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractEntity#isUpdated()}.
-   * <ul>
-   *   <li>Given {@link AttachmentEntityImpl} (default constructor) Updated is {@code true}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link AbstractEntity#setInserted(boolean)}
+   */
+  @Test
+  public void testSetInserted2() {
+    // Arrange
+    AttachmentEntityImpl attachmentEntityImpl = new AttachmentEntityImpl();
+    attachmentEntityImpl.setContent(mock(ByteArrayEntity.class));
+
+    // Act
+    attachmentEntityImpl.setInserted(true);
+
+    // Assert
+    assertTrue(attachmentEntityImpl.isInserted());
+  }
+
+  /**
    * Method under test: {@link AbstractEntity#isUpdated()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean AbstractEntity.isUpdated()"})
-  public void testIsUpdated_givenAttachmentEntityImplUpdatedIsTrue_thenReturnTrue() {
+  public void testIsUpdated() {
+    // Arrange, Act and Assert
+    assertFalse((new AttachmentEntityImpl()).isUpdated());
+  }
+
+  /**
+   * Method under test: {@link AbstractEntity#isUpdated()}
+   */
+  @Test
+  public void testIsUpdated2() {
     // Arrange
     AttachmentEntityImpl attachmentEntityImpl = new AttachmentEntityImpl();
     attachmentEntityImpl.setUpdated(true);
@@ -162,30 +216,22 @@ public class AbstractEntityDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractEntity#isUpdated()}.
-   * <ul>
-   *   <li>Given {@link AttachmentEntityImpl} (default constructor).</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AbstractEntity#isUpdated()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean AbstractEntity.isUpdated()"})
-  public void testIsUpdated_givenAttachmentEntityImpl_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse((new AttachmentEntityImpl()).isUpdated());
+  public void testIsUpdated3() {
+    // Arrange
+    AttachmentEntityImpl attachmentEntityImpl = new AttachmentEntityImpl();
+    attachmentEntityImpl.setContent(mock(ByteArrayEntity.class));
+
+    // Act and Assert
+    assertFalse(attachmentEntityImpl.isUpdated());
   }
 
   /**
-   * Test {@link AbstractEntity#setUpdated(boolean)}.
-   * <p>
    * Method under test: {@link AbstractEntity#setUpdated(boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AbstractEntity.setUpdated(boolean)"})
   public void testSetUpdated() {
     // Arrange
     AttachmentEntityImpl attachmentEntityImpl = new AttachmentEntityImpl();
@@ -198,18 +244,35 @@ public class AbstractEntityDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractEntity#isDeleted()}.
-   * <ul>
-   *   <li>Given {@link AttachmentEntityImpl} (default constructor) Deleted is {@code true}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link AbstractEntity#setUpdated(boolean)}
+   */
+  @Test
+  public void testSetUpdated2() {
+    // Arrange
+    AttachmentEntityImpl attachmentEntityImpl = new AttachmentEntityImpl();
+    attachmentEntityImpl.setContent(mock(ByteArrayEntity.class));
+
+    // Act
+    attachmentEntityImpl.setUpdated(true);
+
+    // Assert
+    assertTrue(attachmentEntityImpl.isUpdated());
+  }
+
+  /**
    * Method under test: {@link AbstractEntity#isDeleted()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean AbstractEntity.isDeleted()"})
-  public void testIsDeleted_givenAttachmentEntityImplDeletedIsTrue_thenReturnTrue() {
+  public void testIsDeleted() {
+    // Arrange, Act and Assert
+    assertFalse((new AttachmentEntityImpl()).isDeleted());
+  }
+
+  /**
+   * Method under test: {@link AbstractEntity#isDeleted()}
+   */
+  @Test
+  public void testIsDeleted2() {
     // Arrange
     AttachmentEntityImpl attachmentEntityImpl = new AttachmentEntityImpl();
     attachmentEntityImpl.setDeleted(true);
@@ -219,33 +282,41 @@ public class AbstractEntityDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractEntity#isDeleted()}.
-   * <ul>
-   *   <li>Given {@link AttachmentEntityImpl} (default constructor).</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AbstractEntity#isDeleted()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean AbstractEntity.isDeleted()"})
-  public void testIsDeleted_givenAttachmentEntityImpl_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse((new AttachmentEntityImpl()).isDeleted());
+  public void testIsDeleted3() {
+    // Arrange
+    AttachmentEntityImpl attachmentEntityImpl = new AttachmentEntityImpl();
+    attachmentEntityImpl.setContent(mock(ByteArrayEntity.class));
+
+    // Act and Assert
+    assertFalse(attachmentEntityImpl.isDeleted());
   }
 
   /**
-   * Test {@link AbstractEntity#setDeleted(boolean)}.
-   * <p>
    * Method under test: {@link AbstractEntity#setDeleted(boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AbstractEntity.setDeleted(boolean)"})
   public void testSetDeleted() {
     // Arrange
     AttachmentEntityImpl attachmentEntityImpl = new AttachmentEntityImpl();
+
+    // Act
+    attachmentEntityImpl.setDeleted(true);
+
+    // Assert
+    assertTrue(attachmentEntityImpl.isDeleted());
+  }
+
+  /**
+   * Method under test: {@link AbstractEntity#setDeleted(boolean)}
+   */
+  @Test
+  public void testSetDeleted2() {
+    // Arrange
+    AttachmentEntityImpl attachmentEntityImpl = new AttachmentEntityImpl();
+    attachmentEntityImpl.setContent(mock(ByteArrayEntity.class));
 
     // Act
     attachmentEntityImpl.setDeleted(true);

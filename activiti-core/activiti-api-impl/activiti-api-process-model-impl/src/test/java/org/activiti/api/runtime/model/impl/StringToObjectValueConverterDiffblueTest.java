@@ -17,15 +17,13 @@ package org.activiti.api.runtime.model.impl;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -46,28 +44,40 @@ class StringToObjectValueConverterDiffblueTest {
   private StringToObjectValueConverter stringToObjectValueConverter;
 
   /**
-   * Test {@link StringToObjectValueConverter#convert(String)} with {@code String}.
-   * <p>
    * Method under test: {@link StringToObjectValueConverter#convert(String)}
    */
   @Test
-  @DisplayName("Test convert(String) with 'String'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ObjectValue StringToObjectValueConverter.convert(String)"})
-  void testConvertWithString() throws JsonProcessingException {
+  void testConvert() throws JsonProcessingException {
     // Arrange
     ObjectValue objectValue = new ObjectValue();
     when(objectMapper.readValue(Mockito.<String>any(), Mockito.<Class<ObjectValue>>any())).thenReturn(objectValue);
-    when(objectMapper.writeValueAsString(Mockito.<Object>any())).thenReturn("42");
+
+    ObjectMapper objectMapper2 = new ObjectMapper();
 
     // Act
     ObjectValue actualConvertResult = stringToObjectValueConverter
-        .convert(objectMapper.writeValueAsString(new ObjectValue()));
+        .convert(objectMapper2.writeValueAsString(new ObjectValue()));
 
     // Assert
-    verify(objectMapper).readValue(eq("42"), isA(Class.class));
-    verify(objectMapper).writeValueAsString(isA(Object.class));
+    verify(objectMapper).readValue(eq("{\"object\":null}"), isA(Class.class));
     assertNull(actualConvertResult.getObject());
     assertSame(objectValue, actualConvertResult);
+  }
+
+  /**
+   * Method under test: {@link StringToObjectValueConverter#convert(String)}
+   */
+  @Test
+  void testConvert2() throws JsonProcessingException {
+    // Arrange
+    when(objectMapper.readValue(Mockito.<String>any(), Mockito.<Class<ObjectValue>>any()))
+        .thenThrow(new RuntimeException("foo"));
+
+    ObjectMapper objectMapper2 = new ObjectMapper();
+
+    // Act and Assert
+    assertThrows(RuntimeException.class,
+        () -> stringToObjectValueConverter.convert(objectMapper2.writeValueAsString(new ObjectValue())));
+    verify(objectMapper).readValue(eq("{\"object\":null}"), isA(Class.class));
   }
 }

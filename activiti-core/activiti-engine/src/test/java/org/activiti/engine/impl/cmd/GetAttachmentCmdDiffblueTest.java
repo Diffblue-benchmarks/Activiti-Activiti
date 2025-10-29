@@ -16,20 +16,13 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class GetAttachmentCmdDiffblueTest {
   /**
-   * Test {@link GetAttachmentCmd#GetAttachmentCmd(String)}.
-   * <p>
    * Method under test: {@link GetAttachmentCmd#GetAttachmentCmd(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void GetAttachmentCmd.<init>(String)"})
   public void testNewGetAttachmentCmd() {
     // Arrange, Act and Assert
     assertEquals("42", (new GetAttachmentCmd("42")).attachmentId);

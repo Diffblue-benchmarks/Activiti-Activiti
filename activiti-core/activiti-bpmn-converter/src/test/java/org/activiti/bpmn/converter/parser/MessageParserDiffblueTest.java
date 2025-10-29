@@ -17,52 +17,31 @@ package org.activiti.bpmn.converter.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BpmnModel;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class MessageParserDiffblueTest {
   /**
-   * Test {@link MessageParser#parseItemRef(String, BpmnModel)}.
-   * <ul>
-   *   <li>When empty string.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link MessageParser#parseItemRef(String, BpmnModel)}
    */
   @Test
-  @DisplayName("Test parseItemRef(String, BpmnModel); when empty string; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String MessageParser.parseItemRef(String, BpmnModel)"})
-  void testParseItemRef_whenEmptyString_thenReturnNull() {
-    // Arrange
-    MessageParser messageParser = new MessageParser();
-
-    // Act and Assert
-    assertNull(messageParser.parseItemRef("", new BpmnModel()));
-  }
-
-  /**
-   * Test {@link MessageParser#parseItemRef(String, BpmnModel)}.
-   * <ul>
-   *   <li>When {@code Item Ref}.</li>
-   *   <li>Then return {@code null:Item Ref}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link MessageParser#parseItemRef(String, BpmnModel)}
-   */
-  @Test
-  @DisplayName("Test parseItemRef(String, BpmnModel); when 'Item Ref'; then return 'null:Item Ref'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String MessageParser.parseItemRef(String, BpmnModel)"})
-  void testParseItemRef_whenItemRef_thenReturnNullItemRef() {
+  void testParseItemRef() {
     // Arrange
     MessageParser messageParser = new MessageParser();
 
     // Act and Assert
     assertEquals("null:Item Ref", messageParser.parseItemRef("Item Ref", new BpmnModel()));
+  }
+
+  /**
+   * Method under test: {@link MessageParser#parseItemRef(String, BpmnModel)}
+   */
+  @Test
+  void testParseItemRef2() {
+    // Arrange
+    MessageParser messageParser = new MessageParser();
+
+    // Act and Assert
+    assertNull(messageParser.parseItemRef("", new BpmnModel()));
   }
 }

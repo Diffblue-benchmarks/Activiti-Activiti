@@ -17,20 +17,44 @@ package org.activiti.engine;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ActivitiWrongDbExceptionDiffblueTest {
+  @InjectMocks
+  private ActivitiWrongDbException activitiWrongDbException;
+
+  @InjectMocks
+  private String string;
+
   /**
-   * Test {@link ActivitiWrongDbException#ActivitiWrongDbException(String, String)}.
-   * <p>
-   * Method under test: {@link ActivitiWrongDbException#ActivitiWrongDbException(String, String)}
+   * Methods under test:
+   * <ul>
+   *   <li>{@link ActivitiWrongDbException#getDbVersion()}
+   *   <li>{@link ActivitiWrongDbException#getLibraryVersion()}
+   * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiWrongDbException.<init>(String, String)"})
+  public void testGettersAndSetters() {
+    // Arrange
+    ActivitiWrongDbException activitiWrongDbException = new ActivitiWrongDbException("1.0.2", "1.0.2");
+
+    // Act
+    String actualDbVersion = activitiWrongDbException.getDbVersion();
+
+    // Assert
+    assertEquals("1.0.2", actualDbVersion);
+    assertEquals("1.0.2", activitiWrongDbException.getLibraryVersion());
+  }
+
+  /**
+   * Method under test:
+   * {@link ActivitiWrongDbException#ActivitiWrongDbException(String, String)}
+   */
+  @Test
   public void testNewActivitiWrongDbException() {
     // Arrange and Act
     ActivitiWrongDbException actualActivitiWrongDbException = new ActivitiWrongDbException("1.0.2", "1.0.2");
@@ -48,30 +72,5 @@ public class ActivitiWrongDbExceptionDiffblueTest {
         actualActivitiWrongDbException.getMessage());
     assertNull(actualActivitiWrongDbException.getCause());
     assertEquals(0, actualActivitiWrongDbException.getSuppressed().length);
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link ActivitiWrongDbException#getDbVersion()}
-   *   <li>{@link ActivitiWrongDbException#getLibraryVersion()}
-   * </ul>
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String ActivitiWrongDbException.getDbVersion()",
-      "String ActivitiWrongDbException.getLibraryVersion()"})
-  public void testGettersAndSetters() {
-    // Arrange
-    ActivitiWrongDbException activitiWrongDbException = new ActivitiWrongDbException("1.0.2", "1.0.2");
-
-    // Act
-    String actualDbVersion = activitiWrongDbException.getDbVersion();
-
-    // Assert
-    assertEquals("1.0.2", actualDbVersion);
-    assertEquals("1.0.2", activitiWrongDbException.getLibraryVersion());
   }
 }

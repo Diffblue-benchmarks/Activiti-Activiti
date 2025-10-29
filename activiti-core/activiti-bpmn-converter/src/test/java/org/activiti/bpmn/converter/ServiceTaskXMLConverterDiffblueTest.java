@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import javax.xml.stream.XMLStreamWriter;
 import org.activiti.bpmn.model.ActivitiListener;
@@ -28,25 +27,47 @@ import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.CustomProperty;
 import org.activiti.bpmn.model.FieldExtension;
 import org.activiti.bpmn.model.ServiceTask;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ServiceTaskXMLConverterDiffblueTest {
   /**
-   * Test {@link ServiceTaskXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}.
-   * <ul>
-   *   <li>Given {@link CustomProperty} (default constructor) SimpleValue is empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ServiceTaskXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}
+   * Method under test:
+   * {@link ServiceTaskXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter); given CustomProperty (default constructor) SimpleValue is empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "boolean ServiceTaskXMLConverter.writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)"})
-  void testWriteExtensionChildElements_givenCustomPropertySimpleValueIsEmptyString() throws Exception {
+  void testWriteExtensionChildElements() throws Exception {
+    // Arrange
+    ServiceTaskXMLConverter serviceTaskXMLConverter = new ServiceTaskXMLConverter();
+
+    CustomProperty customProperty = new CustomProperty();
+    customProperty.setSimpleValue(null);
+
+    ArrayList<CustomProperty> customProperties = new ArrayList<>();
+    customProperties.add(customProperty);
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setExpression(null);
+    fieldExtension.setStringValue(null);
+    fieldExtension.setFieldName(null);
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(fieldExtension);
+
+    ServiceTask element = new ServiceTask();
+    element.setCustomProperties(customProperties);
+    element.setFieldExtensions(fieldExtensions);
+
+    // Act and Assert
+    assertFalse(
+        serviceTaskXMLConverter.writeExtensionChildElements(element, false, new IndentingXMLStreamWriter(null)));
+  }
+
+  /**
+   * Method under test:
+   * {@link ServiceTaskXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}
+   */
+  @Test
+  void testWriteExtensionChildElements2() throws Exception {
     // Arrange
     ServiceTaskXMLConverter serviceTaskXMLConverter = new ServiceTaskXMLConverter();
 
@@ -74,59 +95,11 @@ class ServiceTaskXMLConverterDiffblueTest {
   }
 
   /**
-   * Test {@link ServiceTaskXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}.
-   * <ul>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ServiceTaskXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}
+   * Method under test:
+   * {@link ServiceTaskXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "boolean ServiceTaskXMLConverter.writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)"})
-  void testWriteExtensionChildElements_thenReturnFalse() throws Exception {
-    // Arrange
-    ServiceTaskXMLConverter serviceTaskXMLConverter = new ServiceTaskXMLConverter();
-
-    CustomProperty customProperty = new CustomProperty();
-    customProperty.setSimpleValue(null);
-
-    ArrayList<CustomProperty> customProperties = new ArrayList<>();
-    customProperties.add(customProperty);
-
-    FieldExtension fieldExtension = new FieldExtension();
-    fieldExtension.setExpression(null);
-    fieldExtension.setStringValue(null);
-    fieldExtension.setFieldName(null);
-
-    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
-    fieldExtensions.add(fieldExtension);
-
-    ServiceTask element = new ServiceTask();
-    element.setCustomProperties(customProperties);
-    element.setFieldExtensions(fieldExtensions);
-
-    // Act and Assert
-    assertFalse(
-        serviceTaskXMLConverter.writeExtensionChildElements(element, false, new IndentingXMLStreamWriter(null)));
-  }
-
-  /**
-   * Test {@link ServiceTaskXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}.
-   * <ul>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ServiceTaskXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}
-   */
-  @Test
-  @DisplayName("Test writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter); then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "boolean ServiceTaskXMLConverter.writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)"})
-  void testWriteExtensionChildElements_thenReturnTrue() throws Exception {
+  void testWriteExtensionChildElements3() throws Exception {
     // Arrange
     ServiceTaskXMLConverter serviceTaskXMLConverter = new ServiceTaskXMLConverter();
 
@@ -153,64 +126,16 @@ class ServiceTaskXMLConverterDiffblueTest {
   }
 
   /**
-   * Test {@link ServiceTaskXMLConverter#parseOperationRef(String, BpmnModel)}.
-   * <ul>
-   *   <li>When empty string.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ServiceTaskXMLConverter#parseOperationRef(String, BpmnModel)}
-   */
-  @Test
-  @DisplayName("Test parseOperationRef(String, BpmnModel); when empty string; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ServiceTaskXMLConverter.parseOperationRef(String, BpmnModel)"})
-  void testParseOperationRef_whenEmptyString_thenReturnNull() {
-    // Arrange
-    ServiceTaskXMLConverter serviceTaskXMLConverter = new ServiceTaskXMLConverter();
-
-    // Act and Assert
-    assertNull(serviceTaskXMLConverter.parseOperationRef("", new BpmnModel()));
-  }
-
-  /**
-   * Test {@link ServiceTaskXMLConverter#parseOperationRef(String, BpmnModel)}.
-   * <ul>
-   *   <li>When {@code Operation Ref}.</li>
-   *   <li>Then return {@code null:Operation Ref}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ServiceTaskXMLConverter#parseOperationRef(String, BpmnModel)}
-   */
-  @Test
-  @DisplayName("Test parseOperationRef(String, BpmnModel); when 'Operation Ref'; then return 'null:Operation Ref'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ServiceTaskXMLConverter.parseOperationRef(String, BpmnModel)"})
-  void testParseOperationRef_whenOperationRef_thenReturnNullOperationRef() {
-    // Arrange
-    ServiceTaskXMLConverter serviceTaskXMLConverter = new ServiceTaskXMLConverter();
-
-    // Act and Assert
-    assertEquals("null:Operation Ref", serviceTaskXMLConverter.parseOperationRef("Operation Ref", new BpmnModel()));
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ServiceTaskXMLConverter}
-   *   <li>{@link ServiceTaskXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
+   *   <li>
+   * {@link ServiceTaskXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
    *   <li>{@link ServiceTaskXMLConverter#getBpmnElementType()}
    *   <li>{@link ServiceTaskXMLConverter#getXMLElementName()}
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ServiceTaskXMLConverter.<init>()", "Class ServiceTaskXMLConverter.getBpmnElementType()",
-      "String ServiceTaskXMLConverter.getXMLElementName()",
-      "void ServiceTaskXMLConverter.writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)"})
   void testGettersAndSetters() throws Exception {
     // Arrange and Act
     ServiceTaskXMLConverter actualServiceTaskXMLConverter = new ServiceTaskXMLConverter();
@@ -219,9 +144,35 @@ class ServiceTaskXMLConverterDiffblueTest {
     actualServiceTaskXMLConverter.writeAdditionalChildElements(element, model, new IndentingXMLStreamWriter(null));
     Class<? extends BaseElement> actualBpmnElementType = actualServiceTaskXMLConverter.getBpmnElementType();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("serviceTask", actualServiceTaskXMLConverter.getXMLElementName());
     Class<ServiceTask> expectedBpmnElementType = ServiceTask.class;
     assertEquals(expectedBpmnElementType, actualBpmnElementType);
+  }
+
+  /**
+   * Method under test:
+   * {@link ServiceTaskXMLConverter#parseOperationRef(String, BpmnModel)}
+   */
+  @Test
+  void testParseOperationRef() {
+    // Arrange
+    ServiceTaskXMLConverter serviceTaskXMLConverter = new ServiceTaskXMLConverter();
+
+    // Act and Assert
+    assertEquals("null:Operation Ref", serviceTaskXMLConverter.parseOperationRef("Operation Ref", new BpmnModel()));
+  }
+
+  /**
+   * Method under test:
+   * {@link ServiceTaskXMLConverter#parseOperationRef(String, BpmnModel)}
+   */
+  @Test
+  void testParseOperationRef2() {
+    // Arrange
+    ServiceTaskXMLConverter serviceTaskXMLConverter = new ServiceTaskXMLConverter();
+
+    // Act and Assert
+    assertNull(serviceTaskXMLConverter.parseOperationRef("", new BpmnModel()));
   }
 }

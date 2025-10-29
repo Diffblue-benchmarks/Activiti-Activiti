@@ -16,37 +16,51 @@
 package org.activiti.engine.impl.bpmn.parser.handler;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.anyBoolean;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.BaseElement;
-import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.Process;
 import org.activiti.bpmn.model.SequenceFlow;
 import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.examples.bpmn.executionlistener.CustomSequenceFlowBpmnParseHandler;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class SequenceFlowParseHandlerDiffblueTest {
   /**
-   * Test {@link SequenceFlowParseHandler#executeParse(BpmnParse, SequenceFlow)} with {@code BpmnParse}, {@code SequenceFlow}.
-   * <p>
-   * Method under test: {@link SequenceFlowParseHandler#executeParse(BpmnParse, SequenceFlow)}
+   * Method under test:
+   * {@link SequenceFlowParseHandler#executeParse(BpmnParse, SequenceFlow)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SequenceFlowParseHandler.executeParse(BpmnParse, SequenceFlow)"})
-  public void testExecuteParseWithBpmnParseSequenceFlow() {
+  public void testExecuteParse() {
+    // Arrange
+    SequenceFlowParseHandler sequenceFlowParseHandler = new SequenceFlowParseHandler();
+    BpmnParse bpmnParse = mock(BpmnParse.class);
+    when(bpmnParse.getCurrentProcess()).thenReturn(new Process());
+    SequenceFlow sequenceFlow = new SequenceFlow("Source Ref", "Target Ref");
+
+    // Act
+    sequenceFlowParseHandler.executeParse(bpmnParse, sequenceFlow);
+
+    // Assert
+    verify(bpmnParse).getCurrentProcess();
+    assertNull(sequenceFlow.getSourceFlowElement());
+    assertNull(sequenceFlow.getTargetFlowElement());
+  }
+
+  /**
+   * Method under test:
+   * {@link SequenceFlowParseHandler#executeParse(BpmnParse, SequenceFlow)}
+   */
+  @Test
+  public void testExecuteParse2() {
     // Arrange
     SequenceFlowParseHandler sequenceFlowParseHandler = new SequenceFlowParseHandler();
     Process process = mock(Process.class);
@@ -62,21 +76,16 @@ public class SequenceFlowParseHandlerDiffblueTest {
     // Assert
     verify(process, atLeast(1)).getFlowElement(Mockito.<String>any(), eq(true));
     verify(bpmnParse).getCurrentProcess();
-    FlowElement sourceFlowElement = sequenceFlow.getSourceFlowElement();
-    assertTrue(sourceFlowElement instanceof AdhocSubProcess);
-    assertSame(adhocSubProcess, sourceFlowElement);
+    assertSame(adhocSubProcess, sequenceFlow.getSourceFlowElement());
     assertSame(adhocSubProcess, sequenceFlow.getTargetFlowElement());
   }
 
   /**
-   * Test {@link SequenceFlowParseHandler#executeParse(BpmnParse, SequenceFlow)} with {@code BpmnParse}, {@code SequenceFlow}.
-   * <p>
-   * Method under test: {@link SequenceFlowParseHandler#executeParse(BpmnParse, SequenceFlow)}
+   * Method under test:
+   * {@link SequenceFlowParseHandler#executeParse(BpmnParse, SequenceFlow)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SequenceFlowParseHandler.executeParse(BpmnParse, SequenceFlow)"})
-  public void testExecuteParseWithBpmnParseSequenceFlow2() {
+  public void testExecuteParse3() {
     // Arrange
     Process process = mock(Process.class);
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -91,39 +100,11 @@ public class SequenceFlowParseHandlerDiffblueTest {
     // Assert
     verify(process, atLeast(1)).getFlowElement(Mockito.<String>any(), eq(true));
     verify(bpmnParse).getCurrentProcess();
-    FlowElement sourceFlowElement = sequenceFlow.getSourceFlowElement();
-    assertTrue(sourceFlowElement instanceof AdhocSubProcess);
-    assertSame(adhocSubProcess, sourceFlowElement);
+    assertSame(adhocSubProcess, sequenceFlow.getSourceFlowElement());
     assertSame(adhocSubProcess, sequenceFlow.getTargetFlowElement());
   }
 
   /**
-   * Test {@link SequenceFlowParseHandler#executeParse(BpmnParse, SequenceFlow)} with {@code BpmnParse}, {@code SequenceFlow}.
-   * <ul>
-   *   <li>Given {@link Process} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SequenceFlowParseHandler#executeParse(BpmnParse, SequenceFlow)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SequenceFlowParseHandler.executeParse(BpmnParse, SequenceFlow)"})
-  public void testExecuteParseWithBpmnParseSequenceFlow_givenProcess() {
-    // Arrange
-    SequenceFlowParseHandler sequenceFlowParseHandler = new SequenceFlowParseHandler();
-    BpmnParse bpmnParse = mock(BpmnParse.class);
-    when(bpmnParse.getCurrentProcess()).thenReturn(new Process());
-
-    // Act
-    sequenceFlowParseHandler.executeParse(bpmnParse, new SequenceFlow("Source Ref", "Target Ref"));
-
-    // Assert that nothing has changed
-    verify(bpmnParse).getCurrentProcess();
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link SequenceFlowParseHandler}
@@ -131,8 +112,6 @@ public class SequenceFlowParseHandlerDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SequenceFlowParseHandler.<init>()", "Class SequenceFlowParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends BaseElement> actualHandledType = (new SequenceFlowParseHandler()).getHandledType();

@@ -16,82 +16,39 @@
 package org.activiti.bpmn.model;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class BooleanDataObjectDiffblueTest {
   /**
-   * Test {@link BooleanDataObject#setValue(Object)}.
-   * <p>
    * Method under test: {@link BooleanDataObject#setValue(Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void BooleanDataObject.setValue(Object)"})
   public void testSetValue() {
     // Arrange
+    ExtensionElement extensionElement = mock(ExtensionElement.class);
+    when(extensionElement.getName()).thenReturn("Name");
+
     BooleanDataObject booleanDataObject = new BooleanDataObject();
+    booleanDataObject.addExtensionElement(extensionElement);
 
     // Act
     booleanDataObject.setValue("Value");
 
     // Assert
-    assertFalse((Boolean) booleanDataObject.getValue());
+    verify(extensionElement, atLeast(1)).getName();
   }
 
   /**
-   * Test {@link BooleanDataObject#clone()}.
-   * <ul>
-   *   <li>Given {@link BooleanDataObject} (default constructor) Value is {@code Value}.</li>
-   *   <li>Then return not Value.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BooleanDataObject#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"BooleanDataObject BooleanDataObject.clone()"})
-  public void testClone_givenBooleanDataObjectValueIsValue_thenReturnNotValue() {
-    // Arrange
-    BooleanDataObject booleanDataObject = new BooleanDataObject();
-    booleanDataObject.setValue("Value");
-
-    // Act
-    BooleanDataObject actualCloneResult = booleanDataObject.clone();
-
-    // Assert
-    assertNull(actualCloneResult.getId());
-    assertNull(actualCloneResult.getDocumentation());
-    assertNull(actualCloneResult.getName());
-    assertNull(actualCloneResult.getParentContainer());
-    assertNull(actualCloneResult.getItemSubjectRef());
-    assertNull(actualCloneResult.getSubProcess());
-    assertEquals(0, actualCloneResult.getXmlColumnNumber());
-    assertEquals(0, actualCloneResult.getXmlRowNumber());
-    assertFalse((Boolean) actualCloneResult.getValue());
-    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
-    assertTrue(actualCloneResult.getAttributes().isEmpty());
-    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link BooleanDataObject#clone()}.
-   * <ul>
-   *   <li>Given {@link BooleanDataObject} (default constructor).</li>
-   *   <li>Then return Value is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BooleanDataObject#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"BooleanDataObject BooleanDataObject.clone()"})
-  public void testClone_givenBooleanDataObject_thenReturnValueIsNull() {
+  public void testClone() {
     // Arrange and Act
     BooleanDataObject actualCloneResult = (new BooleanDataObject()).clone();
 
@@ -111,13 +68,36 @@ public class BooleanDataObjectDiffblueTest {
   }
 
   /**
-   * Test new {@link BooleanDataObject} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link BooleanDataObject}
+   * Method under test: {@link BooleanDataObject#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void BooleanDataObject.<init>()"})
+  public void testClone2() {
+    // Arrange
+    BooleanDataObject booleanDataObject = new BooleanDataObject();
+    booleanDataObject.setValue("Value");
+
+    // Act
+    BooleanDataObject actualCloneResult = booleanDataObject.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getItemSubjectRef());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Method under test: default or parameterless constructor of
+   * {@link BooleanDataObject}
+   */
+  @Test
   public void testNewBooleanDataObject() {
     // Arrange and Act
     BooleanDataObject actualBooleanDataObject = new BooleanDataObject();

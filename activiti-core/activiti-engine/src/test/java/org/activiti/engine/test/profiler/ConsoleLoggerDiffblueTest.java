@@ -22,27 +22,71 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class ConsoleLoggerDiffblueTest {
   /**
-   * Test {@link ConsoleLogger#log()}.
-   * <p>
    * Method under test: {@link ConsoleLogger#log()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ConsoleLogger.log()"})
   public void testLog() {
+    // Arrange
+    ActivitiProfiler profiler = mock(ActivitiProfiler.class);
+    when(profiler.getProfileSessions()).thenReturn(new ArrayList<>());
+
+    // Act
+    (new ConsoleLogger(profiler)).log();
+
+    // Assert that nothing has changed
+    verify(profiler).getProfileSessions();
+  }
+
+  /**
+   * Method under test: {@link ConsoleLogger#log()}
+   */
+  @Test
+  public void testLog2() {
+    // Arrange
+    ProfileSession profileSession = mock(ProfileSession.class);
+    when(profileSession.getName()).thenReturn("Name");
+    when(profileSession.getEndTime())
+        .thenReturn(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    when(profileSession.getStartTime())
+        .thenReturn(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    when(profileSession.calculateSummaryStatistics()).thenReturn(new HashMap<>());
+    when(profileSession.getTotalTime()).thenReturn(1L);
+    doNothing().when(profileSession).addCommandExecution(Mockito.<String>any(), Mockito.<CommandExecutionResult>any());
+    profileSession.addCommandExecution("Class Fqn", new CommandExecutionResult());
+
+    ArrayList<ProfileSession> profileSessionList = new ArrayList<>();
+    profileSessionList.add(0, profileSession);
+    ActivitiProfiler profiler = mock(ActivitiProfiler.class);
+    when(profiler.getProfileSessions()).thenReturn(profileSessionList);
+
+    // Act
+    (new ConsoleLogger(profiler)).log();
+
+    // Assert that nothing has changed
+    verify(profiler).getProfileSessions();
+    verify(profileSession).addCommandExecution(eq("Class Fqn"), isA(CommandExecutionResult.class));
+    verify(profileSession).calculateSummaryStatistics();
+    verify(profileSession).getEndTime();
+    verify(profileSession).getName();
+    verify(profileSession).getStartTime();
+    verify(profileSession).getTotalTime();
+  }
+
+  /**
+   * Method under test: {@link ConsoleLogger#log()}
+   */
+  @Test
+  public void testLog3() {
     // Arrange
     HashMap<String, CommandStats> stringCommandStatsMap = new HashMap<>();
     stringCommandStatsMap.put("#############################################", new CommandStats(new ArrayList<>()));
@@ -57,62 +101,21 @@ public class ConsoleLoggerDiffblueTest {
     doNothing().when(profileSession).addCommandExecution(Mockito.<String>any(), Mockito.<CommandExecutionResult>any());
     profileSession.addCommandExecution("Class Fqn", new CommandExecutionResult());
 
-    ArrayList<ProfileSession> profileSessions = new ArrayList<>();
-    profileSessions.add(0, profileSession);
-    ActivitiProfiler profiler = ActivitiProfiler.getInstance();
-    profiler.setProfileSessions(profileSessions);
+    ArrayList<ProfileSession> profileSessionList = new ArrayList<>();
+    profileSessionList.add(0, profileSession);
+    ActivitiProfiler profiler = mock(ActivitiProfiler.class);
+    when(profiler.getProfileSessions()).thenReturn(profileSessionList);
 
     // Act
     (new ConsoleLogger(profiler)).log();
 
-    // Assert
+    // Assert that nothing has changed
+    verify(profiler).getProfileSessions();
     verify(profileSession).addCommandExecution(eq("Class Fqn"), isA(CommandExecutionResult.class));
     verify(profileSession).calculateSummaryStatistics();
     verify(profileSession).getEndTime();
     verify(profileSession).getName();
     verify(profileSession).getStartTime();
     verify(profileSession, atLeast(1)).getTotalTime();
-  }
-
-  /**
-   * Test {@link ConsoleLogger#log()}.
-   * <ul>
-   *   <li>Given {@link ProfileSession} {@link ProfileSession#getName()} return {@code Name}.</li>
-   *   <li>Then calls {@link ProfileSession#addCommandExecution(String, CommandExecutionResult)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ConsoleLogger#log()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ConsoleLogger.log()"})
-  public void testLog_givenProfileSessionGetNameReturnName_thenCallsAddCommandExecution() {
-    // Arrange
-    ProfileSession profileSession = mock(ProfileSession.class);
-    when(profileSession.getName()).thenReturn("Name");
-    when(profileSession.getEndTime())
-        .thenReturn(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    when(profileSession.getStartTime())
-        .thenReturn(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    when(profileSession.calculateSummaryStatistics()).thenReturn(new HashMap<>());
-    when(profileSession.getTotalTime()).thenReturn(1L);
-    doNothing().when(profileSession).addCommandExecution(Mockito.<String>any(), Mockito.<CommandExecutionResult>any());
-    profileSession.addCommandExecution("Class Fqn", new CommandExecutionResult());
-
-    ArrayList<ProfileSession> profileSessions = new ArrayList<>();
-    profileSessions.add(0, profileSession);
-    ActivitiProfiler profiler = ActivitiProfiler.getInstance();
-    profiler.setProfileSessions(profileSessions);
-
-    // Act
-    (new ConsoleLogger(profiler)).log();
-
-    // Assert
-    verify(profileSession).addCommandExecution(eq("Class Fqn"), isA(CommandExecutionResult.class));
-    verify(profileSession).calculateSummaryStatistics();
-    verify(profileSession).getEndTime();
-    verify(profileSession).getName();
-    verify(profileSession).getStartTime();
-    verify(profileSession).getTotalTime();
   }
 }

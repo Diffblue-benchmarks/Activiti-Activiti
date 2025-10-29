@@ -17,8 +17,6 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -26,17 +24,41 @@ import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class GetExecutionVariablesCmdDiffblueTest {
   /**
-   * Test {@link GetExecutionVariablesCmd#GetExecutionVariablesCmd(String, Collection, boolean)}.
-   * <p>
-   * Method under test: {@link GetExecutionVariablesCmd#GetExecutionVariablesCmd(String, Collection, boolean)}
+   * Method under test:
+   * {@link GetExecutionVariablesCmd#getVariable(ExecutionEntity, CommandContext)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void GetExecutionVariablesCmd.<init>(String, Collection, boolean)"})
+  public void testGetVariable() {
+    // Arrange
+    GetExecutionVariablesCmd getExecutionVariablesCmd = new GetExecutionVariablesCmd("42", new ArrayList<>(), true);
+
+    // Act and Assert
+    assertTrue(getExecutionVariablesCmd.getVariable(ExecutionEntityImpl.createWithEmptyRelationshipCollections(), null)
+        .isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link GetExecutionVariablesCmd#getVariable(ExecutionEntity, CommandContext)}
+   */
+  @Test
+  public void testGetVariable2() {
+    // Arrange
+    GetExecutionVariablesCmd getExecutionVariablesCmd = new GetExecutionVariablesCmd("42", new ArrayList<>(), false);
+
+    // Act and Assert
+    assertTrue(getExecutionVariablesCmd.getVariable(ExecutionEntityImpl.createWithEmptyRelationshipCollections(), null)
+        .isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link GetExecutionVariablesCmd#GetExecutionVariablesCmd(String, Collection, boolean)}
+   */
+  @Test
   public void testNewGetExecutionVariablesCmd() {
     // Arrange and Act
     GetExecutionVariablesCmd actualGetExecutionVariablesCmd = new GetExecutionVariablesCmd("42", new ArrayList<>(),
@@ -48,45 +70,5 @@ public class GetExecutionVariablesCmdDiffblueTest {
     assertEquals("42", actualGetExecutionVariablesCmd.executionId);
     assertTrue(collection.isEmpty());
     assertTrue(actualGetExecutionVariablesCmd.isLocal);
-  }
-
-  /**
-   * Test {@link GetExecutionVariablesCmd#getVariable(ExecutionEntity, CommandContext)}.
-   * <ul>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GetExecutionVariablesCmd#getVariable(ExecutionEntity, CommandContext)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.util.Map GetExecutionVariablesCmd.getVariable(ExecutionEntity, CommandContext)"})
-  public void testGetVariable_thenReturnEmpty() {
-    // Arrange
-    GetExecutionVariablesCmd getExecutionVariablesCmd = new GetExecutionVariablesCmd("42", new ArrayList<>(), true);
-
-    // Act and Assert
-    assertTrue(getExecutionVariablesCmd.getVariable(ExecutionEntityImpl.createWithEmptyRelationshipCollections(), null)
-        .isEmpty());
-  }
-
-  /**
-   * Test {@link GetExecutionVariablesCmd#getVariable(ExecutionEntity, CommandContext)}.
-   * <ul>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GetExecutionVariablesCmd#getVariable(ExecutionEntity, CommandContext)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.util.Map GetExecutionVariablesCmd.getVariable(ExecutionEntity, CommandContext)"})
-  public void testGetVariable_thenReturnEmpty2() {
-    // Arrange
-    GetExecutionVariablesCmd getExecutionVariablesCmd = new GetExecutionVariablesCmd("42", new ArrayList<>(), false);
-
-    // Act and Assert
-    assertTrue(getExecutionVariablesCmd.getVariable(ExecutionEntityImpl.createWithEmptyRelationshipCollections(), null)
-        .isEmpty());
   }
 }

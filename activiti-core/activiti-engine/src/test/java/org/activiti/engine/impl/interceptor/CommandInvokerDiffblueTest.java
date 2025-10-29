@@ -23,28 +23,18 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiEngineAgendaFactory;
 import org.activiti.engine.impl.agenda.DefaultActivitiEngineAgenda;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class CommandInvokerDiffblueTest {
   /**
-   * Test {@link CommandInvoker#executeOperations(CommandContext)}.
-   * <ul>
-   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link CommandInvoker#executeOperations(CommandContext)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CommandInvoker.executeOperations(CommandContext)"})
-  public void testExecuteOperations_thenCallsCreateAgenda() {
+  public void testExecuteOperations() {
     // Arrange
     CommandInvoker commandInvoker = new CommandInvoker();
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
@@ -57,22 +47,32 @@ public class CommandInvokerDiffblueTest {
     // Act
     commandInvoker.executeOperations(new CommandContext(mock(Command.class), processEngineConfiguration));
 
-    // Assert
+    // Assert that nothing has changed
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
   }
 
   /**
-   * Test {@link CommandInvoker#executeOperation(Runnable)}.
-   * <ul>
-   *   <li>Then throw {@link UnsupportedOperationException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link CommandInvoker#executeOperation(Runnable)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CommandInvoker.executeOperation(Runnable)"})
-  public void testExecuteOperation_thenThrowUnsupportedOperationException() {
+  public void testExecuteOperation() {
+    // Arrange
+    CommandInvoker commandInvoker = new CommandInvoker();
+    Runnable runnable = mock(Runnable.class);
+    doNothing().when(runnable).run();
+
+    // Act
+    commandInvoker.executeOperation(runnable);
+
+    // Assert that nothing has changed
+    verify(runnable).run();
+  }
+
+  /**
+   * Method under test: {@link CommandInvoker#executeOperation(Runnable)}
+   */
+  @Test
+  public void testExecuteOperation2() {
     // Arrange
     CommandInvoker commandInvoker = new CommandInvoker();
     Runnable runnable = mock(Runnable.class);
@@ -84,37 +84,9 @@ public class CommandInvokerDiffblueTest {
   }
 
   /**
-   * Test {@link CommandInvoker#executeOperation(Runnable)}.
-   * <ul>
-   *   <li>When {@link Runnable} {@link Runnable#run()} does nothing.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CommandInvoker#executeOperation(Runnable)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CommandInvoker.executeOperation(Runnable)"})
-  public void testExecuteOperation_whenRunnableRunDoesNothing() {
-    // Arrange
-    CommandInvoker commandInvoker = new CommandInvoker();
-    Runnable runnable = mock(Runnable.class);
-    doNothing().when(runnable).run();
-
-    // Act
-    commandInvoker.executeOperation(runnable);
-
-    // Assert
-    verify(runnable).run();
-  }
-
-  /**
-   * Test {@link CommandInvoker#setNext(CommandInterceptor)}.
-   * <p>
    * Method under test: {@link CommandInvoker#setNext(CommandInterceptor)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CommandInvoker.setNext(CommandInterceptor)"})
   public void testSetNext() {
     // Arrange
     CommandInvoker commandInvoker = new CommandInvoker();
@@ -124,8 +96,6 @@ public class CommandInvokerDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link CommandInvoker}
@@ -133,8 +103,6 @@ public class CommandInvokerDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CommandInvoker.<init>()", "CommandInterceptor CommandInvoker.getNext()"})
   public void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertNull((new CommandInvoker()).getNext());

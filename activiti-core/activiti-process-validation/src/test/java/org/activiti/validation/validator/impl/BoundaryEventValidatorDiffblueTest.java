@@ -18,8 +18,8 @@ package org.activiti.validation.validator.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -29,31 +29,68 @@ import org.activiti.bpmn.model.Artifact;
 import org.activiti.bpmn.model.BooleanDataObject;
 import org.activiti.bpmn.model.BoundaryEvent;
 import org.activiti.bpmn.model.BpmnModel;
+import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.Process;
 import org.activiti.bpmn.model.Resource;
 import org.activiti.bpmn.model.Signal;
 import org.activiti.validation.ValidationError;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class BoundaryEventValidatorDiffblueTest {
   /**
-   * Test {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}.
-   * <p>
-   * Method under test: {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test:
+   * {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BoundaryEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation() {
+    // Arrange
+    BoundaryEventValidator boundaryEventValidator = new BoundaryEventValidator();
+    BpmnModel bpmnModel = new BpmnModel();
+    Process process = new Process();
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    boundaryEventValidator.executeValidation(bpmnModel, process, errors);
+
+    // Assert that nothing has changed
+    Collection<Resource> resources = bpmnModel.getResources();
+    assertTrue(resources instanceof List);
+    Collection<Signal> signals = bpmnModel.getSignals();
+    assertTrue(signals instanceof List);
+    Collection<Artifact> artifacts = process.getArtifacts();
+    assertTrue(artifacts instanceof List);
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertTrue(errors.isEmpty());
+    assertTrue(resources.isEmpty());
+    assertTrue(signals.isEmpty());
+    assertTrue(artifacts.isEmpty());
+    assertTrue(flowElements.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}
+   */
+  @Test
+  void testExecuteValidation2() {
     // Arrange
     BoundaryEventValidator boundaryEventValidator = new BoundaryEventValidator();
     BpmnModel bpmnModel = new BpmnModel();
 
     Process process = new Process();
-    process.addFlowElement(new BoundaryEvent());
+    AdhocSubProcess element = new AdhocSubProcess();
+    process.addFlowElement(element);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
@@ -66,152 +103,32 @@ class BoundaryEventValidatorDiffblueTest {
     assertTrue(signals instanceof List);
     Collection<Artifact> artifacts = process.getArtifacts();
     assertTrue(artifacts instanceof List);
-    assertEquals(1, errors.size());
-    ValidationError getResult = errors.get(0);
-    assertEquals("BOUNDARY_EVENT_NO_EVENT_DEFINITION", getResult.getDefaultDescription());
-    assertEquals("BOUNDARY_EVENT_NO_EVENT_DEFINITION", getResult.getKey());
-    assertEquals("BOUNDARY_EVENT_NO_EVENT_DEFINITION", getResult.getProblem());
-    assertNull(getResult.getActivityId());
-    assertNull(getResult.getActivityName());
-    assertNull(getResult.getProcessDefinitionId());
-    assertNull(getResult.getProcessDefinitionName());
-    assertNull(getResult.getValidatorSetName());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlLineNumber());
-    assertFalse(getResult.isWarning());
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
-    assertTrue(artifacts.isEmpty());
-    assertTrue(getResult.getParams().isEmpty());
-  }
-
-  /**
-   * Test {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}.
-   * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}
-   */
-  @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); given AdhocSubProcess (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BoundaryEventValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_givenAdhocSubProcess() {
-    // Arrange
-    BoundaryEventValidator boundaryEventValidator = new BoundaryEventValidator();
-    BpmnModel bpmnModel = new BpmnModel();
-
-    Process process = new Process();
-    process.addFlowElement(new AdhocSubProcess());
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    boundaryEventValidator.executeValidation(bpmnModel, process, errors);
-
-    // Assert that nothing has changed
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
-    Collection<Artifact> artifacts = process.getArtifacts();
-    assertTrue(artifacts instanceof List);
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertEquals(1, flowElements.size());
+    assertTrue(flowElements instanceof List);
     assertTrue(errors.isEmpty());
     assertTrue(resources.isEmpty());
     assertTrue(signals.isEmpty());
     assertTrue(artifacts.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+    assertSame(element, ((List<FlowElement>) flowElements).get(0));
   }
 
   /**
-   * Test {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}.
-   * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor) addFlowElement {@link AdhocSubProcess} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test:
+   * {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); given AdhocSubProcess (default constructor) addFlowElement AdhocSubProcess (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BoundaryEventValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_givenAdhocSubProcessAddFlowElementAdhocSubProcess() {
-    // Arrange
-    BoundaryEventValidator boundaryEventValidator = new BoundaryEventValidator();
-    BpmnModel bpmnModel = new BpmnModel();
-
-    AdhocSubProcess element = new AdhocSubProcess();
-    element.addFlowElement(new AdhocSubProcess());
-
-    Process process = new Process();
-    process.addFlowElement(element);
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    boundaryEventValidator.executeValidation(bpmnModel, process, errors);
-
-    // Assert that nothing has changed
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
-    Collection<Artifact> artifacts = process.getArtifacts();
-    assertTrue(artifacts instanceof List);
-    assertTrue(errors.isEmpty());
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
-    assertTrue(artifacts.isEmpty());
-  }
-
-  /**
-   * Test {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}.
-   * <ul>
-   *   <li>Given {@link BooleanDataObject} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}
-   */
-  @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); given BooleanDataObject (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BoundaryEventValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_givenBooleanDataObject() {
-    // Arrange
-    BoundaryEventValidator boundaryEventValidator = new BoundaryEventValidator();
-    BpmnModel bpmnModel = new BpmnModel();
-
-    Process process = new Process();
-    process.addFlowElement(new BooleanDataObject());
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    boundaryEventValidator.executeValidation(bpmnModel, process, errors);
-
-    // Assert that nothing has changed
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
-    Collection<Artifact> artifacts = process.getArtifacts();
-    assertTrue(artifacts instanceof List);
-    assertTrue(errors.isEmpty());
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
-    assertTrue(artifacts.isEmpty());
-  }
-
-  /**
-   * Test {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}.
-   * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}
-   */
-  @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityId is '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BoundaryEventValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_thenArrayListFirstActivityIdIs42() {
+  void testExecuteValidation3() {
     // Arrange
     BoundaryEventValidator boundaryEventValidator = new BoundaryEventValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -244,38 +161,32 @@ class BoundaryEventValidatorDiffblueTest {
     assertTrue(signals instanceof List);
     Collection<Artifact> artifacts = process.getArtifacts();
     assertTrue(artifacts instanceof List);
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
     assertEquals(1, errors.size());
-    ValidationError getResult = errors.get(0);
-    assertEquals("42", getResult.getActivityId());
-    assertEquals("42", getResult.getProcessDefinitionId());
-    assertEquals("Activity Name", getResult.getActivityName());
-    assertEquals("Default Description", getResult.getDefaultDescription());
-    assertEquals("Key", getResult.getKey());
-    assertEquals("Problem", getResult.getProblem());
-    assertEquals("Process Definition Name", getResult.getProcessDefinitionName());
-    assertEquals("Validator Set Name", getResult.getValidatorSetName());
-    assertEquals(10, getResult.getXmlColumnNumber());
-    assertEquals(2, getResult.getXmlLineNumber());
     assertTrue(resources.isEmpty());
     assertTrue(signals.isEmpty());
     assertTrue(artifacts.isEmpty());
-    assertTrue(getResult.getParams().isEmpty());
-    assertTrue(getResult.isWarning());
+    assertTrue(flowElements.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+    assertSame(validationError, errors.get(0));
   }
 
   /**
-   * Test {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}.
-   * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test:
+   * {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BoundaryEventValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_thenArrayListSizeIsTwo() {
+  void testExecuteValidation4() {
     // Arrange
     BoundaryEventValidator boundaryEventValidator = new BoundaryEventValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -323,43 +234,39 @@ class BoundaryEventValidatorDiffblueTest {
     assertTrue(signals instanceof List);
     Collection<Artifact> artifacts = process.getArtifacts();
     assertTrue(artifacts instanceof List);
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
     assertEquals(2, errors.size());
-    ValidationError getResult = errors.get(0);
-    assertEquals("42", getResult.getActivityName());
-    assertEquals("42", getResult.getDefaultDescription());
-    assertEquals("42", getResult.getKey());
-    assertEquals("42", getResult.getProblem());
-    assertEquals("42", getResult.getProcessDefinitionName());
-    assertEquals("42", getResult.getValidatorSetName());
-    assertEquals("Activity Id", getResult.getActivityId());
-    assertEquals("Process Definition Id", getResult.getProcessDefinitionId());
-    assertEquals(1, getResult.getXmlColumnNumber());
-    assertEquals(10, getResult.getXmlLineNumber());
-    assertFalse(getResult.isWarning());
     assertTrue(resources.isEmpty());
     assertTrue(signals.isEmpty());
     assertTrue(artifacts.isEmpty());
-    assertTrue(getResult.getParams().isEmpty());
+    assertTrue(flowElements.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+    assertSame(validationError2, errors.get(0));
   }
 
   /**
-   * Test {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}.
-   * <ul>
-   *   <li>When {@link Process} (default constructor).</li>
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test:
+   * {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); when Process (default constructor); then ArrayList() Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BoundaryEventValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_whenProcess_thenArrayListEmpty() {
+  void testExecuteValidation5() {
     // Arrange
     BoundaryEventValidator boundaryEventValidator = new BoundaryEventValidator();
     BpmnModel bpmnModel = new BpmnModel();
+
     Process process = new Process();
+    BooleanDataObject element = new BooleanDataObject();
+    process.addFlowElement(element);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
@@ -372,9 +279,128 @@ class BoundaryEventValidatorDiffblueTest {
     assertTrue(signals instanceof List);
     Collection<Artifact> artifacts = process.getArtifacts();
     assertTrue(artifacts instanceof List);
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertEquals(1, flowElements.size());
+    assertTrue(flowElements instanceof List);
     assertTrue(errors.isEmpty());
     assertTrue(resources.isEmpty());
     assertTrue(signals.isEmpty());
     assertTrue(artifacts.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+    assertSame(element, ((List<FlowElement>) flowElements).get(0));
+  }
+
+  /**
+   * Method under test:
+   * {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}
+   */
+  @Test
+  void testExecuteValidation6() {
+    // Arrange
+    BoundaryEventValidator boundaryEventValidator = new BoundaryEventValidator();
+    BpmnModel bpmnModel = new BpmnModel();
+
+    Process process = new Process();
+    BoundaryEvent element = new BoundaryEvent();
+    process.addFlowElement(element);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    boundaryEventValidator.executeValidation(bpmnModel, process, errors);
+
+    // Assert
+    Collection<Resource> resources = bpmnModel.getResources();
+    assertTrue(resources instanceof List);
+    Collection<Signal> signals = bpmnModel.getSignals();
+    assertTrue(signals instanceof List);
+    Collection<Artifact> artifacts = process.getArtifacts();
+    assertTrue(artifacts instanceof List);
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertEquals(1, flowElements.size());
+    assertTrue(flowElements instanceof List);
+    assertEquals(1, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("BOUNDARY_EVENT_NO_EVENT_DEFINITION", getResult.getDefaultDescription());
+    assertEquals("BOUNDARY_EVENT_NO_EVENT_DEFINITION", getResult.getKey());
+    assertEquals("BOUNDARY_EVENT_NO_EVENT_DEFINITION", getResult.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
+    assertTrue(resources.isEmpty());
+    assertTrue(signals.isEmpty());
+    assertTrue(artifacts.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
+    assertSame(element, ((List<FlowElement>) flowElements).get(0));
+  }
+
+  /**
+   * Method under test:
+   * {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}
+   */
+  @Test
+  void testExecuteValidation7() {
+    // Arrange
+    BoundaryEventValidator boundaryEventValidator = new BoundaryEventValidator();
+    BpmnModel bpmnModel = new BpmnModel();
+
+    AdhocSubProcess element = new AdhocSubProcess();
+    element.addFlowElement(new AdhocSubProcess());
+
+    Process process = new Process();
+    process.addFlowElement(element);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    boundaryEventValidator.executeValidation(bpmnModel, process, errors);
+
+    // Assert
+    Collection<Resource> resources = bpmnModel.getResources();
+    assertTrue(resources instanceof List);
+    Collection<Signal> signals = bpmnModel.getSignals();
+    assertTrue(signals instanceof List);
+    Collection<Artifact> artifacts = process.getArtifacts();
+    assertTrue(artifacts instanceof List);
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertEquals(1, flowElements.size());
+    assertTrue(flowElements instanceof List);
+    assertTrue(errors.isEmpty());
+    assertTrue(resources.isEmpty());
+    assertTrue(signals.isEmpty());
+    assertTrue(artifacts.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+    assertSame(element, ((List<FlowElement>) flowElements).get(0));
   }
 }

@@ -16,25 +16,18 @@
 package org.activiti.engine.impl.jobexecutor;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class TriggerTimerEventJobHandlerDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of {@link TriggerTimerEventJobHandler}
+   *   <li>default or parameterless constructor of
+   * {@link TriggerTimerEventJobHandler}
    *   <li>{@link TriggerTimerEventJobHandler#getType()}
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void TriggerTimerEventJobHandler.<init>()",
-      "java.lang.String TriggerTimerEventJobHandler.getType()"})
   public void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals(TriggerTimerEventJobHandler.TYPE, (new TriggerTimerEventJobHandler()).getType());

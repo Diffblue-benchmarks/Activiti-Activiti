@@ -18,28 +18,70 @@ package org.activiti.engine.impl.bpmn.listener;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import java.util.ArrayList;
 import java.util.List;
+import org.activiti.core.el.juel.ObjectValueExpression;
+import org.activiti.core.el.juel.misc.TypeConverter;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.impl.el.FixedValue;
+import org.activiti.engine.impl.el.JuelExpression;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class DelegateExpressionExecutionListenerDiffblueTest {
   /**
-   * Test {@link DelegateExpressionExecutionListener#DelegateExpressionExecutionListener(Expression, List)}.
-   * <p>
-   * Method under test: {@link DelegateExpressionExecutionListener#DelegateExpressionExecutionListener(Expression, List)}
+   * Method under test:
+   * {@link DelegateExpressionExecutionListener#notify(DelegateExecution)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DelegateExpressionExecutionListener.<init>(Expression, List)"})
+  public void testNotify() {
+    // Arrange
+    FixedValue expression = new FixedValue(JSONObject.NULL);
+    DelegateExpressionExecutionListener delegateExpressionExecutionListener = new DelegateExpressionExecutionListener(
+        expression, new ArrayList<>());
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> delegateExpressionExecutionListener.notify(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+  }
+
+  /**
+   * Method under test:
+   * {@link DelegateExpressionExecutionListener#getExpressionText()}
+   */
+  @Test
+  public void testGetExpressionText() {
+    // Arrange
+    FixedValue expression = new FixedValue(JSONObject.NULL);
+
+    // Act and Assert
+    assertEquals("null", (new DelegateExpressionExecutionListener(expression, new ArrayList<>())).getExpressionText());
+  }
+
+  /**
+   * Method under test:
+   * {@link DelegateExpressionExecutionListener#getExpressionText()}
+   */
+  @Test
+  public void testGetExpressionText2() {
+    // Arrange
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    JuelExpression expression = new JuelExpression(new ObjectValueExpression(converter, JSONObject.NULL, type), "null");
+
+    // Act and Assert
+    assertEquals("null", (new DelegateExpressionExecutionListener(expression, new ArrayList<>())).getExpressionText());
+  }
+
+  /**
+   * Method under test:
+   * {@link DelegateExpressionExecutionListener#DelegateExpressionExecutionListener(Expression, List)}
+   */
+  @Test
   public void testNewDelegateExpressionExecutionListener() {
     // Arrange
     FixedValue expression = new FixedValue(JSONObject.NULL);
@@ -53,47 +95,5 @@ public class DelegateExpressionExecutionListenerDiffblueTest {
     assertTrue(expression2 instanceof FixedValue);
     assertEquals("null", expression2.getExpressionText());
     assertEquals("null", actualDelegateExpressionExecutionListener.getExpressionText());
-  }
-
-  /**
-   * Test {@link DelegateExpressionExecutionListener#notify(DelegateExecution)} with {@code DelegateExecution}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegateExpressionExecutionListener#notify(DelegateExecution)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DelegateExpressionExecutionListener.notify(DelegateExecution)"})
-  public void testNotifyWithDelegateExecution_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    FixedValue expression = new FixedValue(JSONObject.NULL);
-    DelegateExpressionExecutionListener delegateExpressionExecutionListener = new DelegateExpressionExecutionListener(
-        expression, new ArrayList<>());
-
-    // Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> delegateExpressionExecutionListener.notify(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
-  }
-
-  /**
-   * Test {@link DelegateExpressionExecutionListener#getExpressionText()}.
-   * <ul>
-   *   <li>Given {@link FixedValue#FixedValue(Object)} with value is {@link JSONObject#NULL}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegateExpressionExecutionListener#getExpressionText()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.lang.String DelegateExpressionExecutionListener.getExpressionText()"})
-  public void testGetExpressionText_givenFixedValueWithValueIsNull_thenReturnNull() {
-    // Arrange
-    FixedValue expression = new FixedValue(JSONObject.NULL);
-
-    // Act and Assert
-    assertEquals("null", (new DelegateExpressionExecutionListener(expression, new ArrayList<>())).getExpressionText());
   }
 }

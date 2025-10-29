@@ -18,54 +18,70 @@ package org.activiti.engine.impl.util;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class DefaultClockImplDiffblueTest {
+  @InjectMocks
+  private DefaultClockImpl defaultClockImpl;
+
   /**
-   * Test {@link DefaultClockImpl#getCurrentCalendar()}.
-   * <p>
+   * Method under test: {@link DefaultClockImpl#setCurrentTime(java.util.Date)}
+   */
+  @Test
+  public void testSetCurrentTime() {
+    // Arrange
+    java.sql.Date currentTime = mock(java.sql.Date.class);
+    when(currentTime.getTime()).thenReturn(10L);
+
+    // Act
+    defaultClockImpl.setCurrentTime(currentTime);
+
+    // Assert
+    verify(currentTime).getTime();
+  }
+
+  /**
    * Method under test: {@link DefaultClockImpl#getCurrentCalendar()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Calendar DefaultClockImpl.getCurrentCalendar()"})
   public void testGetCurrentCalendar() {
     // Arrange and Act
-    Calendar actualCurrentCalendar = (new DefaultClockImpl()).getCurrentCalendar();
+    Calendar actualCurrentCalendar = defaultClockImpl.getCurrentCalendar();
 
     // Assert
     assertTrue(actualCurrentCalendar instanceof GregorianCalendar);
+    TimeZone timeZone = actualCurrentCalendar.getTimeZone();
+    assertEquals("Coordinated Universal Time", timeZone.getDisplayName());
     assertEquals("gregory", actualCurrentCalendar.getCalendarType());
     assertEquals(-62133091200000L, actualCurrentCalendar.getTimeInMillis());
+    assertEquals(0, timeZone.getDSTSavings());
     assertEquals(1, actualCurrentCalendar.getFirstDayOfWeek());
     assertEquals(1, actualCurrentCalendar.getMinimalDaysInFirstWeek());
     assertEquals(1, actualCurrentCalendar.getWeekYear());
     assertTrue(actualCurrentCalendar.isLenient());
     assertTrue(actualCurrentCalendar.isWeekDateSupported());
+    String expectedID = System.getProperty("user.timezone");
+    assertEquals(expectedID, timeZone.getID());
     assertEquals(Double.PRECISION, actualCurrentCalendar.getWeeksInWeekYear());
   }
 
   /**
-   * Test {@link DefaultClockImpl#getCurrentCalendar(TimeZone)} with {@code TimeZone}.
-   * <ul>
-   *   <li>Then return {@link GregorianCalendar}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DefaultClockImpl#getCurrentCalendar(TimeZone)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Calendar DefaultClockImpl.getCurrentCalendar(TimeZone)"})
-  public void testGetCurrentCalendarWithTimeZone_thenReturnGregorianCalendar() {
+  public void testGetCurrentCalendar2() {
     // Arrange
-    DefaultClockImpl defaultClockImpl = new DefaultClockImpl();
     TimeZone timeZone = TimeZone.getTimeZone("America/Los_Angeles");
 
     // Act
@@ -85,16 +101,12 @@ public class DefaultClockImplDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultClockImpl#getCurrentTimeZone()}.
-   * <p>
    * Method under test: {@link DefaultClockImpl#getCurrentTimeZone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"TimeZone DefaultClockImpl.getCurrentTimeZone()"})
   public void testGetCurrentTimeZone() {
     // Arrange and Act
-    TimeZone actualCurrentTimeZone = (new DefaultClockImpl()).getCurrentTimeZone();
+    TimeZone actualCurrentTimeZone = defaultClockImpl.getCurrentTimeZone();
 
     // Assert
     assertEquals("Coordinated Universal Time", actualCurrentTimeZone.getDisplayName());
@@ -104,8 +116,6 @@ public class DefaultClockImplDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link DefaultClockImpl}
@@ -114,9 +124,6 @@ public class DefaultClockImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultClockImpl.<init>()", "void DefaultClockImpl.reset()",
-      "void DefaultClockImpl.setCurrentCalendar(Calendar)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     DefaultClockImpl actualDefaultClockImpl = new DefaultClockImpl();

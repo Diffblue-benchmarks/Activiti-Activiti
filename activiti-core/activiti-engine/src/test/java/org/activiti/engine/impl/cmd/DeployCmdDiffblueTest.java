@@ -16,8 +16,8 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import org.activiti.core.el.CustomFunctionProvider;
 import org.activiti.engine.impl.RepositoryServiceImpl;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.persistence.entity.DeploymentEntity;
@@ -26,21 +26,14 @@ import org.activiti.engine.impl.persistence.entity.ResourceEntityManagerImpl;
 import org.activiti.engine.impl.persistence.entity.data.impl.MybatisResourceDataManager;
 import org.activiti.engine.impl.repository.DeploymentBuilderImpl;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class DeployCmdDiffblueTest {
   /**
-   * Test {@link DeployCmd#deploymentsDiffer(DeploymentEntity, DeploymentEntity)}.
-   * <ul>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeployCmd#deploymentsDiffer(DeploymentEntity, DeploymentEntity)}
+   * Method under test:
+   * {@link DeployCmd#deploymentsDiffer(DeploymentEntity, DeploymentEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean DeployCmd.deploymentsDiffer(DeploymentEntity, DeploymentEntity)"})
-  public void testDeploymentsDiffer_thenReturnTrue() {
+  public void testDeploymentsDiffer() {
     // Arrange
     RepositoryServiceImpl repositoryService = new RepositoryServiceImpl();
     DeploymentEntityImpl deployment = new DeploymentEntityImpl();
@@ -52,5 +45,26 @@ public class DeployCmdDiffblueTest {
 
     // Act and Assert
     assertTrue(deployCmd.deploymentsDiffer(deployment2, new DeploymentEntityImpl()));
+  }
+
+  /**
+   * Method under test:
+   * {@link DeployCmd#deploymentsDiffer(DeploymentEntity, DeploymentEntity)}
+   */
+  @Test
+  public void testDeploymentsDiffer2() {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
+    ResourceEntityManagerImpl resourceEntityManager = new ResourceEntityManagerImpl(processEngineConfiguration,
+        new MybatisResourceDataManager(new JtaProcessEngineConfiguration()));
+
+    RepositoryServiceImpl repositoryService = new RepositoryServiceImpl();
+    DeployCmd<Object> deployCmd = new DeployCmd<>(
+        new DeploymentBuilderImpl(repositoryService, new DeploymentEntityImpl(), resourceEntityManager));
+    DeploymentEntityImpl deployment = new DeploymentEntityImpl();
+
+    // Act and Assert
+    assertTrue(deployCmd.deploymentsDiffer(deployment, new DeploymentEntityImpl()));
   }
 }

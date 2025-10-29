@@ -19,23 +19,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.impl.persistence.entity.AttachmentEntityImpl;
 import org.activiti.engine.task.Attachment;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class SaveAttachmentCmdDiffblueTest {
   /**
-   * Test {@link SaveAttachmentCmd#SaveAttachmentCmd(Attachment)}.
-   * <p>
    * Method under test: {@link SaveAttachmentCmd#SaveAttachmentCmd(Attachment)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SaveAttachmentCmd.<init>(Attachment)"})
   public void testNewSaveAttachmentCmd() {
     // Arrange, Act and Assert
     Attachment attachment = (new SaveAttachmentCmd(new AttachmentEntityImpl())).attachment;

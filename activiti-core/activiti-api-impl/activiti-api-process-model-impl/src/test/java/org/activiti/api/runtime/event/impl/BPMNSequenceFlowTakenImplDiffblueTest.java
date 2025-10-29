@@ -18,26 +18,27 @@ package org.activiti.api.runtime.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.BPMNSequenceFlow;
 import org.activiti.api.process.model.events.SequenceFlowEvent;
-import org.activiti.api.process.model.events.SequenceFlowEvent.SequenceFlowEvents;
 import org.activiti.api.runtime.model.impl.BPMNSequenceFlowImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class BPMNSequenceFlowTakenImplDiffblueTest {
   /**
-   * Test {@link BPMNSequenceFlowTakenImpl#BPMNSequenceFlowTakenImpl()}.
-   * <p>
-   * Method under test: {@link BPMNSequenceFlowTakenImpl#BPMNSequenceFlowTakenImpl()}
+   * Method under test: {@link BPMNSequenceFlowTakenImpl#getEventType()}
    */
   @Test
-  @DisplayName("Test new BPMNSequenceFlowTakenImpl()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BPMNSequenceFlowTakenImpl.<init>()"})
+  void testGetEventType() {
+    // Arrange, Act and Assert
+    assertEquals(SequenceFlowEvent.SequenceFlowEvents.SEQUENCE_FLOW_TAKEN,
+        (new BPMNSequenceFlowTakenImpl()).getEventType());
+  }
+
+  /**
+   * Method under test:
+   * {@link BPMNSequenceFlowTakenImpl#BPMNSequenceFlowTakenImpl()}
+   */
+  @Test
   void testNewBPMNSequenceFlowTakenImpl() {
     // Arrange and Act
     BPMNSequenceFlowTakenImpl actualBpmnSequenceFlowTakenImpl = new BPMNSequenceFlowTakenImpl();
@@ -50,18 +51,15 @@ class BPMNSequenceFlowTakenImplDiffblueTest {
     assertNull(actualBpmnSequenceFlowTakenImpl.getProcessDefinitionKey());
     assertNull(actualBpmnSequenceFlowTakenImpl.getProcessInstanceId());
     assertNull(actualBpmnSequenceFlowTakenImpl.getEntity());
-    assertEquals(SequenceFlowEvents.SEQUENCE_FLOW_TAKEN, actualBpmnSequenceFlowTakenImpl.getEventType());
+    assertEquals(SequenceFlowEvent.SequenceFlowEvents.SEQUENCE_FLOW_TAKEN,
+        actualBpmnSequenceFlowTakenImpl.getEventType());
   }
 
   /**
-   * Test {@link BPMNSequenceFlowTakenImpl#BPMNSequenceFlowTakenImpl(BPMNSequenceFlow)}.
-   * <p>
-   * Method under test: {@link BPMNSequenceFlowTakenImpl#BPMNSequenceFlowTakenImpl(BPMNSequenceFlow)}
+   * Method under test:
+   * {@link BPMNSequenceFlowTakenImpl#BPMNSequenceFlowTakenImpl(BPMNSequenceFlow)}
    */
   @Test
-  @DisplayName("Test new BPMNSequenceFlowTakenImpl(BPMNSequenceFlow)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BPMNSequenceFlowTakenImpl.<init>(BPMNSequenceFlow)"})
   void testNewBPMNSequenceFlowTakenImpl2() {
     // Arrange
     BPMNSequenceFlowImpl entity = new BPMNSequenceFlowImpl("42", "42", "42");
@@ -70,29 +68,14 @@ class BPMNSequenceFlowTakenImplDiffblueTest {
     BPMNSequenceFlowTakenImpl actualBpmnSequenceFlowTakenImpl = new BPMNSequenceFlowTakenImpl(entity);
 
     // Assert
-    BPMNSequenceFlow entity2 = actualBpmnSequenceFlowTakenImpl.getEntity();
-    assertTrue(entity2 instanceof BPMNSequenceFlowImpl);
     assertNull(actualBpmnSequenceFlowTakenImpl.getProcessDefinitionVersion());
     assertNull(actualBpmnSequenceFlowTakenImpl.getBusinessKey());
     assertNull(actualBpmnSequenceFlowTakenImpl.getParentProcessInstanceId());
     assertNull(actualBpmnSequenceFlowTakenImpl.getProcessDefinitionId());
     assertNull(actualBpmnSequenceFlowTakenImpl.getProcessDefinitionKey());
     assertNull(actualBpmnSequenceFlowTakenImpl.getProcessInstanceId());
-    assertEquals(SequenceFlowEvents.SEQUENCE_FLOW_TAKEN, actualBpmnSequenceFlowTakenImpl.getEventType());
-    assertSame(entity, entity2);
-  }
-
-  /**
-   * Test {@link BPMNSequenceFlowTakenImpl#getEventType()}.
-   * <p>
-   * Method under test: {@link BPMNSequenceFlowTakenImpl#getEventType()}
-   */
-  @Test
-  @DisplayName("Test getEventType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"SequenceFlowEvents BPMNSequenceFlowTakenImpl.getEventType()"})
-  void testGetEventType() {
-    // Arrange, Act and Assert
-    assertEquals(SequenceFlowEvents.SEQUENCE_FLOW_TAKEN, (new BPMNSequenceFlowTakenImpl()).getEventType());
+    assertEquals(SequenceFlowEvent.SequenceFlowEvents.SEQUENCE_FLOW_TAKEN,
+        actualBpmnSequenceFlowTakenImpl.getEventType());
+    assertSame(entity, actualBpmnSequenceFlowTakenImpl.getEntity());
   }
 }

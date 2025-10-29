@@ -17,8 +17,6 @@ package org.activiti.engine.impl.bpmn.parser.handler;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.ParallelGateway;
 import org.activiti.engine.impl.bpmn.behavior.ParallelGatewayActivityBehavior;
@@ -26,18 +24,14 @@ import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ParallelGatewayParseHandlerDiffblueTest {
   /**
-   * Test {@link ParallelGatewayParseHandler#executeParse(BpmnParse, ParallelGateway)} with {@code BpmnParse}, {@code ParallelGateway}.
-   * <p>
-   * Method under test: {@link ParallelGatewayParseHandler#executeParse(BpmnParse, ParallelGateway)}
+   * Method under test:
+   * {@link ParallelGatewayParseHandler#executeParse(BpmnParse, ParallelGateway)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ParallelGatewayParseHandler.executeParse(BpmnParse, ParallelGateway)"})
-  public void testExecuteParseWithBpmnParseParallelGateway() {
+  public void testExecuteParse() {
     // Arrange
     ParallelGatewayParseHandler parallelGatewayParseHandler = new ParallelGatewayParseHandler();
 
@@ -54,17 +48,14 @@ public class ParallelGatewayParseHandlerDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of {@link ParallelGatewayParseHandler}
+   *   <li>default or parameterless constructor of
+   * {@link ParallelGatewayParseHandler}
    *   <li>{@link ParallelGatewayParseHandler#getHandledType()}
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ParallelGatewayParseHandler.<init>()", "Class ParallelGatewayParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends BaseElement> actualHandledType = (new ParallelGatewayParseHandler()).getHandledType();

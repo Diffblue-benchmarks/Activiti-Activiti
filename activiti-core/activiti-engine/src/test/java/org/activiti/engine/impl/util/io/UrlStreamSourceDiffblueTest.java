@@ -18,25 +18,42 @@ package org.activiti.engine.impl.util.io;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Paths;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class UrlStreamSourceDiffblueTest {
   /**
-   * Test {@link UrlStreamSource#UrlStreamSource(URL)}.
-   * <p>
+   * Method under test: {@link UrlStreamSource#getInputStream()}
+   */
+  @Test
+  public void testGetInputStream() throws MalformedURLException {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new UrlStreamSource(Paths.get(System.getProperty("java.io.tmpdir"), "test.txt").toUri().toURL()))
+            .getInputStream());
+  }
+
+  /**
+   * Method under test: {@link UrlStreamSource#getInputStream()}
+   */
+  @Test
+  public void testGetInputStream2() throws IOException {
+    // Arrange, Act and Assert
+    byte[] byteArray = new byte[51];
+    assertEquals(51,
+        (new UrlStreamSource(Paths.get(System.getProperty("java.io.tmpdir"), "").toUri().toURL())).getInputStream()
+            .read(byteArray));
+    assertArrayEquals(".java_pid1022257\n.java_pid1059508\n.java_pid1134153\n".getBytes("UTF-8"), byteArray);
+  }
+
+  /**
    * Method under test: {@link UrlStreamSource#UrlStreamSource(URL)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void UrlStreamSource.<init>(URL)"})
   public void testNewUrlStreamSource() throws MalformedURLException {
     // Arrange and Act
     UrlStreamSource actualUrlStreamSource = new UrlStreamSource(
@@ -46,43 +63,5 @@ public class UrlStreamSourceDiffblueTest {
     String expectedToStringResult = String.join("", "file:",
         Paths.get(System.getProperty("java.io.tmpdir"), "test.txt").toString());
     assertEquals(expectedToStringResult, actualUrlStreamSource.url.toString());
-  }
-
-  /**
-   * Test {@link UrlStreamSource#getInputStream()}.
-   * <ul>
-   *   <li>Then return read is fifty-one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link UrlStreamSource#getInputStream()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.io.InputStream UrlStreamSource.getInputStream()"})
-  public void testGetInputStream_thenReturnReadIsFiftyOne() throws IOException {
-    // Arrange, Act and Assert
-    byte[] byteArray = new byte[51];
-    assertEquals(51,
-        (new UrlStreamSource(Paths.get(System.getProperty("java.io.tmpdir"), "").toUri().toURL())).getInputStream()
-            .read(byteArray));
-    assertArrayEquals(".java_pid1045967\n.java_pid1066518\n.java_pid1105805\n".getBytes("UTF-8"), byteArray);
-  }
-
-  /**
-   * Test {@link UrlStreamSource#getInputStream()}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link UrlStreamSource#getInputStream()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.io.InputStream UrlStreamSource.getInputStream()"})
-  public void testGetInputStream_thenThrowActivitiIllegalArgumentException() throws MalformedURLException {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> (new UrlStreamSource(Paths.get(System.getProperty("java.io.tmpdir"), "test.txt").toUri().toURL()))
-            .getInputStream());
   }
 }

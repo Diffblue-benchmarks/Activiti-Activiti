@@ -17,20 +17,14 @@ package org.activiti.engine.impl.util.json;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class JSONStringerDiffblueTest {
   /**
-   * Test new {@link JSONStringer} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link JSONStringer}
+   * Method under test: default or parameterless constructor of
+   * {@link JSONStringer}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void JSONStringer.<init>()"})
   public void testNewJSONStringer() {
     // Arrange and Act
     JSONStringer actualJsonStringer = new JSONStringer();
@@ -41,13 +35,9 @@ public class JSONStringerDiffblueTest {
   }
 
   /**
-   * Test {@link JSONStringer#toString()}.
-   * <p>
    * Method under test: {@link JSONStringer#toString()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.lang.String JSONStringer.toString()"})
   public void testToString() {
     // Arrange, Act and Assert
     assertNull((new JSONStringer()).toString());

@@ -18,25 +18,27 @@ package org.activiti.runtime.api.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.task.model.TaskCandidateUser;
 import org.activiti.api.task.model.events.TaskCandidateUserEvent;
-import org.activiti.api.task.model.events.TaskCandidateUserEvent.TaskCandidateUserEvents;
 import org.activiti.api.task.model.impl.TaskCandidateUserImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class TaskCandidateUserRemovedImplDiffblueTest {
   /**
-   * Test {@link TaskCandidateUserRemovedImpl#TaskCandidateUserRemovedImpl()}.
-   * <p>
-   * Method under test: {@link TaskCandidateUserRemovedImpl#TaskCandidateUserRemovedImpl()}
+   * Method under test: {@link TaskCandidateUserRemovedImpl#getEventType()}
    */
   @Test
-  @DisplayName("Test new TaskCandidateUserRemovedImpl()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void TaskCandidateUserRemovedImpl.<init>()"})
+  void testGetEventType() {
+    // Arrange, Act and Assert
+    assertEquals(TaskCandidateUserEvent.TaskCandidateUserEvents.TASK_CANDIDATE_USER_REMOVED,
+        (new TaskCandidateUserRemovedImpl()).getEventType());
+  }
+
+  /**
+   * Method under test:
+   * {@link TaskCandidateUserRemovedImpl#TaskCandidateUserRemovedImpl()}
+   */
+  @Test
   void testNewTaskCandidateUserRemovedImpl() {
     // Arrange and Act
     TaskCandidateUserRemovedImpl actualTaskCandidateUserRemovedImpl = new TaskCandidateUserRemovedImpl();
@@ -49,19 +51,15 @@ class TaskCandidateUserRemovedImplDiffblueTest {
     assertNull(actualTaskCandidateUserRemovedImpl.getProcessDefinitionKey());
     assertNull(actualTaskCandidateUserRemovedImpl.getProcessInstanceId());
     assertNull(actualTaskCandidateUserRemovedImpl.getEntity());
-    assertEquals(TaskCandidateUserEvents.TASK_CANDIDATE_USER_REMOVED,
+    assertEquals(TaskCandidateUserEvent.TaskCandidateUserEvents.TASK_CANDIDATE_USER_REMOVED,
         actualTaskCandidateUserRemovedImpl.getEventType());
   }
 
   /**
-   * Test {@link TaskCandidateUserRemovedImpl#TaskCandidateUserRemovedImpl(TaskCandidateUser)}.
-   * <p>
-   * Method under test: {@link TaskCandidateUserRemovedImpl#TaskCandidateUserRemovedImpl(TaskCandidateUser)}
+   * Method under test:
+   * {@link TaskCandidateUserRemovedImpl#TaskCandidateUserRemovedImpl(TaskCandidateUser)}
    */
   @Test
-  @DisplayName("Test new TaskCandidateUserRemovedImpl(TaskCandidateUser)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void TaskCandidateUserRemovedImpl.<init>(TaskCandidateUser)"})
   void testNewTaskCandidateUserRemovedImpl2() {
     // Arrange
     TaskCandidateUserImpl entity = new TaskCandidateUserImpl("42", "42");
@@ -76,23 +74,8 @@ class TaskCandidateUserRemovedImplDiffblueTest {
     assertNull(actualTaskCandidateUserRemovedImpl.getProcessDefinitionId());
     assertNull(actualTaskCandidateUserRemovedImpl.getProcessDefinitionKey());
     assertNull(actualTaskCandidateUserRemovedImpl.getProcessInstanceId());
-    assertEquals(TaskCandidateUserEvents.TASK_CANDIDATE_USER_REMOVED,
+    assertEquals(TaskCandidateUserEvent.TaskCandidateUserEvents.TASK_CANDIDATE_USER_REMOVED,
         actualTaskCandidateUserRemovedImpl.getEventType());
     assertSame(entity, actualTaskCandidateUserRemovedImpl.getEntity());
-  }
-
-  /**
-   * Test {@link TaskCandidateUserRemovedImpl#getEventType()}.
-   * <p>
-   * Method under test: {@link TaskCandidateUserRemovedImpl#getEventType()}
-   */
-  @Test
-  @DisplayName("Test getEventType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TaskCandidateUserEvent.TaskCandidateUserEvents TaskCandidateUserRemovedImpl.getEventType()"})
-  void testGetEventType() {
-    // Arrange, Act and Assert
-    assertEquals(TaskCandidateUserEvents.TASK_CANDIDATE_USER_REMOVED,
-        (new TaskCandidateUserRemovedImpl()).getEventType());
   }
 }

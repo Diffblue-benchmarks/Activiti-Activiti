@@ -18,26 +18,27 @@ package org.activiti.api.runtime.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.BPMNActivity;
 import org.activiti.api.process.model.events.BPMNActivityEvent;
-import org.activiti.api.process.model.events.BPMNActivityEvent.ActivityEvents;
 import org.activiti.api.runtime.model.impl.BPMNActivityImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class BPMNActivityCancelledEventImplDiffblueTest {
   /**
-   * Test {@link BPMNActivityCancelledEventImpl#BPMNActivityCancelledEventImpl()}.
-   * <p>
-   * Method under test: {@link BPMNActivityCancelledEventImpl#BPMNActivityCancelledEventImpl()}
+   * Method under test: {@link BPMNActivityCancelledEventImpl#getEventType()}
    */
   @Test
-  @DisplayName("Test new BPMNActivityCancelledEventImpl()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BPMNActivityCancelledEventImpl.<init>()"})
+  void testGetEventType() {
+    // Arrange, Act and Assert
+    assertEquals(BPMNActivityEvent.ActivityEvents.ACTIVITY_CANCELLED,
+        (new BPMNActivityCancelledEventImpl()).getEventType());
+  }
+
+  /**
+   * Method under test:
+   * {@link BPMNActivityCancelledEventImpl#BPMNActivityCancelledEventImpl()}
+   */
+  @Test
   void testNewBPMNActivityCancelledEventImpl() {
     // Arrange and Act
     BPMNActivityCancelledEventImpl actualBpmnActivityCancelledEventImpl = new BPMNActivityCancelledEventImpl();
@@ -50,18 +51,15 @@ class BPMNActivityCancelledEventImplDiffblueTest {
     assertNull(actualBpmnActivityCancelledEventImpl.getProcessDefinitionKey());
     assertNull(actualBpmnActivityCancelledEventImpl.getProcessInstanceId());
     assertNull(actualBpmnActivityCancelledEventImpl.getEntity());
-    assertEquals(ActivityEvents.ACTIVITY_CANCELLED, actualBpmnActivityCancelledEventImpl.getEventType());
+    assertEquals(BPMNActivityEvent.ActivityEvents.ACTIVITY_CANCELLED,
+        actualBpmnActivityCancelledEventImpl.getEventType());
   }
 
   /**
-   * Test {@link BPMNActivityCancelledEventImpl#BPMNActivityCancelledEventImpl(BPMNActivity)}.
-   * <p>
-   * Method under test: {@link BPMNActivityCancelledEventImpl#BPMNActivityCancelledEventImpl(BPMNActivity)}
+   * Method under test:
+   * {@link BPMNActivityCancelledEventImpl#BPMNActivityCancelledEventImpl(BPMNActivity)}
    */
   @Test
-  @DisplayName("Test new BPMNActivityCancelledEventImpl(BPMNActivity)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BPMNActivityCancelledEventImpl.<init>(BPMNActivity)"})
   void testNewBPMNActivityCancelledEventImpl2() {
     // Arrange
     BPMNActivityImpl entity = new BPMNActivityImpl("42", "Activity Name", "Activity Type");
@@ -70,29 +68,14 @@ class BPMNActivityCancelledEventImplDiffblueTest {
     BPMNActivityCancelledEventImpl actualBpmnActivityCancelledEventImpl = new BPMNActivityCancelledEventImpl(entity);
 
     // Assert
-    BPMNActivity entity2 = actualBpmnActivityCancelledEventImpl.getEntity();
-    assertTrue(entity2 instanceof BPMNActivityImpl);
     assertNull(actualBpmnActivityCancelledEventImpl.getProcessDefinitionVersion());
     assertNull(actualBpmnActivityCancelledEventImpl.getBusinessKey());
     assertNull(actualBpmnActivityCancelledEventImpl.getParentProcessInstanceId());
     assertNull(actualBpmnActivityCancelledEventImpl.getProcessDefinitionId());
     assertNull(actualBpmnActivityCancelledEventImpl.getProcessDefinitionKey());
     assertNull(actualBpmnActivityCancelledEventImpl.getProcessInstanceId());
-    assertEquals(ActivityEvents.ACTIVITY_CANCELLED, actualBpmnActivityCancelledEventImpl.getEventType());
-    assertSame(entity, entity2);
-  }
-
-  /**
-   * Test {@link BPMNActivityCancelledEventImpl#getEventType()}.
-   * <p>
-   * Method under test: {@link BPMNActivityCancelledEventImpl#getEventType()}
-   */
-  @Test
-  @DisplayName("Test getEventType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ActivityEvents BPMNActivityCancelledEventImpl.getEventType()"})
-  void testGetEventType() {
-    // Arrange, Act and Assert
-    assertEquals(ActivityEvents.ACTIVITY_CANCELLED, (new BPMNActivityCancelledEventImpl()).getEventType());
+    assertEquals(BPMNActivityEvent.ActivityEvents.ACTIVITY_CANCELLED,
+        actualBpmnActivityCancelledEventImpl.getEventType());
+    assertSame(entity, actualBpmnActivityCancelledEventImpl.getEntity());
   }
 }

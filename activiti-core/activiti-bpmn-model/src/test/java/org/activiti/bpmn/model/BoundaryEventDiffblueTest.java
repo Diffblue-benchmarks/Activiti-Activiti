@@ -20,59 +20,30 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.function.BiFunction;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class BoundaryEventDiffblueTest {
   /**
-   * Test {@link BoundaryEvent#hasErrorEventDefinition()}.
-   * <p>
    * Method under test: {@link BoundaryEvent#hasErrorEventDefinition()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean BoundaryEvent.hasErrorEventDefinition()"})
   public void testHasErrorEventDefinition() {
-    // Arrange
-    BoundaryEvent boundaryEvent = new BoundaryEvent();
-    boundaryEvent.addEventDefinition(new CancelEventDefinition());
-
-    // Act and Assert
-    assertFalse(boundaryEvent.hasErrorEventDefinition());
+    // Arrange, Act and Assert
+    assertFalse((new BoundaryEvent()).hasErrorEventDefinition());
   }
 
   /**
-   * Test {@link BoundaryEvent#hasErrorEventDefinition()}.
-   * <p>
    * Method under test: {@link BoundaryEvent#hasErrorEventDefinition()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean BoundaryEvent.hasErrorEventDefinition()"})
   public void testHasErrorEventDefinition2() {
-    // Arrange
-    BoundaryEvent boundaryEvent = new BoundaryEvent();
-    boundaryEvent.addEventDefinition(new CancelEventDefinition());
-    boundaryEvent.addEventDefinition(new CancelEventDefinition());
-
-    // Act and Assert
-    assertFalse(boundaryEvent.hasErrorEventDefinition());
-  }
-
-  /**
-   * Test {@link BoundaryEvent#hasErrorEventDefinition()}.
-   * <ul>
-   *   <li>Given {@link BoundaryEvent} (default constructor) EventDefinitions is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BoundaryEvent#hasErrorEventDefinition()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean BoundaryEvent.hasErrorEventDefinition()"})
-  public void testHasErrorEventDefinition_givenBoundaryEventEventDefinitionsIsNull() {
     // Arrange
     BoundaryEvent boundaryEvent = new BoundaryEvent();
     boundaryEvent.setEventDefinitions(null);
@@ -82,34 +53,37 @@ public class BoundaryEventDiffblueTest {
   }
 
   /**
-   * Test {@link BoundaryEvent#hasErrorEventDefinition()}.
-   * <ul>
-   *   <li>Given {@link BoundaryEvent} (default constructor).</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BoundaryEvent#hasErrorEventDefinition()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean BoundaryEvent.hasErrorEventDefinition()"})
-  public void testHasErrorEventDefinition_givenBoundaryEvent_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse((new BoundaryEvent()).hasErrorEventDefinition());
+  public void testHasErrorEventDefinition3() {
+    // Arrange
+    BoundaryEvent boundaryEvent = new BoundaryEvent();
+    boundaryEvent.addEventDefinition(new CancelEventDefinition());
+
+    // Act and Assert
+    assertFalse(boundaryEvent.hasErrorEventDefinition());
   }
 
   /**
-   * Test {@link BoundaryEvent#hasErrorEventDefinition()}.
-   * <ul>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BoundaryEvent#hasErrorEventDefinition()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean BoundaryEvent.hasErrorEventDefinition()"})
-  public void testHasErrorEventDefinition_thenReturnTrue() {
+  public void testHasErrorEventDefinition4() {
+    // Arrange
+    BoundaryEvent boundaryEvent = new BoundaryEvent();
+    boundaryEvent.addEventDefinition(new CancelEventDefinition());
+    boundaryEvent.addEventDefinition(new CancelEventDefinition());
+
+    // Act and Assert
+    assertFalse(boundaryEvent.hasErrorEventDefinition());
+  }
+
+  /**
+   * Method under test: {@link BoundaryEvent#hasErrorEventDefinition()}
+   */
+  @Test
+  public void testHasErrorEventDefinition5() {
     // Arrange
     BoundaryEvent boundaryEvent = new BoundaryEvent();
     boundaryEvent.addEventDefinition(new ErrorEventDefinition());
@@ -119,18 +93,10 @@ public class BoundaryEventDiffblueTest {
   }
 
   /**
-   * Test {@link BoundaryEvent#clone()}.
-   * <ul>
-   *   <li>Given {@link BoundaryEvent} (default constructor).</li>
-   *   <li>Then return Behavior is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BoundaryEvent#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"BoundaryEvent BoundaryEvent.clone()"})
-  public void testClone_givenBoundaryEvent_thenReturnBehaviorIsNull() {
+  public void testClone() {
     // Arrange and Act
     BoundaryEvent actualCloneResult = (new BoundaryEvent()).clone();
 
@@ -158,8 +124,68 @@ public class BoundaryEventDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link BoundaryEvent#clone()}
+   */
+  @Test
+  public void testClone2() {
+    // Arrange
+    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
+    attributes.computeIfPresent("foo", mock(BiFunction.class));
+
+    BoundaryEvent boundaryEvent = new BoundaryEvent();
+    boundaryEvent.setExtensionElements(null);
+    boundaryEvent.setAttributes(attributes);
+
+    // Act
+    BoundaryEvent actualCloneResult = boundaryEvent.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getAttachedToRefId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getAttachedToRef());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertTrue(actualCloneResult.getEventDefinitions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isCancelActivity());
+    assertTrue(actualCloneResult.isExclusive());
+  }
+
+  /**
+   * Method under test: {@link BoundaryEvent#setValues(BoundaryEvent)}
+   */
+  @Test
+  public void testSetValues() {
+    // Arrange
+    BoundaryEvent boundaryEvent = new BoundaryEvent();
+    CancelEventDefinition cancelEventDefinition = mock(CancelEventDefinition.class);
+    when(cancelEventDefinition.clone()).thenReturn(new CancelEventDefinition());
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(cancelEventDefinition);
+
+    BoundaryEvent otherEvent = new BoundaryEvent();
+    otherEvent.setEventDefinitions(eventDefinitions);
+
+    // Act
+    boundaryEvent.setValues(otherEvent);
+
+    // Assert
+    verify(cancelEventDefinition).clone();
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link BoundaryEvent}
@@ -172,11 +198,6 @@ public class BoundaryEventDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void BoundaryEvent.<init>()", "Activity BoundaryEvent.getAttachedToRef()",
-      "String BoundaryEvent.getAttachedToRefId()", "boolean BoundaryEvent.isCancelActivity()",
-      "void BoundaryEvent.setAttachedToRef(Activity)", "void BoundaryEvent.setAttachedToRefId(String)",
-      "void BoundaryEvent.setCancelActivity(boolean)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     BoundaryEvent actualBoundaryEvent = new BoundaryEvent();
@@ -188,13 +209,8 @@ public class BoundaryEventDiffblueTest {
     String actualAttachedToRefId = actualBoundaryEvent.getAttachedToRefId();
     boolean actualIsCancelActivityResult = actualBoundaryEvent.isCancelActivity();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("42", actualAttachedToRefId);
-    assertNull(actualBoundaryEvent.getBehavior());
-    assertNull(actualBoundaryEvent.getId());
-    assertNull(actualBoundaryEvent.getDocumentation());
-    assertNull(actualBoundaryEvent.getName());
-    assertNull(actualBoundaryEvent.getParentContainer());
     assertEquals(0, actualBoundaryEvent.getXmlColumnNumber());
     assertEquals(0, actualBoundaryEvent.getXmlRowNumber());
     assertFalse(actualBoundaryEvent.isAsynchronous());

@@ -18,47 +18,29 @@ package org.activiti.core.el;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import jakarta.el.BeanNameELResolver;
+import jakarta.el.BeanNameResolver;
 import jakarta.el.CompositeELResolver;
 import jakarta.el.ELContext;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import jakarta.el.ELResolver;
+import org.activiti.core.el.juel.ObjectValueExpression;
+import org.activiti.core.el.juel.misc.TypeConverter;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 class ELResolverDecoratorDiffblueTest {
   /**
-   * Test {@link ELResolverDecorator#getValue(ELContext, Object, Object)}.
-   * <p>
-   * Method under test: {@link ELResolverDecorator#getValue(ELContext, Object, Object)}
+   * Method under test:
+   * {@link ELResolverDecorator#getValue(ELContext, Object, Object)}
    */
   @Test
-  @DisplayName("Test getValue(ELContext, Object, Object)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object ELResolverDecorator.getValue(ELContext, Object, Object)"})
   void testGetValue() {
     // Arrange
     ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator = new ELResolverReflectionBlockerDecorator(
-        new ELResolverReflectionBlockerDecorator(new JsonNodeELResolver()));
-
-    // Act and Assert
-    assertNull(elResolverReflectionBlockerDecorator.getValue(new ActivitiElContext(), "Base", "Property"));
-  }
-
-  /**
-   * Test {@link ELResolverDecorator#getValue(ELContext, Object, Object)}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ELResolverDecorator#getValue(ELContext, Object, Object)}
-   */
-  @Test
-  @DisplayName("Test getValue(ELContext, Object, Object); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object ELResolverDecorator.getValue(ELContext, Object, Object)"})
-  void testGetValue_thenReturnNull() {
-    // Arrange
-    ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator = new ELResolverReflectionBlockerDecorator(
         new JsonNodeELResolver());
 
     // Act and Assert
@@ -66,38 +48,46 @@ class ELResolverDecoratorDiffblueTest {
   }
 
   /**
-   * Test {@link ELResolverDecorator#getType(ELContext, Object, Object)}.
-   * <p>
-   * Method under test: {@link ELResolverDecorator#getType(ELContext, Object, Object)}
+   * Method under test:
+   * {@link ELResolverDecorator#getValue(ELContext, Object, Object)}
    */
   @Test
-  @DisplayName("Test getType(ELContext, Object, Object)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Class ELResolverDecorator.getType(ELContext, Object, Object)"})
+  void testGetValue2() {
+    // Arrange
+    ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator = new ELResolverReflectionBlockerDecorator(
+        new ELResolverReflectionBlockerDecorator(new JsonNodeELResolver()));
+
+    // Act and Assert
+    assertNull(elResolverReflectionBlockerDecorator.getValue(new ActivitiElContext(), "Base", "Property"));
+  }
+
+  /**
+   * Method under test:
+   * {@link ELResolverDecorator#getValue(ELContext, Object, Object)}
+   */
+  @Test
+  void testGetValue3() {
+    // Arrange
+    ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator = new ELResolverReflectionBlockerDecorator(
+        new JsonNodeELResolver());
+
+    ActivitiElContext context = new ActivitiElContext();
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    context.setVariable("Name", new ObjectValueExpression(converter, "Object", type));
+
+    // Act and Assert
+    assertNull(elResolverReflectionBlockerDecorator.getValue(context, "Base", "Property"));
+  }
+
+  /**
+   * Method under test:
+   * {@link ELResolverDecorator#getType(ELContext, Object, Object)}
+   */
+  @Test
   void testGetType() {
     // Arrange
     ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator = new ELResolverReflectionBlockerDecorator(
-        new ELResolverReflectionBlockerDecorator(new JsonNodeELResolver()));
-
-    // Act and Assert
-    assertNull(elResolverReflectionBlockerDecorator.getType(new ActivitiElContext(), "Base", "Property"));
-  }
-
-  /**
-   * Test {@link ELResolverDecorator#getType(ELContext, Object, Object)}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ELResolverDecorator#getType(ELContext, Object, Object)}
-   */
-  @Test
-  @DisplayName("Test getType(ELContext, Object, Object); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Class ELResolverDecorator.getType(ELContext, Object, Object)"})
-  void testGetType_thenReturnNull() {
-    // Arrange
-    ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator = new ELResolverReflectionBlockerDecorator(
         new JsonNodeELResolver());
 
     // Act and Assert
@@ -105,14 +95,63 @@ class ELResolverDecoratorDiffblueTest {
   }
 
   /**
-   * Test {@link ELResolverDecorator#invoke(ELContext, Object, Object, Class[], Object[])}.
-   * <p>
-   * Method under test: {@link ELResolverDecorator#invoke(ELContext, Object, Object, Class[], Object[])}
+   * Method under test:
+   * {@link ELResolverDecorator#getType(ELContext, Object, Object)}
    */
   @Test
-  @DisplayName("Test invoke(ELContext, Object, Object, Class[], Object[])")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object ELResolverDecorator.invoke(ELContext, Object, Object, Class[], Object[])"})
+  void testGetType2() {
+    // Arrange
+    ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator = new ELResolverReflectionBlockerDecorator(
+        new ELResolverReflectionBlockerDecorator(new JsonNodeELResolver()));
+
+    // Act and Assert
+    assertNull(elResolverReflectionBlockerDecorator.getType(new ActivitiElContext(), "Base", "Property"));
+  }
+
+  /**
+   * Method under test:
+   * {@link ELResolverDecorator#getType(ELContext, Object, Object)}
+   */
+  @Test
+  void testGetType3() {
+    // Arrange
+    ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator = new ELResolverReflectionBlockerDecorator(
+        new JsonNodeELResolver());
+
+    ActivitiElContext context = new ActivitiElContext();
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    context.setVariable("Name", new ObjectValueExpression(converter, "Object", type));
+
+    // Act and Assert
+    assertNull(elResolverReflectionBlockerDecorator.getType(context, "Base", "Property"));
+  }
+
+  /**
+   * Method under test:
+   * {@link ELResolverDecorator#setValue(ELContext, Object, Object, Object)}
+   */
+  @Test
+  void testSetValue() {
+    // Arrange
+    ELResolver resolver = mock(ELResolver.class);
+    doNothing().when(resolver)
+        .setValue(Mockito.<ELContext>any(), Mockito.<Object>any(), Mockito.<Object>any(), Mockito.<Object>any());
+    ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator = new ELResolverReflectionBlockerDecorator(
+        resolver);
+
+    // Act
+    elResolverReflectionBlockerDecorator.setValue(new ActivitiElContext(), "Base", "Property", "Value");
+
+    // Assert
+    verify(resolver).setValue(isA(ELContext.class), isA(Object.class), isA(Object.class), isA(Object.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link ELResolverDecorator#invoke(ELContext, Object, Object, Class[], Object[])}
+   */
+  @Test
   void testInvoke() {
     // Arrange
     ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator = new ELResolverReflectionBlockerDecorator(
@@ -126,15 +165,28 @@ class ELResolverDecoratorDiffblueTest {
   }
 
   /**
-   * Test {@link ELResolverDecorator#invoke(ELContext, Object, Object, Class[], Object[])}.
-   * <p>
-   * Method under test: {@link ELResolverDecorator#invoke(ELContext, Object, Object, Class[], Object[])}
+   * Method under test:
+   * {@link ELResolverDecorator#invoke(ELContext, Object, Object, Class[], Object[])}
    */
   @Test
-  @DisplayName("Test invoke(ELContext, Object, Object, Class[], Object[])")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object ELResolverDecorator.invoke(ELContext, Object, Object, Class[], Object[])"})
   void testInvoke2() {
+    // Arrange
+    ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator = new ELResolverReflectionBlockerDecorator(
+        new BeanNameELResolver(mock(BeanNameResolver.class)));
+    ActivitiElContext context = new ActivitiElContext();
+    Class<Object> forNameResult = Object.class;
+
+    // Act and Assert
+    assertNull(elResolverReflectionBlockerDecorator.invoke(context, "Base", "Method", new Class[]{forNameResult},
+        new Object[]{"Params"}));
+  }
+
+  /**
+   * Method under test:
+   * {@link ELResolverDecorator#invoke(ELContext, Object, Object, Class[], Object[])}
+   */
+  @Test
+  void testInvoke3() {
     // Arrange
     ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator = new ELResolverReflectionBlockerDecorator(
         new CompositeELResolver());
@@ -147,15 +199,11 @@ class ELResolverDecoratorDiffblueTest {
   }
 
   /**
-   * Test {@link ELResolverDecorator#invoke(ELContext, Object, Object, Class[], Object[])}.
-   * <p>
-   * Method under test: {@link ELResolverDecorator#invoke(ELContext, Object, Object, Class[], Object[])}
+   * Method under test:
+   * {@link ELResolverDecorator#invoke(ELContext, Object, Object, Class[], Object[])}
    */
   @Test
-  @DisplayName("Test invoke(ELContext, Object, Object, Class[], Object[])")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object ELResolverDecorator.invoke(ELContext, Object, Object, Class[], Object[])"})
-  void testInvoke3() {
+  void testInvoke4() {
     // Arrange
     ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator = new ELResolverReflectionBlockerDecorator(
         new ELResolverReflectionBlockerDecorator(new JsonNodeELResolver()));
@@ -168,15 +216,31 @@ class ELResolverDecoratorDiffblueTest {
   }
 
   /**
-   * Test {@link ELResolverDecorator#invoke(ELContext, Object, Object, Class[], Object[])}.
-   * <p>
-   * Method under test: {@link ELResolverDecorator#invoke(ELContext, Object, Object, Class[], Object[])}
+   * Method under test:
+   * {@link ELResolverDecorator#invoke(ELContext, Object, Object, Class[], Object[])}
    */
   @Test
-  @DisplayName("Test invoke(ELContext, Object, Object, Class[], Object[])")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object ELResolverDecorator.invoke(ELContext, Object, Object, Class[], Object[])"})
-  void testInvoke4() {
+  void testInvoke5() {
+    // Arrange
+    CompositeELResolver resolver = new CompositeELResolver();
+    resolver.add(new JsonNodeELResolver());
+    resolver.add(new JsonNodeELResolver());
+    ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator = new ELResolverReflectionBlockerDecorator(
+        resolver);
+    ActivitiElContext context = new ActivitiElContext();
+    Class<Object> forNameResult = Object.class;
+
+    // Act and Assert
+    assertNull(elResolverReflectionBlockerDecorator.invoke(context, "Base", "Method", new Class[]{forNameResult},
+        new Object[]{"Params"}));
+  }
+
+  /**
+   * Method under test:
+   * {@link ELResolverDecorator#invoke(ELContext, Object, Object, Class[], Object[])}
+   */
+  @Test
+  void testInvoke6() {
     // Arrange
     CompositeELResolver resolver = new CompositeELResolver();
     resolver.add(new JsonNodeELResolver());
@@ -192,65 +256,25 @@ class ELResolverDecoratorDiffblueTest {
   }
 
   /**
-   * Test {@link ELResolverDecorator#invoke(ELContext, Object, Object, Class[], Object[])}.
-   * <ul>
-   *   <li>Given {@link CompositeELResolver} (default constructor) add {@link JsonNodeELResolver#JsonNodeELResolver()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ELResolverDecorator#invoke(ELContext, Object, Object, Class[], Object[])}
+   * Method under test:
+   * {@link ELResolverDecorator#isReadOnly(ELContext, Object, Object)}
    */
   @Test
-  @DisplayName("Test invoke(ELContext, Object, Object, Class[], Object[]); given CompositeELResolver (default constructor) add JsonNodeELResolver(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object ELResolverDecorator.invoke(ELContext, Object, Object, Class[], Object[])"})
-  void testInvoke_givenCompositeELResolverAddJsonNodeELResolver_thenReturnNull() {
-    // Arrange
-    CompositeELResolver resolver = new CompositeELResolver();
-    resolver.add(new JsonNodeELResolver());
-    resolver.add(new JsonNodeELResolver());
-    ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator = new ELResolverReflectionBlockerDecorator(
-        resolver);
-    ActivitiElContext context = new ActivitiElContext();
-    Class<Object> forNameResult = Object.class;
-
-    // Act and Assert
-    assertNull(elResolverReflectionBlockerDecorator.invoke(context, "Base", "Method", new Class[]{forNameResult},
-        new Object[]{"Params"}));
-  }
-
-  /**
-   * Test {@link ELResolverDecorator#isReadOnly(ELContext, Object, Object)}.
-   * <p>
-   * Method under test: {@link ELResolverDecorator#isReadOnly(ELContext, Object, Object)}
-   */
-  @Test
-  @DisplayName("Test isReadOnly(ELContext, Object, Object)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean ELResolverDecorator.isReadOnly(ELContext, Object, Object)"})
   void testIsReadOnly() {
     // Arrange
     ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator = new ELResolverReflectionBlockerDecorator(
-        new ELResolverReflectionBlockerDecorator(new JsonNodeELResolver()));
+        new JsonNodeELResolver());
 
     // Act and Assert
     assertFalse(elResolverReflectionBlockerDecorator.isReadOnly(new ActivitiElContext(), "Base", "Property"));
   }
 
   /**
-   * Test {@link ELResolverDecorator#isReadOnly(ELContext, Object, Object)}.
-   * <ul>
-   *   <li>Given {@link JsonNodeELResolver#JsonNodeELResolver(boolean)} with readOnly is {@code true}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ELResolverDecorator#isReadOnly(ELContext, Object, Object)}
+   * Method under test:
+   * {@link ELResolverDecorator#isReadOnly(ELContext, Object, Object)}
    */
   @Test
-  @DisplayName("Test isReadOnly(ELContext, Object, Object); given JsonNodeELResolver(boolean) with readOnly is 'true'; then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean ELResolverDecorator.isReadOnly(ELContext, Object, Object)"})
-  void testIsReadOnly_givenJsonNodeELResolverWithReadOnlyIsTrue_thenReturnTrue() {
+  void testIsReadOnly2() {
     // Arrange
     ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator = new ELResolverReflectionBlockerDecorator(
         new JsonNodeELResolver(true));
@@ -260,59 +284,46 @@ class ELResolverDecoratorDiffblueTest {
   }
 
   /**
-   * Test {@link ELResolverDecorator#isReadOnly(ELContext, Object, Object)}.
-   * <ul>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ELResolverDecorator#isReadOnly(ELContext, Object, Object)}
+   * Method under test:
+   * {@link ELResolverDecorator#isReadOnly(ELContext, Object, Object)}
    */
   @Test
-  @DisplayName("Test isReadOnly(ELContext, Object, Object); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean ELResolverDecorator.isReadOnly(ELContext, Object, Object)"})
-  void testIsReadOnly_thenReturnFalse() {
+  void testIsReadOnly3() {
     // Arrange
     ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator = new ELResolverReflectionBlockerDecorator(
-        new JsonNodeELResolver());
+        new ELResolverReflectionBlockerDecorator(new JsonNodeELResolver()));
 
     // Act and Assert
     assertFalse(elResolverReflectionBlockerDecorator.isReadOnly(new ActivitiElContext(), "Base", "Property"));
   }
 
   /**
-   * Test {@link ELResolverDecorator#getFeatureDescriptors(ELContext, Object)}.
-   * <p>
-   * Method under test: {@link ELResolverDecorator#getFeatureDescriptors(ELContext, Object)}
+   * Method under test:
+   * {@link ELResolverDecorator#isReadOnly(ELContext, Object, Object)}
    */
   @Test
-  @DisplayName("Test getFeatureDescriptors(ELContext, Object)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.util.Iterator ELResolverDecorator.getFeatureDescriptors(ELContext, Object)"})
+  void testIsReadOnly4() {
+    // Arrange
+    ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator = new ELResolverReflectionBlockerDecorator(
+        new JsonNodeELResolver());
+
+    ActivitiElContext context = new ActivitiElContext();
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    context.setVariable("Name", new ObjectValueExpression(converter, "Object", type));
+
+    // Act and Assert
+    assertFalse(elResolverReflectionBlockerDecorator.isReadOnly(context, "Base", "Property"));
+  }
+
+  /**
+   * Method under test:
+   * {@link ELResolverDecorator#getFeatureDescriptors(ELContext, Object)}
+   */
+  @Test
   void testGetFeatureDescriptors() {
     // Arrange
     ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator = new ELResolverReflectionBlockerDecorator(
-        new ELResolverReflectionBlockerDecorator(new JsonNodeELResolver()));
-
-    // Act and Assert
-    assertNull(elResolverReflectionBlockerDecorator.getFeatureDescriptors(new ActivitiElContext(), "Base"));
-  }
-
-  /**
-   * Test {@link ELResolverDecorator#getFeatureDescriptors(ELContext, Object)}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ELResolverDecorator#getFeatureDescriptors(ELContext, Object)}
-   */
-  @Test
-  @DisplayName("Test getFeatureDescriptors(ELContext, Object); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.util.Iterator ELResolverDecorator.getFeatureDescriptors(ELContext, Object)"})
-  void testGetFeatureDescriptors_thenReturnNull() {
-    // Arrange
-    ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator = new ELResolverReflectionBlockerDecorator(
         new JsonNodeELResolver());
 
     // Act and Assert
@@ -320,17 +331,60 @@ class ELResolverDecoratorDiffblueTest {
   }
 
   /**
-   * Test {@link ELResolverDecorator#getCommonPropertyType(ELContext, Object)}.
-   * <p>
-   * Method under test: {@link ELResolverDecorator#getCommonPropertyType(ELContext, Object)}
+   * Method under test:
+   * {@link ELResolverDecorator#getFeatureDescriptors(ELContext, Object)}
    */
   @Test
-  @DisplayName("Test getCommonPropertyType(ELContext, Object)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Class ELResolverDecorator.getCommonPropertyType(ELContext, Object)"})
+  void testGetFeatureDescriptors2() {
+    // Arrange
+    ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator = new ELResolverReflectionBlockerDecorator(
+        new ELResolverReflectionBlockerDecorator(new JsonNodeELResolver()));
+
+    // Act and Assert
+    assertNull(elResolverReflectionBlockerDecorator.getFeatureDescriptors(new ActivitiElContext(), "Base"));
+  }
+
+  /**
+   * Method under test:
+   * {@link ELResolverDecorator#getFeatureDescriptors(ELContext, Object)}
+   */
+  @Test
+  void testGetFeatureDescriptors3() {
+    // Arrange
+    ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator = new ELResolverReflectionBlockerDecorator(
+        new JsonNodeELResolver());
+
+    ActivitiElContext context = new ActivitiElContext();
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    context.setVariable("Name", new ObjectValueExpression(converter, "Object", type));
+
+    // Act and Assert
+    assertNull(elResolverReflectionBlockerDecorator.getFeatureDescriptors(context, "Base"));
+  }
+
+  /**
+   * Method under test:
+   * {@link ELResolverDecorator#getCommonPropertyType(ELContext, Object)}
+   */
+  @Test
   void testGetCommonPropertyType() {
     // Arrange
     ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator = new ELResolverReflectionBlockerDecorator(
+        new JsonNodeELResolver());
+
+    // Act and Assert
+    assertNull(elResolverReflectionBlockerDecorator.getCommonPropertyType(new ActivitiElContext(), "Base"));
+  }
+
+  /**
+   * Method under test:
+   * {@link ELResolverDecorator#getCommonPropertyType(ELContext, Object)}
+   */
+  @Test
+  void testGetCommonPropertyType2() {
+    // Arrange
+    ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator = new ELResolverReflectionBlockerDecorator(
         new ELResolverReflectionBlockerDecorator(new JsonNodeELResolver()));
 
     // Act and Assert
@@ -338,23 +392,21 @@ class ELResolverDecoratorDiffblueTest {
   }
 
   /**
-   * Test {@link ELResolverDecorator#getCommonPropertyType(ELContext, Object)}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ELResolverDecorator#getCommonPropertyType(ELContext, Object)}
+   * Method under test:
+   * {@link ELResolverDecorator#getCommonPropertyType(ELContext, Object)}
    */
   @Test
-  @DisplayName("Test getCommonPropertyType(ELContext, Object); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Class ELResolverDecorator.getCommonPropertyType(ELContext, Object)"})
-  void testGetCommonPropertyType_thenReturnNull() {
+  void testGetCommonPropertyType3() {
     // Arrange
     ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator = new ELResolverReflectionBlockerDecorator(
         new JsonNodeELResolver());
 
+    ActivitiElContext context = new ActivitiElContext();
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    context.setVariable("Name", new ObjectValueExpression(converter, "Object", type));
+
     // Act and Assert
-    assertNull(elResolverReflectionBlockerDecorator.getCommonPropertyType(new ActivitiElContext(), "Base"));
+    assertNull(elResolverReflectionBlockerDecorator.getCommonPropertyType(context, "Base"));
   }
 }

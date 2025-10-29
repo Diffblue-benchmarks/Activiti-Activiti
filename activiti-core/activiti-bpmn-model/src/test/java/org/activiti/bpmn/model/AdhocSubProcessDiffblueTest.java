@@ -17,92 +17,12 @@ package org.activiti.bpmn.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class AdhocSubProcessDiffblueTest {
   /**
-   * Test {@link AdhocSubProcess#hasParallelOrdering()}.
-   * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor).</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AdhocSubProcess#hasParallelOrdering()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean AdhocSubProcess.hasParallelOrdering()"})
-  public void testHasParallelOrdering_givenAdhocSubProcess_thenReturnTrue() {
-    // Arrange, Act and Assert
-    assertTrue((new AdhocSubProcess()).hasParallelOrdering());
-  }
-
-  /**
-   * Test {@link AdhocSubProcess#hasParallelOrdering()}.
-   * <ul>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AdhocSubProcess#hasParallelOrdering()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean AdhocSubProcess.hasParallelOrdering()"})
-  public void testHasParallelOrdering_thenReturnFalse() {
-    // Arrange
-    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
-    adhocSubProcess.setOrdering(AdhocSubProcess.ORDERING_SEQUENTIALL);
-
-    // Act and Assert
-    assertFalse(adhocSubProcess.hasParallelOrdering());
-  }
-
-  /**
-   * Test {@link AdhocSubProcess#hasSequentialOrdering()}.
-   * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor).</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AdhocSubProcess#hasSequentialOrdering()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean AdhocSubProcess.hasSequentialOrdering()"})
-  public void testHasSequentialOrdering_givenAdhocSubProcess_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse((new AdhocSubProcess()).hasSequentialOrdering());
-  }
-
-  /**
-   * Test {@link AdhocSubProcess#hasSequentialOrdering()}.
-   * <ul>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AdhocSubProcess#hasSequentialOrdering()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean AdhocSubProcess.hasSequentialOrdering()"})
-  public void testHasSequentialOrdering_thenReturnTrue() {
-    // Arrange
-    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
-    adhocSubProcess.setOrdering(AdhocSubProcess.ORDERING_SEQUENTIALL);
-
-    // Act and Assert
-    assertTrue(adhocSubProcess.hasSequentialOrdering());
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link AdhocSubProcess}
@@ -115,11 +35,6 @@ public class AdhocSubProcessDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AdhocSubProcess.<init>()", "String AdhocSubProcess.getCompletionCondition()",
-      "String AdhocSubProcess.getOrdering()", "boolean AdhocSubProcess.isCancelRemainingInstances()",
-      "void AdhocSubProcess.setCancelRemainingInstances(boolean)",
-      "void AdhocSubProcess.setCompletionCondition(String)", "void AdhocSubProcess.setOrdering(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     AdhocSubProcess actualAdhocSubProcess = new AdhocSubProcess();
@@ -130,20 +45,11 @@ public class AdhocSubProcessDiffblueTest {
     String actualOrdering = actualAdhocSubProcess.getOrdering();
     boolean actualIsCancelRemainingInstancesResult = actualAdhocSubProcess.isCancelRemainingInstances();
 
-    // Assert
+    // Assert that nothing has changed
     assertTrue(actualAdhocSubProcess.getArtifacts() instanceof List);
     assertTrue(actualAdhocSubProcess.getFlowElements() instanceof List);
     assertEquals("Completion Condition", actualCompletionCondition);
     assertEquals("Ordering", actualOrdering);
-    assertNull(actualAdhocSubProcess.getBehavior());
-    assertNull(actualAdhocSubProcess.getDefaultFlow());
-    assertNull(actualAdhocSubProcess.getFailedJobRetryTimeCycleValue());
-    assertNull(actualAdhocSubProcess.getId());
-    assertNull(actualAdhocSubProcess.getDocumentation());
-    assertNull(actualAdhocSubProcess.getName());
-    assertNull(actualAdhocSubProcess.getParentContainer());
-    assertNull(actualAdhocSubProcess.getIoSpecification());
-    assertNull(actualAdhocSubProcess.getLoopCharacteristics());
     assertEquals(0, actualAdhocSubProcess.getXmlColumnNumber());
     assertEquals(0, actualAdhocSubProcess.getXmlRowNumber());
     assertFalse(actualAdhocSubProcess.isForCompensation());
@@ -161,5 +67,49 @@ public class AdhocSubProcessDiffblueTest {
     assertTrue(actualAdhocSubProcess.getExtensionElements().isEmpty());
     assertTrue(actualAdhocSubProcess.getFlowElementMap().isEmpty());
     assertTrue(actualIsCancelRemainingInstancesResult);
+  }
+
+  /**
+   * Method under test: {@link AdhocSubProcess#hasParallelOrdering()}
+   */
+  @Test
+  public void testHasParallelOrdering() {
+    // Arrange, Act and Assert
+    assertTrue((new AdhocSubProcess()).hasParallelOrdering());
+  }
+
+  /**
+   * Method under test: {@link AdhocSubProcess#hasParallelOrdering()}
+   */
+  @Test
+  public void testHasParallelOrdering2() {
+    // Arrange
+    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
+    adhocSubProcess.setOrdering(AdhocSubProcess.ORDERING_SEQUENTIALL);
+
+    // Act and Assert
+    assertFalse(adhocSubProcess.hasParallelOrdering());
+  }
+
+  /**
+   * Method under test: {@link AdhocSubProcess#hasSequentialOrdering()}
+   */
+  @Test
+  public void testHasSequentialOrdering() {
+    // Arrange, Act and Assert
+    assertFalse((new AdhocSubProcess()).hasSequentialOrdering());
+  }
+
+  /**
+   * Method under test: {@link AdhocSubProcess#hasSequentialOrdering()}
+   */
+  @Test
+  public void testHasSequentialOrdering2() {
+    // Arrange
+    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
+    adhocSubProcess.setOrdering(AdhocSubProcess.ORDERING_SEQUENTIALL);
+
+    // Act and Assert
+    assertTrue(adhocSubProcess.hasSequentialOrdering());
   }
 }

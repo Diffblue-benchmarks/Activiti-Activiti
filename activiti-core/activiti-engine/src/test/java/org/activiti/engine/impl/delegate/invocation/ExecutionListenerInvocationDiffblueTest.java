@@ -21,29 +21,22 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.ExecutionListener;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class ExecutionListenerInvocationDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>{@link ExecutionListenerInvocation#ExecutionListenerInvocation(ExecutionListener, DelegateExecution)}
+   *   <li>
+   * {@link ExecutionListenerInvocation#ExecutionListenerInvocation(ExecutionListener, DelegateExecution)}
    *   <li>{@link ExecutionListenerInvocation#getTarget()}
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecutionListenerInvocation.<init>(ExecutionListener, DelegateExecution)",
-      "Object ExecutionListenerInvocation.getTarget()"})
   public void testGettersAndSetters() {
     // Arrange
     ExecutionListener executionListenerInstance = mock(ExecutionListener.class);
@@ -60,13 +53,9 @@ public class ExecutionListenerInvocationDiffblueTest {
   }
 
   /**
-   * Test {@link ExecutionListenerInvocation#invoke()}.
-   * <p>
    * Method under test: {@link ExecutionListenerInvocation#invoke()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecutionListenerInvocation.invoke()"})
   public void testInvoke() {
     // Arrange
     ExecutionListener executionListenerInstance = mock(ExecutionListener.class);

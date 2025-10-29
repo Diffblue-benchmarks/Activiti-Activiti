@@ -18,25 +18,36 @@ package org.activiti.engine.impl.persistence.entity.data.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import org.activiti.core.el.CustomFunctionProvider;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.persistence.entity.VariableInstanceEntity;
 import org.activiti.engine.impl.persistence.entity.VariableInstanceEntityImpl;
 import org.activiti.engine.impl.persistence.entity.data.impl.cachematcher.VariableByExecutionIdMatcher;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class MybatisVariableInstanceDataManagerDiffblueTest {
   /**
-   * Test {@link MybatisVariableInstanceDataManager#MybatisVariableInstanceDataManager(ProcessEngineConfigurationImpl)}.
-   * <p>
-   * Method under test: {@link MybatisVariableInstanceDataManager#MybatisVariableInstanceDataManager(ProcessEngineConfigurationImpl)}
+   * Method under test:
+   * {@link MybatisVariableInstanceDataManager#getManagedEntityClass()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void MybatisVariableInstanceDataManager.<init>(ProcessEngineConfigurationImpl)"})
+  public void testGetManagedEntityClass() {
+    // Arrange and Act
+    Class<? extends VariableInstanceEntity> actualManagedEntityClass = (new MybatisVariableInstanceDataManager(
+        new JtaProcessEngineConfiguration())).getManagedEntityClass();
+
+    // Assert
+    Class<VariableInstanceEntityImpl> expectedManagedEntityClass = VariableInstanceEntityImpl.class;
+    assertEquals(expectedManagedEntityClass, actualManagedEntityClass);
+  }
+
+  /**
+   * Method under test:
+   * {@link MybatisVariableInstanceDataManager#MybatisVariableInstanceDataManager(ProcessEngineConfigurationImpl)}
+   */
+  @Test
   public void testNewMybatisVariableInstanceDataManager() {
     // Arrange and Act
     MybatisVariableInstanceDataManager actualMybatisVariableInstanceDataManager = new MybatisVariableInstanceDataManager(
@@ -50,20 +61,23 @@ public class MybatisVariableInstanceDataManagerDiffblueTest {
   }
 
   /**
-   * Test {@link MybatisVariableInstanceDataManager#getManagedEntityClass()}.
-   * <p>
-   * Method under test: {@link MybatisVariableInstanceDataManager#getManagedEntityClass()}
+   * Method under test:
+   * {@link MybatisVariableInstanceDataManager#MybatisVariableInstanceDataManager(ProcessEngineConfigurationImpl)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Class MybatisVariableInstanceDataManager.getManagedEntityClass()"})
-  public void testGetManagedEntityClass() {
-    // Arrange and Act
-    Class<? extends VariableInstanceEntity> actualManagedEntityClass = (new MybatisVariableInstanceDataManager(
-        new JtaProcessEngineConfiguration())).getManagedEntityClass();
+  public void testNewMybatisVariableInstanceDataManager2() {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
+
+    // Act
+    MybatisVariableInstanceDataManager actualMybatisVariableInstanceDataManager = new MybatisVariableInstanceDataManager(
+        processEngineConfiguration);
 
     // Assert
+    assertTrue(actualMybatisVariableInstanceDataManager.variableInstanceEntity instanceof VariableByExecutionIdMatcher);
+    assertNull(actualMybatisVariableInstanceDataManager.getManagedEntitySubClasses());
     Class<VariableInstanceEntityImpl> expectedManagedEntityClass = VariableInstanceEntityImpl.class;
-    assertEquals(expectedManagedEntityClass, actualManagedEntityClass);
+    assertEquals(expectedManagedEntityClass, actualMybatisVariableInstanceDataManager.getManagedEntityClass());
   }
 }

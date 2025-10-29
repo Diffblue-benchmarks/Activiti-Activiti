@@ -18,31 +18,19 @@ package org.activiti.bpmn.converter.child;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.MessageEventDefinition;
 import org.activiti.bpmn.model.SendTask;
 import org.activiti.bpmn.model.ServiceTask;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class FieldExtensionParserDiffblueTest {
   /**
-   * Test {@link FieldExtensionParser#accepts(BaseElement)}.
-   * <ul>
-   *   <li>When {@link ActivitiListener} (default constructor).</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link FieldExtensionParser#accepts(BaseElement)}
    */
   @Test
-  @DisplayName("Test accepts(BaseElement); when ActivitiListener (default constructor); then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean FieldExtensionParser.accepts(BaseElement)"})
-  void testAccepts_whenActivitiListener_thenReturnTrue() {
+  void testAccepts() {
     // Arrange
     FieldExtensionParser fieldExtensionParser = new FieldExtensionParser();
 
@@ -51,79 +39,10 @@ class FieldExtensionParserDiffblueTest {
   }
 
   /**
-   * Test {@link FieldExtensionParser#accepts(BaseElement)}.
-   * <ul>
-   *   <li>When {@link MessageEventDefinition} (default constructor).</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link FieldExtensionParser#accepts(BaseElement)}
    */
   @Test
-  @DisplayName("Test accepts(BaseElement); when MessageEventDefinition (default constructor); then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean FieldExtensionParser.accepts(BaseElement)"})
-  void testAccepts_whenMessageEventDefinition_thenReturnTrue() {
-    // Arrange
-    FieldExtensionParser fieldExtensionParser = new FieldExtensionParser();
-
-    // Act and Assert
-    assertTrue(fieldExtensionParser.accepts(new MessageEventDefinition()));
-  }
-
-  /**
-   * Test {@link FieldExtensionParser#accepts(BaseElement)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FieldExtensionParser#accepts(BaseElement)}
-   */
-  @Test
-  @DisplayName("Test accepts(BaseElement); when 'null'; then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean FieldExtensionParser.accepts(BaseElement)"})
-  void testAccepts_whenNull_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse((new FieldExtensionParser()).accepts(null));
-  }
-
-  /**
-   * Test {@link FieldExtensionParser#accepts(BaseElement)}.
-   * <ul>
-   *   <li>When {@link SendTask} (default constructor).</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FieldExtensionParser#accepts(BaseElement)}
-   */
-  @Test
-  @DisplayName("Test accepts(BaseElement); when SendTask (default constructor); then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean FieldExtensionParser.accepts(BaseElement)"})
-  void testAccepts_whenSendTask_thenReturnTrue() {
-    // Arrange
-    FieldExtensionParser fieldExtensionParser = new FieldExtensionParser();
-
-    // Act and Assert
-    assertTrue(fieldExtensionParser.accepts(new SendTask()));
-  }
-
-  /**
-   * Test {@link FieldExtensionParser#accepts(BaseElement)}.
-   * <ul>
-   *   <li>When {@link ServiceTask} (default constructor).</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FieldExtensionParser#accepts(BaseElement)}
-   */
-  @Test
-  @DisplayName("Test accepts(BaseElement); when ServiceTask (default constructor); then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean FieldExtensionParser.accepts(BaseElement)"})
-  void testAccepts_whenServiceTask_thenReturnTrue() {
+  void testAccepts2() {
     // Arrange
     FieldExtensionParser fieldExtensionParser = new FieldExtensionParser();
 
@@ -132,8 +51,39 @@ class FieldExtensionParserDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link FieldExtensionParser#accepts(BaseElement)}
+   */
+  @Test
+  void testAccepts3() {
+    // Arrange
+    FieldExtensionParser fieldExtensionParser = new FieldExtensionParser();
+
+    // Act and Assert
+    assertTrue(fieldExtensionParser.accepts(new SendTask()));
+  }
+
+  /**
+   * Method under test: {@link FieldExtensionParser#accepts(BaseElement)}
+   */
+  @Test
+  void testAccepts4() {
+    // Arrange
+    FieldExtensionParser fieldExtensionParser = new FieldExtensionParser();
+
+    // Act and Assert
+    assertTrue(fieldExtensionParser.accepts(new MessageEventDefinition()));
+  }
+
+  /**
+   * Method under test: {@link FieldExtensionParser#accepts(BaseElement)}
+   */
+  @Test
+  void testAccepts5() {
+    // Arrange, Act and Assert
+    assertFalse((new FieldExtensionParser()).accepts(null));
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link FieldExtensionParser}
@@ -141,9 +91,6 @@ class FieldExtensionParserDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FieldExtensionParser.<init>()", "java.lang.String FieldExtensionParser.getElementName()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals("field", (new FieldExtensionParser()).getElementName());

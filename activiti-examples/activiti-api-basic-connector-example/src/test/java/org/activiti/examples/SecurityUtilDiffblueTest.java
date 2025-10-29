@@ -16,19 +16,23 @@
 package org.activiti.examples;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.aot.DisabledInAotMode;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ContextConfiguration(classes = {SecurityUtil.class, UserDetailsService.class})
+@ContextConfiguration(classes = {SecurityUtil.class})
 @ExtendWith(SpringExtension.class)
 @DisabledInAotMode
 class SecurityUtilDiffblueTest {
@@ -39,19 +43,44 @@ class SecurityUtilDiffblueTest {
   private UserDetailsService userDetailsService;
 
   /**
-   * Test {@link SecurityUtil#logInAs(String)}.
-   * <ul>
-   *   <li>Then throw {@link IllegalStateException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SecurityUtil#logInAs(String)}
    */
   @Test
-  @DisplayName("Test logInAs(String); then throw IllegalStateException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SecurityUtil.logInAs(String)"})
-  void testLogInAs_thenThrowIllegalStateException() {
-    // Arrange, Act and Assert
+  void testLogInAs() throws UsernameNotFoundException {
+    // Arrange
+    when(userDetailsService.loadUserByUsername(Mockito.<String>any()))
+        .thenReturn(new User("janedoe", "iloveyou", new ArrayList<>()));
+
+    // Act
+    securityUtil.logInAs("janedoe");
+
+    // Assert
+    verify(userDetailsService).loadUserByUsername(eq("janedoe"));
+  }
+
+  /**
+   * Method under test: {@link SecurityUtil#logInAs(String)}
+   */
+  @Test
+  void testLogInAs2() throws UsernameNotFoundException {
+    // Arrange
+    when(userDetailsService.loadUserByUsername(Mockito.<String>any())).thenReturn(null);
+
+    // Act and Assert
     assertThrows(IllegalStateException.class, () -> securityUtil.logInAs("janedoe"));
+    verify(userDetailsService).loadUserByUsername(eq("janedoe"));
+  }
+
+  /**
+   * Method under test: {@link SecurityUtil#logInAs(String)}
+   */
+  @Test
+  void testLogInAs3() throws UsernameNotFoundException {
+    // Arrange
+    when(userDetailsService.loadUserByUsername(Mockito.<String>any())).thenThrow(new IllegalStateException("foo"));
+
+    // Act and Assert
+    assertThrows(IllegalStateException.class, () -> securityUtil.logInAs("janedoe"));
+    verify(userDetailsService).loadUserByUsername(eq("janedoe"));
   }
 }

@@ -17,49 +17,30 @@ package org.activiti.engine.impl.transformer;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.math.BigDecimal;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class AbstractTransformerDiffblueTest {
   /**
-   * Test {@link AbstractTransformer#transform(Object)}.
-   * <ul>
-   *   <li>When {@link BigDecimal#BigDecimal(String)} with {@code 2.3}.</li>
-   *   <li>Then return {@code 2.3}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AbstractTransformer#transform(Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object AbstractTransformer.transform(Object)"})
-  public void testTransform_whenBigDecimalWith23_thenReturn23() {
+  public void testTransform() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiException.class, () -> (new BigDecimalToString()).transform(JSONObject.NULL));
+  }
+
+  /**
+   * Method under test: {@link AbstractTransformer#transform(Object)}
+   */
+  @Test
+  public void testTransform2() {
     // Arrange
     BigDecimalToString bigDecimalToString = new BigDecimalToString();
 
     // Act and Assert
     assertEquals("2.3", bigDecimalToString.transform(new BigDecimal("2.3")));
-  }
-
-  /**
-   * Test {@link AbstractTransformer#transform(Object)}.
-   * <ul>
-   *   <li>When {@link JSONObject#NULL}.</li>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AbstractTransformer#transform(Object)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object AbstractTransformer.transform(Object)"})
-  public void testTransform_whenNull_thenThrowActivitiException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiException.class, () -> (new BigDecimalToString()).transform(JSONObject.NULL));
   }
 }

@@ -18,26 +18,14 @@ package org.activiti.bpmn.exceptions;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class XMLExceptionDiffblueTest {
   /**
-   * Test {@link XMLException#XMLException(String)}.
-   * <ul>
-   *   <li>When {@code An error occurred}.</li>
-   *   <li>Then return Cause is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link XMLException#XMLException(String)}
    */
   @Test
-  @DisplayName("Test new XMLException(String); when 'An error occurred'; then return Cause is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void XMLException.<init>(String)", "void XMLException.<init>(String, Throwable)"})
-  void testNewXMLException_whenAnErrorOccurred_thenReturnCauseIsNull() {
+  void testNewXMLException() {
     // Arrange and Act
     XMLException actualXmlException = new XMLException("An error occurred");
 
@@ -48,19 +36,10 @@ class XMLExceptionDiffblueTest {
   }
 
   /**
-   * Test {@link XMLException#XMLException(String, Throwable)}.
-   * <ul>
-   *   <li>When {@link Throwable#Throwable()}.</li>
-   *   <li>Then return Cause is {@link Throwable#Throwable()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link XMLException#XMLException(String, Throwable)}
    */
   @Test
-  @DisplayName("Test new XMLException(String, Throwable); when Throwable(); then return Cause is Throwable()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void XMLException.<init>(String)", "void XMLException.<init>(String, Throwable)"})
-  void testNewXMLException_whenThrowable_thenReturnCauseIsThrowable() {
+  void testNewXMLException2() {
     // Arrange
     Throwable t = new Throwable();
 

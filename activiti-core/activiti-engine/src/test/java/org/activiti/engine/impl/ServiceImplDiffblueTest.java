@@ -16,8 +16,6 @@
 package org.activiti.engine.impl;
 
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.cfg.CommandExecutorImpl;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
@@ -25,12 +23,9 @@ import org.activiti.engine.impl.interceptor.CommandConfig;
 import org.activiti.engine.impl.interceptor.CommandContextInterceptor;
 import org.activiti.engine.impl.interceptor.CommandExecutor;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ServiceImplDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link ServiceImpl#ServiceImpl()}
@@ -39,9 +34,6 @@ public class ServiceImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ServiceImpl.<init>()", "void ServiceImpl.<init>(ProcessEngineConfigurationImpl)",
-      "CommandExecutor ServiceImpl.getCommandExecutor()", "void ServiceImpl.setCommandExecutor(CommandExecutor)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ServiceImpl actualServiceImpl = new ServiceImpl();
@@ -50,16 +42,11 @@ public class ServiceImplDiffblueTest {
 
     actualServiceImpl.setCommandExecutor(commandExecutor);
 
-    // Assert
+    // Assert that nothing has changed
     assertSame(commandExecutor, actualServiceImpl.getCommandExecutor());
   }
 
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link ServiceImpl#ServiceImpl(ProcessEngineConfigurationImpl)}
@@ -68,10 +55,7 @@ public class ServiceImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ServiceImpl.<init>()", "void ServiceImpl.<init>(ProcessEngineConfigurationImpl)",
-      "CommandExecutor ServiceImpl.getCommandExecutor()", "void ServiceImpl.setCommandExecutor(CommandExecutor)"})
-  public void testGettersAndSetters_whenJtaProcessEngineConfiguration() {
+  public void testGettersAndSetters2() {
     // Arrange and Act
     ServiceImpl actualServiceImpl = new ServiceImpl(new JtaProcessEngineConfiguration());
     CommandConfig defaultConfig = new CommandConfig();
@@ -79,7 +63,7 @@ public class ServiceImplDiffblueTest {
 
     actualServiceImpl.setCommandExecutor(commandExecutor);
 
-    // Assert
+    // Assert that nothing has changed
     assertSame(commandExecutor, actualServiceImpl.getCommandExecutor());
   }
 }

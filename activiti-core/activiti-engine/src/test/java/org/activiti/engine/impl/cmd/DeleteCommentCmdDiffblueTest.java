@@ -16,20 +16,14 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class DeleteCommentCmdDiffblueTest {
   /**
-   * Test {@link DeleteCommentCmd#DeleteCommentCmd(String, String, String)}.
-   * <p>
-   * Method under test: {@link DeleteCommentCmd#DeleteCommentCmd(String, String, String)}
+   * Method under test:
+   * {@link DeleteCommentCmd#DeleteCommentCmd(String, String, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeleteCommentCmd.<init>(String, String, String)"})
   public void testNewDeleteCommentCmd() {
     // Arrange and Act
     DeleteCommentCmd actualDeleteCommentCmd = new DeleteCommentCmd("42", "42", "42");

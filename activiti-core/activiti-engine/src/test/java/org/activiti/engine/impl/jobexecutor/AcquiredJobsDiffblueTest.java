@@ -19,59 +19,44 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class AcquiredJobsDiffblueTest {
+  @InjectMocks
+  private AcquiredJobs acquiredJobs;
+
   /**
-   * Test {@link AcquiredJobs#addJobIdBatch(List)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>Then {@link AcquiredJobs} (default constructor) {@link AcquiredJobs#acquiredJobs} size is two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AcquiredJobs#addJobIdBatch(List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AcquiredJobs.addJobIdBatch(List)"})
-  public void testAddJobIdBatch_given42_thenAcquiredJobsAcquiredJobsSizeIsTwo() {
+  public void testAddJobIdBatch() {
     // Arrange
     AcquiredJobs acquiredJobs = new AcquiredJobs();
-
     ArrayList<String> jobIds = new ArrayList<>();
-    jobIds.add("42");
-    jobIds.add("foo");
 
     // Act
     acquiredJobs.addJobIdBatch(jobIds);
 
     // Assert
-    Set<String> stringSet = acquiredJobs.acquiredJobs;
-    assertEquals(2, stringSet.size());
-    assertEquals(2, acquiredJobs.size());
-    assertTrue(stringSet.contains("42"));
-    assertTrue(stringSet.contains("foo"));
+    assertEquals(0, acquiredJobs.size());
+    List<List<String>> jobIdBatches = acquiredJobs.getJobIdBatches();
+    assertEquals(1, jobIdBatches.size());
+    assertTrue(acquiredJobs.acquiredJobs.isEmpty());
+    assertSame(jobIds, jobIdBatches.get(0));
   }
 
   /**
-   * Test {@link AcquiredJobs#addJobIdBatch(List)}.
-   * <ul>
-   *   <li>Given {@code foo}.</li>
-   *   <li>Then {@link AcquiredJobs} (default constructor) {@link AcquiredJobs#acquiredJobs} size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AcquiredJobs#addJobIdBatch(List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AcquiredJobs.addJobIdBatch(List)"})
-  public void testAddJobIdBatch_givenFoo_thenAcquiredJobsAcquiredJobsSizeIsOne() {
+  public void testAddJobIdBatch2() {
     // Arrange
     AcquiredJobs acquiredJobs = new AcquiredJobs();
 
@@ -92,62 +77,50 @@ public class AcquiredJobsDiffblueTest {
   }
 
   /**
-   * Test {@link AcquiredJobs#addJobIdBatch(List)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then {@link AcquiredJobs} (default constructor) size is zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AcquiredJobs#addJobIdBatch(List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AcquiredJobs.addJobIdBatch(List)"})
-  public void testAddJobIdBatch_whenArrayList_thenAcquiredJobsSizeIsZero() {
+  public void testAddJobIdBatch3() {
     // Arrange
     AcquiredJobs acquiredJobs = new AcquiredJobs();
+
     ArrayList<String> jobIds = new ArrayList<>();
+    jobIds.add("42");
+    jobIds.add("foo");
 
     // Act
     acquiredJobs.addJobIdBatch(jobIds);
 
     // Assert
-    assertEquals(0, acquiredJobs.size());
     List<List<String>> jobIdBatches = acquiredJobs.getJobIdBatches();
     assertEquals(1, jobIdBatches.size());
-    assertTrue(acquiredJobs.acquiredJobs.isEmpty());
+    Set<String> stringSet = acquiredJobs.acquiredJobs;
+    assertEquals(2, stringSet.size());
+    assertEquals(2, acquiredJobs.size());
+    assertTrue(stringSet.contains("42"));
+    assertTrue(stringSet.contains("foo"));
     assertSame(jobIds, jobIdBatches.get(0));
   }
 
   /**
-   * Test {@link AcquiredJobs#contains(String)}.
-   * <p>
    * Method under test: {@link AcquiredJobs#contains(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean AcquiredJobs.contains(String)"})
   public void testContains() {
     // Arrange, Act and Assert
-    assertFalse((new AcquiredJobs()).contains("42"));
+    assertFalse(acquiredJobs.contains("42"));
   }
 
   /**
-   * Test {@link AcquiredJobs#size()}.
-   * <p>
    * Method under test: {@link AcquiredJobs#size()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"int AcquiredJobs.size()"})
   public void testSize() {
     // Arrange, Act and Assert
     assertEquals(0, (new AcquiredJobs()).size());
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link AcquiredJobs}
@@ -155,8 +128,6 @@ public class AcquiredJobsDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AcquiredJobs.<init>()", "List AcquiredJobs.getJobIdBatches()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     AcquiredJobs actualAcquiredJobs = new AcquiredJobs();

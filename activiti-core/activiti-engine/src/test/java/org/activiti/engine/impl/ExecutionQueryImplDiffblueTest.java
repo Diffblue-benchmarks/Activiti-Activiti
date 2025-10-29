@@ -21,29 +21,709 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import org.activiti.engine.ActivitiIllegalArgumentException;
+import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
+import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.runtime.ExecutionQuery;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ExecutionQueryImplDiffblueTest {
+  @InjectMocks
+  private ExecutionQueryImpl executionQueryImpl;
+
   /**
-   * Test {@link ExecutionQueryImpl#ExecutionQueryImpl()}.
-   * <p>
+   * Method under test: {@link ExecutionQueryImpl#processDefinitionId(String)}
+   */
+  @Test
+  public void testProcessDefinitionId() {
+    // Arrange and Act
+    ExecutionQueryImpl actualProcessDefinitionIdResult = executionQueryImpl.processDefinitionId("42");
+
+    // Assert
+    assertEquals("42", executionQueryImpl.getProcessDefinitionId());
+    assertSame(executionQueryImpl, actualProcessDefinitionIdResult);
+  }
+
+  /**
+   * Method under test: {@link ExecutionQueryImpl#processDefinitionId(String)}
+   */
+  @Test
+  public void testProcessDefinitionId2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> executionQueryImpl.processDefinitionId(null));
+  }
+
+  /**
+   * Method under test: {@link ExecutionQueryImpl#processDefinitionKey(String)}
+   */
+  @Test
+  public void testProcessDefinitionKey() {
+    // Arrange and Act
+    ExecutionQueryImpl actualProcessDefinitionKeyResult = executionQueryImpl
+        .processDefinitionKey("Process Definition Key");
+
+    // Assert
+    assertEquals("Process Definition Key", executionQueryImpl.getProcessDefinitionKey());
+    assertSame(executionQueryImpl, actualProcessDefinitionKeyResult);
+  }
+
+  /**
+   * Method under test: {@link ExecutionQueryImpl#processDefinitionKey(String)}
+   */
+  @Test
+  public void testProcessDefinitionKey2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> executionQueryImpl.processDefinitionKey(null));
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionQueryImpl#processDefinitionCategory(String)}
+   */
+  @Test
+  public void testProcessDefinitionCategory() {
+    // Arrange and Act
+    ExecutionQuery actualProcessDefinitionCategoryResult = executionQueryImpl
+        .processDefinitionCategory("Process Definition Category");
+
+    // Assert
+    assertEquals("Process Definition Category", executionQueryImpl.getProcessDefinitionCategory());
+    assertSame(executionQueryImpl, actualProcessDefinitionCategoryResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionQueryImpl#processDefinitionCategory(String)}
+   */
+  @Test
+  public void testProcessDefinitionCategory2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> executionQueryImpl.processDefinitionCategory(null));
+  }
+
+  /**
+   * Method under test: {@link ExecutionQueryImpl#processDefinitionName(String)}
+   */
+  @Test
+  public void testProcessDefinitionName() {
+    // Arrange and Act
+    ExecutionQuery actualProcessDefinitionNameResult = executionQueryImpl
+        .processDefinitionName("Process Definition Name");
+
+    // Assert
+    assertEquals("Process Definition Name", executionQueryImpl.getProcessDefinitionName());
+    assertSame(executionQueryImpl, actualProcessDefinitionNameResult);
+  }
+
+  /**
+   * Method under test: {@link ExecutionQueryImpl#processDefinitionName(String)}
+   */
+  @Test
+  public void testProcessDefinitionName2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> executionQueryImpl.processDefinitionName(null));
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionQueryImpl#processDefinitionVersion(Integer)}
+   */
+  @Test
+  public void testProcessDefinitionVersion() {
+    // Arrange
+    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
+
+    // Act
+    ExecutionQuery actualProcessDefinitionVersionResult = executionQueryImpl.processDefinitionVersion(1);
+
+    // Assert
+    assertEquals(1, executionQueryImpl.getProcessDefinitionVersion().intValue());
+    assertSame(executionQueryImpl, actualProcessDefinitionVersionResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionQueryImpl#processDefinitionVersion(Integer)}
+   */
+  @Test
+  public void testProcessDefinitionVersion2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new ExecutionQueryImpl()).processDefinitionVersion(null));
+  }
+
+  /**
+   * Method under test: {@link ExecutionQueryImpl#processInstanceId(String)}
+   */
+  @Test
+  public void testProcessInstanceId() {
+    // Arrange and Act
+    ExecutionQueryImpl actualProcessInstanceIdResult = executionQueryImpl.processInstanceId("42");
+
+    // Assert
+    assertEquals("42", executionQueryImpl.getProcessInstanceId());
+    assertSame(executionQueryImpl, actualProcessInstanceIdResult);
+  }
+
+  /**
+   * Method under test: {@link ExecutionQueryImpl#processInstanceId(String)}
+   */
+  @Test
+  public void testProcessInstanceId2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> executionQueryImpl.processInstanceId(null));
+  }
+
+  /**
+   * Method under test: {@link ExecutionQueryImpl#rootProcessInstanceId(String)}
+   */
+  @Test
+  public void testRootProcessInstanceId() {
+    // Arrange and Act
+    ExecutionQueryImpl actualRootProcessInstanceIdResult = executionQueryImpl.rootProcessInstanceId("42");
+
+    // Assert
+    assertEquals("42", executionQueryImpl.getRootProcessInstanceId());
+    assertSame(executionQueryImpl, actualRootProcessInstanceIdResult);
+  }
+
+  /**
+   * Method under test: {@link ExecutionQueryImpl#rootProcessInstanceId(String)}
+   */
+  @Test
+  public void testRootProcessInstanceId2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> executionQueryImpl.rootProcessInstanceId(null));
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionQueryImpl#processInstanceBusinessKey(String)}
+   */
+  @Test
+  public void testProcessInstanceBusinessKey() {
+    // Arrange and Act
+    ExecutionQuery actualProcessInstanceBusinessKeyResult = executionQueryImpl
+        .processInstanceBusinessKey("Business Key");
+
+    // Assert
+    assertEquals("Business Key", executionQueryImpl.getBusinessKey());
+    assertSame(executionQueryImpl, actualProcessInstanceBusinessKeyResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionQueryImpl#processInstanceBusinessKey(String)}
+   */
+  @Test
+  public void testProcessInstanceBusinessKey2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> executionQueryImpl.processInstanceBusinessKey(null));
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionQueryImpl#processInstanceBusinessKey(String, boolean)}
+   */
+  @Test
+  public void testProcessInstanceBusinessKey3() {
+    // Arrange and Act
+    ExecutionQuery actualProcessInstanceBusinessKeyResult = executionQueryImpl
+        .processInstanceBusinessKey("Process Instance Business Key", true);
+
+    // Assert
+    assertEquals("Process Instance Business Key", executionQueryImpl.getBusinessKey());
+    assertTrue(executionQueryImpl.isIncludeChildExecutionsWithBusinessKeyQuery());
+    assertSame(executionQueryImpl, actualProcessInstanceBusinessKeyResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionQueryImpl#processInstanceBusinessKey(String, boolean)}
+   */
+  @Test
+  public void testProcessInstanceBusinessKey4() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> executionQueryImpl.processInstanceBusinessKey(null, true));
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionQueryImpl#processInstanceBusinessKey(String, boolean)}
+   */
+  @Test
+  public void testProcessInstanceBusinessKey5() {
+    // Arrange and Act
+    ExecutionQuery actualProcessInstanceBusinessKeyResult = executionQueryImpl
+        .processInstanceBusinessKey("Process Instance Business Key", false);
+
+    // Assert
+    assertEquals("Process Instance Business Key", executionQueryImpl.getBusinessKey());
+    assertFalse(executionQueryImpl.isIncludeChildExecutionsWithBusinessKeyQuery());
+    assertSame(executionQueryImpl, actualProcessInstanceBusinessKeyResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionQueryImpl#processInstanceBusinessKey(String, boolean)}
+   */
+  @Test
+  public void testProcessInstanceBusinessKey6() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> executionQueryImpl.processInstanceBusinessKey(null, false));
+  }
+
+  /**
+   * Method under test: {@link ExecutionQueryImpl#processDefinitionKeys(Set)}
+   */
+  @Test
+  public void testProcessDefinitionKeys() {
+    // Arrange
+    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
+    HashSet<String> processDefinitionKeys = new HashSet<>();
+
+    // Act
+    ExecutionQuery actualProcessDefinitionKeysResult = executionQueryImpl.processDefinitionKeys(processDefinitionKeys);
+
+    // Assert
+    assertSame(processDefinitionKeys, executionQueryImpl.getProcessDefinitionKeys());
+    assertSame(executionQueryImpl, actualProcessDefinitionKeysResult);
+  }
+
+  /**
+   * Method under test: {@link ExecutionQueryImpl#processDefinitionKeys(Set)}
+   */
+  @Test
+  public void testProcessDefinitionKeys2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ExecutionQueryImpl()).processDefinitionKeys(null));
+  }
+
+  /**
+   * Method under test: {@link ExecutionQueryImpl#executionId(String)}
+   */
+  @Test
+  public void testExecutionId() {
+    // Arrange and Act
+    ExecutionQueryImpl actualExecutionIdResult = executionQueryImpl.executionId("42");
+
+    // Assert
+    assertEquals("42", executionQueryImpl.getExecutionId());
+    assertSame(executionQueryImpl, actualExecutionIdResult);
+  }
+
+  /**
+   * Method under test: {@link ExecutionQueryImpl#executionId(String)}
+   */
+  @Test
+  public void testExecutionId2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> executionQueryImpl.executionId(null));
+  }
+
+  /**
+   * Method under test: {@link ExecutionQueryImpl#activityId(String)}
+   */
+  @Test
+  public void testActivityId() {
+    // Arrange and Act
+    ExecutionQueryImpl actualActivityIdResult = executionQueryImpl.activityId("42");
+
+    // Assert
+    assertEquals("42", executionQueryImpl.getActivityId());
+    assertTrue(executionQueryImpl.isActive());
+    assertSame(executionQueryImpl, actualActivityIdResult);
+  }
+
+  /**
+   * Method under test: {@link ExecutionQueryImpl#activityId(String)}
+   */
+  @Test
+  public void testActivityId2() {
+    // Arrange and Act
+    ExecutionQueryImpl actualActivityIdResult = executionQueryImpl.activityId(null);
+
+    // Assert
+    assertNull(executionQueryImpl.getActivityId());
+    assertFalse(executionQueryImpl.isActive());
+    assertSame(executionQueryImpl, actualActivityIdResult);
+  }
+
+  /**
+   * Method under test: {@link ExecutionQueryImpl#parentId(String)}
+   */
+  @Test
+  public void testParentId() {
+    // Arrange and Act
+    ExecutionQueryImpl actualParentIdResult = executionQueryImpl.parentId("42");
+
+    // Assert
+    assertEquals("42", executionQueryImpl.getParentId());
+    assertSame(executionQueryImpl, actualParentIdResult);
+  }
+
+  /**
+   * Method under test: {@link ExecutionQueryImpl#parentId(String)}
+   */
+  @Test
+  public void testParentId2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> executionQueryImpl.parentId(null));
+  }
+
+  /**
+   * Method under test: {@link ExecutionQueryImpl#executionTenantId(String)}
+   */
+  @Test
+  public void testExecutionTenantId() {
+    // Arrange and Act
+    ExecutionQueryImpl actualExecutionTenantIdResult = executionQueryImpl.executionTenantId("42");
+
+    // Assert
+    assertEquals("42", executionQueryImpl.getTenantId());
+    assertSame(executionQueryImpl, actualExecutionTenantIdResult);
+  }
+
+  /**
+   * Method under test: {@link ExecutionQueryImpl#executionTenantId(String)}
+   */
+  @Test
+  public void testExecutionTenantId2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> executionQueryImpl.executionTenantId(null));
+  }
+
+  /**
+   * Method under test: {@link ExecutionQueryImpl#executionTenantIdLike(String)}
+   */
+  @Test
+  public void testExecutionTenantIdLike() {
+    // Arrange and Act
+    ExecutionQueryImpl actualExecutionTenantIdLikeResult = executionQueryImpl.executionTenantIdLike("Tenant Id Like");
+
+    // Assert
+    assertEquals("Tenant Id Like", executionQueryImpl.getTenantIdLike());
+    assertSame(executionQueryImpl, actualExecutionTenantIdLikeResult);
+  }
+
+  /**
+   * Method under test: {@link ExecutionQueryImpl#executionTenantIdLike(String)}
+   */
+  @Test
+  public void testExecutionTenantIdLike2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> executionQueryImpl.executionTenantIdLike(null));
+  }
+
+  /**
+   * Method under test: {@link ExecutionQueryImpl#executionWithoutTenantId()}
+   */
+  @Test
+  public void testExecutionWithoutTenantId() {
+    // Arrange
+    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
+
+    // Act
+    ExecutionQueryImpl actualExecutionWithoutTenantIdResult = executionQueryImpl.executionWithoutTenantId();
+
+    // Assert
+    assertTrue(executionQueryImpl.isWithoutTenantId());
+    assertSame(executionQueryImpl, actualExecutionWithoutTenantIdResult);
+  }
+
+  /**
+   * Method under test: {@link ExecutionQueryImpl#signalEventSubscription(String)}
+   */
+  @Test
+  public void testSignalEventSubscription() {
+    // Arrange, Act and Assert
+    assertSame(executionQueryImpl, executionQueryImpl.signalEventSubscription("Signal Name"));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> executionQueryImpl.signalEventSubscription(null));
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionQueryImpl#signalEventSubscriptionName(String)}
+   */
+  @Test
+  public void testSignalEventSubscriptionName() {
+    // Arrange, Act and Assert
+    assertSame(executionQueryImpl, executionQueryImpl.signalEventSubscriptionName("Signal Name"));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> executionQueryImpl.signalEventSubscriptionName(null));
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionQueryImpl#messageEventSubscriptionName(String)}
+   */
+  @Test
+  public void testMessageEventSubscriptionName() {
+    // Arrange, Act and Assert
+    assertSame(executionQueryImpl, executionQueryImpl.messageEventSubscriptionName("Message Name"));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> executionQueryImpl.messageEventSubscriptionName(null));
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionQueryImpl#eventSubscription(String, String)}
+   */
+  @Test
+  public void testEventSubscription() {
+    // Arrange, Act and Assert
+    assertSame(executionQueryImpl, executionQueryImpl.eventSubscription("Event Type", "Event Name"));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> executionQueryImpl.eventSubscription(null, "Event Name"));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> executionQueryImpl.eventSubscription("Event Type", null));
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionQueryImpl#processVariableValueEquals(Object)}
+   */
+  @Test
+  public void testProcessVariableValueEquals() {
+    // Arrange
+    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
+
+    // Act
+    ExecutionQuery actualProcessVariableValueEqualsResult = executionQueryImpl
+        .processVariableValueEquals(JSONObject.NULL);
+
+    // Assert
+    assertTrue(executionQueryImpl.hasNonLocalQueryVariableValue());
+    assertSame(executionQueryImpl, actualProcessVariableValueEqualsResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionQueryImpl#processVariableValueEquals(String, Object)}
+   */
+  @Test
+  public void testProcessVariableValueEquals2() {
+    // Arrange and Act
+    ExecutionQuery actualProcessVariableValueEqualsResult = executionQueryImpl
+        .processVariableValueEquals("Variable Name", JSONObject.NULL);
+
+    // Assert
+    assertTrue(executionQueryImpl.hasNonLocalQueryVariableValue());
+    assertSame(executionQueryImpl, actualProcessVariableValueEqualsResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionQueryImpl#processVariableValueEquals(String, Object)}
+   */
+  @Test
+  public void testProcessVariableValueEquals3() {
+    // Arrange and Act
+    ExecutionQuery actualProcessVariableValueEqualsResult = executionQueryImpl
+        .processVariableValueEquals("Variable Name", null);
+
+    // Assert
+    assertTrue(executionQueryImpl.hasNonLocalQueryVariableValue());
+    assertSame(executionQueryImpl, actualProcessVariableValueEqualsResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionQueryImpl#processVariableValueNotEquals(String, Object)}
+   */
+  @Test
+  public void testProcessVariableValueNotEquals() {
+    // Arrange and Act
+    ExecutionQuery actualProcessVariableValueNotEqualsResult = executionQueryImpl
+        .processVariableValueNotEquals("Variable Name", JSONObject.NULL);
+
+    // Assert
+    assertTrue(executionQueryImpl.hasNonLocalQueryVariableValue());
+    assertSame(executionQueryImpl, actualProcessVariableValueNotEqualsResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionQueryImpl#processVariableValueNotEquals(String, Object)}
+   */
+  @Test
+  public void testProcessVariableValueNotEquals2() {
+    // Arrange and Act
+    ExecutionQuery actualProcessVariableValueNotEqualsResult = executionQueryImpl
+        .processVariableValueNotEquals("Variable Name", null);
+
+    // Assert
+    assertTrue(executionQueryImpl.hasNonLocalQueryVariableValue());
+    assertSame(executionQueryImpl, actualProcessVariableValueNotEqualsResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionQueryImpl#processVariableValueEqualsIgnoreCase(String, String)}
+   */
+  @Test
+  public void testProcessVariableValueEqualsIgnoreCase() {
+    // Arrange and Act
+    ExecutionQuery actualProcessVariableValueEqualsIgnoreCaseResult = executionQueryImpl
+        .processVariableValueEqualsIgnoreCase("Name", "42");
+
+    // Assert
+    assertTrue(executionQueryImpl.hasNonLocalQueryVariableValue());
+    assertSame(executionQueryImpl, actualProcessVariableValueEqualsIgnoreCaseResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionQueryImpl#processVariableValueNotEqualsIgnoreCase(String, String)}
+   */
+  @Test
+  public void testProcessVariableValueNotEqualsIgnoreCase() {
+    // Arrange and Act
+    ExecutionQuery actualProcessVariableValueNotEqualsIgnoreCaseResult = executionQueryImpl
+        .processVariableValueNotEqualsIgnoreCase("Name", "42");
+
+    // Assert
+    assertTrue(executionQueryImpl.hasNonLocalQueryVariableValue());
+    assertSame(executionQueryImpl, actualProcessVariableValueNotEqualsIgnoreCaseResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionQueryImpl#processVariableValueLike(String, String)}
+   */
+  @Test
+  public void testProcessVariableValueLike() {
+    // Arrange and Act
+    ExecutionQuery actualProcessVariableValueLikeResult = executionQueryImpl.processVariableValueLike("Name", "42");
+
+    // Assert
+    assertTrue(executionQueryImpl.hasNonLocalQueryVariableValue());
+    assertSame(executionQueryImpl, actualProcessVariableValueLikeResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionQueryImpl#processVariableValueLikeIgnoreCase(String, String)}
+   */
+  @Test
+  public void testProcessVariableValueLikeIgnoreCase() {
+    // Arrange and Act
+    ExecutionQuery actualProcessVariableValueLikeIgnoreCaseResult = executionQueryImpl
+        .processVariableValueLikeIgnoreCase("Name", "42");
+
+    // Assert
+    assertTrue(executionQueryImpl.hasNonLocalQueryVariableValue());
+    assertSame(executionQueryImpl, actualProcessVariableValueLikeIgnoreCaseResult);
+  }
+
+  /**
+   * Method under test: {@link ExecutionQueryImpl#startedBefore(Date)}
+   */
+  @Test
+  public void testStartedBefore() {
+    // Arrange
+    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
+    Date beforeTime = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+
+    // Act and Assert
+    assertSame(executionQueryImpl, executionQueryImpl.startedBefore(beforeTime));
+    assertSame(beforeTime, executionQueryImpl.getStartedBefore());
+  }
+
+  /**
+   * Method under test: {@link ExecutionQueryImpl#startedBefore(Date)}
+   */
+  @Test
+  public void testStartedBefore2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ExecutionQueryImpl()).startedBefore(null));
+  }
+
+  /**
+   * Method under test: {@link ExecutionQueryImpl#startedAfter(Date)}
+   */
+  @Test
+  public void testStartedAfter() {
+    // Arrange
+    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
+    Date afterTime = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+
+    // Act and Assert
+    assertSame(executionQueryImpl, executionQueryImpl.startedAfter(afterTime));
+    assertSame(afterTime, executionQueryImpl.getStartedAfter());
+  }
+
+  /**
+   * Method under test: {@link ExecutionQueryImpl#startedAfter(Date)}
+   */
+  @Test
+  public void testStartedAfter2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ExecutionQueryImpl()).startedAfter(null));
+  }
+
+  /**
+   * Method under test: {@link ExecutionQueryImpl#startedBy(String)}
+   */
+  @Test
+  public void testStartedBy() {
+    // Arrange and Act
+    ExecutionQuery actualStartedByResult = executionQueryImpl.startedBy("42");
+
+    // Assert
+    assertEquals("42", executionQueryImpl.getStartedBy());
+    assertSame(executionQueryImpl, actualStartedByResult);
+  }
+
+  /**
+   * Method under test: {@link ExecutionQueryImpl#startedBy(String)}
+   */
+  @Test
+  public void testStartedBy2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> executionQueryImpl.startedBy(null));
+  }
+
+  /**
+   * Method under test: {@link ExecutionQueryImpl#localize(Execution, String)}
+   */
+  @Test
+  public void testLocalize() {
+    // Arrange
+    ExecutionEntityImpl execution = mock(ExecutionEntityImpl.class);
+    when(execution.getProcessDefinitionId()).thenReturn("42");
+    doNothing().when(execution).setLocalizedDescription(Mockito.<String>any());
+    doNothing().when(execution).setLocalizedName(Mockito.<String>any());
+
+    // Act
+    executionQueryImpl.localize(execution, "42");
+
+    // Assert that nothing has changed
+    verify(execution).getProcessDefinitionId();
+    verify(execution).setLocalizedDescription(isNull());
+    verify(execution).setLocalizedName(isNull());
+  }
+
+  /**
    * Method under test: {@link ExecutionQueryImpl#ExecutionQueryImpl()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecutionQueryImpl.<init>()"})
   public void testNewExecutionQueryImpl() {
     // Arrange and Act
     ExecutionQueryImpl actualExecutionQueryImpl = new ExecutionQueryImpl();
@@ -108,1291 +788,5 @@ public class ExecutionQueryImplDiffblueTest {
     assertEquals(Integer.MAX_VALUE, actualExecutionQueryImpl.getLastRow());
     assertEquals(Integer.MAX_VALUE, actualExecutionQueryImpl.getMaxResults());
     assertSame(actualExecutionQueryImpl, actualExecutionQueryImpl.getParameter());
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#processDefinitionId(String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then {@link ExecutionQueryImpl#ExecutionQueryImpl()} ProcessDefinitionId is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#processDefinitionId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQueryImpl ExecutionQueryImpl.processDefinitionId(String)"})
-  public void testProcessDefinitionId_when42_thenExecutionQueryImplProcessDefinitionIdIs42() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    // Act
-    ExecutionQueryImpl actualProcessDefinitionIdResult = executionQueryImpl.processDefinitionId("42");
-
-    // Assert
-    assertEquals("42", executionQueryImpl.getProcessDefinitionId());
-    assertSame(executionQueryImpl, actualProcessDefinitionIdResult);
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#processDefinitionId(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#processDefinitionId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQueryImpl ExecutionQueryImpl.processDefinitionId(String)"})
-  public void testProcessDefinitionId_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ExecutionQueryImpl()).processDefinitionId(null));
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#processDefinitionKey(String)}.
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#processDefinitionKey(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQueryImpl ExecutionQueryImpl.processDefinitionKey(String)"})
-  public void testProcessDefinitionKey() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    // Act
-    ExecutionQueryImpl actualProcessDefinitionKeyResult = executionQueryImpl
-        .processDefinitionKey("Process Definition Key");
-
-    // Assert
-    assertEquals("Process Definition Key", executionQueryImpl.getProcessDefinitionKey());
-    assertSame(executionQueryImpl, actualProcessDefinitionKeyResult);
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#processDefinitionKey(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#processDefinitionKey(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQueryImpl ExecutionQueryImpl.processDefinitionKey(String)"})
-  public void testProcessDefinitionKey_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ExecutionQueryImpl()).processDefinitionKey(null));
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#processDefinitionCategory(String)}.
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#processDefinitionCategory(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.processDefinitionCategory(String)"})
-  public void testProcessDefinitionCategory() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    // Act
-    ExecutionQuery actualProcessDefinitionCategoryResult = executionQueryImpl
-        .processDefinitionCategory("Process Definition Category");
-
-    // Assert
-    assertEquals("Process Definition Category", executionQueryImpl.getProcessDefinitionCategory());
-    assertSame(executionQueryImpl, actualProcessDefinitionCategoryResult);
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#processDefinitionCategory(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#processDefinitionCategory(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.processDefinitionCategory(String)"})
-  public void testProcessDefinitionCategory_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> (new ExecutionQueryImpl()).processDefinitionCategory(null));
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#processDefinitionName(String)}.
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#processDefinitionName(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.processDefinitionName(String)"})
-  public void testProcessDefinitionName() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    // Act
-    ExecutionQuery actualProcessDefinitionNameResult = executionQueryImpl
-        .processDefinitionName("Process Definition Name");
-
-    // Assert
-    assertEquals("Process Definition Name", executionQueryImpl.getProcessDefinitionName());
-    assertSame(executionQueryImpl, actualProcessDefinitionNameResult);
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#processDefinitionName(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#processDefinitionName(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.processDefinitionName(String)"})
-  public void testProcessDefinitionName_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ExecutionQueryImpl()).processDefinitionName(null));
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#processDefinitionVersion(Integer)}.
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#processDefinitionVersion(Integer)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.processDefinitionVersion(Integer)"})
-  public void testProcessDefinitionVersion() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    // Act
-    ExecutionQuery actualProcessDefinitionVersionResult = executionQueryImpl.processDefinitionVersion(1);
-
-    // Assert
-    assertEquals(1, executionQueryImpl.getProcessDefinitionVersion().intValue());
-    assertSame(executionQueryImpl, actualProcessDefinitionVersionResult);
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#processDefinitionVersion(Integer)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#processDefinitionVersion(Integer)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.processDefinitionVersion(Integer)"})
-  public void testProcessDefinitionVersion_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> (new ExecutionQueryImpl()).processDefinitionVersion(null));
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#processInstanceId(String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then {@link ExecutionQueryImpl#ExecutionQueryImpl()} ProcessInstanceId is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#processInstanceId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQueryImpl ExecutionQueryImpl.processInstanceId(String)"})
-  public void testProcessInstanceId_when42_thenExecutionQueryImplProcessInstanceIdIs42() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    // Act
-    ExecutionQueryImpl actualProcessInstanceIdResult = executionQueryImpl.processInstanceId("42");
-
-    // Assert
-    assertEquals("42", executionQueryImpl.getProcessInstanceId());
-    assertSame(executionQueryImpl, actualProcessInstanceIdResult);
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#processInstanceId(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#processInstanceId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQueryImpl ExecutionQueryImpl.processInstanceId(String)"})
-  public void testProcessInstanceId_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ExecutionQueryImpl()).processInstanceId(null));
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#rootProcessInstanceId(String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then {@link ExecutionQueryImpl#ExecutionQueryImpl()} RootProcessInstanceId is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#rootProcessInstanceId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQueryImpl ExecutionQueryImpl.rootProcessInstanceId(String)"})
-  public void testRootProcessInstanceId_when42_thenExecutionQueryImplRootProcessInstanceIdIs42() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    // Act
-    ExecutionQueryImpl actualRootProcessInstanceIdResult = executionQueryImpl.rootProcessInstanceId("42");
-
-    // Assert
-    assertEquals("42", executionQueryImpl.getRootProcessInstanceId());
-    assertSame(executionQueryImpl, actualRootProcessInstanceIdResult);
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#rootProcessInstanceId(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#rootProcessInstanceId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQueryImpl ExecutionQueryImpl.rootProcessInstanceId(String)"})
-  public void testRootProcessInstanceId_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ExecutionQueryImpl()).rootProcessInstanceId(null));
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#processInstanceBusinessKey(String)} with {@code businessKey}.
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#processInstanceBusinessKey(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.processInstanceBusinessKey(String)"})
-  public void testProcessInstanceBusinessKeyWithBusinessKey() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    // Act
-    ExecutionQuery actualProcessInstanceBusinessKeyResult = executionQueryImpl
-        .processInstanceBusinessKey("Business Key");
-
-    // Assert
-    assertEquals("Business Key", executionQueryImpl.getBusinessKey());
-    assertSame(executionQueryImpl, actualProcessInstanceBusinessKeyResult);
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#processInstanceBusinessKey(String)} with {@code businessKey}.
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#processInstanceBusinessKey(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.processInstanceBusinessKey(String)"})
-  public void testProcessInstanceBusinessKeyWithBusinessKey2() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> (new ExecutionQueryImpl()).processInstanceBusinessKey(null));
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#processInstanceBusinessKey(String, boolean)} with {@code processInstanceBusinessKey}, {@code includeChildExecutions}.
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#processInstanceBusinessKey(String, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.processInstanceBusinessKey(String, boolean)"})
-  public void testProcessInstanceBusinessKeyWithProcessInstanceBusinessKeyIncludeChildExecutions() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    // Act
-    ExecutionQuery actualProcessInstanceBusinessKeyResult = executionQueryImpl
-        .processInstanceBusinessKey("Process Instance Business Key", true);
-
-    // Assert
-    assertEquals("Process Instance Business Key", executionQueryImpl.getBusinessKey());
-    assertTrue(executionQueryImpl.isIncludeChildExecutionsWithBusinessKeyQuery());
-    assertSame(executionQueryImpl, actualProcessInstanceBusinessKeyResult);
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#processInstanceBusinessKey(String, boolean)} with {@code processInstanceBusinessKey}, {@code includeChildExecutions}.
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#processInstanceBusinessKey(String, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.processInstanceBusinessKey(String, boolean)"})
-  public void testProcessInstanceBusinessKeyWithProcessInstanceBusinessKeyIncludeChildExecutions2() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> (new ExecutionQueryImpl()).processInstanceBusinessKey(null, false));
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#processInstanceBusinessKey(String, boolean)} with {@code processInstanceBusinessKey}, {@code includeChildExecutions}.
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#processInstanceBusinessKey(String, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.processInstanceBusinessKey(String, boolean)"})
-  public void testProcessInstanceBusinessKeyWithProcessInstanceBusinessKeyIncludeChildExecutions3() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    // Act
-    ExecutionQuery actualProcessInstanceBusinessKeyResult = executionQueryImpl
-        .processInstanceBusinessKey("Process Instance Business Key", false);
-
-    // Assert
-    assertEquals("Process Instance Business Key", executionQueryImpl.getBusinessKey());
-    assertFalse(executionQueryImpl.isIncludeChildExecutionsWithBusinessKeyQuery());
-    assertSame(executionQueryImpl, actualProcessInstanceBusinessKeyResult);
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#processInstanceBusinessKey(String, boolean)} with {@code processInstanceBusinessKey}, {@code includeChildExecutions}.
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#processInstanceBusinessKey(String, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.processInstanceBusinessKey(String, boolean)"})
-  public void testProcessInstanceBusinessKeyWithProcessInstanceBusinessKeyIncludeChildExecutions4() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> (new ExecutionQueryImpl()).processInstanceBusinessKey(null, true));
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#processDefinitionKeys(Set)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link HashSet#HashSet()} add {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#processDefinitionKeys(Set)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.processDefinitionKeys(Set)"})
-  public void testProcessDefinitionKeys_given42_whenHashSetAdd42() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    HashSet<String> processDefinitionKeys = new HashSet<>();
-    processDefinitionKeys.add("42");
-    processDefinitionKeys.add("foo");
-
-    // Act
-    ExecutionQuery actualProcessDefinitionKeysResult = executionQueryImpl.processDefinitionKeys(processDefinitionKeys);
-
-    // Assert
-    assertSame(processDefinitionKeys, executionQueryImpl.getProcessDefinitionKeys());
-    assertSame(executionQueryImpl, actualProcessDefinitionKeysResult);
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#processDefinitionKeys(Set)}.
-   * <ul>
-   *   <li>Given {@code foo}.</li>
-   *   <li>When {@link HashSet#HashSet()} add {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#processDefinitionKeys(Set)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.processDefinitionKeys(Set)"})
-  public void testProcessDefinitionKeys_givenFoo_whenHashSetAddFoo() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    HashSet<String> processDefinitionKeys = new HashSet<>();
-    processDefinitionKeys.add("foo");
-
-    // Act
-    ExecutionQuery actualProcessDefinitionKeysResult = executionQueryImpl.processDefinitionKeys(processDefinitionKeys);
-
-    // Assert
-    assertSame(processDefinitionKeys, executionQueryImpl.getProcessDefinitionKeys());
-    assertSame(executionQueryImpl, actualProcessDefinitionKeysResult);
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#processDefinitionKeys(Set)}.
-   * <ul>
-   *   <li>When {@link HashSet#HashSet()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#processDefinitionKeys(Set)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.processDefinitionKeys(Set)"})
-  public void testProcessDefinitionKeys_whenHashSet() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-    HashSet<String> processDefinitionKeys = new HashSet<>();
-
-    // Act
-    ExecutionQuery actualProcessDefinitionKeysResult = executionQueryImpl.processDefinitionKeys(processDefinitionKeys);
-
-    // Assert
-    assertSame(processDefinitionKeys, executionQueryImpl.getProcessDefinitionKeys());
-    assertSame(executionQueryImpl, actualProcessDefinitionKeysResult);
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#processDefinitionKeys(Set)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#processDefinitionKeys(Set)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.processDefinitionKeys(Set)"})
-  public void testProcessDefinitionKeys_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ExecutionQueryImpl()).processDefinitionKeys(null));
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#executionId(String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then {@link ExecutionQueryImpl#ExecutionQueryImpl()} ExecutionId is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#executionId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQueryImpl ExecutionQueryImpl.executionId(String)"})
-  public void testExecutionId_when42_thenExecutionQueryImplExecutionIdIs42() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    // Act
-    ExecutionQueryImpl actualExecutionIdResult = executionQueryImpl.executionId("42");
-
-    // Assert
-    assertEquals("42", executionQueryImpl.getExecutionId());
-    assertSame(executionQueryImpl, actualExecutionIdResult);
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#executionId(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#executionId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQueryImpl ExecutionQueryImpl.executionId(String)"})
-  public void testExecutionId_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ExecutionQueryImpl()).executionId(null));
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#activityId(String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then {@link ExecutionQueryImpl#ExecutionQueryImpl()} ActivityId is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#activityId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQueryImpl ExecutionQueryImpl.activityId(String)"})
-  public void testActivityId_when42_thenExecutionQueryImplActivityIdIs42() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    // Act
-    ExecutionQueryImpl actualActivityIdResult = executionQueryImpl.activityId("42");
-
-    // Assert
-    assertEquals("42", executionQueryImpl.getActivityId());
-    assertEquals("42", actualActivityIdResult.getActivityId());
-    assertTrue(executionQueryImpl.isActive());
-    assertTrue(actualActivityIdResult.isActive());
-    assertSame(actualActivityIdResult, actualActivityIdResult.getParameter());
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#activityId(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link ExecutionQueryImpl#ExecutionQueryImpl()} ActivityId is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#activityId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQueryImpl ExecutionQueryImpl.activityId(String)"})
-  public void testActivityId_whenNull_thenExecutionQueryImplActivityIdIsNull() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    // Act
-    ExecutionQueryImpl actualActivityIdResult = executionQueryImpl.activityId(null);
-
-    // Assert
-    assertNull(executionQueryImpl.getActivityId());
-    assertNull(actualActivityIdResult.getActivityId());
-    assertFalse(executionQueryImpl.isActive());
-    assertFalse(actualActivityIdResult.isActive());
-    assertSame(actualActivityIdResult, actualActivityIdResult.getParameter());
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#parentId(String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then {@link ExecutionQueryImpl#ExecutionQueryImpl()} ParentId is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#parentId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQueryImpl ExecutionQueryImpl.parentId(String)"})
-  public void testParentId_when42_thenExecutionQueryImplParentIdIs42() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    // Act
-    ExecutionQueryImpl actualParentIdResult = executionQueryImpl.parentId("42");
-
-    // Assert
-    assertEquals("42", executionQueryImpl.getParentId());
-    assertSame(executionQueryImpl, actualParentIdResult);
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#parentId(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#parentId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQueryImpl ExecutionQueryImpl.parentId(String)"})
-  public void testParentId_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ExecutionQueryImpl()).parentId(null));
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#executionTenantId(String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then {@link ExecutionQueryImpl#ExecutionQueryImpl()} TenantId is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#executionTenantId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQueryImpl ExecutionQueryImpl.executionTenantId(String)"})
-  public void testExecutionTenantId_when42_thenExecutionQueryImplTenantIdIs42() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    // Act
-    ExecutionQueryImpl actualExecutionTenantIdResult = executionQueryImpl.executionTenantId("42");
-
-    // Assert
-    assertEquals("42", executionQueryImpl.getTenantId());
-    assertSame(executionQueryImpl, actualExecutionTenantIdResult);
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#executionTenantId(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#executionTenantId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQueryImpl ExecutionQueryImpl.executionTenantId(String)"})
-  public void testExecutionTenantId_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ExecutionQueryImpl()).executionTenantId(null));
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#executionTenantIdLike(String)}.
-   * <ul>
-   *   <li>Then {@link ExecutionQueryImpl#ExecutionQueryImpl()} TenantIdLike is {@code Tenant Id Like}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#executionTenantIdLike(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQueryImpl ExecutionQueryImpl.executionTenantIdLike(String)"})
-  public void testExecutionTenantIdLike_thenExecutionQueryImplTenantIdLikeIsTenantIdLike() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    // Act
-    ExecutionQueryImpl actualExecutionTenantIdLikeResult = executionQueryImpl.executionTenantIdLike("Tenant Id Like");
-
-    // Assert
-    assertEquals("Tenant Id Like", executionQueryImpl.getTenantIdLike());
-    assertSame(executionQueryImpl, actualExecutionTenantIdLikeResult);
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#executionTenantIdLike(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#executionTenantIdLike(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQueryImpl ExecutionQueryImpl.executionTenantIdLike(String)"})
-  public void testExecutionTenantIdLike_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ExecutionQueryImpl()).executionTenantIdLike(null));
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#executionWithoutTenantId()}.
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#executionWithoutTenantId()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQueryImpl ExecutionQueryImpl.executionWithoutTenantId()"})
-  public void testExecutionWithoutTenantId() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    // Act
-    ExecutionQueryImpl actualExecutionWithoutTenantIdResult = executionQueryImpl.executionWithoutTenantId();
-
-    // Assert
-    assertTrue(executionQueryImpl.isWithoutTenantId());
-    assertSame(executionQueryImpl, actualExecutionWithoutTenantIdResult);
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#signalEventSubscription(String)}.
-   * <ul>
-   *   <li>Given {@link ExecutionQueryImpl#ExecutionQueryImpl()} EventSubscriptions is {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#signalEventSubscription(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.signalEventSubscription(String)"})
-  public void testSignalEventSubscription_givenExecutionQueryImplEventSubscriptionsIsArrayList() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-    executionQueryImpl.setEventSubscriptions(new ArrayList<>());
-
-    // Act and Assert
-    assertSame(executionQueryImpl, executionQueryImpl.signalEventSubscription("Signal Name"));
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#signalEventSubscription(String)}.
-   * <ul>
-   *   <li>Given {@link ExecutionQueryImpl#ExecutionQueryImpl()}.</li>
-   *   <li>Then return {@link ExecutionQueryImpl#ExecutionQueryImpl()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#signalEventSubscription(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.signalEventSubscription(String)"})
-  public void testSignalEventSubscription_givenExecutionQueryImpl_thenReturnExecutionQueryImpl() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    // Act and Assert
-    assertSame(executionQueryImpl, executionQueryImpl.signalEventSubscription("Signal Name"));
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#signalEventSubscription(String)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#signalEventSubscription(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.signalEventSubscription(String)"})
-  public void testSignalEventSubscription_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-    executionQueryImpl.setEventSubscriptions(null);
-
-    // Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> executionQueryImpl.signalEventSubscription(null));
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#signalEventSubscriptionName(String)}.
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#signalEventSubscriptionName(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.signalEventSubscriptionName(String)"})
-  public void testSignalEventSubscriptionName() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-    executionQueryImpl.setEventSubscriptions(new ArrayList<>());
-
-    // Act and Assert
-    assertSame(executionQueryImpl, executionQueryImpl.signalEventSubscriptionName("Signal Name"));
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#signalEventSubscriptionName(String)}.
-   * <ul>
-   *   <li>Given {@link ExecutionQueryImpl#ExecutionQueryImpl()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#signalEventSubscriptionName(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.signalEventSubscriptionName(String)"})
-  public void testSignalEventSubscriptionName_givenExecutionQueryImpl() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    // Act and Assert
-    assertSame(executionQueryImpl, executionQueryImpl.signalEventSubscriptionName("Signal Name"));
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#signalEventSubscriptionName(String)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#signalEventSubscriptionName(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.signalEventSubscriptionName(String)"})
-  public void testSignalEventSubscriptionName_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-    executionQueryImpl.setEventSubscriptions(null);
-
-    // Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> executionQueryImpl.signalEventSubscriptionName(null));
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#messageEventSubscriptionName(String)}.
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#messageEventSubscriptionName(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.messageEventSubscriptionName(String)"})
-  public void testMessageEventSubscriptionName() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-    executionQueryImpl.setEventSubscriptions(new ArrayList<>());
-
-    // Act and Assert
-    assertSame(executionQueryImpl, executionQueryImpl.messageEventSubscriptionName("Message Name"));
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#messageEventSubscriptionName(String)}.
-   * <ul>
-   *   <li>Given {@link ExecutionQueryImpl#ExecutionQueryImpl()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#messageEventSubscriptionName(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.messageEventSubscriptionName(String)"})
-  public void testMessageEventSubscriptionName_givenExecutionQueryImpl() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    // Act and Assert
-    assertSame(executionQueryImpl, executionQueryImpl.messageEventSubscriptionName("Message Name"));
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#messageEventSubscriptionName(String)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#messageEventSubscriptionName(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.messageEventSubscriptionName(String)"})
-  public void testMessageEventSubscriptionName_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-    executionQueryImpl.setEventSubscriptions(null);
-
-    // Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> executionQueryImpl.messageEventSubscriptionName(null));
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#eventSubscription(String, String)}.
-   * <ul>
-   *   <li>Given {@link ExecutionQueryImpl#ExecutionQueryImpl()} EventSubscriptions is {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#eventSubscription(String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.eventSubscription(String, String)"})
-  public void testEventSubscription_givenExecutionQueryImplEventSubscriptionsIsArrayList() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-    executionQueryImpl.setEventSubscriptions(new ArrayList<>());
-
-    // Act and Assert
-    assertSame(executionQueryImpl, executionQueryImpl.eventSubscription("Event Type", "Event Name"));
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#eventSubscription(String, String)}.
-   * <ul>
-   *   <li>Given {@link ExecutionQueryImpl#ExecutionQueryImpl()}.</li>
-   *   <li>Then return {@link ExecutionQueryImpl#ExecutionQueryImpl()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#eventSubscription(String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.eventSubscription(String, String)"})
-  public void testEventSubscription_givenExecutionQueryImpl_thenReturnExecutionQueryImpl() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    // Act and Assert
-    assertSame(executionQueryImpl, executionQueryImpl.eventSubscription("Event Type", "Event Name"));
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#eventSubscription(String, String)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#eventSubscription(String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.eventSubscription(String, String)"})
-  public void testEventSubscription_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-    executionQueryImpl.setEventSubscriptions(null);
-
-    // Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> executionQueryImpl.eventSubscription(null, null));
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#eventSubscription(String, String)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#eventSubscription(String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.eventSubscription(String, String)"})
-  public void testEventSubscription_thenThrowActivitiIllegalArgumentException2() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-    executionQueryImpl.setEventSubscriptions(null);
-
-    // Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> executionQueryImpl.eventSubscription(null, "Event Name"));
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#processVariableValueEquals(String, Object)} with {@code variableName}, {@code variableValue}.
-   * <ul>
-   *   <li>When {@link JSONObject#NULL}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#processVariableValueEquals(String, Object)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.processVariableValueEquals(String, Object)"})
-  public void testProcessVariableValueEqualsWithVariableNameVariableValue_whenNull() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    // Act
-    ExecutionQuery actualProcessVariableValueEqualsResult = executionQueryImpl
-        .processVariableValueEquals("Variable Name", JSONObject.NULL);
-
-    // Assert
-    assertTrue(executionQueryImpl.hasNonLocalQueryVariableValue());
-    assertSame(executionQueryImpl, actualProcessVariableValueEqualsResult);
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#processVariableValueEquals(String, Object)} with {@code variableName}, {@code variableValue}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#processVariableValueEquals(String, Object)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.processVariableValueEquals(String, Object)"})
-  public void testProcessVariableValueEqualsWithVariableNameVariableValue_whenNull2() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    // Act
-    ExecutionQuery actualProcessVariableValueEqualsResult = executionQueryImpl
-        .processVariableValueEquals("Variable Name", null);
-
-    // Assert
-    assertTrue(executionQueryImpl.hasNonLocalQueryVariableValue());
-    assertSame(executionQueryImpl, actualProcessVariableValueEqualsResult);
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#processVariableValueEquals(Object)} with {@code variableValue}.
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#processVariableValueEquals(Object)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.processVariableValueEquals(Object)"})
-  public void testProcessVariableValueEqualsWithVariableValue() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    // Act
-    ExecutionQuery actualProcessVariableValueEqualsResult = executionQueryImpl
-        .processVariableValueEquals(JSONObject.NULL);
-
-    // Assert
-    assertTrue(executionQueryImpl.hasNonLocalQueryVariableValue());
-    assertSame(executionQueryImpl, actualProcessVariableValueEqualsResult);
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#processVariableValueNotEquals(String, Object)}.
-   * <ul>
-   *   <li>When {@link JSONObject#NULL}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#processVariableValueNotEquals(String, Object)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.processVariableValueNotEquals(String, Object)"})
-  public void testProcessVariableValueNotEquals_whenNull() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    // Act
-    ExecutionQuery actualProcessVariableValueNotEqualsResult = executionQueryImpl
-        .processVariableValueNotEquals("Variable Name", JSONObject.NULL);
-
-    // Assert
-    assertTrue(executionQueryImpl.hasNonLocalQueryVariableValue());
-    assertSame(executionQueryImpl, actualProcessVariableValueNotEqualsResult);
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#processVariableValueNotEquals(String, Object)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#processVariableValueNotEquals(String, Object)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.processVariableValueNotEquals(String, Object)"})
-  public void testProcessVariableValueNotEquals_whenNull2() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    // Act
-    ExecutionQuery actualProcessVariableValueNotEqualsResult = executionQueryImpl
-        .processVariableValueNotEquals("Variable Name", null);
-
-    // Assert
-    assertTrue(executionQueryImpl.hasNonLocalQueryVariableValue());
-    assertSame(executionQueryImpl, actualProcessVariableValueNotEqualsResult);
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#processVariableValueEqualsIgnoreCase(String, String)}.
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#processVariableValueEqualsIgnoreCase(String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.processVariableValueEqualsIgnoreCase(String, String)"})
-  public void testProcessVariableValueEqualsIgnoreCase() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    // Act
-    ExecutionQuery actualProcessVariableValueEqualsIgnoreCaseResult = executionQueryImpl
-        .processVariableValueEqualsIgnoreCase("Name", "42");
-
-    // Assert
-    assertTrue(executionQueryImpl.hasNonLocalQueryVariableValue());
-    assertSame(executionQueryImpl, actualProcessVariableValueEqualsIgnoreCaseResult);
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#processVariableValueNotEqualsIgnoreCase(String, String)}.
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#processVariableValueNotEqualsIgnoreCase(String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.processVariableValueNotEqualsIgnoreCase(String, String)"})
-  public void testProcessVariableValueNotEqualsIgnoreCase() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    // Act
-    ExecutionQuery actualProcessVariableValueNotEqualsIgnoreCaseResult = executionQueryImpl
-        .processVariableValueNotEqualsIgnoreCase("Name", "42");
-
-    // Assert
-    assertTrue(executionQueryImpl.hasNonLocalQueryVariableValue());
-    assertSame(executionQueryImpl, actualProcessVariableValueNotEqualsIgnoreCaseResult);
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#processVariableValueLike(String, String)}.
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#processVariableValueLike(String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.processVariableValueLike(String, String)"})
-  public void testProcessVariableValueLike() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    // Act
-    ExecutionQuery actualProcessVariableValueLikeResult = executionQueryImpl.processVariableValueLike("Name", "42");
-
-    // Assert
-    assertTrue(executionQueryImpl.hasNonLocalQueryVariableValue());
-    assertSame(executionQueryImpl, actualProcessVariableValueLikeResult);
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#processVariableValueLikeIgnoreCase(String, String)}.
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#processVariableValueLikeIgnoreCase(String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.processVariableValueLikeIgnoreCase(String, String)"})
-  public void testProcessVariableValueLikeIgnoreCase() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    // Act
-    ExecutionQuery actualProcessVariableValueLikeIgnoreCaseResult = executionQueryImpl
-        .processVariableValueLikeIgnoreCase("Name", "42");
-
-    // Assert
-    assertTrue(executionQueryImpl.hasNonLocalQueryVariableValue());
-    assertSame(executionQueryImpl, actualProcessVariableValueLikeIgnoreCaseResult);
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#startedBefore(Date)}.
-   * <ul>
-   *   <li>Then return {@link ExecutionQueryImpl#ExecutionQueryImpl()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#startedBefore(Date)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.startedBefore(Date)"})
-  public void testStartedBefore_thenReturnExecutionQueryImpl() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-    Date beforeTime = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
-
-    // Act and Assert
-    assertSame(executionQueryImpl, executionQueryImpl.startedBefore(beforeTime));
-    assertSame(beforeTime, executionQueryImpl.getStartedBefore());
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#startedBefore(Date)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#startedBefore(Date)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.startedBefore(Date)"})
-  public void testStartedBefore_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ExecutionQueryImpl()).startedBefore(null));
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#startedAfter(Date)}.
-   * <ul>
-   *   <li>Then return {@link ExecutionQueryImpl#ExecutionQueryImpl()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#startedAfter(Date)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.startedAfter(Date)"})
-  public void testStartedAfter_thenReturnExecutionQueryImpl() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-    Date afterTime = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
-
-    // Act and Assert
-    assertSame(executionQueryImpl, executionQueryImpl.startedAfter(afterTime));
-    assertSame(afterTime, executionQueryImpl.getStartedAfter());
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#startedAfter(Date)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#startedAfter(Date)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.startedAfter(Date)"})
-  public void testStartedAfter_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ExecutionQueryImpl()).startedAfter(null));
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#startedBy(String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then {@link ExecutionQueryImpl#ExecutionQueryImpl()} StartedBy is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#startedBy(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.startedBy(String)"})
-  public void testStartedBy_when42_thenExecutionQueryImplStartedByIs42() {
-    // Arrange
-    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
-
-    // Act
-    ExecutionQuery actualStartedByResult = executionQueryImpl.startedBy("42");
-
-    // Assert
-    assertEquals("42", executionQueryImpl.getStartedBy());
-    assertSame(executionQueryImpl, actualStartedByResult);
-  }
-
-  /**
-   * Test {@link ExecutionQueryImpl#startedBy(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionQueryImpl#startedBy(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionQuery ExecutionQueryImpl.startedBy(String)"})
-  public void testStartedBy_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ExecutionQueryImpl()).startedBy(null));
   }
 }

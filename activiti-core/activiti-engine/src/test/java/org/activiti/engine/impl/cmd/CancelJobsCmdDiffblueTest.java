@@ -17,35 +17,31 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class CancelJobsCmdDiffblueTest {
+  @InjectMocks
+  private CancelJobsCmd cancelJobsCmd;
+
   /**
-   * Test {@link CancelJobsCmd#CancelJobsCmd(List)}.
-   * <p>
    * Method under test: {@link CancelJobsCmd#CancelJobsCmd(List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CancelJobsCmd.<init>(List)"})
   public void testNewCancelJobsCmd() {
     // Arrange, Act and Assert
     assertTrue((new CancelJobsCmd(new ArrayList<>())).jobIds.isEmpty());
   }
 
   /**
-   * Test {@link CancelJobsCmd#CancelJobsCmd(String)}.
-   * <p>
    * Method under test: {@link CancelJobsCmd#CancelJobsCmd(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CancelJobsCmd.<init>(String)"})
   public void testNewCancelJobsCmd2() {
     // Arrange, Act and Assert
     List<String> stringList = (new CancelJobsCmd("42")).jobIds;

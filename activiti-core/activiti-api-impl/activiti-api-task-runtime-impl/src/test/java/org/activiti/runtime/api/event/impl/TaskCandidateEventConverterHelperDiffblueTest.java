@@ -16,97 +16,18 @@
 package org.activiti.runtime.api.event.impl;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import org.activiti.engine.impl.persistence.entity.IdentityLinkEntityImpl;
 import org.activiti.engine.task.IdentityLink;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class TaskCandidateEventConverterHelperDiffblueTest {
   /**
-   * Test {@link TaskCandidateEventConverterHelper#isTaskCandidateUserLink(IdentityLink)}.
-   * <ul>
-   *   <li>Given {@code candidate}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TaskCandidateEventConverterHelper#isTaskCandidateUserLink(IdentityLink)}
+   * Method under test:
+   * {@link TaskCandidateEventConverterHelper#isTaskCandidateUserLink(IdentityLink)}
    */
   @Test
-  @DisplayName("Test isTaskCandidateUserLink(IdentityLink); given 'candidate'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean TaskCandidateEventConverterHelper.isTaskCandidateUserLink(IdentityLink)"})
-  void testIsTaskCandidateUserLink_givenCandidate() throws UnsupportedEncodingException {
-    // Arrange
-    TaskCandidateEventConverterHelper taskCandidateEventConverterHelper = new TaskCandidateEventConverterHelper();
-
-    IdentityLinkEntityImpl identityLink = new IdentityLinkEntityImpl();
-    identityLink.setDeleted(true);
-    identityLink.setDetails("AXAXAXAX".getBytes("UTF-8"));
-    identityLink.setGroupId("42");
-    identityLink.setId("42");
-    identityLink.setInserted(true);
-    identityLink.setProcessDefId("42");
-    identityLink.setProcessInstanceId("42");
-    identityLink.setType("candidate");
-    identityLink.setUpdated(true);
-    identityLink.setUserId(null);
-    identityLink.setTaskId("Identity Link");
-
-    // Act and Assert
-    assertFalse(taskCandidateEventConverterHelper.isTaskCandidateUserLink(identityLink));
-  }
-
-  /**
-   * Test {@link TaskCandidateEventConverterHelper#isTaskCandidateUserLink(IdentityLink)}.
-   * <ul>
-   *   <li>Given {@code Type}.</li>
-   *   <li>When {@link IdentityLinkEntityImpl} (default constructor) Type is {@code Type}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TaskCandidateEventConverterHelper#isTaskCandidateUserLink(IdentityLink)}
-   */
-  @Test
-  @DisplayName("Test isTaskCandidateUserLink(IdentityLink); given 'Type'; when IdentityLinkEntityImpl (default constructor) Type is 'Type'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean TaskCandidateEventConverterHelper.isTaskCandidateUserLink(IdentityLink)"})
-  void testIsTaskCandidateUserLink_givenType_whenIdentityLinkEntityImplTypeIsType()
-      throws UnsupportedEncodingException {
-    // Arrange
-    TaskCandidateEventConverterHelper taskCandidateEventConverterHelper = new TaskCandidateEventConverterHelper();
-
-    IdentityLinkEntityImpl identityLink = new IdentityLinkEntityImpl();
-    identityLink.setDeleted(true);
-    identityLink.setDetails("AXAXAXAX".getBytes("UTF-8"));
-    identityLink.setGroupId("42");
-    identityLink.setId("42");
-    identityLink.setInserted(true);
-    identityLink.setProcessDefId("42");
-    identityLink.setProcessInstanceId("42");
-    identityLink.setType("Type");
-    identityLink.setUpdated(true);
-    identityLink.setUserId(null);
-    identityLink.setTaskId("Identity Link");
-
-    // Act and Assert
-    assertFalse(taskCandidateEventConverterHelper.isTaskCandidateUserLink(identityLink));
-  }
-
-  /**
-   * Test {@link TaskCandidateEventConverterHelper#isTaskCandidateUserLink(IdentityLink)}.
-   * <ul>
-   *   <li>When {@link IdentityLinkEntityImpl} (default constructor).</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TaskCandidateEventConverterHelper#isTaskCandidateUserLink(IdentityLink)}
-   */
-  @Test
-  @DisplayName("Test isTaskCandidateUserLink(IdentityLink); when IdentityLinkEntityImpl (default constructor); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean TaskCandidateEventConverterHelper.isTaskCandidateUserLink(IdentityLink)"})
-  void testIsTaskCandidateUserLink_whenIdentityLinkEntityImpl_thenReturnFalse() {
+  void testIsTaskCandidateUserLink() {
     // Arrange
     TaskCandidateEventConverterHelper taskCandidateEventConverterHelper = new TaskCandidateEventConverterHelper();
 
@@ -115,53 +36,76 @@ class TaskCandidateEventConverterHelperDiffblueTest {
   }
 
   /**
-   * Test {@link TaskCandidateEventConverterHelper#isTaskCandidateGroupLink(IdentityLink)}.
-   * <ul>
-   *   <li>Given {@code candidate}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TaskCandidateEventConverterHelper#isTaskCandidateGroupLink(IdentityLink)}
+   * Method under test:
+   * {@link TaskCandidateEventConverterHelper#isTaskCandidateUserLink(IdentityLink)}
    */
   @Test
-  @DisplayName("Test isTaskCandidateGroupLink(IdentityLink); given 'candidate'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean TaskCandidateEventConverterHelper.isTaskCandidateGroupLink(IdentityLink)"})
-  void testIsTaskCandidateGroupLink_givenCandidate() throws UnsupportedEncodingException {
+  void testIsTaskCandidateUserLink2() throws UnsupportedEncodingException {
     // Arrange
     TaskCandidateEventConverterHelper taskCandidateEventConverterHelper = new TaskCandidateEventConverterHelper();
 
     IdentityLinkEntityImpl identityLink = new IdentityLinkEntityImpl();
     identityLink.setDeleted(true);
     identityLink.setDetails("AXAXAXAX".getBytes("UTF-8"));
+    identityLink.setGroupId("42");
+    identityLink.setId("42");
+    identityLink.setInserted(true);
+    identityLink.setProcessDefId("42");
+    identityLink.setProcessInstanceId("42");
+    identityLink.setType("Type");
+    identityLink.setUpdated(true);
+    identityLink.setUserId(null);
+    identityLink.setTaskId("Identity Link");
+
+    // Act and Assert
+    assertFalse(taskCandidateEventConverterHelper.isTaskCandidateUserLink(identityLink));
+  }
+
+  /**
+   * Method under test:
+   * {@link TaskCandidateEventConverterHelper#isTaskCandidateUserLink(IdentityLink)}
+   */
+  @Test
+  void testIsTaskCandidateUserLink3() throws UnsupportedEncodingException {
+    // Arrange
+    TaskCandidateEventConverterHelper taskCandidateEventConverterHelper = new TaskCandidateEventConverterHelper();
+
+    IdentityLinkEntityImpl identityLink = new IdentityLinkEntityImpl();
+    identityLink.setDeleted(true);
+    identityLink.setDetails("AXAXAXAX".getBytes("UTF-8"));
+    identityLink.setGroupId("42");
     identityLink.setId("42");
     identityLink.setInserted(true);
     identityLink.setProcessDefId("42");
     identityLink.setProcessInstanceId("42");
     identityLink.setType("candidate");
     identityLink.setUpdated(true);
-    identityLink.setUserId("42");
-    identityLink.setGroupId(null);
+    identityLink.setUserId(null);
     identityLink.setTaskId("Identity Link");
 
     // Act and Assert
-    assertFalse(taskCandidateEventConverterHelper.isTaskCandidateGroupLink(identityLink));
+    assertFalse(taskCandidateEventConverterHelper.isTaskCandidateUserLink(identityLink));
   }
 
   /**
-   * Test {@link TaskCandidateEventConverterHelper#isTaskCandidateGroupLink(IdentityLink)}.
-   * <ul>
-   *   <li>Given {@code Type}.</li>
-   *   <li>When {@link IdentityLinkEntityImpl} (default constructor) Type is {@code Type}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TaskCandidateEventConverterHelper#isTaskCandidateGroupLink(IdentityLink)}
+   * Method under test:
+   * {@link TaskCandidateEventConverterHelper#isTaskCandidateGroupLink(IdentityLink)}
    */
   @Test
-  @DisplayName("Test isTaskCandidateGroupLink(IdentityLink); given 'Type'; when IdentityLinkEntityImpl (default constructor) Type is 'Type'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean TaskCandidateEventConverterHelper.isTaskCandidateGroupLink(IdentityLink)"})
-  void testIsTaskCandidateGroupLink_givenType_whenIdentityLinkEntityImplTypeIsType()
-      throws UnsupportedEncodingException {
+  void testIsTaskCandidateGroupLink() {
+    // Arrange
+    TaskCandidateEventConverterHelper taskCandidateEventConverterHelper = new TaskCandidateEventConverterHelper();
+
+    // Act and Assert
+    assertFalse(taskCandidateEventConverterHelper.isTaskCandidateGroupLink(new IdentityLinkEntityImpl()));
+  }
+
+  /**
+   * Method under test:
+   * {@link TaskCandidateEventConverterHelper#isTaskCandidateGroupLink(IdentityLink)}
+   */
+  @Test
+  void testIsTaskCandidateGroupLink2() throws UnsupportedEncodingException {
     // Arrange
     TaskCandidateEventConverterHelper taskCandidateEventConverterHelper = new TaskCandidateEventConverterHelper();
 
@@ -183,23 +127,28 @@ class TaskCandidateEventConverterHelperDiffblueTest {
   }
 
   /**
-   * Test {@link TaskCandidateEventConverterHelper#isTaskCandidateGroupLink(IdentityLink)}.
-   * <ul>
-   *   <li>When {@link IdentityLinkEntityImpl} (default constructor).</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TaskCandidateEventConverterHelper#isTaskCandidateGroupLink(IdentityLink)}
+   * Method under test:
+   * {@link TaskCandidateEventConverterHelper#isTaskCandidateGroupLink(IdentityLink)}
    */
   @Test
-  @DisplayName("Test isTaskCandidateGroupLink(IdentityLink); when IdentityLinkEntityImpl (default constructor); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean TaskCandidateEventConverterHelper.isTaskCandidateGroupLink(IdentityLink)"})
-  void testIsTaskCandidateGroupLink_whenIdentityLinkEntityImpl_thenReturnFalse() {
+  void testIsTaskCandidateGroupLink3() throws UnsupportedEncodingException {
     // Arrange
     TaskCandidateEventConverterHelper taskCandidateEventConverterHelper = new TaskCandidateEventConverterHelper();
 
+    IdentityLinkEntityImpl identityLink = new IdentityLinkEntityImpl();
+    identityLink.setDeleted(true);
+    identityLink.setDetails("AXAXAXAX".getBytes("UTF-8"));
+    identityLink.setId("42");
+    identityLink.setInserted(true);
+    identityLink.setProcessDefId("42");
+    identityLink.setProcessInstanceId("42");
+    identityLink.setType("candidate");
+    identityLink.setUpdated(true);
+    identityLink.setUserId("42");
+    identityLink.setGroupId(null);
+    identityLink.setTaskId("Identity Link");
+
     // Act and Assert
-    assertFalse(taskCandidateEventConverterHelper.isTaskCandidateGroupLink(new IdentityLinkEntityImpl()));
+    assertFalse(taskCandidateEventConverterHelper.isTaskCandidateGroupLink(identityLink));
   }
 }

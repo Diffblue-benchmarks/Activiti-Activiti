@@ -18,17 +18,20 @@ package org.activiti.engine.impl.bpmn.webservice;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import org.activiti.engine.impl.webservice.WSOperation;
 import org.activiti.engine.impl.webservice.WSService;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class OperationDiffblueTest {
+  @InjectMocks
+  private Operation operation;
+
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link Operation#Operation()}
@@ -47,14 +50,6 @@ public class OperationDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Operation.<init>()", "String Operation.getId()",
-      "OperationImplementation Operation.getImplementation()", "MessageDefinition Operation.getInMessage()",
-      "BpmnInterface Operation.getInterface()", "String Operation.getName()",
-      "MessageDefinition Operation.getOutMessage()", "void Operation.setId(String)",
-      "void Operation.setImplementation(OperationImplementation)", "void Operation.setInMessage(MessageDefinition)",
-      "void Operation.setInterface(BpmnInterface)", "void Operation.setName(String)",
-      "void Operation.setOutMessage(MessageDefinition)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Operation actualOperation = new Operation();
@@ -77,7 +72,7 @@ public class OperationDiffblueTest {
     BpmnInterface actualInterface = actualOperation.getInterface();
     String actualName = actualOperation.getName();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("42", actualId);
     assertEquals("Name", actualName);
     assertSame(bpmnInterface, actualInterface);
@@ -87,13 +82,10 @@ public class OperationDiffblueTest {
   }
 
   /**
-   * Test {@link Operation#Operation(String, String, BpmnInterface, MessageDefinition)}.
-   * <p>
-   * Method under test: {@link Operation#Operation(String, String, BpmnInterface, MessageDefinition)}
+   * Method under test:
+   * {@link Operation#Operation(String, String, BpmnInterface, MessageDefinition)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Operation.<init>(String, String, BpmnInterface, MessageDefinition)"})
   public void testNewOperation() {
     // Arrange
     BpmnInterface bpmnInterface = new BpmnInterface("42", "Name");
@@ -110,5 +102,27 @@ public class OperationDiffblueTest {
     assertNull(actualOperation.getImplementation());
     assertSame(bpmnInterface, actualOperation.getInterface());
     assertSame(inMessage, actualOperation.getInMessage());
+  }
+
+  /**
+   * Method under test:
+   * {@link Operation#Operation(String, String, BpmnInterface, MessageDefinition)}
+   */
+  @Test
+  public void testNewOperation2() {
+    // Arrange
+    BpmnInterface bpmnInterface = mock(BpmnInterface.class);
+    MessageDefinition inMessage = new MessageDefinition("42");
+
+    // Act
+    Operation actualOperation = new Operation("42", "Name", bpmnInterface, inMessage);
+
+    // Assert
+    assertEquals("42", actualOperation.getId());
+    assertEquals("Name", actualOperation.getName());
+    assertNull(actualOperation.getOutMessage());
+    assertNull(actualOperation.getImplementation());
+    assertSame(inMessage, actualOperation.getInMessage());
+    assertSame(bpmnInterface, actualOperation.getInterface());
   }
 }

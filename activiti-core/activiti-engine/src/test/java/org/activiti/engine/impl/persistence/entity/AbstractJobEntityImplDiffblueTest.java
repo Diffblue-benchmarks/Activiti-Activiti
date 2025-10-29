@@ -21,30 +21,29 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.io.UnsupportedEncodingException;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
-import java.util.Date;
 import java.util.Map;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class AbstractJobEntityImplDiffblueTest {
+  @InjectMocks
+  private DeadLetterJobEntityImpl deadLetterJobEntityImpl;
+
   /**
-   * Test {@link AbstractJobEntityImpl#getPersistentState()}.
-   * <ul>
-   *   <li>Given {@link DeadLetterJobEntityImpl} (default constructor).</li>
-   *   <li>Then return size is three.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AbstractJobEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object AbstractJobEntityImpl.getPersistentState()"})
-  public void testGetPersistentState_givenDeadLetterJobEntityImpl_thenReturnSizeIsThree() {
+  public void testGetPersistentState() {
     // Arrange and Act
     Object actualPersistentState = (new DeadLetterJobEntityImpl()).getPersistentState();
 
@@ -57,17 +56,10 @@ public class AbstractJobEntityImplDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#getPersistentState()}.
-   * <ul>
-   *   <li>Then return size is four.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AbstractJobEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object AbstractJobEntityImpl.getPersistentState()"})
-  public void testGetPersistentState_thenReturnSizeIsFour() {
+  public void testGetPersistentState2() {
     // Arrange
     DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
     deadLetterJobEntityImpl.setExceptionStacktrace(null);
@@ -85,30 +77,99 @@ public class AbstractJobEntityImplDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#getDuedate()}.
-   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#getPersistentState()}
+   */
+  @Test
+  public void testGetPersistentState3() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
+    deadLetterJobEntityImpl.setDuedate(mock(Date.class));
+
+    // Act
+    Object actualPersistentState = deadLetterJobEntityImpl.getPersistentState();
+
+    // Assert
+    assertTrue(actualPersistentState instanceof Map);
+    assertEquals(3, ((Map<String, Object>) actualPersistentState).size());
+    assertNull(((Map<String, Object>) actualPersistentState).get("exceptionMessage"));
+    assertTrue(((Map<String, Object>) actualPersistentState).containsKey("duedate"));
+    assertTrue(((Map<String, Object>) actualPersistentState).containsKey("retries"));
+  }
+
+  /**
+   * Method under test:
+   * {@link AbstractJobEntityImpl#setExecution(ExecutionEntity)}
+   */
+  @Test
+  public void testSetExecution() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
+
+    // Act
+    deadLetterJobEntityImpl.setExecution(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+
+    // Assert
+    assertNull(deadLetterJobEntityImpl.getExecutionId());
+    assertNull(deadLetterJobEntityImpl.getProcessDefinitionId());
+    assertNull(deadLetterJobEntityImpl.getProcessInstanceId());
+  }
+
+  /**
+   * Method under test:
+   * {@link AbstractJobEntityImpl#setExecution(ExecutionEntity)}
+   */
+  @Test
+  public void testSetExecution2() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
+    ExecutionEntityImpl execution = mock(ExecutionEntityImpl.class);
+    when(execution.getId()).thenReturn("42");
+    when(execution.getProcessDefinitionId()).thenReturn("42");
+    when(execution.getProcessInstanceId()).thenReturn("42");
+
+    // Act
+    deadLetterJobEntityImpl.setExecution(execution);
+
+    // Assert
+    verify(execution).getId();
+    verify(execution).getProcessDefinitionId();
+    verify(execution).getProcessInstanceId();
+    assertEquals("42", deadLetterJobEntityImpl.getExecutionId());
+    assertEquals("42", deadLetterJobEntityImpl.getProcessDefinitionId());
+    assertEquals("42", deadLetterJobEntityImpl.getProcessInstanceId());
+  }
+
+  /**
    * Method under test: {@link AbstractJobEntityImpl#getDuedate()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Date AbstractJobEntityImpl.getDuedate()"})
   public void testGetDuedate() {
     // Arrange, Act and Assert
     assertNull((new DeadLetterJobEntityImpl()).getDuedate());
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#setDuedate(Date)}.
-   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#getDuedate()}
+   */
+  @Test
+  public void testGetDuedate2() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
+    deadLetterJobEntityImpl.setDuedate(mock(java.sql.Date.class));
+
+    // Act and Assert
+    assertSame(deadLetterJobEntityImpl.duedate, deadLetterJobEntityImpl.getDuedate());
+  }
+
+  /**
    * Method under test: {@link AbstractJobEntityImpl#setDuedate(Date)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AbstractJobEntityImpl.setDuedate(Date)"})
   public void testSetDuedate() {
     // Arrange
     DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
-    Date duedate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    java.util.Date duedate = java.util.Date
+        .from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act
     deadLetterJobEntityImpl.setDuedate(duedate);
@@ -117,65 +178,113 @@ public class AbstractJobEntityImplDiffblueTest {
     Object persistentState = deadLetterJobEntityImpl.getPersistentState();
     assertTrue(persistentState instanceof Map);
     assertEquals(3, ((Map<String, Object>) persistentState).size());
-    assertEquals(0, ((Integer) ((Map<String, Object>) persistentState).get("retries")).intValue());
     assertTrue(((Map<String, Object>) persistentState).containsKey("exceptionMessage"));
+    assertTrue(((Map<String, Object>) persistentState).containsKey("retries"));
     assertSame(duedate, ((Map<String, Object>) persistentState).get("duedate"));
     assertSame(duedate, deadLetterJobEntityImpl.getDuedate());
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#getExecutionId()}.
-   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#setDuedate(java.util.Date)}
+   */
+  @Test
+  public void testSetDuedate2() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
+    java.sql.Date duedate = mock(java.sql.Date.class);
+
+    // Act
+    deadLetterJobEntityImpl.setDuedate(duedate);
+
+    // Assert
+    Object persistentState = deadLetterJobEntityImpl.getPersistentState();
+    assertTrue(persistentState instanceof Map);
+    assertEquals(3, ((Map<String, Object>) persistentState).size());
+    assertTrue(((Map<String, Object>) persistentState).containsKey("exceptionMessage"));
+    assertTrue(((Map<String, Object>) persistentState).containsKey("retries"));
+    assertSame(duedate, ((Map<String, Object>) persistentState).get("duedate"));
+    assertSame(duedate, deadLetterJobEntityImpl.getDuedate());
+  }
+
+  /**
    * Method under test: {@link AbstractJobEntityImpl#getExecutionId()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String AbstractJobEntityImpl.getExecutionId()"})
   public void testGetExecutionId() {
     // Arrange, Act and Assert
     assertNull((new DeadLetterJobEntityImpl()).getExecutionId());
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#setExecutionId(String)}.
-   * <p>
-   * Method under test: {@link AbstractJobEntityImpl#setExecutionId(String)}
+   * Method under test: {@link AbstractJobEntityImpl#getExecutionId()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AbstractJobEntityImpl.setExecutionId(String)"})
-  public void testSetExecutionId() {
+  public void testGetExecutionId2() {
     // Arrange
     DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
+    deadLetterJobEntityImpl.setDuedate(mock(Date.class));
 
-    // Act
-    deadLetterJobEntityImpl.setExecutionId("42");
-
-    // Assert
-    assertEquals("42", deadLetterJobEntityImpl.getExecutionId());
+    // Act and Assert
+    assertNull(deadLetterJobEntityImpl.getExecutionId());
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#getRetries()}.
-   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#setExecutionId(String)}
+   */
+  @Test
+  public void testSetExecutionId() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl2 = new DeadLetterJobEntityImpl();
+
+    // Act
+    deadLetterJobEntityImpl2.setExecutionId("42");
+
+    // Assert
+    assertEquals("42", deadLetterJobEntityImpl2.getExecutionId());
+  }
+
+  /**
+   * Method under test: {@link AbstractJobEntityImpl#setExecutionId(String)}
+   */
+  @Test
+  public void testSetExecutionId2() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl2 = new DeadLetterJobEntityImpl();
+    deadLetterJobEntityImpl2.setDuedate(mock(Date.class));
+
+    // Act
+    deadLetterJobEntityImpl2.setExecutionId("42");
+
+    // Assert
+    assertEquals("42", deadLetterJobEntityImpl2.getExecutionId());
+  }
+
+  /**
    * Method under test: {@link AbstractJobEntityImpl#getRetries()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"int AbstractJobEntityImpl.getRetries()"})
   public void testGetRetries() {
     // Arrange, Act and Assert
     assertEquals(0, (new DeadLetterJobEntityImpl()).getRetries());
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#setRetries(int)}.
-   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#getRetries()}
+   */
+  @Test
+  public void testGetRetries2() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
+    deadLetterJobEntityImpl.setDuedate(mock(Date.class));
+
+    // Act and Assert
+    assertEquals(0, deadLetterJobEntityImpl.getRetries());
+  }
+
+  /**
    * Method under test: {@link AbstractJobEntityImpl#setRetries(int)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AbstractJobEntityImpl.setRetries(int)"})
   public void testSetRetries() {
     // Arrange
     DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
@@ -194,50 +303,107 @@ public class AbstractJobEntityImplDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#getProcessInstanceId()}.
-   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#setRetries(int)}
+   */
+  @Test
+  public void testSetRetries2() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
+    deadLetterJobEntityImpl.setDuedate(mock(Date.class));
+
+    // Act
+    deadLetterJobEntityImpl.setRetries(1);
+
+    // Assert
+    Object persistentState = deadLetterJobEntityImpl.getPersistentState();
+    assertTrue(persistentState instanceof Map);
+    assertEquals(1, deadLetterJobEntityImpl.getRetries());
+    assertEquals(3, ((Map<String, Object>) persistentState).size());
+    assertTrue(((Map<String, Object>) persistentState).containsKey("duedate"));
+    assertTrue(((Map<String, Object>) persistentState).containsKey("exceptionMessage"));
+    assertTrue(((Map<String, Object>) persistentState).containsKey("retries"));
+  }
+
+  /**
    * Method under test: {@link AbstractJobEntityImpl#getProcessInstanceId()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String AbstractJobEntityImpl.getProcessInstanceId()"})
   public void testGetProcessInstanceId() {
     // Arrange, Act and Assert
     assertNull((new DeadLetterJobEntityImpl()).getProcessInstanceId());
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#setProcessInstanceId(String)}.
-   * <p>
-   * Method under test: {@link AbstractJobEntityImpl#setProcessInstanceId(String)}
+   * Method under test: {@link AbstractJobEntityImpl#getProcessInstanceId()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AbstractJobEntityImpl.setProcessInstanceId(String)"})
-  public void testSetProcessInstanceId() {
+  public void testGetProcessInstanceId2() {
     // Arrange
     DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
+    deadLetterJobEntityImpl.setDuedate(mock(Date.class));
 
-    // Act
-    deadLetterJobEntityImpl.setProcessInstanceId("42");
-
-    // Assert
-    assertEquals("42", deadLetterJobEntityImpl.getProcessInstanceId());
+    // Act and Assert
+    assertNull(deadLetterJobEntityImpl.getProcessInstanceId());
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#isExclusive()}.
-   * <ul>
-   *   <li>Given {@link DeadLetterJobEntityImpl} (default constructor) Exclusive is {@code false}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#setProcessInstanceId(String)}
+   */
+  @Test
+  public void testSetProcessInstanceId() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl2 = new DeadLetterJobEntityImpl();
+
+    // Act
+    deadLetterJobEntityImpl2.setProcessInstanceId("42");
+
+    // Assert
+    assertEquals("42", deadLetterJobEntityImpl2.getProcessInstanceId());
+  }
+
+  /**
+   * Method under test: {@link AbstractJobEntityImpl#setProcessInstanceId(String)}
+   */
+  @Test
+  public void testSetProcessInstanceId2() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl2 = new DeadLetterJobEntityImpl();
+    deadLetterJobEntityImpl2.setDuedate(mock(Date.class));
+
+    // Act
+    deadLetterJobEntityImpl2.setProcessInstanceId("42");
+
+    // Assert
+    assertEquals("42", deadLetterJobEntityImpl2.getProcessInstanceId());
+  }
+
+  /**
    * Method under test: {@link AbstractJobEntityImpl#isExclusive()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean AbstractJobEntityImpl.isExclusive()"})
-  public void testIsExclusive_givenDeadLetterJobEntityImplExclusiveIsFalse_thenReturnFalse() {
+  public void testIsExclusive() {
+    // Arrange, Act and Assert
+    assertTrue((new DeadLetterJobEntityImpl()).isExclusive());
+  }
+
+  /**
+   * Method under test: {@link AbstractJobEntityImpl#isExclusive()}
+   */
+  @Test
+  public void testIsExclusive2() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
+    deadLetterJobEntityImpl.setDuedate(mock(Date.class));
+
+    // Act and Assert
+    assertTrue(deadLetterJobEntityImpl.isExclusive());
+  }
+
+  /**
+   * Method under test: {@link AbstractJobEntityImpl#isExclusive()}
+   */
+  @Test
+  public void testIsExclusive3() {
     // Arrange
     DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
     deadLetterJobEntityImpl.setExclusive(false);
@@ -247,111 +413,144 @@ public class AbstractJobEntityImplDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#isExclusive()}.
-   * <ul>
-   *   <li>Given {@link DeadLetterJobEntityImpl} (default constructor).</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AbstractJobEntityImpl#isExclusive()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean AbstractJobEntityImpl.isExclusive()"})
-  public void testIsExclusive_givenDeadLetterJobEntityImpl_thenReturnTrue() {
-    // Arrange, Act and Assert
-    assertTrue((new DeadLetterJobEntityImpl()).isExclusive());
-  }
-
-  /**
-   * Test {@link AbstractJobEntityImpl#getProcessDefinitionId()}.
-   * <p>
    * Method under test: {@link AbstractJobEntityImpl#getProcessDefinitionId()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String AbstractJobEntityImpl.getProcessDefinitionId()"})
   public void testGetProcessDefinitionId() {
     // Arrange, Act and Assert
     assertNull((new DeadLetterJobEntityImpl()).getProcessDefinitionId());
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#setProcessDefinitionId(String)}.
-   * <p>
-   * Method under test: {@link AbstractJobEntityImpl#setProcessDefinitionId(String)}
+   * Method under test: {@link AbstractJobEntityImpl#getProcessDefinitionId()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AbstractJobEntityImpl.setProcessDefinitionId(String)"})
-  public void testSetProcessDefinitionId() {
+  public void testGetProcessDefinitionId2() {
     // Arrange
     DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
+    deadLetterJobEntityImpl.setDuedate(mock(Date.class));
 
-    // Act
-    deadLetterJobEntityImpl.setProcessDefinitionId("42");
-
-    // Assert
-    assertEquals("42", deadLetterJobEntityImpl.getProcessDefinitionId());
+    // Act and Assert
+    assertNull(deadLetterJobEntityImpl.getProcessDefinitionId());
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#getRepeat()}.
-   * <p>
+   * Method under test:
+   * {@link AbstractJobEntityImpl#setProcessDefinitionId(String)}
+   */
+  @Test
+  public void testSetProcessDefinitionId() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl2 = new DeadLetterJobEntityImpl();
+
+    // Act
+    deadLetterJobEntityImpl2.setProcessDefinitionId("42");
+
+    // Assert
+    assertEquals("42", deadLetterJobEntityImpl2.getProcessDefinitionId());
+  }
+
+  /**
+   * Method under test:
+   * {@link AbstractJobEntityImpl#setProcessDefinitionId(String)}
+   */
+  @Test
+  public void testSetProcessDefinitionId2() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl2 = new DeadLetterJobEntityImpl();
+    deadLetterJobEntityImpl2.setDuedate(mock(Date.class));
+
+    // Act
+    deadLetterJobEntityImpl2.setProcessDefinitionId("42");
+
+    // Assert
+    assertEquals("42", deadLetterJobEntityImpl2.getProcessDefinitionId());
+  }
+
+  /**
    * Method under test: {@link AbstractJobEntityImpl#getRepeat()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String AbstractJobEntityImpl.getRepeat()"})
   public void testGetRepeat() {
     // Arrange, Act and Assert
     assertNull((new DeadLetterJobEntityImpl()).getRepeat());
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#setRepeat(String)}.
-   * <p>
-   * Method under test: {@link AbstractJobEntityImpl#setRepeat(String)}
+   * Method under test: {@link AbstractJobEntityImpl#getRepeat()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AbstractJobEntityImpl.setRepeat(String)"})
-  public void testSetRepeat() {
+  public void testGetRepeat2() {
     // Arrange
     DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
+    deadLetterJobEntityImpl.setDuedate(mock(Date.class));
 
-    // Act
-    deadLetterJobEntityImpl.setRepeat("Repeat");
-
-    // Assert
-    assertEquals("Repeat", deadLetterJobEntityImpl.getRepeat());
+    // Act and Assert
+    assertNull(deadLetterJobEntityImpl.getRepeat());
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#getEndDate()}.
-   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#setRepeat(String)}
+   */
+  @Test
+  public void testSetRepeat() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl2 = new DeadLetterJobEntityImpl();
+
+    // Act
+    deadLetterJobEntityImpl2.setRepeat("Repeat");
+
+    // Assert
+    assertEquals("Repeat", deadLetterJobEntityImpl2.getRepeat());
+  }
+
+  /**
+   * Method under test: {@link AbstractJobEntityImpl#setRepeat(String)}
+   */
+  @Test
+  public void testSetRepeat2() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl2 = new DeadLetterJobEntityImpl();
+    deadLetterJobEntityImpl2.setDuedate(mock(Date.class));
+
+    // Act
+    deadLetterJobEntityImpl2.setRepeat("Repeat");
+
+    // Assert
+    assertEquals("Repeat", deadLetterJobEntityImpl2.getRepeat());
+  }
+
+  /**
    * Method under test: {@link AbstractJobEntityImpl#getEndDate()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Date AbstractJobEntityImpl.getEndDate()"})
   public void testGetEndDate() {
     // Arrange, Act and Assert
     assertNull((new DeadLetterJobEntityImpl()).getEndDate());
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#setEndDate(Date)}.
-   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#getEndDate()}
+   */
+  @Test
+  public void testGetEndDate2() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
+    deadLetterJobEntityImpl.setDuedate(mock(java.sql.Date.class));
+
+    // Act and Assert
+    assertNull(deadLetterJobEntityImpl.getEndDate());
+  }
+
+  /**
    * Method under test: {@link AbstractJobEntityImpl#setEndDate(Date)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AbstractJobEntityImpl.setEndDate(Date)"})
   public void testSetEndDate() {
     // Arrange
     DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
-    Date endDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    java.util.Date endDate = java.util.Date
+        .from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act
     deadLetterJobEntityImpl.setEndDate(endDate);
@@ -361,26 +560,47 @@ public class AbstractJobEntityImplDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#getMaxIterations()}.
-   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#setEndDate(java.util.Date)}
+   */
+  @Test
+  public void testSetEndDate2() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
+    java.sql.Date endDate = mock(java.sql.Date.class);
+
+    // Act
+    deadLetterJobEntityImpl.setEndDate(endDate);
+
+    // Assert
+    assertSame(endDate, deadLetterJobEntityImpl.getEndDate());
+  }
+
+  /**
    * Method under test: {@link AbstractJobEntityImpl#getMaxIterations()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"int AbstractJobEntityImpl.getMaxIterations()"})
   public void testGetMaxIterations() {
     // Arrange, Act and Assert
     assertEquals(0, (new DeadLetterJobEntityImpl()).getMaxIterations());
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#setMaxIterations(int)}.
-   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#getMaxIterations()}
+   */
+  @Test
+  public void testGetMaxIterations2() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
+    deadLetterJobEntityImpl.setDuedate(mock(Date.class));
+
+    // Act and Assert
+    assertEquals(0, deadLetterJobEntityImpl.getMaxIterations());
+  }
+
+  /**
    * Method under test: {@link AbstractJobEntityImpl#setMaxIterations(int)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AbstractJobEntityImpl.setMaxIterations(int)"})
   public void testSetMaxIterations() {
     // Arrange
     DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
@@ -393,161 +613,249 @@ public class AbstractJobEntityImplDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#getJobHandlerType()}.
-   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#setMaxIterations(int)}
+   */
+  @Test
+  public void testSetMaxIterations2() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
+    deadLetterJobEntityImpl.setDuedate(mock(Date.class));
+
+    // Act
+    deadLetterJobEntityImpl.setMaxIterations(3);
+
+    // Assert
+    assertEquals(3, deadLetterJobEntityImpl.getMaxIterations());
+  }
+
+  /**
    * Method under test: {@link AbstractJobEntityImpl#getJobHandlerType()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String AbstractJobEntityImpl.getJobHandlerType()"})
   public void testGetJobHandlerType() {
     // Arrange, Act and Assert
     assertNull((new DeadLetterJobEntityImpl()).getJobHandlerType());
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#setJobHandlerType(String)}.
-   * <p>
-   * Method under test: {@link AbstractJobEntityImpl#setJobHandlerType(String)}
+   * Method under test: {@link AbstractJobEntityImpl#getJobHandlerType()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AbstractJobEntityImpl.setJobHandlerType(String)"})
-  public void testSetJobHandlerType() {
+  public void testGetJobHandlerType2() {
     // Arrange
     DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
+    deadLetterJobEntityImpl.setDuedate(mock(Date.class));
 
-    // Act
-    deadLetterJobEntityImpl.setJobHandlerType("Job Handler Type");
-
-    // Assert
-    assertEquals("Job Handler Type", deadLetterJobEntityImpl.getJobHandlerType());
+    // Act and Assert
+    assertNull(deadLetterJobEntityImpl.getJobHandlerType());
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#getJobHandlerConfiguration()}.
-   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#setJobHandlerType(String)}
+   */
+  @Test
+  public void testSetJobHandlerType() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl2 = new DeadLetterJobEntityImpl();
+
+    // Act
+    deadLetterJobEntityImpl2.setJobHandlerType("Job Handler Type");
+
+    // Assert
+    assertEquals("Job Handler Type", deadLetterJobEntityImpl2.getJobHandlerType());
+  }
+
+  /**
+   * Method under test: {@link AbstractJobEntityImpl#setJobHandlerType(String)}
+   */
+  @Test
+  public void testSetJobHandlerType2() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl2 = new DeadLetterJobEntityImpl();
+    deadLetterJobEntityImpl2.setDuedate(mock(Date.class));
+
+    // Act
+    deadLetterJobEntityImpl2.setJobHandlerType("Job Handler Type");
+
+    // Assert
+    assertEquals("Job Handler Type", deadLetterJobEntityImpl2.getJobHandlerType());
+  }
+
+  /**
    * Method under test: {@link AbstractJobEntityImpl#getJobHandlerConfiguration()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String AbstractJobEntityImpl.getJobHandlerConfiguration()"})
   public void testGetJobHandlerConfiguration() {
     // Arrange, Act and Assert
     assertNull((new DeadLetterJobEntityImpl()).getJobHandlerConfiguration());
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#setJobHandlerConfiguration(String)}.
-   * <p>
-   * Method under test: {@link AbstractJobEntityImpl#setJobHandlerConfiguration(String)}
+   * Method under test: {@link AbstractJobEntityImpl#getJobHandlerConfiguration()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AbstractJobEntityImpl.setJobHandlerConfiguration(String)"})
-  public void testSetJobHandlerConfiguration() {
+  public void testGetJobHandlerConfiguration2() {
     // Arrange
     DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
+    deadLetterJobEntityImpl.setDuedate(mock(Date.class));
 
-    // Act
-    deadLetterJobEntityImpl.setJobHandlerConfiguration("Job Handler Configuration");
-
-    // Assert
-    assertEquals("Job Handler Configuration", deadLetterJobEntityImpl.getJobHandlerConfiguration());
+    // Act and Assert
+    assertNull(deadLetterJobEntityImpl.getJobHandlerConfiguration());
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#getJobType()}.
-   * <p>
+   * Method under test:
+   * {@link AbstractJobEntityImpl#setJobHandlerConfiguration(String)}
+   */
+  @Test
+  public void testSetJobHandlerConfiguration() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl2 = new DeadLetterJobEntityImpl();
+
+    // Act
+    deadLetterJobEntityImpl2.setJobHandlerConfiguration("Job Handler Configuration");
+
+    // Assert
+    assertEquals("Job Handler Configuration", deadLetterJobEntityImpl2.getJobHandlerConfiguration());
+  }
+
+  /**
+   * Method under test:
+   * {@link AbstractJobEntityImpl#setJobHandlerConfiguration(String)}
+   */
+  @Test
+  public void testSetJobHandlerConfiguration2() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl2 = new DeadLetterJobEntityImpl();
+    deadLetterJobEntityImpl2.setDuedate(mock(Date.class));
+
+    // Act
+    deadLetterJobEntityImpl2.setJobHandlerConfiguration("Job Handler Configuration");
+
+    // Assert
+    assertEquals("Job Handler Configuration", deadLetterJobEntityImpl2.getJobHandlerConfiguration());
+  }
+
+  /**
    * Method under test: {@link AbstractJobEntityImpl#getJobType()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String AbstractJobEntityImpl.getJobType()"})
   public void testGetJobType() {
     // Arrange, Act and Assert
     assertNull((new DeadLetterJobEntityImpl()).getJobType());
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#setJobType(String)}.
-   * <p>
-   * Method under test: {@link AbstractJobEntityImpl#setJobType(String)}
+   * Method under test: {@link AbstractJobEntityImpl#getJobType()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AbstractJobEntityImpl.setJobType(String)"})
-  public void testSetJobType() {
+  public void testGetJobType2() {
     // Arrange
     DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
+    deadLetterJobEntityImpl.setDuedate(mock(Date.class));
 
-    // Act
-    deadLetterJobEntityImpl.setJobType("Job Type");
-
-    // Assert
-    assertEquals("Job Type", deadLetterJobEntityImpl.getJobType());
+    // Act and Assert
+    assertNull(deadLetterJobEntityImpl.getJobType());
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#getTenantId()}.
-   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#setJobType(String)}
+   */
+  @Test
+  public void testSetJobType() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl2 = new DeadLetterJobEntityImpl();
+
+    // Act
+    deadLetterJobEntityImpl2.setJobType("Job Type");
+
+    // Assert
+    assertEquals("Job Type", deadLetterJobEntityImpl2.getJobType());
+  }
+
+  /**
+   * Method under test: {@link AbstractJobEntityImpl#setJobType(String)}
+   */
+  @Test
+  public void testSetJobType2() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl2 = new DeadLetterJobEntityImpl();
+    deadLetterJobEntityImpl2.setDuedate(mock(Date.class));
+
+    // Act
+    deadLetterJobEntityImpl2.setJobType("Job Type");
+
+    // Assert
+    assertEquals("Job Type", deadLetterJobEntityImpl2.getJobType());
+  }
+
+  /**
    * Method under test: {@link AbstractJobEntityImpl#getTenantId()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String AbstractJobEntityImpl.getTenantId()"})
   public void testGetTenantId() {
     // Arrange, Act and Assert
     assertEquals("", (new DeadLetterJobEntityImpl()).getTenantId());
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#setTenantId(String)}.
-   * <p>
-   * Method under test: {@link AbstractJobEntityImpl#setTenantId(String)}
+   * Method under test: {@link AbstractJobEntityImpl#getTenantId()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AbstractJobEntityImpl.setTenantId(String)"})
-  public void testSetTenantId() {
+  public void testGetTenantId2() {
     // Arrange
     DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
+    deadLetterJobEntityImpl.setDuedate(mock(Date.class));
 
-    // Act
-    deadLetterJobEntityImpl.setTenantId("42");
-
-    // Assert
-    assertEquals("42", deadLetterJobEntityImpl.getTenantId());
+    // Act and Assert
+    assertEquals("", deadLetterJobEntityImpl.getTenantId());
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#getExceptionStacktrace()}.
-   * <ul>
-   *   <li>Given {@link DeadLetterJobEntityImpl} (default constructor).</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#setTenantId(String)}
+   */
+  @Test
+  public void testSetTenantId() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl2 = new DeadLetterJobEntityImpl();
+
+    // Act
+    deadLetterJobEntityImpl2.setTenantId("42");
+
+    // Assert
+    assertEquals("42", deadLetterJobEntityImpl2.getTenantId());
+  }
+
+  /**
+   * Method under test: {@link AbstractJobEntityImpl#setTenantId(String)}
+   */
+  @Test
+  public void testSetTenantId2() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl2 = new DeadLetterJobEntityImpl();
+    deadLetterJobEntityImpl2.setDuedate(mock(Date.class));
+
+    // Act
+    deadLetterJobEntityImpl2.setTenantId("42");
+
+    // Assert
+    assertEquals("42", deadLetterJobEntityImpl2.getTenantId());
+  }
+
+  /**
    * Method under test: {@link AbstractJobEntityImpl#getExceptionStacktrace()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String AbstractJobEntityImpl.getExceptionStacktrace()"})
-  public void testGetExceptionStacktrace_givenDeadLetterJobEntityImpl() {
+  public void testGetExceptionStacktrace() {
     // Arrange, Act and Assert
     assertNull((new DeadLetterJobEntityImpl()).getExceptionStacktrace());
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#getExceptionStacktrace()}.
-   * <ul>
-   *   <li>Given {@link DeadLetterJobEntityImpl} (default constructor) ExceptionStacktrace is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AbstractJobEntityImpl#getExceptionStacktrace()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String AbstractJobEntityImpl.getExceptionStacktrace()"})
-  public void testGetExceptionStacktrace_givenDeadLetterJobEntityImplExceptionStacktraceIsNull() {
+  public void testGetExceptionStacktrace2() {
     // Arrange
     DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
     deadLetterJobEntityImpl.setExceptionStacktrace(null);
@@ -557,141 +865,159 @@ public class AbstractJobEntityImplDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#getExceptionMessage()}.
-   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#getExceptionStacktrace()}
+   */
+  @Test
+  public void testGetExceptionStacktrace3() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
+    deadLetterJobEntityImpl.setDuedate(mock(Date.class));
+
+    // Act and Assert
+    assertNull(deadLetterJobEntityImpl.getExceptionStacktrace());
+  }
+
+  /**
+   * Method under test:
+   * {@link AbstractJobEntityImpl#setExceptionStacktrace(String)}
+   */
+  @Test
+  public void testSetExceptionStacktrace() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl2 = new DeadLetterJobEntityImpl();
+
+    // Act
+    deadLetterJobEntityImpl2.setExceptionStacktrace(null);
+
+    // Assert
+    Object persistentState = deadLetterJobEntityImpl2.getPersistentState();
+    assertTrue(persistentState instanceof Map);
+    ByteArrayRef exceptionByteArrayRef = deadLetterJobEntityImpl2.getExceptionByteArrayRef();
+    assertEquals("stacktrace", exceptionByteArrayRef.getName());
+    assertNull(exceptionByteArrayRef.getBytes());
+    assertEquals(4, ((Map<String, Integer>) persistentState).size());
+    assertNull(((Map<String, Integer>) persistentState).get("exceptionByteArrayId"));
+    assertNull(exceptionByteArrayRef.getId());
+    assertNull(exceptionByteArrayRef.getEntity());
+    assertFalse(exceptionByteArrayRef.isDeleted());
+    assertTrue(((Map<String, Integer>) persistentState).containsKey("duedate"));
+    assertTrue(((Map<String, Integer>) persistentState).containsKey("exceptionMessage"));
+    assertTrue(((Map<String, Integer>) persistentState).containsKey("retries"));
+  }
+
+  /**
    * Method under test: {@link AbstractJobEntityImpl#getExceptionMessage()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String AbstractJobEntityImpl.getExceptionMessage()"})
   public void testGetExceptionMessage() {
     // Arrange, Act and Assert
     assertNull((new DeadLetterJobEntityImpl()).getExceptionMessage());
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#setExceptionMessage(String)}.
-   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#getExceptionMessage()}
+   */
+  @Test
+  public void testGetExceptionMessage2() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
+    deadLetterJobEntityImpl.setDuedate(mock(Date.class));
+
+    // Act and Assert
+    assertNull(deadLetterJobEntityImpl.getExceptionMessage());
+  }
+
+  /**
    * Method under test: {@link AbstractJobEntityImpl#setExceptionMessage(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AbstractJobEntityImpl.setExceptionMessage(String)"})
   public void testSetExceptionMessage() {
     // Arrange
-    DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl2 = new DeadLetterJobEntityImpl();
 
     // Act
-    deadLetterJobEntityImpl.setExceptionMessage("An error occurred");
+    deadLetterJobEntityImpl2.setExceptionMessage("An error occurred");
 
     // Assert
-    Object persistentState = deadLetterJobEntityImpl.getPersistentState();
+    Object persistentState = deadLetterJobEntityImpl2.getPersistentState();
     assertTrue(persistentState instanceof Map);
-    assertEquals("An error occurred", deadLetterJobEntityImpl.getExceptionMessage());
+    assertEquals("An error occurred", deadLetterJobEntityImpl2.getExceptionMessage());
     assertEquals(3, ((Map<String, Object>) persistentState).size());
     assertEquals("An error occurred", ((Map<String, Object>) persistentState).get("exceptionMessage"));
-    assertEquals(0, ((Integer) ((Map<String, Object>) persistentState).get("retries")).intValue());
     assertTrue(((Map<String, Object>) persistentState).containsKey("duedate"));
+    assertTrue(((Map<String, Object>) persistentState).containsKey("retries"));
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#setExceptionMessage(String)}.
-   * <ul>
-   *   <li>Then {@link DeadLetterJobEntityImpl} (default constructor) ExceptionMessage is empty string.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AbstractJobEntityImpl#setExceptionMessage(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AbstractJobEntityImpl.setExceptionMessage(String)"})
-  public void testSetExceptionMessage_thenDeadLetterJobEntityImplExceptionMessageIsEmptyString() {
+  public void testSetExceptionMessage2() {
     // Arrange
-    DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl2 = new DeadLetterJobEntityImpl();
 
     // Act
-    deadLetterJobEntityImpl.setExceptionMessage("");
+    deadLetterJobEntityImpl2.setExceptionMessage("");
 
     // Assert
-    Object persistentState = deadLetterJobEntityImpl.getPersistentState();
+    Object persistentState = deadLetterJobEntityImpl2.getPersistentState();
     assertTrue(persistentState instanceof Map);
-    assertEquals("", deadLetterJobEntityImpl.getExceptionMessage());
+    assertEquals("", deadLetterJobEntityImpl2.getExceptionMessage());
     assertEquals(3, ((Map<String, Object>) persistentState).size());
     assertEquals("", ((Map<String, Object>) persistentState).get("exceptionMessage"));
-    assertEquals(0, ((Integer) ((Map<String, Object>) persistentState).get("retries")).intValue());
     assertTrue(((Map<String, Object>) persistentState).containsKey("duedate"));
+    assertTrue(((Map<String, Object>) persistentState).containsKey("retries"));
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#setExceptionMessage(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AbstractJobEntityImpl#setExceptionMessage(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AbstractJobEntityImpl.setExceptionMessage(String)"})
-  public void testSetExceptionMessage_whenNull() {
+  public void testSetExceptionMessage3() {
     // Arrange
-    DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl2 = new DeadLetterJobEntityImpl();
+    deadLetterJobEntityImpl2.setDuedate(mock(Date.class));
 
     // Act
-    deadLetterJobEntityImpl.setExceptionMessage(null);
+    deadLetterJobEntityImpl2.setExceptionMessage("An error occurred");
 
-    // Assert that nothing has changed
-    Object persistentState = deadLetterJobEntityImpl.getPersistentState();
+    // Assert
+    Object persistentState = deadLetterJobEntityImpl2.getPersistentState();
     assertTrue(persistentState instanceof Map);
-    assertEquals(3, ((Map<String, Integer>) persistentState).size());
-    assertEquals(0, ((Map<String, Integer>) persistentState).get("retries").intValue());
-    assertTrue(((Map<String, Integer>) persistentState).containsKey("duedate"));
+    assertEquals("An error occurred", deadLetterJobEntityImpl2.getExceptionMessage());
+    assertEquals(3, ((Map<String, Object>) persistentState).size());
+    assertEquals("An error occurred", ((Map<String, Object>) persistentState).get("exceptionMessage"));
+    assertTrue(((Map<String, Object>) persistentState).containsKey("duedate"));
+    assertTrue(((Map<String, Object>) persistentState).containsKey("retries"));
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#getExceptionByteArrayRef()}.
-   * <p>
    * Method under test: {@link AbstractJobEntityImpl#getExceptionByteArrayRef()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.persistence.entity.ByteArrayRef AbstractJobEntityImpl.getExceptionByteArrayRef()"})
   public void testGetExceptionByteArrayRef() {
     // Arrange, Act and Assert
     assertNull((new DeadLetterJobEntityImpl()).getExceptionByteArrayRef());
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#getUtf8Bytes(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AbstractJobEntityImpl#getUtf8Bytes(String)}
+   * Method under test: {@link AbstractJobEntityImpl#getExceptionByteArrayRef()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"byte[] AbstractJobEntityImpl.getUtf8Bytes(String)"})
-  public void testGetUtf8Bytes_whenNull_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new DeadLetterJobEntityImpl()).getUtf8Bytes(null));
+  public void testGetExceptionByteArrayRef2() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
+    deadLetterJobEntityImpl.setDuedate(mock(Date.class));
+
+    // Act and Assert
+    assertNull(deadLetterJobEntityImpl.getExceptionByteArrayRef());
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#getUtf8Bytes(String)}.
-   * <ul>
-   *   <li>When {@code Str}.</li>
-   *   <li>Then return {@code Str} Bytes is {@code UTF-8}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AbstractJobEntityImpl#getUtf8Bytes(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"byte[] AbstractJobEntityImpl.getUtf8Bytes(String)"})
-  public void testGetUtf8Bytes_whenStr_thenReturnStrBytesIsUtf8() throws UnsupportedEncodingException {
+  public void testGetUtf8Bytes() throws UnsupportedEncodingException {
     // Arrange and Act
     byte[] actualUtf8Bytes = (new DeadLetterJobEntityImpl()).getUtf8Bytes("Str");
 
@@ -700,15 +1026,49 @@ public class AbstractJobEntityImplDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#toString()}.
-   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#getUtf8Bytes(String)}
+   */
+  @Test
+  public void testGetUtf8Bytes2() {
+    // Arrange, Act and Assert
+    assertNull((new DeadLetterJobEntityImpl()).getUtf8Bytes(null));
+  }
+
+  /**
+   * Method under test: {@link AbstractJobEntityImpl#getUtf8Bytes(String)}
+   */
+  @Test
+  public void testGetUtf8Bytes3() throws UnsupportedEncodingException {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl2 = new DeadLetterJobEntityImpl();
+    deadLetterJobEntityImpl2.setDuedate(mock(Date.class));
+
+    // Act
+    byte[] actualUtf8Bytes = deadLetterJobEntityImpl2.getUtf8Bytes("Str");
+
+    // Assert
+    assertArrayEquals("Str".getBytes("UTF-8"), actualUtf8Bytes);
+  }
+
+  /**
    * Method under test: {@link AbstractJobEntityImpl#toString()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String AbstractJobEntityImpl.toString()"})
   public void testToString() {
     // Arrange, Act and Assert
     assertEquals("DeadLetterJobEntity [id=null]", (new DeadLetterJobEntityImpl()).toString());
+  }
+
+  /**
+   * Method under test: {@link AbstractJobEntityImpl#toString()}
+   */
+  @Test
+  public void testToString2() {
+    // Arrange
+    DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
+    deadLetterJobEntityImpl.setDuedate(mock(Date.class));
+
+    // Act and Assert
+    assertEquals("DeadLetterJobEntity [id=null]", deadLetterJobEntityImpl.toString());
   }
 }

@@ -18,103 +18,19 @@ package org.activiti.engine;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ActivitiObjectNotFoundExceptionDiffblueTest {
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@code An error occurred}.</li>
-   *   <li>Then return Message is {@code An error occurred}.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>{@link ActivitiObjectNotFoundException#ActivitiObjectNotFoundException(String, Class)}
+   *   <li>
+   * {@link ActivitiObjectNotFoundException#ActivitiObjectNotFoundException(Class)}
    *   <li>{@link ActivitiObjectNotFoundException#getObjectClass()}
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiObjectNotFoundException.<init>(Class)",
-      "void ActivitiObjectNotFoundException.<init>(String)",
-      "void ActivitiObjectNotFoundException.<init>(String, Class)",
-      "void ActivitiObjectNotFoundException.<init>(String, Class, Throwable)",
-      "Class ActivitiObjectNotFoundException.getObjectClass()"})
-  public void testGettersAndSetters_whenAnErrorOccurred_thenReturnMessageIsAnErrorOccurred() {
-    // Arrange
-    Class<Object> objectClass = Object.class;
-
-    // Act
-    ActivitiObjectNotFoundException actualActivitiObjectNotFoundException = new ActivitiObjectNotFoundException(
-        "An error occurred", objectClass);
-    Class<?> actualObjectClass = actualActivitiObjectNotFoundException.getObjectClass();
-
-    // Assert
-    assertEquals("An error occurred", actualActivitiObjectNotFoundException.getMessage());
-    assertNull(actualActivitiObjectNotFoundException.getCause());
-    assertEquals(0, actualActivitiObjectNotFoundException.getSuppressed().length);
-    Class<Object> expectedObjectClass = Object.class;
-    assertEquals(expectedObjectClass, actualObjectClass);
-    assertSame(objectClass, actualObjectClass);
-  }
-
-  /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@code An error occurred}.</li>
-   *   <li>Then return ObjectClass is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link ActivitiObjectNotFoundException#ActivitiObjectNotFoundException(String)}
-   *   <li>{@link ActivitiObjectNotFoundException#getObjectClass()}
-   * </ul>
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiObjectNotFoundException.<init>(Class)",
-      "void ActivitiObjectNotFoundException.<init>(String)",
-      "void ActivitiObjectNotFoundException.<init>(String, Class)",
-      "void ActivitiObjectNotFoundException.<init>(String, Class, Throwable)",
-      "Class ActivitiObjectNotFoundException.getObjectClass()"})
-  public void testGettersAndSetters_whenAnErrorOccurred_thenReturnObjectClassIsNull() {
-    // Arrange and Act
-    ActivitiObjectNotFoundException actualActivitiObjectNotFoundException = new ActivitiObjectNotFoundException(
-        "An error occurred");
-
-    // Assert
-    assertEquals("An error occurred", actualActivitiObjectNotFoundException.getMessage());
-    assertNull(actualActivitiObjectNotFoundException.getObjectClass());
-    assertNull(actualActivitiObjectNotFoundException.getCause());
-    assertEquals(0, actualActivitiObjectNotFoundException.getSuppressed().length);
-  }
-
-  /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@code Object}.</li>
-   *   <li>Then return Message is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link ActivitiObjectNotFoundException#ActivitiObjectNotFoundException(Class)}
-   *   <li>{@link ActivitiObjectNotFoundException#getObjectClass()}
-   * </ul>
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiObjectNotFoundException.<init>(Class)",
-      "void ActivitiObjectNotFoundException.<init>(String)",
-      "void ActivitiObjectNotFoundException.<init>(String, Class)",
-      "void ActivitiObjectNotFoundException.<init>(String, Class, Throwable)",
-      "Class ActivitiObjectNotFoundException.getObjectClass()"})
-  public void testGettersAndSetters_whenJavaLangObject_thenReturnMessageIsNull() {
+  public void testGettersAndSetters() {
     // Arrange
     Class<Object> objectClass = Object.class;
 
@@ -133,26 +49,63 @@ public class ActivitiObjectNotFoundExceptionDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@link Throwable#Throwable()}.</li>
-   *   <li>Then return Cause is {@link Throwable#Throwable()}.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>{@link ActivitiObjectNotFoundException#ActivitiObjectNotFoundException(String, Class, Throwable)}
+   *   <li>
+   * {@link ActivitiObjectNotFoundException#ActivitiObjectNotFoundException(String)}
    *   <li>{@link ActivitiObjectNotFoundException#getObjectClass()}
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiObjectNotFoundException.<init>(Class)",
-      "void ActivitiObjectNotFoundException.<init>(String)",
-      "void ActivitiObjectNotFoundException.<init>(String, Class)",
-      "void ActivitiObjectNotFoundException.<init>(String, Class, Throwable)",
-      "Class ActivitiObjectNotFoundException.getObjectClass()"})
-  public void testGettersAndSetters_whenThrowable_thenReturnCauseIsThrowable() {
+  public void testGettersAndSetters2() {
+    // Arrange and Act
+    ActivitiObjectNotFoundException actualActivitiObjectNotFoundException = new ActivitiObjectNotFoundException(
+        "An error occurred");
+
+    // Assert
+    assertEquals("An error occurred", actualActivitiObjectNotFoundException.getMessage());
+    assertNull(actualActivitiObjectNotFoundException.getObjectClass());
+    assertNull(actualActivitiObjectNotFoundException.getCause());
+    assertEquals(0, actualActivitiObjectNotFoundException.getSuppressed().length);
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>
+   * {@link ActivitiObjectNotFoundException#ActivitiObjectNotFoundException(String, Class)}
+   *   <li>{@link ActivitiObjectNotFoundException#getObjectClass()}
+   * </ul>
+   */
+  @Test
+  public void testGettersAndSetters3() {
+    // Arrange
+    Class<Object> objectClass = Object.class;
+
+    // Act
+    ActivitiObjectNotFoundException actualActivitiObjectNotFoundException = new ActivitiObjectNotFoundException(
+        "An error occurred", objectClass);
+    Class<?> actualObjectClass = actualActivitiObjectNotFoundException.getObjectClass();
+
+    // Assert
+    assertEquals("An error occurred", actualActivitiObjectNotFoundException.getMessage());
+    assertNull(actualActivitiObjectNotFoundException.getCause());
+    assertEquals(0, actualActivitiObjectNotFoundException.getSuppressed().length);
+    Class<Object> expectedObjectClass = Object.class;
+    assertEquals(expectedObjectClass, actualObjectClass);
+    assertSame(objectClass, actualObjectClass);
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>
+   * {@link ActivitiObjectNotFoundException#ActivitiObjectNotFoundException(String, Class, Throwable)}
+   *   <li>{@link ActivitiObjectNotFoundException#getObjectClass()}
+   * </ul>
+   */
+  @Test
+  public void testGettersAndSetters4() {
     // Arrange
     Class<Object> objectClass = Object.class;
     Throwable cause = new Throwable();

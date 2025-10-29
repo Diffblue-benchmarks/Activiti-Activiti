@@ -17,15 +17,10 @@ package org.activiti.bpmn.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class MapExceptionEntryDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link MapExceptionEntry#MapExceptionEntry(String, String, boolean)}
@@ -38,11 +33,6 @@ public class MapExceptionEntryDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void MapExceptionEntry.<init>(String, String, boolean)",
-      "String MapExceptionEntry.getClassName()", "String MapExceptionEntry.getErrorCode()",
-      "boolean MapExceptionEntry.isAndChildren()", "void MapExceptionEntry.setAndChildren(boolean)",
-      "void MapExceptionEntry.setClassName(String)", "void MapExceptionEntry.setErrorCode(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     MapExceptionEntry actualMapExceptionEntry = new MapExceptionEntry("An error occurred", "Class Name", true);
@@ -52,7 +42,7 @@ public class MapExceptionEntryDiffblueTest {
     String actualClassName = actualMapExceptionEntry.getClassName();
     String actualErrorCode = actualMapExceptionEntry.getErrorCode();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("An error occurred", actualErrorCode);
     assertEquals("Class Name", actualClassName);
     assertTrue(actualMapExceptionEntry.isAndChildren());

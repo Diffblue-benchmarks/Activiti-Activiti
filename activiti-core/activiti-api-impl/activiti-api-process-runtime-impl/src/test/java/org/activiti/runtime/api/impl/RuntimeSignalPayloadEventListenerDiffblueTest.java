@@ -19,12 +19,9 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.api.process.model.payloads.SignalPayload;
 import org.activiti.engine.RuntimeService;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -45,26 +42,18 @@ class RuntimeSignalPayloadEventListenerDiffblueTest {
   private RuntimeSignalPayloadEventListener runtimeSignalPayloadEventListener;
 
   /**
-   * Test {@link RuntimeSignalPayloadEventListener#sendSignal(SignalPayload)}.
-   * <ul>
-   *   <li>When {@link SignalPayload#SignalPayload()}.</li>
-   *   <li>Then calls {@link RuntimeService#signalEventReceived(String, Map)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link RuntimeSignalPayloadEventListener#sendSignal(SignalPayload)}
+   * Method under test:
+   * {@link RuntimeSignalPayloadEventListener#sendSignal(SignalPayload)}
    */
   @Test
-  @DisplayName("Test sendSignal(SignalPayload); when SignalPayload(); then calls signalEventReceived(String, Map)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void RuntimeSignalPayloadEventListener.sendSignal(SignalPayload)"})
-  void testSendSignal_whenSignalPayload_thenCallsSignalEventReceived() {
+  void testSendSignal() {
     // Arrange
     doNothing().when(runtimeService).signalEventReceived(Mockito.<String>any(), Mockito.<Map<String, Object>>any());
 
     // Act
     runtimeSignalPayloadEventListener.sendSignal(new SignalPayload());
 
-    // Assert
+    // Assert that nothing has changed
     verify(runtimeService).signalEventReceived((String) isNull(), isA(Map.class));
   }
 }

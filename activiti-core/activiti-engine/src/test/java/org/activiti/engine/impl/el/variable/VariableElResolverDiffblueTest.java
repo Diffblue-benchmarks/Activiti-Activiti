@@ -16,41 +16,50 @@
 package org.activiti.engine.impl.el.variable;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.activiti.engine.delegate.VariableScope;
 import org.activiti.engine.impl.el.NoExecutionVariableScope;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
+import org.activiti.engine.impl.persistence.entity.VariableInstanceEntityImpl;
+import org.activiti.engine.impl.variable.BigDecimalType;
+import org.activiti.engine.impl.variable.CustomObjectType;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class VariableElResolverDiffblueTest {
+  @Mock
+  private ObjectMapper objectMapper;
+
   @InjectMocks
   private VariableElResolver variableElResolver;
 
   /**
-   * Test {@link VariableElResolver#canResolve(String, VariableScope)}.
-   * <ul>
-   *   <li>Given {@code true}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableElResolver#canResolve(String, VariableScope)}
+   * Method under test:
+   * {@link VariableElResolver#canResolve(String, VariableScope)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean VariableElResolver.canResolve(String, VariableScope)"})
-  public void testCanResolve_givenTrue_thenReturnTrue() {
+  public void testCanResolve() {
+    // Arrange, Act and Assert
+    assertFalse(variableElResolver.canResolve("Property", NoExecutionVariableScope.getSharedInstance()));
+  }
+
+  /**
+   * Method under test:
+   * {@link VariableElResolver#canResolve(String, VariableScope)}
+   */
+  @Test
+  public void testCanResolve2() {
     // Arrange
     ExecutionEntityImpl variableScope = mock(ExecutionEntityImpl.class);
     when(variableScope.hasVariable(Mockito.<String>any())).thenReturn(true);
@@ -64,19 +73,41 @@ public class VariableElResolverDiffblueTest {
   }
 
   /**
-   * Test {@link VariableElResolver#canResolve(String, VariableScope)}.
-   * <ul>
-   *   <li>When SharedInstance.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableElResolver#canResolve(String, VariableScope)}
+   * Method under test: {@link VariableElResolver#resolve(String, VariableScope)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean VariableElResolver.canResolve(String, VariableScope)"})
-  public void testCanResolve_whenSharedInstance_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(variableElResolver.canResolve("Property", NoExecutionVariableScope.getSharedInstance()));
+  public void testResolve() {
+    // Arrange
+    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
+    variableInstanceEntityImpl.setType(new BigDecimalType());
+    ExecutionEntityImpl variableScope = mock(ExecutionEntityImpl.class);
+    when(variableScope.getVariableInstance(Mockito.<String>any())).thenReturn(variableInstanceEntityImpl);
+
+    // Act
+    Object actualResolveResult = variableElResolver.resolve("Property", variableScope);
+
+    // Assert
+    verify(variableScope).getVariableInstance(eq("Property"));
+    assertNull(actualResolveResult);
+  }
+
+  /**
+   * Method under test: {@link VariableElResolver#resolve(String, VariableScope)}
+   */
+  @Test
+  public void testResolve2() {
+    // Arrange
+    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
+    Class<Object> theClass = Object.class;
+    variableInstanceEntityImpl.setType(new CustomObjectType("json", theClass));
+    ExecutionEntityImpl variableScope = mock(ExecutionEntityImpl.class);
+    when(variableScope.getVariableInstance(Mockito.<String>any())).thenReturn(variableInstanceEntityImpl);
+
+    // Act
+    Object actualResolveResult = variableElResolver.resolve("Property", variableScope);
+
+    // Assert
+    verify(variableScope).getVariableInstance(eq("Property"));
+    assertNull(actualResolveResult);
   }
 }

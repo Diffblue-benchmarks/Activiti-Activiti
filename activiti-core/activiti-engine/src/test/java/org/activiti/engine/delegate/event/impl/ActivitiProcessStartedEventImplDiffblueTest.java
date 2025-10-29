@@ -19,53 +19,43 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BiFunction;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ActivitiProcessStartedEventImplDiffblueTest {
   /**
-   * Test {@link ActivitiProcessStartedEventImpl#ActivitiProcessStartedEventImpl(Object, Map, boolean)}.
+   * Methods under test:
    * <ul>
-   *   <li>Then Entity return {@link ExecutionEntityImpl}.</li>
+   *   <li>{@link ActivitiProcessStartedEventImpl#getNestedProcessDefinitionId()}
+   *   <li>{@link ActivitiProcessStartedEventImpl#getNestedProcessInstanceId()}
    * </ul>
-   * <p>
-   * Method under test: {@link ActivitiProcessStartedEventImpl#ActivitiProcessStartedEventImpl(Object, Map, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiProcessStartedEventImpl.<init>(Object, Map, boolean)"})
-  public void testNewActivitiProcessStartedEventImpl_thenEntityReturnExecutionEntityImpl() {
+  public void testGettersAndSetters() {
     // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
+    ActivitiProcessStartedEventImpl activitiProcessStartedEventImpl = new ActivitiProcessStartedEventImpl(
+        JSONObject.NULL, new HashMap<>(), true);
 
-    // Act and Assert
-    Object entity = (new ActivitiProcessStartedEventImpl(createWithEmptyRelationshipCollectionsResult, new HashMap<>(),
-        true)).getEntity();
-    assertTrue(entity instanceof ExecutionEntityImpl);
-    assertSame(createWithEmptyRelationshipCollectionsResult, entity);
+    // Act
+    String actualNestedProcessDefinitionId = activitiProcessStartedEventImpl.getNestedProcessDefinitionId();
+
+    // Assert
+    assertNull(actualNestedProcessDefinitionId);
+    assertNull(activitiProcessStartedEventImpl.getNestedProcessInstanceId());
   }
 
   /**
-   * Test {@link ActivitiProcessStartedEventImpl#ActivitiProcessStartedEventImpl(Object, Map, boolean)}.
-   * <ul>
-   *   <li>When {@link JSONObject#NULL}.</li>
-   *   <li>Then return ExecutionId is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ActivitiProcessStartedEventImpl#ActivitiProcessStartedEventImpl(Object, Map, boolean)}
+   * Method under test:
+   * {@link ActivitiProcessStartedEventImpl#ActivitiProcessStartedEventImpl(Object, Map, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiProcessStartedEventImpl.<init>(Object, Map, boolean)"})
-  public void testNewActivitiProcessStartedEventImpl_whenNull_thenReturnExecutionIdIsNull() {
+  public void testNewActivitiProcessStartedEventImpl() {
     // Arrange
     Object object = JSONObject.NULL;
     HashMap<Object, Object> variables = new HashMap<>();
@@ -82,34 +72,71 @@ public class ActivitiProcessStartedEventImplDiffblueTest {
     assertNull(actualActivitiProcessStartedEventImpl.getNestedProcessDefinitionId());
     assertNull(actualActivitiProcessStartedEventImpl.getNestedProcessInstanceId());
     assertEquals(ActivitiEventType.PROCESS_STARTED, actualActivitiProcessStartedEventImpl.getType());
+    Map variables2 = actualActivitiProcessStartedEventImpl.getVariables();
+    assertTrue(variables2.isEmpty());
     assertTrue(actualActivitiProcessStartedEventImpl.isLocalScope());
-    assertSame(variables, actualActivitiProcessStartedEventImpl.getVariables());
+    assertSame(variables, variables2);
     assertSame(object, actualActivitiProcessStartedEventImpl.getEntity());
   }
 
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link ActivitiProcessStartedEventImpl#getNestedProcessDefinitionId()}
-   *   <li>{@link ActivitiProcessStartedEventImpl#getNestedProcessInstanceId()}
-   * </ul>
+   * Method under test:
+   * {@link ActivitiProcessStartedEventImpl#ActivitiProcessStartedEventImpl(Object, Map, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String ActivitiProcessStartedEventImpl.getNestedProcessDefinitionId()",
-      "String ActivitiProcessStartedEventImpl.getNestedProcessInstanceId()"})
-  public void testGettersAndSetters() {
+  public void testNewActivitiProcessStartedEventImpl2() {
     // Arrange
-    ActivitiProcessStartedEventImpl activitiProcessStartedEventImpl = new ActivitiProcessStartedEventImpl(
-        JSONObject.NULL, new HashMap<>(), true);
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
+    HashMap<Object, Object> variables = new HashMap<>();
 
     // Act
-    String actualNestedProcessDefinitionId = activitiProcessStartedEventImpl.getNestedProcessDefinitionId();
+    ActivitiProcessStartedEventImpl actualActivitiProcessStartedEventImpl = new ActivitiProcessStartedEventImpl(
+        createWithEmptyRelationshipCollectionsResult, variables, true);
 
     // Assert
-    assertNull(actualNestedProcessDefinitionId);
-    assertNull(activitiProcessStartedEventImpl.getNestedProcessInstanceId());
+    assertNull(actualActivitiProcessStartedEventImpl.getExecutionId());
+    assertNull(actualActivitiProcessStartedEventImpl.getProcessDefinitionId());
+    assertNull(actualActivitiProcessStartedEventImpl.getProcessInstanceId());
+    assertNull(actualActivitiProcessStartedEventImpl.getReason());
+    assertNull(actualActivitiProcessStartedEventImpl.getNestedProcessDefinitionId());
+    assertNull(actualActivitiProcessStartedEventImpl.getNestedProcessInstanceId());
+    assertEquals(ActivitiEventType.PROCESS_STARTED, actualActivitiProcessStartedEventImpl.getType());
+    Map variables2 = actualActivitiProcessStartedEventImpl.getVariables();
+    assertTrue(variables2.isEmpty());
+    assertTrue(actualActivitiProcessStartedEventImpl.isLocalScope());
+    assertSame(variables, variables2);
+    assertSame(createWithEmptyRelationshipCollectionsResult, actualActivitiProcessStartedEventImpl.getEntity());
+  }
+
+  /**
+   * Method under test:
+   * {@link ActivitiProcessStartedEventImpl#ActivitiProcessStartedEventImpl(Object, Map, boolean)}
+   */
+  @Test
+  public void testNewActivitiProcessStartedEventImpl3() {
+    // Arrange
+    Object object = JSONObject.NULL;
+
+    HashMap<Object, Object> variables = new HashMap<>();
+    variables.computeIfPresent(JSONObject.NULL, mock(BiFunction.class));
+
+    // Act
+    ActivitiProcessStartedEventImpl actualActivitiProcessStartedEventImpl = new ActivitiProcessStartedEventImpl(object,
+        variables, true);
+
+    // Assert
+    assertNull(actualActivitiProcessStartedEventImpl.getExecutionId());
+    assertNull(actualActivitiProcessStartedEventImpl.getProcessDefinitionId());
+    assertNull(actualActivitiProcessStartedEventImpl.getProcessInstanceId());
+    assertNull(actualActivitiProcessStartedEventImpl.getReason());
+    assertNull(actualActivitiProcessStartedEventImpl.getNestedProcessDefinitionId());
+    assertNull(actualActivitiProcessStartedEventImpl.getNestedProcessInstanceId());
+    assertEquals(ActivitiEventType.PROCESS_STARTED, actualActivitiProcessStartedEventImpl.getType());
+    Map variables2 = actualActivitiProcessStartedEventImpl.getVariables();
+    assertTrue(variables2.isEmpty());
+    assertTrue(actualActivitiProcessStartedEventImpl.isLocalScope());
+    assertSame(variables, variables2);
+    assertSame(object, actualActivitiProcessStartedEventImpl.getEntity());
   }
 }

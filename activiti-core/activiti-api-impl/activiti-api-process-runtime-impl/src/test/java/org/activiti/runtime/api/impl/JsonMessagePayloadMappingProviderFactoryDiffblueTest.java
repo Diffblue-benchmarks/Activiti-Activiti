@@ -17,15 +17,13 @@ package org.activiti.runtime.api.impl;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import org.activiti.bpmn.model.BoundaryEvent;
 import org.activiti.bpmn.model.Event;
 import org.activiti.bpmn.model.MessageEventDefinition;
 import org.activiti.engine.impl.bpmn.behavior.VariablesCalculator;
 import org.activiti.engine.impl.delegate.MessagePayloadMappingProvider;
 import org.activiti.engine.impl.el.ExpressionManager;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,15 +43,10 @@ class JsonMessagePayloadMappingProviderFactoryDiffblueTest {
   private VariablesCalculator variablesCalculator;
 
   /**
-   * Test {@link JsonMessagePayloadMappingProviderFactory#create(Event, MessageEventDefinition, ExpressionManager)}.
-   * <p>
-   * Method under test: {@link JsonMessagePayloadMappingProviderFactory#create(Event, MessageEventDefinition, ExpressionManager)}
+   * Method under test:
+   * {@link JsonMessagePayloadMappingProviderFactory#create(Event, MessageEventDefinition, ExpressionManager)}
    */
   @Test
-  @DisplayName("Test create(Event, MessageEventDefinition, ExpressionManager)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "MessagePayloadMappingProvider JsonMessagePayloadMappingProviderFactory.create(Event, MessageEventDefinition, ExpressionManager)"})
   void testCreate() {
     // Arrange
     BoundaryEvent bpmnEvent = new BoundaryEvent();
@@ -65,12 +58,33 @@ class JsonMessagePayloadMappingProviderFactoryDiffblueTest {
         messageEventDefinition, expressionManager);
 
     // Assert
-    Event bpmnEvent2 = ((JsonMessagePayloadMappingProvider) actualCreateResult).getBpmnEvent();
-    assertTrue(bpmnEvent2 instanceof BoundaryEvent);
     assertTrue(actualCreateResult instanceof JsonMessagePayloadMappingProvider);
-    assertSame(bpmnEvent, bpmnEvent2);
+    assertSame(bpmnEvent, ((JsonMessagePayloadMappingProvider) actualCreateResult).getBpmnEvent());
     assertSame(messageEventDefinition,
         ((JsonMessagePayloadMappingProvider) actualCreateResult).getMessageEventDefinition());
     assertSame(expressionManager, ((JsonMessagePayloadMappingProvider) actualCreateResult).getExpressionManager());
+  }
+
+  /**
+   * Method under test:
+   * {@link JsonMessagePayloadMappingProviderFactory#create(Event, MessageEventDefinition, ExpressionManager)}
+   */
+  @Test
+  void testCreate2() {
+    // Arrange
+    BoundaryEvent bpmnEvent = mock(BoundaryEvent.class);
+    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
+    ExpressionManager expressionManager = new ExpressionManager();
+
+    // Act
+    MessagePayloadMappingProvider actualCreateResult = jsonMessagePayloadMappingProviderFactory.create(bpmnEvent,
+        messageEventDefinition, expressionManager);
+
+    // Assert
+    assertTrue(actualCreateResult instanceof JsonMessagePayloadMappingProvider);
+    assertSame(messageEventDefinition,
+        ((JsonMessagePayloadMappingProvider) actualCreateResult).getMessageEventDefinition());
+    assertSame(expressionManager, ((JsonMessagePayloadMappingProvider) actualCreateResult).getExpressionManager());
+    assertSame(bpmnEvent, ((JsonMessagePayloadMappingProvider) actualCreateResult).getBpmnEvent());
   }
 }

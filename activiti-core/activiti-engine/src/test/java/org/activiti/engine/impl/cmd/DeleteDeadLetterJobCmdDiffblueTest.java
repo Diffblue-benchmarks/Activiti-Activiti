@@ -16,20 +16,14 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class DeleteDeadLetterJobCmdDiffblueTest {
   /**
-   * Test {@link DeleteDeadLetterJobCmd#DeleteDeadLetterJobCmd(String)}.
-   * <p>
-   * Method under test: {@link DeleteDeadLetterJobCmd#DeleteDeadLetterJobCmd(String)}
+   * Method under test:
+   * {@link DeleteDeadLetterJobCmd#DeleteDeadLetterJobCmd(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeleteDeadLetterJobCmd.<init>(String)"})
   public void testNewDeleteDeadLetterJobCmd() {
     // Arrange, Act and Assert
     assertEquals("42", (new DeleteDeadLetterJobCmd("42")).timerJobId);

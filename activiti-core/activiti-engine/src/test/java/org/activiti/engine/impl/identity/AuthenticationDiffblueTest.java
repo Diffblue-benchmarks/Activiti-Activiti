@@ -16,20 +16,13 @@
 package org.activiti.engine.impl.identity;
 
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class AuthenticationDiffblueTest {
   /**
-   * Test {@link Authentication#getAuthenticatedUserId()}.
-   * <p>
    * Method under test: {@link Authentication#getAuthenticatedUserId()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.lang.String Authentication.getAuthenticatedUserId()"})
   public void testGetAuthenticatedUserId() {
     // Arrange, Act and Assert
     assertNull(Authentication.getAuthenticatedUserId());

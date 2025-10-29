@@ -17,17 +17,41 @@ package org.activiti.engine.impl.db;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.DeadLetterJobQueryImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ListQueryParameterObjectDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link ListQueryParameterObject#getFirstRow()}
+   */
+  @Test
+  public void testGetFirstRow() {
+    // Arrange, Act and Assert
+    assertEquals(1, (new ListQueryParameterObject()).getFirstRow());
+  }
+
+  /**
+   * Method under test: {@link ListQueryParameterObject#getLastRow()}
+   */
+  @Test
+  public void testGetLastRow() {
+    // Arrange, Act and Assert
+    assertEquals(Integer.MAX_VALUE, (new ListQueryParameterObject()).getLastRow());
+    assertEquals(-2147483645, (new ListQueryParameterObject(JSONObject.NULL, Integer.MAX_VALUE, 3)).getLastRow());
+  }
+
+  /**
+   * Method under test: {@link ListQueryParameterObject#getOrderByColumns()}
+   */
+  @Test
+  public void testGetOrderByColumns() {
+    // Arrange, Act and Assert
+    assertEquals("RES.ID_ asc", (new ListQueryParameterObject()).getOrderByColumns());
+    assertEquals("RES.ID_ asc", (new DeadLetterJobQueryImpl()).getOrderByColumns());
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>{@link ListQueryParameterObject#ListQueryParameterObject()}
@@ -43,13 +67,6 @@ public class ListQueryParameterObjectDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ListQueryParameterObject.<init>()", "void ListQueryParameterObject.<init>(Object, int, int)",
-      "String ListQueryParameterObject.getDatabaseType()", "int ListQueryParameterObject.getFirstResult()",
-      "int ListQueryParameterObject.getMaxResults()", "String ListQueryParameterObject.getOrderBy()",
-      "Object ListQueryParameterObject.getParameter()", "void ListQueryParameterObject.setDatabaseType(String)",
-      "void ListQueryParameterObject.setFirstResult(int)", "void ListQueryParameterObject.setMaxResults(int)",
-      "void ListQueryParameterObject.setParameter(Object)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ListQueryParameterObject actualListQueryParameterObject = new ListQueryParameterObject();
@@ -63,7 +80,7 @@ public class ListQueryParameterObjectDiffblueTest {
     int actualMaxResults = actualListQueryParameterObject.getMaxResults();
     String actualOrderBy = actualListQueryParameterObject.getOrderBy();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("Database Type", actualDatabaseType);
     assertEquals("RES.ID_ asc", actualOrderBy);
     assertEquals(1, actualFirstResult);
@@ -72,14 +89,10 @@ public class ListQueryParameterObjectDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@link JSONObject#NULL}.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>{@link ListQueryParameterObject#ListQueryParameterObject(Object, int, int)}
+   *   <li>
+   * {@link ListQueryParameterObject#ListQueryParameterObject(Object, int, int)}
    *   <li>{@link ListQueryParameterObject#setDatabaseType(String)}
    *   <li>{@link ListQueryParameterObject#setFirstResult(int)}
    *   <li>{@link ListQueryParameterObject#setMaxResults(int)}
@@ -92,14 +105,7 @@ public class ListQueryParameterObjectDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ListQueryParameterObject.<init>()", "void ListQueryParameterObject.<init>(Object, int, int)",
-      "String ListQueryParameterObject.getDatabaseType()", "int ListQueryParameterObject.getFirstResult()",
-      "int ListQueryParameterObject.getMaxResults()", "String ListQueryParameterObject.getOrderBy()",
-      "Object ListQueryParameterObject.getParameter()", "void ListQueryParameterObject.setDatabaseType(String)",
-      "void ListQueryParameterObject.setFirstResult(int)", "void ListQueryParameterObject.setMaxResults(int)",
-      "void ListQueryParameterObject.setParameter(Object)"})
-  public void testGettersAndSetters_whenNull() {
+  public void testGettersAndSetters2() {
     // Arrange and Act
     ListQueryParameterObject actualListQueryParameterObject = new ListQueryParameterObject(JSONObject.NULL, 1, 3);
     actualListQueryParameterObject.setDatabaseType("Database Type");
@@ -112,89 +118,11 @@ public class ListQueryParameterObjectDiffblueTest {
     int actualMaxResults = actualListQueryParameterObject.getMaxResults();
     String actualOrderBy = actualListQueryParameterObject.getOrderBy();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("Database Type", actualDatabaseType);
     assertEquals("RES.ID_ asc", actualOrderBy);
     assertEquals(1, actualFirstResult);
     assertEquals(3, actualMaxResults);
     assertSame(object, actualListQueryParameterObject.getParameter());
-  }
-
-  /**
-   * Test {@link ListQueryParameterObject#getFirstRow()}.
-   * <p>
-   * Method under test: {@link ListQueryParameterObject#getFirstRow()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"int ListQueryParameterObject.getFirstRow()"})
-  public void testGetFirstRow() {
-    // Arrange, Act and Assert
-    assertEquals(1, (new ListQueryParameterObject()).getFirstRow());
-  }
-
-  /**
-   * Test {@link ListQueryParameterObject#getLastRow()}.
-   * <ul>
-   *   <li>Given {@link ListQueryParameterObject#ListQueryParameterObject()}.</li>
-   *   <li>Then return {@link Integer#MAX_VALUE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ListQueryParameterObject#getLastRow()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"int ListQueryParameterObject.getLastRow()"})
-  public void testGetLastRow_givenListQueryParameterObject_thenReturnMax_value() {
-    // Arrange, Act and Assert
-    assertEquals(Integer.MAX_VALUE, (new ListQueryParameterObject()).getLastRow());
-  }
-
-  /**
-   * Test {@link ListQueryParameterObject#getLastRow()}.
-   * <ul>
-   *   <li>Then return {@code -2147483645}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ListQueryParameterObject#getLastRow()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"int ListQueryParameterObject.getLastRow()"})
-  public void testGetLastRow_thenReturn2147483645() {
-    // Arrange, Act and Assert
-    assertEquals(-2147483645, (new ListQueryParameterObject(JSONObject.NULL, Integer.MAX_VALUE, 3)).getLastRow());
-  }
-
-  /**
-   * Test {@link ListQueryParameterObject#getOrderByColumns()}.
-   * <ul>
-   *   <li>Given {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ListQueryParameterObject#getOrderByColumns()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String ListQueryParameterObject.getOrderByColumns()"})
-  public void testGetOrderByColumns_givenDeadLetterJobQueryImpl() {
-    // Arrange, Act and Assert
-    assertEquals("RES.ID_ asc", (new DeadLetterJobQueryImpl()).getOrderByColumns());
-  }
-
-  /**
-   * Test {@link ListQueryParameterObject#getOrderByColumns()}.
-   * <ul>
-   *   <li>Given {@link ListQueryParameterObject#ListQueryParameterObject()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ListQueryParameterObject#getOrderByColumns()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String ListQueryParameterObject.getOrderByColumns()"})
-  public void testGetOrderByColumns_givenListQueryParameterObject() {
-    // Arrange, Act and Assert
-    assertEquals("RES.ID_ asc", (new ListQueryParameterObject()).getOrderByColumns());
   }
 }

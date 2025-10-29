@@ -29,9 +29,7 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -42,58 +40,62 @@ import org.activiti.engine.impl.persistence.entity.HistoricDetailVariableInstanc
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.joda.time.chrono.ISOChronology;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class SerializableTypeDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link SerializableType#SerializableType()}
-   *   <li>{@link SerializableType#getTypeName()}
-   * </ul>
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SerializableType.<init>()", "void SerializableType.<init>(boolean)",
-      "String SerializableType.getTypeName()"})
-  public void testGettersAndSetters() {
-    // Arrange, Act and Assert
-    assertEquals(SerializableType.TYPE_NAME, (new SerializableType()).getTypeName());
-  }
-
-  /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@code true}.</li>
-   * </ul>
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link SerializableType#SerializableType(boolean)}
-   *   <li>{@link SerializableType#getTypeName()}
-   * </ul>
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SerializableType.<init>()", "void SerializableType.<init>(boolean)",
-      "String SerializableType.getTypeName()"})
-  public void testGettersAndSetters_whenTrue() {
-    // Arrange, Act and Assert
-    assertEquals(SerializableType.TYPE_NAME, (new SerializableType(true)).getTypeName());
-  }
-
-  /**
-   * Test {@link SerializableType#getValue(ValueFields)}.
-   * <p>
    * Method under test: {@link SerializableType#getValue(ValueFields)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object SerializableType.getValue(ValueFields)"})
-  public void testGetValue() throws UnsupportedEncodingException {
+  public void testGetValue() {
+    // Arrange
+    SerializableType serializableType = new SerializableType(true);
+
+    // Act and Assert
+    assertNull(serializableType.getValue(new HistoricDetailVariableInstanceUpdateEntityImpl()));
+  }
+
+  /**
+   * Method under test: {@link SerializableType#getValue(ValueFields)}
+   */
+  @Test
+  public void testGetValue2() {
+    // Arrange
+    SerializableType serializableType = new SerializableType(true);
+    ValueFields valueFields = mock(ValueFields.class);
+    when(valueFields.getCachedValue()).thenReturn(JSONObject.NULL);
+
+    // Act
+    serializableType.getValue(valueFields);
+
+    // Assert
+    verify(valueFields).getCachedValue();
+  }
+
+  /**
+   * Method under test: {@link SerializableType#getValue(ValueFields)}
+   */
+  @Test
+  public void testGetValue3() throws UnsupportedEncodingException {
+    // Arrange
+    SerializableType serializableType = new SerializableType(true);
+    ValueFields valueFields = mock(ValueFields.class);
+    when(valueFields.getName()).thenReturn("Name");
+    when(valueFields.getBytes()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
+    when(valueFields.getCachedValue()).thenReturn(null);
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> serializableType.getValue(valueFields));
+    verify(valueFields).getBytes();
+    verify(valueFields).getCachedValue();
+    verify(valueFields).getName();
+  }
+
+  /**
+   * Method under test: {@link SerializableType#getValue(ValueFields)}
+   */
+  @Test
+  public void testGetValue4() throws UnsupportedEncodingException {
     // Arrange
     SerializableType serializableType = new SerializableType(true);
     ValueFields valueFields = mock(ValueFields.class);
@@ -109,122 +111,14 @@ public class SerializableTypeDiffblueTest {
   }
 
   /**
-   * Test {@link SerializableType#getValue(ValueFields)}.
-   * <p>
    * Method under test: {@link SerializableType#getValue(ValueFields)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object SerializableType.getValue(ValueFields)"})
-  public void testGetValue2() throws UnsupportedEncodingException {
+  public void testGetValue5() throws UnsupportedEncodingException {
     // Arrange
-    JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
+    ObjectMapper objectMapper = new ObjectMapper();
     LongJsonType longJsonType = new LongJsonType(3, objectMapper, true,
-        new JsonTypeConverter(JsonMapper.builder().findAndAddModules().build(), "Java Class Field For Jackson"));
-    ValueFields valueFields = mock(ValueFields.class);
-    doThrow(new ActivitiException("An error occurred")).when(valueFields).setCachedValue(Mockito.<Object>any());
-    when(valueFields.getName()).thenReturn("Name");
-    when(valueFields.getBytes()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
-    when(valueFields.getCachedValue()).thenReturn(null);
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> longJsonType.getValue(valueFields));
-    verify(valueFields).getBytes();
-    verify(valueFields).getCachedValue();
-    verify(valueFields).getName();
-    verify(valueFields).setCachedValue(isNull());
-  }
-
-  /**
-   * Test {@link SerializableType#getValue(ValueFields)}.
-   * <ul>
-   *   <li>Given {@code Name}.</li>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SerializableType#getValue(ValueFields)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object SerializableType.getValue(ValueFields)"})
-  public void testGetValue_givenName_thenThrowActivitiException() throws UnsupportedEncodingException {
-    // Arrange
-    SerializableType serializableType = new SerializableType(true);
-    ValueFields valueFields = mock(ValueFields.class);
-    when(valueFields.getName()).thenReturn("Name");
-    when(valueFields.getBytes()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
-    when(valueFields.getCachedValue()).thenReturn(null);
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> serializableType.getValue(valueFields));
-    verify(valueFields).getBytes();
-    verify(valueFields).getCachedValue();
-    verify(valueFields).getName();
-  }
-
-  /**
-   * Test {@link SerializableType#getValue(ValueFields)}.
-   * <ul>
-   *   <li>Given {@link JSONObject#NULL}.</li>
-   *   <li>When {@link ValueFields} {@link ValueFields#getCachedValue()} return {@link JSONObject#NULL}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SerializableType#getValue(ValueFields)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object SerializableType.getValue(ValueFields)"})
-  public void testGetValue_givenNull_whenValueFieldsGetCachedValueReturnNull() {
-    // Arrange
-    SerializableType serializableType = new SerializableType(true);
-    ValueFields valueFields = mock(ValueFields.class);
-    when(valueFields.getCachedValue()).thenReturn(JSONObject.NULL);
-
-    // Act
-    serializableType.getValue(valueFields);
-
-    // Assert
-    verify(valueFields).getCachedValue();
-  }
-
-  /**
-   * Test {@link SerializableType#getValue(ValueFields)}.
-   * <ul>
-   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor).</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SerializableType#getValue(ValueFields)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object SerializableType.getValue(ValueFields)"})
-  public void testGetValue_whenHistoricDetailVariableInstanceUpdateEntityImpl_thenReturnNull() {
-    // Arrange
-    SerializableType serializableType = new SerializableType(true);
-
-    // Act and Assert
-    assertNull(serializableType.getValue(new HistoricDetailVariableInstanceUpdateEntityImpl()));
-  }
-
-  /**
-   * Test {@link SerializableType#getValue(ValueFields)}.
-   * <ul>
-   *   <li>When {@link ValueFields} {@link ValueFields#setCachedValue(Object)} does nothing.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SerializableType#getValue(ValueFields)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object SerializableType.getValue(ValueFields)"})
-  public void testGetValue_whenValueFieldsSetCachedValueDoesNothing_thenReturnNull()
-      throws UnsupportedEncodingException {
-    // Arrange
-    JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
-    LongJsonType longJsonType = new LongJsonType(3, objectMapper, true,
-        new JsonTypeConverter(JsonMapper.builder().findAndAddModules().build(), "Java Class Field For Jackson"));
+        new JsonTypeConverter(new ObjectMapper(), "Java Class Field For Jackson"));
     ValueFields valueFields = mock(ValueFields.class);
     doNothing().when(valueFields).setCachedValue(Mockito.<Object>any());
     when(valueFields.getName()).thenReturn("Name");
@@ -243,14 +137,46 @@ public class SerializableTypeDiffblueTest {
   }
 
   /**
-   * Test {@link SerializableType#setValue(Object, ValueFields)}.
-   * <p>
+   * Method under test: {@link SerializableType#getValue(ValueFields)}
+   */
+  @Test
+  public void testGetValue6() throws UnsupportedEncodingException {
+    // Arrange
+    ObjectMapper objectMapper = new ObjectMapper();
+    LongJsonType longJsonType = new LongJsonType(3, objectMapper, true,
+        new JsonTypeConverter(new ObjectMapper(), "Java Class Field For Jackson"));
+    ValueFields valueFields = mock(ValueFields.class);
+    doThrow(new ActivitiException("An error occurred")).when(valueFields).setCachedValue(Mockito.<Object>any());
+    when(valueFields.getName()).thenReturn("Name");
+    when(valueFields.getBytes()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
+    when(valueFields.getCachedValue()).thenReturn(null);
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> longJsonType.getValue(valueFields));
+    verify(valueFields).getBytes();
+    verify(valueFields).getCachedValue();
+    verify(valueFields).getName();
+    verify(valueFields).setCachedValue(isNull());
+  }
+
+  /**
    * Method under test: {@link SerializableType#setValue(Object, ValueFields)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SerializableType.setValue(Object, ValueFields)"})
   public void testSetValue() {
+    // Arrange
+    SerializableType serializableType = new SerializableType(true);
+
+    // Act and Assert
+    assertThrows(ActivitiException.class,
+        () -> serializableType.setValue(JSONObject.NULL, new HistoricDetailVariableInstanceUpdateEntityImpl()));
+  }
+
+  /**
+   * Method under test: {@link SerializableType#setValue(Object, ValueFields)}
+   */
+  @Test
+  public void testSetValue2() {
     // Arrange
     SerializableType serializableType = new SerializableType(true);
     HistoricDetailVariableInstanceUpdateEntityImpl valueFields = new HistoricDetailVariableInstanceUpdateEntityImpl();
@@ -268,87 +194,69 @@ public class SerializableTypeDiffblueTest {
   }
 
   /**
-   * Test {@link SerializableType#setValue(Object, ValueFields)}.
-   * <ul>
-   *   <li>Then calls {@link ValueFields#setCachedValue(Object)}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SerializableType#setValue(Object, ValueFields)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SerializableType.setValue(Object, ValueFields)"})
-  public void testSetValue_thenCallsSetCachedValue() {
+  public void testSetValue3() {
     // Arrange
     SerializableType serializableType = new SerializableType(true);
     ValueFields valueFields = mock(ValueFields.class);
     doThrow(new ActivitiException("An error occurred")).when(valueFields).setCachedValue(Mockito.<Object>any());
 
     // Act and Assert
-    assertThrows(ActivitiException.class, () -> serializableType.setValue(42, valueFields));
+    assertThrows(ActivitiException.class, () -> serializableType.setValue("42", valueFields));
     verify(valueFields).setCachedValue(isA(Object.class));
   }
 
   /**
-   * Test {@link SerializableType#setValue(Object, ValueFields)}.
-   * <ul>
-   *   <li>Then calls {@link ValueFields#setTextValue2(String)}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SerializableType#setValue(Object, ValueFields)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SerializableType.setValue(Object, ValueFields)"})
-  public void testSetValue_thenCallsSetTextValue2() {
+  public void testSetValue4() {
     // Arrange
-    JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
+    ObjectMapper objectMapper = new ObjectMapper();
     LongJsonType longJsonType = new LongJsonType(3, objectMapper, true,
-        new JsonTypeConverter(JsonMapper.builder().findAndAddModules().build(), "null"));
+        new JsonTypeConverter(new ObjectMapper(), "null"));
     ValueFields valueFields = mock(ValueFields.class);
     doNothing().when(valueFields).setTextValue2(Mockito.<String>any());
     doThrow(new ActivitiException("An error occurred")).when(valueFields).setCachedValue(Mockito.<Object>any());
 
     // Act and Assert
-    assertThrows(ActivitiException.class, () -> longJsonType.setValue(42, valueFields));
+    assertThrows(ActivitiException.class, () -> longJsonType.setValue("42", valueFields));
     verify(valueFields).setCachedValue(isA(Object.class));
-    verify(valueFields).setTextValue2(eq("java.lang.Integer"));
+    verify(valueFields).setTextValue2(eq("java.lang.String"));
   }
 
   /**
-   * Test {@link SerializableType#setValue(Object, ValueFields)}.
-   * <ul>
-   *   <li>When {@link JSONObject#NULL}.</li>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SerializableType#setValue(Object, ValueFields)}
+   * Method under test: {@link SerializableType#serialize(Object, ValueFields)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SerializableType.setValue(Object, ValueFields)"})
-  public void testSetValue_whenNull_thenThrowActivitiException() {
+  public void testSerialize() {
     // Arrange
     SerializableType serializableType = new SerializableType(true);
 
     // Act and Assert
     assertThrows(ActivitiException.class,
-        () -> serializableType.setValue(JSONObject.NULL, new HistoricDetailVariableInstanceUpdateEntityImpl()));
+        () -> serializableType.serialize(JSONObject.NULL, new HistoricDetailVariableInstanceUpdateEntityImpl()));
   }
 
   /**
-   * Test {@link SerializableType#serialize(Object, ValueFields)}.
-   * <ul>
-   *   <li>When forty-two.</li>
-   *   <li>Then return sixty-seventh element is minus one hundred seven.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SerializableType#serialize(Object, ValueFields)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"byte[] SerializableType.serialize(Object, ValueFields)"})
-  public void testSerialize_whenFortyTwo_thenReturnSixtySeventhElementIsMinusOneHundredSeven() {
+  public void testSerialize2() {
+    // Arrange
+    SerializableType serializableType = new SerializableType(true);
+
+    // Act and Assert
+    assertNull(serializableType.serialize(null, new HistoricDetailVariableInstanceUpdateEntityImpl()));
+  }
+
+  /**
+   * Method under test: {@link SerializableType#serialize(Object, ValueFields)}
+   */
+  @Test
+  public void testSerialize3() {
     // Arrange
     SerializableType serializableType = new SerializableType(true);
 
@@ -410,58 +318,10 @@ public class SerializableTypeDiffblueTest {
   }
 
   /**
-   * Test {@link SerializableType#serialize(Object, ValueFields)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SerializableType#serialize(Object, ValueFields)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"byte[] SerializableType.serialize(Object, ValueFields)"})
-  public void testSerialize_whenNull_thenReturnNull() {
-    // Arrange
-    SerializableType serializableType = new SerializableType(true);
-
-    // Act and Assert
-    assertNull(serializableType.serialize(null, new HistoricDetailVariableInstanceUpdateEntityImpl()));
-  }
-
-  /**
-   * Test {@link SerializableType#serialize(Object, ValueFields)}.
-   * <ul>
-   *   <li>When {@link JSONObject#NULL}.</li>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SerializableType#serialize(Object, ValueFields)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"byte[] SerializableType.serialize(Object, ValueFields)"})
-  public void testSerialize_whenNull_thenThrowActivitiException() {
-    // Arrange
-    SerializableType serializableType = new SerializableType(true);
-
-    // Act and Assert
-    assertThrows(ActivitiException.class,
-        () -> serializableType.serialize(JSONObject.NULL, new HistoricDetailVariableInstanceUpdateEntityImpl()));
-  }
-
-  /**
-   * Test {@link SerializableType#deserialize(byte[], ValueFields)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SerializableType#deserialize(byte[], ValueFields)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object SerializableType.deserialize(byte[], ValueFields)"})
-  public void testDeserialize_thenThrowActivitiException() throws UnsupportedEncodingException {
+  public void testDeserialize() throws UnsupportedEncodingException {
     // Arrange
     SerializableType serializableType = new SerializableType(true);
     byte[] bytes = "AXAXAXAX".getBytes("UTF-8");
@@ -472,18 +332,19 @@ public class SerializableTypeDiffblueTest {
   }
 
   /**
-   * Test {@link SerializableType#isAbleToStore(Object)}.
-   * <ul>
-   *   <li>When InstanceUTC.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SerializableType#isAbleToStore(Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean SerializableType.isAbleToStore(Object)"})
-  public void testIsAbleToStore_whenInstanceUTC_thenReturnTrue() {
+  public void testIsAbleToStore() {
+    // Arrange, Act and Assert
+    assertFalse((new SerializableType(true)).isAbleToStore(JSONObject.NULL));
+  }
+
+  /**
+   * Method under test: {@link SerializableType#isAbleToStore(Object)}
+   */
+  @Test
+  public void testIsAbleToStore2() {
     // Arrange
     SerializableType serializableType = new SerializableType(true);
 
@@ -492,30 +353,10 @@ public class SerializableTypeDiffblueTest {
   }
 
   /**
-   * Test {@link SerializableType#isAbleToStore(Object)}.
-   * <ul>
-   *   <li>When {@link JSONObject#NULL}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SerializableType#isAbleToStore(Object)}
+   * Method under test:
+   * {@link SerializableType#createObjectOutputStream(OutputStream)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean SerializableType.isAbleToStore(Object)"})
-  public void testIsAbleToStore_whenNull_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse((new SerializableType(true)).isAbleToStore(JSONObject.NULL));
-  }
-
-  /**
-   * Test {@link SerializableType#createObjectOutputStream(OutputStream)}.
-   * <p>
-   * Method under test: {@link SerializableType#createObjectOutputStream(OutputStream)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.io.ObjectOutputStream SerializableType.createObjectOutputStream(OutputStream)"})
   public void testCreateObjectOutputStream() throws IOException {
     // Arrange
     SerializableType serializableType = new SerializableType(true);
@@ -526,5 +367,19 @@ public class SerializableTypeDiffblueTest {
 
     // Assert
     assertArrayEquals(new byte[]{-84, -19, 0, 5}, os.toByteArray());
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>{@link SerializableType#SerializableType()}
+   *   <li>{@link SerializableType#getTypeName()}
+   * </ul>
+   */
+  @Test
+  public void testGettersAndSetters() {
+    // Arrange, Act and Assert
+    assertEquals(SerializableType.TYPE_NAME, (new SerializableType()).getTypeName());
+    assertEquals(SerializableType.TYPE_NAME, (new SerializableType(true)).getTypeName());
   }
 }

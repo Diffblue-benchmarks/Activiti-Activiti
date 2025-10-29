@@ -18,26 +18,43 @@ package org.activiti.runtime.api.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import java.sql.Date;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.events.ProcessRuntimeEvent;
-import org.activiti.api.process.model.events.ProcessRuntimeEvent.ProcessEvents;
 import org.activiti.api.runtime.model.impl.ProcessInstanceImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ProcessResumedEventImplDiffblueTest {
   /**
-   * Test {@link ProcessResumedEventImpl#ProcessResumedEventImpl(ProcessInstance)}.
-   * <p>
-   * Method under test: {@link ProcessResumedEventImpl#ProcessResumedEventImpl(ProcessInstance)}
+   * Method under test: {@link ProcessResumedEventImpl#getEventType()}
    */
   @Test
-  @DisplayName("Test new ProcessResumedEventImpl(ProcessInstance)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessResumedEventImpl.<init>(ProcessInstance)"})
+  void testGetEventType() {
+    // Arrange, Act and Assert
+    assertEquals(ProcessRuntimeEvent.ProcessEvents.PROCESS_RESUMED,
+        (new ProcessResumedEventImpl(new ProcessInstanceImpl())).getEventType());
+  }
+
+  /**
+   * Method under test: {@link ProcessResumedEventImpl#getEventType()}
+   */
+  @Test
+  void testGetEventType2() {
+    // Arrange
+    ProcessInstanceImpl entity = new ProcessInstanceImpl();
+    entity.setStartDate(mock(Date.class));
+
+    // Act and Assert
+    assertEquals(ProcessRuntimeEvent.ProcessEvents.PROCESS_RESUMED,
+        (new ProcessResumedEventImpl(entity)).getEventType());
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessResumedEventImpl#ProcessResumedEventImpl(ProcessInstance)}
+   */
+  @Test
   void testNewProcessResumedEventImpl() {
     // Arrange
     ProcessInstanceImpl entity = new ProcessInstanceImpl();
@@ -46,30 +63,37 @@ class ProcessResumedEventImplDiffblueTest {
     ProcessResumedEventImpl actualProcessResumedEventImpl = new ProcessResumedEventImpl(entity);
 
     // Assert
-    ProcessInstance entity2 = actualProcessResumedEventImpl.getEntity();
-    assertTrue(entity2 instanceof ProcessInstanceImpl);
     assertNull(actualProcessResumedEventImpl.getProcessDefinitionVersion());
     assertNull(actualProcessResumedEventImpl.getBusinessKey());
     assertNull(actualProcessResumedEventImpl.getParentProcessInstanceId());
     assertNull(actualProcessResumedEventImpl.getProcessDefinitionId());
     assertNull(actualProcessResumedEventImpl.getProcessDefinitionKey());
     assertNull(actualProcessResumedEventImpl.getProcessInstanceId());
-    assertEquals(ProcessEvents.PROCESS_RESUMED, actualProcessResumedEventImpl.getEventType());
-    assertSame(entity, entity2);
+    assertEquals(ProcessRuntimeEvent.ProcessEvents.PROCESS_RESUMED, actualProcessResumedEventImpl.getEventType());
+    assertSame(entity, actualProcessResumedEventImpl.getEntity());
   }
 
   /**
-   * Test {@link ProcessResumedEventImpl#getEventType()}.
-   * <p>
-   * Method under test: {@link ProcessResumedEventImpl#getEventType()}
+   * Method under test:
+   * {@link ProcessResumedEventImpl#ProcessResumedEventImpl(ProcessInstance)}
    */
   @Test
-  @DisplayName("Test getEventType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ProcessRuntimeEvent.ProcessEvents ProcessResumedEventImpl.getEventType()"})
-  void testGetEventType() {
-    // Arrange, Act and Assert
-    assertEquals(ProcessEvents.PROCESS_RESUMED,
-        (new ProcessResumedEventImpl(new ProcessInstanceImpl())).getEventType());
+  void testNewProcessResumedEventImpl2() {
+    // Arrange
+    ProcessInstanceImpl entity = new ProcessInstanceImpl();
+    entity.setStartDate(mock(Date.class));
+
+    // Act
+    ProcessResumedEventImpl actualProcessResumedEventImpl = new ProcessResumedEventImpl(entity);
+
+    // Assert
+    assertNull(actualProcessResumedEventImpl.getProcessDefinitionVersion());
+    assertNull(actualProcessResumedEventImpl.getBusinessKey());
+    assertNull(actualProcessResumedEventImpl.getParentProcessInstanceId());
+    assertNull(actualProcessResumedEventImpl.getProcessDefinitionId());
+    assertNull(actualProcessResumedEventImpl.getProcessDefinitionKey());
+    assertNull(actualProcessResumedEventImpl.getProcessInstanceId());
+    assertEquals(ProcessRuntimeEvent.ProcessEvents.PROCESS_RESUMED, actualProcessResumedEventImpl.getEventType());
+    assertSame(entity, actualProcessResumedEventImpl.getEntity());
   }
 }

@@ -18,12 +18,9 @@ package org.activiti.core.common.spring.security;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.sun.security.auth.UserPrincipal;
 import java.security.Principal;
 import java.util.ArrayList;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,36 +38,24 @@ class AuthenticationPrincipalIdentityProviderDiffblueTest {
   private AuthenticationPrincipalIdentityProvider authenticationPrincipalIdentityProvider;
 
   /**
-   * Test {@link AuthenticationPrincipalIdentityProvider#getUserId(Authentication)} with {@code authentication}.
-   * <ul>
-   *   <li>Then return {@code Principal}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AuthenticationPrincipalIdentityProvider#getUserId(Authentication)}
+   * Method under test:
+   * {@link AuthenticationPrincipalIdentityProvider#getUserId(Principal)}
    */
   @Test
-  @DisplayName("Test getUserId(Authentication) with 'authentication'; then return 'Principal'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.String AuthenticationPrincipalIdentityProvider.getUserId(Authentication)"})
-  void testGetUserIdWithAuthentication_thenReturnPrincipal() {
+  void testGetUserId() {
     // Arrange, Act and Assert
+    assertThrows(SecurityException.class,
+        () -> authenticationPrincipalIdentityProvider.getUserId(new UserPrincipal("principal")));
     assertEquals("Principal",
         authenticationPrincipalIdentityProvider.getUserId(new TestingAuthenticationToken("Principal", "Credentials")));
   }
 
   /**
-   * Test {@link AuthenticationPrincipalIdentityProvider#getUserId(Principal)} with {@code principal}.
-   * <ul>
-   *   <li>Then return {@code Principal}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AuthenticationPrincipalIdentityProvider#getUserId(Principal)}
+   * Method under test:
+   * {@link AuthenticationPrincipalIdentityProvider#getUserId(Principal)}
    */
   @Test
-  @DisplayName("Test getUserId(Principal) with 'principal'; then return 'Principal'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.String AuthenticationPrincipalIdentityProvider.getUserId(Principal)"})
-  void testGetUserIdWithPrincipal_thenReturnPrincipal() {
+  void testGetUserId2() {
     // Arrange
     ArrayList<GrantedAuthority> authorities = new ArrayList<>();
     Class<Authentication> originalAuthentication = Authentication.class;
@@ -83,32 +68,10 @@ class AuthenticationPrincipalIdentityProviderDiffblueTest {
   }
 
   /**
-   * Test {@link AuthenticationPrincipalIdentityProvider#getUserId(Principal)} with {@code principal}.
-   * <ul>
-   *   <li>Then throw {@link SecurityException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AuthenticationPrincipalIdentityProvider#getUserId(Principal)}
+   * Method under test:
+   * {@link AuthenticationPrincipalIdentityProvider#securityException()}
    */
   @Test
-  @DisplayName("Test getUserId(Principal) with 'principal'; then throw SecurityException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.String AuthenticationPrincipalIdentityProvider.getUserId(Principal)"})
-  void testGetUserIdWithPrincipal_thenThrowSecurityException() {
-    // Arrange, Act and Assert
-    assertThrows(SecurityException.class,
-        () -> authenticationPrincipalIdentityProvider.getUserId(new UserPrincipal("principal")));
-  }
-
-  /**
-   * Test {@link AuthenticationPrincipalIdentityProvider#securityException()}.
-   * <p>
-   * Method under test: {@link AuthenticationPrincipalIdentityProvider#securityException()}
-   */
-  @Test
-  @DisplayName("Test securityException()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"SecurityException AuthenticationPrincipalIdentityProvider.securityException()"})
   void testSecurityException() {
     // Arrange and Act
     SecurityException actualSecurityExceptionResult = authenticationPrincipalIdentityProvider.securityException();
@@ -122,19 +85,14 @@ class AuthenticationPrincipalIdentityProviderDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of {@link AuthenticationPrincipalIdentityProvider}
+   *   <li>default or parameterless constructor of
+   * {@link AuthenticationPrincipalIdentityProvider}
    *   <li>{@link AuthenticationPrincipalIdentityProvider#getAnonymousUserId()}
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AuthenticationPrincipalIdentityProvider.<init>()",
-      "java.lang.String AuthenticationPrincipalIdentityProvider.getAnonymousUserId()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals("", (new AuthenticationPrincipalIdentityProvider()).getAnonymousUserId());

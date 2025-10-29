@@ -16,36 +16,27 @@
 package org.activiti.bpmn.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import javax.xml.stream.XMLStreamWriter;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.EventGateway;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class EventGatewayXMLConverterDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link EventGatewayXMLConverter}
-   *   <li>{@link EventGatewayXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
-   *   <li>{@link EventGatewayXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
+   *   <li>
+   * {@link EventGatewayXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
+   *   <li>
+   * {@link EventGatewayXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
    *   <li>{@link EventGatewayXMLConverter#getBpmnElementType()}
    *   <li>{@link EventGatewayXMLConverter#getXMLElementName()}
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void EventGatewayXMLConverter.<init>()", "Class EventGatewayXMLConverter.getBpmnElementType()",
-      "java.lang.String EventGatewayXMLConverter.getXMLElementName()",
-      "void EventGatewayXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)",
-      "void EventGatewayXMLConverter.writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)"})
   void testGettersAndSetters() throws Exception {
     // Arrange and Act
     EventGatewayXMLConverter actualEventGatewayXMLConverter = new EventGatewayXMLConverter();
@@ -57,7 +48,7 @@ class EventGatewayXMLConverterDiffblueTest {
     actualEventGatewayXMLConverter.writeAdditionalChildElements(element2, model2, new IndentingXMLStreamWriter(null));
     Class<? extends BaseElement> actualBpmnElementType = actualEventGatewayXMLConverter.getBpmnElementType();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("eventBasedGateway", actualEventGatewayXMLConverter.getXMLElementName());
     Class<EventGateway> expectedBpmnElementType = EventGateway.class;
     assertEquals(expectedBpmnElementType, actualBpmnElementType);

@@ -18,75 +18,10 @@ package org.activiti.api.runtime.model.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ProcessCandidateStarterGroupImplDiffblueTest {
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>Then return GroupId is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link ProcessCandidateStarterGroupImpl#ProcessCandidateStarterGroupImpl()}
-   *   <li>{@link ProcessCandidateStarterGroupImpl#getGroupId()}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test getters and setters; then return GroupId is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessCandidateStarterGroupImpl.<init>()",
-      "void ProcessCandidateStarterGroupImpl.<init>(String, String)",
-      "String ProcessCandidateStarterGroupImpl.getGroupId()"})
-  void testGettersAndSetters_thenReturnGroupIdIsNull() {
-    // Arrange and Act
-    ProcessCandidateStarterGroupImpl actualProcessCandidateStarterGroupImpl = new ProcessCandidateStarterGroupImpl();
-
-    // Assert
-    assertNull(actualProcessCandidateStarterGroupImpl.getGroupId());
-    assertNull(actualProcessCandidateStarterGroupImpl.getProcessDefinitionId());
-  }
-
-  /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then return GroupId is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link ProcessCandidateStarterGroupImpl#ProcessCandidateStarterGroupImpl(String, String)}
-   *   <li>{@link ProcessCandidateStarterGroupImpl#getGroupId()}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test getters and setters; when '42'; then return GroupId is '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessCandidateStarterGroupImpl.<init>()",
-      "void ProcessCandidateStarterGroupImpl.<init>(String, String)",
-      "String ProcessCandidateStarterGroupImpl.getGroupId()"})
-  void testGettersAndSetters_when42_thenReturnGroupIdIs42() {
-    // Arrange and Act
-    ProcessCandidateStarterGroupImpl actualProcessCandidateStarterGroupImpl = new ProcessCandidateStarterGroupImpl("42",
-        "42");
-
-    // Assert
-    assertEquals("42", actualProcessCandidateStarterGroupImpl.getGroupId());
-    assertEquals("42", actualProcessCandidateStarterGroupImpl.getProcessDefinitionId());
-  }
-
-  /**
-   * Test {@link ProcessCandidateStarterGroupImpl#equals(Object)}, and {@link ProcessCandidateStarterGroupImpl#hashCode()}.
-   * <ul>
-   *   <li>When other is equal.</li>
-   *   <li>Then return equal.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link ProcessCandidateStarterGroupImpl#equals(Object)}
@@ -94,10 +29,6 @@ class ProcessCandidateStarterGroupImplDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test equals(Object), and hashCode(); when other is equal; then return equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean ProcessCandidateStarterGroupImpl.equals(Object)",
-      "int ProcessCandidateStarterGroupImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {
     // Arrange
     ProcessCandidateStarterGroupImpl processCandidateStarterGroupImpl = new ProcessCandidateStarterGroupImpl("42",
@@ -112,12 +43,6 @@ class ProcessCandidateStarterGroupImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessCandidateStarterGroupImpl#equals(Object)}, and {@link ProcessCandidateStarterGroupImpl#hashCode()}.
-   * <ul>
-   *   <li>When other is same.</li>
-   *   <li>Then return equal.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link ProcessCandidateStarterGroupImpl#equals(Object)}
@@ -125,10 +50,6 @@ class ProcessCandidateStarterGroupImplDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean ProcessCandidateStarterGroupImpl.equals(Object)",
-      "int ProcessCandidateStarterGroupImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
     ProcessCandidateStarterGroupImpl processCandidateStarterGroupImpl = new ProcessCandidateStarterGroupImpl("42",
@@ -141,19 +62,9 @@ class ProcessCandidateStarterGroupImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessCandidateStarterGroupImpl#equals(Object)}.
-   * <ul>
-   *   <li>When other is different.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ProcessCandidateStarterGroupImpl#equals(Object)}
    */
   @Test
-  @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean ProcessCandidateStarterGroupImpl.equals(Object)",
-      "int ProcessCandidateStarterGroupImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange
     ProcessCandidateStarterGroupImpl processCandidateStarterGroupImpl = new ProcessCandidateStarterGroupImpl(
@@ -164,19 +75,9 @@ class ProcessCandidateStarterGroupImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessCandidateStarterGroupImpl#equals(Object)}.
-   * <ul>
-   *   <li>When other is different.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ProcessCandidateStarterGroupImpl#equals(Object)}
    */
   @Test
-  @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean ProcessCandidateStarterGroupImpl.equals(Object)",
-      "int ProcessCandidateStarterGroupImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
     // Arrange
     ProcessCandidateStarterGroupImpl processCandidateStarterGroupImpl = new ProcessCandidateStarterGroupImpl("42",
@@ -187,41 +88,58 @@ class ProcessCandidateStarterGroupImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessCandidateStarterGroupImpl#equals(Object)}.
-   * <ul>
-   *   <li>When other is {@code null}.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ProcessCandidateStarterGroupImpl#equals(Object)}
    */
   @Test
-  @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean ProcessCandidateStarterGroupImpl.equals(Object)",
-      "int ProcessCandidateStarterGroupImpl.hashCode()"})
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new ProcessCandidateStarterGroupImpl("42", "42"), null);
   }
 
   /**
-   * Test {@link ProcessCandidateStarterGroupImpl#equals(Object)}.
-   * <ul>
-   *   <li>When other is wrong type.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ProcessCandidateStarterGroupImpl#equals(Object)}
    */
   @Test
-  @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean ProcessCandidateStarterGroupImpl.equals(Object)",
-      "int ProcessCandidateStarterGroupImpl.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new ProcessCandidateStarterGroupImpl("42", "42"),
         "Different type to ProcessCandidateStarterGroupImpl");
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>
+   * {@link ProcessCandidateStarterGroupImpl#ProcessCandidateStarterGroupImpl()}
+   *   <li>{@link ProcessCandidateStarterGroupImpl#getGroupId()}
+   * </ul>
+   */
+  @Test
+  void testGettersAndSetters() {
+    // Arrange and Act
+    ProcessCandidateStarterGroupImpl actualProcessCandidateStarterGroupImpl = new ProcessCandidateStarterGroupImpl();
+
+    // Assert
+    assertNull(actualProcessCandidateStarterGroupImpl.getGroupId());
+    assertNull(actualProcessCandidateStarterGroupImpl.getProcessDefinitionId());
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>
+   * {@link ProcessCandidateStarterGroupImpl#ProcessCandidateStarterGroupImpl(String, String)}
+   *   <li>{@link ProcessCandidateStarterGroupImpl#getGroupId()}
+   * </ul>
+   */
+  @Test
+  void testGettersAndSetters2() {
+    // Arrange and Act
+    ProcessCandidateStarterGroupImpl actualProcessCandidateStarterGroupImpl = new ProcessCandidateStarterGroupImpl("42",
+        "42");
+
+    // Assert
+    assertEquals("42", actualProcessCandidateStarterGroupImpl.getGroupId());
+    assertEquals("42", actualProcessCandidateStarterGroupImpl.getProcessDefinitionId());
   }
 }

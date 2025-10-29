@@ -15,27 +15,17 @@
  */
 package org.activiti.engine.impl.variable;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.BigIntegerNode;
-import com.fasterxml.jackson.databind.node.BinaryNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.BooleanNode;
-import com.fasterxml.jackson.databind.node.DecimalNode;
-import com.fasterxml.jackson.databind.node.DoubleNode;
-import com.fasterxml.jackson.databind.node.FloatNode;
-import com.fasterxml.jackson.databind.node.IntNode;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.MissingNode;
 import com.fasterxml.jackson.databind.node.NullNode;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
@@ -43,20 +33,16 @@ import org.activiti.engine.impl.persistence.entity.HistoricDetailVariableInstanc
 import org.activiti.engine.impl.persistence.entity.HistoricVariableInstanceEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class JsonTypeConverterDiffblueTest {
   /**
-   * Test {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}.
-   * <p>
-   * Method under test: {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}
+   * Method under test:
+   * {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object JsonTypeConverter.convertToValue(JsonNode, ValueFields)"})
   public void testConvertToValue() {
     // Arrange
-    JsonTypeConverter jsonTypeConverter = new JsonTypeConverter(JsonMapper.builder().findAndAddModules().build(), null);
+    JsonTypeConverter jsonTypeConverter = new JsonTypeConverter(new ObjectMapper(), "Java Class Field For Jackson");
     MissingNode jsonValue = MissingNode.getInstance();
 
     // Act and Assert
@@ -65,248 +51,13 @@ public class JsonTypeConverterDiffblueTest {
   }
 
   /**
-   * Test {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}.
-   * <ul>
-   *   <li>Then return {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}
+   * Method under test:
+   * {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object JsonTypeConverter.convertToValue(JsonNode, ValueFields)"})
-  public void testConvertToValue_thenReturnArrayNodeWithNfIsWithExactBigDecimalsTrue() {
+  public void testConvertToValue2() {
     // Arrange
-    JsonTypeConverter jsonTypeConverter = new JsonTypeConverter(JsonMapper.builder().findAndAddModules().build(),
-        "Java Class Field For Jackson");
-    ArrayNode jsonValue = new ArrayNode(JsonNodeFactory.withExactBigDecimals(true));
-
-    HistoricVariableInstanceEntityImpl valueFields = new HistoricVariableInstanceEntityImpl();
-    valueFields.setCachedValue(JSONObject.NULL);
-    valueFields.setCreateTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    valueFields.setDeleted(true);
-    valueFields.setDoubleValue(10.0d);
-    valueFields.setExecutionId("42");
-    valueFields.setId("42");
-    valueFields.setInserted(true);
-    valueFields
-        .setLastUpdatedTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    valueFields.setLongValue(42L);
-    valueFields.setName("Name");
-    valueFields.setProcessInstanceId("42");
-    valueFields.setRevision(1);
-    valueFields.setTaskId("42");
-    valueFields.setTextValue("42");
-    valueFields.setTextValue2("com.fasterxml.jackson.databind.node.MissingNode");
-    valueFields.setUpdated(true);
-    valueFields.setVariableType(new BigDecimalType());
-
-    // Act
-    Object actualConvertToValueResult = jsonTypeConverter.convertToValue(jsonValue, valueFields);
-
-    // Assert
-    assertTrue(actualConvertToValueResult instanceof ArrayNode);
-    assertEquals(jsonValue, actualConvertToValueResult);
-  }
-
-  /**
-   * Test {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}.
-   * <ul>
-   *   <li>When {@code A}.</li>
-   *   <li>Then return {@link BinaryNode}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object JsonTypeConverter.convertToValue(JsonNode, ValueFields)"})
-  public void testConvertToValue_whenA_thenReturnBinaryNode() {
-    // Arrange
-    JsonTypeConverter jsonTypeConverter = new JsonTypeConverter(JsonMapper.builder().findAndAddModules().build(),
-        "Java Class Field For Jackson");
-    BinaryNode jsonValue = new BinaryNode(new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1});
-
-    HistoricVariableInstanceEntityImpl valueFields = new HistoricVariableInstanceEntityImpl();
-    valueFields.setCachedValue(JSONObject.NULL);
-    valueFields.setCreateTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    valueFields.setDeleted(true);
-    valueFields.setDoubleValue(10.0d);
-    valueFields.setExecutionId("42");
-    valueFields.setId("42");
-    valueFields.setInserted(true);
-    valueFields
-        .setLastUpdatedTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    valueFields.setLongValue(42L);
-    valueFields.setName("Name");
-    valueFields.setProcessInstanceId("42");
-    valueFields.setRevision(1);
-    valueFields.setTaskId("42");
-    valueFields.setTextValue("42");
-    valueFields.setTextValue2("com.fasterxml.jackson.databind.node.MissingNode");
-    valueFields.setUpdated(true);
-    valueFields.setVariableType(new BigDecimalType());
-
-    // Act
-    Object actualConvertToValueResult = jsonTypeConverter.convertToValue(jsonValue, valueFields);
-
-    // Assert
-    assertTrue(actualConvertToValueResult instanceof BinaryNode);
-    assertEquals(jsonValue, actualConvertToValueResult);
-  }
-
-  /**
-   * Test {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}.
-   * <ul>
-   *   <li>When {@link BigDecimal#BigDecimal(String)} with {@code 2.3}.</li>
-   *   <li>Then return {@link DecimalNode}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object JsonTypeConverter.convertToValue(JsonNode, ValueFields)"})
-  public void testConvertToValue_whenBigDecimalWith23_thenReturnDecimalNode() {
-    // Arrange
-    JsonTypeConverter jsonTypeConverter = new JsonTypeConverter(JsonMapper.builder().findAndAddModules().build(),
-        "Java Class Field For Jackson");
-    DecimalNode jsonValue = new DecimalNode(new BigDecimal("2.3"));
-
-    HistoricVariableInstanceEntityImpl valueFields = new HistoricVariableInstanceEntityImpl();
-    valueFields.setCachedValue(JSONObject.NULL);
-    valueFields.setCreateTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    valueFields.setDeleted(true);
-    valueFields.setDoubleValue(10.0d);
-    valueFields.setExecutionId("42");
-    valueFields.setId("42");
-    valueFields.setInserted(true);
-    valueFields
-        .setLastUpdatedTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    valueFields.setLongValue(42L);
-    valueFields.setName("Name");
-    valueFields.setProcessInstanceId("42");
-    valueFields.setRevision(1);
-    valueFields.setTaskId("42");
-    valueFields.setTextValue("42");
-    valueFields.setTextValue2("com.fasterxml.jackson.databind.node.MissingNode");
-    valueFields.setUpdated(true);
-    valueFields.setVariableType(new BigDecimalType());
-
-    // Act
-    Object actualConvertToValueResult = jsonTypeConverter.convertToValue(jsonValue, valueFields);
-
-    // Assert
-    assertTrue(actualConvertToValueResult instanceof DecimalNode);
-    assertEquals(jsonValue, actualConvertToValueResult);
-  }
-
-  /**
-   * Test {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}.
-   * <ul>
-   *   <li>When {@link BigIntegerNode#BigIntegerNode(BigInteger)} with v is valueOf one.</li>
-   *   <li>Then return {@link BigIntegerNode}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object JsonTypeConverter.convertToValue(JsonNode, ValueFields)"})
-  public void testConvertToValue_whenBigIntegerNodeWithVIsValueOfOne_thenReturnBigIntegerNode() {
-    // Arrange
-    JsonTypeConverter jsonTypeConverter = new JsonTypeConverter(JsonMapper.builder().findAndAddModules().build(),
-        "Java Class Field For Jackson");
-    BigIntegerNode jsonValue = new BigIntegerNode(BigInteger.valueOf(1L));
-
-    HistoricVariableInstanceEntityImpl valueFields = new HistoricVariableInstanceEntityImpl();
-    valueFields.setCachedValue(JSONObject.NULL);
-    valueFields.setCreateTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    valueFields.setDeleted(true);
-    valueFields.setDoubleValue(10.0d);
-    valueFields.setExecutionId("42");
-    valueFields.setId("42");
-    valueFields.setInserted(true);
-    valueFields
-        .setLastUpdatedTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    valueFields.setLongValue(42L);
-    valueFields.setName("Name");
-    valueFields.setProcessInstanceId("42");
-    valueFields.setRevision(1);
-    valueFields.setTaskId("42");
-    valueFields.setTextValue("42");
-    valueFields.setTextValue2("com.fasterxml.jackson.databind.node.MissingNode");
-    valueFields.setUpdated(true);
-    valueFields.setVariableType(new BigDecimalType());
-
-    // Act
-    Object actualConvertToValueResult = jsonTypeConverter.convertToValue(jsonValue, valueFields);
-
-    // Assert
-    assertTrue(actualConvertToValueResult instanceof BigIntegerNode);
-    assertEquals(jsonValue, actualConvertToValueResult);
-  }
-
-  /**
-   * Test {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}.
-   * <ul>
-   *   <li>When False.</li>
-   *   <li>Then return {@link BooleanNode#FALSE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object JsonTypeConverter.convertToValue(JsonNode, ValueFields)"})
-  public void testConvertToValue_whenFalse_thenReturnFalse() {
-    // Arrange
-    JsonTypeConverter jsonTypeConverter = new JsonTypeConverter(JsonMapper.builder().findAndAddModules().build(),
-        "Java Class Field For Jackson");
-    BooleanNode jsonValue = BooleanNode.getFalse();
-
-    HistoricVariableInstanceEntityImpl valueFields = new HistoricVariableInstanceEntityImpl();
-    valueFields.setCachedValue(JSONObject.NULL);
-    valueFields.setCreateTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    valueFields.setDeleted(true);
-    valueFields.setDoubleValue(10.0d);
-    valueFields.setExecutionId("42");
-    valueFields.setId("42");
-    valueFields.setInserted(true);
-    valueFields
-        .setLastUpdatedTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    valueFields.setLongValue(42L);
-    valueFields.setName("Name");
-    valueFields.setProcessInstanceId("42");
-    valueFields.setRevision(1);
-    valueFields.setTaskId("42");
-    valueFields.setTextValue("42");
-    valueFields.setTextValue2("com.fasterxml.jackson.databind.node.MissingNode");
-    valueFields.setUpdated(true);
-    valueFields.setVariableType(new BigDecimalType());
-
-    // Act
-    Object actualConvertToValueResult = jsonTypeConverter.convertToValue(jsonValue, valueFields);
-
-    // Assert
-    assertSame(((BooleanNode) actualConvertToValueResult).FALSE, actualConvertToValueResult);
-  }
-
-  /**
-   * Test {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}.
-   * <ul>
-   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object JsonTypeConverter.convertToValue(JsonNode, ValueFields)"})
-  public void testConvertToValue_whenHistoricDetailVariableInstanceUpdateEntityImpl() {
-    // Arrange
-    JsonTypeConverter jsonTypeConverter = new JsonTypeConverter(JsonMapper.builder().findAndAddModules().build(),
-        "Java Class Field For Jackson");
+    JsonTypeConverter jsonTypeConverter = new JsonTypeConverter(new ObjectMapper(), null);
     MissingNode jsonValue = MissingNode.getInstance();
 
     // Act and Assert
@@ -315,20 +66,26 @@ public class JsonTypeConverterDiffblueTest {
   }
 
   /**
-   * Test {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}.
-   * <ul>
-   *   <li>When {@link HistoricVariableInstanceEntityImpl} (default constructor) TextValue2 is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}
+   * Method under test:
+   * {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object JsonTypeConverter.convertToValue(JsonNode, ValueFields)"})
-  public void testConvertToValue_whenHistoricVariableInstanceEntityImplTextValue2Is42() {
+  public void testConvertToValue3() {
     // Arrange
-    JsonTypeConverter jsonTypeConverter = new JsonTypeConverter(JsonMapper.builder().findAndAddModules().build(),
-        "Java Class Field For Jackson");
+    JsonTypeConverter jsonTypeConverter = new JsonTypeConverter(new ObjectMapper(), "Java Class Field For Jackson");
+
+    // Act and Assert
+    assertNull(jsonTypeConverter.convertToValue(null, new HistoricDetailVariableInstanceUpdateEntityImpl()));
+  }
+
+  /**
+   * Method under test:
+   * {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}
+   */
+  @Test
+  public void testConvertToValue4() {
+    // Arrange
+    JsonTypeConverter jsonTypeConverter = new JsonTypeConverter(new ObjectMapper(), "Java Class Field For Jackson");
     MissingNode jsonValue = MissingNode.getInstance();
 
     HistoricVariableInstanceEntityImpl valueFields = new HistoricVariableInstanceEntityImpl();
@@ -356,289 +113,104 @@ public class JsonTypeConverterDiffblueTest {
   }
 
   /**
-   * Test {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}.
-   * <ul>
-   *   <li>When Instance.</li>
-   *   <li>Then return Instance.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}
+   * Method under test:
+   * {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object JsonTypeConverter.convertToValue(JsonNode, ValueFields)"})
-  public void testConvertToValue_whenInstance_thenReturnInstance() {
+  public void testConvertToValue5() {
     // Arrange
-    JsonTypeConverter jsonTypeConverter = new JsonTypeConverter(JsonMapper.builder().findAndAddModules().build(),
-        "Java Class Field For Jackson");
+    JsonTypeConverter jsonTypeConverter = new JsonTypeConverter(new ObjectMapper(), "Java Class Field For Jackson");
     MissingNode jsonValue = MissingNode.getInstance();
-
-    HistoricVariableInstanceEntityImpl valueFields = new HistoricVariableInstanceEntityImpl();
-    valueFields.setCachedValue(JSONObject.NULL);
-    valueFields.setCreateTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    valueFields.setDeleted(true);
-    valueFields.setDoubleValue(10.0d);
-    valueFields.setExecutionId("42");
-    valueFields.setId("42");
-    valueFields.setInserted(true);
-    valueFields
-        .setLastUpdatedTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    valueFields.setLongValue(42L);
-    valueFields.setName("Name");
-    valueFields.setProcessInstanceId("42");
-    valueFields.setRevision(1);
-    valueFields.setTaskId("42");
-    valueFields.setTextValue("42");
-    valueFields.setTextValue2("com.fasterxml.jackson.databind.node.MissingNode");
-    valueFields.setUpdated(true);
-    valueFields.setVariableType(new BigDecimalType());
-
-    // Act and Assert
-    assertSame(jsonValue, jsonTypeConverter.convertToValue(jsonValue, valueFields));
-  }
-
-  /**
-   * Test {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}.
-   * <ul>
-   *   <li>When Instance.</li>
-   *   <li>Then return {@link NullNode#instance}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object JsonTypeConverter.convertToValue(JsonNode, ValueFields)"})
-  public void testConvertToValue_whenInstance_thenReturnInstance2() {
-    // Arrange
-    JsonTypeConverter jsonTypeConverter = new JsonTypeConverter(JsonMapper.builder().findAndAddModules().build(),
-        "Java Class Field For Jackson");
-    NullNode jsonValue = NullNode.getInstance();
-
-    HistoricVariableInstanceEntityImpl valueFields = new HistoricVariableInstanceEntityImpl();
-    valueFields.setCachedValue(JSONObject.NULL);
-    valueFields.setCreateTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    valueFields.setDeleted(true);
-    valueFields.setDoubleValue(10.0d);
-    valueFields.setExecutionId("42");
-    valueFields.setId("42");
-    valueFields.setInserted(true);
-    valueFields
-        .setLastUpdatedTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    valueFields.setLongValue(42L);
-    valueFields.setName("Name");
-    valueFields.setProcessInstanceId("42");
-    valueFields.setRevision(1);
-    valueFields.setTaskId("42");
-    valueFields.setTextValue("42");
-    valueFields.setTextValue2("com.fasterxml.jackson.databind.node.MissingNode");
-    valueFields.setUpdated(true);
-    valueFields.setVariableType(new BigDecimalType());
+    ValueFields valueFields = mock(ValueFields.class);
+    when(valueFields.getName()).thenReturn("Name");
+    when(valueFields.getTextValue2()).thenReturn("42");
 
     // Act
     Object actualConvertToValueResult = jsonTypeConverter.convertToValue(jsonValue, valueFields);
 
     // Assert
+    verify(valueFields).getName();
+    verify(valueFields, atLeast(1)).getTextValue2();
+    assertSame(jsonValue, actualConvertToValueResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}
+   */
+  @Test
+  public void testConvertToValue6() {
+    // Arrange
+    JsonTypeConverter jsonTypeConverter = new JsonTypeConverter(new ObjectMapper(), "Java Class Field For Jackson");
+    MissingNode jsonValue = MissingNode.getInstance();
+    ValueFields valueFields = mock(ValueFields.class);
+    when(valueFields.getTextValue2()).thenReturn("com.fasterxml.jackson.databind.node.MissingNode");
+
+    // Act
+    Object actualConvertToValueResult = jsonTypeConverter.convertToValue(jsonValue, valueFields);
+
+    // Assert
+    verify(valueFields, atLeast(1)).getTextValue2();
+    assertSame(jsonValue, actualConvertToValueResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}
+   */
+  @Test
+  public void testConvertToValue7() {
+    // Arrange
+    JsonTypeConverter jsonTypeConverter = new JsonTypeConverter(new ObjectMapper(), "Java Class Field For Jackson");
+    NullNode jsonValue = NullNode.getInstance();
+    ValueFields valueFields = mock(ValueFields.class);
+    when(valueFields.getTextValue2()).thenReturn("com.fasterxml.jackson.databind.node.MissingNode");
+
+    // Act
+    Object actualConvertToValueResult = jsonTypeConverter.convertToValue(jsonValue, valueFields);
+
+    // Assert
+    verify(valueFields, atLeast(1)).getTextValue2();
     assertSame(((NullNode) actualConvertToValueResult).instance, actualConvertToValueResult);
   }
 
   /**
-   * Test {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}
+   * Method under test:
+   * {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object JsonTypeConverter.convertToValue(JsonNode, ValueFields)"})
-  public void testConvertToValue_whenNull_thenReturnNull() {
+  public void testConvertToValue8() {
     // Arrange
-    JsonTypeConverter jsonTypeConverter = new JsonTypeConverter(JsonMapper.builder().findAndAddModules().build(),
-        "Java Class Field For Jackson");
+    JsonTypeConverter jsonTypeConverter = new JsonTypeConverter(new ObjectMapper(), "Java Class Field For Jackson");
+    BooleanNode jsonValue = BooleanNode.getFalse();
+    ValueFields valueFields = mock(ValueFields.class);
+    when(valueFields.getTextValue2()).thenReturn("com.fasterxml.jackson.databind.node.MissingNode");
 
-    // Act and Assert
-    assertNull(jsonTypeConverter.convertToValue(null, new HistoricDetailVariableInstanceUpdateEntityImpl()));
+    // Act
+    Object actualConvertToValueResult = jsonTypeConverter.convertToValue(jsonValue, valueFields);
+
+    // Assert
+    verify(valueFields, atLeast(1)).getTextValue2();
+    assertSame(((BooleanNode) actualConvertToValueResult).FALSE, actualConvertToValueResult);
   }
 
   /**
-   * Test {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}.
-   * <ul>
-   *   <li>When True.</li>
-   *   <li>Then return {@link BooleanNode#TRUE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}
+   * Method under test:
+   * {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object JsonTypeConverter.convertToValue(JsonNode, ValueFields)"})
-  public void testConvertToValue_whenTrue_thenReturnTrue() {
+  public void testConvertToValue9() {
     // Arrange
-    JsonTypeConverter jsonTypeConverter = new JsonTypeConverter(JsonMapper.builder().findAndAddModules().build(),
-        "Java Class Field For Jackson");
+    JsonTypeConverter jsonTypeConverter = new JsonTypeConverter(new ObjectMapper(), "Java Class Field For Jackson");
     BooleanNode jsonValue = BooleanNode.getTrue();
-
-    HistoricVariableInstanceEntityImpl valueFields = new HistoricVariableInstanceEntityImpl();
-    valueFields.setCachedValue(JSONObject.NULL);
-    valueFields.setCreateTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    valueFields.setDeleted(true);
-    valueFields.setDoubleValue(10.0d);
-    valueFields.setExecutionId("42");
-    valueFields.setId("42");
-    valueFields.setInserted(true);
-    valueFields
-        .setLastUpdatedTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    valueFields.setLongValue(42L);
-    valueFields.setName("Name");
-    valueFields.setProcessInstanceId("42");
-    valueFields.setRevision(1);
-    valueFields.setTaskId("42");
-    valueFields.setTextValue("42");
-    valueFields.setTextValue2("com.fasterxml.jackson.databind.node.MissingNode");
-    valueFields.setUpdated(true);
-    valueFields.setVariableType(new BigDecimalType());
+    ValueFields valueFields = mock(ValueFields.class);
+    when(valueFields.getTextValue2()).thenReturn("com.fasterxml.jackson.databind.node.MissingNode");
 
     // Act
     Object actualConvertToValueResult = jsonTypeConverter.convertToValue(jsonValue, valueFields);
 
     // Assert
+    verify(valueFields, atLeast(1)).getTextValue2();
     assertSame(((BooleanNode) actualConvertToValueResult).TRUE, actualConvertToValueResult);
-  }
-
-  /**
-   * Test {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}.
-   * <ul>
-   *   <li>When valueOf one.</li>
-   *   <li>Then return valueOf one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object JsonTypeConverter.convertToValue(JsonNode, ValueFields)"})
-  public void testConvertToValue_whenValueOfOne_thenReturnValueOfOne() {
-    // Arrange
-    JsonTypeConverter jsonTypeConverter = new JsonTypeConverter(JsonMapper.builder().findAndAddModules().build(),
-        "Java Class Field For Jackson");
-    IntNode jsonValue = IntNode.valueOf(1);
-
-    HistoricVariableInstanceEntityImpl valueFields = new HistoricVariableInstanceEntityImpl();
-    valueFields.setCachedValue(JSONObject.NULL);
-    valueFields.setCreateTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    valueFields.setDeleted(true);
-    valueFields.setDoubleValue(10.0d);
-    valueFields.setExecutionId("42");
-    valueFields.setId("42");
-    valueFields.setInserted(true);
-    valueFields
-        .setLastUpdatedTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    valueFields.setLongValue(42L);
-    valueFields.setName("Name");
-    valueFields.setProcessInstanceId("42");
-    valueFields.setRevision(1);
-    valueFields.setTaskId("42");
-    valueFields.setTextValue("42");
-    valueFields.setTextValue2("com.fasterxml.jackson.databind.node.MissingNode");
-    valueFields.setUpdated(true);
-    valueFields.setVariableType(new BigDecimalType());
-
-    // Act and Assert
-    assertSame(jsonValue, jsonTypeConverter.convertToValue(jsonValue, valueFields));
-  }
-
-  /**
-   * Test {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}.
-   * <ul>
-   *   <li>When valueOf ten.</li>
-   *   <li>Then return {@link DoubleNode}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object JsonTypeConverter.convertToValue(JsonNode, ValueFields)"})
-  public void testConvertToValue_whenValueOfTen_thenReturnDoubleNode() {
-    // Arrange
-    JsonTypeConverter jsonTypeConverter = new JsonTypeConverter(JsonMapper.builder().findAndAddModules().build(),
-        "Java Class Field For Jackson");
-    DoubleNode jsonValue = DoubleNode.valueOf(10.0d);
-
-    HistoricVariableInstanceEntityImpl valueFields = new HistoricVariableInstanceEntityImpl();
-    valueFields.setCachedValue(JSONObject.NULL);
-    valueFields.setCreateTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    valueFields.setDeleted(true);
-    valueFields.setDoubleValue(10.0d);
-    valueFields.setExecutionId("42");
-    valueFields.setId("42");
-    valueFields.setInserted(true);
-    valueFields
-        .setLastUpdatedTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    valueFields.setLongValue(42L);
-    valueFields.setName("Name");
-    valueFields.setProcessInstanceId("42");
-    valueFields.setRevision(1);
-    valueFields.setTaskId("42");
-    valueFields.setTextValue("42");
-    valueFields.setTextValue2("com.fasterxml.jackson.databind.node.MissingNode");
-    valueFields.setUpdated(true);
-    valueFields.setVariableType(new BigDecimalType());
-
-    // Act
-    Object actualConvertToValueResult = jsonTypeConverter.convertToValue(jsonValue, valueFields);
-
-    // Assert
-    assertTrue(actualConvertToValueResult instanceof DoubleNode);
-    assertEquals(jsonValue, actualConvertToValueResult);
-  }
-
-  /**
-   * Test {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}.
-   * <ul>
-   *   <li>When valueOf ten.</li>
-   *   <li>Then return {@link FloatNode}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JsonTypeConverter#convertToValue(JsonNode, ValueFields)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object JsonTypeConverter.convertToValue(JsonNode, ValueFields)"})
-  public void testConvertToValue_whenValueOfTen_thenReturnFloatNode() {
-    // Arrange
-    JsonTypeConverter jsonTypeConverter = new JsonTypeConverter(JsonMapper.builder().findAndAddModules().build(),
-        "Java Class Field For Jackson");
-    FloatNode jsonValue = FloatNode.valueOf(10.0f);
-
-    HistoricVariableInstanceEntityImpl valueFields = new HistoricVariableInstanceEntityImpl();
-    valueFields.setCachedValue(JSONObject.NULL);
-    valueFields.setCreateTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    valueFields.setDeleted(true);
-    valueFields.setDoubleValue(10.0d);
-    valueFields.setExecutionId("42");
-    valueFields.setId("42");
-    valueFields.setInserted(true);
-    valueFields
-        .setLastUpdatedTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    valueFields.setLongValue(42L);
-    valueFields.setName("Name");
-    valueFields.setProcessInstanceId("42");
-    valueFields.setRevision(1);
-    valueFields.setTaskId("42");
-    valueFields.setTextValue("42");
-    valueFields.setTextValue2("com.fasterxml.jackson.databind.node.MissingNode");
-    valueFields.setUpdated(true);
-    valueFields.setVariableType(new BigDecimalType());
-
-    // Act
-    Object actualConvertToValueResult = jsonTypeConverter.convertToValue(jsonValue, valueFields);
-
-    // Assert
-    assertTrue(actualConvertToValueResult instanceof FloatNode);
-    assertEquals(jsonValue, actualConvertToValueResult);
   }
 }

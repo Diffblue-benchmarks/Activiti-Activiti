@@ -19,22 +19,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.Signal;
 import org.activiti.bpmn.model.SignalEventDefinition;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class IntermediateCatchSignalEventActivityBehaviorDiffblueTest {
   /**
-   * Test {@link IntermediateCatchSignalEventActivityBehavior#IntermediateCatchSignalEventActivityBehavior(SignalEventDefinition, Signal)}.
-   * <p>
-   * Method under test: {@link IntermediateCatchSignalEventActivityBehavior#IntermediateCatchSignalEventActivityBehavior(SignalEventDefinition, Signal)}
+   * Method under test:
+   * {@link IntermediateCatchSignalEventActivityBehavior#IntermediateCatchSignalEventActivityBehavior(SignalEventDefinition, Signal)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void IntermediateCatchSignalEventActivityBehavior.<init>(SignalEventDefinition, Signal)"})
   public void testNewIntermediateCatchSignalEventActivityBehavior() {
     // Arrange
     SignalEventDefinition signalEventDefinition = new SignalEventDefinition();

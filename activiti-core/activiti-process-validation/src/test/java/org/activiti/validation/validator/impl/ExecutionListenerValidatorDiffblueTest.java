@@ -18,8 +18,8 @@ package org.activiti.validation.validator.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -28,21 +28,158 @@ import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.Process;
 import org.activiti.validation.ValidationError;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ExecutionListenerValidatorDiffblueTest {
   /**
-   * Test {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}.
-   * <p>
-   * Method under test: {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}
+   * Method under test:
+   * {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}
    */
   @Test
-  @DisplayName("Test validateListeners(Process, BaseElement, List, List)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ExecutionListenerValidator.validateListeners(Process, BaseElement, List, List)"})
   void testValidateListeners() {
+    // Arrange
+    ExecutionListenerValidator executionListenerValidator = new ExecutionListenerValidator();
+    Process process = new Process();
+    ActivitiListener baseElement = new ActivitiListener();
+    ArrayList<ActivitiListener> listeners = new ArrayList<>();
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    executionListenerValidator.validateListeners(process, baseElement, listeners, errors);
+
+    // Assert that nothing has changed
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertTrue(listeners.isEmpty());
+    assertTrue(errors.isEmpty());
+    assertTrue(flowElements.isEmpty());
+    assertTrue(baseElement.getFieldExtensions().isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}
+   */
+  @Test
+  void testValidateListeners2() {
+    // Arrange
+    ExecutionListenerValidator executionListenerValidator = new ExecutionListenerValidator();
+    Process process = new Process();
+    ActivitiListener baseElement = new ActivitiListener();
+
+    ArrayList<ActivitiListener> listeners = new ArrayList<>();
+    ActivitiListener activitiListener = new ActivitiListener();
+    listeners.add(activitiListener);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    executionListenerValidator.validateListeners(process, baseElement, listeners, errors);
+
+    // Assert
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertEquals(1, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("EXECUTION_LISTENER_IMPLEMENTATION_MISSING", getResult.getDefaultDescription());
+    assertEquals("EXECUTION_LISTENER_IMPLEMENTATION_MISSING", getResult.getKey());
+    assertEquals("EXECUTION_LISTENER_IMPLEMENTATION_MISSING", getResult.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertEquals(1, listeners.size());
+    assertFalse(getResult.isWarning());
+    assertTrue(flowElements.isEmpty());
+    assertTrue(baseElement.getFieldExtensions().isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
+    assertSame(activitiListener, listeners.get(0));
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}
+   */
+  @Test
+  void testValidateListeners3() {
+    // Arrange
+    ExecutionListenerValidator executionListenerValidator = new ExecutionListenerValidator();
+    Process process = new Process();
+    ActivitiListener baseElement = new ActivitiListener();
+
+    ArrayList<ActivitiListener> listeners = new ArrayList<>();
+    ActivitiListener activitiListener = new ActivitiListener();
+    listeners.add(activitiListener);
+    ActivitiListener activitiListener2 = new ActivitiListener();
+    listeners.add(activitiListener2);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    executionListenerValidator.validateListeners(process, baseElement, listeners, errors);
+
+    // Assert
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertEquals(2, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("EXECUTION_LISTENER_IMPLEMENTATION_MISSING", getResult.getDefaultDescription());
+    ValidationError getResult2 = errors.get(1);
+    assertEquals("EXECUTION_LISTENER_IMPLEMENTATION_MISSING", getResult2.getDefaultDescription());
+    assertEquals("EXECUTION_LISTENER_IMPLEMENTATION_MISSING", getResult.getKey());
+    assertEquals("EXECUTION_LISTENER_IMPLEMENTATION_MISSING", getResult2.getKey());
+    assertEquals("EXECUTION_LISTENER_IMPLEMENTATION_MISSING", getResult.getProblem());
+    assertEquals("EXECUTION_LISTENER_IMPLEMENTATION_MISSING", getResult2.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult2.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult2.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult2.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult2.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertNull(getResult2.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult2.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertEquals(0, getResult2.getXmlLineNumber());
+    assertEquals(2, listeners.size());
+    assertFalse(getResult.isWarning());
+    assertFalse(getResult2.isWarning());
+    assertTrue(flowElements.isEmpty());
+    assertTrue(baseElement.getFieldExtensions().isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
+    assertTrue(getResult2.getParams().isEmpty());
+    assertSame(activitiListener, listeners.get(0));
+    assertSame(activitiListener2, listeners.get(1));
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}
+   */
+  @Test
+  void testValidateListeners4() {
     // Arrange
     ExecutionListenerValidator executionListenerValidator = new ExecutionListenerValidator();
     Process process = new Process();
@@ -73,21 +210,26 @@ class ExecutionListenerValidatorDiffblueTest {
     assertNull(getResult.getValidatorSetName());
     assertEquals(0, getResult.getXmlColumnNumber());
     assertEquals(0, getResult.getXmlLineNumber());
+    assertEquals(1, listeners.size());
     assertFalse(getResult.isWarning());
     assertTrue(flowElements.isEmpty());
+    assertTrue(baseElement.getFieldExtensions().isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
     assertTrue(getResult.getParams().isEmpty());
+    assertSame(activitiListener, listeners.get(0));
   }
 
   /**
-   * Test {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}.
-   * <p>
-   * Method under test: {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}
+   * Method under test:
+   * {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}
    */
   @Test
-  @DisplayName("Test validateListeners(Process, BaseElement, List, List)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ExecutionListenerValidator.validateListeners(Process, BaseElement, List, List)"})
-  void testValidateListeners2() {
+  void testValidateListeners5() {
     // Arrange
     ExecutionListenerValidator executionListenerValidator = new ExecutionListenerValidator();
     Process process = new Process();
@@ -118,129 +260,17 @@ class ExecutionListenerValidatorDiffblueTest {
     assertNull(getResult.getValidatorSetName());
     assertEquals(0, getResult.getXmlColumnNumber());
     assertEquals(0, getResult.getXmlLineNumber());
+    assertEquals(1, listeners.size());
     assertFalse(getResult.isWarning());
     assertTrue(flowElements.isEmpty());
+    assertTrue(baseElement.getFieldExtensions().isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
     assertTrue(getResult.getParams().isEmpty());
-  }
-
-  /**
-   * Test {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}.
-   * <ul>
-   *   <li>Given {@link ActivitiListener} (default constructor).</li>
-   *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}
-   */
-  @Test
-  @DisplayName("Test validateListeners(Process, BaseElement, List, List); given ActivitiListener (default constructor); then ArrayList() size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ExecutionListenerValidator.validateListeners(Process, BaseElement, List, List)"})
-  void testValidateListeners_givenActivitiListener_thenArrayListSizeIsOne() {
-    // Arrange
-    ExecutionListenerValidator executionListenerValidator = new ExecutionListenerValidator();
-    Process process = new Process();
-    ActivitiListener baseElement = new ActivitiListener();
-
-    ArrayList<ActivitiListener> listeners = new ArrayList<>();
-    listeners.add(new ActivitiListener());
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    executionListenerValidator.validateListeners(process, baseElement, listeners, errors);
-
-    // Assert
-    Collection<FlowElement> flowElements = process.getFlowElements();
-    assertTrue(flowElements instanceof List);
-    assertEquals(1, errors.size());
-    ValidationError getResult = errors.get(0);
-    assertEquals("EXECUTION_LISTENER_IMPLEMENTATION_MISSING", getResult.getDefaultDescription());
-    assertEquals("EXECUTION_LISTENER_IMPLEMENTATION_MISSING", getResult.getKey());
-    assertEquals("EXECUTION_LISTENER_IMPLEMENTATION_MISSING", getResult.getProblem());
-    assertNull(getResult.getActivityId());
-    assertNull(getResult.getActivityName());
-    assertNull(getResult.getProcessDefinitionId());
-    assertNull(getResult.getProcessDefinitionName());
-    assertNull(getResult.getValidatorSetName());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlLineNumber());
-    assertFalse(getResult.isWarning());
-    assertTrue(flowElements.isEmpty());
-    assertTrue(getResult.getParams().isEmpty());
-  }
-
-  /**
-   * Test {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}.
-   * <ul>
-   *   <li>Given {@link ActivitiListener} (default constructor).</li>
-   *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}
-   */
-  @Test
-  @DisplayName("Test validateListeners(Process, BaseElement, List, List); given ActivitiListener (default constructor); then ArrayList() size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ExecutionListenerValidator.validateListeners(Process, BaseElement, List, List)"})
-  void testValidateListeners_givenActivitiListener_thenArrayListSizeIsTwo() {
-    // Arrange
-    ExecutionListenerValidator executionListenerValidator = new ExecutionListenerValidator();
-    Process process = new Process();
-    ActivitiListener baseElement = new ActivitiListener();
-
-    ArrayList<ActivitiListener> listeners = new ArrayList<>();
-    listeners.add(new ActivitiListener());
-    listeners.add(new ActivitiListener());
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    executionListenerValidator.validateListeners(process, baseElement, listeners, errors);
-
-    // Assert
-    assertEquals(2, errors.size());
-    ValidationError getResult = errors.get(1);
-    assertEquals("EXECUTION_LISTENER_IMPLEMENTATION_MISSING", getResult.getDefaultDescription());
-    assertEquals("EXECUTION_LISTENER_IMPLEMENTATION_MISSING", getResult.getKey());
-    assertEquals("EXECUTION_LISTENER_IMPLEMENTATION_MISSING", getResult.getProblem());
-    assertNull(getResult.getActivityId());
-    assertNull(getResult.getActivityName());
-    assertNull(getResult.getProcessDefinitionId());
-    assertNull(getResult.getProcessDefinitionName());
-    assertNull(getResult.getValidatorSetName());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlLineNumber());
-    assertFalse(getResult.isWarning());
-    assertTrue(getResult.getParams().isEmpty());
-  }
-
-  /**
-   * Test {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}.
-   * <ul>
-   *   <li>When {@link ActivitiListener} (default constructor).</li>
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}
-   */
-  @Test
-  @DisplayName("Test validateListeners(Process, BaseElement, List, List); when ActivitiListener (default constructor); then ArrayList() Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ExecutionListenerValidator.validateListeners(Process, BaseElement, List, List)"})
-  void testValidateListeners_whenActivitiListener_thenArrayListEmpty() {
-    // Arrange
-    ExecutionListenerValidator executionListenerValidator = new ExecutionListenerValidator();
-    Process process = new Process();
-    ActivitiListener baseElement = new ActivitiListener();
-    ArrayList<ActivitiListener> listeners = new ArrayList<>();
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    executionListenerValidator.validateListeners(process, baseElement, listeners, errors);
-
-    // Assert that nothing has changed
-    Collection<FlowElement> flowElements = process.getFlowElements();
-    assertTrue(flowElements instanceof List);
-    assertTrue(errors.isEmpty());
-    assertTrue(flowElements.isEmpty());
+    assertSame(activitiListener, listeners.get(0));
   }
 }

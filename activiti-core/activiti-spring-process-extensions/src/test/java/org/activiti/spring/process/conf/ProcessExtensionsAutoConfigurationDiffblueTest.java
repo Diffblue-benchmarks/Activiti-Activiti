@@ -16,41 +16,58 @@
 package org.activiti.spring.process.conf;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
+import java.util.Date;
 import java.util.Map;
 import org.activiti.common.util.DateFormatterProvider;
+import org.activiti.engine.RepositoryService;
+import org.activiti.engine.impl.RepositoryServiceImpl;
 import org.activiti.spring.process.variable.types.BigDecimalVariableType;
 import org.activiti.spring.process.variable.types.DateVariableType;
 import org.activiti.spring.process.variable.types.JavaObjectVariableType;
 import org.activiti.spring.process.variable.types.JsonObjectVariableType;
 import org.activiti.spring.process.variable.types.VariableType;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import org.activiti.spring.resources.DeploymentResourceLoader;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.jupiter.MockitoExtension;
 
-@ExtendWith(MockitoExtension.class)
 class ProcessExtensionsAutoConfigurationDiffblueTest {
-  @InjectMocks
-  private ProcessExtensionsAutoConfiguration processExtensionsAutoConfiguration;
-
   /**
-   * Test {@link ProcessExtensionsAutoConfiguration#variableTypeMap(ObjectMapper, DateFormatterProvider)}.
-   * <p>
-   * Method under test: {@link ProcessExtensionsAutoConfiguration#variableTypeMap(ObjectMapper, DateFormatterProvider)}
+   * Method under test:
+   * {@link ProcessExtensionsAutoConfiguration#initRepositoryServiceForDeploymentResourceLoader(RepositoryService, DeploymentResourceLoader)}
    */
   @Test
-  @DisplayName("Test variableTypeMap(ObjectMapper, DateFormatterProvider)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Map ProcessExtensionsAutoConfiguration.variableTypeMap(ObjectMapper, DateFormatterProvider)"})
-  void testVariableTypeMap() {
+  void testInitRepositoryServiceForDeploymentResourceLoader() throws Exception {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+
     // Arrange
-    JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
+    ProcessExtensionsAutoConfiguration processExtensionsAutoConfiguration = new ProcessExtensionsAutoConfiguration();
+    RepositoryServiceImpl repositoryService = mock(RepositoryServiceImpl.class);
+    DeploymentResourceLoader deploymentResourceLoader = new DeploymentResourceLoader();
+
+    // Act
+    processExtensionsAutoConfiguration
+        .initRepositoryServiceForDeploymentResourceLoader(repositoryService, deploymentResourceLoader)
+        .afterPropertiesSet();
+
+    // Assert
+    assertTrue(deploymentResourceLoader.loadResourcesForDeployment("42", null).isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessExtensionsAutoConfiguration#variableTypeMap(ObjectMapper, DateFormatterProvider)}
+   */
+  @Test
+  void testVariableTypeMap() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+
+    // Arrange
+    ProcessExtensionsAutoConfiguration processExtensionsAutoConfiguration = new ProcessExtensionsAutoConfiguration();
+    ObjectMapper objectMapper = new ObjectMapper();
 
     // Act
     Map<String, VariableType> actualVariableTypeMapResult = processExtensionsAutoConfiguration
@@ -58,16 +75,121 @@ class ProcessExtensionsAutoConfigurationDiffblueTest {
 
     // Assert
     assertEquals(11, actualVariableTypeMapResult.size());
-    assertTrue(actualVariableTypeMapResult.get("bigdecimal") instanceof BigDecimalVariableType);
-    assertTrue(actualVariableTypeMapResult.get("date") instanceof DateVariableType);
-    assertTrue(actualVariableTypeMapResult.get("datetime") instanceof DateVariableType);
-    assertTrue(actualVariableTypeMapResult.get("boolean") instanceof JavaObjectVariableType);
-    assertTrue(actualVariableTypeMapResult.get("integer") instanceof JavaObjectVariableType);
-    assertTrue(actualVariableTypeMapResult.get("string") instanceof JavaObjectVariableType);
-    assertTrue(actualVariableTypeMapResult.get("array") instanceof JsonObjectVariableType);
-    assertTrue(actualVariableTypeMapResult.get("content") instanceof JsonObjectVariableType);
-    assertTrue(actualVariableTypeMapResult.get("file") instanceof JsonObjectVariableType);
-    assertTrue(actualVariableTypeMapResult.get("folder") instanceof JsonObjectVariableType);
-    assertTrue(actualVariableTypeMapResult.get("json") instanceof JsonObjectVariableType);
+    VariableType getResult = actualVariableTypeMapResult.get("bigdecimal");
+    assertTrue(getResult instanceof BigDecimalVariableType);
+    VariableType getResult2 = actualVariableTypeMapResult.get("date");
+    assertTrue(getResult2 instanceof DateVariableType);
+    VariableType getResult3 = actualVariableTypeMapResult.get("datetime");
+    assertTrue(getResult3 instanceof DateVariableType);
+    VariableType getResult4 = actualVariableTypeMapResult.get("boolean");
+    assertTrue(getResult4 instanceof JavaObjectVariableType);
+    VariableType getResult5 = actualVariableTypeMapResult.get("integer");
+    assertTrue(getResult5 instanceof JavaObjectVariableType);
+    VariableType getResult6 = actualVariableTypeMapResult.get("string");
+    assertTrue(getResult6 instanceof JavaObjectVariableType);
+    VariableType getResult7 = actualVariableTypeMapResult.get("array");
+    assertTrue(getResult7 instanceof JsonObjectVariableType);
+    VariableType getResult8 = actualVariableTypeMapResult.get("content");
+    assertTrue(getResult8 instanceof JsonObjectVariableType);
+    VariableType getResult9 = actualVariableTypeMapResult.get("file");
+    assertTrue(getResult9 instanceof JsonObjectVariableType);
+    VariableType getResult10 = actualVariableTypeMapResult.get("folder");
+    assertTrue(getResult10 instanceof JsonObjectVariableType);
+    VariableType getResult11 = actualVariableTypeMapResult.get("json");
+    assertTrue(getResult11 instanceof JsonObjectVariableType);
+    assertNull(getResult7.getName());
+    assertNull(getResult.getName());
+    assertNull(getResult4.getName());
+    assertNull(getResult8.getName());
+    assertNull(getResult2.getName());
+    assertNull(getResult3.getName());
+    assertNull(getResult9.getName());
+    assertNull(getResult10.getName());
+    assertNull(getResult5.getName());
+    assertNull(getResult11.getName());
+    assertNull(getResult6.getName());
+    Class<Boolean> expectedClazz = Boolean.class;
+    assertEquals(expectedClazz, ((JavaObjectVariableType) getResult4).getClazz());
+    Class<Integer> expectedClazz2 = Integer.class;
+    assertEquals(expectedClazz2, ((JavaObjectVariableType) getResult5).getClazz());
+    Class<String> expectedClazz3 = String.class;
+    assertEquals(expectedClazz3, ((JavaObjectVariableType) getResult6).getClazz());
+    Class<Date> expectedClazz4 = Date.class;
+    Class clazz = ((DateVariableType) getResult2).getClazz();
+    assertEquals(expectedClazz4, clazz);
+    assertSame(objectMapper, ((JsonObjectVariableType) getResult7).getObjectMapper());
+    assertSame(objectMapper, ((JsonObjectVariableType) getResult8).getObjectMapper());
+    assertSame(objectMapper, ((JsonObjectVariableType) getResult9).getObjectMapper());
+    assertSame(objectMapper, ((JsonObjectVariableType) getResult10).getObjectMapper());
+    assertSame(objectMapper, ((JsonObjectVariableType) getResult11).getObjectMapper());
+    assertSame(clazz, ((DateVariableType) getResult3).getClazz());
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessExtensionsAutoConfiguration#variableTypeMap(ObjectMapper, DateFormatterProvider)}
+   */
+  @Test
+  void testVariableTypeMap2() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+
+    // Arrange
+    ProcessExtensionsAutoConfiguration processExtensionsAutoConfiguration = new ProcessExtensionsAutoConfiguration();
+    ObjectMapper objectMapper = mock(ObjectMapper.class);
+
+    // Act
+    Map<String, VariableType> actualVariableTypeMapResult = processExtensionsAutoConfiguration
+        .variableTypeMap(objectMapper, new DateFormatterProvider("2020-03-01"));
+
+    // Assert
+    assertEquals(11, actualVariableTypeMapResult.size());
+    VariableType getResult = actualVariableTypeMapResult.get("bigdecimal");
+    assertTrue(getResult instanceof BigDecimalVariableType);
+    VariableType getResult2 = actualVariableTypeMapResult.get("date");
+    assertTrue(getResult2 instanceof DateVariableType);
+    VariableType getResult3 = actualVariableTypeMapResult.get("datetime");
+    assertTrue(getResult3 instanceof DateVariableType);
+    VariableType getResult4 = actualVariableTypeMapResult.get("boolean");
+    assertTrue(getResult4 instanceof JavaObjectVariableType);
+    VariableType getResult5 = actualVariableTypeMapResult.get("integer");
+    assertTrue(getResult5 instanceof JavaObjectVariableType);
+    VariableType getResult6 = actualVariableTypeMapResult.get("string");
+    assertTrue(getResult6 instanceof JavaObjectVariableType);
+    VariableType getResult7 = actualVariableTypeMapResult.get("array");
+    assertTrue(getResult7 instanceof JsonObjectVariableType);
+    VariableType getResult8 = actualVariableTypeMapResult.get("content");
+    assertTrue(getResult8 instanceof JsonObjectVariableType);
+    VariableType getResult9 = actualVariableTypeMapResult.get("file");
+    assertTrue(getResult9 instanceof JsonObjectVariableType);
+    VariableType getResult10 = actualVariableTypeMapResult.get("folder");
+    assertTrue(getResult10 instanceof JsonObjectVariableType);
+    VariableType getResult11 = actualVariableTypeMapResult.get("json");
+    assertTrue(getResult11 instanceof JsonObjectVariableType);
+    assertNull(getResult7.getName());
+    assertNull(getResult.getName());
+    assertNull(getResult4.getName());
+    assertNull(getResult8.getName());
+    assertNull(getResult2.getName());
+    assertNull(getResult3.getName());
+    assertNull(getResult9.getName());
+    assertNull(getResult10.getName());
+    assertNull(getResult5.getName());
+    assertNull(getResult11.getName());
+    assertNull(getResult6.getName());
+    Class<Boolean> expectedClazz = Boolean.class;
+    assertEquals(expectedClazz, ((JavaObjectVariableType) getResult4).getClazz());
+    Class<Integer> expectedClazz2 = Integer.class;
+    assertEquals(expectedClazz2, ((JavaObjectVariableType) getResult5).getClazz());
+    Class<String> expectedClazz3 = String.class;
+    assertEquals(expectedClazz3, ((JavaObjectVariableType) getResult6).getClazz());
+    Class<Date> expectedClazz4 = Date.class;
+    Class clazz = ((DateVariableType) getResult2).getClazz();
+    assertEquals(expectedClazz4, clazz);
+    assertSame(clazz, ((DateVariableType) getResult3).getClazz());
+    assertSame(objectMapper, ((JsonObjectVariableType) getResult7).getObjectMapper());
+    assertSame(objectMapper, ((JsonObjectVariableType) getResult8).getObjectMapper());
+    assertSame(objectMapper, ((JsonObjectVariableType) getResult9).getObjectMapper());
+    assertSame(objectMapper, ((JsonObjectVariableType) getResult10).getObjectMapper());
+    assertSame(objectMapper, ((JsonObjectVariableType) getResult11).getObjectMapper());
   }
 }

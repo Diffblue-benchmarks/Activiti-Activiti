@@ -17,48 +17,43 @@ package org.activiti.engine.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ModelQueryPropertyDiffblueTest {
-  /**
-   * Test {@link ModelQueryProperty#ModelQueryProperty(String)}.
-   * <p>
-   * Method under test: {@link ModelQueryProperty#ModelQueryProperty(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ModelQueryProperty.<init>(String)"})
-  public void testNewModelQueryProperty() {
-    // Arrange, Act and Assert
-    assertEquals("Name", (new ModelQueryProperty("Name")).getName());
-  }
+  @InjectMocks
+  private ModelQueryProperty modelQueryProperty;
+
+  @InjectMocks
+  private String string;
 
   /**
-   * Test {@link ModelQueryProperty#getName()}.
-   * <p>
    * Method under test: {@link ModelQueryProperty#getName()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String ModelQueryProperty.getName()"})
   public void testGetName() {
     // Arrange, Act and Assert
     assertEquals("Name", (new ModelQueryProperty("Name")).getName());
   }
 
   /**
-   * Test {@link ModelQueryProperty#findByName(String)}.
-   * <p>
    * Method under test: {@link ModelQueryProperty#findByName(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ModelQueryProperty ModelQueryProperty.findByName(String)"})
   public void testFindByName() {
     // Arrange, Act and Assert
     assertNull(ModelQueryProperty.findByName("Property Name"));
+  }
+
+  /**
+   * Method under test: {@link ModelQueryProperty#ModelQueryProperty(String)}
+   */
+  @Test
+  public void testNewModelQueryProperty() {
+    // Arrange, Act and Assert
+    assertEquals("Name", (new ModelQueryProperty("Name")).getName());
   }
 }

@@ -16,20 +16,14 @@
 package org.activiti.engine.impl.event.logger.handler;
 
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class VariableUpdatedEventHandlerDiffblueTest {
   /**
-   * Test new {@link VariableUpdatedEventHandler} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link VariableUpdatedEventHandler}
+   * Method under test: default or parameterless constructor of
+   * {@link VariableUpdatedEventHandler}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void VariableUpdatedEventHandler.<init>()"})
   public void testNewVariableUpdatedEventHandler() {
     // Arrange and Act
     VariableUpdatedEventHandler actualVariableUpdatedEventHandler = new VariableUpdatedEventHandler();

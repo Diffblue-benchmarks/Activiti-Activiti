@@ -17,26 +17,40 @@ package org.activiti.engine.delegate.event.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ActivitiErrorEventImplDiffblueTest {
   /**
-   * Test {@link ActivitiErrorEventImpl#ActivitiErrorEventImpl(ActivitiEventType)}.
+   * Methods under test:
    * <ul>
-   *   <li>When {@code ENTITY_CREATED}.</li>
-   *   <li>Then return ActivityId is {@code null}.</li>
+   *   <li>{@link ActivitiErrorEventImpl#setErrorCode(String)}
+   *   <li>{@link ActivitiErrorEventImpl#setErrorId(String)}
+   *   <li>{@link ActivitiErrorEventImpl#getErrorCode()}
+   *   <li>{@link ActivitiErrorEventImpl#getErrorId()}
    * </ul>
-   * <p>
-   * Method under test: {@link ActivitiErrorEventImpl#ActivitiErrorEventImpl(ActivitiEventType)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiErrorEventImpl.<init>(ActivitiEventType)"})
-  public void testNewActivitiErrorEventImpl_whenEntityCreated_thenReturnActivityIdIsNull() {
+  public void testGettersAndSetters() {
+    // Arrange
+    ActivitiErrorEventImpl activitiErrorEventImpl = new ActivitiErrorEventImpl(ActivitiEventType.ENTITY_CREATED);
+
+    // Act
+    activitiErrorEventImpl.setErrorCode("An error occurred");
+    activitiErrorEventImpl.setErrorId("An error occurred");
+    String actualErrorCode = activitiErrorEventImpl.getErrorCode();
+
+    // Assert that nothing has changed
+    assertEquals("An error occurred", actualErrorCode);
+    assertEquals("An error occurred", activitiErrorEventImpl.getErrorId());
+  }
+
+  /**
+   * Method under test:
+   * {@link ActivitiErrorEventImpl#ActivitiErrorEventImpl(ActivitiEventType)}
+   */
+  @Test
+  public void testNewActivitiErrorEventImpl() {
     // Arrange and Act
     ActivitiErrorEventImpl actualActivitiErrorEventImpl = new ActivitiErrorEventImpl(ActivitiEventType.ENTITY_CREATED);
 
@@ -52,34 +66,5 @@ public class ActivitiErrorEventImplDiffblueTest {
     assertNull(actualActivitiErrorEventImpl.getProcessInstanceId());
     assertNull(actualActivitiErrorEventImpl.getReason());
     assertEquals(ActivitiEventType.ENTITY_CREATED, actualActivitiErrorEventImpl.getType());
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link ActivitiErrorEventImpl#setErrorCode(String)}
-   *   <li>{@link ActivitiErrorEventImpl#setErrorId(String)}
-   *   <li>{@link ActivitiErrorEventImpl#getErrorCode()}
-   *   <li>{@link ActivitiErrorEventImpl#getErrorId()}
-   * </ul>
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String ActivitiErrorEventImpl.getErrorCode()", "String ActivitiErrorEventImpl.getErrorId()",
-      "void ActivitiErrorEventImpl.setErrorCode(String)", "void ActivitiErrorEventImpl.setErrorId(String)"})
-  public void testGettersAndSetters() {
-    // Arrange
-    ActivitiErrorEventImpl activitiErrorEventImpl = new ActivitiErrorEventImpl(ActivitiEventType.ENTITY_CREATED);
-
-    // Act
-    activitiErrorEventImpl.setErrorCode("An error occurred");
-    activitiErrorEventImpl.setErrorId("An error occurred");
-    String actualErrorCode = activitiErrorEventImpl.getErrorCode();
-
-    // Assert
-    assertEquals("An error occurred", actualErrorCode);
-    assertEquals("An error occurred", activitiErrorEventImpl.getErrorId());
   }
 }

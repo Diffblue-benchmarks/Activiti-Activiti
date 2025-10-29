@@ -17,24 +17,49 @@ package org.activiti.api.process.model.payloads;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import java.util.function.BiFunction;
 import org.junit.jupiter.api.Test;
 
 class StartProcessPayloadDiffblueTest {
   /**
-   * Test {@link StartProcessPayload#StartProcessPayload()}.
-   * <p>
+   * Methods under test:
+   * <ul>
+   *   <li>{@link StartProcessPayload#setName(String)}
+   *   <li>{@link StartProcessPayload#getBusinessKey()}
+   *   <li>{@link StartProcessPayload#getId()}
+   *   <li>{@link StartProcessPayload#getName()}
+   *   <li>{@link StartProcessPayload#getProcessDefinitionId()}
+   *   <li>{@link StartProcessPayload#getProcessDefinitionKey()}
+   *   <li>{@link StartProcessPayload#getVariables()}
+   * </ul>
+   */
+  @Test
+  void testGettersAndSetters() {
+    // Arrange
+    StartProcessPayload startProcessPayload = new StartProcessPayload();
+
+    // Act
+    startProcessPayload.setName("Name");
+    startProcessPayload.getBusinessKey();
+    startProcessPayload.getId();
+    String actualName = startProcessPayload.getName();
+    startProcessPayload.getProcessDefinitionId();
+    startProcessPayload.getProcessDefinitionKey();
+
+    // Assert that nothing has changed
+    assertEquals("Name", actualName);
+    assertTrue(startProcessPayload.getVariables().isEmpty());
+  }
+
+  /**
    * Method under test: {@link StartProcessPayload#StartProcessPayload()}
    */
   @Test
-  @DisplayName("Test new StartProcessPayload()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void StartProcessPayload.<init>()"})
   void testNewStartProcessPayload() {
     // Arrange and Act
     StartProcessPayload actualStartProcessPayload = new StartProcessPayload();
@@ -48,65 +73,49 @@ class StartProcessPayloadDiffblueTest {
   }
 
   /**
-   * Test {@link StartProcessPayload#StartProcessPayload(String, String, String, String, Map)}.
-   * <p>
-   * Method under test: {@link StartProcessPayload#StartProcessPayload(String, String, String, String, Map)}
+   * Method under test:
+   * {@link StartProcessPayload#StartProcessPayload(String, String, String, String, Map)}
    */
   @Test
-  @DisplayName("Test new StartProcessPayload(String, String, String, String, Map)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void StartProcessPayload.<init>(String, String, String, String, Map)"})
   void testNewStartProcessPayload2() {
-    // Arrange and Act
+    // Arrange
+    HashMap<String, Object> variables = new HashMap<>();
+
+    // Act
     StartProcessPayload actualStartProcessPayload = new StartProcessPayload("42", "Process Definition Key", "Name",
-        "Business Key", new HashMap<>());
+        "Business Key", variables);
 
     // Assert
     assertEquals("42", actualStartProcessPayload.getProcessDefinitionId());
     assertEquals("Business Key", actualStartProcessPayload.getBusinessKey());
     assertEquals("Name", actualStartProcessPayload.getName());
     assertEquals("Process Definition Key", actualStartProcessPayload.getProcessDefinitionKey());
-    assertTrue(actualStartProcessPayload.getVariables().isEmpty());
+    Map<String, Object> variables2 = actualStartProcessPayload.getVariables();
+    assertTrue(variables2.isEmpty());
+    assertSame(variables, variables2);
   }
 
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link StartProcessPayload#setName(String)}
-   *   <li>{@link StartProcessPayload#getBusinessKey()}
-   *   <li>{@link StartProcessPayload#getId()}
-   *   <li>{@link StartProcessPayload#getName()}
-   *   <li>{@link StartProcessPayload#getProcessDefinitionId()}
-   *   <li>{@link StartProcessPayload#getProcessDefinitionKey()}
-   *   <li>{@link StartProcessPayload#getVariables()}
-   * </ul>
+   * Method under test:
+   * {@link StartProcessPayload#StartProcessPayload(String, String, String, String, Map)}
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String StartProcessPayload.getBusinessKey()", "String StartProcessPayload.getId()",
-      "String StartProcessPayload.getName()", "String StartProcessPayload.getProcessDefinitionId()",
-      "String StartProcessPayload.getProcessDefinitionKey()", "Map StartProcessPayload.getVariables()",
-      "void StartProcessPayload.setName(String)"})
-  void testGettersAndSetters() {
+  void testNewStartProcessPayload3() {
     // Arrange
-    StartProcessPayload startProcessPayload = new StartProcessPayload();
+    HashMap<String, Object> variables = new HashMap<>();
+    variables.computeIfPresent("foo", mock(BiFunction.class));
 
     // Act
-    startProcessPayload.setName("Name");
-    String actualBusinessKey = startProcessPayload.getBusinessKey();
-    startProcessPayload.getId();
-    String actualName = startProcessPayload.getName();
-    String actualProcessDefinitionId = startProcessPayload.getProcessDefinitionId();
-    String actualProcessDefinitionKey = startProcessPayload.getProcessDefinitionKey();
+    StartProcessPayload actualStartProcessPayload = new StartProcessPayload("42", "Process Definition Key", "Name",
+        "Business Key", variables);
 
     // Assert
-    assertEquals("Name", actualName);
-    assertNull(actualBusinessKey);
-    assertNull(actualProcessDefinitionId);
-    assertNull(actualProcessDefinitionKey);
-    assertTrue(startProcessPayload.getVariables().isEmpty());
+    assertEquals("42", actualStartProcessPayload.getProcessDefinitionId());
+    assertEquals("Business Key", actualStartProcessPayload.getBusinessKey());
+    assertEquals("Name", actualStartProcessPayload.getName());
+    assertEquals("Process Definition Key", actualStartProcessPayload.getProcessDefinitionKey());
+    Map<String, Object> variables2 = actualStartProcessPayload.getVariables();
+    assertTrue(variables2.isEmpty());
+    assertSame(variables, variables2);
   }
 }

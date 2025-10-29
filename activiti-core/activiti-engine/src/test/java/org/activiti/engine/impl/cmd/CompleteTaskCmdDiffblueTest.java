@@ -18,20 +18,12 @@ package org.activiti.engine.impl.cmd;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class CompleteTaskCmdDiffblueTest {
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@link HashMap#HashMap()}.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link CompleteTaskCmd#CompleteTaskCmd(String, Map)}
@@ -40,11 +32,7 @@ public class CompleteTaskCmdDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CompleteTaskCmd.<init>(String, Map)", "void CompleteTaskCmd.<init>(String, Map, Map)",
-      "void CompleteTaskCmd.<init>(String, Map, boolean)", "String CompleteTaskCmd.getSuspendedTaskException()",
-      "Map CompleteTaskCmd.getTaskVariables()"})
-  public void testGettersAndSetters_whenHashMap() {
+  public void testGettersAndSetters() {
     // Arrange and Act
     CompleteTaskCmd actualCompleteTaskCmd = new CompleteTaskCmd("42", new HashMap<>());
     String actualSuspendedTaskException = actualCompleteTaskCmd.getSuspendedTaskException();
@@ -56,12 +44,6 @@ public class CompleteTaskCmdDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@link HashMap#HashMap()}.</li>
-   *   <li>Then return {@link CompleteTaskCmd#transientVariables} Empty.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link CompleteTaskCmd#CompleteTaskCmd(String, Map, Map)}
@@ -70,11 +52,7 @@ public class CompleteTaskCmdDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CompleteTaskCmd.<init>(String, Map)", "void CompleteTaskCmd.<init>(String, Map, Map)",
-      "void CompleteTaskCmd.<init>(String, Map, boolean)", "String CompleteTaskCmd.getSuspendedTaskException()",
-      "Map CompleteTaskCmd.getTaskVariables()"})
-  public void testGettersAndSetters_whenHashMap_thenReturnTransientVariablesEmpty() {
+  public void testGettersAndSetters2() {
     // Arrange
     HashMap<String, Object> variables = new HashMap<>();
 
@@ -90,11 +68,6 @@ public class CompleteTaskCmdDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@code true}.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link CompleteTaskCmd#CompleteTaskCmd(String, Map, boolean)}
@@ -103,11 +76,7 @@ public class CompleteTaskCmdDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CompleteTaskCmd.<init>(String, Map)", "void CompleteTaskCmd.<init>(String, Map, Map)",
-      "void CompleteTaskCmd.<init>(String, Map, boolean)", "String CompleteTaskCmd.getSuspendedTaskException()",
-      "Map CompleteTaskCmd.getTaskVariables()"})
-  public void testGettersAndSetters_whenTrue() {
+  public void testGettersAndSetters3() {
     // Arrange and Act
     CompleteTaskCmd actualCompleteTaskCmd = new CompleteTaskCmd("42", new HashMap<>(), true);
     String actualSuspendedTaskException = actualCompleteTaskCmd.getSuspendedTaskException();

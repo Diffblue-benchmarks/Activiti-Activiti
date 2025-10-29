@@ -17,48 +17,43 @@ package org.activiti.engine.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class TaskQueryPropertyDiffblueTest {
-  /**
-   * Test {@link TaskQueryProperty#TaskQueryProperty(String)}.
-   * <p>
-   * Method under test: {@link TaskQueryProperty#TaskQueryProperty(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void TaskQueryProperty.<init>(String)"})
-  public void testNewTaskQueryProperty() {
-    // Arrange, Act and Assert
-    assertEquals("Name", (new TaskQueryProperty("Name")).getName());
-  }
+  @InjectMocks
+  private String string;
+
+  @InjectMocks
+  private TaskQueryProperty taskQueryProperty;
 
   /**
-   * Test {@link TaskQueryProperty#getName()}.
-   * <p>
    * Method under test: {@link TaskQueryProperty#getName()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String TaskQueryProperty.getName()"})
   public void testGetName() {
     // Arrange, Act and Assert
     assertEquals("Name", (new TaskQueryProperty("Name")).getName());
   }
 
   /**
-   * Test {@link TaskQueryProperty#findByName(String)}.
-   * <p>
    * Method under test: {@link TaskQueryProperty#findByName(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"TaskQueryProperty TaskQueryProperty.findByName(String)"})
   public void testFindByName() {
     // Arrange, Act and Assert
     assertNull(TaskQueryProperty.findByName("Property Name"));
+  }
+
+  /**
+   * Method under test: {@link TaskQueryProperty#TaskQueryProperty(String)}
+   */
+  @Test
+  public void testNewTaskQueryProperty() {
+    // Arrange, Act and Assert
+    assertEquals("Name", (new TaskQueryProperty("Name")).getName());
   }
 }

@@ -21,7 +21,6 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import org.activiti.api.task.model.Task;
 import org.activiti.api.task.model.payloads.ClaimTaskPayload;
@@ -30,25 +29,17 @@ import org.activiti.test.EventSource;
 import org.activiti.test.assertions.AwaitTaskAssertions;
 import org.activiti.test.assertions.TaskAssertions;
 import org.activiti.test.assertions.TaskAssertionsImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class AwaitableTaskOperationsDiffblueTest {
   /**
-   * Test {@link AwaitableTaskOperations#claim(ClaimTaskPayload)}.
-   * <ul>
-   *   <li>Given {@link AwaitableTaskOperations#AwaitableTaskOperations(TaskOperations, boolean)} with {@link TaskOperations} and awaitEnabled is {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AwaitableTaskOperations#claim(ClaimTaskPayload)}
    */
   @Test
-  @DisplayName("Test claim(ClaimTaskPayload); given AwaitableTaskOperations(TaskOperations, boolean) with TaskOperations and awaitEnabled is 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TaskAssertions AwaitableTaskOperations.claim(ClaimTaskPayload)"})
-  void testClaim_givenAwaitableTaskOperationsWithTaskOperationsAndAwaitEnabledIsTrue() {
+  void testClaim() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+
     // Arrange
     TaskOperations taskOperations = mock(TaskOperations.class);
     Task task = mock(Task.class);
@@ -65,18 +56,12 @@ class AwaitableTaskOperationsDiffblueTest {
   }
 
   /**
-   * Test {@link AwaitableTaskOperations#claim(ClaimTaskPayload)}.
-   * <ul>
-   *   <li>Then return {@link AwaitTaskAssertions#AwaitTaskAssertions(TaskAssertions)} with taskAssertions is {@link TaskAssertionsImpl#TaskAssertionsImpl(Task, List, EventSource)}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AwaitableTaskOperations#claim(ClaimTaskPayload)}
    */
   @Test
-  @DisplayName("Test claim(ClaimTaskPayload); then return AwaitTaskAssertions(TaskAssertions) with taskAssertions is TaskAssertionsImpl(Task, List, EventSource)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TaskAssertions AwaitableTaskOperations.claim(ClaimTaskPayload)"})
-  void testClaim_thenReturnAwaitTaskAssertionsWithTaskAssertionsIsTaskAssertionsImpl() {
+  void testClaim2() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+
     // Arrange
     TaskOperations taskOperations = mock(TaskOperations.class);
     Task task = mock(Task.class);
@@ -95,18 +80,13 @@ class AwaitableTaskOperationsDiffblueTest {
   }
 
   /**
-   * Test {@link AwaitableTaskOperations#complete(CompleteTaskPayload)}.
-   * <ul>
-   *   <li>Given {@link AwaitableTaskOperations#AwaitableTaskOperations(TaskOperations, boolean)} with {@link TaskOperations} and awaitEnabled is {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AwaitableTaskOperations#complete(CompleteTaskPayload)}
+   * Method under test:
+   * {@link AwaitableTaskOperations#complete(CompleteTaskPayload)}
    */
   @Test
-  @DisplayName("Test complete(CompleteTaskPayload); given AwaitableTaskOperations(TaskOperations, boolean) with TaskOperations and awaitEnabled is 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TaskAssertions AwaitableTaskOperations.complete(CompleteTaskPayload)"})
-  void testComplete_givenAwaitableTaskOperationsWithTaskOperationsAndAwaitEnabledIsTrue() {
+  void testComplete() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+
     // Arrange
     TaskOperations taskOperations = mock(TaskOperations.class);
     Task task = mock(Task.class);
@@ -123,18 +103,13 @@ class AwaitableTaskOperationsDiffblueTest {
   }
 
   /**
-   * Test {@link AwaitableTaskOperations#complete(CompleteTaskPayload)}.
-   * <ul>
-   *   <li>Then return {@link AwaitTaskAssertions#AwaitTaskAssertions(TaskAssertions)} with taskAssertions is {@link TaskAssertionsImpl#TaskAssertionsImpl(Task, List, EventSource)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AwaitableTaskOperations#complete(CompleteTaskPayload)}
+   * Method under test:
+   * {@link AwaitableTaskOperations#complete(CompleteTaskPayload)}
    */
   @Test
-  @DisplayName("Test complete(CompleteTaskPayload); then return AwaitTaskAssertions(TaskAssertions) with taskAssertions is TaskAssertionsImpl(Task, List, EventSource)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TaskAssertions AwaitableTaskOperations.complete(CompleteTaskPayload)"})
-  void testComplete_thenReturnAwaitTaskAssertionsWithTaskAssertionsIsTaskAssertionsImpl() {
+  void testComplete2() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+
     // Arrange
     TaskOperations taskOperations = mock(TaskOperations.class);
     Task task = mock(Task.class);

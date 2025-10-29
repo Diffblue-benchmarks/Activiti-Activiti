@@ -18,181 +18,120 @@ package org.activiti.engine.test.profiler;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiFunction;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class CommandStatsDiffblueTest {
   /**
-   * Test {@link CommandStats#CommandStats(List)}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is one.</li>
-   *   <li>Then return DbInserts size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CommandStats#CommandStats(List)}
+   * Method under test: {@link CommandStats#addToDbOperation(Map, Map)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CommandStats.<init>(List)"})
-  public void testNewCommandStats_givenHashMapFooIsOne_thenReturnDbInsertsSizeIsOne() {
+  public void testAddToDbOperation() {
     // Arrange
-    HashMap<String, Long> dbInserts = new HashMap<>();
-    dbInserts.put("foo", 1L);
-
-    CommandExecutionResult commandExecutionResult = new CommandExecutionResult();
-    commandExecutionResult.setDbInserts(dbInserts);
-    commandExecutionResult.setDbSelects(new HashMap<>());
-    commandExecutionResult.setDbUpdates(new HashMap<>());
-    commandExecutionResult.setDbDeletes(new HashMap<>());
-
-    ArrayList<CommandExecutionResult> executions = new ArrayList<>();
-    executions.add(commandExecutionResult);
+    CommandStats commandStats = new CommandStats(new ArrayList<>());
+    HashMap<String, Long> executionMap = new HashMap<>();
 
     // Act
-    CommandStats actualCommandStats = new CommandStats(executions);
+    commandStats.addToDbOperation(executionMap, new HashMap<>());
 
-    // Assert
-    assertEquals(1, actualCommandStats.commandExecutionTimings.size());
-    assertEquals(1, actualCommandStats.databaseTimings.size());
-    Map<String, Long> dbInserts2 = actualCommandStats.getDbInserts();
-    assertEquals(1, dbInserts2.size());
-    assertEquals(1L, dbInserts2.get("foo").longValue());
-    assertEquals(1L, actualCommandStats.getCount());
+    // Assert that nothing has changed
+    assertTrue(commandStats.getDbInserts().isEmpty());
+    assertTrue(commandStats.getDbSelects().isEmpty());
+    assertTrue(commandStats.getDbUpdates().isEmpty());
   }
 
   /**
-   * Test {@link CommandStats#CommandStats(List)}.
-   * <ul>
-   *   <li>Then return {@link CommandStats#commandExecutionTimings} first longValue is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CommandStats#CommandStats(List)}
+   * Method under test: {@link CommandStats#addToDbOperation(Map, Map)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CommandStats.<init>(List)"})
-  public void testNewCommandStats_thenReturnCommandExecutionTimingsFirstLongValueIsZero() {
+  public void testAddToDbOperation2() {
     // Arrange
-    CommandExecutionResult commandExecutionResult = new CommandExecutionResult();
-    commandExecutionResult.setDbInserts(new HashMap<>());
-    commandExecutionResult.setDbSelects(new HashMap<>());
-    commandExecutionResult.setDbUpdates(new HashMap<>());
-    commandExecutionResult.setDbDeletes(new HashMap<>());
+    CommandStats commandStats = new CommandStats(new ArrayList<>());
 
-    ArrayList<CommandExecutionResult> executions = new ArrayList<>();
-    executions.add(commandExecutionResult);
+    HashMap<String, Long> executionMap = new HashMap<>();
+    executionMap.put("foo", 1L);
 
     // Act
-    CommandStats actualCommandStats = new CommandStats(executions);
+    commandStats.addToDbOperation(executionMap, new HashMap<>());
 
     // Assert
-    List<Long> resultLongList = actualCommandStats.commandExecutionTimings;
-    assertEquals(1, resultLongList.size());
-    assertEquals(0L, resultLongList.get(0).longValue());
-    List<Long> resultLongList2 = actualCommandStats.databaseTimings;
-    assertEquals(1, resultLongList2.size());
-    assertEquals(0L, resultLongList2.get(0).longValue());
-    assertEquals(1L, actualCommandStats.getCount());
-    assertTrue(actualCommandStats.getDbInserts().isEmpty());
+    assertTrue(commandStats.getDbInserts().isEmpty());
+    assertTrue(commandStats.getDbSelects().isEmpty());
+    assertTrue(commandStats.getDbUpdates().isEmpty());
   }
 
   /**
-   * Test {@link CommandStats#CommandStats(List)}.
-   * <ul>
-   *   <li>Then return {@link CommandStats#commandExecutionTimings} size is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CommandStats#CommandStats(List)}
+   * Method under test: {@link CommandStats#addToDbOperation(Map, Map)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CommandStats.<init>(List)"})
-  public void testNewCommandStats_thenReturnCommandExecutionTimingsSizeIsTwo() {
+  public void testAddToDbOperation3() {
     // Arrange
-    ArrayList<CommandExecutionResult> executions = new ArrayList<>();
-    executions.add(new CommandExecutionResult());
-    executions.add(new CommandExecutionResult());
+    CommandStats commandStats = new CommandStats(new ArrayList<>());
+
+    HashMap<String, Long> executionMap = new HashMap<>();
+    executionMap.computeIfPresent("foo", mock(BiFunction.class));
+    executionMap.put("foo", 1L);
 
     // Act
-    CommandStats actualCommandStats = new CommandStats(executions);
+    commandStats.addToDbOperation(executionMap, new HashMap<>());
 
     // Assert
-    List<Long> resultLongList = actualCommandStats.commandExecutionTimings;
-    assertEquals(2, resultLongList.size());
-    assertEquals(0L, resultLongList.get(1).longValue());
-    List<Long> resultLongList2 = actualCommandStats.databaseTimings;
-    assertEquals(2, resultLongList2.size());
-    assertEquals(0L, resultLongList2.get(1).longValue());
-    assertEquals(2L, actualCommandStats.getCount());
+    assertTrue(commandStats.getDbInserts().isEmpty());
+    assertTrue(commandStats.getDbSelects().isEmpty());
+    assertTrue(commandStats.getDbUpdates().isEmpty());
   }
 
   /**
-   * Test {@link CommandStats#CommandStats(List)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return Count is zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CommandStats#CommandStats(List)}
+   * Method under test: {@link CommandStats#addToDbOperation(Map, Map)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CommandStats.<init>(List)"})
-  public void testNewCommandStats_whenArrayList_thenReturnCountIsZero() {
-    // Arrange and Act
-    CommandStats actualCommandStats = new CommandStats(new ArrayList<>());
+  public void testAddToDbOperation4() {
+    // Arrange
+    CommandStats commandStats = new CommandStats(new ArrayList<>());
+
+    HashMap<String, Long> executionMap = new HashMap<>();
+    executionMap.put("foo", 1L);
+
+    HashMap<String, Long> globalMap = new HashMap<>();
+    globalMap.put("foo", 0L);
+
+    // Act
+    commandStats.addToDbOperation(executionMap, globalMap);
 
     // Assert
-    assertEquals(0L, actualCommandStats.getCount());
-    assertTrue(actualCommandStats.commandExecutionTimings.isEmpty());
-    assertTrue(actualCommandStats.databaseTimings.isEmpty());
-    assertTrue(actualCommandStats.getDbInserts().isEmpty());
+    assertTrue(commandStats.getDbInserts().isEmpty());
+    assertTrue(commandStats.getDbSelects().isEmpty());
+    assertTrue(commandStats.getDbUpdates().isEmpty());
   }
 
   /**
-   * Test {@link CommandStats#getCount()}.
-   * <p>
    * Method under test: {@link CommandStats#getCount()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"long CommandStats.getCount()"})
   public void testGetCount() {
     // Arrange, Act and Assert
     assertEquals(0L, (new CommandStats(new ArrayList<>())).getCount());
   }
 
   /**
-   * Test {@link CommandStats#getAverageExecutionTime()}.
-   * <p>
    * Method under test: {@link CommandStats#getAverageExecutionTime()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"double CommandStats.getAverageExecutionTime()"})
   public void testGetAverageExecutionTime() {
     // Arrange, Act and Assert
     assertEquals(0.0d, (new CommandStats(new ArrayList<>())).getAverageExecutionTime(), 0.0);
   }
 
   /**
-   * Test {@link CommandStats#getAverageExecutionTime()}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link CommandExecutionResult} (default constructor).</li>
-   * </ul>
-   * <p>
    * Method under test: {@link CommandStats#getAverageExecutionTime()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"double CommandStats.getAverageExecutionTime()"})
-  public void testGetAverageExecutionTime_givenArrayListAddCommandExecutionResult() {
+  public void testGetAverageExecutionTime2() {
     // Arrange
     ArrayList<CommandExecutionResult> executions = new ArrayList<>();
     executions.add(new CommandExecutionResult());
@@ -202,26 +141,20 @@ public class CommandStatsDiffblueTest {
   }
 
   /**
-   * Test {@link CommandStats#getAverageDatabaseExecutionTimePercentage()}.
-   * <p>
-   * Method under test: {@link CommandStats#getAverageDatabaseExecutionTimePercentage()}
+   * Method under test:
+   * {@link CommandStats#getAverageDatabaseExecutionTimePercentage()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"double CommandStats.getAverageDatabaseExecutionTimePercentage()"})
   public void testGetAverageDatabaseExecutionTimePercentage() {
     // Arrange, Act and Assert
     assertEquals(0.0d, (new CommandStats(new ArrayList<>())).getAverageDatabaseExecutionTimePercentage(), 0.0);
   }
 
   /**
-   * Test {@link CommandStats#getAverageDatabaseExecutionTimePercentage()}.
-   * <p>
-   * Method under test: {@link CommandStats#getAverageDatabaseExecutionTimePercentage()}
+   * Method under test:
+   * {@link CommandStats#getAverageDatabaseExecutionTimePercentage()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"double CommandStats.getAverageDatabaseExecutionTimePercentage()"})
   public void testGetAverageDatabaseExecutionTimePercentage2() {
     // Arrange
     ArrayList<CommandExecutionResult> executions = new ArrayList<>();
@@ -232,30 +165,19 @@ public class CommandStatsDiffblueTest {
   }
 
   /**
-   * Test {@link CommandStats#getAverageDatabaseExecutionTime()}.
-   * <p>
    * Method under test: {@link CommandStats#getAverageDatabaseExecutionTime()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"double CommandStats.getAverageDatabaseExecutionTime()"})
   public void testGetAverageDatabaseExecutionTime() {
     // Arrange, Act and Assert
     assertEquals(0.0d, (new CommandStats(new ArrayList<>())).getAverageDatabaseExecutionTime(), 0.0);
   }
 
   /**
-   * Test {@link CommandStats#getAverageDatabaseExecutionTime()}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link CommandExecutionResult} (default constructor).</li>
-   * </ul>
-   * <p>
    * Method under test: {@link CommandStats#getAverageDatabaseExecutionTime()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"double CommandStats.getAverageDatabaseExecutionTime()"})
-  public void testGetAverageDatabaseExecutionTime_givenArrayListAddCommandExecutionResult() {
+  public void testGetAverageDatabaseExecutionTime2() {
     // Arrange
     ArrayList<CommandExecutionResult> executions = new ArrayList<>();
     executions.add(new CommandExecutionResult());
@@ -265,8 +187,6 @@ public class CommandStatsDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link CommandStats#setDbDeletes(Map)}
@@ -281,12 +201,6 @@ public class CommandStatsDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Map CommandStats.getDbDeletes()", "Map CommandStats.getDbInserts()",
-      "Map CommandStats.getDbSelects()", "Map CommandStats.getDbUpdates()",
-      "long CommandStats.getGetTotalCommandTime()", "void CommandStats.setDbDeletes(Map)",
-      "void CommandStats.setDbInserts(Map)", "void CommandStats.setDbSelects(Map)",
-      "void CommandStats.setDbUpdates(Map)"})
   public void testGettersAndSetters() {
     // Arrange
     CommandStats commandStats = new CommandStats(new ArrayList<>());
@@ -305,7 +219,7 @@ public class CommandStatsDiffblueTest {
     Map<String, Long> actualDbSelects = commandStats.getDbSelects();
     Map<String, Long> actualDbUpdates = commandStats.getDbUpdates();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals(0L, commandStats.getGetTotalCommandTime());
     assertTrue(actualDbDeletes.isEmpty());
     assertTrue(actualDbInserts.isEmpty());
@@ -315,5 +229,176 @@ public class CommandStatsDiffblueTest {
     assertSame(dbInserts, actualDbInserts);
     assertSame(dbSelects, actualDbSelects);
     assertSame(dbUpdates, actualDbUpdates);
+  }
+
+  /**
+   * Method under test: {@link CommandStats#CommandStats(List)}
+   */
+  @Test
+  public void testNewCommandStats() {
+    // Arrange and Act
+    CommandStats actualCommandStats = new CommandStats(new ArrayList<>());
+
+    // Assert
+    assertEquals(0.0d, actualCommandStats.getAverageDatabaseExecutionTime(), 0.0);
+    assertEquals(0.0d, actualCommandStats.getAverageDatabaseExecutionTimePercentage(), 0.0);
+    assertEquals(0.0d, actualCommandStats.getAverageExecutionTime(), 0.0);
+    assertEquals(0L, actualCommandStats.getCount());
+    assertEquals(0L, actualCommandStats.getGetTotalCommandTime());
+    assertTrue(actualCommandStats.commandExecutionTimings.isEmpty());
+    assertTrue(actualCommandStats.databaseTimings.isEmpty());
+    assertTrue(actualCommandStats.getDbDeletes().isEmpty());
+    assertTrue(actualCommandStats.getDbInserts().isEmpty());
+    assertTrue(actualCommandStats.getDbSelects().isEmpty());
+    assertTrue(actualCommandStats.getDbUpdates().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link CommandStats#CommandStats(List)}
+   */
+  @Test
+  public void testNewCommandStats2() {
+    // Arrange
+    CommandExecutionResult commandExecutionResult = new CommandExecutionResult();
+    commandExecutionResult.setDbInserts(new HashMap<>());
+    commandExecutionResult.setDbSelects(new HashMap<>());
+    commandExecutionResult.setDbUpdates(new HashMap<>());
+    commandExecutionResult.setDbDeletes(new HashMap<>());
+
+    ArrayList<CommandExecutionResult> executions = new ArrayList<>();
+    executions.add(commandExecutionResult);
+
+    // Act
+    CommandStats actualCommandStats = new CommandStats(executions);
+
+    // Assert
+    assertEquals(0.0d, actualCommandStats.getAverageDatabaseExecutionTime(), 0.0);
+    assertEquals(0.0d, actualCommandStats.getAverageDatabaseExecutionTimePercentage(), 0.0);
+    assertEquals(0.0d, actualCommandStats.getAverageExecutionTime(), 0.0);
+    List<Long> resultLongList = actualCommandStats.commandExecutionTimings;
+    assertEquals(1, resultLongList.size());
+    assertEquals(0L, resultLongList.get(0).longValue());
+    List<Long> resultLongList2 = actualCommandStats.databaseTimings;
+    assertEquals(1, resultLongList2.size());
+    assertEquals(0L, resultLongList2.get(0).longValue());
+    assertEquals(0L, actualCommandStats.getGetTotalCommandTime());
+    assertEquals(1L, actualCommandStats.getCount());
+    assertTrue(actualCommandStats.getDbDeletes().isEmpty());
+    assertTrue(actualCommandStats.getDbInserts().isEmpty());
+    assertTrue(actualCommandStats.getDbSelects().isEmpty());
+    assertTrue(actualCommandStats.getDbUpdates().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link CommandStats#CommandStats(List)}
+   */
+  @Test
+  public void testNewCommandStats3() {
+    // Arrange
+    HashMap<String, Long> dbInserts = new HashMap<>();
+    dbInserts.put("foo", 1L);
+
+    CommandExecutionResult commandExecutionResult = new CommandExecutionResult();
+    commandExecutionResult.setDbInserts(dbInserts);
+    commandExecutionResult.setDbSelects(new HashMap<>());
+    commandExecutionResult.setDbUpdates(new HashMap<>());
+    commandExecutionResult.setDbDeletes(new HashMap<>());
+
+    ArrayList<CommandExecutionResult> executions = new ArrayList<>();
+    executions.add(commandExecutionResult);
+
+    // Act
+    CommandStats actualCommandStats = new CommandStats(executions);
+
+    // Assert
+    assertEquals(0.0d, actualCommandStats.getAverageDatabaseExecutionTime(), 0.0);
+    assertEquals(0.0d, actualCommandStats.getAverageDatabaseExecutionTimePercentage(), 0.0);
+    assertEquals(0.0d, actualCommandStats.getAverageExecutionTime(), 0.0);
+    List<Long> resultLongList = actualCommandStats.commandExecutionTimings;
+    assertEquals(1, resultLongList.size());
+    assertEquals(0L, resultLongList.get(0).longValue());
+    List<Long> resultLongList2 = actualCommandStats.databaseTimings;
+    assertEquals(1, resultLongList2.size());
+    assertEquals(0L, resultLongList2.get(0).longValue());
+    assertEquals(0L, actualCommandStats.getGetTotalCommandTime());
+    Map<String, Long> dbInserts2 = actualCommandStats.getDbInserts();
+    assertEquals(1, dbInserts2.size());
+    assertEquals(1L, dbInserts2.get("foo").longValue());
+    assertEquals(1L, actualCommandStats.getCount());
+    assertTrue(actualCommandStats.getDbDeletes().isEmpty());
+    assertTrue(actualCommandStats.getDbSelects().isEmpty());
+    assertTrue(actualCommandStats.getDbUpdates().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link CommandStats#CommandStats(List)}
+   */
+  @Test
+  public void testNewCommandStats4() {
+    // Arrange
+    HashMap<String, Long> dbInserts = new HashMap<>();
+    dbInserts.computeIfPresent("foo", mock(BiFunction.class));
+    dbInserts.put("foo", 1L);
+
+    CommandExecutionResult commandExecutionResult = new CommandExecutionResult();
+    commandExecutionResult.setDbInserts(dbInserts);
+    commandExecutionResult.setDbSelects(new HashMap<>());
+    commandExecutionResult.setDbUpdates(new HashMap<>());
+    commandExecutionResult.setDbDeletes(new HashMap<>());
+
+    ArrayList<CommandExecutionResult> executions = new ArrayList<>();
+    executions.add(commandExecutionResult);
+
+    // Act
+    CommandStats actualCommandStats = new CommandStats(executions);
+
+    // Assert
+    assertEquals(0.0d, actualCommandStats.getAverageDatabaseExecutionTime(), 0.0);
+    assertEquals(0.0d, actualCommandStats.getAverageDatabaseExecutionTimePercentage(), 0.0);
+    assertEquals(0.0d, actualCommandStats.getAverageExecutionTime(), 0.0);
+    List<Long> resultLongList = actualCommandStats.commandExecutionTimings;
+    assertEquals(1, resultLongList.size());
+    assertEquals(0L, resultLongList.get(0).longValue());
+    List<Long> resultLongList2 = actualCommandStats.databaseTimings;
+    assertEquals(1, resultLongList2.size());
+    assertEquals(0L, resultLongList2.get(0).longValue());
+    assertEquals(0L, actualCommandStats.getGetTotalCommandTime());
+    Map<String, Long> dbInserts2 = actualCommandStats.getDbInserts();
+    assertEquals(1, dbInserts2.size());
+    assertEquals(1L, dbInserts2.get("foo").longValue());
+    assertEquals(1L, actualCommandStats.getCount());
+    assertTrue(actualCommandStats.getDbDeletes().isEmpty());
+    assertTrue(actualCommandStats.getDbSelects().isEmpty());
+    assertTrue(actualCommandStats.getDbUpdates().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link CommandStats#CommandStats(List)}
+   */
+  @Test
+  public void testNewCommandStats5() {
+    // Arrange
+    ArrayList<CommandExecutionResult> executions = new ArrayList<>();
+    executions.add(new CommandExecutionResult());
+    executions.add(new CommandExecutionResult());
+
+    // Act
+    CommandStats actualCommandStats = new CommandStats(executions);
+
+    // Assert
+    assertEquals(0.0d, actualCommandStats.getAverageDatabaseExecutionTime(), 0.0);
+    assertEquals(0.0d, actualCommandStats.getAverageDatabaseExecutionTimePercentage(), 0.0);
+    assertEquals(0.0d, actualCommandStats.getAverageExecutionTime(), 0.0);
+    List<Long> resultLongList = actualCommandStats.commandExecutionTimings;
+    assertEquals(2, resultLongList.size());
+    assertEquals(0L, resultLongList.get(0).longValue());
+    assertEquals(0L, resultLongList.get(1).longValue());
+    assertEquals(0L, actualCommandStats.getGetTotalCommandTime());
+    assertEquals(2L, actualCommandStats.getCount());
+    assertTrue(actualCommandStats.getDbDeletes().isEmpty());
+    assertTrue(actualCommandStats.getDbInserts().isEmpty());
+    assertTrue(actualCommandStats.getDbSelects().isEmpty());
+    assertTrue(actualCommandStats.getDbUpdates().isEmpty());
+    assertEquals(actualCommandStats.commandExecutionTimings, actualCommandStats.databaseTimings);
   }
 }

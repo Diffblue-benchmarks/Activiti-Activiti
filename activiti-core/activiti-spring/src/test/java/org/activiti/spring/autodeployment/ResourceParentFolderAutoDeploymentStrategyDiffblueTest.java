@@ -16,31 +16,77 @@
 package org.activiti.spring.autodeployment;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import com.fasterxml.jackson.databind.json.JsonMapper;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.nio.file.Paths;
 import org.activiti.core.common.spring.project.ApplicationUpgradeContextService;
+import org.activiti.engine.RepositoryService;
+import org.activiti.engine.impl.RepositoryServiceImpl;
+import org.activiti.engine.impl.persistence.entity.DeploymentEntityImpl;
+import org.activiti.engine.impl.persistence.entity.ResourceEntityManagerImpl;
+import org.activiti.engine.impl.persistence.entity.data.impl.MybatisResourceDataManager;
+import org.activiti.engine.impl.repository.DeploymentBuilderImpl;
+import org.activiti.spring.SpringProcessEngineConfiguration;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.mockito.Mockito;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 
 public class ResourceParentFolderAutoDeploymentStrategyDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test:
+   * {@link ResourceParentFolderAutoDeploymentStrategy#deployResources(String, Resource[], RepositoryService)}
+   */
+  @Test
+  public void testDeployResources() throws IOException {
+    // Arrange
+    ObjectMapper objectMapper = new ObjectMapper();
+    ResourceParentFolderAutoDeploymentStrategy resourceParentFolderAutoDeploymentStrategy = new ResourceParentFolderAutoDeploymentStrategy(
+        new ApplicationUpgradeContextService("Path", 1, true, objectMapper, new AnnotationConfigApplicationContext()));
+    ByteArrayResource byteArrayResource = mock(ByteArrayResource.class);
+    when(byteArrayResource.getInputStream()).thenReturn(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
+    when(byteArrayResource.getFile()).thenReturn(Paths.get(System.getProperty("java.io.tmpdir"), "test.txt").toFile());
+    when(byteArrayResource.getDescription()).thenReturn("The characteristics of someone or something");
+    RepositoryServiceImpl repositoryService = mock(RepositoryServiceImpl.class);
+    when(repositoryService.deploy(Mockito.<DeploymentBuilderImpl>any())).thenReturn(new DeploymentEntityImpl());
+    DeploymentEntityImpl deployment = new DeploymentEntityImpl();
+    SpringProcessEngineConfiguration processEngineConfiguration = new SpringProcessEngineConfiguration();
+    RepositoryService repositoryService2 = mock(RepositoryService.class);
+    when(repositoryService2.createDeployment())
+        .thenReturn(new DeploymentBuilderImpl(repositoryService, deployment, new ResourceEntityManagerImpl(
+            processEngineConfiguration, new MybatisResourceDataManager(new SpringProcessEngineConfiguration()))));
+
+    // Act
+    resourceParentFolderAutoDeploymentStrategy.deployResources("Deployment Name Hint",
+        new Resource[]{byteArrayResource}, repositoryService2);
+
+    // Assert
+    verify(repositoryService2).createDeployment();
+    verify(repositoryService).deploy(isA(DeploymentBuilderImpl.class));
+    verify(byteArrayResource, atLeast(1)).getFile();
+    verify(byteArrayResource, atLeast(1)).getDescription();
+    verify(byteArrayResource).getInputStream();
+  }
+
+  /**
    * Methods under test:
    * <ul>
-   *   <li>{@link ResourceParentFolderAutoDeploymentStrategy#ResourceParentFolderAutoDeploymentStrategy(ApplicationUpgradeContextService)}
+   *   <li>
+   * {@link ResourceParentFolderAutoDeploymentStrategy#ResourceParentFolderAutoDeploymentStrategy(ApplicationUpgradeContextService)}
    *   <li>{@link ResourceParentFolderAutoDeploymentStrategy#getDeploymentMode()}
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ResourceParentFolderAutoDeploymentStrategy.<init>(ApplicationUpgradeContextService)",
-      "java.lang.String ResourceParentFolderAutoDeploymentStrategy.getDeploymentMode()"})
   public void testGettersAndSetters() {
     // Arrange
-    JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
+    ObjectMapper objectMapper = new ObjectMapper();
 
     // Act and Assert
     assertEquals(ResourceParentFolderAutoDeploymentStrategy.DEPLOYMENT_MODE,

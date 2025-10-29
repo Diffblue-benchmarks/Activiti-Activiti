@@ -16,13 +16,12 @@
 package org.activiti.runtime.api.event.impl;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import org.activiti.engine.delegate.event.ActivitiEntityEvent;
 import org.activiti.engine.delegate.event.impl.ActivitiProcessCancelledEventImpl;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.runtime.api.model.impl.APIProcessCandidateStarterGroupConverter;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,19 +41,27 @@ class ToAPIProcessCandidateStarterGroupRemovedEventConverterDiffblueTest {
   private ToAPIProcessCandidateStarterGroupRemovedEventConverter toAPIProcessCandidateStarterGroupRemovedEventConverter;
 
   /**
-   * Test {@link ToAPIProcessCandidateStarterGroupRemovedEventConverter#ToAPIProcessCandidateStarterGroupRemovedEventConverter(APIProcessCandidateStarterGroupConverter)}.
-   * <p>
-   * Method under test: {@link ToAPIProcessCandidateStarterGroupRemovedEventConverter#ToAPIProcessCandidateStarterGroupRemovedEventConverter(APIProcessCandidateStarterGroupConverter)}
+   * Method under test:
+   * {@link ToAPIProcessCandidateStarterGroupRemovedEventConverter#from(ActivitiEntityEvent)}
    */
   @Test
-  @DisplayName("Test new ToAPIProcessCandidateStarterGroupRemovedEventConverter(APIProcessCandidateStarterGroupConverter)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void ToAPIProcessCandidateStarterGroupRemovedEventConverter.<init>(APIProcessCandidateStarterGroupConverter)"})
+  void testFrom() {
+    // Arrange, Act and Assert
+    assertFalse(toAPIProcessCandidateStarterGroupRemovedEventConverter
+        .from(new ActivitiProcessCancelledEventImpl(ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
+        .isPresent());
+    assertFalse(toAPIProcessCandidateStarterGroupRemovedEventConverter
+        .from(new ActivitiProcessCancelledEventImpl(mock(ProcessInstance.class)))
+        .isPresent());
+  }
+
+  /**
+   * Method under test:
+   * {@link ToAPIProcessCandidateStarterGroupRemovedEventConverter#ToAPIProcessCandidateStarterGroupRemovedEventConverter(APIProcessCandidateStarterGroupConverter)}
+   */
+  @Test
   void testNewToAPIProcessCandidateStarterGroupRemovedEventConverter() {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
-    //   Run dcover create --keep-partial-tests to gain insights into why
-    //   a non-Spring test was created.
 
     // Arrange and Act
     ToAPIProcessCandidateStarterGroupRemovedEventConverter actualToAPIProcessCandidateStarterGroupRemovedEventConverter = new ToAPIProcessCandidateStarterGroupRemovedEventConverter(
@@ -67,21 +74,19 @@ class ToAPIProcessCandidateStarterGroupRemovedEventConverterDiffblueTest {
   }
 
   /**
-   * Test {@link ToAPIProcessCandidateStarterGroupRemovedEventConverter#from(ActivitiEntityEvent)} with {@code ActivitiEntityEvent}.
-   * <ul>
-   *   <li>Then return not Present.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ToAPIProcessCandidateStarterGroupRemovedEventConverter#from(ActivitiEntityEvent)}
+   * Method under test:
+   * {@link ToAPIProcessCandidateStarterGroupRemovedEventConverter#ToAPIProcessCandidateStarterGroupRemovedEventConverter(APIProcessCandidateStarterGroupConverter)}
    */
   @Test
-  @DisplayName("Test from(ActivitiEntityEvent) with 'ActivitiEntityEvent'; then return not Present")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "java.util.Optional ToAPIProcessCandidateStarterGroupRemovedEventConverter.from(ActivitiEntityEvent)"})
-  void testFromWithActivitiEntityEvent_thenReturnNotPresent() {
-    // Arrange, Act and Assert
-    assertFalse(toAPIProcessCandidateStarterGroupRemovedEventConverter
+  void testNewToAPIProcessCandidateStarterGroupRemovedEventConverter2() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+
+    // Arrange and Act
+    ToAPIProcessCandidateStarterGroupRemovedEventConverter actualToAPIProcessCandidateStarterGroupRemovedEventConverter = new ToAPIProcessCandidateStarterGroupRemovedEventConverter(
+        mock(APIProcessCandidateStarterGroupConverter.class));
+
+    // Assert
+    assertFalse(actualToAPIProcessCandidateStarterGroupRemovedEventConverter
         .from(new ActivitiProcessCancelledEventImpl(ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
         .isPresent());
   }

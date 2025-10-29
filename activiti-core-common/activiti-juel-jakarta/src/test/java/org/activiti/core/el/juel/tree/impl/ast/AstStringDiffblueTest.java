@@ -17,7 +17,6 @@ package org.activiti.core.el.juel.tree.impl.ast;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
 import jakarta.el.ValueExpression;
 import java.lang.reflect.Method;
@@ -25,38 +24,13 @@ import org.activiti.core.el.juel.ObjectValueExpression;
 import org.activiti.core.el.juel.misc.TypeConverter;
 import org.activiti.core.el.juel.tree.Bindings;
 import org.activiti.core.el.juel.util.SimpleContext;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class AstStringDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link AstString#AstString(String)}
-   *   <li>{@link AstString#toString()}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AstString.<init>(String)", "String AstString.toString()"})
-  void testGettersAndSetters() {
-    // Arrange, Act and Assert
-    assertEquals("\"42\"", (new AstString("42")).toString());
-  }
-
-  /**
-   * Test {@link AstString#eval(Bindings, ELContext)}.
-   * <p>
    * Method under test: {@link AstString#eval(Bindings, ELContext)}
    */
   @Test
-  @DisplayName("Test eval(Bindings, ELContext)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object AstString.eval(Bindings, ELContext)"})
   void testEval() {
     // Arrange
     AstString astString = new AstString("42");
@@ -70,18 +44,29 @@ class AstStringDiffblueTest {
   }
 
   /**
-   * Test {@link AstString#appendStructure(StringBuilder, Bindings)}.
-   * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foo'\''}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstString#appendStructure(StringBuilder, Bindings)}
    */
   @Test
-  @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foo'\\'''")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AstString.appendStructure(StringBuilder, Bindings)"})
-  void testAppendStructure_thenStringBuilderWithFooToStringIsFoo() {
+  void testAppendStructure() {
+    // Arrange
+    AstString astString = new AstString("42");
+    StringBuilder b = new StringBuilder("foo");
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+
+    // Act
+    astString.appendStructure(b,
+        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
+
+    // Assert
+    assertEquals("foo'42'", b.toString());
+  }
+
+  /**
+   * Method under test: {@link AstString#appendStructure(StringBuilder, Bindings)}
+   */
+  @Test
+  void testAppendStructure2() {
     // Arrange
     AstString astString = new AstString("'");
     StringBuilder b = new StringBuilder("foo");
@@ -97,29 +82,15 @@ class AstStringDiffblueTest {
   }
 
   /**
-   * Test {@link AstString#appendStructure(StringBuilder, Bindings)}.
+   * Methods under test:
    * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foo'42'}.</li>
+   *   <li>{@link AstString#AstString(String)}
+   *   <li>{@link AstString#toString()}
    * </ul>
-   * <p>
-   * Method under test: {@link AstString#appendStructure(StringBuilder, Bindings)}
    */
   @Test
-  @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foo'42''")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AstString.appendStructure(StringBuilder, Bindings)"})
-  void testAppendStructure_thenStringBuilderWithFooToStringIsFoo42() {
-    // Arrange
-    AstString astString = new AstString("42");
-    StringBuilder b = new StringBuilder("foo");
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-
-    // Act
-    astString.appendStructure(b,
-        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
-
-    // Assert
-    assertEquals("foo'42'", b.toString());
+  void testGettersAndSetters() {
+    // Arrange, Act and Assert
+    assertEquals("\"42\"", (new AstString("42")).toString());
   }
 }

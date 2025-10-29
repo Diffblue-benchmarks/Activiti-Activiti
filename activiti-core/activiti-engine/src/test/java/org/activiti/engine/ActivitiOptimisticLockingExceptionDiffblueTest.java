@@ -17,20 +17,14 @@ package org.activiti.engine;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ActivitiOptimisticLockingExceptionDiffblueTest {
   /**
-   * Test {@link ActivitiOptimisticLockingException#ActivitiOptimisticLockingException(String)}.
-   * <p>
-   * Method under test: {@link ActivitiOptimisticLockingException#ActivitiOptimisticLockingException(String)}
+   * Method under test:
+   * {@link ActivitiOptimisticLockingException#ActivitiOptimisticLockingException(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiOptimisticLockingException.<init>(String)"})
   public void testNewActivitiOptimisticLockingException() {
     // Arrange and Act
     ActivitiOptimisticLockingException actualActivitiOptimisticLockingException = new ActivitiOptimisticLockingException(

@@ -18,26 +18,43 @@ package org.activiti.runtime.api.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import java.sql.Date;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.events.ProcessRuntimeEvent;
-import org.activiti.api.process.model.events.ProcessRuntimeEvent.ProcessEvents;
 import org.activiti.api.runtime.model.impl.ProcessInstanceImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ProcessUpdatedEventImplDiffblueTest {
   /**
-   * Test {@link ProcessUpdatedEventImpl#ProcessUpdatedEventImpl(ProcessInstance)}.
-   * <p>
-   * Method under test: {@link ProcessUpdatedEventImpl#ProcessUpdatedEventImpl(ProcessInstance)}
+   * Method under test: {@link ProcessUpdatedEventImpl#getEventType()}
    */
   @Test
-  @DisplayName("Test new ProcessUpdatedEventImpl(ProcessInstance)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessUpdatedEventImpl.<init>(ProcessInstance)"})
+  void testGetEventType() {
+    // Arrange, Act and Assert
+    assertEquals(ProcessRuntimeEvent.ProcessEvents.PROCESS_UPDATED,
+        (new ProcessUpdatedEventImpl(new ProcessInstanceImpl())).getEventType());
+  }
+
+  /**
+   * Method under test: {@link ProcessUpdatedEventImpl#getEventType()}
+   */
+  @Test
+  void testGetEventType2() {
+    // Arrange
+    ProcessInstanceImpl entity = new ProcessInstanceImpl();
+    entity.setStartDate(mock(Date.class));
+
+    // Act and Assert
+    assertEquals(ProcessRuntimeEvent.ProcessEvents.PROCESS_UPDATED,
+        (new ProcessUpdatedEventImpl(entity)).getEventType());
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessUpdatedEventImpl#ProcessUpdatedEventImpl(ProcessInstance)}
+   */
+  @Test
   void testNewProcessUpdatedEventImpl() {
     // Arrange
     ProcessInstanceImpl entity = new ProcessInstanceImpl();
@@ -46,30 +63,37 @@ class ProcessUpdatedEventImplDiffblueTest {
     ProcessUpdatedEventImpl actualProcessUpdatedEventImpl = new ProcessUpdatedEventImpl(entity);
 
     // Assert
-    ProcessInstance entity2 = actualProcessUpdatedEventImpl.getEntity();
-    assertTrue(entity2 instanceof ProcessInstanceImpl);
     assertNull(actualProcessUpdatedEventImpl.getProcessDefinitionVersion());
     assertNull(actualProcessUpdatedEventImpl.getBusinessKey());
     assertNull(actualProcessUpdatedEventImpl.getParentProcessInstanceId());
     assertNull(actualProcessUpdatedEventImpl.getProcessDefinitionId());
     assertNull(actualProcessUpdatedEventImpl.getProcessDefinitionKey());
     assertNull(actualProcessUpdatedEventImpl.getProcessInstanceId());
-    assertEquals(ProcessEvents.PROCESS_UPDATED, actualProcessUpdatedEventImpl.getEventType());
-    assertSame(entity, entity2);
+    assertEquals(ProcessRuntimeEvent.ProcessEvents.PROCESS_UPDATED, actualProcessUpdatedEventImpl.getEventType());
+    assertSame(entity, actualProcessUpdatedEventImpl.getEntity());
   }
 
   /**
-   * Test {@link ProcessUpdatedEventImpl#getEventType()}.
-   * <p>
-   * Method under test: {@link ProcessUpdatedEventImpl#getEventType()}
+   * Method under test:
+   * {@link ProcessUpdatedEventImpl#ProcessUpdatedEventImpl(ProcessInstance)}
    */
   @Test
-  @DisplayName("Test getEventType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ProcessRuntimeEvent.ProcessEvents ProcessUpdatedEventImpl.getEventType()"})
-  void testGetEventType() {
-    // Arrange, Act and Assert
-    assertEquals(ProcessEvents.PROCESS_UPDATED,
-        (new ProcessUpdatedEventImpl(new ProcessInstanceImpl())).getEventType());
+  void testNewProcessUpdatedEventImpl2() {
+    // Arrange
+    ProcessInstanceImpl entity = new ProcessInstanceImpl();
+    entity.setStartDate(mock(Date.class));
+
+    // Act
+    ProcessUpdatedEventImpl actualProcessUpdatedEventImpl = new ProcessUpdatedEventImpl(entity);
+
+    // Assert
+    assertNull(actualProcessUpdatedEventImpl.getProcessDefinitionVersion());
+    assertNull(actualProcessUpdatedEventImpl.getBusinessKey());
+    assertNull(actualProcessUpdatedEventImpl.getParentProcessInstanceId());
+    assertNull(actualProcessUpdatedEventImpl.getProcessDefinitionId());
+    assertNull(actualProcessUpdatedEventImpl.getProcessDefinitionKey());
+    assertNull(actualProcessUpdatedEventImpl.getProcessInstanceId());
+    assertEquals(ProcessRuntimeEvent.ProcessEvents.PROCESS_UPDATED, actualProcessUpdatedEventImpl.getEventType());
+    assertSame(entity, actualProcessUpdatedEventImpl.getEntity());
   }
 }

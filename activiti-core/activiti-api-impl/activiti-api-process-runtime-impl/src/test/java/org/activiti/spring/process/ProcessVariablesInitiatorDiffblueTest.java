@@ -16,13 +16,13 @@
 package org.activiti.spring.process;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
 import org.activiti.bpmn.model.AdhocSubProcess;
@@ -36,8 +36,6 @@ import org.activiti.runtime.api.impl.ExpressionResolver;
 import org.activiti.spring.process.model.Extension;
 import org.activiti.spring.process.variable.VariableParsingService;
 import org.activiti.spring.process.variable.VariableValidationService;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -70,14 +68,10 @@ class ProcessVariablesInitiatorDiffblueTest {
   private VariablesCalculator variablesCalculator;
 
   /**
-   * Test {@link ProcessVariablesInitiator#calculateVariablesFromExtensionFile(ProcessDefinition, Map)}.
-   * <p>
-   * Method under test: {@link ProcessVariablesInitiator#calculateVariablesFromExtensionFile(ProcessDefinition, Map)}
+   * Method under test:
+   * {@link ProcessVariablesInitiator#calculateVariablesFromExtensionFile(ProcessDefinition, Map)}
    */
   @Test
-  @DisplayName("Test calculateVariablesFromExtensionFile(ProcessDefinition, Map)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Map ProcessVariablesInitiator.calculateVariablesFromExtensionFile(ProcessDefinition, Map)"})
   void testCalculateVariablesFromExtensionFile() {
     // Arrange
     when(processExtensionService.getExtensionsFor(Mockito.<ProcessDefinition>any())).thenReturn(new Extension());
@@ -95,41 +89,11 @@ class ProcessVariablesInitiatorDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessVariablesInitiator#calculateVariablesFromExtensionFile(ProcessDefinition, Map)}.
-   * <p>
-   * Method under test: {@link ProcessVariablesInitiator#calculateVariablesFromExtensionFile(ProcessDefinition, Map)}
+   * Method under test:
+   * {@link ProcessVariablesInitiator#calculateVariablesFromExtensionFile(ProcessDefinition, Map)}
    */
   @Test
-  @DisplayName("Test calculateVariablesFromExtensionFile(ProcessDefinition, Map)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Map ProcessVariablesInitiator.calculateVariablesFromExtensionFile(ProcessDefinition, Map)"})
   void testCalculateVariablesFromExtensionFile2() {
-    // Arrange
-    when(processExtensionService.hasExtensionsFor(Mockito.<ProcessDefinition>any())).thenReturn(false);
-    ProcessDefinitionEntityImpl processDefinition = new ProcessDefinitionEntityImpl();
-
-    // Act
-    Map<String, Object> actualCalculateVariablesFromExtensionFileResult = processVariablesInitiator
-        .calculateVariablesFromExtensionFile(processDefinition, new HashMap<>());
-
-    // Assert
-    verify(processExtensionService).hasExtensionsFor(isA(ProcessDefinition.class));
-    assertTrue(actualCalculateVariablesFromExtensionFileResult.isEmpty());
-  }
-
-  /**
-   * Test {@link ProcessVariablesInitiator#calculateVariablesFromExtensionFile(ProcessDefinition, Map)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessVariablesInitiator#calculateVariablesFromExtensionFile(ProcessDefinition, Map)}
-   */
-  @Test
-  @DisplayName("Test calculateVariablesFromExtensionFile(ProcessDefinition, Map); then throw ActivitiException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Map ProcessVariablesInitiator.calculateVariablesFromExtensionFile(ProcessDefinition, Map)"})
-  void testCalculateVariablesFromExtensionFile_thenThrowActivitiException() {
     // Arrange
     when(processExtensionService.getExtensionsFor(Mockito.<ProcessDefinition>any()))
         .thenThrow(new ActivitiException("An error occurred"));
@@ -144,15 +108,75 @@ class ProcessVariablesInitiatorDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessVariablesInitiator#calculateOutputVariables(Map, ProcessDefinition, FlowElement)}.
-   * <p>
-   * Method under test: {@link ProcessVariablesInitiator#calculateOutputVariables(Map, ProcessDefinition, FlowElement)}
+   * Method under test:
+   * {@link ProcessVariablesInitiator#calculateVariablesFromExtensionFile(ProcessDefinition, Map)}
    */
   @Test
-  @DisplayName("Test calculateOutputVariables(Map, ProcessDefinition, FlowElement)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Map ProcessVariablesInitiator.calculateOutputVariables(Map, ProcessDefinition, FlowElement)"})
+  void testCalculateVariablesFromExtensionFile3() {
+    // Arrange
+    when(processExtensionService.hasExtensionsFor(Mockito.<ProcessDefinition>any())).thenReturn(false);
+    ProcessDefinitionEntityImpl processDefinition = new ProcessDefinitionEntityImpl();
+
+    // Act
+    Map<String, Object> actualCalculateVariablesFromExtensionFileResult = processVariablesInitiator
+        .calculateVariablesFromExtensionFile(processDefinition, new HashMap<>());
+
+    // Assert
+    verify(processExtensionService).hasExtensionsFor(isA(ProcessDefinition.class));
+    assertTrue(actualCalculateVariablesFromExtensionFileResult.isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessVariablesInitiator#calculateOutputVariables(Map, ProcessDefinition, FlowElement)}
+   */
+  @Test
   void testCalculateOutputVariables() {
+    // Arrange
+    when(processExtensionService.getExtensionsFor(Mockito.<ProcessDefinition>any())).thenReturn(new Extension());
+    when(processExtensionService.hasExtensionsFor(Mockito.<ProcessDefinition>any())).thenReturn(true);
+    when(variablesCalculator.calculateOutPutVariables(Mockito.<MappingExecutionContext>any(),
+        Mockito.<Map<String, Object>>any())).thenReturn(new HashMap<>());
+    HashMap<String, Object> variables = new HashMap<>();
+    ProcessDefinitionEntityImpl processDefinition = new ProcessDefinitionEntityImpl();
+
+    // Act
+    Map<String, Object> actualCalculateOutputVariablesResult = processVariablesInitiator
+        .calculateOutputVariables(variables, processDefinition, new AdhocSubProcess());
+
+    // Assert
+    verify(variablesCalculator).calculateOutPutVariables(isA(MappingExecutionContext.class), isA(Map.class));
+    verify(processExtensionService).getExtensionsFor(isA(ProcessDefinition.class));
+    verify(processExtensionService, atLeast(1)).hasExtensionsFor(isA(ProcessDefinition.class));
+    assertTrue(actualCalculateOutputVariablesResult.isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessVariablesInitiator#calculateOutputVariables(Map, ProcessDefinition, FlowElement)}
+   */
+  @Test
+  void testCalculateOutputVariables2() {
+    // Arrange
+    when(processExtensionService.hasExtensionsFor(Mockito.<ProcessDefinition>any())).thenReturn(true);
+    when(variablesCalculator.calculateOutPutVariables(Mockito.<MappingExecutionContext>any(),
+        Mockito.<Map<String, Object>>any())).thenThrow(new ActivitiException("An error occurred"));
+    HashMap<String, Object> variables = new HashMap<>();
+    ProcessDefinitionEntityImpl processDefinition = new ProcessDefinitionEntityImpl();
+
+    // Act and Assert
+    assertThrows(ActivitiException.class,
+        () -> processVariablesInitiator.calculateOutputVariables(variables, processDefinition, new AdhocSubProcess()));
+    verify(variablesCalculator).calculateOutPutVariables(isA(MappingExecutionContext.class), isA(Map.class));
+    verify(processExtensionService).hasExtensionsFor(isA(ProcessDefinition.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessVariablesInitiator#calculateOutputVariables(Map, ProcessDefinition, FlowElement)}
+   */
+  @Test
+  void testCalculateOutputVariables3() {
     // Arrange
     when(processExtensionService.hasExtensionsFor(Mockito.<ProcessDefinition>any())).thenReturn(false);
     HashMap<String, Object> variables = new HashMap<>();
@@ -165,22 +189,15 @@ class ProcessVariablesInitiatorDiffblueTest {
     // Assert
     verify(processExtensionService).hasExtensionsFor(isA(ProcessDefinition.class));
     assertTrue(actualCalculateOutputVariablesResult.isEmpty());
+    assertSame(variables, actualCalculateOutputVariablesResult);
   }
 
   /**
-   * Test {@link ProcessVariablesInitiator#calculateOutputVariables(Map, ProcessDefinition, FlowElement)}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@code 42}.</li>
-   *   <li>Then return size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessVariablesInitiator#calculateOutputVariables(Map, ProcessDefinition, FlowElement)}
+   * Method under test:
+   * {@link ProcessVariablesInitiator#calculateOutputVariables(Map, ProcessDefinition, FlowElement)}
    */
   @Test
-  @DisplayName("Test calculateOutputVariables(Map, ProcessDefinition, FlowElement); given HashMap() 'foo' is '42'; then return size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Map ProcessVariablesInitiator.calculateOutputVariables(Map, ProcessDefinition, FlowElement)"})
-  void testCalculateOutputVariables_givenHashMapFooIs42_thenReturnSizeIsOne() {
+  void testCalculateOutputVariables4() {
     // Arrange
     when(processExtensionService.getExtensionsFor(Mockito.<ProcessDefinition>any())).thenReturn(new Extension());
     when(processExtensionService.hasExtensionsFor(Mockito.<ProcessDefinition>any())).thenReturn(true);
@@ -202,64 +219,5 @@ class ProcessVariablesInitiatorDiffblueTest {
     verify(processExtensionService, atLeast(1)).hasExtensionsFor(isA(ProcessDefinition.class));
     assertEquals(1, actualCalculateOutputVariablesResult.size());
     assertEquals("42", actualCalculateOutputVariablesResult.get("foo"));
-  }
-
-  /**
-   * Test {@link ProcessVariablesInitiator#calculateOutputVariables(Map, ProcessDefinition, FlowElement)}.
-   * <ul>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessVariablesInitiator#calculateOutputVariables(Map, ProcessDefinition, FlowElement)}
-   */
-  @Test
-  @DisplayName("Test calculateOutputVariables(Map, ProcessDefinition, FlowElement); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Map ProcessVariablesInitiator.calculateOutputVariables(Map, ProcessDefinition, FlowElement)"})
-  void testCalculateOutputVariables_thenReturnEmpty() {
-    // Arrange
-    when(processExtensionService.getExtensionsFor(Mockito.<ProcessDefinition>any())).thenReturn(new Extension());
-    when(processExtensionService.hasExtensionsFor(Mockito.<ProcessDefinition>any())).thenReturn(true);
-    when(variablesCalculator.calculateOutPutVariables(Mockito.<MappingExecutionContext>any(),
-        Mockito.<Map<String, Object>>any())).thenReturn(new HashMap<>());
-    HashMap<String, Object> variables = new HashMap<>();
-    ProcessDefinitionEntityImpl processDefinition = new ProcessDefinitionEntityImpl();
-
-    // Act
-    Map<String, Object> actualCalculateOutputVariablesResult = processVariablesInitiator
-        .calculateOutputVariables(variables, processDefinition, new AdhocSubProcess());
-
-    // Assert
-    verify(variablesCalculator).calculateOutPutVariables(isA(MappingExecutionContext.class), isA(Map.class));
-    verify(processExtensionService).getExtensionsFor(isA(ProcessDefinition.class));
-    verify(processExtensionService, atLeast(1)).hasExtensionsFor(isA(ProcessDefinition.class));
-    assertTrue(actualCalculateOutputVariablesResult.isEmpty());
-  }
-
-  /**
-   * Test {@link ProcessVariablesInitiator#calculateOutputVariables(Map, ProcessDefinition, FlowElement)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessVariablesInitiator#calculateOutputVariables(Map, ProcessDefinition, FlowElement)}
-   */
-  @Test
-  @DisplayName("Test calculateOutputVariables(Map, ProcessDefinition, FlowElement); then throw ActivitiException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Map ProcessVariablesInitiator.calculateOutputVariables(Map, ProcessDefinition, FlowElement)"})
-  void testCalculateOutputVariables_thenThrowActivitiException() {
-    // Arrange
-    when(processExtensionService.hasExtensionsFor(Mockito.<ProcessDefinition>any())).thenReturn(true);
-    when(variablesCalculator.calculateOutPutVariables(Mockito.<MappingExecutionContext>any(),
-        Mockito.<Map<String, Object>>any())).thenThrow(new ActivitiException("An error occurred"));
-    HashMap<String, Object> variables = new HashMap<>();
-    ProcessDefinitionEntityImpl processDefinition = new ProcessDefinitionEntityImpl();
-
-    // Act and Assert
-    assertThrows(ActivitiException.class,
-        () -> processVariablesInitiator.calculateOutputVariables(variables, processDefinition, new AdhocSubProcess()));
-    verify(variablesCalculator).calculateOutPutVariables(isA(MappingExecutionContext.class), isA(Map.class));
-    verify(processExtensionService).hasExtensionsFor(isA(ProcessDefinition.class));
   }
 }

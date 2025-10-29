@@ -18,49 +18,18 @@ package org.activiti.engine.impl.cmd;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.event.ActivitiEventListener;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.delegate.event.BaseEntityEventListener;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class AddEventListenerCommandDiffblueTest {
   /**
-   * Test {@link AddEventListenerCommand#AddEventListenerCommand(ActivitiEventListener, ActivitiEventType[])}.
-   * <p>
-   * Method under test: {@link AddEventListenerCommand#AddEventListenerCommand(ActivitiEventListener, ActivitiEventType[])}
+   * Method under test:
+   * {@link AddEventListenerCommand#AddEventListenerCommand(ActivitiEventListener)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AddEventListenerCommand.<init>(ActivitiEventListener)",
-      "void AddEventListenerCommand.<init>(ActivitiEventListener, ActivitiEventType[])"})
   public void testNewAddEventListenerCommand() {
-    // Arrange and Act
-    AddEventListenerCommand actualAddEventListenerCommand = new AddEventListenerCommand(
-        new BaseEntityEventListener(true), new ActivitiEventType[]{ActivitiEventType.ENTITY_CREATED});
-
-    // Assert
-    ActivitiEventListener activitiEventListener = actualAddEventListenerCommand.listener;
-    assertTrue(activitiEventListener instanceof BaseEntityEventListener);
-    assertTrue(activitiEventListener.isFailOnException());
-    assertArrayEquals(new ActivitiEventType[]{ActivitiEventType.ENTITY_CREATED}, actualAddEventListenerCommand.types);
-  }
-
-  /**
-   * Test {@link AddEventListenerCommand#AddEventListenerCommand(ActivitiEventListener)}.
-   * <ul>
-   *   <li>Then return {@link AddEventListenerCommand#types} is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AddEventListenerCommand#AddEventListenerCommand(ActivitiEventListener)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AddEventListenerCommand.<init>(ActivitiEventListener)",
-      "void AddEventListenerCommand.<init>(ActivitiEventListener, ActivitiEventType[])"})
-  public void testNewAddEventListenerCommand_thenReturnTypesIsNull() {
     // Arrange and Act
     AddEventListenerCommand actualAddEventListenerCommand = new AddEventListenerCommand(
         new BaseEntityEventListener(true));
@@ -70,5 +39,22 @@ public class AddEventListenerCommandDiffblueTest {
     assertTrue(activitiEventListener instanceof BaseEntityEventListener);
     assertNull(actualAddEventListenerCommand.types);
     assertTrue(activitiEventListener.isFailOnException());
+  }
+
+  /**
+   * Method under test:
+   * {@link AddEventListenerCommand#AddEventListenerCommand(ActivitiEventListener, ActivitiEventType[])}
+   */
+  @Test
+  public void testNewAddEventListenerCommand2() {
+    // Arrange and Act
+    AddEventListenerCommand actualAddEventListenerCommand = new AddEventListenerCommand(
+        new BaseEntityEventListener(true), new ActivitiEventType[]{ActivitiEventType.ENTITY_CREATED});
+
+    // Assert
+    ActivitiEventListener activitiEventListener = actualAddEventListenerCommand.listener;
+    assertTrue(activitiEventListener instanceof BaseEntityEventListener);
+    assertTrue(activitiEventListener.isFailOnException());
+    assertArrayEquals(new ActivitiEventType[]{ActivitiEventType.ENTITY_CREATED}, actualAddEventListenerCommand.types);
   }
 }

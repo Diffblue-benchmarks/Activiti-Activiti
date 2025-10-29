@@ -22,20 +22,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Optional;
 import org.activiti.api.process.model.events.ProcessRuntimeEvent;
-import org.activiti.api.process.model.events.ProcessRuntimeEvent.ProcessEvents;
 import org.activiti.api.process.runtime.events.ProcessStartedEvent;
 import org.activiti.api.runtime.model.impl.ProcessInstanceImpl;
 import org.activiti.engine.delegate.event.ActivitiProcessStartedEvent;
 import org.activiti.engine.delegate.event.impl.ActivitiProcessStartedEventImpl;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
-import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.runtime.api.model.impl.APIProcessInstanceConverter;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -56,21 +51,15 @@ class ToAPIProcessStartedEventConverterDiffblueTest {
   private ToAPIProcessStartedEventConverter toAPIProcessStartedEventConverter;
 
   /**
-   * Test {@link ToAPIProcessStartedEventConverter#from(ActivitiProcessStartedEvent)} with {@code ActivitiProcessStartedEvent}.
-   * <ul>
-   *   <li>Then {@link Optional#get()} Entity return {@link ProcessInstanceImpl}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ToAPIProcessStartedEventConverter#from(ActivitiProcessStartedEvent)}
+   * Method under test:
+   * {@link ToAPIProcessStartedEventConverter#from(ActivitiProcessStartedEvent)}
    */
   @Test
-  @DisplayName("Test from(ActivitiProcessStartedEvent) with 'ActivitiProcessStartedEvent'; then get() Entity return ProcessInstanceImpl")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Optional ToAPIProcessStartedEventConverter.from(ActivitiProcessStartedEvent)"})
-  void testFromWithActivitiProcessStartedEvent_thenGetEntityReturnProcessInstanceImpl() {
+  void testFrom() {
     // Arrange
     ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
-    when(aPIProcessInstanceConverter.from(Mockito.<ProcessInstance>any())).thenReturn(processInstanceImpl);
+    when(aPIProcessInstanceConverter.from(Mockito.<org.activiti.engine.runtime.ProcessInstance>any()))
+        .thenReturn(processInstanceImpl);
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
         .createWithEmptyRelationshipCollections();
 
@@ -79,10 +68,8 @@ class ToAPIProcessStartedEventConverterDiffblueTest {
         .from(new ActivitiProcessStartedEventImpl(createWithEmptyRelationshipCollectionsResult, new HashMap<>(), true));
 
     // Assert
-    verify(aPIProcessInstanceConverter).from((ProcessInstance) isNull());
+    verify(aPIProcessInstanceConverter).from((org.activiti.engine.runtime.ProcessInstance) isNull());
     ProcessStartedEvent getResult = actualFromResult.get();
-    org.activiti.api.process.model.ProcessInstance entity = getResult.getEntity();
-    assertTrue(entity instanceof ProcessInstanceImpl);
     assertTrue(getResult instanceof ProcessStartedEventImpl);
     assertNull(getResult.getProcessDefinitionVersion());
     assertNull(getResult.getBusinessKey());
@@ -92,8 +79,8 @@ class ToAPIProcessStartedEventConverterDiffblueTest {
     assertNull(getResult.getProcessInstanceId());
     assertNull(getResult.getNestedProcessDefinitionId());
     assertNull(getResult.getNestedProcessInstanceId());
-    assertEquals(ProcessEvents.PROCESS_STARTED, getResult.getEventType());
+    assertEquals(ProcessRuntimeEvent.ProcessEvents.PROCESS_STARTED, getResult.getEventType());
     assertTrue(actualFromResult.isPresent());
-    assertSame(processInstanceImpl, entity);
+    assertSame(processInstanceImpl, getResult.getEntity());
   }
 }

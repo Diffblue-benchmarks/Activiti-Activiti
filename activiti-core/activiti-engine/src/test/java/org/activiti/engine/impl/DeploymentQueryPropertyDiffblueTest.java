@@ -17,48 +17,44 @@ package org.activiti.engine.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class DeploymentQueryPropertyDiffblueTest {
-  /**
-   * Test {@link DeploymentQueryProperty#DeploymentQueryProperty(String)}.
-   * <p>
-   * Method under test: {@link DeploymentQueryProperty#DeploymentQueryProperty(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeploymentQueryProperty.<init>(String)"})
-  public void testNewDeploymentQueryProperty() {
-    // Arrange, Act and Assert
-    assertEquals("Name", (new DeploymentQueryProperty("Name")).getName());
-  }
+  @InjectMocks
+  private DeploymentQueryProperty deploymentQueryProperty;
+
+  @InjectMocks
+  private String string;
 
   /**
-   * Test {@link DeploymentQueryProperty#getName()}.
-   * <p>
    * Method under test: {@link DeploymentQueryProperty#getName()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String DeploymentQueryProperty.getName()"})
   public void testGetName() {
     // Arrange, Act and Assert
     assertEquals("Name", (new DeploymentQueryProperty("Name")).getName());
   }
 
   /**
-   * Test {@link DeploymentQueryProperty#findByName(String)}.
-   * <p>
    * Method under test: {@link DeploymentQueryProperty#findByName(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"DeploymentQueryProperty DeploymentQueryProperty.findByName(String)"})
   public void testFindByName() {
     // Arrange, Act and Assert
     assertNull(DeploymentQueryProperty.findByName("Property Name"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DeploymentQueryProperty#DeploymentQueryProperty(String)}
+   */
+  @Test
+  public void testNewDeploymentQueryProperty() {
+    // Arrange, Act and Assert
+    assertEquals("Name", (new DeploymentQueryProperty("Name")).getName());
   }
 }

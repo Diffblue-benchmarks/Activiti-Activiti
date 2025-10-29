@@ -21,8 +21,6 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -32,37 +30,14 @@ import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandContext;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class ResetExpiredJobsCmdDiffblueTest {
   /**
-   * Test {@link ResetExpiredJobsCmd#ResetExpiredJobsCmd(Collection)}.
-   * <p>
-   * Method under test: {@link ResetExpiredJobsCmd#ResetExpiredJobsCmd(Collection)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ResetExpiredJobsCmd.<init>(Collection)"})
-  public void testNewResetExpiredJobsCmd() {
-    // Arrange, Act and Assert
-    Collection<String> collection = (new ResetExpiredJobsCmd(new ArrayList<>())).jobIds;
-    assertTrue(collection instanceof List);
-    assertTrue(collection.isEmpty());
-  }
-
-  /**
-   * Test {@link ResetExpiredJobsCmd#execute(CommandContext)}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ResetExpiredJobsCmd#execute(CommandContext)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Void ResetExpiredJobsCmd.execute(CommandContext)"})
-  public void testExecute_thenReturnNull() {
+  public void testExecute() {
     // Arrange
     ResetExpiredJobsCmd resetExpiredJobsCmd = new ResetExpiredJobsCmd(new ArrayList<>());
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
@@ -79,5 +54,17 @@ public class ResetExpiredJobsCmdDiffblueTest {
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
     assertNull(actualExecuteResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link ResetExpiredJobsCmd#ResetExpiredJobsCmd(Collection)}
+   */
+  @Test
+  public void testNewResetExpiredJobsCmd() {
+    // Arrange, Act and Assert
+    Collection<String> collection = (new ResetExpiredJobsCmd(new ArrayList<>())).jobIds;
+    assertTrue(collection instanceof List);
+    assertTrue(collection.isEmpty());
   }
 }

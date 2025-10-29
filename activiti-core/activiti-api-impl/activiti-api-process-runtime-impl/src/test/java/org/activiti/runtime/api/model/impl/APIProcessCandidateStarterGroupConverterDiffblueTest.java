@@ -15,15 +15,16 @@
  */
 package org.activiti.runtime.api.model.impl;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.activiti.api.process.model.ProcessCandidateStarterGroup;
 import org.activiti.api.runtime.model.impl.ProcessCandidateStarterGroupImpl;
 import org.activiti.engine.impl.persistence.entity.IdentityLinkEntityImpl;
 import org.activiti.engine.task.IdentityLink;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,18 +38,11 @@ class APIProcessCandidateStarterGroupConverterDiffblueTest {
   private APIProcessCandidateStarterGroupConverter aPIProcessCandidateStarterGroupConverter;
 
   /**
-   * Test {@link APIProcessCandidateStarterGroupConverter#from(IdentityLink)} with {@code IdentityLink}.
-   * <ul>
-   *   <li>Then return {@link ProcessCandidateStarterGroupImpl}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link APIProcessCandidateStarterGroupConverter#from(IdentityLink)}
+   * Method under test:
+   * {@link APIProcessCandidateStarterGroupConverter#from(IdentityLink)}
    */
   @Test
-  @DisplayName("Test from(IdentityLink) with 'IdentityLink'; then return ProcessCandidateStarterGroupImpl")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ProcessCandidateStarterGroup APIProcessCandidateStarterGroupConverter.from(IdentityLink)"})
-  void testFromWithIdentityLink_thenReturnProcessCandidateStarterGroupImpl() {
+  void testFrom() {
     // Arrange and Act
     ProcessCandidateStarterGroup actualFromResult = aPIProcessCandidateStarterGroupConverter
         .from(new IdentityLinkEntityImpl());
@@ -57,5 +51,27 @@ class APIProcessCandidateStarterGroupConverterDiffblueTest {
     assertTrue(actualFromResult instanceof ProcessCandidateStarterGroupImpl);
     assertNull(actualFromResult.getProcessDefinitionId());
     assertNull(actualFromResult.getGroupId());
+  }
+
+  /**
+   * Method under test:
+   * {@link APIProcessCandidateStarterGroupConverter#from(IdentityLink)}
+   */
+  @Test
+  void testFrom2() {
+    // Arrange
+    IdentityLinkEntityImpl identityLink = mock(IdentityLinkEntityImpl.class);
+    when(identityLink.getGroupId()).thenReturn("42");
+    when(identityLink.getProcessDefinitionId()).thenReturn("42");
+
+    // Act
+    ProcessCandidateStarterGroup actualFromResult = aPIProcessCandidateStarterGroupConverter.from(identityLink);
+
+    // Assert
+    verify(identityLink).getGroupId();
+    verify(identityLink).getProcessDefinitionId();
+    assertTrue(actualFromResult instanceof ProcessCandidateStarterGroupImpl);
+    assertEquals("42", actualFromResult.getProcessDefinitionId());
+    assertEquals("42", actualFromResult.getGroupId());
   }
 }

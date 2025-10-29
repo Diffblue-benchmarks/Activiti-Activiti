@@ -17,20 +17,14 @@ package org.activiti.engine.impl.bpmn.behavior;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ManualTaskActivityBehaviorDiffblueTest {
   /**
-   * Test new {@link ManualTaskActivityBehavior} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link ManualTaskActivityBehavior}
+   * Method under test: default or parameterless constructor of
+   * {@link ManualTaskActivityBehavior}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ManualTaskActivityBehavior.<init>()"})
   public void testNewManualTaskActivityBehavior() {
     // Arrange and Act
     ManualTaskActivityBehavior actualManualTaskActivityBehavior = new ManualTaskActivityBehavior();

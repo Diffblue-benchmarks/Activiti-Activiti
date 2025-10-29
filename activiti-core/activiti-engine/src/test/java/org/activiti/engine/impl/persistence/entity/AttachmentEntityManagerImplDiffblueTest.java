@@ -19,14 +19,15 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
+import org.activiti.core.el.CustomFunctionProvider;
 import org.activiti.engine.ActivitiException;
+import org.activiti.engine.delegate.event.impl.ActivitiEventDispatcherImpl;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.history.DefaultHistoryManager;
@@ -34,7 +35,6 @@ import org.activiti.engine.impl.history.HistoryLevel;
 import org.activiti.engine.impl.persistence.entity.data.AttachmentDataManager;
 import org.activiti.engine.impl.persistence.entity.data.impl.MybatisAttachmentDataManager;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -43,32 +43,192 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AttachmentEntityManagerImplDiffblueTest {
+  @Mock
+  private AttachmentDataManager attachmentDataManager;
+
   @InjectMocks
   private AttachmentEntityManagerImpl attachmentEntityManagerImpl;
 
   @Mock
   private ProcessEngineConfigurationImpl processEngineConfigurationImpl;
 
-  @Mock
-  private AttachmentDataManager attachmentDataManager;
+  /**
+   * Method under test:
+   * {@link AttachmentEntityManagerImpl#findAttachmentsByProcessInstanceId(String)}
+   */
+  @Test
+  public void testFindAttachmentsByProcessInstanceId() {
+    // Arrange
+    when(processEngineConfigurationImpl.getHistoryManager())
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.NONE));
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> attachmentEntityManagerImpl.findAttachmentsByProcessInstanceId("42"));
+    verify(processEngineConfigurationImpl).getHistoryManager();
+  }
 
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test:
+   * {@link AttachmentEntityManagerImpl#findAttachmentsByProcessInstanceId(String)}
+   */
+  @Test
+  public void testFindAttachmentsByProcessInstanceId2() {
+    // Arrange
+    when(processEngineConfigurationImpl.getHistoryManager())
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.ACTIVITY));
+    ArrayList<AttachmentEntity> attachmentEntityList = new ArrayList<>();
+    when(attachmentDataManager.findAttachmentsByProcessInstanceId(Mockito.<String>any()))
+        .thenReturn(attachmentEntityList);
+
+    // Act
+    List<AttachmentEntity> actualFindAttachmentsByProcessInstanceIdResult = attachmentEntityManagerImpl
+        .findAttachmentsByProcessInstanceId("42");
+
+    // Assert
+    verify(processEngineConfigurationImpl).getHistoryManager();
+    verify(attachmentDataManager).findAttachmentsByProcessInstanceId(eq("42"));
+    assertTrue(actualFindAttachmentsByProcessInstanceIdResult.isEmpty());
+    assertSame(attachmentEntityList, actualFindAttachmentsByProcessInstanceIdResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link AttachmentEntityManagerImpl#findAttachmentsByProcessInstanceId(String)}
+   */
+  @Test
+  public void testFindAttachmentsByProcessInstanceId3() {
+    // Arrange
+    when(processEngineConfigurationImpl.getHistoryManager())
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.ACTIVITY));
+    when(attachmentDataManager.findAttachmentsByProcessInstanceId(Mockito.<String>any()))
+        .thenThrow(new ActivitiException("An error occurred"));
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> attachmentEntityManagerImpl.findAttachmentsByProcessInstanceId("42"));
+    verify(processEngineConfigurationImpl).getHistoryManager();
+    verify(attachmentDataManager).findAttachmentsByProcessInstanceId(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link AttachmentEntityManagerImpl#findAttachmentsByTaskId(String)}
+   */
+  @Test
+  public void testFindAttachmentsByTaskId() {
+    // Arrange
+    when(processEngineConfigurationImpl.getHistoryManager())
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.NONE));
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> attachmentEntityManagerImpl.findAttachmentsByTaskId("42"));
+    verify(processEngineConfigurationImpl).getHistoryManager();
+  }
+
+  /**
+   * Method under test:
+   * {@link AttachmentEntityManagerImpl#findAttachmentsByTaskId(String)}
+   */
+  @Test
+  public void testFindAttachmentsByTaskId2() {
+    // Arrange
+    when(processEngineConfigurationImpl.getHistoryManager())
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.ACTIVITY));
+    ArrayList<AttachmentEntity> attachmentEntityList = new ArrayList<>();
+    when(attachmentDataManager.findAttachmentsByTaskId(Mockito.<String>any())).thenReturn(attachmentEntityList);
+
+    // Act
+    List<AttachmentEntity> actualFindAttachmentsByTaskIdResult = attachmentEntityManagerImpl
+        .findAttachmentsByTaskId("42");
+
+    // Assert
+    verify(processEngineConfigurationImpl).getHistoryManager();
+    verify(attachmentDataManager).findAttachmentsByTaskId(eq("42"));
+    assertTrue(actualFindAttachmentsByTaskIdResult.isEmpty());
+    assertSame(attachmentEntityList, actualFindAttachmentsByTaskIdResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link AttachmentEntityManagerImpl#findAttachmentsByTaskId(String)}
+   */
+  @Test
+  public void testFindAttachmentsByTaskId3() {
+    // Arrange
+    when(processEngineConfigurationImpl.getHistoryManager())
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.ACTIVITY));
+    when(attachmentDataManager.findAttachmentsByTaskId(Mockito.<String>any()))
+        .thenThrow(new ActivitiException("An error occurred"));
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> attachmentEntityManagerImpl.findAttachmentsByTaskId("42"));
+    verify(processEngineConfigurationImpl).getHistoryManager();
+    verify(attachmentDataManager).findAttachmentsByTaskId(eq("42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link AttachmentEntityManagerImpl#deleteAttachmentsByTaskId(String)}
+   */
+  @Test
+  public void testDeleteAttachmentsByTaskId() {
+    // Arrange
+    when(processEngineConfigurationImpl.getHistoryManager())
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.NONE));
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> attachmentEntityManagerImpl.deleteAttachmentsByTaskId("42"));
+    verify(processEngineConfigurationImpl).getHistoryManager();
+  }
+
+  /**
+   * Method under test:
+   * {@link AttachmentEntityManagerImpl#deleteAttachmentsByTaskId(String)}
+   */
+  @Test
+  public void testDeleteAttachmentsByTaskId2() {
+    // Arrange
+    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
+    when(processEngineConfigurationImpl.getHistoryManager())
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.ACTIVITY));
+    when(attachmentDataManager.findAttachmentsByTaskId(Mockito.<String>any())).thenReturn(new ArrayList<>());
+
+    // Act
+    attachmentEntityManagerImpl.deleteAttachmentsByTaskId("42");
+
+    // Assert
+    verify(processEngineConfigurationImpl).getEventDispatcher();
+    verify(processEngineConfigurationImpl, atLeast(1)).getHistoryManager();
+    verify(attachmentDataManager).findAttachmentsByTaskId(eq("42"));
+  }
+
+  /**
+   * Method under test: {@link AttachmentEntityManagerImpl#checkHistoryEnabled()}
+   */
+  @Test
+  public void testCheckHistoryEnabled() {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration
+        .setHistoryManager(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
+    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> (new AttachmentEntityManagerImpl(processEngineConfiguration,
+        new MybatisAttachmentDataManager(new JtaProcessEngineConfiguration()))).checkHistoryEnabled());
+  }
+
+  /**
    * Methods under test:
    * <ul>
-   *   <li>{@link AttachmentEntityManagerImpl#AttachmentEntityManagerImpl(ProcessEngineConfigurationImpl, AttachmentDataManager)}
-   *   <li>{@link AttachmentEntityManagerImpl#setAttachmentDataManager(AttachmentDataManager)}
+   *   <li>
+   * {@link AttachmentEntityManagerImpl#AttachmentEntityManagerImpl(ProcessEngineConfigurationImpl, AttachmentDataManager)}
+   *   <li>
+   * {@link AttachmentEntityManagerImpl#setAttachmentDataManager(AttachmentDataManager)}
    *   <li>{@link AttachmentEntityManagerImpl#getAttachmentDataManager()}
    *   <li>{@link AttachmentEntityManagerImpl#getDataManager()}
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AttachmentEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, AttachmentDataManager)",
-      "AttachmentDataManager AttachmentEntityManagerImpl.getAttachmentDataManager()",
-      "org.activiti.engine.impl.persistence.entity.data.DataManager AttachmentEntityManagerImpl.getDataManager()",
-      "void AttachmentEntityManagerImpl.setAttachmentDataManager(AttachmentDataManager)"})
   public void testGettersAndSetters() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
@@ -81,185 +241,8 @@ public class AttachmentEntityManagerImplDiffblueTest {
     actualAttachmentEntityManagerImpl.setAttachmentDataManager(attachmentDataManager);
     AttachmentDataManager actualAttachmentDataManager = actualAttachmentEntityManagerImpl.getAttachmentDataManager();
 
-    // Assert
+    // Assert that nothing has changed
     assertSame(attachmentDataManager, actualAttachmentDataManager);
     assertSame(attachmentDataManager, actualAttachmentEntityManagerImpl.getDataManager());
-  }
-
-  /**
-   * Test {@link AttachmentEntityManagerImpl#findAttachmentsByProcessInstanceId(String)}.
-   * <p>
-   * Method under test: {@link AttachmentEntityManagerImpl#findAttachmentsByProcessInstanceId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"List AttachmentEntityManagerImpl.findAttachmentsByProcessInstanceId(String)"})
-  public void testFindAttachmentsByProcessInstanceId() {
-    // Arrange
-    when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> attachmentEntityManagerImpl.findAttachmentsByProcessInstanceId("42"));
-    verify(processEngineConfigurationImpl).getHistoryManager();
-  }
-
-  /**
-   * Test {@link AttachmentEntityManagerImpl#findAttachmentsByProcessInstanceId(String)}.
-   * <p>
-   * Method under test: {@link AttachmentEntityManagerImpl#findAttachmentsByProcessInstanceId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"List AttachmentEntityManagerImpl.findAttachmentsByProcessInstanceId(String)"})
-  public void testFindAttachmentsByProcessInstanceId2() {
-    // Arrange
-    when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
-    when(attachmentDataManager.findAttachmentsByProcessInstanceId(Mockito.<String>any()))
-        .thenThrow(new ActivitiException("An error occurred"));
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> attachmentEntityManagerImpl.findAttachmentsByProcessInstanceId("42"));
-    verify(processEngineConfigurationImpl).getHistoryManager();
-    verify(attachmentDataManager).findAttachmentsByProcessInstanceId(eq("42"));
-  }
-
-  /**
-   * Test {@link AttachmentEntityManagerImpl#findAttachmentsByProcessInstanceId(String)}.
-   * <ul>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AttachmentEntityManagerImpl#findAttachmentsByProcessInstanceId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"List AttachmentEntityManagerImpl.findAttachmentsByProcessInstanceId(String)"})
-  public void testFindAttachmentsByProcessInstanceId_thenReturnEmpty() {
-    // Arrange
-    when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
-    when(attachmentDataManager.findAttachmentsByProcessInstanceId(Mockito.<String>any())).thenReturn(new ArrayList<>());
-
-    // Act
-    List<AttachmentEntity> actualFindAttachmentsByProcessInstanceIdResult = attachmentEntityManagerImpl
-        .findAttachmentsByProcessInstanceId("42");
-
-    // Assert
-    verify(processEngineConfigurationImpl).getHistoryManager();
-    verify(attachmentDataManager).findAttachmentsByProcessInstanceId(eq("42"));
-    assertTrue(actualFindAttachmentsByProcessInstanceIdResult.isEmpty());
-  }
-
-  /**
-   * Test {@link AttachmentEntityManagerImpl#findAttachmentsByTaskId(String)}.
-   * <p>
-   * Method under test: {@link AttachmentEntityManagerImpl#findAttachmentsByTaskId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"List AttachmentEntityManagerImpl.findAttachmentsByTaskId(String)"})
-  public void testFindAttachmentsByTaskId() {
-    // Arrange
-    when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> attachmentEntityManagerImpl.findAttachmentsByTaskId("42"));
-    verify(processEngineConfigurationImpl).getHistoryManager();
-  }
-
-  /**
-   * Test {@link AttachmentEntityManagerImpl#findAttachmentsByTaskId(String)}.
-   * <p>
-   * Method under test: {@link AttachmentEntityManagerImpl#findAttachmentsByTaskId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"List AttachmentEntityManagerImpl.findAttachmentsByTaskId(String)"})
-  public void testFindAttachmentsByTaskId2() {
-    // Arrange
-    when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
-    when(attachmentDataManager.findAttachmentsByTaskId(Mockito.<String>any()))
-        .thenThrow(new ActivitiException("An error occurred"));
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> attachmentEntityManagerImpl.findAttachmentsByTaskId("42"));
-    verify(processEngineConfigurationImpl).getHistoryManager();
-    verify(attachmentDataManager).findAttachmentsByTaskId(eq("42"));
-  }
-
-  /**
-   * Test {@link AttachmentEntityManagerImpl#findAttachmentsByTaskId(String)}.
-   * <ul>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AttachmentEntityManagerImpl#findAttachmentsByTaskId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"List AttachmentEntityManagerImpl.findAttachmentsByTaskId(String)"})
-  public void testFindAttachmentsByTaskId_thenReturnEmpty() {
-    // Arrange
-    when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
-    when(attachmentDataManager.findAttachmentsByTaskId(Mockito.<String>any())).thenReturn(new ArrayList<>());
-
-    // Act
-    List<AttachmentEntity> actualFindAttachmentsByTaskIdResult = attachmentEntityManagerImpl
-        .findAttachmentsByTaskId("42");
-
-    // Assert
-    verify(processEngineConfigurationImpl).getHistoryManager();
-    verify(attachmentDataManager).findAttachmentsByTaskId(eq("42"));
-    assertTrue(actualFindAttachmentsByTaskIdResult.isEmpty());
-  }
-
-  /**
-   * Test {@link AttachmentEntityManagerImpl#deleteAttachmentsByTaskId(String)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AttachmentEntityManagerImpl#deleteAttachmentsByTaskId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AttachmentEntityManagerImpl.deleteAttachmentsByTaskId(String)"})
-  public void testDeleteAttachmentsByTaskId_thenThrowActivitiException() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> (new AttachmentEntityManagerImpl(processEngineConfiguration,
-        new MybatisAttachmentDataManager(new JtaProcessEngineConfiguration()))).deleteAttachmentsByTaskId("42"));
-    verify(processEngineConfiguration).getHistoryManager();
-  }
-
-  /**
-   * Test {@link AttachmentEntityManagerImpl#checkHistoryEnabled()}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AttachmentEntityManagerImpl#checkHistoryEnabled()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AttachmentEntityManagerImpl.checkHistoryEnabled()"})
-  public void testCheckHistoryEnabled_thenThrowActivitiException() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration
-        .setHistoryManager(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> (new AttachmentEntityManagerImpl(processEngineConfiguration,
-        new MybatisAttachmentDataManager(new JtaProcessEngineConfiguration()))).checkHistoryEnabled());
   }
 }

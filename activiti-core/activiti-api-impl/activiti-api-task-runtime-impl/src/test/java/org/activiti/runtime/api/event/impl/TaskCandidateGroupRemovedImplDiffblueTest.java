@@ -18,25 +18,27 @@ package org.activiti.runtime.api.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.task.model.TaskCandidateGroup;
 import org.activiti.api.task.model.events.TaskCandidateGroupEvent;
-import org.activiti.api.task.model.events.TaskCandidateGroupEvent.TaskCandidateGroupEvents;
 import org.activiti.api.task.model.impl.TaskCandidateGroupImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class TaskCandidateGroupRemovedImplDiffblueTest {
   /**
-   * Test {@link TaskCandidateGroupRemovedImpl#TaskCandidateGroupRemovedImpl()}.
-   * <p>
-   * Method under test: {@link TaskCandidateGroupRemovedImpl#TaskCandidateGroupRemovedImpl()}
+   * Method under test: {@link TaskCandidateGroupRemovedImpl#getEventType()}
    */
   @Test
-  @DisplayName("Test new TaskCandidateGroupRemovedImpl()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void TaskCandidateGroupRemovedImpl.<init>()"})
+  void testGetEventType() {
+    // Arrange, Act and Assert
+    assertEquals(TaskCandidateGroupEvent.TaskCandidateGroupEvents.TASK_CANDIDATE_GROUP_REMOVED,
+        (new TaskCandidateGroupRemovedImpl()).getEventType());
+  }
+
+  /**
+   * Method under test:
+   * {@link TaskCandidateGroupRemovedImpl#TaskCandidateGroupRemovedImpl()}
+   */
+  @Test
   void testNewTaskCandidateGroupRemovedImpl() {
     // Arrange and Act
     TaskCandidateGroupRemovedImpl actualTaskCandidateGroupRemovedImpl = new TaskCandidateGroupRemovedImpl();
@@ -49,19 +51,15 @@ class TaskCandidateGroupRemovedImplDiffblueTest {
     assertNull(actualTaskCandidateGroupRemovedImpl.getProcessDefinitionKey());
     assertNull(actualTaskCandidateGroupRemovedImpl.getProcessInstanceId());
     assertNull(actualTaskCandidateGroupRemovedImpl.getEntity());
-    assertEquals(TaskCandidateGroupEvents.TASK_CANDIDATE_GROUP_REMOVED,
+    assertEquals(TaskCandidateGroupEvent.TaskCandidateGroupEvents.TASK_CANDIDATE_GROUP_REMOVED,
         actualTaskCandidateGroupRemovedImpl.getEventType());
   }
 
   /**
-   * Test {@link TaskCandidateGroupRemovedImpl#TaskCandidateGroupRemovedImpl(TaskCandidateGroup)}.
-   * <p>
-   * Method under test: {@link TaskCandidateGroupRemovedImpl#TaskCandidateGroupRemovedImpl(TaskCandidateGroup)}
+   * Method under test:
+   * {@link TaskCandidateGroupRemovedImpl#TaskCandidateGroupRemovedImpl(TaskCandidateGroup)}
    */
   @Test
-  @DisplayName("Test new TaskCandidateGroupRemovedImpl(TaskCandidateGroup)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void TaskCandidateGroupRemovedImpl.<init>(TaskCandidateGroup)"})
   void testNewTaskCandidateGroupRemovedImpl2() {
     // Arrange
     TaskCandidateGroupImpl entity = new TaskCandidateGroupImpl("42", "42");
@@ -76,23 +74,8 @@ class TaskCandidateGroupRemovedImplDiffblueTest {
     assertNull(actualTaskCandidateGroupRemovedImpl.getProcessDefinitionId());
     assertNull(actualTaskCandidateGroupRemovedImpl.getProcessDefinitionKey());
     assertNull(actualTaskCandidateGroupRemovedImpl.getProcessInstanceId());
-    assertEquals(TaskCandidateGroupEvents.TASK_CANDIDATE_GROUP_REMOVED,
+    assertEquals(TaskCandidateGroupEvent.TaskCandidateGroupEvents.TASK_CANDIDATE_GROUP_REMOVED,
         actualTaskCandidateGroupRemovedImpl.getEventType());
     assertSame(entity, actualTaskCandidateGroupRemovedImpl.getEntity());
-  }
-
-  /**
-   * Test {@link TaskCandidateGroupRemovedImpl#getEventType()}.
-   * <p>
-   * Method under test: {@link TaskCandidateGroupRemovedImpl#getEventType()}
-   */
-  @Test
-  @DisplayName("Test getEventType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TaskCandidateGroupEvent.TaskCandidateGroupEvents TaskCandidateGroupRemovedImpl.getEventType()"})
-  void testGetEventType() {
-    // Arrange, Act and Assert
-    assertEquals(TaskCandidateGroupEvents.TASK_CANDIDATE_GROUP_REMOVED,
-        (new TaskCandidateGroupRemovedImpl()).getEventType());
   }
 }

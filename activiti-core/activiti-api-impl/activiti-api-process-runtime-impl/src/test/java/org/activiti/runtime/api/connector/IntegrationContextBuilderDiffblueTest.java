@@ -23,7 +23,6 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.ServiceTask;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.delegate.DelegateExecution;
@@ -35,8 +34,6 @@ import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.impl.persistence.entity.integration.IntegrationContextEntity;
 import org.activiti.engine.impl.persistence.entity.integration.IntegrationContextEntityImpl;
 import org.activiti.runtime.api.impl.ExtensionsVariablesMappingProvider;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -60,19 +57,10 @@ class IntegrationContextBuilderDiffblueTest {
   private IntegrationContextBuilder integrationContextBuilder;
 
   /**
-   * Test {@link IntegrationContextBuilder#from(DelegateExecution)} with {@code execution}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link IntegrationContextBuilder#from(DelegateExecution)}
    */
   @Test
-  @DisplayName("Test from(DelegateExecution) with 'execution'; then throw ActivitiException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.process.model.IntegrationContext IntegrationContextBuilder.from(DelegateExecution)"})
-  void testFromWithExecution_thenThrowActivitiException() {
+  void testFrom() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
     when(executionEntityImpl.getParentProcessInstanceId()).thenThrow(new ActivitiException("An error occurred"));
@@ -98,19 +86,11 @@ class IntegrationContextBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link IntegrationContextBuilder#from(IntegrationContextEntity, DelegateExecution)} with {@code integrationContextEntity}, {@code execution}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link IntegrationContextBuilder#from(IntegrationContextEntity, DelegateExecution)}
+   * Method under test:
+   * {@link IntegrationContextBuilder#from(IntegrationContextEntity, DelegateExecution)}
    */
   @Test
-  @DisplayName("Test from(IntegrationContextEntity, DelegateExecution) with 'integrationContextEntity', 'execution'; then throw ActivitiException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.process.model.IntegrationContext IntegrationContextBuilder.from(IntegrationContextEntity, DelegateExecution)"})
-  void testFromWithIntegrationContextEntityExecution_thenThrowActivitiException() {
+  void testFrom2() {
     // Arrange
     IntegrationContextEntityImpl integrationContextEntity = new IntegrationContextEntityImpl();
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
@@ -137,16 +117,46 @@ class IntegrationContextBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link IntegrationContextBuilder#resolveServiceTaskNameExpression(ServiceTask, DelegateExecution)}.
-   * <p>
-   * Method under test: {@link IntegrationContextBuilder#resolveServiceTaskNameExpression(ServiceTask, DelegateExecution)}
+   * Method under test:
+   * {@link IntegrationContextBuilder#resolveServiceTaskNameExpression(ServiceTask, DelegateExecution)}
    */
   @Test
-  @DisplayName("Test resolveServiceTaskNameExpression(ServiceTask, DelegateExecution)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "String IntegrationContextBuilder.resolveServiceTaskNameExpression(ServiceTask, DelegateExecution)"})
   void testResolveServiceTaskNameExpression() {
+    // Arrange
+    ServiceTask serviceTask = new ServiceTask();
+
+    // Act and Assert
+    assertNull(integrationContextBuilder.resolveServiceTaskNameExpression(serviceTask,
+        ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+  }
+
+  /**
+   * Method under test:
+   * {@link IntegrationContextBuilder#resolveServiceTaskNameExpression(ServiceTask, DelegateExecution)}
+   */
+  @Test
+  void testResolveServiceTaskNameExpression2() {
+    // Arrange
+    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue("Value"));
+    ServiceTask serviceTask = mock(ServiceTask.class);
+    when(serviceTask.getName()).thenReturn("Name");
+
+    // Act
+    String actualResolveServiceTaskNameExpressionResult = integrationContextBuilder
+        .resolveServiceTaskNameExpression(serviceTask, ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+
+    // Assert
+    verify(serviceTask).getName();
+    verify(expressionManager).createExpression(eq("Name"));
+    assertEquals("Value", actualResolveServiceTaskNameExpressionResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link IntegrationContextBuilder#resolveServiceTaskNameExpression(ServiceTask, DelegateExecution)}
+   */
+  @Test
+  void testResolveServiceTaskNameExpression3() {
     // Arrange
     when(expressionManager.createExpression(Mockito.<String>any()))
         .thenThrow(new ActivitiException("An error occurred"));
@@ -164,47 +174,11 @@ class IntegrationContextBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link IntegrationContextBuilder#resolveServiceTaskNameExpression(ServiceTask, DelegateExecution)}.
-   * <ul>
-   *   <li>Given empty string.</li>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link IntegrationContextBuilder#resolveServiceTaskNameExpression(ServiceTask, DelegateExecution)}
+   * Method under test:
+   * {@link IntegrationContextBuilder#resolveServiceTaskNameExpression(ServiceTask, DelegateExecution)}
    */
   @Test
-  @DisplayName("Test resolveServiceTaskNameExpression(ServiceTask, DelegateExecution); given empty string; then return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "String IntegrationContextBuilder.resolveServiceTaskNameExpression(ServiceTask, DelegateExecution)"})
-  void testResolveServiceTaskNameExpression_givenEmptyString_thenReturnEmptyString() {
-    // Arrange
-    ServiceTask serviceTask = mock(ServiceTask.class);
-    when(serviceTask.getName()).thenReturn("");
-
-    // Act
-    String actualResolveServiceTaskNameExpressionResult = integrationContextBuilder
-        .resolveServiceTaskNameExpression(serviceTask, ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-
-    // Assert
-    verify(serviceTask).getName();
-    assertEquals("", actualResolveServiceTaskNameExpressionResult);
-  }
-
-  /**
-   * Test {@link IntegrationContextBuilder#resolveServiceTaskNameExpression(ServiceTask, DelegateExecution)}.
-   * <ul>
-   *   <li>Then calls {@link Expression#getValue(VariableScope)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link IntegrationContextBuilder#resolveServiceTaskNameExpression(ServiceTask, DelegateExecution)}
-   */
-  @Test
-  @DisplayName("Test resolveServiceTaskNameExpression(ServiceTask, DelegateExecution); then calls getValue(VariableScope)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "String IntegrationContextBuilder.resolveServiceTaskNameExpression(ServiceTask, DelegateExecution)"})
-  void testResolveServiceTaskNameExpression_thenCallsGetValue() {
+  void testResolveServiceTaskNameExpression4() {
     // Arrange
     Expression expression = mock(Expression.class);
     when(expression.getValue(Mockito.<VariableScope>any())).thenThrow(new ActivitiException("An error occurred"));
@@ -224,23 +198,14 @@ class IntegrationContextBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link IntegrationContextBuilder#resolveServiceTaskNameExpression(ServiceTask, DelegateExecution)}.
-   * <ul>
-   *   <li>Then return {@code Value}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link IntegrationContextBuilder#resolveServiceTaskNameExpression(ServiceTask, DelegateExecution)}
+   * Method under test:
+   * {@link IntegrationContextBuilder#resolveServiceTaskNameExpression(ServiceTask, DelegateExecution)}
    */
   @Test
-  @DisplayName("Test resolveServiceTaskNameExpression(ServiceTask, DelegateExecution); then return 'Value'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "String IntegrationContextBuilder.resolveServiceTaskNameExpression(ServiceTask, DelegateExecution)"})
-  void testResolveServiceTaskNameExpression_thenReturnValue() {
+  void testResolveServiceTaskNameExpression5() {
     // Arrange
-    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue("Value"));
     ServiceTask serviceTask = mock(ServiceTask.class);
-    when(serviceTask.getName()).thenReturn("Name");
+    when(serviceTask.getName()).thenReturn("");
 
     // Act
     String actualResolveServiceTaskNameExpressionResult = integrationContextBuilder
@@ -248,30 +213,6 @@ class IntegrationContextBuilderDiffblueTest {
 
     // Assert
     verify(serviceTask).getName();
-    verify(expressionManager).createExpression(eq("Name"));
-    assertEquals("Value", actualResolveServiceTaskNameExpressionResult);
-  }
-
-  /**
-   * Test {@link IntegrationContextBuilder#resolveServiceTaskNameExpression(ServiceTask, DelegateExecution)}.
-   * <ul>
-   *   <li>When {@link ServiceTask} (default constructor).</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link IntegrationContextBuilder#resolveServiceTaskNameExpression(ServiceTask, DelegateExecution)}
-   */
-  @Test
-  @DisplayName("Test resolveServiceTaskNameExpression(ServiceTask, DelegateExecution); when ServiceTask (default constructor); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "String IntegrationContextBuilder.resolveServiceTaskNameExpression(ServiceTask, DelegateExecution)"})
-  void testResolveServiceTaskNameExpression_whenServiceTask_thenReturnNull() {
-    // Arrange
-    ServiceTask serviceTask = new ServiceTask();
-
-    // Act and Assert
-    assertNull(integrationContextBuilder.resolveServiceTaskNameExpression(serviceTask,
-        ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    assertEquals("", actualResolveServiceTaskNameExpressionResult);
   }
 }

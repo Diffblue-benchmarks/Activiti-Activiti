@@ -18,12 +18,9 @@ package org.activiti.spring.boot;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.engine.impl.history.HistoryLevel;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,19 +37,102 @@ class ProcessDefinitionResourceFinderDescriptorDiffblueTest {
   private ProcessDefinitionResourceFinderDescriptor processDefinitionResourceFinderDescriptor;
 
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test:
+   * {@link ProcessDefinitionResourceFinderDescriptor#getLocationSuffixes()}
+   */
+  @Test
+  void testGetLocationSuffixes() {
+    // Arrange and Act
+    List<String> actualLocationSuffixes = processDefinitionResourceFinderDescriptor.getLocationSuffixes();
+
+    // Assert
+    assertEquals(2, actualLocationSuffixes.size());
+    assertEquals("**.bpmn", actualLocationSuffixes.get(1));
+    assertEquals("**.bpmn20.xml", actualLocationSuffixes.get(0));
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessDefinitionResourceFinderDescriptor#getLocationPrefix()}
+   */
+  @Test
+  void testGetLocationPrefix() {
+    // Arrange, Act and Assert
+    assertEquals("classpath*:**/processes/", processDefinitionResourceFinderDescriptor.getLocationPrefix());
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessDefinitionResourceFinderDescriptor#shouldLookUpResources()}
+   */
+  @Test
+  void testShouldLookUpResources() {
+    // Arrange, Act and Assert
+    assertTrue(processDefinitionResourceFinderDescriptor.shouldLookUpResources());
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessDefinitionResourceFinderDescriptor#getMsgForEmptyResources()}
+   */
+  @Test
+  void testGetMsgForEmptyResources() {
+    // Arrange, Act and Assert
+    assertEquals("No process definitions were found for auto-deployment in the location `classpath*:**/processes/`",
+        processDefinitionResourceFinderDescriptor.getMsgForEmptyResources());
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessDefinitionResourceFinderDescriptor#getMsgForResourcesFound(List)}
+   */
+  @Test
+  void testGetMsgForResourcesFound() {
+    // Arrange, Act and Assert
+    assertEquals("The following process definition files will be deployed: []",
+        processDefinitionResourceFinderDescriptor.getMsgForResourcesFound(new ArrayList<>()));
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessDefinitionResourceFinderDescriptor#getMsgForResourcesFound(List)}
+   */
+  @Test
+  void testGetMsgForResourcesFound2() {
+    // Arrange
+    ArrayList<String> foundProcessResources = new ArrayList<>();
+    foundProcessResources.add("foo");
+
+    // Act and Assert
+    assertEquals("The following process definition files will be deployed: [foo]",
+        processDefinitionResourceFinderDescriptor.getMsgForResourcesFound(foundProcessResources));
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessDefinitionResourceFinderDescriptor#getMsgForResourcesFound(List)}
+   */
+  @Test
+  void testGetMsgForResourcesFound3() {
+    // Arrange
+    ArrayList<String> foundProcessResources = new ArrayList<>();
+    foundProcessResources.add("42");
+    foundProcessResources.add("foo");
+
+    // Act and Assert
+    assertEquals("The following process definition files will be deployed: [42, foo]",
+        processDefinitionResourceFinderDescriptor.getMsgForResourcesFound(foundProcessResources));
+  }
+
+  /**
    * Methods under test:
    * <ul>
-   *   <li>{@link ProcessDefinitionResourceFinderDescriptor#ProcessDefinitionResourceFinderDescriptor(ActivitiProperties)}
+   *   <li>
+   * {@link ProcessDefinitionResourceFinderDescriptor#ProcessDefinitionResourceFinderDescriptor(ActivitiProperties)}
    *   <li>{@link ProcessDefinitionResourceFinderDescriptor#validate(List)}
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessDefinitionResourceFinderDescriptor.<init>(ActivitiProperties)",
-      "void ProcessDefinitionResourceFinderDescriptor.validate(List)"})
   void testGettersAndSetters() {
     // Arrange
     ActivitiProperties activitiProperties = new ActivitiProperties();
@@ -86,7 +166,7 @@ class ProcessDefinitionResourceFinderDescriptorDiffblueTest {
         activitiProperties);
     actualProcessDefinitionResourceFinderDescriptor.validate(new ArrayList<>());
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("No process definitions were found for auto-deployment in the location `Process Definition Location"
         + " Prefix`", actualProcessDefinitionResourceFinderDescriptor.getMsgForEmptyResources());
     assertEquals("Process Definition Location Prefix",
@@ -94,121 +174,5 @@ class ProcessDefinitionResourceFinderDescriptorDiffblueTest {
     List<String> locationSuffixes = actualProcessDefinitionResourceFinderDescriptor.getLocationSuffixes();
     assertTrue(locationSuffixes.isEmpty());
     assertSame(processDefinitionLocationSuffixes, locationSuffixes);
-  }
-
-  /**
-   * Test {@link ProcessDefinitionResourceFinderDescriptor#getLocationSuffixes()}.
-   * <p>
-   * Method under test: {@link ProcessDefinitionResourceFinderDescriptor#getLocationSuffixes()}
-   */
-  @Test
-  @DisplayName("Test getLocationSuffixes()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List ProcessDefinitionResourceFinderDescriptor.getLocationSuffixes()"})
-  void testGetLocationSuffixes() {
-    // Arrange and Act
-    List<String> actualLocationSuffixes = processDefinitionResourceFinderDescriptor.getLocationSuffixes();
-
-    // Assert
-    assertEquals(2, actualLocationSuffixes.size());
-    assertEquals("**.bpmn", actualLocationSuffixes.get(1));
-    assertEquals("**.bpmn20.xml", actualLocationSuffixes.get(0));
-  }
-
-  /**
-   * Test {@link ProcessDefinitionResourceFinderDescriptor#getLocationPrefix()}.
-   * <p>
-   * Method under test: {@link ProcessDefinitionResourceFinderDescriptor#getLocationPrefix()}
-   */
-  @Test
-  @DisplayName("Test getLocationPrefix()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ProcessDefinitionResourceFinderDescriptor.getLocationPrefix()"})
-  void testGetLocationPrefix() {
-    // Arrange, Act and Assert
-    assertEquals("classpath*:**/processes/", processDefinitionResourceFinderDescriptor.getLocationPrefix());
-  }
-
-  /**
-   * Test {@link ProcessDefinitionResourceFinderDescriptor#shouldLookUpResources()}.
-   * <p>
-   * Method under test: {@link ProcessDefinitionResourceFinderDescriptor#shouldLookUpResources()}
-   */
-  @Test
-  @DisplayName("Test shouldLookUpResources()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean ProcessDefinitionResourceFinderDescriptor.shouldLookUpResources()"})
-  void testShouldLookUpResources() {
-    // Arrange, Act and Assert
-    assertTrue(processDefinitionResourceFinderDescriptor.shouldLookUpResources());
-  }
-
-  /**
-   * Test {@link ProcessDefinitionResourceFinderDescriptor#getMsgForEmptyResources()}.
-   * <p>
-   * Method under test: {@link ProcessDefinitionResourceFinderDescriptor#getMsgForEmptyResources()}
-   */
-  @Test
-  @DisplayName("Test getMsgForEmptyResources()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ProcessDefinitionResourceFinderDescriptor.getMsgForEmptyResources()"})
-  void testGetMsgForEmptyResources() {
-    // Arrange, Act and Assert
-    assertEquals("No process definitions were found for auto-deployment in the location `classpath*:**/processes/`",
-        processDefinitionResourceFinderDescriptor.getMsgForEmptyResources());
-  }
-
-  /**
-   * Test {@link ProcessDefinitionResourceFinderDescriptor#getMsgForResourcesFound(List)}.
-   * <p>
-   * Method under test: {@link ProcessDefinitionResourceFinderDescriptor#getMsgForResourcesFound(List)}
-   */
-  @Test
-  @DisplayName("Test getMsgForResourcesFound(List)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ProcessDefinitionResourceFinderDescriptor.getMsgForResourcesFound(List)"})
-  void testGetMsgForResourcesFound() {
-    // Arrange, Act and Assert
-    assertEquals("The following process definition files will be deployed: []",
-        processDefinitionResourceFinderDescriptor.getMsgForResourcesFound(new ArrayList<>()));
-  }
-
-  /**
-   * Test {@link ProcessDefinitionResourceFinderDescriptor#getMsgForResourcesFound(List)}.
-   * <p>
-   * Method under test: {@link ProcessDefinitionResourceFinderDescriptor#getMsgForResourcesFound(List)}
-   */
-  @Test
-  @DisplayName("Test getMsgForResourcesFound(List)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ProcessDefinitionResourceFinderDescriptor.getMsgForResourcesFound(List)"})
-  void testGetMsgForResourcesFound2() {
-    // Arrange
-    ArrayList<String> foundProcessResources = new ArrayList<>();
-    foundProcessResources.add("foo");
-
-    // Act and Assert
-    assertEquals("The following process definition files will be deployed: [foo]",
-        processDefinitionResourceFinderDescriptor.getMsgForResourcesFound(foundProcessResources));
-  }
-
-  /**
-   * Test {@link ProcessDefinitionResourceFinderDescriptor#getMsgForResourcesFound(List)}.
-   * <p>
-   * Method under test: {@link ProcessDefinitionResourceFinderDescriptor#getMsgForResourcesFound(List)}
-   */
-  @Test
-  @DisplayName("Test getMsgForResourcesFound(List)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ProcessDefinitionResourceFinderDescriptor.getMsgForResourcesFound(List)"})
-  void testGetMsgForResourcesFound3() {
-    // Arrange
-    ArrayList<String> foundProcessResources = new ArrayList<>();
-    foundProcessResources.add("42");
-    foundProcessResources.add("foo");
-
-    // Act and Assert
-    assertEquals("The following process definition files will be deployed: [42, foo]",
-        processDefinitionResourceFinderDescriptor.getMsgForResourcesFound(foundProcessResources));
   }
 }

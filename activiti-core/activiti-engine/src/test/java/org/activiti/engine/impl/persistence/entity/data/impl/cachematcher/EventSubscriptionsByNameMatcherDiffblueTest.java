@@ -20,26 +20,17 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import org.activiti.engine.impl.persistence.entity.EventSubscriptionEntity;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class EventSubscriptionsByNameMatcherDiffblueTest {
   /**
-   * Test {@link EventSubscriptionsByNameMatcher#isRetained(EventSubscriptionEntity, Object)} with {@code EventSubscriptionEntity}, {@code Object}.
-   * <ul>
-   *   <li>Given {@code Event Type}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EventSubscriptionsByNameMatcher#isRetained(EventSubscriptionEntity, Object)}
+   * Method under test:
+   * {@link EventSubscriptionsByNameMatcher#isRetained(EventSubscriptionEntity, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean EventSubscriptionsByNameMatcher.isRetained(EventSubscriptionEntity, Object)"})
-  public void testIsRetainedWithEventSubscriptionEntityObject_givenEventType() {
+  public void testIsRetained() {
     // Arrange
     EventSubscriptionsByNameMatcher eventSubscriptionsByNameMatcher = new EventSubscriptionsByNameMatcher();
     EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
@@ -55,17 +46,11 @@ public class EventSubscriptionsByNameMatcherDiffblueTest {
   }
 
   /**
-   * Test {@link EventSubscriptionsByNameMatcher#isRetained(EventSubscriptionEntity, Object)} with {@code EventSubscriptionEntity}, {@code Object}.
-   * <ul>
-   *   <li>Given {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EventSubscriptionsByNameMatcher#isRetained(EventSubscriptionEntity, Object)}
+   * Method under test:
+   * {@link EventSubscriptionsByNameMatcher#isRetained(EventSubscriptionEntity, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean EventSubscriptionsByNameMatcher.isRetained(EventSubscriptionEntity, Object)"})
-  public void testIsRetainedWithEventSubscriptionEntityObject_givenNull() {
+  public void testIsRetained2() {
     // Arrange
     EventSubscriptionsByNameMatcher eventSubscriptionsByNameMatcher = new EventSubscriptionsByNameMatcher();
     EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);

@@ -18,68 +18,14 @@ package org.activiti.api.task.model.payloads;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class UpdateTaskPayloadDiffblueTest {
   /**
-   * Test {@link UpdateTaskPayload#UpdateTaskPayload()}.
-   * <p>
-   * Method under test: {@link UpdateTaskPayload#UpdateTaskPayload()}
-   */
-  @Test
-  @DisplayName("Test new UpdateTaskPayload()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void UpdateTaskPayload.<init>()"})
-  void testNewUpdateTaskPayload() {
-    // Arrange and Act
-    UpdateTaskPayload actualUpdateTaskPayload = new UpdateTaskPayload();
-
-    // Assert
-    assertNull(actualUpdateTaskPayload.getPriority());
-    assertNull(actualUpdateTaskPayload.getAssignee());
-    assertNull(actualUpdateTaskPayload.getDescription());
-    assertNull(actualUpdateTaskPayload.getFormKey());
-    assertNull(actualUpdateTaskPayload.getName());
-    assertNull(actualUpdateTaskPayload.getParentTaskId());
-    assertNull(actualUpdateTaskPayload.getTaskId());
-    assertNull(actualUpdateTaskPayload.getDueDate());
-  }
-
-  /**
-   * Test {@link UpdateTaskPayload#UpdateTaskPayload(String, String, String, Date, Integer, String, String, String)}.
-   * <p>
-   * Method under test: {@link UpdateTaskPayload#UpdateTaskPayload(String, String, String, Date, Integer, String, String, String)}
-   */
-  @Test
-  @DisplayName("Test new UpdateTaskPayload(String, String, String, Date, Integer, String, String, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void UpdateTaskPayload.<init>(String, String, String, Date, Integer, String, String, String)"})
-  void testNewUpdateTaskPayload2() {
-    // Arrange and Act
-    UpdateTaskPayload actualUpdateTaskPayload = new UpdateTaskPayload("42", "Name",
-        "The characteristics of someone or something",
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()), 1, "Assignee", "42",
-        "Form Key");
-
-    // Assert
-    assertEquals("42", actualUpdateTaskPayload.getParentTaskId());
-    assertEquals("42", actualUpdateTaskPayload.getTaskId());
-    assertEquals("Assignee", actualUpdateTaskPayload.getAssignee());
-    assertEquals("Form Key", actualUpdateTaskPayload.getFormKey());
-    assertEquals("Name", actualUpdateTaskPayload.getName());
-    assertEquals("The characteristics of someone or something", actualUpdateTaskPayload.getDescription());
-    assertEquals(1, actualUpdateTaskPayload.getPriority().intValue());
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link UpdateTaskPayload#setAssignee(String)}
@@ -102,17 +48,6 @@ class UpdateTaskPayloadDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String UpdateTaskPayload.getAssignee()", "String UpdateTaskPayload.getDescription()",
-      "Date UpdateTaskPayload.getDueDate()", "String UpdateTaskPayload.getFormKey()",
-      "String UpdateTaskPayload.getId()", "String UpdateTaskPayload.getName()",
-      "String UpdateTaskPayload.getParentTaskId()", "Integer UpdateTaskPayload.getPriority()",
-      "String UpdateTaskPayload.getTaskId()", "void UpdateTaskPayload.setAssignee(String)",
-      "void UpdateTaskPayload.setDescription(String)", "void UpdateTaskPayload.setDueDate(Date)",
-      "void UpdateTaskPayload.setFormKey(String)", "void UpdateTaskPayload.setName(String)",
-      "void UpdateTaskPayload.setParentTaskId(String)", "void UpdateTaskPayload.setPriority(Integer)",
-      "void UpdateTaskPayload.setTaskId(String)"})
   void testGettersAndSetters() {
     // Arrange
     UpdateTaskPayload updateTaskPayload = new UpdateTaskPayload();
@@ -136,7 +71,7 @@ class UpdateTaskPayloadDiffblueTest {
     String actualParentTaskId = updateTaskPayload.getParentTaskId();
     Integer actualPriority = updateTaskPayload.getPriority();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("42", actualParentTaskId);
     assertEquals("42", updateTaskPayload.getTaskId());
     assertEquals("Assignee", actualAssignee);
@@ -145,5 +80,72 @@ class UpdateTaskPayloadDiffblueTest {
     assertEquals("The characteristics of someone or something", actualDescription);
     assertEquals(1, actualPriority.intValue());
     assertSame(dueDate, actualDueDate);
+  }
+
+  /**
+   * Method under test: {@link UpdateTaskPayload#UpdateTaskPayload()}
+   */
+  @Test
+  void testNewUpdateTaskPayload() {
+    // Arrange and Act
+    UpdateTaskPayload actualUpdateTaskPayload = new UpdateTaskPayload();
+
+    // Assert
+    assertNull(actualUpdateTaskPayload.getPriority());
+    assertNull(actualUpdateTaskPayload.getAssignee());
+    assertNull(actualUpdateTaskPayload.getDescription());
+    assertNull(actualUpdateTaskPayload.getFormKey());
+    assertNull(actualUpdateTaskPayload.getName());
+    assertNull(actualUpdateTaskPayload.getParentTaskId());
+    assertNull(actualUpdateTaskPayload.getTaskId());
+    assertNull(actualUpdateTaskPayload.getDueDate());
+  }
+
+  /**
+   * Method under test:
+   * {@link UpdateTaskPayload#UpdateTaskPayload(String, String, String, Date, Integer, String, String, String)}
+   */
+  @Test
+  void testNewUpdateTaskPayload2() {
+    // Arrange
+    Date dueDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+
+    // Act
+    UpdateTaskPayload actualUpdateTaskPayload = new UpdateTaskPayload("42", "Name",
+        "The characteristics of someone or something", dueDate, 1, "Assignee", "42", "Form Key");
+
+    // Assert
+    assertEquals("42", actualUpdateTaskPayload.getParentTaskId());
+    assertEquals("42", actualUpdateTaskPayload.getTaskId());
+    assertEquals("Assignee", actualUpdateTaskPayload.getAssignee());
+    assertEquals("Form Key", actualUpdateTaskPayload.getFormKey());
+    assertEquals("Name", actualUpdateTaskPayload.getName());
+    assertEquals("The characteristics of someone or something", actualUpdateTaskPayload.getDescription());
+    assertEquals(1, actualUpdateTaskPayload.getPriority().intValue());
+    assertSame(dueDate, actualUpdateTaskPayload.getDueDate());
+  }
+
+  /**
+   * Method under test:
+   * {@link UpdateTaskPayload#UpdateTaskPayload(String, String, String, java.util.Date, Integer, String, String, String)}
+   */
+  @Test
+  void testNewUpdateTaskPayload3() {
+    // Arrange
+    java.sql.Date dueDate = mock(java.sql.Date.class);
+
+    // Act
+    UpdateTaskPayload actualUpdateTaskPayload = new UpdateTaskPayload("42", "Name",
+        "The characteristics of someone or something", dueDate, 1, "Assignee", "42", "Form Key");
+
+    // Assert
+    assertEquals("42", actualUpdateTaskPayload.getParentTaskId());
+    assertEquals("42", actualUpdateTaskPayload.getTaskId());
+    assertEquals("Assignee", actualUpdateTaskPayload.getAssignee());
+    assertEquals("Form Key", actualUpdateTaskPayload.getFormKey());
+    assertEquals("Name", actualUpdateTaskPayload.getName());
+    assertEquals("The characteristics of someone or something", actualUpdateTaskPayload.getDescription());
+    assertEquals(1, actualUpdateTaskPayload.getPriority().intValue());
+    assertSame(dueDate, actualUpdateTaskPayload.getDueDate());
   }
 }

@@ -3,19 +3,19 @@
     "reportVersion" : "2.6"
   },
   "run" : {
-    "version" : "2025.02.02-08b2a5a-licensed",
-    "creationTimestamp" : "2025-10-21T18:36:58.703503864Z",
+    "version" : "2024.10.01-2ee2e3d-licensed",
+    "creationTimestamp" : "2025-10-28T11:31:52.893683331Z",
     "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
-    "totalTime" : 398.139,
-    "environmentDetectionTime" : 0.844,
-    "indexingTime" : 0.402,
-    "entryPointsTime" : 0.834,
-    "generationTime" : 5812.966,
-    "timeToFirstTest" : 8304.51,
-    "timeToLastTest" : 7506.899,
-    "indexQueryTime" : 3.721,
-    "verificationTime" : 263.996,
-    "validationTime" : 15.33
+    "totalTime" : 7447.977,
+    "environmentDetectionTime" : 0.826,
+    "indexingTime" : 0.369,
+    "entryPointsTime" : 0.822,
+    "generationTime" : 4850.905,
+    "timeToFirstTest" : 87.907,
+    "timeToLastTest" : 90.172,
+    "indexQueryTime" : 3.782,
+    "verificationTime" : 335.549,
+    "validationTime" : 15.505
   },
   "codes" : {
     "R000" : "Success",
@@ -31,9 +31,9 @@
   "summary" : {
     "classesCount" : 6,
     "methodsCount" : 78,
-    "cumulativeDiffblueTestCount" : 71,
+    "cumulativeDiffblueTestCount" : 59,
     "cumulativeManualTestCount" : 0,
-    "completeTestCount" : 71,
+    "completeTestCount" : 62,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 847,
@@ -45,25 +45,25 @@
       "T005" : 3
     },
     "perMethodOutcome" : {
-      "R000" : 57,
-      "R013" : 18,
+      "R000" : 58,
+      "R013" : 17,
       "T003" : 1,
       "W002" : 2
     },
     "perTestOutcome" : {
-      "R000" : 71
+      "R000" : 62
     },
     "perTestValidation" : {
-      "V000" : 71
+      "V000" : 62
     },
     "warnings" : {
-      "W002" : 2
+      "W002" : 19
     }
   },
   "classes" : {
     "org.activiti.bpmn.BPMNLayout" : {
       "methodsCount" : 36,
-      "completeTestCount" : 30,
+      "completeTestCount" : 41,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 20,
@@ -76,10 +76,10 @@
         "W002" : 2
       },
       "perTestOutcome" : {
-        "R000" : 30
+        "R000" : 41
       },
       "warnings" : {
-        "W002" : 2
+        "W002" : 4
       }
     },
     "org.activiti.bpmn.BPMNLayout$Polygon" : {
@@ -126,7 +126,7 @@
     },
     "org.activiti.bpmn.BpmnAutoLayout" : {
       "methodsCount" : 38,
-      "completeTestCount" : 37,
+      "completeTestCount" : 17,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 24,
@@ -136,12 +136,15 @@
         "T005" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 22,
-        "R013" : 15,
+        "R000" : 23,
+        "R013" : 14,
         "T003" : 1
       },
       "perTestOutcome" : {
-        "R000" : 37
+        "R000" : 17
+      },
+      "warnings" : {
+        "W002" : 15
       }
     },
     "org.activiti.bpmn.BpmnAutoLayout$CustomLayout" : {
@@ -204,12 +207,12 @@
       ]
     },
     "org.activiti.bpmn.BPMNLayout.<init>:(Lcom/mxgraph/view/mxGraph;)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         86,
@@ -217,12 +220,12 @@
       ]
     },
     "org.activiti.bpmn.BPMNLayout.<init>:(Lcom/mxgraph/view/mxGraph;Z)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         95,
@@ -230,12 +233,12 @@
       ]
     },
     "org.activiti.bpmn.BPMNLayout.<init>:(Lcom/mxgraph/view/mxGraph;ZZ)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         105,
@@ -251,12 +254,12 @@
       ]
     },
     "org.activiti.bpmn.BPMNLayout.apply:(Lorg/activiti/bpmn/BPMNLayout$TreeNode;Lcom/mxgraph/util/mxRectangle;)Lcom/mxgraph/util/mxRectangle;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         646,
@@ -343,12 +346,12 @@
       ]
     },
     "org.activiti.bpmn.BPMNLayout.dfs:(Ljava/lang/Object;Ljava/lang/Object;Ljava/util/Set;)Lorg/activiti/bpmn/BPMNLayout$TreeNode;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         357,
@@ -485,7 +488,7 @@
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "W002",
       "warnings" : {
-        "W002" : 1
+        "W002" : 2
       },
       "lineNumbers" : [
         421,
@@ -504,12 +507,12 @@
       ]
     },
     "org.activiti.bpmn.BPMNLayout.isBoundaryEvent:(Ljava/lang/Object;)Z" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 3
       },
       "lineNumbers" : [
         330,
@@ -579,12 +582,12 @@
       ]
     },
     "org.activiti.bpmn.BPMNLayout.isVertexIgnored:(Ljava/lang/Object;)Z" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         123
@@ -614,12 +617,12 @@
       ]
     },
     "org.activiti.bpmn.BPMNLayout.layout:(Lorg/activiti/bpmn/BPMNLayout$TreeNode;)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         404,
@@ -634,12 +637,12 @@
       ]
     },
     "org.activiti.bpmn.BPMNLayout.layoutLeaf:(Lorg/activiti/bpmn/BPMNLayout$TreeNode;)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         485,
@@ -686,12 +689,12 @@
       ]
     },
     "org.activiti.bpmn.BPMNLayout.moveNode:(Lorg/activiti/bpmn/BPMNLayout$TreeNode;DD)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         341,
@@ -705,12 +708,12 @@
       ]
     },
     "org.activiti.bpmn.BPMNLayout.offset:(DDDDDD)D" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 5
       },
       "lineNumbers" : [
         565,
@@ -849,7 +852,7 @@
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "W002",
       "warnings" : {
-        "W002" : 1
+        "W002" : 2
       },
       "lineNumbers" : [
         442,
@@ -1011,12 +1014,15 @@
       ]
     },
     "org.activiti.bpmn.BpmnAutoLayout.execute:()V" : {
-      "completeTestCount" : 13,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 13
+        "R000" : 2
+      },
+      "warnings" : {
+        "W002" : 8
       },
       "lineNumbers" : [
         96,
@@ -1344,12 +1350,15 @@
       ]
     },
     "org.activiti.bpmn.BpmnAutoLayout.layout:(Lorg/activiti/bpmn/model/FlowElementsContainer;)V" : {
-      "completeTestCount" : 11,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 11
+        "R000" : 1
+      },
+      "warnings" : {
+        "W002" : 7
       },
       "lineNumbers" : [
         110,
@@ -1536,10 +1545,13 @@
       ]
     },
     "org.activiti.bpmn.BpmnAutoLayout.translateNestedSubprocesses:(Lorg/activiti/bpmn/model/Process;)V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
       "lineNumbers" : [
         515,
         516,

@@ -20,18 +20,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.engine.impl.history.HistoryLevel;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ActivitiPropertiesDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link ActivitiProperties#setAsyncExecutorActivate(boolean)}
@@ -83,38 +78,6 @@ class ActivitiPropertiesDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List ActivitiProperties.getCustomMybatisMappers()",
-      "List ActivitiProperties.getCustomMybatisXMLMappers()", "String ActivitiProperties.getDatabaseSchema()",
-      "String ActivitiProperties.getDatabaseSchemaUpdate()", "String ActivitiProperties.getDeploymentMode()",
-      "String ActivitiProperties.getDeploymentName()", "HistoryLevel ActivitiProperties.getHistoryLevel()",
-      "String ActivitiProperties.getJavaClassFieldForJackson()", "String ActivitiProperties.getMailServerDefaultFrom()",
-      "String ActivitiProperties.getMailServerHost()", "String ActivitiProperties.getMailServerPassword()",
-      "int ActivitiProperties.getMailServerPort()", "String ActivitiProperties.getMailServerUserName()",
-      "String ActivitiProperties.getProcessDefinitionLocationPrefix()",
-      "List ActivitiProperties.getProcessDefinitionLocationSuffixes()",
-      "boolean ActivitiProperties.isAsyncExecutorActivate()", "boolean ActivitiProperties.isCheckProcessDefinitions()",
-      "boolean ActivitiProperties.isCopyVariablesToLocalForTasks()", "boolean ActivitiProperties.isDbHistoryUsed()",
-      "boolean ActivitiProperties.isMailServerUseSsl()", "boolean ActivitiProperties.isMailServerUseTls()",
-      "boolean ActivitiProperties.isSerializePOJOsInVariablesToJson()", "boolean ActivitiProperties.isUseStrongUuids()",
-      "void ActivitiProperties.setAsyncExecutorActivate(boolean)",
-      "void ActivitiProperties.setCheckProcessDefinitions(boolean)",
-      "void ActivitiProperties.setCopyVariablesToLocalForTasks(boolean)",
-      "void ActivitiProperties.setCustomMybatisMappers(List)",
-      "void ActivitiProperties.setCustomMybatisXMLMappers(List)", "void ActivitiProperties.setDatabaseSchema(String)",
-      "void ActivitiProperties.setDatabaseSchemaUpdate(String)", "void ActivitiProperties.setDbHistoryUsed(boolean)",
-      "void ActivitiProperties.setDeploymentMode(String)", "void ActivitiProperties.setDeploymentName(String)",
-      "void ActivitiProperties.setHistoryLevel(HistoryLevel)",
-      "void ActivitiProperties.setJavaClassFieldForJackson(String)",
-      "void ActivitiProperties.setMailServerDefaultFrom(String)", "void ActivitiProperties.setMailServerHost(String)",
-      "void ActivitiProperties.setMailServerPassword(String)", "void ActivitiProperties.setMailServerPort(int)",
-      "void ActivitiProperties.setMailServerUseSsl(boolean)", "void ActivitiProperties.setMailServerUseTls(boolean)",
-      "void ActivitiProperties.setMailServerUserName(String)",
-      "void ActivitiProperties.setProcessDefinitionLocationPrefix(String)",
-      "void ActivitiProperties.setProcessDefinitionLocationSuffixes(List)",
-      "void ActivitiProperties.setSerializePOJOsInVariablesToJson(boolean)",
-      "void ActivitiProperties.setUseStrongUuids(boolean)"})
   void testGettersAndSetters() {
     // Arrange
     ActivitiProperties activitiProperties = new ActivitiProperties();
@@ -170,7 +133,7 @@ class ActivitiPropertiesDiffblueTest {
     boolean actualIsSerializePOJOsInVariablesToJsonResult = activitiProperties.isSerializePOJOsInVariablesToJson();
     boolean actualIsUseStrongUuidsResult = activitiProperties.isUseStrongUuids();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("2020-03-01", actualDatabaseSchemaUpdate);
     assertEquals("Database Schema", actualDatabaseSchema);
     assertEquals("Deployment Mode", actualDeploymentMode);
@@ -200,19 +163,19 @@ class ActivitiPropertiesDiffblueTest {
   }
 
   /**
-   * Test new {@link ActivitiProperties} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link ActivitiProperties}
+   * Method under test: default or parameterless constructor of
+   * {@link ActivitiProperties}
    */
   @Test
-  @DisplayName("Test new ActivitiProperties (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ActivitiProperties.<init>()"})
   void testNewActivitiProperties() {
     // Arrange and Act
     ActivitiProperties actualActivitiProperties = new ActivitiProperties();
 
     // Assert
+    List<String> processDefinitionLocationSuffixes = actualActivitiProperties.getProcessDefinitionLocationSuffixes();
+    assertEquals(2, processDefinitionLocationSuffixes.size());
+    assertEquals("**.bpmn", processDefinitionLocationSuffixes.get(1));
+    assertEquals("**.bpmn20.xml", processDefinitionLocationSuffixes.get(0));
     assertEquals("@class", actualActivitiProperties.getJavaClassFieldForJackson());
     assertEquals("SpringAutoDeployment", actualActivitiProperties.getDeploymentName());
     assertEquals("classpath*:**/processes/", actualActivitiProperties.getProcessDefinitionLocationPrefix());
@@ -225,7 +188,6 @@ class ActivitiPropertiesDiffblueTest {
     assertNull(actualActivitiProperties.getCustomMybatisMappers());
     assertNull(actualActivitiProperties.getCustomMybatisXMLMappers());
     assertEquals(1025, actualActivitiProperties.getMailServerPort());
-    assertEquals(2, actualActivitiProperties.getProcessDefinitionLocationSuffixes().size());
     assertEquals(HistoryLevel.NONE, actualActivitiProperties.getHistoryLevel());
     assertFalse(actualActivitiProperties.isDbHistoryUsed());
     assertFalse(actualActivitiProperties.isMailServerUseSsl());

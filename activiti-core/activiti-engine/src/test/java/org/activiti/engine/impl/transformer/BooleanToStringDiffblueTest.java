@@ -16,20 +16,13 @@
 package org.activiti.engine.impl.transformer;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class BooleanToStringDiffblueTest {
   /**
-   * Test {@link BooleanToString#primTransform(Object)}.
-   * <p>
    * Method under test: {@link BooleanToString#primTransform(Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object BooleanToString.primTransform(Object)"})
   public void testPrimTransform() throws Exception {
     // Arrange and Act
     Object actualPrimTransformResult = (new BooleanToString()).primTransform(true);

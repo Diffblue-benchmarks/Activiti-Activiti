@@ -19,27 +19,71 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import org.activiti.core.el.juel.ObjectValueExpression;
+import org.activiti.core.el.juel.misc.TypeConverter;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.BaseEntityEventListener;
 import org.activiti.engine.delegate.event.impl.ActivitiActivityCancelledEventImpl;
 import org.activiti.engine.impl.el.FixedValue;
+import org.activiti.engine.impl.el.JuelExpression;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class DelegateExpressionActivitiEventListenerDiffblueTest {
   /**
-   * Test {@link DelegateExpressionActivitiEventListener#DelegateExpressionActivitiEventListener(Expression, Class)}.
-   * <p>
-   * Method under test: {@link DelegateExpressionActivitiEventListener#DelegateExpressionActivitiEventListener(Expression, Class)}
+   * Method under test:
+   * {@link DelegateExpressionActivitiEventListener#onEvent(ActivitiEvent)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DelegateExpressionActivitiEventListener.<init>(Expression, Class)"})
+  public void testOnEvent() {
+    // Arrange
+    DelegateExpressionActivitiEventListener delegateExpressionActivitiEventListener = new DelegateExpressionActivitiEventListener(
+        new FixedValue(JSONObject.NULL), null);
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> delegateExpressionActivitiEventListener.onEvent(new ActivitiActivityCancelledEventImpl()));
+  }
+
+  /**
+   * Method under test:
+   * {@link DelegateExpressionActivitiEventListener#onEvent(ActivitiEvent)}
+   */
+  @Test
+  public void testOnEvent2() {
+    // Arrange
+    DelegateExpressionActivitiEventListener delegateExpressionActivitiEventListener = new DelegateExpressionActivitiEventListener(
+        new FixedValue(new BaseEntityEventListener(true)), null);
+
+    // Act
+    delegateExpressionActivitiEventListener.onEvent(new ActivitiActivityCancelledEventImpl());
+
+    // Assert
+    assertTrue(delegateExpressionActivitiEventListener.isFailOnException());
+  }
+
+  /**
+   * Method under test:
+   * {@link DelegateExpressionActivitiEventListener#isFailOnException()}
+   */
+  @Test
+  public void testIsFailOnException() {
+    // Arrange
+    FixedValue expression = new FixedValue(JSONObject.NULL);
+    Class<Object> entityClass = Object.class;
+
+    // Act and Assert
+    assertFalse((new DelegateExpressionActivitiEventListener(expression, entityClass)).isFailOnException());
+  }
+
+  /**
+   * Method under test:
+   * {@link DelegateExpressionActivitiEventListener#DelegateExpressionActivitiEventListener(Expression, Class)}
+   */
+  @Test
   public void testNewDelegateExpressionActivitiEventListener() {
     // Arrange
     FixedValue expression = new FixedValue(JSONObject.NULL);
@@ -59,104 +103,29 @@ public class DelegateExpressionActivitiEventListenerDiffblueTest {
   }
 
   /**
-   * Test {@link DelegateExpressionActivitiEventListener#onEvent(ActivitiEvent)}.
-   * <p>
-   * Method under test: {@link DelegateExpressionActivitiEventListener#onEvent(ActivitiEvent)}
+   * Method under test:
+   * {@link DelegateExpressionActivitiEventListener#DelegateExpressionActivitiEventListener(Expression, Class)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DelegateExpressionActivitiEventListener.onEvent(ActivitiEvent)"})
-  public void testOnEvent() {
+  public void testNewDelegateExpressionActivitiEventListener2() {
     // Arrange
-    FixedValue expression = new FixedValue(JSONObject.NULL);
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    JuelExpression expression = new JuelExpression(new ObjectValueExpression(converter, JSONObject.NULL, type),
+        "Expression Text");
+
     Class<Object> entityClass = Object.class;
-    DelegateExpressionActivitiEventListener delegateExpressionActivitiEventListener = new DelegateExpressionActivitiEventListener(
+
+    // Act
+    DelegateExpressionActivitiEventListener actualDelegateExpressionActivitiEventListener = new DelegateExpressionActivitiEventListener(
         expression, entityClass);
 
-    // Act
-    delegateExpressionActivitiEventListener.onEvent(new ActivitiActivityCancelledEventImpl());
-
-    // Assert that nothing has changed
-    assertFalse(delegateExpressionActivitiEventListener.isFailOnException());
-  }
-
-  /**
-   * Test {@link DelegateExpressionActivitiEventListener#onEvent(ActivitiEvent)}.
-   * <p>
-   * Method under test: {@link DelegateExpressionActivitiEventListener#onEvent(ActivitiEvent)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DelegateExpressionActivitiEventListener.onEvent(ActivitiEvent)"})
-  public void testOnEvent2() {
-    // Arrange
-    DelegateExpressionActivitiEventListener delegateExpressionActivitiEventListener = new DelegateExpressionActivitiEventListener(
-        new FixedValue(new BaseEntityEventListener(true)), null);
-
-    // Act
-    delegateExpressionActivitiEventListener.onEvent(new ActivitiActivityCancelledEventImpl());
-
     // Assert
-    assertTrue(delegateExpressionActivitiEventListener.isFailOnException());
-  }
-
-  /**
-   * Test {@link DelegateExpressionActivitiEventListener#onEvent(ActivitiEvent)}.
-   * <p>
-   * Method under test: {@link DelegateExpressionActivitiEventListener#onEvent(ActivitiEvent)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DelegateExpressionActivitiEventListener.onEvent(ActivitiEvent)"})
-  public void testOnEvent3() {
-    // Arrange
-    FixedValue expression = new FixedValue(JSONObject.NULL);
-    Class<Object> entityClass = Object.class;
-    DelegateExpressionActivitiEventListener delegateExpressionActivitiEventListener = new DelegateExpressionActivitiEventListener(
-        new FixedValue(new DelegateExpressionActivitiEventListener(expression, entityClass)), null);
-
-    // Act
-    delegateExpressionActivitiEventListener.onEvent(new ActivitiActivityCancelledEventImpl());
-
-    // Assert that nothing has changed
-    assertFalse(delegateExpressionActivitiEventListener.isFailOnException());
-  }
-
-  /**
-   * Test {@link DelegateExpressionActivitiEventListener#onEvent(ActivitiEvent)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegateExpressionActivitiEventListener#onEvent(ActivitiEvent)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DelegateExpressionActivitiEventListener.onEvent(ActivitiEvent)"})
-  public void testOnEvent_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    DelegateExpressionActivitiEventListener delegateExpressionActivitiEventListener = new DelegateExpressionActivitiEventListener(
-        new FixedValue(JSONObject.NULL), null);
-
-    // Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> delegateExpressionActivitiEventListener.onEvent(new ActivitiActivityCancelledEventImpl()));
-  }
-
-  /**
-   * Test {@link DelegateExpressionActivitiEventListener#isFailOnException()}.
-   * <p>
-   * Method under test: {@link DelegateExpressionActivitiEventListener#isFailOnException()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean DelegateExpressionActivitiEventListener.isFailOnException()"})
-  public void testIsFailOnException() {
-    // Arrange
-    FixedValue expression = new FixedValue(JSONObject.NULL);
-    Class<Object> entityClass = Object.class;
-
-    // Act and Assert
-    assertFalse((new DelegateExpressionActivitiEventListener(expression, entityClass)).isFailOnException());
+    Expression expression2 = actualDelegateExpressionActivitiEventListener.expression;
+    assertTrue(expression2 instanceof JuelExpression);
+    assertEquals("Expression Text", expression2.getExpressionText());
+    assertFalse(actualDelegateExpressionActivitiEventListener.isFailOnException());
+    Class<Object> expectedResultClass = Object.class;
+    assertEquals(expectedResultClass, actualDelegateExpressionActivitiEventListener.entityClass);
   }
 }

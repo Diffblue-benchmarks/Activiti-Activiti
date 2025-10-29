@@ -17,15 +17,23 @@ package org.activiti.validation.validator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ValidatorSetDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link ValidatorSet#getValidators()}
+   */
+  @Test
+  void testGetValidators() {
+    // Arrange
+    ValidatorSet validatorSet = new ValidatorSet("Name");
+    validatorSet.addValidator(mock(Validator.class));
+
+    // Act and Assert
+    assertEquals(1, validatorSet.getValidators().size());
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>{@link ValidatorSet#ValidatorSet(String)}
@@ -34,37 +42,12 @@ class ValidatorSetDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ValidatorSet.<init>(String)", "String ValidatorSet.getName()",
-      "void ValidatorSet.setName(String)"})
   void testGettersAndSetters() {
     // Arrange and Act
     ValidatorSet actualValidatorSet = new ValidatorSet("Name");
     actualValidatorSet.setName("Name");
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("Name", actualValidatorSet.getName());
-  }
-
-  /**
-   * Test {@link ValidatorSet#getValidators()}.
-   * <ul>
-   *   <li>Then return size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ValidatorSet#getValidators()}
-   */
-  @Test
-  @DisplayName("Test getValidators(); then return size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.util.Collection ValidatorSet.getValidators()"})
-  void testGetValidators_thenReturnSizeIsOne() {
-    // Arrange
-    ValidatorSet validatorSet = new ValidatorSet("Name");
-    validatorSet.addValidator(mock(Validator.class));
-
-    // Act and Assert
-    assertEquals(1, validatorSet.getValidators().size());
   }
 }

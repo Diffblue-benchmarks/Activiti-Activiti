@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELResolver;
 import jakarta.el.FunctionMapper;
 import jakarta.el.ValueExpression;
@@ -31,53 +30,37 @@ import java.util.Map;
 import java.util.Set;
 import org.activiti.core.el.juel.ObjectValueExpression;
 import org.activiti.core.el.juel.misc.TypeConverter;
-import org.activiti.core.el.juel.util.SimpleContext.Functions;
-import org.activiti.core.el.juel.util.SimpleContext.Variables;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class SimpleContextDiffblueTest {
   /**
-   * Test Functions new {@link Functions} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link Functions}
+   * Method under test: default or parameterless constructor of
+   * {@link SimpleContext.Functions}
    */
   @Test
-  @DisplayName("Test Functions new Functions (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Functions.<init>()"})
   void testFunctionsNewFunctions() {
     // Arrange, Act and Assert
-    assertTrue((new Functions()).map.isEmpty());
+    assertTrue((new SimpleContext.Functions()).map.isEmpty());
   }
 
   /**
-   * Test Functions {@link Functions#resolveFunction(String, String)}.
-   * <p>
-   * Method under test: {@link Functions#resolveFunction(String, String)}
+   * Method under test:
+   * {@link SimpleContext.Functions#resolveFunction(String, String)}
    */
   @Test
-  @DisplayName("Test Functions resolveFunction(String, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Method Functions.resolveFunction(String, String)"})
   void testFunctionsResolveFunction() {
     // Arrange, Act and Assert
-    assertNull((new Functions()).resolveFunction("Prefix", "Local Name"));
+    assertNull((new SimpleContext.Functions()).resolveFunction("Prefix", "Local Name"));
   }
 
   /**
-   * Test Functions {@link Functions#setFunction(String, String, Method)}.
-   * <p>
-   * Method under test: {@link Functions#setFunction(String, String, Method)}
+   * Method under test:
+   * {@link SimpleContext.Functions#setFunction(String, String, Method)}
    */
   @Test
-  @DisplayName("Test Functions setFunction(String, String, Method)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Functions.setFunction(String, String, Method)"})
   void testFunctionsSetFunction() {
     // Arrange
-    Functions functions = new Functions();
+    SimpleContext.Functions functions = new SimpleContext.Functions();
 
     // Act
     functions.setFunction("Prefix", "Local Name", null);
@@ -89,83 +72,9 @@ class SimpleContextDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link SimpleContext#SimpleContext()}
-   *   <li>{@link SimpleContext#setELResolver(ELResolver)}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SimpleContext.<init>()", "void SimpleContext.<init>(ELResolver)",
-      "void SimpleContext.setELResolver(ELResolver)"})
-  void testGettersAndSetters() {
-    // Arrange and Act
-    SimpleContext actualSimpleContext = new SimpleContext();
-    RootPropertyResolver resolver = new RootPropertyResolver();
-    actualSimpleContext.setELResolver(resolver);
-
-    // Assert
-    ELResolver eLResolver = actualSimpleContext.getELResolver();
-    assertTrue(eLResolver instanceof RootPropertyResolver);
-    FunctionMapper functionMapper = actualSimpleContext.getFunctionMapper();
-    assertTrue(functionMapper instanceof Functions);
-    assertTrue(actualSimpleContext.getVariableMapper() instanceof Variables);
-    assertNull(actualSimpleContext.getEvaluationListeners());
-    assertNull(actualSimpleContext.getLocale());
-    assertFalse(actualSimpleContext.isPropertyResolved());
-    assertTrue(((Functions) functionMapper).map.isEmpty());
-    assertSame(resolver, eLResolver);
-  }
-
-  /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@link RootPropertyResolver#RootPropertyResolver()}.</li>
-   * </ul>
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link SimpleContext#SimpleContext(ELResolver)}
-   *   <li>{@link SimpleContext#setELResolver(ELResolver)}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test getters and setters; when RootPropertyResolver()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SimpleContext.<init>()", "void SimpleContext.<init>(ELResolver)",
-      "void SimpleContext.setELResolver(ELResolver)"})
-  void testGettersAndSetters_whenRootPropertyResolver() {
-    // Arrange and Act
-    SimpleContext actualSimpleContext = new SimpleContext(new RootPropertyResolver());
-    RootPropertyResolver resolver = new RootPropertyResolver();
-    actualSimpleContext.setELResolver(resolver);
-
-    // Assert
-    ELResolver eLResolver = actualSimpleContext.getELResolver();
-    assertTrue(eLResolver instanceof RootPropertyResolver);
-    FunctionMapper functionMapper = actualSimpleContext.getFunctionMapper();
-    assertTrue(functionMapper instanceof Functions);
-    assertTrue(actualSimpleContext.getVariableMapper() instanceof Variables);
-    assertNull(actualSimpleContext.getEvaluationListeners());
-    assertNull(actualSimpleContext.getLocale());
-    assertFalse(actualSimpleContext.isPropertyResolved());
-    assertTrue(((Functions) functionMapper).map.isEmpty());
-    assertSame(resolver, eLResolver);
-  }
-
-  /**
-   * Test {@link SimpleContext#setFunction(String, String, Method)}.
-   * <p>
    * Method under test: {@link SimpleContext#setFunction(String, String, Method)}
    */
   @Test
-  @DisplayName("Test setFunction(String, String, Method)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SimpleContext.setFunction(String, String, Method)"})
   void testSetFunction() {
     // Arrange
     SimpleContext simpleContext = new SimpleContext();
@@ -175,24 +84,46 @@ class SimpleContextDiffblueTest {
 
     // Assert
     FunctionMapper functionMapper = simpleContext.getFunctionMapper();
-    assertTrue(functionMapper instanceof Functions);
+    assertTrue(functionMapper instanceof SimpleContext.Functions);
     VariableMapper variableMapper = simpleContext.getVariableMapper();
-    assertTrue(variableMapper instanceof Variables);
-    Map<String, Method> stringMethodMap = ((Functions) functionMapper).map;
+    assertTrue(variableMapper instanceof SimpleContext.Variables);
+    Map<String, Method> stringMethodMap = ((SimpleContext.Functions) functionMapper).map;
     assertEquals(1, stringMethodMap.size());
     assertNull(stringMethodMap.get("Prefix:Local Name"));
-    assertTrue(((Variables) variableMapper).map.isEmpty());
+    assertTrue(((SimpleContext.Variables) variableMapper).map.isEmpty());
   }
 
   /**
-   * Test {@link SimpleContext#setVariable(String, ValueExpression)}.
-   * <p>
+   * Method under test: {@link SimpleContext#setFunction(String, String, Method)}
+   */
+  @Test
+  void testSetFunction2() {
+    // Arrange
+    SimpleContext simpleContext = new SimpleContext();
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    simpleContext.setVariable("Name", new ObjectValueExpression(converter, "Object", type));
+
+    // Act
+    simpleContext.setFunction("Prefix", "Local Name", null);
+
+    // Assert
+    FunctionMapper functionMapper = simpleContext.getFunctionMapper();
+    assertTrue(functionMapper instanceof SimpleContext.Functions);
+    VariableMapper variableMapper = simpleContext.getVariableMapper();
+    assertTrue(variableMapper instanceof SimpleContext.Variables);
+    Map<String, Method> stringMethodMap = ((SimpleContext.Functions) functionMapper).map;
+    assertEquals(1, stringMethodMap.size());
+    assertNull(stringMethodMap.get("Prefix:Local Name"));
+    Map<String, ValueExpression> stringValueExpressionMap = ((SimpleContext.Variables) variableMapper).map;
+    assertEquals(1, stringValueExpressionMap.size());
+    assertTrue(stringValueExpressionMap.containsKey("Name"));
+  }
+
+  /**
    * Method under test: {@link SimpleContext#setVariable(String, ValueExpression)}
    */
   @Test
-  @DisplayName("Test setVariable(String, ValueExpression)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ValueExpression SimpleContext.setVariable(String, ValueExpression)"})
   void testSetVariable() {
     // Arrange
     SimpleContext simpleContext = new SimpleContext();
@@ -205,26 +136,18 @@ class SimpleContextDiffblueTest {
 
     // Assert
     VariableMapper variableMapper = simpleContext.getVariableMapper();
-    assertTrue(variableMapper instanceof Variables);
+    assertTrue(variableMapper instanceof SimpleContext.Variables);
     assertNull(actualSetVariableResult);
-    Map<String, ValueExpression> stringValueExpressionMap = ((Variables) variableMapper).map;
+    Map<String, ValueExpression> stringValueExpressionMap = ((SimpleContext.Variables) variableMapper).map;
     assertEquals(1, stringValueExpressionMap.size());
     assertSame(expression, stringValueExpressionMap.get("Name"));
   }
 
   /**
-   * Test {@link SimpleContext#getFunctionMapper()}.
-   * <ul>
-   *   <li>Then return {@link Functions#map} Empty.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SimpleContext#getFunctionMapper()}
    */
   @Test
-  @DisplayName("Test getFunctionMapper(); then return map Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"FunctionMapper SimpleContext.getFunctionMapper()"})
-  void testGetFunctionMapper_thenReturnMapEmpty() {
+  void testGetFunctionMapper() {
     // Arrange
     SimpleContext simpleContext = new SimpleContext();
 
@@ -232,26 +155,18 @@ class SimpleContextDiffblueTest {
     FunctionMapper actualFunctionMapper = simpleContext.getFunctionMapper();
 
     // Assert
-    assertTrue(actualFunctionMapper instanceof Functions);
+    assertTrue(actualFunctionMapper instanceof SimpleContext.Functions);
     VariableMapper variableMapper = simpleContext.getVariableMapper();
-    assertTrue(variableMapper instanceof Variables);
-    assertTrue(((Functions) actualFunctionMapper).map.isEmpty());
-    assertSame(((Functions) actualFunctionMapper).map, ((Variables) variableMapper).map);
+    assertTrue(variableMapper instanceof SimpleContext.Variables);
+    assertTrue(((SimpleContext.Functions) actualFunctionMapper).map.isEmpty());
+    assertSame(((SimpleContext.Functions) actualFunctionMapper).map, ((SimpleContext.Variables) variableMapper).map);
   }
 
   /**
-   * Test {@link SimpleContext#getFunctionMapper()}.
-   * <ul>
-   *   <li>Then return {@link Functions#map} size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SimpleContext#getFunctionMapper()}
    */
   @Test
-  @DisplayName("Test getFunctionMapper(); then return map size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"FunctionMapper SimpleContext.getFunctionMapper()"})
-  void testGetFunctionMapper_thenReturnMapSizeIsOne() {
+  void testGetFunctionMapper2() {
     // Arrange
     SimpleContext simpleContext = new SimpleContext();
     simpleContext.setFunction("Prefix", "Local Name", null);
@@ -260,29 +175,63 @@ class SimpleContextDiffblueTest {
     FunctionMapper actualFunctionMapper = simpleContext.getFunctionMapper();
 
     // Assert
-    assertTrue(actualFunctionMapper instanceof Functions);
+    assertTrue(actualFunctionMapper instanceof SimpleContext.Functions);
     VariableMapper variableMapper = simpleContext.getVariableMapper();
-    assertTrue(variableMapper instanceof Variables);
-    Map<String, Method> stringMethodMap = ((Functions) actualFunctionMapper).map;
+    assertTrue(variableMapper instanceof SimpleContext.Variables);
+    Map<String, Method> stringMethodMap = ((SimpleContext.Functions) actualFunctionMapper).map;
     assertEquals(1, stringMethodMap.size());
     assertNull(stringMethodMap.get("Prefix:Local Name"));
-    assertTrue(((Variables) variableMapper).map.isEmpty());
+    assertTrue(((SimpleContext.Variables) variableMapper).map.isEmpty());
   }
 
   /**
-   * Test {@link SimpleContext#getVariableMapper()}.
-   * <ul>
-   *   <li>Given {@code Object}.</li>
-   *   <li>Then return {@link Variables#map} size is one.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link SimpleContext#getFunctionMapper()}
+   */
+  @Test
+  void testGetFunctionMapper3() {
+    // Arrange
+    SimpleContext simpleContext = new SimpleContext();
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    simpleContext.setVariable("Name", new ObjectValueExpression(converter, "Object", type));
+
+    // Act
+    FunctionMapper actualFunctionMapper = simpleContext.getFunctionMapper();
+
+    // Assert
+    assertTrue(actualFunctionMapper instanceof SimpleContext.Functions);
+    VariableMapper variableMapper = simpleContext.getVariableMapper();
+    assertTrue(variableMapper instanceof SimpleContext.Variables);
+    Map<String, ValueExpression> stringValueExpressionMap = ((SimpleContext.Variables) variableMapper).map;
+    assertEquals(1, stringValueExpressionMap.size());
+    assertTrue(stringValueExpressionMap.containsKey("Name"));
+    assertTrue(((SimpleContext.Functions) actualFunctionMapper).map.isEmpty());
+  }
+
+  /**
    * Method under test: {@link SimpleContext#getVariableMapper()}
    */
   @Test
-  @DisplayName("Test getVariableMapper(); given 'java.lang.Object'; then return map size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"VariableMapper SimpleContext.getVariableMapper()"})
-  void testGetVariableMapper_givenJavaLangObject_thenReturnMapSizeIsOne() {
+  void testGetVariableMapper() {
+    // Arrange
+    SimpleContext simpleContext = new SimpleContext();
+
+    // Act
+    VariableMapper actualVariableMapper = simpleContext.getVariableMapper();
+
+    // Assert
+    FunctionMapper functionMapper = simpleContext.getFunctionMapper();
+    assertTrue(functionMapper instanceof SimpleContext.Functions);
+    assertTrue(actualVariableMapper instanceof SimpleContext.Variables);
+    assertTrue(((SimpleContext.Variables) actualVariableMapper).map.isEmpty());
+    assertSame(((SimpleContext.Variables) actualVariableMapper).map, ((SimpleContext.Functions) functionMapper).map);
+  }
+
+  /**
+   * Method under test: {@link SimpleContext#getVariableMapper()}
+   */
+  @Test
+  void testGetVariableMapper2() {
     // Arrange
     SimpleContext simpleContext = new SimpleContext();
     TypeConverter converter = mock(TypeConverter.class);
@@ -296,73 +245,28 @@ class SimpleContextDiffblueTest {
 
     // Assert
     FunctionMapper functionMapper = simpleContext.getFunctionMapper();
-    assertTrue(functionMapper instanceof Functions);
-    assertTrue(actualVariableMapper instanceof Variables);
-    Map<String, ValueExpression> stringValueExpressionMap = ((Variables) actualVariableMapper).map;
+    assertTrue(functionMapper instanceof SimpleContext.Functions);
+    assertTrue(actualVariableMapper instanceof SimpleContext.Variables);
+    Map<String, ValueExpression> stringValueExpressionMap = ((SimpleContext.Variables) actualVariableMapper).map;
     assertEquals(1, stringValueExpressionMap.size());
-    assertTrue(((Functions) functionMapper).map.isEmpty());
+    assertTrue(((SimpleContext.Functions) functionMapper).map.isEmpty());
     assertSame(expression, stringValueExpressionMap.get("Name"));
   }
 
   /**
-   * Test {@link SimpleContext#getVariableMapper()}.
-   * <ul>
-   *   <li>Given {@link SimpleContext#SimpleContext()}.</li>
-   *   <li>Then return {@link Variables#map} Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SimpleContext#getVariableMapper()}
-   */
-  @Test
-  @DisplayName("Test getVariableMapper(); given SimpleContext(); then return map Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"VariableMapper SimpleContext.getVariableMapper()"})
-  void testGetVariableMapper_givenSimpleContext_thenReturnMapEmpty() {
-    // Arrange
-    SimpleContext simpleContext = new SimpleContext();
-
-    // Act
-    VariableMapper actualVariableMapper = simpleContext.getVariableMapper();
-
-    // Assert
-    FunctionMapper functionMapper = simpleContext.getFunctionMapper();
-    assertTrue(functionMapper instanceof Functions);
-    assertTrue(actualVariableMapper instanceof Variables);
-    assertTrue(((Variables) actualVariableMapper).map.isEmpty());
-    assertSame(((Variables) actualVariableMapper).map, ((Functions) functionMapper).map);
-  }
-
-  /**
-   * Test {@link SimpleContext#getELResolver()}.
-   * <ul>
-   *   <li>Given {@link SimpleContext#SimpleContext()}.</li>
-   *   <li>Then return {@link SimpleResolver}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SimpleContext#getELResolver()}
    */
   @Test
-  @DisplayName("Test getELResolver(); given SimpleContext(); then return SimpleResolver")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ELResolver SimpleContext.getELResolver()"})
-  void testGetELResolver_givenSimpleContext_thenReturnSimpleResolver() {
+  void testGetELResolver() {
     // Arrange, Act and Assert
     assertTrue((new SimpleContext()).getELResolver() instanceof SimpleResolver);
   }
 
   /**
-   * Test {@link SimpleContext#getELResolver()}.
-   * <ul>
-   *   <li>Then properties return {@link Set}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SimpleContext#getELResolver()}
    */
   @Test
-  @DisplayName("Test getELResolver(); then properties return Set")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ELResolver SimpleContext.getELResolver()"})
-  void testGetELResolver_thenPropertiesReturnSet() {
+  void testGetELResolver2() {
     // Arrange
     SimpleContext simpleContext = new SimpleContext();
     RootPropertyResolver resolver = new RootPropertyResolver();
@@ -380,45 +284,118 @@ class SimpleContextDiffblueTest {
   }
 
   /**
-   * Test Variables new {@link Variables} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link Variables}
+   * Method under test: {@link SimpleContext#getELResolver()}
    */
   @Test
-  @DisplayName("Test Variables new Variables (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Variables.<init>()"})
+  void testGetELResolver3() {
+    // Arrange
+    SimpleContext simpleContext = new SimpleContext();
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    simpleContext.setVariable("Name", new ObjectValueExpression(converter, "Object", type));
+
+    // Act and Assert
+    assertTrue(simpleContext.getELResolver() instanceof SimpleResolver);
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>{@link SimpleContext#SimpleContext()}
+   *   <li>{@link SimpleContext#setELResolver(ELResolver)}
+   * </ul>
+   */
+  @Test
+  void testGettersAndSetters() {
+    // Arrange and Act
+    SimpleContext actualSimpleContext = new SimpleContext();
+    RootPropertyResolver resolver = new RootPropertyResolver();
+    actualSimpleContext.setELResolver(resolver);
+
+    // Assert
+    ELResolver eLResolver = actualSimpleContext.getELResolver();
+    assertTrue(eLResolver instanceof RootPropertyResolver);
+    FunctionMapper functionMapper = actualSimpleContext.getFunctionMapper();
+    assertTrue(functionMapper instanceof SimpleContext.Functions);
+    assertTrue(actualSimpleContext.getVariableMapper() instanceof SimpleContext.Variables);
+    assertNull(actualSimpleContext.getEvaluationListeners());
+    assertNull(actualSimpleContext.getLocale());
+    assertFalse(actualSimpleContext.isPropertyResolved());
+    assertTrue(((SimpleContext.Functions) functionMapper).map.isEmpty());
+    assertSame(resolver, eLResolver);
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>{@link SimpleContext#SimpleContext(ELResolver)}
+   *   <li>{@link SimpleContext#setELResolver(ELResolver)}
+   * </ul>
+   */
+  @Test
+  void testGettersAndSetters2() {
+    // Arrange and Act
+    SimpleContext actualSimpleContext = new SimpleContext(new RootPropertyResolver());
+    RootPropertyResolver resolver = new RootPropertyResolver();
+    actualSimpleContext.setELResolver(resolver);
+
+    // Assert
+    ELResolver eLResolver = actualSimpleContext.getELResolver();
+    assertTrue(eLResolver instanceof RootPropertyResolver);
+    FunctionMapper functionMapper = actualSimpleContext.getFunctionMapper();
+    assertTrue(functionMapper instanceof SimpleContext.Functions);
+    assertTrue(actualSimpleContext.getVariableMapper() instanceof SimpleContext.Variables);
+    assertNull(actualSimpleContext.getEvaluationListeners());
+    assertNull(actualSimpleContext.getLocale());
+    assertFalse(actualSimpleContext.isPropertyResolved());
+    assertTrue(((SimpleContext.Functions) functionMapper).map.isEmpty());
+    assertSame(resolver, eLResolver);
+  }
+
+  /**
+   * Method under test: default or parameterless constructor of
+   * {@link SimpleContext.Variables}
+   */
+  @Test
   void testVariablesNewVariables() {
     // Arrange, Act and Assert
-    assertTrue((new Variables()).map.isEmpty());
+    assertTrue((new SimpleContext.Variables()).map.isEmpty());
   }
 
   /**
-   * Test Variables {@link Variables#resolveVariable(String)}.
-   * <p>
-   * Method under test: {@link Variables#resolveVariable(String)}
+   * Method under test: {@link SimpleContext.Variables#resolveVariable(String)}
    */
   @Test
-  @DisplayName("Test Variables resolveVariable(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ValueExpression Variables.resolveVariable(String)"})
   void testVariablesResolveVariable() {
     // Arrange, Act and Assert
-    assertNull((new Variables()).resolveVariable("Variable"));
+    assertNull((new SimpleContext.Variables()).resolveVariable("Variable"));
   }
 
   /**
-   * Test Variables {@link Variables#setVariable(String, ValueExpression)}.
-   * <p>
-   * Method under test: {@link Variables#setVariable(String, ValueExpression)}
+   * Method under test: {@link SimpleContext.Variables#resolveVariable(String)}
    */
   @Test
-  @DisplayName("Test Variables setVariable(String, ValueExpression)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ValueExpression Variables.setVariable(String, ValueExpression)"})
+  void testVariablesResolveVariable2() {
+    // Arrange
+    SimpleContext.Variables variables = new SimpleContext.Variables();
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    ObjectValueExpression expression = new ObjectValueExpression(converter, "Object", type);
+
+    variables.setVariable("Variable", expression);
+
+    // Act and Assert
+    assertSame(expression, variables.resolveVariable("Variable"));
+  }
+
+  /**
+   * Method under test:
+   * {@link SimpleContext.Variables#setVariable(String, ValueExpression)}
+   */
+  @Test
   void testVariablesSetVariable() {
     // Arrange
-    Variables variables = new Variables();
+    SimpleContext.Variables variables = new SimpleContext.Variables();
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
     ObjectValueExpression expression = new ObjectValueExpression(converter, "Object", type);

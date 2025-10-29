@@ -21,56 +21,31 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.persistence.entity.IdentityLinkEntity;
 import org.activiti.engine.impl.persistence.entity.IdentityLinkEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class IdentityLinksByProcInstMatcherDiffblueTest {
   /**
-   * Test {@link IdentityLinksByProcInstMatcher#isRetained(IdentityLinkEntity, Object)} with {@code IdentityLinkEntity}, {@code Object}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link IdentityLinksByProcInstMatcher#isRetained(IdentityLinkEntity, Object)}
+   * Method under test:
+   * {@link IdentityLinksByProcInstMatcher#isRetained(IdentityLinkEntity, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean IdentityLinksByProcInstMatcher.isRetained(IdentityLinkEntity, Object)"})
-  public void testIsRetainedWithIdentityLinkEntityObject_given42_when42_thenReturnTrue() {
+  public void testIsRetained() {
     // Arrange
     IdentityLinksByProcInstMatcher identityLinksByProcInstMatcher = new IdentityLinksByProcInstMatcher();
-    IdentityLinkEntity entity = mock(IdentityLinkEntity.class);
-    when(entity.getProcessInstanceId()).thenReturn("42");
 
-    // Act
-    boolean actualIsRetainedResult = identityLinksByProcInstMatcher.isRetained(entity, "42");
-
-    // Assert
-    verify(entity, atLeast(1)).getProcessInstanceId();
-    assertTrue(actualIsRetainedResult);
+    // Act and Assert
+    assertFalse(identityLinksByProcInstMatcher.isRetained(new IdentityLinkEntityImpl(), JSONObject.NULL));
   }
 
   /**
-   * Test {@link IdentityLinksByProcInstMatcher#isRetained(IdentityLinkEntity, Object)} with {@code IdentityLinkEntity}, {@code Object}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@code Parameter}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link IdentityLinksByProcInstMatcher#isRetained(IdentityLinkEntity, Object)}
+   * Method under test:
+   * {@link IdentityLinksByProcInstMatcher#isRetained(IdentityLinkEntity, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean IdentityLinksByProcInstMatcher.isRetained(IdentityLinkEntity, Object)"})
-  public void testIsRetainedWithIdentityLinkEntityObject_given42_whenParameter_thenReturnFalse() {
+  public void testIsRetained2() {
     // Arrange
     IdentityLinksByProcInstMatcher identityLinksByProcInstMatcher = new IdentityLinksByProcInstMatcher();
     IdentityLinkEntity entity = mock(IdentityLinkEntity.class);
@@ -85,21 +60,21 @@ public class IdentityLinksByProcInstMatcherDiffblueTest {
   }
 
   /**
-   * Test {@link IdentityLinksByProcInstMatcher#isRetained(IdentityLinkEntity, Object)} with {@code IdentityLinkEntity}, {@code Object}.
-   * <ul>
-   *   <li>When {@link IdentityLinkEntityImpl} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link IdentityLinksByProcInstMatcher#isRetained(IdentityLinkEntity, Object)}
+   * Method under test:
+   * {@link IdentityLinksByProcInstMatcher#isRetained(IdentityLinkEntity, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean IdentityLinksByProcInstMatcher.isRetained(IdentityLinkEntity, Object)"})
-  public void testIsRetainedWithIdentityLinkEntityObject_whenIdentityLinkEntityImpl() {
+  public void testIsRetained3() {
     // Arrange
     IdentityLinksByProcInstMatcher identityLinksByProcInstMatcher = new IdentityLinksByProcInstMatcher();
+    IdentityLinkEntity entity = mock(IdentityLinkEntity.class);
+    when(entity.getProcessInstanceId()).thenReturn("42");
 
-    // Act and Assert
-    assertFalse(identityLinksByProcInstMatcher.isRetained(new IdentityLinkEntityImpl(), JSONObject.NULL));
+    // Act
+    boolean actualIsRetainedResult = identityLinksByProcInstMatcher.isRetained(entity, "42");
+
+    // Assert
+    verify(entity, atLeast(1)).getProcessInstanceId();
+    assertTrue(actualIsRetainedResult);
   }
 }

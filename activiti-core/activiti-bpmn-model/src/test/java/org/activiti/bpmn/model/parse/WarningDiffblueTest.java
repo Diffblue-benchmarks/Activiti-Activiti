@@ -17,22 +17,15 @@ package org.activiti.bpmn.model.parse;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.BaseElement;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class WarningDiffblueTest {
   /**
-   * Test {@link Warning#Warning(String, String, int, int)}.
-   * <p>
    * Method under test: {@link Warning#Warning(String, String, int, int)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Warning.<init>(String, String, int, int)"})
   public void testNewWarning() {
     // Arrange and Act
     Warning actualWarning = new Warning("Warning Message", "Local Name", 2, 10);
@@ -45,18 +38,21 @@ public class WarningDiffblueTest {
   }
 
   /**
-   * Test {@link Warning#Warning(String, BaseElement)}.
-   * <ul>
-   *   <li>When {@link ActivitiListener} (default constructor).</li>
-   *   <li>Then return {@code Warning Message}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link Warning#toString()}
+   */
+  @Test
+  public void testToString() {
+    // Arrange, Act and Assert
+    assertEquals("Warning Message | Local Name | line 2 | column 10",
+        (new Warning("Warning Message", "Local Name", 2, 10)).toString());
+    assertEquals("Warning Message | line 2 | column 10", (new Warning("Warning Message", null, 2, 10)).toString());
+  }
+
+  /**
    * Method under test: {@link Warning#Warning(String, BaseElement)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Warning.<init>(String, BaseElement)"})
-  public void testNewWarning_whenActivitiListener_thenReturnWarningMessage() {
+  public void testNewWarning2() {
     // Arrange and Act
     Warning actualWarning = new Warning("Warning Message", new ActivitiListener());
 
@@ -65,38 +61,5 @@ public class WarningDiffblueTest {
     assertNull(actualWarning.resource);
     assertEquals(0, actualWarning.column);
     assertEquals(0, actualWarning.line);
-  }
-
-  /**
-   * Test {@link Warning#toString()}.
-   * <ul>
-   *   <li>Then return {@code Warning Message | line 2 | column 10}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Warning#toString()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String Warning.toString()"})
-  public void testToString_thenReturnWarningMessageLine2Column10() {
-    // Arrange, Act and Assert
-    assertEquals("Warning Message | line 2 | column 10", (new Warning("Warning Message", null, 2, 10)).toString());
-  }
-
-  /**
-   * Test {@link Warning#toString()}.
-   * <ul>
-   *   <li>Then return {@code Warning Message | Local Name | line 2 | column 10}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Warning#toString()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String Warning.toString()"})
-  public void testToString_thenReturnWarningMessageLocalNameLine2Column10() {
-    // Arrange, Act and Assert
-    assertEquals("Warning Message | Local Name | line 2 | column 10",
-        (new Warning("Warning Message", "Local Name", 2, 10)).toString());
   }
 }

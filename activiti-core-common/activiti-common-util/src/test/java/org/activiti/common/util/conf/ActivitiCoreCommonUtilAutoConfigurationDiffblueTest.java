@@ -16,10 +16,7 @@
 package org.activiti.common.util.conf;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.common.util.DateFormatterProvider;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,14 +30,10 @@ class ActivitiCoreCommonUtilAutoConfigurationDiffblueTest {
   private ActivitiCoreCommonUtilAutoConfiguration activitiCoreCommonUtilAutoConfiguration;
 
   /**
-   * Test {@link ActivitiCoreCommonUtilAutoConfiguration#dateFormatterProvider(String)}.
-   * <p>
-   * Method under test: {@link ActivitiCoreCommonUtilAutoConfiguration#dateFormatterProvider(String)}
+   * Method under test:
+   * {@link ActivitiCoreCommonUtilAutoConfiguration#dateFormatterProvider(String)}
    */
   @Test
-  @DisplayName("Test dateFormatterProvider(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"DateFormatterProvider ActivitiCoreCommonUtilAutoConfiguration.dateFormatterProvider(String)"})
   void testDateFormatterProvider() {
     // Arrange and Act
     DateFormatterProvider actualDateFormatterProviderResult = activitiCoreCommonUtilAutoConfiguration

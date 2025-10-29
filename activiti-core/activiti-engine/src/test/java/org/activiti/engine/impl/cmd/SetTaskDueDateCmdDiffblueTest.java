@@ -16,23 +16,16 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class SetTaskDueDateCmdDiffblueTest {
   /**
-   * Test {@link SetTaskDueDateCmd#SetTaskDueDateCmd(String, Date)}.
-   * <p>
    * Method under test: {@link SetTaskDueDateCmd#SetTaskDueDateCmd(String, Date)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SetTaskDueDateCmd.<init>(String, Date)"})
   public void testNewSetTaskDueDateCmd() {
     // Arrange and Act
     SetTaskDueDateCmd actualSetTaskDueDateCmd = new SetTaskDueDateCmd("42",

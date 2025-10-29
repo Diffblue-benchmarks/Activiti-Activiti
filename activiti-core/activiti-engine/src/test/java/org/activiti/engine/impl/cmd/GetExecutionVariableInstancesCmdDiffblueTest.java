@@ -17,8 +17,6 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -26,17 +24,45 @@ import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class GetExecutionVariableInstancesCmdDiffblueTest {
   /**
-   * Test {@link GetExecutionVariableInstancesCmd#GetExecutionVariableInstancesCmd(String, Collection, boolean)}.
-   * <p>
-   * Method under test: {@link GetExecutionVariableInstancesCmd#GetExecutionVariableInstancesCmd(String, Collection, boolean)}
+   * Method under test:
+   * {@link GetExecutionVariableInstancesCmd#getVariable(ExecutionEntity, CommandContext)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void GetExecutionVariableInstancesCmd.<init>(String, Collection, boolean)"})
+  public void testGetVariable() {
+    // Arrange
+    GetExecutionVariableInstancesCmd getExecutionVariableInstancesCmd = new GetExecutionVariableInstancesCmd("42",
+        new ArrayList<>(), true);
+
+    // Act and Assert
+    assertTrue(
+        getExecutionVariableInstancesCmd.getVariable(ExecutionEntityImpl.createWithEmptyRelationshipCollections(), null)
+            .isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link GetExecutionVariableInstancesCmd#getVariable(ExecutionEntity, CommandContext)}
+   */
+  @Test
+  public void testGetVariable2() {
+    // Arrange
+    GetExecutionVariableInstancesCmd getExecutionVariableInstancesCmd = new GetExecutionVariableInstancesCmd("42",
+        new ArrayList<>(), false);
+
+    // Act and Assert
+    assertTrue(
+        getExecutionVariableInstancesCmd.getVariable(ExecutionEntityImpl.createWithEmptyRelationshipCollections(), null)
+            .isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link GetExecutionVariableInstancesCmd#GetExecutionVariableInstancesCmd(String, Collection, boolean)}
+   */
+  @Test
   public void testNewGetExecutionVariableInstancesCmd() {
     // Arrange and Act
     GetExecutionVariableInstancesCmd actualGetExecutionVariableInstancesCmd = new GetExecutionVariableInstancesCmd("42",
@@ -48,49 +74,5 @@ public class GetExecutionVariableInstancesCmdDiffblueTest {
     assertEquals("42", actualGetExecutionVariableInstancesCmd.executionId);
     assertTrue(collection.isEmpty());
     assertTrue(actualGetExecutionVariableInstancesCmd.isLocal);
-  }
-
-  /**
-   * Test {@link GetExecutionVariableInstancesCmd#getVariable(ExecutionEntity, CommandContext)}.
-   * <ul>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GetExecutionVariableInstancesCmd#getVariable(ExecutionEntity, CommandContext)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.util.Map GetExecutionVariableInstancesCmd.getVariable(ExecutionEntity, CommandContext)"})
-  public void testGetVariable_thenReturnEmpty() {
-    // Arrange
-    GetExecutionVariableInstancesCmd getExecutionVariableInstancesCmd = new GetExecutionVariableInstancesCmd("42",
-        new ArrayList<>(), true);
-
-    // Act and Assert
-    assertTrue(
-        getExecutionVariableInstancesCmd.getVariable(ExecutionEntityImpl.createWithEmptyRelationshipCollections(), null)
-            .isEmpty());
-  }
-
-  /**
-   * Test {@link GetExecutionVariableInstancesCmd#getVariable(ExecutionEntity, CommandContext)}.
-   * <ul>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GetExecutionVariableInstancesCmd#getVariable(ExecutionEntity, CommandContext)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.util.Map GetExecutionVariableInstancesCmd.getVariable(ExecutionEntity, CommandContext)"})
-  public void testGetVariable_thenReturnEmpty2() {
-    // Arrange
-    GetExecutionVariableInstancesCmd getExecutionVariableInstancesCmd = new GetExecutionVariableInstancesCmd("42",
-        new ArrayList<>(), false);
-
-    // Act and Assert
-    assertTrue(
-        getExecutionVariableInstancesCmd.getVariable(ExecutionEntityImpl.createWithEmptyRelationshipCollections(), null)
-            .isEmpty());
   }
 }

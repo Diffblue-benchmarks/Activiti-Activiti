@@ -26,52 +26,15 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
 import jakarta.el.ELException;
 import org.activiti.core.el.juel.misc.TypeConverter;
 import org.activiti.core.el.juel.util.SimpleContext;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class ObjectValueExpressionDiffblueTest {
   /**
-   * Test {@link ObjectValueExpression#ObjectValueExpression(TypeConverter, Object, Class)}.
-   * <ul>
-   *   <li>When {@code Object}.</li>
-   *   <li>Then return ExpressionString is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ObjectValueExpression#ObjectValueExpression(TypeConverter, Object, Class)}
-   */
-  @Test
-  @DisplayName("Test new ObjectValueExpression(TypeConverter, Object, Class); when 'java.lang.Object'; then return ExpressionString is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ObjectValueExpression.<init>(TypeConverter, Object, Class)"})
-  void testNewObjectValueExpression_whenJavaLangObject_thenReturnExpressionStringIsNull() {
-    // Arrange
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-
-    // Act
-    ObjectValueExpression actualObjectValueExpression = new ObjectValueExpression(converter, "Object", type);
-
-    // Assert
-    assertNull(actualObjectValueExpression.getExpressionString());
-    assertFalse(actualObjectValueExpression.isLiteralText());
-    Class<Object> expectedExpectedType = Object.class;
-    assertEquals(expectedExpectedType, actualObjectValueExpression.getExpectedType());
-  }
-
-  /**
-   * Test {@link ObjectValueExpression#equals(Object)}, and {@link ObjectValueExpression#hashCode()}.
-   * <ul>
-   *   <li>When other is equal.</li>
-   *   <li>Then return equal.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link ObjectValueExpression#equals(Object)}
@@ -79,9 +42,6 @@ class ObjectValueExpressionDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test equals(Object), and hashCode(); when other is equal; then return equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean ObjectValueExpression.equals(Object)", "int ObjectValueExpression.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -98,12 +58,6 @@ class ObjectValueExpressionDiffblueTest {
   }
 
   /**
-   * Test {@link ObjectValueExpression#equals(Object)}, and {@link ObjectValueExpression#hashCode()}.
-   * <ul>
-   *   <li>When other is equal.</li>
-   *   <li>Then return equal.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link ObjectValueExpression#equals(Object)}
@@ -111,9 +65,6 @@ class ObjectValueExpressionDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test equals(Object), and hashCode(); when other is equal; then return equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean ObjectValueExpression.equals(Object)", "int ObjectValueExpression.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual2() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -138,12 +89,6 @@ class ObjectValueExpressionDiffblueTest {
   }
 
   /**
-   * Test {@link ObjectValueExpression#equals(Object)}, and {@link ObjectValueExpression#hashCode()}.
-   * <ul>
-   *   <li>When other is same.</li>
-   *   <li>Then return equal.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link ObjectValueExpression#equals(Object)}
@@ -151,9 +96,6 @@ class ObjectValueExpressionDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean ObjectValueExpression.equals(Object)", "int ObjectValueExpression.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -167,18 +109,70 @@ class ObjectValueExpressionDiffblueTest {
   }
 
   /**
-   * Test {@link ObjectValueExpression#equals(Object)}.
-   * <ul>
-   *   <li>When other is different.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link ObjectValueExpression#getValue(ELContext)}
+   */
+  @Test
+  void testGetValue() throws ELException {
+    // Arrange
+    TypeConverter converter = mock(TypeConverter.class);
+    when(converter.convert(Mockito.<Object>any(), Mockito.<Class<Object>>any())).thenReturn("Convert");
+    Class<Object> type = Object.class;
+    ObjectValueExpression objectValueExpression = new ObjectValueExpression(converter, "Object", type);
+
+    // Act
+    Object actualValue = objectValueExpression.getValue(new SimpleContext());
+
+    // Assert
+    verify(converter).convert(isA(Object.class), isA(Class.class));
+    assertEquals("Convert", actualValue);
+  }
+
+  /**
+   * Method under test: {@link ObjectValueExpression#getType(ELContext)}
+   */
+  @Test
+  void testGetType() {
+    // Arrange
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    ObjectValueExpression objectValueExpression = new ObjectValueExpression(converter, "Object", type);
+
+    // Act and Assert
+    assertNull(objectValueExpression.getType(new SimpleContext()));
+  }
+
+  /**
+   * Method under test: {@link ObjectValueExpression#isReadOnly(ELContext)}
+   */
+  @Test
+  void testIsReadOnly() {
+    // Arrange
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    ObjectValueExpression objectValueExpression = new ObjectValueExpression(converter, "Object", type);
+
+    // Act and Assert
+    assertTrue(objectValueExpression.isReadOnly(new SimpleContext()));
+  }
+
+  /**
+   * Method under test: {@link ObjectValueExpression#setValue(ELContext, Object)}
+   */
+  @Test
+  void testSetValue() {
+    // Arrange
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    ObjectValueExpression objectValueExpression = new ObjectValueExpression(converter, "Object", type);
+
+    // Act and Assert
+    assertThrows(ELException.class, () -> objectValueExpression.setValue(new SimpleContext(), "Value"));
+  }
+
+  /**
    * Method under test: {@link ObjectValueExpression#equals(Object)}
    */
   @Test
-  @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean ObjectValueExpression.equals(Object)", "int ObjectValueExpression.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -192,18 +186,9 @@ class ObjectValueExpressionDiffblueTest {
   }
 
   /**
-   * Test {@link ObjectValueExpression#equals(Object)}.
-   * <ul>
-   *   <li>When other is different.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ObjectValueExpression#equals(Object)}
    */
   @Test
-  @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean ObjectValueExpression.equals(Object)", "int ObjectValueExpression.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -221,18 +206,9 @@ class ObjectValueExpressionDiffblueTest {
   }
 
   /**
-   * Test {@link ObjectValueExpression#equals(Object)}.
-   * <ul>
-   *   <li>When other is different.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ObjectValueExpression#equals(Object)}
    */
   @Test
-  @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean ObjectValueExpression.equals(Object)", "int ObjectValueExpression.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual3() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -246,18 +222,9 @@ class ObjectValueExpressionDiffblueTest {
   }
 
   /**
-   * Test {@link ObjectValueExpression#equals(Object)}.
-   * <ul>
-   *   <li>When other is different.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ObjectValueExpression#equals(Object)}
    */
   @Test
-  @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean ObjectValueExpression.equals(Object)", "int ObjectValueExpression.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual4() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -271,18 +238,9 @@ class ObjectValueExpressionDiffblueTest {
   }
 
   /**
-   * Test {@link ObjectValueExpression#equals(Object)}.
-   * <ul>
-   *   <li>When other is {@code null}.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ObjectValueExpression#equals(Object)}
    */
   @Test
-  @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean ObjectValueExpression.equals(Object)", "int ObjectValueExpression.hashCode()"})
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -293,18 +251,9 @@ class ObjectValueExpressionDiffblueTest {
   }
 
   /**
-   * Test {@link ObjectValueExpression#equals(Object)}.
-   * <ul>
-   *   <li>When other is wrong type.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ObjectValueExpression#equals(Object)}
    */
   @Test
-  @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean ObjectValueExpression.equals(Object)", "int ObjectValueExpression.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -315,93 +264,6 @@ class ObjectValueExpressionDiffblueTest {
   }
 
   /**
-   * Test {@link ObjectValueExpression#getValue(ELContext)}.
-   * <ul>
-   *   <li>Given {@link TypeConverter} {@link TypeConverter#convert(Object, Class)} return {@code Convert}.</li>
-   *   <li>Then return {@code Convert}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ObjectValueExpression#getValue(ELContext)}
-   */
-  @Test
-  @DisplayName("Test getValue(ELContext); given TypeConverter convert(Object, Class) return 'Convert'; then return 'Convert'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object ObjectValueExpression.getValue(ELContext)"})
-  void testGetValue_givenTypeConverterConvertReturnConvert_thenReturnConvert() throws ELException {
-    // Arrange
-    TypeConverter converter = mock(TypeConverter.class);
-    when(converter.convert(Mockito.<Object>any(), Mockito.<Class<Object>>any())).thenReturn("Convert");
-    Class<Object> type = Object.class;
-    ObjectValueExpression objectValueExpression = new ObjectValueExpression(converter, "Object", type);
-
-    // Act
-    Object actualValue = objectValueExpression.getValue(new SimpleContext());
-
-    // Assert
-    verify(converter).convert(isA(Object.class), isA(Class.class));
-    assertEquals("Convert", actualValue);
-  }
-
-  /**
-   * Test {@link ObjectValueExpression#getType(ELContext)}.
-   * <p>
-   * Method under test: {@link ObjectValueExpression#getType(ELContext)}
-   */
-  @Test
-  @DisplayName("Test getType(ELContext)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Class ObjectValueExpression.getType(ELContext)"})
-  void testGetType() {
-    // Arrange
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-    ObjectValueExpression objectValueExpression = new ObjectValueExpression(converter, "Object", type);
-
-    // Act and Assert
-    assertNull(objectValueExpression.getType(new SimpleContext()));
-  }
-
-  /**
-   * Test {@link ObjectValueExpression#isReadOnly(ELContext)}.
-   * <p>
-   * Method under test: {@link ObjectValueExpression#isReadOnly(ELContext)}
-   */
-  @Test
-  @DisplayName("Test isReadOnly(ELContext)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean ObjectValueExpression.isReadOnly(ELContext)"})
-  void testIsReadOnly() {
-    // Arrange
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-    ObjectValueExpression objectValueExpression = new ObjectValueExpression(converter, "Object", type);
-
-    // Act and Assert
-    assertTrue(objectValueExpression.isReadOnly(new SimpleContext()));
-  }
-
-  /**
-   * Test {@link ObjectValueExpression#setValue(ELContext, Object)}.
-   * <p>
-   * Method under test: {@link ObjectValueExpression#setValue(ELContext, Object)}
-   */
-  @Test
-  @DisplayName("Test setValue(ELContext, Object)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ObjectValueExpression.setValue(ELContext, Object)"})
-  void testSetValue() {
-    // Arrange
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-    ObjectValueExpression objectValueExpression = new ObjectValueExpression(converter, "Object", type);
-
-    // Act and Assert
-    assertThrows(ELException.class, () -> objectValueExpression.setValue(new SimpleContext(), "Value"));
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link ObjectValueExpression#toString()}
@@ -411,11 +273,6 @@ class ObjectValueExpressionDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Class ObjectValueExpression.getExpectedType()",
-      "String ObjectValueExpression.getExpressionString()", "boolean ObjectValueExpression.isLiteralText()",
-      "String ObjectValueExpression.toString()"})
   void testGettersAndSetters() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -434,5 +291,27 @@ class ObjectValueExpressionDiffblueTest {
     Class<Object> expectedExpectedType = Object.class;
     assertEquals(expectedExpectedType, actualExpectedType);
     assertSame(type, actualExpectedType);
+  }
+
+  /**
+   * Method under test:
+   * {@link ObjectValueExpression#ObjectValueExpression(TypeConverter, Object, Class)}
+   */
+  @Test
+  void testNewObjectValueExpression() {
+    // Arrange
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+
+    // Act
+    ObjectValueExpression actualObjectValueExpression = new ObjectValueExpression(converter, "Object", type);
+
+    // Assert
+    assertNull(actualObjectValueExpression.getExpressionString());
+    assertFalse(actualObjectValueExpression.isLiteralText());
+    Class<Object> expectedExpectedType = Object.class;
+    Class<?> expectedType = actualObjectValueExpression.getExpectedType();
+    assertEquals(expectedExpectedType, expectedType);
+    assertSame(type, expectedType);
   }
 }

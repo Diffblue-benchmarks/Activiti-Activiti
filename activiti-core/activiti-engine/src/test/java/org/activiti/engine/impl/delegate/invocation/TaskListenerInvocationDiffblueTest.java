@@ -18,28 +18,21 @@ package org.activiti.engine.impl.delegate.invocation;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.DelegateTask;
 import org.activiti.engine.delegate.TaskListener;
 import org.activiti.engine.impl.persistence.entity.TaskEntityImpl;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class TaskListenerInvocationDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>{@link TaskListenerInvocation#TaskListenerInvocation(TaskListener, DelegateTask)}
+   *   <li>
+   * {@link TaskListenerInvocation#TaskListenerInvocation(TaskListener, DelegateTask)}
    *   <li>{@link TaskListenerInvocation#getTarget()}
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void TaskListenerInvocation.<init>(TaskListener, DelegateTask)",
-      "Object TaskListenerInvocation.getTarget()"})
   public void testGettersAndSetters() {
     // Arrange
     TaskListener executionListenerInstance = mock(TaskListener.class);

@@ -16,20 +16,13 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class GetTypeCommentsCmdDiffblueTest {
   /**
-   * Test {@link GetTypeCommentsCmd#GetTypeCommentsCmd(String)}.
-   * <p>
    * Method under test: {@link GetTypeCommentsCmd#GetTypeCommentsCmd(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void GetTypeCommentsCmd.<init>(String)"})
   public void testNewGetTypeCommentsCmd() {
     // Arrange, Act and Assert
     assertEquals("Type", (new GetTypeCommentsCmd("Type")).type);

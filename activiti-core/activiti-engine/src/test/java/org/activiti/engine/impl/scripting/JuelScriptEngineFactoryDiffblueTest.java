@@ -20,223 +20,69 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import javax.script.ScriptEngine;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class JuelScriptEngineFactoryDiffblueTest {
+  @InjectMocks
+  private JuelScriptEngineFactory juelScriptEngineFactory;
+
   /**
-   * Test {@link JuelScriptEngineFactory#getMethodCallSyntax(String, String, String[])}.
-   * <p>
-   * Method under test: {@link JuelScriptEngineFactory#getMethodCallSyntax(String, String, String[])}
+   * Method under test:
+   * {@link JuelScriptEngineFactory#getMethodCallSyntax(String, String, String[])}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String JuelScriptEngineFactory.getMethodCallSyntax(String, String, String[])"})
   public void testGetMethodCallSyntax() {
     // Arrange, Act and Assert
     assertThrows(UnsupportedOperationException.class,
-        () -> (new JuelScriptEngineFactory()).getMethodCallSyntax("Obj", "Method", "Arguments"));
+        () -> juelScriptEngineFactory.getMethodCallSyntax("Obj", "Method", "Arguments"));
   }
 
   /**
-   * Test {@link JuelScriptEngineFactory#getOutputStatement(String)}.
-   * <ul>
-   *   <li>When {@code out:print("}.</li>
-   *   <li>Then return {@code out:print("out:print(\"")}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link JuelScriptEngineFactory#getOutputStatement(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String JuelScriptEngineFactory.getOutputStatement(String)"})
-  public void testGetOutputStatement_whenOutPrint_thenReturnOutPrintOutPrint() {
+  public void testGetOutputStatement() {
     // Arrange, Act and Assert
-    assertEquals("out:print(\"out:print(\\\"\")", (new JuelScriptEngineFactory()).getOutputStatement("out:print(\""));
+    assertEquals("out:print(\"To Display\")", juelScriptEngineFactory.getOutputStatement("To Display"));
+    assertEquals("out:print(\"out:print(\\\"\")", juelScriptEngineFactory.getOutputStatement("out:print(\""));
   }
 
   /**
-   * Test {@link JuelScriptEngineFactory#getOutputStatement(String)}.
-   * <ul>
-   *   <li>When {@code To Display}.</li>
-   *   <li>Then return {@code out:print("To Display")}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JuelScriptEngineFactory#getOutputStatement(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String JuelScriptEngineFactory.getOutputStatement(String)"})
-  public void testGetOutputStatement_whenToDisplay_thenReturnOutPrintToDisplay() {
-    // Arrange, Act and Assert
-    assertEquals("out:print(\"To Display\")", (new JuelScriptEngineFactory()).getOutputStatement("To Display"));
-  }
-
-  /**
-   * Test {@link JuelScriptEngineFactory#getParameter(String)}.
-   * <ul>
-   *   <li>When {@code javax.script.engine_version}.</li>
-   *   <li>Then return {@code 1.0}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link JuelScriptEngineFactory#getParameter(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String JuelScriptEngineFactory.getParameter(String)"})
-  public void testGetParameter_whenJavaxScriptEngineVersion_thenReturn10() {
+  public void testGetParameter() {
     // Arrange, Act and Assert
-    assertEquals("1.0", (new JuelScriptEngineFactory()).getParameter("javax.script.engine_version"));
-  }
-
-  /**
-   * Test {@link JuelScriptEngineFactory#getParameter(String)}.
-   * <ul>
-   *   <li>When {@code javax.script.engine}.</li>
-   *   <li>Then return {@link ScriptingEngines#DEFAULT_SCRIPTING_LANGUAGE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JuelScriptEngineFactory#getParameter(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String JuelScriptEngineFactory.getParameter(String)"})
-  public void testGetParameter_whenJavaxScriptEngine_thenReturnDefault_scripting_language() {
-    // Arrange, Act and Assert
+    assertNull(juelScriptEngineFactory.getParameter("Key"));
+    assertEquals("JSP 2.1 EL", juelScriptEngineFactory.getParameter("javax.script.name"));
     assertEquals(ScriptingEngines.DEFAULT_SCRIPTING_LANGUAGE,
-        (new JuelScriptEngineFactory()).getParameter("javax.script.engine"));
+        juelScriptEngineFactory.getParameter("javax.script.engine"));
+    assertEquals("1.0", juelScriptEngineFactory.getParameter("javax.script.engine_version"));
+    assertEquals("JSP 2.1 EL", juelScriptEngineFactory.getParameter("javax.script.language"));
+    assertEquals("2.1", juelScriptEngineFactory.getParameter("javax.script.language_version"));
+    assertEquals("MULTITHREADED", juelScriptEngineFactory.getParameter("THREADING"));
   }
 
   /**
-   * Test {@link JuelScriptEngineFactory#getParameter(String)}.
-   * <ul>
-   *   <li>When {@code javax.script.language_version}.</li>
-   *   <li>Then return {@code 2.1}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JuelScriptEngineFactory#getParameter(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String JuelScriptEngineFactory.getParameter(String)"})
-  public void testGetParameter_whenJavaxScriptLanguageVersion_thenReturn21() {
-    // Arrange, Act and Assert
-    assertEquals("2.1", (new JuelScriptEngineFactory()).getParameter("javax.script.language_version"));
-  }
-
-  /**
-   * Test {@link JuelScriptEngineFactory#getParameter(String)}.
-   * <ul>
-   *   <li>When {@code javax.script.language}.</li>
-   *   <li>Then return {@code JSP 2.1 EL}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JuelScriptEngineFactory#getParameter(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String JuelScriptEngineFactory.getParameter(String)"})
-  public void testGetParameter_whenJavaxScriptLanguage_thenReturnJsp21El() {
-    // Arrange, Act and Assert
-    assertEquals("JSP 2.1 EL", (new JuelScriptEngineFactory()).getParameter("javax.script.language"));
-  }
-
-  /**
-   * Test {@link JuelScriptEngineFactory#getParameter(String)}.
-   * <ul>
-   *   <li>When {@code javax.script.name}.</li>
-   *   <li>Then return {@code JSP 2.1 EL}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JuelScriptEngineFactory#getParameter(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String JuelScriptEngineFactory.getParameter(String)"})
-  public void testGetParameter_whenJavaxScriptName_thenReturnJsp21El() {
-    // Arrange, Act and Assert
-    assertEquals("JSP 2.1 EL", (new JuelScriptEngineFactory()).getParameter("javax.script.name"));
-  }
-
-  /**
-   * Test {@link JuelScriptEngineFactory#getParameter(String)}.
-   * <ul>
-   *   <li>When {@code Key}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JuelScriptEngineFactory#getParameter(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String JuelScriptEngineFactory.getParameter(String)"})
-  public void testGetParameter_whenKey_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new JuelScriptEngineFactory()).getParameter("Key"));
-  }
-
-  /**
-   * Test {@link JuelScriptEngineFactory#getParameter(String)}.
-   * <ul>
-   *   <li>When {@code THREADING}.</li>
-   *   <li>Then return {@code MULTITHREADED}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JuelScriptEngineFactory#getParameter(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String JuelScriptEngineFactory.getParameter(String)"})
-  public void testGetParameter_whenThreading_thenReturnMultithreaded() {
-    // Arrange, Act and Assert
-    assertEquals("MULTITHREADED", (new JuelScriptEngineFactory()).getParameter("THREADING"));
-  }
-
-  /**
-   * Test {@link JuelScriptEngineFactory#getProgram(String[])}.
-   * <ul>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link JuelScriptEngineFactory#getProgram(String[])}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String JuelScriptEngineFactory.getProgram(String[])"})
-  public void testGetProgram_thenReturnEmptyString() {
+  public void testGetProgram() {
     // Arrange, Act and Assert
+    assertEquals("${MD} ", (new JuelScriptEngineFactory()).getProgram("MD"));
     assertEquals("", (new JuelScriptEngineFactory()).getProgram());
   }
 
   /**
-   * Test {@link JuelScriptEngineFactory#getProgram(String[])}.
-   * <ul>
-   *   <li>When {@code MD}.</li>
-   *   <li>Then return {@code ${MD}}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JuelScriptEngineFactory#getProgram(String[])}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String JuelScriptEngineFactory.getProgram(String[])"})
-  public void testGetProgram_whenMd_thenReturnMd() {
-    // Arrange, Act and Assert
-    assertEquals("${MD} ", (new JuelScriptEngineFactory()).getProgram("MD"));
-  }
-
-  /**
-   * Test {@link JuelScriptEngineFactory#getScriptEngine()}.
-   * <p>
    * Method under test: {@link JuelScriptEngineFactory#getScriptEngine()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ScriptEngine JuelScriptEngineFactory.getScriptEngine()"})
   public void testGetScriptEngine() {
     // Arrange
     JuelScriptEngineFactory juelScriptEngineFactory = new JuelScriptEngineFactory();
@@ -250,8 +96,6 @@ public class JuelScriptEngineFactoryDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link JuelScriptEngineFactory}
@@ -265,11 +109,6 @@ public class JuelScriptEngineFactoryDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void JuelScriptEngineFactory.<init>()", "String JuelScriptEngineFactory.getEngineName()",
-      "String JuelScriptEngineFactory.getEngineVersion()", "List JuelScriptEngineFactory.getExtensions()",
-      "String JuelScriptEngineFactory.getLanguageName()", "String JuelScriptEngineFactory.getLanguageVersion()",
-      "List JuelScriptEngineFactory.getMimeTypes()", "List JuelScriptEngineFactory.getNames()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     JuelScriptEngineFactory actualJuelScriptEngineFactory = new JuelScriptEngineFactory();

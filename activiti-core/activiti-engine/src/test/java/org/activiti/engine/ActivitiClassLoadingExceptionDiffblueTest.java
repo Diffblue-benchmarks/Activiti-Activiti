@@ -17,20 +17,36 @@ package org.activiti.engine;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ActivitiClassLoadingExceptionDiffblueTest {
+  @InjectMocks
+  private ActivitiClassLoadingException activitiClassLoadingException;
+
+  @InjectMocks
+  private String string;
+
+  @InjectMocks
+  private Throwable throwable;
+
   /**
-   * Test {@link ActivitiClassLoadingException#ActivitiClassLoadingException(String, Throwable)}.
-   * <p>
-   * Method under test: {@link ActivitiClassLoadingException#ActivitiClassLoadingException(String, Throwable)}
+   * Method under test: {@link ActivitiClassLoadingException#getClassName()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiClassLoadingException.<init>(String, Throwable)"})
+  public void testGetClassName() {
+    // Arrange, Act and Assert
+    assertEquals("Class Name", (new ActivitiClassLoadingException("Class Name", new Throwable())).getClassName());
+  }
+
+  /**
+   * Method under test:
+   * {@link ActivitiClassLoadingException#ActivitiClassLoadingException(String, Throwable)}
+   */
+  @Test
   public void testNewActivitiClassLoadingException() {
     // Arrange
     Throwable cause = new Throwable();
@@ -40,43 +56,10 @@ public class ActivitiClassLoadingExceptionDiffblueTest {
         cause);
 
     // Assert
+    assertEquals("Class Name", actualActivitiClassLoadingException.getClassName());
     assertEquals("Could not load class: Class Name", actualActivitiClassLoadingException.getLocalizedMessage());
     assertEquals("Could not load class: Class Name", actualActivitiClassLoadingException.getMessage());
+    assertEquals(0, actualActivitiClassLoadingException.getSuppressed().length);
     assertSame(cause, actualActivitiClassLoadingException.getCause());
-  }
-
-  /**
-   * Test {@link ActivitiClassLoadingException#ActivitiClassLoadingException(String, Throwable)}.
-   * <p>
-   * Method under test: {@link ActivitiClassLoadingException#ActivitiClassLoadingException(String, Throwable)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiClassLoadingException.<init>(String, Throwable)"})
-  public void testNewActivitiClassLoadingException2() {
-    // Arrange
-    ClassNotFoundException cause = new ClassNotFoundException();
-
-    // Act
-    ActivitiClassLoadingException actualActivitiClassLoadingException = new ActivitiClassLoadingException("Class Name",
-        cause);
-
-    // Assert
-    assertEquals("Class not found: Class Name", actualActivitiClassLoadingException.getLocalizedMessage());
-    assertEquals("Class not found: Class Name", actualActivitiClassLoadingException.getMessage());
-    assertSame(cause, actualActivitiClassLoadingException.getCause());
-  }
-
-  /**
-   * Test {@link ActivitiClassLoadingException#getClassName()}.
-   * <p>
-   * Method under test: {@link ActivitiClassLoadingException#getClassName()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String ActivitiClassLoadingException.getClassName()"})
-  public void testGetClassName() {
-    // Arrange, Act and Assert
-    assertEquals("Class Name", (new ActivitiClassLoadingException("Class Name", new Throwable())).getClassName());
   }
 }

@@ -21,56 +21,31 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.persistence.entity.JobEntity;
 import org.activiti.engine.impl.persistence.entity.JobEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class JobsByExecutionIdMatcherDiffblueTest {
   /**
-   * Test {@link JobsByExecutionIdMatcher#isRetained(JobEntity, Object)} with {@code JobEntity}, {@code Object}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JobsByExecutionIdMatcher#isRetained(JobEntity, Object)}
+   * Method under test:
+   * {@link JobsByExecutionIdMatcher#isRetained(JobEntity, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean JobsByExecutionIdMatcher.isRetained(JobEntity, Object)"})
-  public void testIsRetainedWithJobEntityObject_given42_when42_thenReturnTrue() {
+  public void testIsRetained() {
     // Arrange
     JobsByExecutionIdMatcher jobsByExecutionIdMatcher = new JobsByExecutionIdMatcher();
-    JobEntity jobEntity = mock(JobEntity.class);
-    when(jobEntity.getExecutionId()).thenReturn("42");
 
-    // Act
-    boolean actualIsRetainedResult = jobsByExecutionIdMatcher.isRetained(jobEntity, "42");
-
-    // Assert
-    verify(jobEntity, atLeast(1)).getExecutionId();
-    assertTrue(actualIsRetainedResult);
+    // Act and Assert
+    assertFalse(jobsByExecutionIdMatcher.isRetained(new JobEntityImpl(), JSONObject.NULL));
   }
 
   /**
-   * Test {@link JobsByExecutionIdMatcher#isRetained(JobEntity, Object)} with {@code JobEntity}, {@code Object}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@code Parameter}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JobsByExecutionIdMatcher#isRetained(JobEntity, Object)}
+   * Method under test:
+   * {@link JobsByExecutionIdMatcher#isRetained(JobEntity, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean JobsByExecutionIdMatcher.isRetained(JobEntity, Object)"})
-  public void testIsRetainedWithJobEntityObject_given42_whenParameter_thenReturnFalse() {
+  public void testIsRetained2() {
     // Arrange
     JobsByExecutionIdMatcher jobsByExecutionIdMatcher = new JobsByExecutionIdMatcher();
     JobEntity jobEntity = mock(JobEntity.class);
@@ -85,22 +60,21 @@ public class JobsByExecutionIdMatcherDiffblueTest {
   }
 
   /**
-   * Test {@link JobsByExecutionIdMatcher#isRetained(JobEntity, Object)} with {@code JobEntity}, {@code Object}.
-   * <ul>
-   *   <li>When {@link JobEntityImpl} (default constructor).</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JobsByExecutionIdMatcher#isRetained(JobEntity, Object)}
+   * Method under test:
+   * {@link JobsByExecutionIdMatcher#isRetained(JobEntity, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean JobsByExecutionIdMatcher.isRetained(JobEntity, Object)"})
-  public void testIsRetainedWithJobEntityObject_whenJobEntityImpl_thenReturnFalse() {
+  public void testIsRetained3() {
     // Arrange
     JobsByExecutionIdMatcher jobsByExecutionIdMatcher = new JobsByExecutionIdMatcher();
+    JobEntity jobEntity = mock(JobEntity.class);
+    when(jobEntity.getExecutionId()).thenReturn("42");
 
-    // Act and Assert
-    assertFalse(jobsByExecutionIdMatcher.isRetained(new JobEntityImpl(), JSONObject.NULL));
+    // Act
+    boolean actualIsRetainedResult = jobsByExecutionIdMatcher.isRetained(jobEntity, "42");
+
+    // Assert
+    verify(jobEntity, atLeast(1)).getExecutionId();
+    assertTrue(actualIsRetainedResult);
   }
 }

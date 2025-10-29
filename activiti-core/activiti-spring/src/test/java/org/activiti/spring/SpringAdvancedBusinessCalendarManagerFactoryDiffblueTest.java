@@ -17,26 +17,17 @@ package org.activiti.spring;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.util.DefaultClockImpl;
 import org.activiti.engine.runtime.Clock;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class SpringAdvancedBusinessCalendarManagerFactoryDiffblueTest {
   /**
-   * Test {@link SpringAdvancedBusinessCalendarManagerFactory#getClock()}.
-   * <ul>
-   *   <li>Then return {@link DefaultClockImpl} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SpringAdvancedBusinessCalendarManagerFactory#getClock()}
+   * Method under test:
+   * {@link SpringAdvancedBusinessCalendarManagerFactory#getClock()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Clock SpringAdvancedBusinessCalendarManagerFactory.getClock()"})
-  public void testGetClock_thenReturnDefaultClockImpl() {
+  public void testGetClock() {
     // Arrange
     SpringAdvancedBusinessCalendarManagerFactory springAdvancedBusinessCalendarManagerFactory = new SpringAdvancedBusinessCalendarManagerFactory();
     springAdvancedBusinessCalendarManagerFactory.setDefaultScheduleVersion(1);
@@ -48,22 +39,18 @@ public class SpringAdvancedBusinessCalendarManagerFactoryDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of {@link SpringAdvancedBusinessCalendarManagerFactory}
+   *   <li>default or parameterless constructor of
+   * {@link SpringAdvancedBusinessCalendarManagerFactory}
    *   <li>{@link SpringAdvancedBusinessCalendarManagerFactory#setClock(Clock)}
-   *   <li>{@link SpringAdvancedBusinessCalendarManagerFactory#setDefaultScheduleVersion(Integer)}
-   *   <li>{@link SpringAdvancedBusinessCalendarManagerFactory#getDefaultScheduleVersion()}
+   *   <li>
+   * {@link SpringAdvancedBusinessCalendarManagerFactory#setDefaultScheduleVersion(Integer)}
+   *   <li>
+   * {@link SpringAdvancedBusinessCalendarManagerFactory#getDefaultScheduleVersion()}
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SpringAdvancedBusinessCalendarManagerFactory.<init>()",
-      "Integer SpringAdvancedBusinessCalendarManagerFactory.getDefaultScheduleVersion()",
-      "void SpringAdvancedBusinessCalendarManagerFactory.setClock(Clock)",
-      "void SpringAdvancedBusinessCalendarManagerFactory.setDefaultScheduleVersion(Integer)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     SpringAdvancedBusinessCalendarManagerFactory actualSpringAdvancedBusinessCalendarManagerFactory = new SpringAdvancedBusinessCalendarManagerFactory();
@@ -71,7 +58,7 @@ public class SpringAdvancedBusinessCalendarManagerFactoryDiffblueTest {
     actualSpringAdvancedBusinessCalendarManagerFactory.setClock(clock);
     actualSpringAdvancedBusinessCalendarManagerFactory.setDefaultScheduleVersion(1);
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals(1, actualSpringAdvancedBusinessCalendarManagerFactory.getDefaultScheduleVersion().intValue());
     assertSame(clock, actualSpringAdvancedBusinessCalendarManagerFactory.getClock());
   }

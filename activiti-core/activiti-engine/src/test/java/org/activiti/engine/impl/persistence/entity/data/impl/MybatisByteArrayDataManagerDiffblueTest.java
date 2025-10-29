@@ -19,47 +19,19 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import org.activiti.core.el.CustomFunctionProvider;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.persistence.entity.ByteArrayEntity;
 import org.activiti.engine.impl.persistence.entity.ByteArrayEntityImpl;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class MybatisByteArrayDataManagerDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link MybatisByteArrayDataManager#MybatisByteArrayDataManager(ProcessEngineConfigurationImpl)}
-   *   <li>{@link MybatisByteArrayDataManager#getManagedEntityClass()}
-   * </ul>
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void MybatisByteArrayDataManager.<init>(ProcessEngineConfigurationImpl)",
-      "Class MybatisByteArrayDataManager.getManagedEntityClass()"})
-  public void testGettersAndSetters() {
-    // Arrange and Act
-    Class<? extends ByteArrayEntity> actualManagedEntityClass = (new MybatisByteArrayDataManager(
-        new JtaProcessEngineConfiguration())).getManagedEntityClass();
-
-    // Assert
-    Class<ByteArrayEntityImpl> expectedManagedEntityClass = ByteArrayEntityImpl.class;
-    assertEquals(expectedManagedEntityClass, actualManagedEntityClass);
-  }
-
-  /**
-   * Test {@link MybatisByteArrayDataManager#create()}.
-   * <p>
    * Method under test: {@link MybatisByteArrayDataManager#create()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ByteArrayEntity MybatisByteArrayDataManager.create()"})
   public void testCreate() {
     // Arrange and Act
     ByteArrayEntity actualCreateResult = (new MybatisByteArrayDataManager(new JtaProcessEngineConfiguration()))
@@ -76,5 +48,49 @@ public class MybatisByteArrayDataManagerDiffblueTest {
     assertFalse(actualCreateResult.isDeleted());
     assertFalse(actualCreateResult.isInserted());
     assertFalse(actualCreateResult.isUpdated());
+  }
+
+  /**
+   * Method under test: {@link MybatisByteArrayDataManager#create()}
+   */
+  @Test
+  public void testCreate2() {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
+
+    // Act
+    ByteArrayEntity actualCreateResult = (new MybatisByteArrayDataManager(processEngineConfiguration)).create();
+
+    // Assert
+    assertTrue(actualCreateResult instanceof ByteArrayEntityImpl);
+    assertNull(actualCreateResult.getBytes());
+    assertNull(actualCreateResult.getDeploymentId());
+    assertNull(actualCreateResult.getName());
+    assertNull(actualCreateResult.getId());
+    assertEquals(1, actualCreateResult.getRevision());
+    assertEquals(2, actualCreateResult.getRevisionNext());
+    assertFalse(actualCreateResult.isDeleted());
+    assertFalse(actualCreateResult.isInserted());
+    assertFalse(actualCreateResult.isUpdated());
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>
+   * {@link MybatisByteArrayDataManager#MybatisByteArrayDataManager(ProcessEngineConfigurationImpl)}
+   *   <li>{@link MybatisByteArrayDataManager#getManagedEntityClass()}
+   * </ul>
+   */
+  @Test
+  public void testGettersAndSetters() {
+    // Arrange and Act
+    Class<? extends ByteArrayEntity> actualManagedEntityClass = (new MybatisByteArrayDataManager(
+        new JtaProcessEngineConfiguration())).getManagedEntityClass();
+
+    // Assert
+    Class<ByteArrayEntityImpl> expectedManagedEntityClass = ByteArrayEntityImpl.class;
+    assertEquals(expectedManagedEntityClass, actualManagedEntityClass);
   }
 }

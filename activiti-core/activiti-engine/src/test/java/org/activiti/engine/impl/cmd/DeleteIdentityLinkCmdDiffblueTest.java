@@ -18,154 +18,16 @@ package org.activiti.engine.impl.cmd;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class DeleteIdentityLinkCmdDiffblueTest {
   /**
-   * Test {@link DeleteIdentityLinkCmd#DeleteIdentityLinkCmd(String, String, String, String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeleteIdentityLinkCmd#DeleteIdentityLinkCmd(String, String, String, String)}
+   * Method under test:
+   * {@link DeleteIdentityLinkCmd#DeleteIdentityLinkCmd(String, String, String, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeleteIdentityLinkCmd.<init>(String, String, String, String)"})
-  public void testNewDeleteIdentityLinkCmd_when42_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> new DeleteIdentityLinkCmd("42", null, null, null));
-
-  }
-
-  /**
-   * Test {@link DeleteIdentityLinkCmd#DeleteIdentityLinkCmd(String, String, String, String)}.
-   * <ul>
-   *   <li>When {@code assignee}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeleteIdentityLinkCmd#DeleteIdentityLinkCmd(String, String, String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeleteIdentityLinkCmd.<init>(String, String, String, String)"})
-  public void testNewDeleteIdentityLinkCmd_whenAssignee() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> new DeleteIdentityLinkCmd("42", null, "42", "assignee"));
-
-  }
-
-  /**
-   * Test {@link DeleteIdentityLinkCmd#DeleteIdentityLinkCmd(String, String, String, String)}.
-   * <ul>
-   *   <li>When {@code assignee}.</li>
-   *   <li>Then return {@link DeleteIdentityLinkCmd#type} is {@code assignee}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeleteIdentityLinkCmd#DeleteIdentityLinkCmd(String, String, String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeleteIdentityLinkCmd.<init>(String, String, String, String)"})
-  public void testNewDeleteIdentityLinkCmd_whenAssignee_thenReturnTypeIsAssignee() {
-    // Arrange and Act
-    DeleteIdentityLinkCmd actualDeleteIdentityLinkCmd = new DeleteIdentityLinkCmd("42", null, null, "assignee");
-
-    // Assert
-    assertEquals("42", actualDeleteIdentityLinkCmd.taskId);
-    assertEquals("Cannot execute operation: task is suspended",
-        actualDeleteIdentityLinkCmd.getSuspendedTaskException());
-    assertEquals("assignee", actualDeleteIdentityLinkCmd.type);
-    assertNull(actualDeleteIdentityLinkCmd.groupId);
-    assertNull(actualDeleteIdentityLinkCmd.userId);
-  }
-
-  /**
-   * Test {@link DeleteIdentityLinkCmd#DeleteIdentityLinkCmd(String, String, String, String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeleteIdentityLinkCmd#DeleteIdentityLinkCmd(String, String, String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeleteIdentityLinkCmd.<init>(String, String, String, String)"})
-  public void testNewDeleteIdentityLinkCmd_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> new DeleteIdentityLinkCmd(null, null, null, null));
-
-  }
-
-  /**
-   * Test {@link DeleteIdentityLinkCmd#DeleteIdentityLinkCmd(String, String, String, String)}.
-   * <ul>
-   *   <li>When {@code owner}.</li>
-   *   <li>Then return {@link DeleteIdentityLinkCmd#type} is {@code owner}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeleteIdentityLinkCmd#DeleteIdentityLinkCmd(String, String, String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeleteIdentityLinkCmd.<init>(String, String, String, String)"})
-  public void testNewDeleteIdentityLinkCmd_whenOwner_thenReturnTypeIsOwner() {
-    // Arrange and Act
-    DeleteIdentityLinkCmd actualDeleteIdentityLinkCmd = new DeleteIdentityLinkCmd("42", null, null, "owner");
-
-    // Assert
-    assertEquals("42", actualDeleteIdentityLinkCmd.taskId);
-    assertEquals("Cannot execute operation: task is suspended",
-        actualDeleteIdentityLinkCmd.getSuspendedTaskException());
-    assertEquals("owner", actualDeleteIdentityLinkCmd.type);
-    assertNull(actualDeleteIdentityLinkCmd.groupId);
-    assertNull(actualDeleteIdentityLinkCmd.userId);
-  }
-
-  /**
-   * Test {@link DeleteIdentityLinkCmd#DeleteIdentityLinkCmd(String, String, String, String)}.
-   * <ul>
-   *   <li>When {@code Type}.</li>
-   *   <li>Then return {@link DeleteIdentityLinkCmd#groupId} is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeleteIdentityLinkCmd#DeleteIdentityLinkCmd(String, String, String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeleteIdentityLinkCmd.<init>(String, String, String, String)"})
-  public void testNewDeleteIdentityLinkCmd_whenType_thenReturnGroupIdIs42() {
-    // Arrange and Act
-    DeleteIdentityLinkCmd actualDeleteIdentityLinkCmd = new DeleteIdentityLinkCmd("42", null, "42", "Type");
-
-    // Assert
-    assertEquals("42", actualDeleteIdentityLinkCmd.groupId);
-    assertEquals("42", actualDeleteIdentityLinkCmd.taskId);
-    assertEquals("Cannot execute operation: task is suspended",
-        actualDeleteIdentityLinkCmd.getSuspendedTaskException());
-    assertEquals("Type", actualDeleteIdentityLinkCmd.type);
-    assertNull(actualDeleteIdentityLinkCmd.userId);
-  }
-
-  /**
-   * Test {@link DeleteIdentityLinkCmd#DeleteIdentityLinkCmd(String, String, String, String)}.
-   * <ul>
-   *   <li>When {@code Type}.</li>
-   *   <li>Then return {@link DeleteIdentityLinkCmd#userId} is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeleteIdentityLinkCmd#DeleteIdentityLinkCmd(String, String, String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeleteIdentityLinkCmd.<init>(String, String, String, String)"})
-  public void testNewDeleteIdentityLinkCmd_whenType_thenReturnUserIdIs42() {
+  public void testNewDeleteIdentityLinkCmd() {
     // Arrange and Act
     DeleteIdentityLinkCmd actualDeleteIdentityLinkCmd = new DeleteIdentityLinkCmd("42", "42", "42", "Type");
 
@@ -179,92 +41,112 @@ public class DeleteIdentityLinkCmdDiffblueTest {
   }
 
   /**
-   * Test {@link DeleteIdentityLinkCmd#DeleteIdentityLinkCmd(String, String, String, String)}.
-   * <ul>
-   *   <li>When {@code Type}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeleteIdentityLinkCmd#DeleteIdentityLinkCmd(String, String, String, String)}
+   * Method under test:
+   * {@link DeleteIdentityLinkCmd#validateParams(String, String, String, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeleteIdentityLinkCmd.<init>(String, String, String, String)"})
-  public void testNewDeleteIdentityLinkCmd_whenType_thenThrowActivitiIllegalArgumentException() {
+  public void testValidateParams() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new DeleteIdentityLinkCmd("42", "42", "42", "Type")).validateParams("42", "42", "assignee", "42"));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new DeleteIdentityLinkCmd("42", "42", "42", "Type")).validateParams("42", "42", "owner", "42"));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new DeleteIdentityLinkCmd("42", "42", "42", "Type")).validateParams("42", "42", null, "42"));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new DeleteIdentityLinkCmd("42", "42", "42", "Type")).validateParams("42", "42", "Type", null));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new DeleteIdentityLinkCmd("42", "42", "42", "Type")).validateParams(null, null, "Type", "42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DeleteIdentityLinkCmd#DeleteIdentityLinkCmd(String, String, String, String)}
+   */
+  @Test
+  public void testNewDeleteIdentityLinkCmd2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> new DeleteIdentityLinkCmd(null, "42", "42", "Type"));
+
+  }
+
+  /**
+   * Method under test:
+   * {@link DeleteIdentityLinkCmd#DeleteIdentityLinkCmd(String, String, String, String)}
+   */
+  @Test
+  public void testNewDeleteIdentityLinkCmd3() {
+    // Arrange and Act
+    DeleteIdentityLinkCmd actualDeleteIdentityLinkCmd = new DeleteIdentityLinkCmd("42", null, "42", "Type");
+
+    // Assert
+    assertEquals("42", actualDeleteIdentityLinkCmd.groupId);
+    assertEquals("42", actualDeleteIdentityLinkCmd.taskId);
+    assertEquals("Cannot execute operation: task is suspended",
+        actualDeleteIdentityLinkCmd.getSuspendedTaskException());
+    assertEquals("Type", actualDeleteIdentityLinkCmd.type);
+    assertNull(actualDeleteIdentityLinkCmd.userId);
+  }
+
+  /**
+   * Method under test:
+   * {@link DeleteIdentityLinkCmd#DeleteIdentityLinkCmd(String, String, String, String)}
+   */
+  @Test
+  public void testNewDeleteIdentityLinkCmd4() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> new DeleteIdentityLinkCmd("42", "42", "42", "assignee"));
+
+  }
+
+  /**
+   * Method under test:
+   * {@link DeleteIdentityLinkCmd#DeleteIdentityLinkCmd(String, String, String, String)}
+   */
+  @Test
+  public void testNewDeleteIdentityLinkCmd5() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> new DeleteIdentityLinkCmd("42", "42", "42", "owner"));
+
+  }
+
+  /**
+   * Method under test:
+   * {@link DeleteIdentityLinkCmd#DeleteIdentityLinkCmd(String, String, String, String)}
+   */
+  @Test
+  public void testNewDeleteIdentityLinkCmd6() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> new DeleteIdentityLinkCmd("42", "42", "42", null));
+
+  }
+
+  /**
+   * Method under test:
+   * {@link DeleteIdentityLinkCmd#DeleteIdentityLinkCmd(String, String, String, String)}
+   */
+  @Test
+  public void testNewDeleteIdentityLinkCmd7() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> new DeleteIdentityLinkCmd("42", null, null, "Type"));
 
   }
 
   /**
-   * Test {@link DeleteIdentityLinkCmd#validateParams(String, String, String, String)}.
-   * <ul>
-   *   <li>When {@code assignee}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeleteIdentityLinkCmd#validateParams(String, String, String, String)}
+   * Method under test:
+   * {@link DeleteIdentityLinkCmd#DeleteIdentityLinkCmd(String, String, String, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeleteIdentityLinkCmd.validateParams(String, String, String, String)"})
-  public void testValidateParams_whenAssignee_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> (new DeleteIdentityLinkCmd("42", "42", "42", "Type")).validateParams(null, "42", "assignee", "42"));
-  }
+  public void testNewDeleteIdentityLinkCmd8() {
+    // Arrange and Act
+    DeleteIdentityLinkCmd actualDeleteIdentityLinkCmd = new DeleteIdentityLinkCmd("42", "42", null, "assignee");
 
-  /**
-   * Test {@link DeleteIdentityLinkCmd#validateParams(String, String, String, String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeleteIdentityLinkCmd#validateParams(String, String, String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeleteIdentityLinkCmd.validateParams(String, String, String, String)"})
-  public void testValidateParams_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> (new DeleteIdentityLinkCmd("42", "42", "42", "Type")).validateParams(null, null, null, null));
-  }
-
-  /**
-   * Test {@link DeleteIdentityLinkCmd#validateParams(String, String, String, String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeleteIdentityLinkCmd#validateParams(String, String, String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeleteIdentityLinkCmd.validateParams(String, String, String, String)"})
-  public void testValidateParams_whenNull_thenThrowActivitiIllegalArgumentException2() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> (new DeleteIdentityLinkCmd("42", "42", "42", "Type")).validateParams(null, null, null, "42"));
-  }
-
-  /**
-   * Test {@link DeleteIdentityLinkCmd#validateParams(String, String, String, String)}.
-   * <ul>
-   *   <li>When {@code Type}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeleteIdentityLinkCmd#validateParams(String, String, String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeleteIdentityLinkCmd.validateParams(String, String, String, String)"})
-  public void testValidateParams_whenType_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> (new DeleteIdentityLinkCmd("42", "42", "42", "Type")).validateParams(null, null, "Type", "42"));
+    // Assert
+    assertEquals("42", actualDeleteIdentityLinkCmd.userId);
+    assertEquals("42", actualDeleteIdentityLinkCmd.taskId);
+    assertEquals("Cannot execute operation: task is suspended",
+        actualDeleteIdentityLinkCmd.getSuspendedTaskException());
+    assertEquals("assignee", actualDeleteIdentityLinkCmd.type);
+    assertNull(actualDeleteIdentityLinkCmd.groupId);
   }
 }

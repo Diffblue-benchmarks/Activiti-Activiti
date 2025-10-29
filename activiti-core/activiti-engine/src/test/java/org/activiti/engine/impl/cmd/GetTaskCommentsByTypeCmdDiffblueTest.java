@@ -16,20 +16,14 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class GetTaskCommentsByTypeCmdDiffblueTest {
   /**
-   * Test {@link GetTaskCommentsByTypeCmd#GetTaskCommentsByTypeCmd(String, String)}.
-   * <p>
-   * Method under test: {@link GetTaskCommentsByTypeCmd#GetTaskCommentsByTypeCmd(String, String)}
+   * Method under test:
+   * {@link GetTaskCommentsByTypeCmd#GetTaskCommentsByTypeCmd(String, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void GetTaskCommentsByTypeCmd.<init>(String, String)"})
   public void testNewGetTaskCommentsByTypeCmd() {
     // Arrange and Act
     GetTaskCommentsByTypeCmd actualGetTaskCommentsByTypeCmd = new GetTaskCommentsByTypeCmd("42", "Type");

@@ -19,50 +19,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class GetTaskDataObjectCmdDiffblueTest {
   /**
-   * Test {@link GetTaskDataObjectCmd#GetTaskDataObjectCmd(String, String, String, boolean)}.
-   * <ul>
-   *   <li>When {@code en}.</li>
-   *   <li>Then return {@link GetTaskDataObjectCmd#locale} is {@code en}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GetTaskDataObjectCmd#GetTaskDataObjectCmd(String, String, String, boolean)}
+   * Method under test:
+   * {@link GetTaskDataObjectCmd#GetTaskDataObjectCmd(String, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void GetTaskDataObjectCmd.<init>(String, String)",
-      "void GetTaskDataObjectCmd.<init>(String, String, String, boolean)"})
-  public void testNewGetTaskDataObjectCmd_whenEn_thenReturnLocaleIsEn() {
-    // Arrange and Act
-    GetTaskDataObjectCmd actualGetTaskDataObjectCmd = new GetTaskDataObjectCmd("42", "Variable Name", "en", true);
-
-    // Assert
-    assertEquals("42", actualGetTaskDataObjectCmd.taskId);
-    assertEquals("Variable Name", actualGetTaskDataObjectCmd.variableName);
-    assertEquals("en", actualGetTaskDataObjectCmd.locale);
-    assertTrue(actualGetTaskDataObjectCmd.withLocalizationFallback);
-  }
-
-  /**
-   * Test {@link GetTaskDataObjectCmd#GetTaskDataObjectCmd(String, String)}.
-   * <ul>
-   *   <li>When {@code Variable Name}.</li>
-   *   <li>Then return {@link GetTaskDataObjectCmd#locale} is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GetTaskDataObjectCmd#GetTaskDataObjectCmd(String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void GetTaskDataObjectCmd.<init>(String, String)",
-      "void GetTaskDataObjectCmd.<init>(String, String, String, boolean)"})
-  public void testNewGetTaskDataObjectCmd_whenVariableName_thenReturnLocaleIsNull() {
+  public void testNewGetTaskDataObjectCmd() {
     // Arrange and Act
     GetTaskDataObjectCmd actualGetTaskDataObjectCmd = new GetTaskDataObjectCmd("42", "Variable Name");
 
@@ -71,5 +36,21 @@ public class GetTaskDataObjectCmdDiffblueTest {
     assertEquals("Variable Name", actualGetTaskDataObjectCmd.variableName);
     assertNull(actualGetTaskDataObjectCmd.locale);
     assertFalse(actualGetTaskDataObjectCmd.withLocalizationFallback);
+  }
+
+  /**
+   * Method under test:
+   * {@link GetTaskDataObjectCmd#GetTaskDataObjectCmd(String, String, String, boolean)}
+   */
+  @Test
+  public void testNewGetTaskDataObjectCmd2() {
+    // Arrange and Act
+    GetTaskDataObjectCmd actualGetTaskDataObjectCmd = new GetTaskDataObjectCmd("42", "Variable Name", "en", true);
+
+    // Assert
+    assertEquals("42", actualGetTaskDataObjectCmd.taskId);
+    assertEquals("Variable Name", actualGetTaskDataObjectCmd.variableName);
+    assertEquals("en", actualGetTaskDataObjectCmd.locale);
+    assertTrue(actualGetTaskDataObjectCmd.withLocalizationFallback);
   }
 }

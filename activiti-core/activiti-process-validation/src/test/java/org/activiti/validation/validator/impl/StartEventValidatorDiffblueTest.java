@@ -18,6 +18,7 @@ package org.activiti.validation.validator.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
@@ -25,7 +26,6 @@ import static org.mockito.Mockito.anyBoolean;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -41,26 +41,16 @@ import org.activiti.bpmn.model.SignalEventDefinition;
 import org.activiti.bpmn.model.StartEvent;
 import org.activiti.bpmn.model.TimerEventDefinition;
 import org.activiti.validation.ValidationError;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class StartEventValidatorDiffblueTest {
   /**
-   * Test {@link StartEventValidator#executeValidation(BpmnModel, Process, List)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then calls {@link Process#findFlowElementsOfType(Class, boolean)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StartEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test:
+   * {@link StartEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList(); then calls findFlowElementsOfType(Class, boolean)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void StartEventValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_givenArrayList_thenCallsFindFlowElementsOfType() {
+  void testExecuteValidation() {
     // Arrange
     StartEventValidator startEventValidator = new StartEventValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -70,23 +60,16 @@ class StartEventValidatorDiffblueTest {
     // Act
     startEventValidator.executeValidation(bpmnModel, process, new ArrayList<>());
 
-    // Assert
+    // Assert that nothing has changed
     verify(process).findFlowElementsOfType(isA(Class.class), eq(false));
   }
 
   /**
-   * Test {@link StartEventValidator#executeValidation(BpmnModel, Process, List)}.
-   * <ul>
-   *   <li>Given {@link ValidationError} (default constructor) ActivityId is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StartEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test:
+   * {@link StartEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ValidationError (default constructor) ActivityId is '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void StartEventValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_givenValidationErrorActivityIdIs42() {
+  void testExecuteValidation2() {
     // Arrange
     StartEventValidator startEventValidator = new StartEventValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -113,23 +96,16 @@ class StartEventValidatorDiffblueTest {
     // Act
     startEventValidator.executeValidation(bpmnModel, process, errors);
 
-    // Assert
+    // Assert that nothing has changed
     verify(process).findFlowElementsOfType(isA(Class.class), eq(false));
   }
 
   /**
-   * Test {@link StartEventValidator#executeValidation(BpmnModel, Process, List)}.
-   * <ul>
-   *   <li>Given {@link ValidationError} (default constructor) ActivityId is {@code Activity Id}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StartEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test:
+   * {@link StartEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ValidationError (default constructor) ActivityId is 'Activity Id'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void StartEventValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_givenValidationErrorActivityIdIsActivityId() {
+  void testExecuteValidation3() {
     // Arrange
     StartEventValidator startEventValidator = new StartEventValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -171,34 +147,19 @@ class StartEventValidatorDiffblueTest {
     // Act
     startEventValidator.executeValidation(bpmnModel, process, errors);
 
-    // Assert
+    // Assert that nothing has changed
     verify(process).findFlowElementsOfType(isA(Class.class), eq(false));
   }
 
   /**
-   * Test {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link MessageEventDefinition} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}
+   * Method under test:
+   * {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}
    */
   @Test
-  @DisplayName("Test validateEventDefinitionTypes(List, Process, List); given ArrayList() add MessageEventDefinition (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void StartEventValidator.validateEventDefinitionTypes(List, Process, List)"})
-  void testValidateEventDefinitionTypes_givenArrayListAddMessageEventDefinition() {
+  void testValidateEventDefinitionTypes() {
     // Arrange
     StartEventValidator startEventValidator = new StartEventValidator();
-
-    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
-    eventDefinitions.add(new MessageEventDefinition());
-
-    StartEvent startEvent = new StartEvent();
-    startEvent.setEventDefinitions(eventDefinitions);
-
     ArrayList<StartEvent> startEvents = new ArrayList<>();
-    startEvents.add(startEvent);
     Process process = new Process();
     ArrayList<ValidationError> errors = new ArrayList<>();
 
@@ -210,141 +171,24 @@ class StartEventValidatorDiffblueTest {
     assertTrue(artifacts instanceof List);
     Collection<FlowElement> flowElements = process.getFlowElements();
     assertTrue(flowElements instanceof List);
+    assertTrue(startEvents.isEmpty());
     assertTrue(errors.isEmpty());
     assertTrue(artifacts.isEmpty());
     assertTrue(flowElements.isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
   }
 
   /**
-   * Test {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link SignalEventDefinition} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}
+   * Method under test:
+   * {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}
    */
   @Test
-  @DisplayName("Test validateEventDefinitionTypes(List, Process, List); given ArrayList() add SignalEventDefinition (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void StartEventValidator.validateEventDefinitionTypes(List, Process, List)"})
-  void testValidateEventDefinitionTypes_givenArrayListAddSignalEventDefinition() {
-    // Arrange
-    StartEventValidator startEventValidator = new StartEventValidator();
-
-    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
-    eventDefinitions.add(new SignalEventDefinition());
-
-    StartEvent startEvent = new StartEvent();
-    startEvent.setEventDefinitions(eventDefinitions);
-
-    ArrayList<StartEvent> startEvents = new ArrayList<>();
-    startEvents.add(startEvent);
-    Process process = new Process();
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    startEventValidator.validateEventDefinitionTypes(startEvents, process, errors);
-
-    // Assert that nothing has changed
-    Collection<Artifact> artifacts = process.getArtifacts();
-    assertTrue(artifacts instanceof List);
-    Collection<FlowElement> flowElements = process.getFlowElements();
-    assertTrue(flowElements instanceof List);
-    assertTrue(errors.isEmpty());
-    assertTrue(artifacts.isEmpty());
-    assertTrue(flowElements.isEmpty());
-  }
-
-  /**
-   * Test {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link TimerEventDefinition} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}
-   */
-  @Test
-  @DisplayName("Test validateEventDefinitionTypes(List, Process, List); given ArrayList() add TimerEventDefinition (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void StartEventValidator.validateEventDefinitionTypes(List, Process, List)"})
-  void testValidateEventDefinitionTypes_givenArrayListAddTimerEventDefinition() {
-    // Arrange
-    StartEventValidator startEventValidator = new StartEventValidator();
-
-    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
-    eventDefinitions.add(new TimerEventDefinition());
-
-    StartEvent startEvent = new StartEvent();
-    startEvent.setEventDefinitions(eventDefinitions);
-
-    ArrayList<StartEvent> startEvents = new ArrayList<>();
-    startEvents.add(startEvent);
-    Process process = new Process();
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    startEventValidator.validateEventDefinitionTypes(startEvents, process, errors);
-
-    // Assert that nothing has changed
-    Collection<Artifact> artifacts = process.getArtifacts();
-    assertTrue(artifacts instanceof List);
-    Collection<FlowElement> flowElements = process.getFlowElements();
-    assertTrue(flowElements instanceof List);
-    assertTrue(errors.isEmpty());
-    assertTrue(artifacts.isEmpty());
-    assertTrue(flowElements.isEmpty());
-  }
-
-  /**
-   * Test {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}.
-   * <ul>
-   *   <li>Given {@link StartEvent} (default constructor) EventDefinitions is {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}
-   */
-  @Test
-  @DisplayName("Test validateEventDefinitionTypes(List, Process, List); given StartEvent (default constructor) EventDefinitions is ArrayList()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void StartEventValidator.validateEventDefinitionTypes(List, Process, List)"})
-  void testValidateEventDefinitionTypes_givenStartEventEventDefinitionsIsArrayList() {
-    // Arrange
-    StartEventValidator startEventValidator = new StartEventValidator();
-
-    StartEvent startEvent = new StartEvent();
-    startEvent.setEventDefinitions(new ArrayList<>());
-
-    ArrayList<StartEvent> startEvents = new ArrayList<>();
-    startEvents.add(startEvent);
-    Process process = new Process();
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    startEventValidator.validateEventDefinitionTypes(startEvents, process, errors);
-
-    // Assert that nothing has changed
-    Collection<Artifact> artifacts = process.getArtifacts();
-    assertTrue(artifacts instanceof List);
-    Collection<FlowElement> flowElements = process.getFlowElements();
-    assertTrue(flowElements instanceof List);
-    assertTrue(errors.isEmpty());
-    assertTrue(artifacts.isEmpty());
-    assertTrue(flowElements.isEmpty());
-  }
-
-  /**
-   * Test {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}.
-   * <ul>
-   *   <li>Given {@link StartEvent} (default constructor) EventDefinitions is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}
-   */
-  @Test
-  @DisplayName("Test validateEventDefinitionTypes(List, Process, List); given StartEvent (default constructor) EventDefinitions is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void StartEventValidator.validateEventDefinitionTypes(List, Process, List)"})
-  void testValidateEventDefinitionTypes_givenStartEventEventDefinitionsIsNull() {
+  void testValidateEventDefinitionTypes2() {
     // Arrange
     StartEventValidator startEventValidator = new StartEventValidator();
 
@@ -364,24 +208,63 @@ class StartEventValidatorDiffblueTest {
     assertTrue(artifacts instanceof List);
     Collection<FlowElement> flowElements = process.getFlowElements();
     assertTrue(flowElements instanceof List);
+    assertEquals(1, startEvents.size());
     assertTrue(errors.isEmpty());
     assertTrue(artifacts.isEmpty());
     assertTrue(flowElements.isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+    assertSame(startEvent, startEvents.get(0));
   }
 
   /**
-   * Test {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}.
-   * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}
+   * Method under test:
+   * {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}
    */
   @Test
-  @DisplayName("Test validateEventDefinitionTypes(List, Process, List); then ArrayList() size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void StartEventValidator.validateEventDefinitionTypes(List, Process, List)"})
-  void testValidateEventDefinitionTypes_thenArrayListSizeIsOne() {
+  void testValidateEventDefinitionTypes3() {
+    // Arrange
+    StartEventValidator startEventValidator = new StartEventValidator();
+
+    StartEvent startEvent = new StartEvent();
+    startEvent.setEventDefinitions(new ArrayList<>());
+
+    ArrayList<StartEvent> startEvents = new ArrayList<>();
+    startEvents.add(startEvent);
+    Process process = new Process();
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    startEventValidator.validateEventDefinitionTypes(startEvents, process, errors);
+
+    // Assert that nothing has changed
+    Collection<Artifact> artifacts = process.getArtifacts();
+    assertTrue(artifacts instanceof List);
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertEquals(1, startEvents.size());
+    assertTrue(errors.isEmpty());
+    assertTrue(artifacts.isEmpty());
+    assertTrue(flowElements.isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+    assertSame(startEvent, startEvents.get(0));
+  }
+
+  /**
+   * Method under test:
+   * {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}
+   */
+  @Test
+  void testValidateEventDefinitionTypes4() {
     // Arrange
     StartEventValidator startEventValidator = new StartEventValidator();
 
@@ -416,29 +299,37 @@ class StartEventValidatorDiffblueTest {
     assertNull(getResult.getValidatorSetName());
     assertEquals(0, getResult.getXmlColumnNumber());
     assertEquals(0, getResult.getXmlLineNumber());
+    assertEquals(1, startEvents.size());
     assertFalse(getResult.isWarning());
     assertTrue(artifacts.isEmpty());
     assertTrue(flowElements.isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
     assertTrue(getResult.getParams().isEmpty());
+    assertSame(startEvent, startEvents.get(0));
   }
 
   /**
-   * Test {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}.
-   * <ul>
-   *   <li>When {@link Process} (default constructor).</li>
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}
+   * Method under test:
+   * {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}
    */
   @Test
-  @DisplayName("Test validateEventDefinitionTypes(List, Process, List); when Process (default constructor); then ArrayList() Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void StartEventValidator.validateEventDefinitionTypes(List, Process, List)"})
-  void testValidateEventDefinitionTypes_whenProcess_thenArrayListEmpty() {
+  void testValidateEventDefinitionTypes5() {
     // Arrange
     StartEventValidator startEventValidator = new StartEventValidator();
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(new MessageEventDefinition());
+
+    StartEvent startEvent = new StartEvent();
+    startEvent.setEventDefinitions(eventDefinitions);
+
     ArrayList<StartEvent> startEvents = new ArrayList<>();
+    startEvents.add(startEvent);
     Process process = new Process();
     ArrayList<ValidationError> errors = new ArrayList<>();
 
@@ -450,8 +341,98 @@ class StartEventValidatorDiffblueTest {
     assertTrue(artifacts instanceof List);
     Collection<FlowElement> flowElements = process.getFlowElements();
     assertTrue(flowElements instanceof List);
+    assertEquals(1, startEvents.size());
     assertTrue(errors.isEmpty());
     assertTrue(artifacts.isEmpty());
     assertTrue(flowElements.isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+    assertSame(startEvent, startEvents.get(0));
+  }
+
+  /**
+   * Method under test:
+   * {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}
+   */
+  @Test
+  void testValidateEventDefinitionTypes6() {
+    // Arrange
+    StartEventValidator startEventValidator = new StartEventValidator();
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(new TimerEventDefinition());
+
+    StartEvent startEvent = new StartEvent();
+    startEvent.setEventDefinitions(eventDefinitions);
+
+    ArrayList<StartEvent> startEvents = new ArrayList<>();
+    startEvents.add(startEvent);
+    Process process = new Process();
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    startEventValidator.validateEventDefinitionTypes(startEvents, process, errors);
+
+    // Assert that nothing has changed
+    Collection<Artifact> artifacts = process.getArtifacts();
+    assertTrue(artifacts instanceof List);
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertEquals(1, startEvents.size());
+    assertTrue(errors.isEmpty());
+    assertTrue(artifacts.isEmpty());
+    assertTrue(flowElements.isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+    assertSame(startEvent, startEvents.get(0));
+  }
+
+  /**
+   * Method under test:
+   * {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}
+   */
+  @Test
+  void testValidateEventDefinitionTypes7() {
+    // Arrange
+    StartEventValidator startEventValidator = new StartEventValidator();
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(new SignalEventDefinition());
+
+    StartEvent startEvent = new StartEvent();
+    startEvent.setEventDefinitions(eventDefinitions);
+
+    ArrayList<StartEvent> startEvents = new ArrayList<>();
+    startEvents.add(startEvent);
+    Process process = new Process();
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    startEventValidator.validateEventDefinitionTypes(startEvents, process, errors);
+
+    // Assert that nothing has changed
+    Collection<Artifact> artifacts = process.getArtifacts();
+    assertTrue(artifacts instanceof List);
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertEquals(1, startEvents.size());
+    assertTrue(errors.isEmpty());
+    assertTrue(artifacts.isEmpty());
+    assertTrue(flowElements.isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+    assertSame(startEvent, startEvents.get(0));
   }
 }

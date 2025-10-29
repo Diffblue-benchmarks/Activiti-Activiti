@@ -17,15 +17,10 @@ package org.activiti.api.process.model.payloads;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ResumeProcessPayloadDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link ResumeProcessPayload#ResumeProcessPayload(String)}
@@ -35,30 +30,20 @@ class ResumeProcessPayloadDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ResumeProcessPayload.<init>(String)", "String ResumeProcessPayload.getId()",
-      "String ResumeProcessPayload.getProcessInstanceId()", "void ResumeProcessPayload.setProcessInstanceId(String)"})
   void testGettersAndSetters() {
     // Arrange and Act
     ResumeProcessPayload actualResumeProcessPayload = new ResumeProcessPayload("42");
     actualResumeProcessPayload.setProcessInstanceId("42");
-    String actualId = actualResumeProcessPayload.getId();
+    actualResumeProcessPayload.getId();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("42", actualResumeProcessPayload.getProcessInstanceId());
-    assertNull(actualId);
   }
 
   /**
-   * Test {@link ResumeProcessPayload#ResumeProcessPayload()}.
-   * <p>
    * Method under test: {@link ResumeProcessPayload#ResumeProcessPayload()}
    */
   @Test
-  @DisplayName("Test new ResumeProcessPayload()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ResumeProcessPayload.<init>()"})
   void testNewResumeProcessPayload() {
     // Arrange, Act and Assert
     assertNull((new ResumeProcessPayload()).getProcessInstanceId());

@@ -20,77 +20,44 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiFunction;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class InterfaceDiffblueTest {
   /**
-   * Test {@link Interface#clone()}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@code foo}.</li>
-   *   <li>Then return Operations first ErrorMessageRef size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Interface#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Interface Interface.clone()"})
-  public void testClone_givenArrayListAddFoo_thenReturnOperationsFirstErrorMessageRefSizeIsOne() {
-    // Arrange
-    ArrayList<String> errorMessageRef = new ArrayList<>();
-    errorMessageRef.add("foo");
+  public void testClone() {
+    // Arrange and Act
+    Interface actualCloneResult = (new Interface()).clone();
 
-    Operation operation = new Operation();
-    operation.setErrorMessageRef(errorMessageRef);
-
-    ArrayList<Operation> operations = new ArrayList<>();
-    operations.add(operation);
-
-    Interface resultInterface = new Interface();
-    resultInterface.setOperations(operations);
-
-    // Act and Assert
-    List<Operation> operations2 = resultInterface.clone().getOperations();
-    assertEquals(1, operations2.size());
-    Operation getResult = operations2.get(0);
-    List<String> errorMessageRef2 = getResult.getErrorMessageRef();
-    assertEquals(1, errorMessageRef2.size());
-    assertEquals("foo", errorMessageRef2.get(0));
-    assertNull(getResult.getId());
-    assertNull(getResult.getImplementationRef());
-    assertNull(getResult.getInMessageRef());
-    assertNull(getResult.getName());
-    assertNull(getResult.getOutMessageRef());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getImplementationRef());
+    assertNull(actualCloneResult.getName());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertTrue(actualCloneResult.getOperations().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
   }
 
   /**
-   * Test {@link Interface#clone()}.
-   * <ul>
-   *   <li>Given {@link Interface} (default constructor) ExtensionElements is {@code null}.</li>
-   *   <li>Then return Id is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Interface#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Interface Interface.clone()"})
-  public void testClone_givenInterfaceExtensionElementsIsNull_thenReturnIdIsNull() {
+  public void testClone2() {
     // Arrange
     Interface resultInterface = new Interface();
     resultInterface.setExtensionElements(null);
@@ -111,18 +78,10 @@ public class InterfaceDiffblueTest {
   }
 
   /**
-   * Test {@link Interface#clone()}.
-   * <ul>
-   *   <li>Given {@link Interface} (default constructor) Operations is {@code null}.</li>
-   *   <li>Then return Id is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Interface#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Interface Interface.clone()"})
-  public void testClone_givenInterfaceOperationsIsNull_thenReturnIdIsNull() {
+  public void testClone3() {
     // Arrange
     Interface resultInterface = new Interface();
     resultInterface.setOperations(null);
@@ -142,20 +101,209 @@ public class InterfaceDiffblueTest {
   }
 
   /**
-   * Test {@link Interface#clone()}.
-   * <ul>
-   *   <li>Given {@link Interface} (default constructor).</li>
-   *   <li>Then return Id is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Interface#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Interface Interface.clone()"})
-  public void testClone_givenInterface_thenReturnIdIsNull() {
-    // Arrange and Act
-    Interface actualCloneResult = (new Interface()).clone();
+  public void testClone4() {
+    // Arrange
+    Operation operation = new Operation();
+    operation.setErrorMessageRef(null);
+
+    ArrayList<Operation> operations = new ArrayList<>();
+    operations.add(operation);
+
+    Interface resultInterface = new Interface();
+    resultInterface.setOperations(operations);
+
+    // Act
+    Interface actualCloneResult = resultInterface.clone();
+
+    // Assert
+    List<Operation> operations2 = actualCloneResult.getOperations();
+    assertEquals(1, operations2.size());
+    Operation getResult = operations2.get(0);
+    assertNull(getResult.getId());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getImplementationRef());
+    assertNull(actualCloneResult.getName());
+    assertNull(getResult.getImplementationRef());
+    assertNull(getResult.getInMessageRef());
+    assertNull(getResult.getName());
+    assertNull(getResult.getOutMessageRef());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlRowNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertTrue(getResult.getErrorMessageRef().isEmpty());
+    assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(getResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link Interface#clone()}
+   */
+  @Test
+  public void testClone5() {
+    // Arrange
+    Operation operation = new Operation();
+    operation.setErrorMessageRef(new ArrayList<>());
+
+    ArrayList<Operation> operations = new ArrayList<>();
+    operations.add(operation);
+
+    Interface resultInterface = new Interface();
+    resultInterface.setOperations(operations);
+
+    // Act
+    Interface actualCloneResult = resultInterface.clone();
+
+    // Assert
+    List<Operation> operations2 = actualCloneResult.getOperations();
+    assertEquals(1, operations2.size());
+    Operation getResult = operations2.get(0);
+    assertNull(getResult.getId());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getImplementationRef());
+    assertNull(actualCloneResult.getName());
+    assertNull(getResult.getImplementationRef());
+    assertNull(getResult.getInMessageRef());
+    assertNull(getResult.getName());
+    assertNull(getResult.getOutMessageRef());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlRowNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertTrue(getResult.getErrorMessageRef().isEmpty());
+    assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(getResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link Interface#clone()}
+   */
+  @Test
+  public void testClone6() {
+    // Arrange
+    Interface resultInterface = new Interface();
+    ExtensionAttribute attribute = new ExtensionAttribute("Name");
+    resultInterface.addAttribute(attribute);
+
+    // Act
+    Interface actualCloneResult = resultInterface.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getImplementationRef());
+    assertNull(actualCloneResult.getName());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    Map<String, List<ExtensionAttribute>> attributes = actualCloneResult.getAttributes();
+    assertEquals(1, attributes.size());
+    List<ExtensionAttribute> getResult = attributes.get("Name");
+    assertEquals(1, getResult.size());
+    assertTrue(actualCloneResult.getOperations().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertSame(attribute, getResult.get(0));
+  }
+
+  /**
+   * Method under test: {@link Interface#clone()}
+   */
+  @Test
+  public void testClone7() {
+    // Arrange
+    Interface resultInterface = new Interface();
+    ExtensionAttribute attribute = new ExtensionAttribute("42");
+    resultInterface.addAttribute(attribute);
+    ExtensionAttribute attribute2 = new ExtensionAttribute("Name");
+    resultInterface.addAttribute(attribute2);
+
+    // Act
+    Interface actualCloneResult = resultInterface.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getImplementationRef());
+    assertNull(actualCloneResult.getName());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    Map<String, List<ExtensionAttribute>> attributes = actualCloneResult.getAttributes();
+    assertEquals(2, attributes.size());
+    List<ExtensionAttribute> getResult = attributes.get("42");
+    assertEquals(1, getResult.size());
+    List<ExtensionAttribute> getResult2 = attributes.get("Name");
+    assertEquals(1, getResult2.size());
+    assertTrue(actualCloneResult.getOperations().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertSame(attribute, getResult.get(0));
+    assertSame(attribute2, getResult2.get(0));
+  }
+
+  /**
+   * Method under test: {@link Interface#clone()}
+   */
+  @Test
+  public void testClone8() {
+    // Arrange
+    ArrayList<String> errorMessageRef = new ArrayList<>();
+    errorMessageRef.add("foo");
+
+    Operation operation = new Operation();
+    operation.setErrorMessageRef(errorMessageRef);
+
+    ArrayList<Operation> operations = new ArrayList<>();
+    operations.add(operation);
+
+    Interface resultInterface = new Interface();
+    resultInterface.setOperations(operations);
+
+    // Act
+    Interface actualCloneResult = resultInterface.clone();
+
+    // Assert
+    List<Operation> operations2 = actualCloneResult.getOperations();
+    assertEquals(1, operations2.size());
+    Operation getResult = operations2.get(0);
+    List<String> errorMessageRef2 = getResult.getErrorMessageRef();
+    assertEquals(1, errorMessageRef2.size());
+    assertEquals("foo", errorMessageRef2.get(0));
+    assertNull(getResult.getId());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getImplementationRef());
+    assertNull(actualCloneResult.getName());
+    assertNull(getResult.getImplementationRef());
+    assertNull(getResult.getInMessageRef());
+    assertNull(getResult.getName());
+    assertNull(getResult.getOutMessageRef());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlRowNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(getResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link Interface#clone()}
+   */
+  @Test
+  public void testClone9() {
+    // Arrange
+    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
+    attributes.put("foo", new ArrayList<>());
+
+    Interface resultInterface = new Interface();
+    resultInterface.setExtensionElements(null);
+    resultInterface.setAttributes(attributes);
+
+    // Act
+    Interface actualCloneResult = resultInterface.clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
@@ -169,146 +317,113 @@ public class InterfaceDiffblueTest {
   }
 
   /**
-   * Test {@link Interface#clone()}.
-   * <ul>
-   *   <li>Given {@link Operation} (default constructor) ErrorMessageRef is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Interface#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Interface Interface.clone()"})
-  public void testClone_givenOperationErrorMessageRefIsNull() {
+  public void testClone10() {
     // Arrange
-    Operation operation = new Operation();
-    operation.setErrorMessageRef(null);
-
-    ArrayList<Operation> operations = new ArrayList<>();
-    operations.add(operation);
+    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
+    attributes.computeIfPresent("foo", mock(BiFunction.class));
+    attributes.put("foo", new ArrayList<>());
 
     Interface resultInterface = new Interface();
-    resultInterface.setOperations(operations);
+    resultInterface.setExtensionElements(null);
+    resultInterface.setAttributes(attributes);
 
-    // Act and Assert
-    List<Operation> operations2 = resultInterface.clone().getOperations();
-    assertEquals(1, operations2.size());
-    Operation getResult = operations2.get(0);
-    assertNull(getResult.getId());
-    assertNull(getResult.getImplementationRef());
-    assertNull(getResult.getInMessageRef());
-    assertNull(getResult.getName());
-    assertNull(getResult.getOutMessageRef());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(getResult.getErrorMessageRef().isEmpty());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
+    // Act
+    Interface actualCloneResult = resultInterface.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getImplementationRef());
+    assertNull(actualCloneResult.getName());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertTrue(actualCloneResult.getOperations().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
   }
 
   /**
-   * Test {@link Interface#clone()}.
-   * <ul>
-   *   <li>Then return Attributes size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Interface#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Interface Interface.clone()"})
-  public void testClone_thenReturnAttributesSizeIsOne() {
+  public void testClone11() {
     // Arrange
-    Interface resultInterface = new Interface();
-    ExtensionAttribute attribute = new ExtensionAttribute("Name");
-    resultInterface.addAttribute(attribute);
+    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
+    extensionElements.put("foo", new ArrayList<>());
 
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = resultInterface.clone().getAttributes();
-    assertEquals(1, attributes.size());
-    List<ExtensionAttribute> getResult = attributes.get("Name");
-    assertEquals(1, getResult.size());
-    assertSame(attribute, getResult.get(0));
+    Interface resultInterface = new Interface();
+    resultInterface.setExtensionElements(extensionElements);
+    resultInterface.setAttributes(null);
+
+    // Act
+    Interface actualCloneResult = resultInterface.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getImplementationRef());
+    assertNull(actualCloneResult.getName());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertTrue(actualCloneResult.getOperations().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
   }
 
   /**
-   * Test {@link Interface#clone()}.
-   * <ul>
-   *   <li>Then return Attributes size is two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Interface#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Interface Interface.clone()"})
-  public void testClone_thenReturnAttributesSizeIsTwo() {
+  public void testClone12() {
     // Arrange
-    Interface resultInterface = new Interface();
-    ExtensionAttribute attribute = new ExtensionAttribute("42");
-    resultInterface.addAttribute(attribute);
-    resultInterface.addAttribute(new ExtensionAttribute("Name"));
+    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
+    extensionElements.put("42", new ArrayList<>());
+    extensionElements.put("foo", new ArrayList<>());
 
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = resultInterface.clone().getAttributes();
-    assertEquals(2, attributes.size());
-    List<ExtensionAttribute> getResult = attributes.get("42");
-    assertEquals(1, getResult.size());
-    assertTrue(attributes.containsKey("Name"));
-    assertSame(attribute, getResult.get(0));
+    Interface resultInterface = new Interface();
+    resultInterface.setExtensionElements(extensionElements);
+    resultInterface.setAttributes(null);
+
+    // Act
+    Interface actualCloneResult = resultInterface.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getImplementationRef());
+    assertNull(actualCloneResult.getName());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertTrue(actualCloneResult.getOperations().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
   }
 
   /**
-   * Test {@link Interface#clone()}.
-   * <ul>
-   *   <li>Then return Operations first ErrorMessageRef Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Interface#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Interface Interface.clone()"})
-  public void testClone_thenReturnOperationsFirstErrorMessageRefEmpty() {
-    // Arrange
-    Operation operation = new Operation();
-    operation.setErrorMessageRef(new ArrayList<>());
-
-    ArrayList<Operation> operations = new ArrayList<>();
-    operations.add(operation);
-
-    Interface resultInterface = new Interface();
-    resultInterface.setOperations(operations);
-
-    // Act and Assert
-    List<Operation> operations2 = resultInterface.clone().getOperations();
-    assertEquals(1, operations2.size());
-    Operation getResult = operations2.get(0);
-    assertNull(getResult.getId());
-    assertNull(getResult.getImplementationRef());
-    assertNull(getResult.getInMessageRef());
-    assertNull(getResult.getName());
-    assertNull(getResult.getOutMessageRef());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(getResult.getErrorMessageRef().isEmpty());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link Interface#setValues(Interface)} with {@code Interface}.
-   * <ul>
-   *   <li>Given {@link Operation} {@link Operation#clone()} return {@link Operation} (default constructor).</li>
-   *   <li>Then calls {@link Operation#clone()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Interface#setValues(Interface)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Interface.setValues(Interface)"})
-  public void testSetValuesWithInterface_givenOperationCloneReturnOperation_thenCallsClone() {
+  public void testSetValues() {
+    // Arrange
+    Interface resultInterface = new Interface();
+    ExtensionAttribute attribute = mock(ExtensionAttribute.class);
+    when(attribute.getName()).thenReturn("Name");
+
+    Interface otherElement = new Interface();
+    otherElement.addAttribute(attribute);
+
+    // Act
+    resultInterface.setValues(otherElement);
+
+    // Assert
+    verify(attribute, atLeast(1)).getName();
+  }
+
+  /**
+   * Method under test: {@link Interface#setValues(Interface)}
+   */
+  @Test
+  public void testSetValues2() {
     // Arrange
     Interface resultInterface = new Interface();
     Operation operation = mock(Operation.class);
@@ -331,8 +446,6 @@ public class InterfaceDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link Interface}
@@ -345,10 +458,6 @@ public class InterfaceDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Interface.<init>()", "String Interface.getImplementationRef()", "String Interface.getName()",
-      "List Interface.getOperations()", "void Interface.setImplementationRef(String)", "void Interface.setName(String)",
-      "void Interface.setOperations(List)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Interface actualResultInterface = new Interface();
@@ -360,10 +469,9 @@ public class InterfaceDiffblueTest {
     String actualName = actualResultInterface.getName();
     List<Operation> actualOperations = actualResultInterface.getOperations();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("Implementation Ref", actualImplementationRef);
     assertEquals("Name", actualName);
-    assertNull(actualResultInterface.getId());
     assertEquals(0, actualResultInterface.getXmlColumnNumber());
     assertEquals(0, actualResultInterface.getXmlRowNumber());
     assertTrue(actualOperations.isEmpty());

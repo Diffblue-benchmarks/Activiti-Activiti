@@ -19,15 +19,12 @@ import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.runtime.ClockReader;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -42,14 +39,22 @@ public class DueDateBusinessCalendarDiffblueTest {
   private DueDateBusinessCalendar dueDateBusinessCalendar;
 
   /**
-   * Test {@link DueDateBusinessCalendar#resolveDuedate(String, int)} with {@code duedate}, {@code maxIterations}.
-   * <p>
-   * Method under test: {@link DueDateBusinessCalendar#resolveDuedate(String, int)}
+   * Method under test:
+   * {@link DueDateBusinessCalendar#resolveDuedate(String, int)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Date DueDateBusinessCalendar.resolveDuedate(String, int)"})
-  public void testResolveDuedateWithDuedateMaxIterations() {
+  public void testResolveDuedate() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiException.class, () -> dueDateBusinessCalendar.resolveDuedate("2020/03/01", 3));
+    assertThrows(ActivitiException.class, () -> dueDateBusinessCalendar.resolveDuedate("Duedate", 3));
+  }
+
+  /**
+   * Method under test:
+   * {@link DueDateBusinessCalendar#resolveDuedate(String, int)}
+   */
+  @Test
+  public void testResolveDuedate2() {
     // Arrange
     when(clockReader.getCurrentTime())
         .thenReturn(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
@@ -62,17 +67,11 @@ public class DueDateBusinessCalendarDiffblueTest {
   }
 
   /**
-   * Test {@link DueDateBusinessCalendar#resolveDuedate(String, int)} with {@code duedate}, {@code maxIterations}.
-   * <ul>
-   *   <li>Then calls {@link Date#getTime()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DueDateBusinessCalendar#resolveDuedate(String, int)}
+   * Method under test:
+   * {@link DueDateBusinessCalendar#resolveDuedate(String, int)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Date DueDateBusinessCalendar.resolveDuedate(String, int)"})
-  public void testResolveDuedateWithDuedateMaxIterations_thenCallsGetTime() {
+  public void testResolveDuedate3() {
     // Arrange
     java.sql.Date date = mock(java.sql.Date.class);
     when(date.getTime()).thenThrow(new ActivitiException("An error occurred"));
@@ -85,34 +84,16 @@ public class DueDateBusinessCalendarDiffblueTest {
   }
 
   /**
-   * Test {@link DueDateBusinessCalendar#resolveDuedate(String, int)} with {@code duedate}, {@code maxIterations}.
-   * <ul>
-   *   <li>When {@code 2020/03/01}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DueDateBusinessCalendar#resolveDuedate(String, int)}
+   * Method under test:
+   * {@link DueDateBusinessCalendar#resolveDuedate(String, int)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Date DueDateBusinessCalendar.resolveDuedate(String, int)"})
-  public void testResolveDuedateWithDuedateMaxIterations_when20200301() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiException.class, () -> dueDateBusinessCalendar.resolveDuedate("2020/03/01", 3));
-  }
+  public void testResolveDuedate4() {
+    // Arrange
+    when(clockReader.getCurrentTime()).thenThrow(new ActivitiException("An error occurred"));
 
-  /**
-   * Test {@link DueDateBusinessCalendar#resolveDuedate(String, int)} with {@code duedate}, {@code maxIterations}.
-   * <ul>
-   *   <li>When {@code Duedate}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DueDateBusinessCalendar#resolveDuedate(String, int)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Date DueDateBusinessCalendar.resolveDuedate(String, int)"})
-  public void testResolveDuedateWithDuedateMaxIterations_whenDuedate() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiException.class, () -> dueDateBusinessCalendar.resolveDuedate("Duedate", 3));
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> dueDateBusinessCalendar.resolveDuedate("P", 3));
+    verify(clockReader).getCurrentTime();
   }
 }

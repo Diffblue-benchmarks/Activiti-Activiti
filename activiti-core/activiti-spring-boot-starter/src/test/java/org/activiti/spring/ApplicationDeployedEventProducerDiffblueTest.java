@@ -19,50 +19,32 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.api.process.model.events.ApplicationDeployedEvent;
 import org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener;
 import org.activiti.engine.RepositoryService;
+import org.activiti.engine.impl.RepositoryServiceImpl;
 import org.activiti.runtime.api.model.impl.APIDeploymentConverter;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.ApplicationEventPublisher;
 
-@ExtendWith(MockitoExtension.class)
 class ApplicationDeployedEventProducerDiffblueTest {
-  @Mock
-  private APIDeploymentConverter aPIDeploymentConverter;
-
-  @Mock
-  private RepositoryService repositoryService;
-
   /**
-   * Test {@link ApplicationDeployedEventProducer#ApplicationDeployedEventProducer(RepositoryService, APIDeploymentConverter, List, ApplicationEventPublisher)}.
-   * <ul>
-   *   <li>Given {@link ProcessRuntimeEventListener}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ApplicationDeployedEventProducer#ApplicationDeployedEventProducer(RepositoryService, APIDeploymentConverter, List, ApplicationEventPublisher)}
+   * Method under test:
+   * {@link ApplicationDeployedEventProducer#ApplicationDeployedEventProducer(RepositoryService, APIDeploymentConverter, List, ApplicationEventPublisher)}
    */
   @Test
-  @DisplayName("Test new ApplicationDeployedEventProducer(RepositoryService, APIDeploymentConverter, List, ApplicationEventPublisher); given ProcessRuntimeEventListener")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void ApplicationDeployedEventProducer.<init>(RepositoryService, APIDeploymentConverter, List, ApplicationEventPublisher)"})
-  void testNewApplicationDeployedEventProducer_givenProcessRuntimeEventListener() {
+  void testNewApplicationDeployedEventProducer() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+
     // Arrange
-    ArrayList<ProcessRuntimeEventListener<ApplicationDeployedEvent>> listeners = new ArrayList<>();
-    listeners.add(mock(ProcessRuntimeEventListener.class));
+    RepositoryServiceImpl repositoryService = new RepositoryServiceImpl();
+    APIDeploymentConverter deploymentConverter = new APIDeploymentConverter();
 
     // Act
     ApplicationDeployedEventProducer actualApplicationDeployedEventProducer = new ApplicationDeployedEventProducer(
-        repositoryService, aPIDeploymentConverter, listeners, mock(ApplicationEventPublisher.class));
+        repositoryService, deploymentConverter, new ArrayList<>(), mock(ApplicationEventPublisher.class));
 
     // Assert
     assertFalse(actualApplicationDeployedEventProducer.isRunning());
@@ -71,27 +53,23 @@ class ApplicationDeployedEventProducerDiffblueTest {
   }
 
   /**
-   * Test {@link ApplicationDeployedEventProducer#ApplicationDeployedEventProducer(RepositoryService, APIDeploymentConverter, List, ApplicationEventPublisher)}.
-   * <ul>
-   *   <li>Given {@link ProcessRuntimeEventListener}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ApplicationDeployedEventProducer#ApplicationDeployedEventProducer(RepositoryService, APIDeploymentConverter, List, ApplicationEventPublisher)}
+   * Method under test:
+   * {@link ApplicationDeployedEventProducer#ApplicationDeployedEventProducer(RepositoryService, APIDeploymentConverter, List, ApplicationEventPublisher)}
    */
   @Test
-  @DisplayName("Test new ApplicationDeployedEventProducer(RepositoryService, APIDeploymentConverter, List, ApplicationEventPublisher); given ProcessRuntimeEventListener")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void ApplicationDeployedEventProducer.<init>(RepositoryService, APIDeploymentConverter, List, ApplicationEventPublisher)"})
-  void testNewApplicationDeployedEventProducer_givenProcessRuntimeEventListener2() {
+  void testNewApplicationDeployedEventProducer2() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+
     // Arrange
+    RepositoryServiceImpl repositoryService = new RepositoryServiceImpl();
+    APIDeploymentConverter deploymentConverter = new APIDeploymentConverter();
+
     ArrayList<ProcessRuntimeEventListener<ApplicationDeployedEvent>> listeners = new ArrayList<>();
-    listeners.add(mock(ProcessRuntimeEventListener.class));
     listeners.add(mock(ProcessRuntimeEventListener.class));
 
     // Act
     ApplicationDeployedEventProducer actualApplicationDeployedEventProducer = new ApplicationDeployedEventProducer(
-        repositoryService, aPIDeploymentConverter, listeners, mock(ApplicationEventPublisher.class));
+        repositoryService, deploymentConverter, listeners, mock(ApplicationEventPublisher.class));
 
     // Assert
     assertFalse(actualApplicationDeployedEventProducer.isRunning());
@@ -100,22 +78,24 @@ class ApplicationDeployedEventProducerDiffblueTest {
   }
 
   /**
-   * Test {@link ApplicationDeployedEventProducer#ApplicationDeployedEventProducer(RepositoryService, APIDeploymentConverter, List, ApplicationEventPublisher)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ApplicationDeployedEventProducer#ApplicationDeployedEventProducer(RepositoryService, APIDeploymentConverter, List, ApplicationEventPublisher)}
+   * Method under test:
+   * {@link ApplicationDeployedEventProducer#ApplicationDeployedEventProducer(RepositoryService, APIDeploymentConverter, List, ApplicationEventPublisher)}
    */
   @Test
-  @DisplayName("Test new ApplicationDeployedEventProducer(RepositoryService, APIDeploymentConverter, List, ApplicationEventPublisher); when ArrayList()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void ApplicationDeployedEventProducer.<init>(RepositoryService, APIDeploymentConverter, List, ApplicationEventPublisher)"})
-  void testNewApplicationDeployedEventProducer_whenArrayList() {
-    // Arrange and Act
+  void testNewApplicationDeployedEventProducer3() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+
+    // Arrange
+    RepositoryServiceImpl repositoryService = new RepositoryServiceImpl();
+    APIDeploymentConverter deploymentConverter = new APIDeploymentConverter();
+
+    ArrayList<ProcessRuntimeEventListener<ApplicationDeployedEvent>> listeners = new ArrayList<>();
+    listeners.add(mock(ProcessRuntimeEventListener.class));
+    listeners.add(mock(ProcessRuntimeEventListener.class));
+
+    // Act
     ApplicationDeployedEventProducer actualApplicationDeployedEventProducer = new ApplicationDeployedEventProducer(
-        repositoryService, aPIDeploymentConverter, new ArrayList<>(), mock(ApplicationEventPublisher.class));
+        repositoryService, deploymentConverter, listeners, mock(ApplicationEventPublisher.class));
 
     // Assert
     assertFalse(actualApplicationDeployedEventProducer.isRunning());

@@ -16,17 +16,15 @@
 package org.activiti.api.runtime.model.impl;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.MissingNode;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -47,27 +45,39 @@ class StringToJsonNodeConverterDiffblueTest {
   private StringToJsonNodeConverter stringToJsonNodeConverter;
 
   /**
-   * Test {@link StringToJsonNodeConverter#convert(String)} with {@code String}.
-   * <p>
    * Method under test: {@link StringToJsonNodeConverter#convert(String)}
    */
   @Test
-  @DisplayName("Test convert(String) with 'String'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"JsonNode StringToJsonNodeConverter.convert(String)"})
-  void testConvertWithString() throws JsonProcessingException {
+  void testConvert() throws JsonProcessingException {
     // Arrange
     when(objectMapper.readValue(Mockito.<String>any(), Mockito.<Class<JsonNode>>any()))
         .thenReturn(MissingNode.getInstance());
-    when(objectMapper.writeValueAsString(Mockito.<Object>any())).thenReturn("42");
+
+    ObjectMapper objectMapper2 = new ObjectMapper();
     MissingNode instance = MissingNode.getInstance();
 
     // Act
-    JsonNode actualConvertResult = stringToJsonNodeConverter.convert(objectMapper.writeValueAsString(instance));
+    JsonNode actualConvertResult = stringToJsonNodeConverter.convert(objectMapper2.writeValueAsString(instance));
 
     // Assert
-    verify(objectMapper).readValue(eq("42"), isA(Class.class));
-    verify(objectMapper).writeValueAsString(isA(Object.class));
+    verify(objectMapper).readValue(eq("null"), isA(Class.class));
     assertSame(instance, actualConvertResult);
+  }
+
+  /**
+   * Method under test: {@link StringToJsonNodeConverter#convert(String)}
+   */
+  @Test
+  void testConvert2() throws JsonProcessingException {
+    // Arrange
+    when(objectMapper.readValue(Mockito.<String>any(), Mockito.<Class<JsonNode>>any()))
+        .thenThrow(new RuntimeException("foo"));
+
+    ObjectMapper objectMapper2 = new ObjectMapper();
+
+    // Act and Assert
+    assertThrows(RuntimeException.class,
+        () -> stringToJsonNodeConverter.convert(objectMapper2.writeValueAsString(MissingNode.getInstance())));
+    verify(objectMapper).readValue(eq("null"), isA(Class.class));
   }
 }

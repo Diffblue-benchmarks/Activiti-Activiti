@@ -18,38 +18,49 @@ package org.activiti.engine.cfg;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import org.activiti.core.el.CustomFunctionProvider;
+import org.activiti.engine.delegate.event.impl.ActivitiEventDispatcherImpl;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.interceptor.CommandInterceptor;
 import org.activiti.engine.test.impl.logger.LoggingCommandInvoker;
 import org.activiti.engine.test.impl.logger.ProcessExecutionLoggerConfigurator;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class AbstractProcessEngineConfiguratorDiffblueTest {
   /**
-   * Test {@link AbstractProcessEngineConfigurator#getPriority()}.
-   * <p>
    * Method under test: {@link AbstractProcessEngineConfigurator#getPriority()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"int AbstractProcessEngineConfigurator.getPriority()"})
   public void testGetPriority() {
     // Arrange, Act and Assert
     assertEquals(10000, (new ProcessExecutionLoggerConfigurator()).getPriority());
   }
 
   /**
-   * Test {@link AbstractProcessEngineConfigurator#beforeInit(ProcessEngineConfigurationImpl)}.
-   * <p>
-   * Method under test: {@link AbstractProcessEngineConfigurator#beforeInit(ProcessEngineConfigurationImpl)}
+   * Method under test: {@link AbstractProcessEngineConfigurator#getPriority()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AbstractProcessEngineConfigurator.beforeInit(ProcessEngineConfigurationImpl)"})
+  public void testGetPriority2() {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
+
+    ProcessExecutionLoggerConfigurator processExecutionLoggerConfigurator = new ProcessExecutionLoggerConfigurator();
+    processExecutionLoggerConfigurator.beforeInit(processEngineConfiguration);
+
+    // Act and Assert
+    assertEquals(10000, processExecutionLoggerConfigurator.getPriority());
+  }
+
+  /**
+   * Method under test:
+   * {@link AbstractProcessEngineConfigurator#beforeInit(ProcessEngineConfigurationImpl)}
+   */
+  @Test
   public void testBeforeInit() {
     // Arrange
     ProcessExecutionLoggerConfigurator processExecutionLoggerConfigurator = new ProcessExecutionLoggerConfigurator();
@@ -62,5 +73,44 @@ public class AbstractProcessEngineConfiguratorDiffblueTest {
     CommandInterceptor commandInvoker = processEngineConfiguration.getCommandInvoker();
     assertTrue(commandInvoker instanceof LoggingCommandInvoker);
     assertNull(commandInvoker.getNext());
+  }
+
+  /**
+   * Method under test:
+   * {@link AbstractProcessEngineConfigurator#beforeInit(ProcessEngineConfigurationImpl)}
+   */
+  @Test
+  public void testBeforeInit2() {
+    // Arrange
+    ProcessExecutionLoggerConfigurator processExecutionLoggerConfigurator = new ProcessExecutionLoggerConfigurator();
+
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
+
+    // Act
+    processExecutionLoggerConfigurator.beforeInit(processEngineConfiguration);
+
+    // Assert
+    CommandInterceptor commandInvoker = processEngineConfiguration.getCommandInvoker();
+    assertTrue(commandInvoker instanceof LoggingCommandInvoker);
+    assertNull(commandInvoker.getNext());
+  }
+
+  /**
+   * Method under test:
+   * {@link AbstractProcessEngineConfigurator#configure(ProcessEngineConfigurationImpl)}
+   */
+  @Test
+  public void testConfigure() {
+    // Arrange
+    ProcessExecutionLoggerConfigurator processExecutionLoggerConfigurator = new ProcessExecutionLoggerConfigurator();
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
+
+    // Act
+    processExecutionLoggerConfigurator.configure(processEngineConfiguration);
+
+    // Assert
+    verify(processEngineConfiguration).getEventDispatcher();
   }
 }

@@ -21,7 +21,6 @@ import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.activiti.api.task.model.Task;
 import org.activiti.api.task.model.payloads.ClaimTaskPayload;
@@ -31,8 +30,6 @@ import org.activiti.test.EventSource;
 import org.activiti.test.TaskSource;
 import org.activiti.test.assertions.TaskAssertions;
 import org.activiti.test.assertions.TaskAssertionsImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -62,14 +59,9 @@ class TaskRuntimeOperationsDiffblueTest {
   private TaskSource taskSource;
 
   /**
-   * Test {@link TaskRuntimeOperations#claim(ClaimTaskPayload)}.
-   * <p>
    * Method under test: {@link TaskRuntimeOperations#claim(ClaimTaskPayload)}
    */
   @Test
-  @DisplayName("Test claim(ClaimTaskPayload)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TaskAssertions TaskRuntimeOperations.claim(ClaimTaskPayload)"})
   void testClaim() {
     // Arrange
     when(taskRuntime.claim(Mockito.<ClaimTaskPayload>any())).thenReturn(mock(Task.class));
@@ -83,19 +75,11 @@ class TaskRuntimeOperationsDiffblueTest {
   }
 
   /**
-   * Test {@link TaskRuntimeOperations#complete(CompleteTaskPayload)}.
-   * <ul>
-   *   <li>When {@link CompleteTaskPayload#CompleteTaskPayload()}.</li>
-   *   <li>Then return {@link TaskAssertionsImpl}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TaskRuntimeOperations#complete(CompleteTaskPayload)}
+   * Method under test:
+   * {@link TaskRuntimeOperations#complete(CompleteTaskPayload)}
    */
   @Test
-  @DisplayName("Test complete(CompleteTaskPayload); when CompleteTaskPayload(); then return TaskAssertionsImpl")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TaskAssertions TaskRuntimeOperations.complete(CompleteTaskPayload)"})
-  void testComplete_whenCompleteTaskPayload_thenReturnTaskAssertionsImpl() {
+  void testComplete() {
     // Arrange
     when(taskRuntime.complete(Mockito.<CompleteTaskPayload>any())).thenReturn(mock(Task.class));
     when(taskRuntime.task(Mockito.<String>any())).thenReturn(mock(Task.class));

@@ -18,28 +18,20 @@ package org.activiti.api.task.model.builders;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BiFunction;
 import org.activiti.api.task.model.payloads.SaveTaskPayload;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class SaveTaskPayloadBuilderDiffblueTest {
   /**
-   * Test {@link SaveTaskPayloadBuilder#withVariable(String, Object)}.
-   * <ul>
-   *   <li>Given save.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SaveTaskPayloadBuilder#withVariable(String, Object)}
+   * Method under test:
+   * {@link SaveTaskPayloadBuilder#withVariable(String, Object)}
    */
   @Test
-  @DisplayName("Test withVariable(String, Object); given save")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"SaveTaskPayloadBuilder SaveTaskPayloadBuilder.withVariable(String, Object)"})
-  void testWithVariable_givenSave() {
+  void testWithVariable() {
     // Arrange
     SaveTaskPayloadBuilder saveResult = TaskPayloadBuilder.save();
 
@@ -48,18 +40,11 @@ class SaveTaskPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link SaveTaskPayloadBuilder#withVariable(String, Object)}.
-   * <ul>
-   *   <li>Given save withVariables {@link HashMap#HashMap()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SaveTaskPayloadBuilder#withVariable(String, Object)}
+   * Method under test:
+   * {@link SaveTaskPayloadBuilder#withVariable(String, Object)}
    */
   @Test
-  @DisplayName("Test withVariable(String, Object); given save withVariables HashMap()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"SaveTaskPayloadBuilder SaveTaskPayloadBuilder.withVariable(String, Object)"})
-  void testWithVariable_givenSaveWithVariablesHashMap() {
+  void testWithVariable2() {
     // Arrange
     SaveTaskPayloadBuilder saveResult = TaskPayloadBuilder.save();
     saveResult.withVariables(new HashMap<>());
@@ -69,8 +54,22 @@ class SaveTaskPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link SaveTaskPayloadBuilder#build()}.
-   * <p>
+   * Method under test:
+   * {@link SaveTaskPayloadBuilder#withVariable(String, Object)}
+   */
+  @Test
+  void testWithVariable3() {
+    // Arrange
+    HashMap<String, Object> variables = new HashMap<>();
+    variables.computeIfPresent("foo", mock(BiFunction.class));
+    SaveTaskPayloadBuilder saveResult = TaskPayloadBuilder.save();
+    saveResult.withVariables(variables);
+
+    // Act and Assert
+    assertSame(saveResult, saveResult.withVariable("Name", "Value"));
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>{@link SaveTaskPayloadBuilder#build()}
@@ -80,11 +79,6 @@ class SaveTaskPayloadBuilderDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test build()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SaveTaskPayloadBuilder.<init>()", "SaveTaskPayload SaveTaskPayloadBuilder.build()",
-      "SaveTaskPayloadBuilder SaveTaskPayloadBuilder.withTaskId(String)",
-      "SaveTaskPayloadBuilder SaveTaskPayloadBuilder.withVariables(Map)"})
   void testBuild() {
     // Arrange
     SaveTaskPayloadBuilder withVariableResult = (new SaveTaskPayloadBuilder()).withTaskId("42")

@@ -18,26 +18,43 @@ package org.activiti.runtime.api.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import java.sql.Date;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.events.ProcessRuntimeEvent;
-import org.activiti.api.process.model.events.ProcessRuntimeEvent.ProcessEvents;
 import org.activiti.api.runtime.model.impl.ProcessInstanceImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ProcessCreatedEventImplDiffblueTest {
   /**
-   * Test {@link ProcessCreatedEventImpl#ProcessCreatedEventImpl(ProcessInstance)}.
-   * <p>
-   * Method under test: {@link ProcessCreatedEventImpl#ProcessCreatedEventImpl(ProcessInstance)}
+   * Method under test: {@link ProcessCreatedEventImpl#getEventType()}
    */
   @Test
-  @DisplayName("Test new ProcessCreatedEventImpl(ProcessInstance)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessCreatedEventImpl.<init>(ProcessInstance)"})
+  void testGetEventType() {
+    // Arrange, Act and Assert
+    assertEquals(ProcessRuntimeEvent.ProcessEvents.PROCESS_CREATED,
+        (new ProcessCreatedEventImpl(new ProcessInstanceImpl())).getEventType());
+  }
+
+  /**
+   * Method under test: {@link ProcessCreatedEventImpl#getEventType()}
+   */
+  @Test
+  void testGetEventType2() {
+    // Arrange
+    ProcessInstanceImpl entity = new ProcessInstanceImpl();
+    entity.setStartDate(mock(Date.class));
+
+    // Act and Assert
+    assertEquals(ProcessRuntimeEvent.ProcessEvents.PROCESS_CREATED,
+        (new ProcessCreatedEventImpl(entity)).getEventType());
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessCreatedEventImpl#ProcessCreatedEventImpl(ProcessInstance)}
+   */
+  @Test
   void testNewProcessCreatedEventImpl() {
     // Arrange
     ProcessInstanceImpl entity = new ProcessInstanceImpl();
@@ -46,30 +63,37 @@ class ProcessCreatedEventImplDiffblueTest {
     ProcessCreatedEventImpl actualProcessCreatedEventImpl = new ProcessCreatedEventImpl(entity);
 
     // Assert
-    ProcessInstance entity2 = actualProcessCreatedEventImpl.getEntity();
-    assertTrue(entity2 instanceof ProcessInstanceImpl);
     assertNull(actualProcessCreatedEventImpl.getProcessDefinitionVersion());
     assertNull(actualProcessCreatedEventImpl.getBusinessKey());
     assertNull(actualProcessCreatedEventImpl.getParentProcessInstanceId());
     assertNull(actualProcessCreatedEventImpl.getProcessDefinitionId());
     assertNull(actualProcessCreatedEventImpl.getProcessDefinitionKey());
     assertNull(actualProcessCreatedEventImpl.getProcessInstanceId());
-    assertEquals(ProcessEvents.PROCESS_CREATED, actualProcessCreatedEventImpl.getEventType());
-    assertSame(entity, entity2);
+    assertEquals(ProcessRuntimeEvent.ProcessEvents.PROCESS_CREATED, actualProcessCreatedEventImpl.getEventType());
+    assertSame(entity, actualProcessCreatedEventImpl.getEntity());
   }
 
   /**
-   * Test {@link ProcessCreatedEventImpl#getEventType()}.
-   * <p>
-   * Method under test: {@link ProcessCreatedEventImpl#getEventType()}
+   * Method under test:
+   * {@link ProcessCreatedEventImpl#ProcessCreatedEventImpl(ProcessInstance)}
    */
   @Test
-  @DisplayName("Test getEventType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ProcessRuntimeEvent.ProcessEvents ProcessCreatedEventImpl.getEventType()"})
-  void testGetEventType() {
-    // Arrange, Act and Assert
-    assertEquals(ProcessEvents.PROCESS_CREATED,
-        (new ProcessCreatedEventImpl(new ProcessInstanceImpl())).getEventType());
+  void testNewProcessCreatedEventImpl2() {
+    // Arrange
+    ProcessInstanceImpl entity = new ProcessInstanceImpl();
+    entity.setStartDate(mock(Date.class));
+
+    // Act
+    ProcessCreatedEventImpl actualProcessCreatedEventImpl = new ProcessCreatedEventImpl(entity);
+
+    // Assert
+    assertNull(actualProcessCreatedEventImpl.getProcessDefinitionVersion());
+    assertNull(actualProcessCreatedEventImpl.getBusinessKey());
+    assertNull(actualProcessCreatedEventImpl.getParentProcessInstanceId());
+    assertNull(actualProcessCreatedEventImpl.getProcessDefinitionId());
+    assertNull(actualProcessCreatedEventImpl.getProcessDefinitionKey());
+    assertNull(actualProcessCreatedEventImpl.getProcessInstanceId());
+    assertEquals(ProcessRuntimeEvent.ProcessEvents.PROCESS_CREATED, actualProcessCreatedEventImpl.getEventType());
+    assertSame(entity, actualProcessCreatedEventImpl.getEntity());
   }
 }

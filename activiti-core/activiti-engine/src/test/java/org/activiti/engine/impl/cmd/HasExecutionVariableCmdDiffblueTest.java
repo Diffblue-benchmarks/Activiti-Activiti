@@ -17,20 +17,14 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class HasExecutionVariableCmdDiffblueTest {
   /**
-   * Test {@link HasExecutionVariableCmd#HasExecutionVariableCmd(String, String, boolean)}.
-   * <p>
-   * Method under test: {@link HasExecutionVariableCmd#HasExecutionVariableCmd(String, String, boolean)}
+   * Method under test:
+   * {@link HasExecutionVariableCmd#HasExecutionVariableCmd(String, String, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HasExecutionVariableCmd.<init>(String, String, boolean)"})
   public void testNewHasExecutionVariableCmd() {
     // Arrange and Act
     HasExecutionVariableCmd actualHasExecutionVariableCmd = new HasExecutionVariableCmd("42", "Variable Name", true);

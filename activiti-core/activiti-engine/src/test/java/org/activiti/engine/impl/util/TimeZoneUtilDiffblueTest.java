@@ -18,28 +18,18 @@ package org.activiti.engine.impl.util;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class TimeZoneUtilDiffblueTest {
   /**
-   * Test {@link TimeZoneUtil#convertToTimeZone(Calendar, TimeZone)}.
-   * <ul>
-   *   <li>Then return {@link GregorianCalendar}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TimeZoneUtil#convertToTimeZone(Calendar, TimeZone)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Calendar TimeZoneUtil.convertToTimeZone(Calendar, TimeZone)"})
-  public void testConvertToTimeZone_thenReturnGregorianCalendar() {
+  public void testConvertToTimeZone() {
     // Arrange
     GregorianCalendar time = new GregorianCalendar(1, 1, 1);
 

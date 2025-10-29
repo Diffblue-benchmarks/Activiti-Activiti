@@ -19,22 +19,25 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BiFunction;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class MessageEventReceivedCmdDiffblueTest {
+  @InjectMocks
+  private MessageEventReceivedCmd messageEventReceivedCmd;
+
   /**
-   * Test {@link MessageEventReceivedCmd#MessageEventReceivedCmd(String, String, boolean)}.
-   * <p>
-   * Method under test: {@link MessageEventReceivedCmd#MessageEventReceivedCmd(String, String, boolean)}
+   * Method under test:
+   * {@link MessageEventReceivedCmd#MessageEventReceivedCmd(String, String, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void MessageEventReceivedCmd.<init>(String, String, boolean)"})
   public void testNewMessageEventReceivedCmd() {
     // Arrange and Act
     MessageEventReceivedCmd actualMessageEventReceivedCmd = new MessageEventReceivedCmd("Message Name", "42", true);
@@ -49,18 +52,11 @@ public class MessageEventReceivedCmdDiffblueTest {
   }
 
   /**
-   * Test {@link MessageEventReceivedCmd#MessageEventReceivedCmd(String, String, Map)}.
-   * <ul>
-   *   <li>When {@link HashMap#HashMap()}.</li>
-   *   <li>Then return {@link MessageEventReceivedCmd#payload} Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link MessageEventReceivedCmd#MessageEventReceivedCmd(String, String, Map)}
+   * Method under test:
+   * {@link MessageEventReceivedCmd#MessageEventReceivedCmd(String, String, Map)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void MessageEventReceivedCmd.<init>(String, String, Map)"})
-  public void testNewMessageEventReceivedCmd_whenHashMap_thenReturnPayloadEmpty() {
+  public void testNewMessageEventReceivedCmd2() {
     // Arrange and Act
     MessageEventReceivedCmd actualMessageEventReceivedCmd = new MessageEventReceivedCmd("Message Name", "42",
         new HashMap<>());
@@ -75,27 +71,25 @@ public class MessageEventReceivedCmdDiffblueTest {
   }
 
   /**
-   * Test {@link MessageEventReceivedCmd#MessageEventReceivedCmd(String, String, Map)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return {@link MessageEventReceivedCmd#payload} is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link MessageEventReceivedCmd#MessageEventReceivedCmd(String, String, Map)}
+   * Method under test:
+   * {@link MessageEventReceivedCmd#MessageEventReceivedCmd(String, String, Map)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void MessageEventReceivedCmd.<init>(String, String, Map)"})
-  public void testNewMessageEventReceivedCmd_whenNull_thenReturnPayloadIsNull() {
-    // Arrange and Act
-    MessageEventReceivedCmd actualMessageEventReceivedCmd = new MessageEventReceivedCmd("Message Name", "42", null);
+  public void testNewMessageEventReceivedCmd3() {
+    // Arrange
+    HashMap<String, Object> processVariables = new HashMap<>();
+    processVariables.computeIfPresent("foo", mock(BiFunction.class));
+
+    // Act
+    MessageEventReceivedCmd actualMessageEventReceivedCmd = new MessageEventReceivedCmd("Message Name", "42",
+        processVariables);
 
     // Assert
     assertEquals("42", actualMessageEventReceivedCmd.executionId);
     assertEquals("Cannot execution operation because execution '42' is suspended",
         actualMessageEventReceivedCmd.getSuspendedExceptionMessage());
     assertEquals("Message Name", actualMessageEventReceivedCmd.messageName);
-    assertNull(actualMessageEventReceivedCmd.payload);
     assertFalse(actualMessageEventReceivedCmd.async);
+    assertTrue(actualMessageEventReceivedCmd.payload.isEmpty());
   }
 }

@@ -16,15 +16,10 @@
 package org.activiti.api.task.model.builders;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ReleaseTaskPayloadBuilderDiffblueTest {
   /**
-   * Test {@link ReleaseTaskPayloadBuilder#build()}.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link ReleaseTaskPayloadBuilder#build()}
@@ -33,11 +28,6 @@ class ReleaseTaskPayloadBuilderDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test build()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ReleaseTaskPayloadBuilder.<init>()",
-      "org.activiti.api.task.model.payloads.ReleaseTaskPayload ReleaseTaskPayloadBuilder.build()",
-      "ReleaseTaskPayloadBuilder ReleaseTaskPayloadBuilder.withTaskId(String)"})
   void testBuild() {
     // Arrange, Act and Assert
     assertEquals("42", (new ReleaseTaskPayloadBuilder()).withTaskId("42").build().getTaskId());

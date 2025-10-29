@@ -17,15 +17,10 @@ package org.activiti.image.impl.icon;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ErrorThrowIconTypeDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ErrorThrowIconType}
@@ -37,10 +32,6 @@ public class ErrorThrowIconTypeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ErrorThrowIconType.<init>()", "String ErrorThrowIconType.getAnchorValue()",
-      "String ErrorThrowIconType.getDValue()", "String ErrorThrowIconType.getFillValue()",
-      "String ErrorThrowIconType.getStrokeWidth()", "String ErrorThrowIconType.getStyleValue()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ErrorThrowIconType actualErrorThrowIconType = new ErrorThrowIconType();

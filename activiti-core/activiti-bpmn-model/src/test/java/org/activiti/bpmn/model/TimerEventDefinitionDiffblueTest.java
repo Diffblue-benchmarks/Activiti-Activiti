@@ -18,20 +18,20 @@ package org.activiti.bpmn.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import java.util.HashMap;
+import java.util.List;
+import java.util.function.BiFunction;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class TimerEventDefinitionDiffblueTest {
   /**
-   * Test {@link TimerEventDefinition#clone()}.
-   * <p>
    * Method under test: {@link TimerEventDefinition#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"TimerEventDefinition TimerEventDefinition.clone()"})
   public void testClone() {
     // Arrange and Act
     TimerEventDefinition actualCloneResult = (new TimerEventDefinition()).clone();
@@ -50,8 +50,54 @@ public class TimerEventDefinitionDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link TimerEventDefinition#clone()}
+   */
+  @Test
+  public void testClone2() {
+    // Arrange
+    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
+    extensionElements.computeIfPresent("foo", mock(BiFunction.class));
+
+    TimerEventDefinition timerEventDefinition = new TimerEventDefinition();
+    timerEventDefinition.setExtensionElements(extensionElements);
+
+    // Act
+    TimerEventDefinition actualCloneResult = timerEventDefinition.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getCalendarName());
+    assertNull(actualCloneResult.getEndDate());
+    assertNull(actualCloneResult.getTimeCycle());
+    assertNull(actualCloneResult.getTimeDate());
+    assertNull(actualCloneResult.getTimeDuration());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link TimerEventDefinition#setValues(TimerEventDefinition)}
+   */
+  @Test
+  public void testSetValues() {
+    // Arrange
+    ExtensionElement extensionElement = mock(ExtensionElement.class);
+    when(extensionElement.getName()).thenReturn("Name");
+
+    TimerEventDefinition timerEventDefinition = new TimerEventDefinition();
+    timerEventDefinition.addExtensionElement(extensionElement);
+
+    // Act
+    timerEventDefinition.setValues(new TimerEventDefinition());
+
+    // Assert
+    verify(extensionElement, atLeast(1)).getName();
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link TimerEventDefinition}
@@ -68,13 +114,6 @@ public class TimerEventDefinitionDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void TimerEventDefinition.<init>()", "String TimerEventDefinition.getCalendarName()",
-      "String TimerEventDefinition.getEndDate()", "String TimerEventDefinition.getTimeCycle()",
-      "String TimerEventDefinition.getTimeDate()", "String TimerEventDefinition.getTimeDuration()",
-      "void TimerEventDefinition.setCalendarName(String)", "void TimerEventDefinition.setEndDate(String)",
-      "void TimerEventDefinition.setTimeCycle(String)", "void TimerEventDefinition.setTimeDate(String)",
-      "void TimerEventDefinition.setTimeDuration(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     TimerEventDefinition actualTimerEventDefinition = new TimerEventDefinition();
@@ -88,13 +127,12 @@ public class TimerEventDefinitionDiffblueTest {
     String actualTimeCycle = actualTimerEventDefinition.getTimeCycle();
     String actualTimeDate = actualTimerEventDefinition.getTimeDate();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("2020-03-01", actualEndDate);
     assertEquals("2020-03-01", actualTimeDate);
     assertEquals("Calendar Name", actualCalendarName);
     assertEquals("Time Cycle", actualTimeCycle);
     assertEquals("Time Duration", actualTimerEventDefinition.getTimeDuration());
-    assertNull(actualTimerEventDefinition.getId());
     assertEquals(0, actualTimerEventDefinition.getXmlColumnNumber());
     assertEquals(0, actualTimerEventDefinition.getXmlRowNumber());
     assertTrue(actualTimerEventDefinition.getAttributes().isEmpty());

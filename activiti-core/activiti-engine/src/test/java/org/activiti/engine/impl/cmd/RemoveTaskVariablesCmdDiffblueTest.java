@@ -16,27 +16,20 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class RemoveTaskVariablesCmdDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>{@link RemoveTaskVariablesCmd#RemoveTaskVariablesCmd(String, Collection, boolean)}
+   *   <li>
+   * {@link RemoveTaskVariablesCmd#RemoveTaskVariablesCmd(String, Collection, boolean)}
    *   <li>{@link RemoveTaskVariablesCmd#getSuspendedTaskException()}
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void RemoveTaskVariablesCmd.<init>(String, Collection, boolean)",
-      "String RemoveTaskVariablesCmd.getSuspendedTaskException()"})
   public void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals("Cannot remove variables from a suspended task.",

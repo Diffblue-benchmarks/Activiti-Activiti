@@ -18,45 +18,19 @@ package org.activiti.engine.impl.transformer;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Currency;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class BigDecimalToStringDiffblueTest {
   /**
-   * Test {@link BigDecimalToString#primTransform(Object)}.
-   * <ul>
-   *   <li>When {@link BigDecimal#BigDecimal(String)} with {@code 2.3}.</li>
-   *   <li>Then return {@code 2.3}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BigDecimalToString#primTransform(Object)}
+   * Method under test: default or parameterless constructor of
+   * {@link BigDecimalToString}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object BigDecimalToString.primTransform(Object)"})
-  public void testPrimTransform_whenBigDecimalWith23_thenReturn23() throws Exception {
-    // Arrange
-    BigDecimalToString bigDecimalToString = new BigDecimalToString();
-
-    // Act and Assert
-    assertEquals("2.3", bigDecimalToString.primTransform(new BigDecimal("2.3")));
-  }
-
-  /**
-   * Test new {@link BigDecimalToString} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link BigDecimalToString}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void BigDecimalToString.<init>()"})
   public void testNewBigDecimalToString() {
     // Arrange, Act and Assert
     DecimalFormat decimalFormat = (new BigDecimalToString()).format;
@@ -99,5 +73,17 @@ public class BigDecimalToStringDiffblueTest {
     assertFalse(decimalFormat.isParseIntegerOnly());
     assertTrue(decimalFormat.isGroupingUsed());
     assertEquals(Integer.MAX_VALUE, decimalFormat.getMaximumIntegerDigits());
+  }
+
+  /**
+   * Method under test: {@link BigDecimalToString#primTransform(Object)}
+   */
+  @Test
+  public void testPrimTransform() throws Exception {
+    // Arrange
+    BigDecimalToString bigDecimalToString = new BigDecimalToString();
+
+    // Act and Assert
+    assertEquals("2.3", bigDecimalToString.primTransform(new BigDecimal("2.3")));
   }
 }

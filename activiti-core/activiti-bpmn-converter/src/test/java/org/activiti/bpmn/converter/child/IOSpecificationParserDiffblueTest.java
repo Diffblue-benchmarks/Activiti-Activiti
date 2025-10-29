@@ -17,26 +17,29 @@ package org.activiti.bpmn.converter.child;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BpmnModel;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class IOSpecificationParserDiffblueTest {
   /**
-   * Test {@link IOSpecificationParser#parseItemSubjectRef(String, BpmnModel)}.
+   * Methods under test:
    * <ul>
-   *   <li>Then return {@code null:Hello from the Dreaming Spires}.</li>
+   *   <li>default or parameterless constructor of {@link IOSpecificationParser}
+   *   <li>{@link IOSpecificationParser#getElementName()}
    * </ul>
-   * <p>
-   * Method under test: {@link IOSpecificationParser#parseItemSubjectRef(String, BpmnModel)}
    */
   @Test
-  @DisplayName("Test parseItemSubjectRef(String, BpmnModel); then return 'null:Hello from the Dreaming Spires'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String IOSpecificationParser.parseItemSubjectRef(String, BpmnModel)"})
-  void testParseItemSubjectRef_thenReturnNullHelloFromTheDreamingSpires() {
+  void testGettersAndSetters() {
+    // Arrange, Act and Assert
+    assertEquals("ioSpecification", (new IOSpecificationParser()).getElementName());
+  }
+
+  /**
+   * Method under test:
+   * {@link IOSpecificationParser#parseItemSubjectRef(String, BpmnModel)}
+   */
+  @Test
+  void testParseItemSubjectRef() {
     // Arrange
     IOSpecificationParser ioSpecificationParser = new IOSpecificationParser();
 
@@ -46,41 +49,15 @@ class IOSpecificationParserDiffblueTest {
   }
 
   /**
-   * Test {@link IOSpecificationParser#parseItemSubjectRef(String, BpmnModel)}.
-   * <ul>
-   *   <li>When empty string.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link IOSpecificationParser#parseItemSubjectRef(String, BpmnModel)}
+   * Method under test:
+   * {@link IOSpecificationParser#parseItemSubjectRef(String, BpmnModel)}
    */
   @Test
-  @DisplayName("Test parseItemSubjectRef(String, BpmnModel); when empty string; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String IOSpecificationParser.parseItemSubjectRef(String, BpmnModel)"})
-  void testParseItemSubjectRef_whenEmptyString_thenReturnNull() {
+  void testParseItemSubjectRef2() {
     // Arrange
     IOSpecificationParser ioSpecificationParser = new IOSpecificationParser();
 
     // Act and Assert
     assertNull(ioSpecificationParser.parseItemSubjectRef("", new BpmnModel()));
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>default or parameterless constructor of {@link IOSpecificationParser}
-   *   <li>{@link IOSpecificationParser#getElementName()}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void IOSpecificationParser.<init>()", "String IOSpecificationParser.getElementName()"})
-  void testGettersAndSetters() {
-    // Arrange, Act and Assert
-    assertEquals("ioSpecification", (new IOSpecificationParser()).getElementName());
   }
 }

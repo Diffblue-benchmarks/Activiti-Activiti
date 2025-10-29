@@ -22,12 +22,9 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWebApplicationContext;
@@ -38,15 +35,48 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 class ApplicationServiceDiffblueTest {
   /**
-   * Test {@link ApplicationService#loadApplications()}.
-   * <p>
    * Method under test: {@link ApplicationService#loadApplications()}
    */
   @Test
-  @DisplayName("Test loadApplications()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List ApplicationService.loadApplications()"})
-  void testLoadApplications() throws IOException {
+  void testLoadApplications() {
+    // Arrange
+    ApplicationDiscovery applicationDiscovery = new ApplicationDiscovery(
+        new AnnotationConfigReactiveWebApplicationContext(), "Applications Location");
+
+    // Act and Assert
+    assertTrue(
+        (new ApplicationService(applicationDiscovery, new ApplicationReader(new ArrayList<>()))).loadApplications()
+            .isEmpty());
+  }
+
+  /**
+   * Method under test: {@link ApplicationService#loadApplications()}
+   */
+  @Test
+  void testLoadApplications2() throws IOException {
+    // Arrange
+    PathMatchingResourcePatternResolver resourceLoader = mock(PathMatchingResourcePatternResolver.class);
+    when(resourceLoader.getResources(Mockito.<String>any()))
+        .thenReturn(new Resource[]{new ByteArrayResource("AXAXAXAX".getBytes("UTF-8"))});
+    when(resourceLoader.getResource(Mockito.<String>any()))
+        .thenReturn(new ByteArrayResource("AXAXAXAX".getBytes("UTF-8")));
+    ApplicationDiscovery applicationDiscovery = new ApplicationDiscovery(resourceLoader, "Applications Location");
+
+    // Act
+    List<ApplicationContent> actualLoadApplicationsResult = (new ApplicationService(applicationDiscovery,
+        new ApplicationReader(new ArrayList<>()))).loadApplications();
+
+    // Assert
+    verify(resourceLoader).getResource(eq("Applications Location"));
+    verify(resourceLoader).getResources(eq("Applications Location**.zip"));
+    assertEquals(1, actualLoadApplicationsResult.size());
+  }
+
+  /**
+   * Method under test: {@link ApplicationService#loadApplications()}
+   */
+  @Test
+  void testLoadApplications3() throws IOException {
     // Arrange
     PathMatchingResourcePatternResolver resourceLoader = mock(PathMatchingResourcePatternResolver.class);
     when(resourceLoader.getResources(Mockito.<String>any()))
@@ -64,15 +94,10 @@ class ApplicationServiceDiffblueTest {
   }
 
   /**
-   * Test {@link ApplicationService#loadApplications()}.
-   * <p>
    * Method under test: {@link ApplicationService#loadApplications()}
    */
   @Test
-  @DisplayName("Test loadApplications()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List ApplicationService.loadApplications()"})
-  void testLoadApplications2() throws IOException {
+  void testLoadApplications4() throws IOException {
     // Arrange
     PathMatchingResourcePatternResolver resourceLoader = mock(PathMatchingResourcePatternResolver.class);
     when(resourceLoader.getResources(Mockito.<String>any())).thenReturn(new Resource[]{new ClassPathResource("Path")});
@@ -86,59 +111,5 @@ class ApplicationServiceDiffblueTest {
             .loadApplications());
     verify(resourceLoader).getResource(eq("Applications Location"));
     verify(resourceLoader).getResources(eq("Applications Location**.zip"));
-  }
-
-  /**
-   * Test {@link ApplicationService#loadApplications()}.
-   * <ul>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ApplicationService#loadApplications()}
-   */
-  @Test
-  @DisplayName("Test loadApplications(); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List ApplicationService.loadApplications()"})
-  void testLoadApplications_thenReturnEmpty() {
-    // Arrange
-    ApplicationDiscovery applicationDiscovery = new ApplicationDiscovery(
-        new AnnotationConfigReactiveWebApplicationContext(), "Applications Location");
-
-    // Act and Assert
-    assertTrue(
-        (new ApplicationService(applicationDiscovery, new ApplicationReader(new ArrayList<>()))).loadApplications()
-            .isEmpty());
-  }
-
-  /**
-   * Test {@link ApplicationService#loadApplications()}.
-   * <ul>
-   *   <li>Then return size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ApplicationService#loadApplications()}
-   */
-  @Test
-  @DisplayName("Test loadApplications(); then return size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List ApplicationService.loadApplications()"})
-  void testLoadApplications_thenReturnSizeIsOne() throws IOException {
-    // Arrange
-    PathMatchingResourcePatternResolver resourceLoader = mock(PathMatchingResourcePatternResolver.class);
-    when(resourceLoader.getResources(Mockito.<String>any()))
-        .thenReturn(new Resource[]{new ByteArrayResource("AXAXAXAX".getBytes("UTF-8"))});
-    when(resourceLoader.getResource(Mockito.<String>any()))
-        .thenReturn(new ByteArrayResource("AXAXAXAX".getBytes("UTF-8")));
-    ApplicationDiscovery applicationDiscovery = new ApplicationDiscovery(resourceLoader, "Applications Location");
-
-    // Act
-    List<ApplicationContent> actualLoadApplicationsResult = (new ApplicationService(applicationDiscovery,
-        new ApplicationReader(new ArrayList<>()))).loadApplications();
-
-    // Assert
-    verify(resourceLoader).getResource(eq("Applications Location"));
-    verify(resourceLoader).getResources(eq("Applications Location**.zip"));
-    assertEquals(1, actualLoadApplicationsResult.size());
   }
 }

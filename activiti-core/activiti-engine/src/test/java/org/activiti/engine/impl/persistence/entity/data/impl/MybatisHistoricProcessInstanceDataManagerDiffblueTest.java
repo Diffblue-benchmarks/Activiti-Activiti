@@ -19,9 +19,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import java.util.Map;
+import org.activiti.core.el.CustomFunctionProvider;
 import org.activiti.engine.impl.HistoricProcessInstanceQueryImpl;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
@@ -30,40 +30,12 @@ import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.impl.persistence.entity.HistoricProcessInstanceEntity;
 import org.activiti.engine.impl.persistence.entity.HistoricProcessInstanceEntityImpl;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class MybatisHistoricProcessInstanceDataManagerDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link MybatisHistoricProcessInstanceDataManager#MybatisHistoricProcessInstanceDataManager(ProcessEngineConfigurationImpl)}
-   *   <li>{@link MybatisHistoricProcessInstanceDataManager#getManagedEntityClass()}
-   * </ul>
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void MybatisHistoricProcessInstanceDataManager.<init>(ProcessEngineConfigurationImpl)",
-      "Class MybatisHistoricProcessInstanceDataManager.getManagedEntityClass()"})
-  public void testGettersAndSetters() {
-    // Arrange and Act
-    Class<? extends HistoricProcessInstanceEntity> actualManagedEntityClass = (new MybatisHistoricProcessInstanceDataManager(
-        new JtaProcessEngineConfiguration())).getManagedEntityClass();
-
-    // Assert
-    Class<HistoricProcessInstanceEntityImpl> expectedManagedEntityClass = HistoricProcessInstanceEntityImpl.class;
-    assertEquals(expectedManagedEntityClass, actualManagedEntityClass);
-  }
-
-  /**
-   * Test {@link MybatisHistoricProcessInstanceDataManager#create()}.
-   * <p>
    * Method under test: {@link MybatisHistoricProcessInstanceDataManager#create()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceEntity MybatisHistoricProcessInstanceDataManager.create()"})
   public void testCreate() {
     // Arrange and Act
     HistoricProcessInstanceEntity actualCreateResult = (new MybatisHistoricProcessInstanceDataManager(
@@ -76,6 +48,13 @@ public class MybatisHistoricProcessInstanceDataManagerDiffblueTest {
     assertEquals("", actualCreateResult.getTenantId());
     assertNull(actualCreateResult.getProcessDefinitionVersion());
     assertNull(actualCreateResult.getDurationInMillis());
+    assertEquals(12, ((Map<String, Object>) persistentState).size());
+    assertNull(((Map<String, Object>) persistentState).get("businessKey"));
+    assertNull(((Map<String, Object>) persistentState).get("deploymentId"));
+    assertNull(((Map<String, Object>) persistentState).get("durationInMillis"));
+    assertNull(((Map<String, Object>) persistentState).get("endStateName"));
+    assertNull(((Map<String, Object>) persistentState).get("name"));
+    assertNull(((Map<String, Object>) persistentState).get("processDefinitionId"));
     assertNull(actualCreateResult.getBusinessKey());
     assertNull(actualCreateResult.getDeleteReason());
     assertNull(actualCreateResult.getDescription());
@@ -95,31 +74,123 @@ public class MybatisHistoricProcessInstanceDataManagerDiffblueTest {
     assertNull(actualCreateResult.getEndTime());
     assertNull(actualCreateResult.getStartTime());
     assertNull(actualCreateResult.getQueryVariables());
-    assertEquals(12, ((Map<String, Object>) persistentState).size());
     assertFalse(actualCreateResult.isDeleted());
     assertFalse(actualCreateResult.isInserted());
     assertFalse(actualCreateResult.isUpdated());
-    assertTrue(((Map<String, Object>) persistentState).containsKey("businessKey"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("deploymentId"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("durationInMillis"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("endStateName"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("name"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("processDefinitionId"));
     assertTrue(actualCreateResult.getProcessVariables().isEmpty());
   }
 
   /**
-   * Test {@link MybatisHistoricProcessInstanceDataManager#create(ExecutionEntity)} with {@code ExecutionEntity}.
-   * <ul>
-   *   <li>Given {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link MybatisHistoricProcessInstanceDataManager#create(ExecutionEntity)}
+   * Method under test: {@link MybatisHistoricProcessInstanceDataManager#create()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceEntity MybatisHistoricProcessInstanceDataManager.create(ExecutionEntity)"})
-  public void testCreateWithExecutionEntity_givenNull() {
+  public void testCreate2() {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
+
+    // Act
+    HistoricProcessInstanceEntity actualCreateResult = (new MybatisHistoricProcessInstanceDataManager(
+        processEngineConfiguration)).create();
+
+    // Assert
+    Object persistentState = actualCreateResult.getPersistentState();
+    assertTrue(persistentState instanceof Map);
+    assertTrue(actualCreateResult instanceof HistoricProcessInstanceEntityImpl);
+    assertEquals("", actualCreateResult.getTenantId());
+    assertNull(actualCreateResult.getProcessDefinitionVersion());
+    assertNull(actualCreateResult.getDurationInMillis());
+    assertEquals(12, ((Map<String, Object>) persistentState).size());
+    assertNull(((Map<String, Object>) persistentState).get("businessKey"));
+    assertNull(((Map<String, Object>) persistentState).get("deploymentId"));
+    assertNull(((Map<String, Object>) persistentState).get("durationInMillis"));
+    assertNull(((Map<String, Object>) persistentState).get("endStateName"));
+    assertNull(((Map<String, Object>) persistentState).get("name"));
+    assertNull(((Map<String, Object>) persistentState).get("processDefinitionId"));
+    assertNull(actualCreateResult.getBusinessKey());
+    assertNull(actualCreateResult.getDeleteReason());
+    assertNull(actualCreateResult.getDescription());
+    assertNull(actualCreateResult.getEndActivityId());
+    assertNull(actualCreateResult.getId());
+    assertNull(actualCreateResult.getName());
+    assertNull(actualCreateResult.getProcessDefinitionId());
+    assertNull(actualCreateResult.getStartActivityId());
+    assertNull(actualCreateResult.getStartUserId());
+    assertNull(actualCreateResult.getSuperProcessInstanceId());
+    assertNull(actualCreateResult.getDeploymentId());
+    assertNull(actualCreateResult.getProcessDefinitionKey());
+    assertNull(actualCreateResult.getProcessDefinitionName());
+    assertNull(((HistoricProcessInstanceEntityImpl) actualCreateResult).getLocalizedDescription());
+    assertNull(((HistoricProcessInstanceEntityImpl) actualCreateResult).getLocalizedName());
+    assertNull(actualCreateResult.getProcessInstanceId());
+    assertNull(actualCreateResult.getEndTime());
+    assertNull(actualCreateResult.getStartTime());
+    assertNull(actualCreateResult.getQueryVariables());
+    assertFalse(actualCreateResult.isDeleted());
+    assertFalse(actualCreateResult.isInserted());
+    assertFalse(actualCreateResult.isUpdated());
+    assertTrue(actualCreateResult.getProcessVariables().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link MybatisHistoricProcessInstanceDataManager#create(ExecutionEntity)}
+   */
+  @Test
+  public void testCreate3() {
+    // Arrange
+    MybatisHistoricProcessInstanceDataManager mybatisHistoricProcessInstanceDataManager = new MybatisHistoricProcessInstanceDataManager(
+        new JtaProcessEngineConfiguration());
+
+    // Act
+    HistoricProcessInstanceEntity actualCreateResult = mybatisHistoricProcessInstanceDataManager
+        .create(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+
+    // Assert
+    Object persistentState = actualCreateResult.getPersistentState();
+    assertTrue(persistentState instanceof Map);
+    assertTrue(actualCreateResult instanceof HistoricProcessInstanceEntityImpl);
+    assertEquals("", actualCreateResult.getTenantId());
+    assertNull(actualCreateResult.getProcessDefinitionVersion());
+    assertNull(actualCreateResult.getDurationInMillis());
+    assertEquals(12, ((Map<String, Object>) persistentState).size());
+    assertNull(((Map<String, Object>) persistentState).get("businessKey"));
+    assertNull(((Map<String, Object>) persistentState).get("deploymentId"));
+    assertNull(((Map<String, Object>) persistentState).get("durationInMillis"));
+    assertNull(((Map<String, Object>) persistentState).get("endStateName"));
+    assertNull(((Map<String, Object>) persistentState).get("name"));
+    assertNull(((Map<String, Object>) persistentState).get("processDefinitionId"));
+    assertNull(actualCreateResult.getBusinessKey());
+    assertNull(actualCreateResult.getDeleteReason());
+    assertNull(actualCreateResult.getDescription());
+    assertNull(actualCreateResult.getEndActivityId());
+    assertNull(actualCreateResult.getId());
+    assertNull(actualCreateResult.getName());
+    assertNull(actualCreateResult.getProcessDefinitionId());
+    assertNull(actualCreateResult.getStartActivityId());
+    assertNull(actualCreateResult.getStartUserId());
+    assertNull(actualCreateResult.getSuperProcessInstanceId());
+    assertNull(actualCreateResult.getDeploymentId());
+    assertNull(actualCreateResult.getProcessDefinitionKey());
+    assertNull(actualCreateResult.getProcessDefinitionName());
+    assertNull(((HistoricProcessInstanceEntityImpl) actualCreateResult).getLocalizedDescription());
+    assertNull(((HistoricProcessInstanceEntityImpl) actualCreateResult).getLocalizedName());
+    assertNull(actualCreateResult.getProcessInstanceId());
+    assertNull(actualCreateResult.getEndTime());
+    assertNull(actualCreateResult.getStartTime());
+    assertNull(actualCreateResult.getQueryVariables());
+    assertFalse(actualCreateResult.isDeleted());
+    assertFalse(actualCreateResult.isInserted());
+    assertFalse(actualCreateResult.isUpdated());
+    assertTrue(actualCreateResult.getProcessVariables().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link MybatisHistoricProcessInstanceDataManager#create(ExecutionEntity)}
+   */
+  @Test
+  public void testCreate4() {
     // Arrange
     MybatisHistoricProcessInstanceDataManager mybatisHistoricProcessInstanceDataManager = new MybatisHistoricProcessInstanceDataManager(
         new JtaProcessEngineConfiguration());
@@ -137,6 +208,13 @@ public class MybatisHistoricProcessInstanceDataManagerDiffblueTest {
     assertEquals("", actualCreateResult.getTenantId());
     assertNull(actualCreateResult.getProcessDefinitionVersion());
     assertNull(actualCreateResult.getDurationInMillis());
+    assertEquals(12, ((Map<String, Object>) persistentState).size());
+    assertNull(((Map<String, Object>) persistentState).get("businessKey"));
+    assertNull(((Map<String, Object>) persistentState).get("deploymentId"));
+    assertNull(((Map<String, Object>) persistentState).get("durationInMillis"));
+    assertNull(((Map<String, Object>) persistentState).get("endStateName"));
+    assertNull(((Map<String, Object>) persistentState).get("name"));
+    assertNull(((Map<String, Object>) persistentState).get("processDefinitionId"));
     assertNull(actualCreateResult.getBusinessKey());
     assertNull(actualCreateResult.getDeleteReason());
     assertNull(actualCreateResult.getDescription());
@@ -156,34 +234,23 @@ public class MybatisHistoricProcessInstanceDataManagerDiffblueTest {
     assertNull(actualCreateResult.getEndTime());
     assertNull(actualCreateResult.getStartTime());
     assertNull(actualCreateResult.getQueryVariables());
-    assertEquals(12, ((Map<String, Object>) persistentState).size());
     assertFalse(actualCreateResult.isDeleted());
     assertFalse(actualCreateResult.isInserted());
     assertFalse(actualCreateResult.isUpdated());
-    assertTrue(((Map<String, Object>) persistentState).containsKey("businessKey"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("deploymentId"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("durationInMillis"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("endStateName"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("name"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("processDefinitionId"));
     assertTrue(actualCreateResult.getProcessVariables().isEmpty());
   }
 
   /**
-   * Test {@link MybatisHistoricProcessInstanceDataManager#create(ExecutionEntity)} with {@code ExecutionEntity}.
-   * <ul>
-   *   <li>When createWithEmptyRelationshipCollections.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link MybatisHistoricProcessInstanceDataManager#create(ExecutionEntity)}
+   * Method under test:
+   * {@link MybatisHistoricProcessInstanceDataManager#create(ExecutionEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceEntity MybatisHistoricProcessInstanceDataManager.create(ExecutionEntity)"})
-  public void testCreateWithExecutionEntity_whenCreateWithEmptyRelationshipCollections() {
+  public void testCreate5() {
     // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
     MybatisHistoricProcessInstanceDataManager mybatisHistoricProcessInstanceDataManager = new MybatisHistoricProcessInstanceDataManager(
-        new JtaProcessEngineConfiguration());
+        processEngineConfiguration);
 
     // Act
     HistoricProcessInstanceEntity actualCreateResult = mybatisHistoricProcessInstanceDataManager
@@ -196,6 +263,13 @@ public class MybatisHistoricProcessInstanceDataManagerDiffblueTest {
     assertEquals("", actualCreateResult.getTenantId());
     assertNull(actualCreateResult.getProcessDefinitionVersion());
     assertNull(actualCreateResult.getDurationInMillis());
+    assertEquals(12, ((Map<String, Object>) persistentState).size());
+    assertNull(((Map<String, Object>) persistentState).get("businessKey"));
+    assertNull(((Map<String, Object>) persistentState).get("deploymentId"));
+    assertNull(((Map<String, Object>) persistentState).get("durationInMillis"));
+    assertNull(((Map<String, Object>) persistentState).get("endStateName"));
+    assertNull(((Map<String, Object>) persistentState).get("name"));
+    assertNull(((Map<String, Object>) persistentState).get("processDefinitionId"));
     assertNull(actualCreateResult.getBusinessKey());
     assertNull(actualCreateResult.getDeleteReason());
     assertNull(actualCreateResult.getDescription());
@@ -215,32 +289,39 @@ public class MybatisHistoricProcessInstanceDataManagerDiffblueTest {
     assertNull(actualCreateResult.getEndTime());
     assertNull(actualCreateResult.getStartTime());
     assertNull(actualCreateResult.getQueryVariables());
-    assertEquals(12, ((Map<String, Object>) persistentState).size());
     assertFalse(actualCreateResult.isDeleted());
     assertFalse(actualCreateResult.isInserted());
     assertFalse(actualCreateResult.isUpdated());
-    assertTrue(((Map<String, Object>) persistentState).containsKey("businessKey"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("deploymentId"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("durationInMillis"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("endStateName"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("name"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("processDefinitionId"));
     assertTrue(actualCreateResult.getProcessVariables().isEmpty());
   }
 
   /**
-   * Test {@link MybatisHistoricProcessInstanceDataManager#findHistoricProcessInstancesAndVariablesByQueryCriteria(HistoricProcessInstanceQueryImpl)}.
-   * <ul>
-   *   <li>Given minus one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link MybatisHistoricProcessInstanceDataManager#findHistoricProcessInstancesAndVariablesByQueryCriteria(HistoricProcessInstanceQueryImpl)}
+   * Method under test:
+   * {@link MybatisHistoricProcessInstanceDataManager#findHistoricProcessInstancesAndVariablesByQueryCriteria(HistoricProcessInstanceQueryImpl)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "java.util.List MybatisHistoricProcessInstanceDataManager.findHistoricProcessInstancesAndVariablesByQueryCriteria(HistoricProcessInstanceQueryImpl)"})
-  public void testFindHistoricProcessInstancesAndVariablesByQueryCriteria_givenMinusOne() {
+  public void testFindHistoricProcessInstancesAndVariablesByQueryCriteria() {
+    // Arrange
+    MybatisHistoricProcessInstanceDataManager mybatisHistoricProcessInstanceDataManager = new MybatisHistoricProcessInstanceDataManager(
+        new JtaProcessEngineConfiguration());
+
+    HistoricProcessInstanceQueryImpl historicProcessInstanceQuery = new HistoricProcessInstanceQueryImpl();
+    historicProcessInstanceQuery.setFirstResult(0);
+    historicProcessInstanceQuery.setMaxResults(0);
+    historicProcessInstanceQuery.limitProcessInstanceVariables(null);
+
+    // Act and Assert
+    assertTrue(mybatisHistoricProcessInstanceDataManager
+        .findHistoricProcessInstancesAndVariablesByQueryCriteria(historicProcessInstanceQuery)
+        .isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link MybatisHistoricProcessInstanceDataManager#findHistoricProcessInstancesAndVariablesByQueryCriteria(HistoricProcessInstanceQueryImpl)}
+   */
+  @Test
+  public void testFindHistoricProcessInstancesAndVariablesByQueryCriteria2() {
     // Arrange
     MybatisHistoricProcessInstanceDataManager mybatisHistoricProcessInstanceDataManager = new MybatisHistoricProcessInstanceDataManager(
         new JtaProcessEngineConfiguration());
@@ -257,30 +338,21 @@ public class MybatisHistoricProcessInstanceDataManagerDiffblueTest {
   }
 
   /**
-   * Test {@link MybatisHistoricProcessInstanceDataManager#findHistoricProcessInstancesAndVariablesByQueryCriteria(HistoricProcessInstanceQueryImpl)}.
+   * Methods under test:
    * <ul>
-   *   <li>Then return Empty.</li>
+   *   <li>
+   * {@link MybatisHistoricProcessInstanceDataManager#MybatisHistoricProcessInstanceDataManager(ProcessEngineConfigurationImpl)}
+   *   <li>{@link MybatisHistoricProcessInstanceDataManager#getManagedEntityClass()}
    * </ul>
-   * <p>
-   * Method under test: {@link MybatisHistoricProcessInstanceDataManager#findHistoricProcessInstancesAndVariablesByQueryCriteria(HistoricProcessInstanceQueryImpl)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "java.util.List MybatisHistoricProcessInstanceDataManager.findHistoricProcessInstancesAndVariablesByQueryCriteria(HistoricProcessInstanceQueryImpl)"})
-  public void testFindHistoricProcessInstancesAndVariablesByQueryCriteria_thenReturnEmpty() {
-    // Arrange
-    MybatisHistoricProcessInstanceDataManager mybatisHistoricProcessInstanceDataManager = new MybatisHistoricProcessInstanceDataManager(
-        new JtaProcessEngineConfiguration());
+  public void testGettersAndSetters() {
+    // Arrange and Act
+    Class<? extends HistoricProcessInstanceEntity> actualManagedEntityClass = (new MybatisHistoricProcessInstanceDataManager(
+        new JtaProcessEngineConfiguration())).getManagedEntityClass();
 
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQuery = new HistoricProcessInstanceQueryImpl();
-    historicProcessInstanceQuery.setFirstResult(0);
-    historicProcessInstanceQuery.setMaxResults(0);
-    historicProcessInstanceQuery.limitProcessInstanceVariables(null);
-
-    // Act and Assert
-    assertTrue(mybatisHistoricProcessInstanceDataManager
-        .findHistoricProcessInstancesAndVariablesByQueryCriteria(historicProcessInstanceQuery)
-        .isEmpty());
+    // Assert
+    Class<HistoricProcessInstanceEntityImpl> expectedManagedEntityClass = HistoricProcessInstanceEntityImpl.class;
+    assertEquals(expectedManagedEntityClass, actualManagedEntityClass);
   }
 }

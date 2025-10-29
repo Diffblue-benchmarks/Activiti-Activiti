@@ -24,8 +24,6 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.bpmn.model.ComplexDataType;
@@ -34,23 +32,308 @@ import org.activiti.bpmn.model.DataGrid;
 import org.activiti.bpmn.model.DataGridRow;
 import org.activiti.bpmn.model.FieldExtension;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class AlfrescoScriptTaskDiffblueTest {
   /**
-   * Test {@link AlfrescoScriptTask#clone()}.
-   * <ul>
-   *   <li>Given {@link AlfrescoScriptTask} (default constructor) CustomProperties is {@code null}.</li>
-   *   <li>Then return Behavior is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AlfrescoScriptTask#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"AlfrescoScriptTask AlfrescoScriptTask.clone()"})
-  public void testClone_givenAlfrescoScriptTaskCustomPropertiesIsNull_thenReturnBehaviorIsNull() {
+  public void testClone() {
+    // Arrange and Act
+    AlfrescoScriptTask actualCloneResult = (new AlfrescoScriptTask()).clone();
+
+    // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getExtensionId());
+    assertNull(actualCloneResult.getImplementation());
+    assertNull(actualCloneResult.getImplementationType());
+    assertNull(actualCloneResult.getOperationRef());
+    assertNull(actualCloneResult.getResultVariableName());
+    assertNull(actualCloneResult.getSkipExpression());
+    assertNull(actualCloneResult.getType());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getIoSpecification());
+    assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertFalse(actualCloneResult.isExtended());
+    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getCustomProperties().isEmpty());
+    assertTrue(actualCloneResult.getFieldExtensions().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+  }
+
+  /**
+   * Method under test: {@link AlfrescoScriptTask#clone()}
+   */
+  @Test
+  public void testClone2() {
+    // Arrange
+    DataGridRow dataGridRow = new DataGridRow();
+    dataGridRow.setFields(null);
+
+    ArrayList<DataGridRow> rows = new ArrayList<>();
+    rows.add(dataGridRow);
+
+    DataGrid complexValue = new DataGrid();
+    complexValue.setRows(rows);
+
+    CustomProperty customProperty = new CustomProperty();
+    customProperty.setComplexValue(complexValue);
+
+    ArrayList<CustomProperty> customProperties = new ArrayList<>();
+    customProperties.add(customProperty);
+
+    AlfrescoScriptTask alfrescoScriptTask = new AlfrescoScriptTask();
+    alfrescoScriptTask.setCustomProperties(customProperties);
+    alfrescoScriptTask.setFieldExtensions(null);
+
+    // Act
+    AlfrescoScriptTask actualCloneResult = alfrescoScriptTask.clone();
+
+    // Assert
+    List<CustomProperty> customProperties2 = actualCloneResult.getCustomProperties();
+    assertEquals(1, customProperties2.size());
+    CustomProperty getResult = customProperties2.get(0);
+    ComplexDataType complexValue2 = getResult.getComplexValue();
+    assertTrue(complexValue2 instanceof DataGrid);
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    assertNull(getResult.getId());
+    assertNull(actualCloneResult.getId());
+    assertNull(getResult.getName());
+    assertNull(getResult.getSimpleValue());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getExtensionId());
+    assertNull(actualCloneResult.getImplementation());
+    assertNull(actualCloneResult.getImplementationType());
+    assertNull(actualCloneResult.getOperationRef());
+    assertNull(actualCloneResult.getResultVariableName());
+    assertNull(actualCloneResult.getSkipExpression());
+    assertNull(actualCloneResult.getType());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getIoSpecification());
+    assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlRowNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    List<DataGridRow> rows2 = ((DataGrid) complexValue2).getRows();
+    assertEquals(1, rows2.size());
+    DataGridRow getResult2 = rows2.get(0);
+    assertEquals(0, getResult2.getIndex());
+    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertFalse(actualCloneResult.isExtended());
+    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(getResult2.getFields().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getFieldExtensions().isEmpty());
+    assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(getResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+  }
+
+  /**
+   * Method under test: {@link AlfrescoScriptTask#clone()}
+   */
+  @Test
+  public void testClone3() {
+    // Arrange
+    DataGridRow dataGridRow = new DataGridRow();
+    dataGridRow.setFields(null);
+
+    ArrayList<DataGridRow> rows = new ArrayList<>();
+    rows.add(dataGridRow);
+
+    DataGrid complexValue = new DataGrid();
+    complexValue.setRows(rows);
+
+    CustomProperty customProperty = new CustomProperty();
+    customProperty.setComplexValue(complexValue);
+
+    ArrayList<CustomProperty> customProperties = new ArrayList<>();
+    customProperties.add(customProperty);
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(new FieldExtension());
+
+    AlfrescoScriptTask alfrescoScriptTask = new AlfrescoScriptTask();
+    alfrescoScriptTask.setCustomProperties(customProperties);
+    alfrescoScriptTask.setFieldExtensions(fieldExtensions);
+
+    // Act
+    AlfrescoScriptTask actualCloneResult = alfrescoScriptTask.clone();
+
+    // Assert
+    List<CustomProperty> customProperties2 = actualCloneResult.getCustomProperties();
+    assertEquals(1, customProperties2.size());
+    CustomProperty getResult = customProperties2.get(0);
+    ComplexDataType complexValue2 = getResult.getComplexValue();
+    assertTrue(complexValue2 instanceof DataGrid);
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    assertNull(getResult.getId());
+    List<FieldExtension> fieldExtensions2 = actualCloneResult.getFieldExtensions();
+    assertEquals(1, fieldExtensions2.size());
+    FieldExtension getResult2 = fieldExtensions2.get(0);
+    assertNull(getResult2.getId());
+    assertNull(actualCloneResult.getId());
+    assertNull(getResult.getName());
+    assertNull(getResult.getSimpleValue());
+    assertNull(getResult2.getExpression());
+    assertNull(getResult2.getFieldName());
+    assertNull(getResult2.getStringValue());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getExtensionId());
+    assertNull(actualCloneResult.getImplementation());
+    assertNull(actualCloneResult.getImplementationType());
+    assertNull(actualCloneResult.getOperationRef());
+    assertNull(actualCloneResult.getResultVariableName());
+    assertNull(actualCloneResult.getSkipExpression());
+    assertNull(actualCloneResult.getType());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getIoSpecification());
+    assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult2.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlRowNumber());
+    assertEquals(0, getResult2.getXmlRowNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    List<DataGridRow> rows2 = ((DataGrid) complexValue2).getRows();
+    assertEquals(1, rows2.size());
+    DataGridRow getResult3 = rows2.get(0);
+    assertEquals(0, getResult3.getIndex());
+    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertFalse(actualCloneResult.isExtended());
+    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(getResult3.getFields().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(getResult2.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(getResult.getExtensionElements().isEmpty());
+    assertTrue(getResult2.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+  }
+
+  /**
+   * Method under test: {@link AlfrescoScriptTask#clone()}
+   */
+  @Test
+  public void testClone4() {
+    // Arrange
+    CustomProperty customProperty = new CustomProperty();
+    customProperty.setComplexValue(null);
+
+    ArrayList<CustomProperty> customProperties = new ArrayList<>();
+    customProperties.add(customProperty);
+
+    AlfrescoScriptTask alfrescoScriptTask = new AlfrescoScriptTask();
+    alfrescoScriptTask.setCustomProperties(customProperties);
+    alfrescoScriptTask.setFieldExtensions(null);
+
+    // Act
+    AlfrescoScriptTask actualCloneResult = alfrescoScriptTask.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    List<CustomProperty> customProperties2 = actualCloneResult.getCustomProperties();
+    assertEquals(1, customProperties2.size());
+    CustomProperty getResult = customProperties2.get(0);
+    assertNull(getResult.getId());
+    assertNull(actualCloneResult.getId());
+    assertNull(getResult.getName());
+    assertNull(getResult.getSimpleValue());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getExtensionId());
+    assertNull(actualCloneResult.getImplementation());
+    assertNull(actualCloneResult.getImplementationType());
+    assertNull(actualCloneResult.getOperationRef());
+    assertNull(actualCloneResult.getResultVariableName());
+    assertNull(actualCloneResult.getSkipExpression());
+    assertNull(actualCloneResult.getType());
+    assertNull(getResult.getComplexValue());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getIoSpecification());
+    assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlRowNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertFalse(actualCloneResult.isExtended());
+    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getFieldExtensions().isEmpty());
+    assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(getResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+  }
+
+  /**
+   * Method under test: {@link AlfrescoScriptTask#clone()}
+   */
+  @Test
+  public void testClone5() {
     // Arrange
     AlfrescoScriptTask alfrescoScriptTask = new AlfrescoScriptTask();
     alfrescoScriptTask.setCustomProperties(null);
@@ -99,189 +382,10 @@ public class AlfrescoScriptTaskDiffblueTest {
   }
 
   /**
-   * Test {@link AlfrescoScriptTask#clone()}.
-   * <ul>
-   *   <li>Given {@link AlfrescoScriptTask} (default constructor).</li>
-   *   <li>Then return Behavior is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AlfrescoScriptTask#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"AlfrescoScriptTask AlfrescoScriptTask.clone()"})
-  public void testClone_givenAlfrescoScriptTask_thenReturnBehaviorIsNull() {
-    // Arrange and Act
-    AlfrescoScriptTask actualCloneResult = (new AlfrescoScriptTask()).clone();
-
-    // Assert
-    assertNull(actualCloneResult.getBehavior());
-    assertNull(actualCloneResult.getDefaultFlow());
-    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
-    assertNull(actualCloneResult.getId());
-    assertNull(actualCloneResult.getDocumentation());
-    assertNull(actualCloneResult.getName());
-    assertNull(actualCloneResult.getExtensionId());
-    assertNull(actualCloneResult.getImplementation());
-    assertNull(actualCloneResult.getImplementationType());
-    assertNull(actualCloneResult.getOperationRef());
-    assertNull(actualCloneResult.getResultVariableName());
-    assertNull(actualCloneResult.getSkipExpression());
-    assertNull(actualCloneResult.getType());
-    assertNull(actualCloneResult.getParentContainer());
-    assertNull(actualCloneResult.getIoSpecification());
-    assertNull(actualCloneResult.getLoopCharacteristics());
-    assertNull(actualCloneResult.getSubProcess());
-    assertEquals(0, actualCloneResult.getXmlColumnNumber());
-    assertEquals(0, actualCloneResult.getXmlRowNumber());
-    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
-    assertFalse(actualCloneResult.isForCompensation());
-    assertFalse(actualCloneResult.isAsynchronous());
-    assertFalse(actualCloneResult.isNotExclusive());
-    assertFalse(actualCloneResult.isExtended());
-    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
-    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
-    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
-    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
-    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
-    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
-    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
-    assertTrue(actualCloneResult.getCustomProperties().isEmpty());
-    assertTrue(actualCloneResult.getFieldExtensions().isEmpty());
-    assertTrue(actualCloneResult.getAttributes().isEmpty());
-    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
-    assertTrue(actualCloneResult.isExclusive());
-  }
-
-  /**
-   * Test {@link AlfrescoScriptTask#clone()}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default constructor).</li>
-   *   <li>Then return FieldExtensions size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AlfrescoScriptTask#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"AlfrescoScriptTask AlfrescoScriptTask.clone()"})
-  public void testClone_givenArrayListAddFieldExtension_thenReturnFieldExtensionsSizeIsOne() {
-    // Arrange
-    CustomProperty customProperty = new CustomProperty();
-    customProperty.setComplexValue(null);
-
-    ArrayList<CustomProperty> customProperties = new ArrayList<>();
-    customProperties.add(customProperty);
-
-    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
-    fieldExtensions.add(new FieldExtension());
-
-    AlfrescoScriptTask alfrescoScriptTask = new AlfrescoScriptTask();
-    alfrescoScriptTask.setCustomProperties(customProperties);
-    alfrescoScriptTask.setFieldExtensions(fieldExtensions);
-
-    // Act and Assert
-    List<FieldExtension> fieldExtensions2 = alfrescoScriptTask.clone().getFieldExtensions();
-    assertEquals(1, fieldExtensions2.size());
-    FieldExtension getResult = fieldExtensions2.get(0);
-    assertNull(getResult.getId());
-    assertNull(getResult.getExpression());
-    assertNull(getResult.getFieldName());
-    assertNull(getResult.getStringValue());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link AlfrescoScriptTask#clone()}.
-   * <ul>
-   *   <li>Then CustomProperties first ComplexValue return {@link DataGrid}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AlfrescoScriptTask#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"AlfrescoScriptTask AlfrescoScriptTask.clone()"})
-  public void testClone_thenCustomPropertiesFirstComplexValueReturnDataGrid() {
-    // Arrange
-    CustomProperty customProperty = new CustomProperty();
-    customProperty.setComplexValue(new DataGrid());
-
-    ArrayList<CustomProperty> customProperties = new ArrayList<>();
-    customProperties.add(customProperty);
-
-    AlfrescoScriptTask alfrescoScriptTask = new AlfrescoScriptTask();
-    alfrescoScriptTask.setCustomProperties(customProperties);
-    alfrescoScriptTask.setFieldExtensions(null);
-
-    // Act and Assert
-    List<CustomProperty> customProperties2 = alfrescoScriptTask.clone().getCustomProperties();
-    assertEquals(1, customProperties2.size());
-    CustomProperty getResult = customProperties2.get(0);
-    ComplexDataType complexValue = getResult.getComplexValue();
-    assertTrue(complexValue instanceof DataGrid);
-    assertNull(getResult.getId());
-    assertNull(getResult.getName());
-    assertNull(getResult.getSimpleValue());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(((DataGrid) complexValue).getRows().isEmpty());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link AlfrescoScriptTask#clone()}.
-   * <ul>
-   *   <li>Then return CustomProperties first ComplexValue is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AlfrescoScriptTask#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"AlfrescoScriptTask AlfrescoScriptTask.clone()"})
-  public void testClone_thenReturnCustomPropertiesFirstComplexValueIsNull() {
-    // Arrange
-    CustomProperty customProperty = new CustomProperty();
-    customProperty.setComplexValue(null);
-
-    ArrayList<CustomProperty> customProperties = new ArrayList<>();
-    customProperties.add(customProperty);
-
-    AlfrescoScriptTask alfrescoScriptTask = new AlfrescoScriptTask();
-    alfrescoScriptTask.setCustomProperties(customProperties);
-    alfrescoScriptTask.setFieldExtensions(null);
-
-    // Act and Assert
-    List<CustomProperty> customProperties2 = alfrescoScriptTask.clone().getCustomProperties();
-    assertEquals(1, customProperties2.size());
-    CustomProperty getResult = customProperties2.get(0);
-    assertNull(getResult.getId());
-    assertNull(getResult.getName());
-    assertNull(getResult.getSimpleValue());
-    assertNull(getResult.getComplexValue());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link AlfrescoScriptTask#setValues(AlfrescoScriptTask)} with {@code AlfrescoScriptTask}.
-   * <ul>
-   *   <li>Then calls {@link CustomProperty#clone()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AlfrescoScriptTask#setValues(AlfrescoScriptTask)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AlfrescoScriptTask.setValues(AlfrescoScriptTask)"})
-  public void testSetValuesWithAlfrescoScriptTask_thenCallsClone() {
+  public void testSetValues() {
     // Arrange
     AlfrescoScriptTask alfrescoScriptTask = new AlfrescoScriptTask();
 
@@ -302,8 +406,8 @@ public class AlfrescoScriptTaskDiffblueTest {
     customProperties.add(customProperty);
 
     AlfrescoScriptTask otherElement = new AlfrescoScriptTask();
-    otherElement.setFieldExtensions(null);
     otherElement.setCustomProperties(customProperties);
+    otherElement.setFieldExtensions(null);
 
     // Act
     alfrescoScriptTask.setValues(otherElement);
@@ -314,19 +418,27 @@ public class AlfrescoScriptTaskDiffblueTest {
   }
 
   /**
-   * Test {@link AlfrescoScriptTask#setValues(AlfrescoScriptTask)} with {@code AlfrescoScriptTask}.
-   * <ul>
-   *   <li>Then calls {@link FieldExtension#clone()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AlfrescoScriptTask#setValues(AlfrescoScriptTask)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AlfrescoScriptTask.setValues(AlfrescoScriptTask)"})
-  public void testSetValuesWithAlfrescoScriptTask_thenCallsClone2() {
+  public void testSetValues2() {
     // Arrange
     AlfrescoScriptTask alfrescoScriptTask = new AlfrescoScriptTask();
+
+    DataGridRow dataGridRow = new DataGridRow();
+    dataGridRow.setFields(null);
+
+    ArrayList<DataGridRow> rows = new ArrayList<>();
+    rows.add(dataGridRow);
+
+    DataGrid complexValue = new DataGrid();
+    complexValue.setRows(rows);
+
+    CustomProperty customProperty = new CustomProperty();
+    customProperty.setComplexValue(complexValue);
+
+    ArrayList<CustomProperty> customProperties = new ArrayList<>();
+    customProperties.add(customProperty);
     FieldExtension fieldExtension = mock(FieldExtension.class);
     when(fieldExtension.clone()).thenReturn(new FieldExtension());
 
@@ -334,8 +446,8 @@ public class AlfrescoScriptTaskDiffblueTest {
     fieldExtensions.add(fieldExtension);
 
     AlfrescoScriptTask otherElement = new AlfrescoScriptTask();
+    otherElement.setCustomProperties(customProperties);
     otherElement.setFieldExtensions(fieldExtensions);
-    otherElement.setCustomProperties(null);
 
     // Act
     alfrescoScriptTask.setValues(otherElement);
@@ -345,13 +457,10 @@ public class AlfrescoScriptTaskDiffblueTest {
   }
 
   /**
-   * Test new {@link AlfrescoScriptTask} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link AlfrescoScriptTask}
+   * Method under test: default or parameterless constructor of
+   * {@link AlfrescoScriptTask}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AlfrescoScriptTask.<init>()"})
   public void testNewAlfrescoScriptTask() {
     // Arrange and Act
     AlfrescoScriptTask actualAlfrescoScriptTask = new AlfrescoScriptTask();

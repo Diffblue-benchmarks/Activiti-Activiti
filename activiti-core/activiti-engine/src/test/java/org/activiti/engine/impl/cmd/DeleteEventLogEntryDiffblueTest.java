@@ -16,20 +16,13 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class DeleteEventLogEntryDiffblueTest {
   /**
-   * Test {@link DeleteEventLogEntry#DeleteEventLogEntry(long)}.
-   * <p>
    * Method under test: {@link DeleteEventLogEntry#DeleteEventLogEntry(long)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DeleteEventLogEntry.<init>(long)"})
   public void testNewDeleteEventLogEntry() {
     // Arrange, Act and Assert
     assertEquals(1L, (new DeleteEventLogEntry(1L)).logNr);

@@ -16,6 +16,7 @@
 package org.activiti.validation.validator.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.isA;
@@ -23,7 +24,6 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -33,22 +33,146 @@ import org.activiti.bpmn.model.Resource;
 import org.activiti.bpmn.model.SendTask;
 import org.activiti.bpmn.model.Signal;
 import org.activiti.validation.ValidationError;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class SendTaskValidatorDiffblueTest {
   /**
-   * Test {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}.
-   * <p>
-   * Method under test: {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test:
+   * {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SendTaskValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    BpmnModel bpmnModel = new BpmnModel();
+    Process process = new Process();
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sendTaskValidator.executeValidation(bpmnModel, process, errors);
+
+    // Assert that nothing has changed
+    Collection<Resource> resources = bpmnModel.getResources();
+    assertTrue(resources instanceof List);
+    Collection<Signal> signals = bpmnModel.getSignals();
+    assertTrue(signals instanceof List);
+    assertTrue(errors.isEmpty());
+    assertTrue(resources.isEmpty());
+    assertTrue(signals.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}
+   */
+  @Test
+  void testExecuteValidation2() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    BpmnModel bpmnModel = mock(BpmnModel.class);
+    Process process = new Process();
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sendTaskValidator.executeValidation(bpmnModel, process, errors);
+
+    // Assert that nothing has changed
+    assertTrue(errors.isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}
+   */
+  @Test
+  void testExecuteValidation3() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    BpmnModel bpmnModel = new BpmnModel();
+    Process process = mock(Process.class);
+    when(process.findFlowElementsOfType(Mockito.<Class<SendTask>>any())).thenReturn(new ArrayList<>());
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sendTaskValidator.executeValidation(bpmnModel, process, errors);
+
+    // Assert that nothing has changed
+    verify(process).findFlowElementsOfType(isA(Class.class));
+    Collection<Resource> resources = bpmnModel.getResources();
+    assertTrue(resources instanceof List);
+    Collection<Signal> signals = bpmnModel.getSignals();
+    assertTrue(signals instanceof List);
+    assertTrue(errors.isEmpty());
+    assertTrue(resources.isEmpty());
+    assertTrue(signals.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}
+   */
+  @Test
+  void testExecuteValidation4() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    BpmnModel bpmnModel = new BpmnModel();
+
+    ArrayList<SendTask> sendTaskList = new ArrayList<>();
+    sendTaskList.add(new SendTask());
+    Process process = mock(Process.class);
+    when(process.getId()).thenReturn("42");
+    when(process.getName()).thenReturn("Name");
+    when(process.findFlowElementsOfType(Mockito.<Class<SendTask>>any())).thenReturn(sendTaskList);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sendTaskValidator.executeValidation(bpmnModel, process, errors);
+
+    // Assert
+    verify(process).getId();
+    verify(process).findFlowElementsOfType(isA(Class.class));
+    verify(process).getName();
+    Collection<Resource> resources = bpmnModel.getResources();
+    assertTrue(resources instanceof List);
+    Collection<Signal> signals = bpmnModel.getSignals();
+    assertTrue(signals instanceof List);
+    assertEquals(1, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("42", getResult.getProcessDefinitionId());
+    assertEquals("Name", getResult.getProcessDefinitionName());
+    assertEquals("SEND_TASK_INVALID_IMPLEMENTATION", getResult.getDefaultDescription());
+    assertEquals("SEND_TASK_INVALID_IMPLEMENTATION", getResult.getKey());
+    assertEquals("SEND_TASK_INVALID_IMPLEMENTATION", getResult.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
+    assertTrue(resources.isEmpty());
+    assertTrue(signals.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}
+   */
+  @Test
+  void testExecuteValidation5() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -69,161 +193,51 @@ class SendTaskValidatorDiffblueTest {
     verify(process, atLeast(1)).getId();
     verify(process).findFlowElementsOfType(isA(Class.class));
     verify(process, atLeast(1)).getName();
-    assertEquals(2, errors.size());
-    ValidationError getResult = errors.get(1);
-    assertEquals("SEND_TASK_INVALID_IMPLEMENTATION", getResult.getDefaultDescription());
-    assertEquals("SEND_TASK_INVALID_IMPLEMENTATION", getResult.getKey());
-    assertEquals("SEND_TASK_INVALID_IMPLEMENTATION", getResult.getProblem());
-    assertNull(getResult.getActivityId());
-    assertNull(getResult.getActivityName());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlLineNumber());
-  }
-
-  /**
-   * Test {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}
-   */
-  @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList(); then ArrayList() Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SendTaskValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_givenArrayList_thenArrayListEmpty() {
-    // Arrange
-    SendTaskValidator sendTaskValidator = new SendTaskValidator();
-    BpmnModel bpmnModel = new BpmnModel();
-    Process process = mock(Process.class);
-    when(process.findFlowElementsOfType(Mockito.<Class<SendTask>>any())).thenReturn(new ArrayList<>());
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    sendTaskValidator.executeValidation(bpmnModel, process, errors);
-
-    // Assert that nothing has changed
-    verify(process).findFlowElementsOfType(isA(Class.class));
     Collection<Resource> resources = bpmnModel.getResources();
     assertTrue(resources instanceof List);
     Collection<Signal> signals = bpmnModel.getSignals();
     assertTrue(signals instanceof List);
-    assertTrue(errors.isEmpty());
+    assertEquals(2, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("42", getResult.getProcessDefinitionId());
+    ValidationError getResult2 = errors.get(1);
+    assertEquals("42", getResult2.getProcessDefinitionId());
+    assertEquals("Name", getResult.getProcessDefinitionName());
+    assertEquals("Name", getResult2.getProcessDefinitionName());
+    assertEquals("SEND_TASK_INVALID_IMPLEMENTATION", getResult.getDefaultDescription());
+    assertEquals("SEND_TASK_INVALID_IMPLEMENTATION", getResult2.getDefaultDescription());
+    assertEquals("SEND_TASK_INVALID_IMPLEMENTATION", getResult.getKey());
+    assertEquals("SEND_TASK_INVALID_IMPLEMENTATION", getResult2.getKey());
+    assertEquals("SEND_TASK_INVALID_IMPLEMENTATION", getResult.getProblem());
+    assertEquals("SEND_TASK_INVALID_IMPLEMENTATION", getResult2.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult2.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult2.getActivityName());
+    assertNull(getResult.getValidatorSetName());
+    assertNull(getResult2.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult2.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertEquals(0, getResult2.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
+    assertFalse(getResult2.isWarning());
     assertTrue(resources.isEmpty());
     assertTrue(signals.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
+    assertTrue(getResult2.getParams().isEmpty());
   }
 
   /**
-   * Test {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}.
-   * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test:
+   * {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityId is '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SendTaskValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_thenArrayListFirstActivityIdIs42() {
-    // Arrange
-    SendTaskValidator sendTaskValidator = new SendTaskValidator();
-    BpmnModel bpmnModel = new BpmnModel();
-    SendTask sendTask = mock(SendTask.class);
-    when(sendTask.getXmlColumnNumber()).thenReturn(10);
-    when(sendTask.getXmlRowNumber()).thenReturn(10);
-    when(sendTask.getId()).thenReturn("42");
-    when(sendTask.getName()).thenReturn("Name");
-    when(sendTask.getImplementationType()).thenReturn("Implementation Type");
-    when(sendTask.getType()).thenReturn("");
-
-    ArrayList<SendTask> sendTaskList = new ArrayList<>();
-    sendTaskList.add(sendTask);
-    Process process = mock(Process.class);
-    when(process.getId()).thenReturn("42");
-    when(process.getName()).thenReturn("Name");
-    when(process.findFlowElementsOfType(Mockito.<Class<SendTask>>any())).thenReturn(sendTaskList);
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    sendTaskValidator.executeValidation(bpmnModel, process, errors);
-
-    // Assert
-    verify(process).getId();
-    verify(sendTask).getId();
-    verify(sendTask).getXmlColumnNumber();
-    verify(sendTask).getXmlRowNumber();
-    verify(sendTask).getName();
-    verify(process).findFlowElementsOfType(isA(Class.class));
-    verify(process).getName();
-    verify(sendTask, atLeast(1)).getImplementationType();
-    verify(sendTask, atLeast(1)).getType();
-    assertEquals(1, errors.size());
-    ValidationError getResult = errors.get(0);
-    assertEquals("42", getResult.getActivityId());
-    assertEquals("Name", getResult.getActivityName());
-    assertEquals("SEND_TASK_INVALID_IMPLEMENTATION", getResult.getDefaultDescription());
-    assertEquals("SEND_TASK_INVALID_IMPLEMENTATION", getResult.getKey());
-    assertEquals("SEND_TASK_INVALID_IMPLEMENTATION", getResult.getProblem());
-    assertEquals(10, getResult.getXmlColumnNumber());
-    assertEquals(10, getResult.getXmlLineNumber());
-  }
-
-  /**
-   * Test {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}.
-   * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}
-   */
-  @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityId is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SendTaskValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_thenArrayListFirstActivityIdIsNull() {
-    // Arrange
-    SendTaskValidator sendTaskValidator = new SendTaskValidator();
-    BpmnModel bpmnModel = new BpmnModel();
-
-    ArrayList<SendTask> sendTaskList = new ArrayList<>();
-    sendTaskList.add(new SendTask());
-    Process process = mock(Process.class);
-    when(process.getId()).thenReturn("42");
-    when(process.getName()).thenReturn("Name");
-    when(process.findFlowElementsOfType(Mockito.<Class<SendTask>>any())).thenReturn(sendTaskList);
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    sendTaskValidator.executeValidation(bpmnModel, process, errors);
-
-    // Assert
-    verify(process).getId();
-    verify(process).findFlowElementsOfType(isA(Class.class));
-    verify(process).getName();
-    assertEquals(1, errors.size());
-    ValidationError getResult = errors.get(0);
-    assertNull(getResult.getActivityId());
-    assertNull(getResult.getActivityName());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlLineNumber());
-  }
-
-  /**
-   * Test {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}.
-   * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} first DefaultDescription is {@code SEND_TASK_INVALID_TYPE}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}
-   */
-  @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() first DefaultDescription is 'SEND_TASK_INVALID_TYPE'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SendTaskValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_thenArrayListFirstDefaultDescriptionIsSendTaskInvalidType() {
+  void testExecuteValidation6() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -262,26 +276,32 @@ class SendTaskValidatorDiffblueTest {
     assertTrue(signals instanceof List);
     assertEquals(1, errors.size());
     ValidationError getResult = errors.get(0);
+    assertEquals("42", getResult.getActivityId());
+    assertEquals("42", getResult.getProcessDefinitionId());
+    assertEquals("Name", getResult.getActivityName());
+    assertEquals("Name", getResult.getProcessDefinitionName());
     assertEquals("SEND_TASK_INVALID_TYPE", getResult.getDefaultDescription());
     assertEquals("SEND_TASK_INVALID_TYPE", getResult.getKey());
     assertEquals("SEND_TASK_INVALID_TYPE", getResult.getProblem());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(10, getResult.getXmlColumnNumber());
+    assertEquals(10, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
     assertTrue(resources.isEmpty());
     assertTrue(signals.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
   }
 
   /**
-   * Test {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}.
-   * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} second ActivityId is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test:
+   * {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() second ActivityId is '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SendTaskValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_thenArrayListSecondActivityIdIs42() {
+  void testExecuteValidation7() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -316,51 +336,106 @@ class SendTaskValidatorDiffblueTest {
     verify(sendTask).getImplementationType();
     verify(sendTask, atLeast(1)).getType();
     verify(sendTask).getFieldExtensions();
+    Collection<Resource> resources = bpmnModel.getResources();
+    assertTrue(resources instanceof List);
+    Collection<Signal> signals = bpmnModel.getSignals();
+    assertTrue(signals instanceof List);
     assertEquals(2, errors.size());
-    ValidationError getResult = errors.get(1);
+    ValidationError getResult = errors.get(0);
     assertEquals("42", getResult.getActivityId());
-    assertEquals("MAIL_TASK_NO_CONTENT", getResult.getDefaultDescription());
-    assertEquals("MAIL_TASK_NO_CONTENT", getResult.getKey());
-    assertEquals("MAIL_TASK_NO_CONTENT", getResult.getProblem());
-    ValidationError getResult2 = errors.get(0);
-    assertEquals("MAIL_TASK_NO_RECIPIENT", getResult2.getDefaultDescription());
-    assertEquals("MAIL_TASK_NO_RECIPIENT", getResult2.getKey());
-    assertEquals("MAIL_TASK_NO_RECIPIENT", getResult2.getProblem());
+    ValidationError getResult2 = errors.get(1);
+    assertEquals("42", getResult2.getActivityId());
+    assertEquals("42", getResult.getProcessDefinitionId());
+    assertEquals("42", getResult2.getProcessDefinitionId());
+    assertEquals("MAIL_TASK_NO_CONTENT", getResult2.getDefaultDescription());
+    assertEquals("MAIL_TASK_NO_CONTENT", getResult2.getKey());
+    assertEquals("MAIL_TASK_NO_CONTENT", getResult2.getProblem());
+    assertEquals("MAIL_TASK_NO_RECIPIENT", getResult.getDefaultDescription());
+    assertEquals("MAIL_TASK_NO_RECIPIENT", getResult.getKey());
+    assertEquals("MAIL_TASK_NO_RECIPIENT", getResult.getProblem());
     assertEquals("Name", getResult.getActivityName());
+    assertEquals("Name", getResult2.getActivityName());
+    assertEquals("Name", getResult.getProcessDefinitionName());
+    assertEquals("Name", getResult2.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertNull(getResult2.getValidatorSetName());
     assertEquals(10, getResult.getXmlColumnNumber());
+    assertEquals(10, getResult2.getXmlColumnNumber());
     assertEquals(10, getResult.getXmlLineNumber());
+    assertEquals(10, getResult2.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
+    assertFalse(getResult2.isWarning());
+    assertTrue(resources.isEmpty());
+    assertTrue(signals.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
+    assertTrue(getResult2.getParams().isEmpty());
   }
 
   /**
-   * Test {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}.
-   * <ul>
-   *   <li>When {@link Process} (default constructor).</li>
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test:
+   * {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); when Process (default constructor); then ArrayList() Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SendTaskValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_whenProcess_thenArrayListEmpty() {
+  void testExecuteValidation8() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
     BpmnModel bpmnModel = new BpmnModel();
-    Process process = new Process();
+    SendTask sendTask = mock(SendTask.class);
+    when(sendTask.getXmlColumnNumber()).thenReturn(10);
+    when(sendTask.getXmlRowNumber()).thenReturn(10);
+    when(sendTask.getId()).thenReturn("42");
+    when(sendTask.getName()).thenReturn("Name");
+    when(sendTask.getImplementationType()).thenReturn("Implementation Type");
+    when(sendTask.getType()).thenReturn("");
+
+    ArrayList<SendTask> sendTaskList = new ArrayList<>();
+    sendTaskList.add(sendTask);
+    Process process = mock(Process.class);
+    when(process.getId()).thenReturn("42");
+    when(process.getName()).thenReturn("Name");
+    when(process.findFlowElementsOfType(Mockito.<Class<SendTask>>any())).thenReturn(sendTaskList);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
     sendTaskValidator.executeValidation(bpmnModel, process, errors);
 
-    // Assert that nothing has changed
+    // Assert
+    verify(process).getId();
+    verify(sendTask).getId();
+    verify(sendTask).getXmlColumnNumber();
+    verify(sendTask).getXmlRowNumber();
+    verify(sendTask).getName();
+    verify(process).findFlowElementsOfType(isA(Class.class));
+    verify(process).getName();
+    verify(sendTask, atLeast(1)).getImplementationType();
+    verify(sendTask, atLeast(1)).getType();
     Collection<Resource> resources = bpmnModel.getResources();
     assertTrue(resources instanceof List);
     Collection<Signal> signals = bpmnModel.getSignals();
     assertTrue(signals instanceof List);
-    assertTrue(errors.isEmpty());
+    assertEquals(1, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("42", getResult.getActivityId());
+    assertEquals("42", getResult.getProcessDefinitionId());
+    assertEquals("Name", getResult.getActivityName());
+    assertEquals("Name", getResult.getProcessDefinitionName());
+    assertEquals("SEND_TASK_INVALID_IMPLEMENTATION", getResult.getDefaultDescription());
+    assertEquals("SEND_TASK_INVALID_IMPLEMENTATION", getResult.getKey());
+    assertEquals("SEND_TASK_INVALID_IMPLEMENTATION", getResult.getProblem());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(10, getResult.getXmlColumnNumber());
+    assertEquals(10, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
     assertTrue(resources.isEmpty());
     assertTrue(signals.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
   }
 }

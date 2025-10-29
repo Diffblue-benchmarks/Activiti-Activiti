@@ -21,7 +21,6 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,26 +33,467 @@ import org.activiti.bpmn.model.ExtensionElement;
 import org.activiti.bpmn.model.FieldExtension;
 import org.activiti.bpmn.model.Lane;
 import org.activiti.bpmn.model.Process;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class ProcessExportDiffblueTest {
   /**
-   * Test {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link ActivitiListener} (default constructor).</li>
-   *   <li>Then calls {@link EventListener#getEntityType()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
+   * Method under test:
+   * {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeProcess(Process, XMLStreamWriter); given ArrayList() add ActivitiListener (default constructor); then calls getEntityType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessExport.writeProcess(Process, XMLStreamWriter)"})
-  void testWriteProcess_givenArrayListAddActivitiListener_thenCallsGetEntityType() throws Exception {
+  void testWriteProcess() throws Exception {
+    // Arrange
+    Process process = new Process();
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    ProcessExport.writeProcess(process, xtw);
+
+    // Assert
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw).writeStartElement(eq("bpmn2"), eq("process"), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
+   */
+  @Test
+  void testWriteProcess2() throws Exception {
+    // Arrange
+    Process process = mock(Process.class);
+    when(process.isExecutable()).thenReturn(true);
+    when(process.getId()).thenReturn("42");
+    when(process.getDocumentation()).thenReturn("Documentation");
+    when(process.getName()).thenReturn("Name");
+    when(process.getCandidateStarterGroups()).thenReturn(new ArrayList<>());
+    when(process.getCandidateStarterUsers()).thenReturn(new ArrayList<>());
+    when(process.getEventListeners()).thenReturn(new ArrayList<>());
+    when(process.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(process.getLanes()).thenReturn(new ArrayList<>());
+    when(process.getAttributes()).thenReturn(new HashMap<>());
+    when(process.getExtensionElements()).thenReturn(new HashMap<>());
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    ProcessExport.writeProcess(process, xtw);
+
+    // Assert
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw).writeCharacters(eq("Documentation"));
+    verify(xtw).writeEndElement();
+    verify(xtw, atLeast(1)).writeStartElement(eq("bpmn2"), Mockito.<String>any(),
+        eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(process).getAttributes();
+    verify(process).getExtensionElements();
+    verify(process).getId();
+    verify(process).getCandidateStarterGroups();
+    verify(process).getCandidateStarterUsers();
+    verify(process, atLeast(1)).getDocumentation();
+    verify(process).getEventListeners();
+    verify(process).getExecutionListeners();
+    verify(process).getLanes();
+    verify(process, atLeast(1)).getName();
+    verify(process).isExecutable();
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
+   */
+  @Test
+  void testWriteProcess3() throws Exception {
+    // Arrange
+    Process process = mock(Process.class);
+    when(process.isExecutable()).thenReturn(true);
+    when(process.getId()).thenReturn("42");
+    when(process.getDocumentation()).thenReturn("");
+    when(process.getName()).thenReturn("Name");
+    when(process.getCandidateStarterGroups()).thenReturn(new ArrayList<>());
+    when(process.getCandidateStarterUsers()).thenReturn(new ArrayList<>());
+    when(process.getEventListeners()).thenReturn(new ArrayList<>());
+    when(process.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(process.getLanes()).thenReturn(new ArrayList<>());
+    when(process.getAttributes()).thenReturn(new HashMap<>());
+    when(process.getExtensionElements()).thenReturn(new HashMap<>());
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    ProcessExport.writeProcess(process, xtw);
+
+    // Assert
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw).writeStartElement(eq("bpmn2"), eq("process"), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(process).getAttributes();
+    verify(process).getExtensionElements();
+    verify(process).getId();
+    verify(process).getCandidateStarterGroups();
+    verify(process).getCandidateStarterUsers();
+    verify(process).getDocumentation();
+    verify(process).getEventListeners();
+    verify(process).getExecutionListeners();
+    verify(process).getLanes();
+    verify(process, atLeast(1)).getName();
+    verify(process).isExecutable();
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
+   */
+  @Test
+  void testWriteProcess4() throws Exception {
+    // Arrange
+    ArrayList<String> stringList = new ArrayList<>();
+    stringList.add("bpmn2");
+    Process process = mock(Process.class);
+    when(process.isExecutable()).thenReturn(true);
+    when(process.getId()).thenReturn("42");
+    when(process.getDocumentation()).thenReturn("Documentation");
+    when(process.getName()).thenReturn("Name");
+    when(process.getCandidateStarterGroups()).thenReturn(stringList);
+    when(process.getCandidateStarterUsers()).thenReturn(new ArrayList<>());
+    when(process.getEventListeners()).thenReturn(new ArrayList<>());
+    when(process.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(process.getLanes()).thenReturn(new ArrayList<>());
+    when(process.getAttributes()).thenReturn(new HashMap<>());
+    when(process.getExtensionElements()).thenReturn(new HashMap<>());
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw)
+        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    ProcessExport.writeProcess(process, xtw);
+
+    // Assert
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("candidateStarterGroups"),
+        eq("bpmn2"));
+    verify(xtw).writeCharacters(eq("Documentation"));
+    verify(xtw).writeEndElement();
+    verify(xtw, atLeast(1)).writeStartElement(eq("bpmn2"), Mockito.<String>any(),
+        eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(process).getAttributes();
+    verify(process).getExtensionElements();
+    verify(process).getId();
+    verify(process, atLeast(1)).getCandidateStarterGroups();
+    verify(process).getCandidateStarterUsers();
+    verify(process, atLeast(1)).getDocumentation();
+    verify(process).getEventListeners();
+    verify(process).getExecutionListeners();
+    verify(process).getLanes();
+    verify(process, atLeast(1)).getName();
+    verify(process).isExecutable();
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
+   */
+  @Test
+  void testWriteProcess5() throws Exception {
+    // Arrange
+    ArrayList<String> stringList = new ArrayList<>();
+    stringList.add("process");
+    stringList.add("bpmn2");
+    Process process = mock(Process.class);
+    when(process.isExecutable()).thenReturn(true);
+    when(process.getId()).thenReturn("42");
+    when(process.getDocumentation()).thenReturn("Documentation");
+    when(process.getName()).thenReturn("Name");
+    when(process.getCandidateStarterGroups()).thenReturn(stringList);
+    when(process.getCandidateStarterUsers()).thenReturn(new ArrayList<>());
+    when(process.getEventListeners()).thenReturn(new ArrayList<>());
+    when(process.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(process.getLanes()).thenReturn(new ArrayList<>());
+    when(process.getAttributes()).thenReturn(new HashMap<>());
+    when(process.getExtensionElements()).thenReturn(new HashMap<>());
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw)
+        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    ProcessExport.writeProcess(process, xtw);
+
+    // Assert
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("candidateStarterGroups"),
+        eq("process,bpmn2"));
+    verify(xtw).writeCharacters(eq("Documentation"));
+    verify(xtw).writeEndElement();
+    verify(xtw, atLeast(1)).writeStartElement(eq("bpmn2"), Mockito.<String>any(),
+        eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(process).getAttributes();
+    verify(process).getExtensionElements();
+    verify(process).getId();
+    verify(process, atLeast(1)).getCandidateStarterGroups();
+    verify(process).getCandidateStarterUsers();
+    verify(process, atLeast(1)).getDocumentation();
+    verify(process).getEventListeners();
+    verify(process).getExecutionListeners();
+    verify(process).getLanes();
+    verify(process, atLeast(1)).getName();
+    verify(process).isExecutable();
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
+   */
+  @Test
+  void testWriteProcess6() throws Exception {
+    // Arrange
+    ArrayList<String> stringList = new ArrayList<>();
+    stringList.add("bpmn2");
+
+    ArrayList<String> stringList2 = new ArrayList<>();
+    stringList2.add("bpmn2");
+    Process process = mock(Process.class);
+    when(process.isExecutable()).thenReturn(true);
+    when(process.getId()).thenReturn("42");
+    when(process.getDocumentation()).thenReturn("Documentation");
+    when(process.getName()).thenReturn("Name");
+    when(process.getCandidateStarterGroups()).thenReturn(stringList);
+    when(process.getCandidateStarterUsers()).thenReturn(stringList2);
+    when(process.getEventListeners()).thenReturn(new ArrayList<>());
+    when(process.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(process.getLanes()).thenReturn(new ArrayList<>());
+    when(process.getAttributes()).thenReturn(new HashMap<>());
+    when(process.getExtensionElements()).thenReturn(new HashMap<>());
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw)
+        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    ProcessExport.writeProcess(process, xtw);
+
+    // Assert
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
+        eq("bpmn2"));
+    verify(xtw).writeCharacters(eq("Documentation"));
+    verify(xtw).writeEndElement();
+    verify(xtw, atLeast(1)).writeStartElement(eq("bpmn2"), Mockito.<String>any(),
+        eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(process).getAttributes();
+    verify(process).getExtensionElements();
+    verify(process).getId();
+    verify(process, atLeast(1)).getCandidateStarterGroups();
+    verify(process, atLeast(1)).getCandidateStarterUsers();
+    verify(process, atLeast(1)).getDocumentation();
+    verify(process).getEventListeners();
+    verify(process).getExecutionListeners();
+    verify(process).getLanes();
+    verify(process, atLeast(1)).getName();
+    verify(process).isExecutable();
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
+   */
+  @Test
+  void testWriteProcess7() throws Exception {
+    // Arrange
+    ArrayList<String> stringList = new ArrayList<>();
+    stringList.add("bpmn2");
+
+    ArrayList<EventListener> eventListenerList = new ArrayList<>();
+    eventListenerList.add(new EventListener());
+    Process process = mock(Process.class);
+    when(process.isExecutable()).thenReturn(true);
+    when(process.getId()).thenReturn("42");
+    when(process.getDocumentation()).thenReturn("Documentation");
+    when(process.getName()).thenReturn("Name");
+    when(process.getCandidateStarterGroups()).thenReturn(stringList);
+    when(process.getCandidateStarterUsers()).thenReturn(new ArrayList<>());
+    when(process.getEventListeners()).thenReturn(eventListenerList);
+    when(process.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(process.getLanes()).thenReturn(new ArrayList<>());
+    when(process.getAttributes()).thenReturn(new HashMap<>());
+    when(process.getExtensionElements()).thenReturn(new HashMap<>());
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
+    doNothing().when(xtw)
+        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    ProcessExport.writeProcess(process, xtw);
+
+    // Assert
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("candidateStarterGroups"),
+        eq("bpmn2"));
+    verify(xtw).writeCharacters(eq("Documentation"));
+    verify(xtw, atLeast(1)).writeEndElement();
+    verify(xtw).writeStartElement(eq("extensionElements"));
+    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    verify(process).getAttributes();
+    verify(process).getExtensionElements();
+    verify(process).getId();
+    verify(process, atLeast(1)).getCandidateStarterGroups();
+    verify(process).getCandidateStarterUsers();
+    verify(process, atLeast(1)).getDocumentation();
+    verify(process).getEventListeners();
+    verify(process).getExecutionListeners();
+    verify(process).getLanes();
+    verify(process, atLeast(1)).getName();
+    verify(process).isExecutable();
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
+   */
+  @Test
+  void testWriteProcess8() throws Exception {
+    // Arrange
+    ArrayList<String> stringList = new ArrayList<>();
+    stringList.add("bpmn2");
+
+    ArrayList<EventListener> eventListenerList = new ArrayList<>();
+    eventListenerList.add(new EventListener());
+    eventListenerList.add(new EventListener());
+    Process process = mock(Process.class);
+    when(process.isExecutable()).thenReturn(true);
+    when(process.getId()).thenReturn("42");
+    when(process.getDocumentation()).thenReturn("Documentation");
+    when(process.getName()).thenReturn("Name");
+    when(process.getCandidateStarterGroups()).thenReturn(stringList);
+    when(process.getCandidateStarterUsers()).thenReturn(new ArrayList<>());
+    when(process.getEventListeners()).thenReturn(eventListenerList);
+    when(process.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(process.getLanes()).thenReturn(new ArrayList<>());
+    when(process.getAttributes()).thenReturn(new HashMap<>());
+    when(process.getExtensionElements()).thenReturn(new HashMap<>());
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
+    doNothing().when(xtw)
+        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    ProcessExport.writeProcess(process, xtw);
+
+    // Assert
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("candidateStarterGroups"),
+        eq("bpmn2"));
+    verify(xtw).writeCharacters(eq("Documentation"));
+    verify(xtw, atLeast(1)).writeEndElement();
+    verify(xtw).writeStartElement(eq("extensionElements"));
+    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    verify(process).getAttributes();
+    verify(process).getExtensionElements();
+    verify(process).getId();
+    verify(process, atLeast(1)).getCandidateStarterGroups();
+    verify(process).getCandidateStarterUsers();
+    verify(process, atLeast(1)).getDocumentation();
+    verify(process).getEventListeners();
+    verify(process).getExecutionListeners();
+    verify(process).getLanes();
+    verify(process, atLeast(1)).getName();
+    verify(process).isExecutable();
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
+   */
+  @Test
+  void testWriteProcess9() throws Exception {
+    // Arrange
+    ArrayList<String> stringList = new ArrayList<>();
+    stringList.add("bpmn2");
+    EventListener eventListener = mock(EventListener.class);
+    when(eventListener.getEntityType()).thenReturn("Entity Type");
+    when(eventListener.getEvents()).thenReturn("Events");
+    when(eventListener.getImplementationType()).thenReturn("Implementation Type");
+
+    ArrayList<EventListener> eventListenerList = new ArrayList<>();
+    eventListenerList.add(eventListener);
+    Process process = mock(Process.class);
+    when(process.isExecutable()).thenReturn(true);
+    when(process.getId()).thenReturn("42");
+    when(process.getDocumentation()).thenReturn("Documentation");
+    when(process.getName()).thenReturn("Name");
+    when(process.getCandidateStarterGroups()).thenReturn(stringList);
+    when(process.getCandidateStarterUsers()).thenReturn(new ArrayList<>());
+    when(process.getEventListeners()).thenReturn(eventListenerList);
+    when(process.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(process.getLanes()).thenReturn(new ArrayList<>());
+    when(process.getAttributes()).thenReturn(new HashMap<>());
+    when(process.getExtensionElements()).thenReturn(new HashMap<>());
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
+    doNothing().when(xtw)
+        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    ProcessExport.writeProcess(process, xtw);
+
+    // Assert
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("candidateStarterGroups"),
+        eq("bpmn2"));
+    verify(xtw).writeCharacters(eq("Documentation"));
+    verify(xtw, atLeast(1)).writeEndElement();
+    verify(xtw).writeStartElement(eq("extensionElements"));
+    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    verify(process).getAttributes();
+    verify(process).getExtensionElements();
+    verify(process).getId();
+    verify(eventListener).getEntityType();
+    verify(eventListener).getEvents();
+    verify(eventListener, atLeast(1)).getImplementationType();
+    verify(process, atLeast(1)).getCandidateStarterGroups();
+    verify(process).getCandidateStarterUsers();
+    verify(process, atLeast(1)).getDocumentation();
+    verify(process).getEventListeners();
+    verify(process).getExecutionListeners();
+    verify(process).getLanes();
+    verify(process, atLeast(1)).getName();
+    verify(process).isExecutable();
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
+   */
+  @Test
+  void testWriteProcess10() throws Exception {
     // Arrange
     ArrayList<String> stringList = new ArrayList<>();
     stringList.add("bpmn2");
@@ -116,25 +556,222 @@ class ProcessExportDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link EventListener} (default constructor).</li>
-   *   <li>Then calls {@link IndentingXMLStreamWriter#writeStartElement(String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
+   * Method under test:
+   * {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeProcess(Process, XMLStreamWriter); given ArrayList() add EventListener (default constructor); then calls writeStartElement(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessExport.writeProcess(Process, XMLStreamWriter)"})
-  void testWriteProcess_givenArrayListAddEventListener_thenCallsWriteStartElement() throws Exception {
+  void testWriteProcess11() throws Exception {
     // Arrange
     ArrayList<String> stringList = new ArrayList<>();
     stringList.add("bpmn2");
+    EventListener eventListener = mock(EventListener.class);
+    when(eventListener.getEntityType()).thenReturn("Entity Type");
+    when(eventListener.getEvents()).thenReturn("Events");
+    when(eventListener.getImplementationType()).thenReturn("Implementation Type");
 
     ArrayList<EventListener> eventListenerList = new ArrayList<>();
-    eventListenerList.add(new EventListener());
+    eventListenerList.add(eventListener);
+
+    ArrayList<Lane> laneList = new ArrayList<>();
+    laneList.add(new Lane());
+    Process process = mock(Process.class);
+    when(process.isExecutable()).thenReturn(true);
+    when(process.getId()).thenReturn("42");
+    when(process.getDocumentation()).thenReturn("Documentation");
+    when(process.getName()).thenReturn("Name");
+    when(process.getCandidateStarterGroups()).thenReturn(stringList);
+    when(process.getCandidateStarterUsers()).thenReturn(new ArrayList<>());
+    when(process.getEventListeners()).thenReturn(eventListenerList);
+    when(process.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(process.getLanes()).thenReturn(laneList);
+    when(process.getAttributes()).thenReturn(new HashMap<>());
+    when(process.getExtensionElements()).thenReturn(new HashMap<>());
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
+    doNothing().when(xtw)
+        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    ProcessExport.writeProcess(process, xtw);
+
+    // Assert
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("candidateStarterGroups"),
+        eq("bpmn2"));
+    verify(xtw).writeCharacters(eq("Documentation"));
+    verify(xtw, atLeast(1)).writeEndElement();
+    verify(xtw).writeStartElement(eq("extensionElements"));
+    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    verify(process).getAttributes();
+    verify(process).getExtensionElements();
+    verify(process, atLeast(1)).getId();
+    verify(eventListener).getEntityType();
+    verify(eventListener).getEvents();
+    verify(eventListener, atLeast(1)).getImplementationType();
+    verify(process, atLeast(1)).getCandidateStarterGroups();
+    verify(process).getCandidateStarterUsers();
+    verify(process, atLeast(1)).getDocumentation();
+    verify(process).getEventListeners();
+    verify(process).getExecutionListeners();
+    verify(process, atLeast(1)).getLanes();
+    verify(process, atLeast(1)).getName();
+    verify(process).isExecutable();
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
+   */
+  @Test
+  void testWriteProcess12() throws Exception {
+    // Arrange
+    ArrayList<String> stringList = new ArrayList<>();
+    stringList.add("bpmn2");
+    EventListener eventListener = mock(EventListener.class);
+    when(eventListener.getEntityType()).thenReturn("Entity Type");
+    when(eventListener.getEvents()).thenReturn("Events");
+    when(eventListener.getImplementationType()).thenReturn("Implementation Type");
+
+    ArrayList<EventListener> eventListenerList = new ArrayList<>();
+    eventListenerList.add(eventListener);
+
+    HashMap<String, List<ExtensionAttribute>> stringListMap = new HashMap<>();
+    stringListMap.put("bpmn2", new ArrayList<>());
+    Process process = mock(Process.class);
+    when(process.isExecutable()).thenReturn(true);
+    when(process.getId()).thenReturn("42");
+    when(process.getDocumentation()).thenReturn("Documentation");
+    when(process.getName()).thenReturn("Name");
+    when(process.getCandidateStarterGroups()).thenReturn(stringList);
+    when(process.getCandidateStarterUsers()).thenReturn(new ArrayList<>());
+    when(process.getEventListeners()).thenReturn(eventListenerList);
+    when(process.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(process.getLanes()).thenReturn(new ArrayList<>());
+    when(process.getAttributes()).thenReturn(stringListMap);
+    when(process.getExtensionElements()).thenReturn(new HashMap<>());
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
+    doNothing().when(xtw)
+        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    ProcessExport.writeProcess(process, xtw);
+
+    // Assert
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("candidateStarterGroups"),
+        eq("bpmn2"));
+    verify(xtw).writeCharacters(eq("Documentation"));
+    verify(xtw, atLeast(1)).writeEndElement();
+    verify(xtw).writeStartElement(eq("extensionElements"));
+    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    verify(process).getAttributes();
+    verify(process).getExtensionElements();
+    verify(process).getId();
+    verify(eventListener).getEntityType();
+    verify(eventListener).getEvents();
+    verify(eventListener, atLeast(1)).getImplementationType();
+    verify(process, atLeast(1)).getCandidateStarterGroups();
+    verify(process).getCandidateStarterUsers();
+    verify(process, atLeast(1)).getDocumentation();
+    verify(process).getEventListeners();
+    verify(process).getExecutionListeners();
+    verify(process).getLanes();
+    verify(process, atLeast(1)).getName();
+    verify(process).isExecutable();
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
+   */
+  @Test
+  void testWriteProcess13() throws Exception {
+    // Arrange
+    ArrayList<String> stringList = new ArrayList<>();
+    stringList.add("bpmn2");
+    EventListener eventListener = mock(EventListener.class);
+    when(eventListener.getEntityType()).thenReturn("Entity Type");
+    when(eventListener.getEvents()).thenReturn("Events");
+    when(eventListener.getImplementationType()).thenReturn("Implementation Type");
+
+    ArrayList<EventListener> eventListenerList = new ArrayList<>();
+    eventListenerList.add(eventListener);
+
+    HashMap<String, List<ExtensionElement>> stringListMap = new HashMap<>();
+    stringListMap.put("bpmn2", new ArrayList<>());
+    Process process = mock(Process.class);
+    when(process.isExecutable()).thenReturn(true);
+    when(process.getId()).thenReturn("42");
+    when(process.getDocumentation()).thenReturn("Documentation");
+    when(process.getName()).thenReturn("Name");
+    when(process.getCandidateStarterGroups()).thenReturn(stringList);
+    when(process.getCandidateStarterUsers()).thenReturn(new ArrayList<>());
+    when(process.getEventListeners()).thenReturn(eventListenerList);
+    when(process.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(process.getLanes()).thenReturn(new ArrayList<>());
+    when(process.getAttributes()).thenReturn(new HashMap<>());
+    when(process.getExtensionElements()).thenReturn(stringListMap);
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
+    doNothing().when(xtw)
+        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    ProcessExport.writeProcess(process, xtw);
+
+    // Assert
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("candidateStarterGroups"),
+        eq("bpmn2"));
+    verify(xtw).writeCharacters(eq("Documentation"));
+    verify(xtw, atLeast(1)).writeEndElement();
+    verify(xtw).writeStartElement(eq("extensionElements"));
+    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    verify(process).getAttributes();
+    verify(process, atLeast(1)).getExtensionElements();
+    verify(process).getId();
+    verify(eventListener).getEntityType();
+    verify(eventListener).getEvents();
+    verify(eventListener, atLeast(1)).getImplementationType();
+    verify(process, atLeast(1)).getCandidateStarterGroups();
+    verify(process).getCandidateStarterUsers();
+    verify(process, atLeast(1)).getDocumentation();
+    verify(process).getEventListeners();
+    verify(process).getExecutionListeners();
+    verify(process).getLanes();
+    verify(process, atLeast(1)).getName();
+    verify(process).isExecutable();
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
+   */
+  @Test
+  void testWriteProcess14() throws Exception {
+    // Arrange
+    ArrayList<String> stringList = new ArrayList<>();
+    stringList.add("bpmn2");
+    EventListener eventListener = mock(EventListener.class);
+    when(eventListener.getEntityType()).thenReturn("null");
+    when(eventListener.getEvents()).thenReturn("Events");
+    when(eventListener.getImplementationType()).thenReturn("Implementation Type");
+
+    ArrayList<EventListener> eventListenerList = new ArrayList<>();
+    eventListenerList.add(eventListener);
     Process process = mock(Process.class);
     when(process.isExecutable()).thenReturn(true);
     when(process.getId()).thenReturn("42");
@@ -170,6 +807,9 @@ class ProcessExportDiffblueTest {
     verify(process).getAttributes();
     verify(process).getExtensionElements();
     verify(process).getId();
+    verify(eventListener).getEntityType();
+    verify(eventListener).getEvents();
+    verify(eventListener, atLeast(1)).getImplementationType();
     verify(process, atLeast(1)).getCandidateStarterGroups();
     verify(process).getCandidateStarterUsers();
     verify(process, atLeast(1)).getDocumentation();
@@ -181,26 +821,31 @@ class ProcessExportDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link EventListener} (default constructor).</li>
-   *   <li>Then calls {@link IndentingXMLStreamWriter#writeStartElement(String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
+   * Method under test:
+   * {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeProcess(Process, XMLStreamWriter); given ArrayList() add EventListener (default constructor); then calls writeStartElement(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessExport.writeProcess(Process, XMLStreamWriter)"})
-  void testWriteProcess_givenArrayListAddEventListener_thenCallsWriteStartElement2() throws Exception {
+  void testWriteProcess15() throws Exception {
     // Arrange
     ArrayList<String> stringList = new ArrayList<>();
     stringList.add("bpmn2");
+    EventListener eventListener = mock(EventListener.class);
+    when(eventListener.getEntityType()).thenReturn("Entity Type");
+    when(eventListener.getEvents()).thenReturn("Events");
+    when(eventListener.getImplementationType()).thenReturn("Implementation Type");
 
     ArrayList<EventListener> eventListenerList = new ArrayList<>();
-    eventListenerList.add(new EventListener());
-    eventListenerList.add(new EventListener());
+    eventListenerList.add(eventListener);
+    ActivitiListener activitiListener = mock(ActivitiListener.class);
+    when(activitiListener.getCustomPropertiesResolverImplementationType())
+        .thenReturn("Custom Properties Resolver Implementation Type");
+    when(activitiListener.getImplementationType()).thenReturn("Implementation Type");
+    when(activitiListener.getOnTransaction()).thenReturn("On Transaction");
+    when(activitiListener.getFieldExtensions()).thenReturn(new ArrayList<>());
+    when(activitiListener.getEvent()).thenReturn("Event");
+
+    ArrayList<ActivitiListener> activitiListenerList = new ArrayList<>();
+    activitiListenerList.add(activitiListener);
     Process process = mock(Process.class);
     when(process.isExecutable()).thenReturn(true);
     when(process.getId()).thenReturn("42");
@@ -209,7 +854,7 @@ class ProcessExportDiffblueTest {
     when(process.getCandidateStarterGroups()).thenReturn(stringList);
     when(process.getCandidateStarterUsers()).thenReturn(new ArrayList<>());
     when(process.getEventListeners()).thenReturn(eventListenerList);
-    when(process.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(process.getExecutionListeners()).thenReturn(activitiListenerList);
     when(process.getLanes()).thenReturn(new ArrayList<>());
     when(process.getAttributes()).thenReturn(new HashMap<>());
     when(process.getExtensionElements()).thenReturn(new HashMap<>());
@@ -233,9 +878,17 @@ class ProcessExportDiffblueTest {
     verify(xtw, atLeast(1)).writeEndElement();
     verify(xtw).writeStartElement(eq("extensionElements"));
     verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    verify(activitiListener, atLeast(1)).getCustomPropertiesResolverImplementationType();
+    verify(activitiListener, atLeast(1)).getEvent();
+    verify(activitiListener).getFieldExtensions();
+    verify(activitiListener, atLeast(1)).getImplementationType();
+    verify(activitiListener).getOnTransaction();
     verify(process).getAttributes();
     verify(process).getExtensionElements();
     verify(process).getId();
+    verify(eventListener).getEntityType();
+    verify(eventListener).getEvents();
+    verify(eventListener, atLeast(1)).getImplementationType();
     verify(process, atLeast(1)).getCandidateStarterGroups();
     verify(process).getCandidateStarterUsers();
     verify(process, atLeast(1)).getDocumentation();
@@ -247,18 +900,11 @@ class ProcessExportDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
+   * Method under test:
+   * {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeProcess(Process, XMLStreamWriter); given ArrayList() add FieldExtension (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessExport.writeProcess(Process, XMLStreamWriter)"})
-  void testWriteProcess_givenArrayListAddFieldExtension() throws Exception {
+  void testWriteProcess16() throws Exception {
     // Arrange
     ArrayList<String> stringList = new ArrayList<>();
     stringList.add("bpmn2");
@@ -336,576 +982,11 @@ class ProcessExportDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link Lane} (default constructor).</li>
-   *   <li>Then calls {@link EventListener#getEntityType()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
+   * Method under test:
+   * {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeProcess(Process, XMLStreamWriter); given ArrayList() add Lane (default constructor); then calls getEntityType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessExport.writeProcess(Process, XMLStreamWriter)"})
-  void testWriteProcess_givenArrayListAddLane_thenCallsGetEntityType() throws Exception {
-    // Arrange
-    ArrayList<String> stringList = new ArrayList<>();
-    stringList.add("bpmn2");
-    EventListener eventListener = mock(EventListener.class);
-    when(eventListener.getEntityType()).thenReturn("Entity Type");
-    when(eventListener.getEvents()).thenReturn("Events");
-    when(eventListener.getImplementationType()).thenReturn("Implementation Type");
-
-    ArrayList<EventListener> eventListenerList = new ArrayList<>();
-    eventListenerList.add(eventListener);
-
-    ArrayList<Lane> laneList = new ArrayList<>();
-    laneList.add(new Lane());
-    Process process = mock(Process.class);
-    when(process.isExecutable()).thenReturn(true);
-    when(process.getId()).thenReturn("42");
-    when(process.getDocumentation()).thenReturn("Documentation");
-    when(process.getName()).thenReturn("Name");
-    when(process.getCandidateStarterGroups()).thenReturn(stringList);
-    when(process.getCandidateStarterUsers()).thenReturn(new ArrayList<>());
-    when(process.getEventListeners()).thenReturn(eventListenerList);
-    when(process.getExecutionListeners()).thenReturn(new ArrayList<>());
-    when(process.getLanes()).thenReturn(laneList);
-    when(process.getAttributes()).thenReturn(new HashMap<>());
-    when(process.getExtensionElements()).thenReturn(new HashMap<>());
-    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
-    doNothing().when(xtw)
-        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
-    doNothing().when(xtw).writeEndElement();
-    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-
-    // Act
-    ProcessExport.writeProcess(process, xtw);
-
-    // Assert
-    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    verify(xtw).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("candidateStarterGroups"),
-        eq("bpmn2"));
-    verify(xtw).writeCharacters(eq("Documentation"));
-    verify(xtw, atLeast(1)).writeEndElement();
-    verify(xtw).writeStartElement(eq("extensionElements"));
-    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-    verify(process).getAttributes();
-    verify(process).getExtensionElements();
-    verify(process, atLeast(1)).getId();
-    verify(eventListener).getEntityType();
-    verify(eventListener).getEvents();
-    verify(eventListener, atLeast(1)).getImplementationType();
-    verify(process, atLeast(1)).getCandidateStarterGroups();
-    verify(process).getCandidateStarterUsers();
-    verify(process, atLeast(1)).getDocumentation();
-    verify(process).getEventListeners();
-    verify(process).getExecutionListeners();
-    verify(process, atLeast(1)).getLanes();
-    verify(process, atLeast(1)).getName();
-    verify(process).isExecutable();
-  }
-
-  /**
-   * Test {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}.
-   * <ul>
-   *   <li>Given {@code Documentation}.</li>
-   *   <li>Then calls {@link IndentingXMLStreamWriter#writeCharacters(String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
-   */
-  @Test
-  @DisplayName("Test writeProcess(Process, XMLStreamWriter); given 'Documentation'; then calls writeCharacters(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessExport.writeProcess(Process, XMLStreamWriter)"})
-  void testWriteProcess_givenDocumentation_thenCallsWriteCharacters() throws Exception {
-    // Arrange
-    Process process = mock(Process.class);
-    when(process.isExecutable()).thenReturn(true);
-    when(process.getId()).thenReturn("42");
-    when(process.getDocumentation()).thenReturn("Documentation");
-    when(process.getName()).thenReturn("Name");
-    when(process.getCandidateStarterGroups()).thenReturn(new ArrayList<>());
-    when(process.getCandidateStarterUsers()).thenReturn(new ArrayList<>());
-    when(process.getEventListeners()).thenReturn(new ArrayList<>());
-    when(process.getExecutionListeners()).thenReturn(new ArrayList<>());
-    when(process.getLanes()).thenReturn(new ArrayList<>());
-    when(process.getAttributes()).thenReturn(new HashMap<>());
-    when(process.getExtensionElements()).thenReturn(new HashMap<>());
-    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
-    doNothing().when(xtw).writeEndElement();
-    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-
-    // Act
-    ProcessExport.writeProcess(process, xtw);
-
-    // Assert
-    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    verify(xtw).writeCharacters(eq("Documentation"));
-    verify(xtw).writeEndElement();
-    verify(xtw, atLeast(1)).writeStartElement(eq("bpmn2"), Mockito.<String>any(),
-        eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
-    verify(process).getAttributes();
-    verify(process).getExtensionElements();
-    verify(process).getId();
-    verify(process).getCandidateStarterGroups();
-    verify(process).getCandidateStarterUsers();
-    verify(process, atLeast(1)).getDocumentation();
-    verify(process).getEventListeners();
-    verify(process).getExecutionListeners();
-    verify(process).getLanes();
-    verify(process, atLeast(1)).getName();
-    verify(process).isExecutable();
-  }
-
-  /**
-   * Test {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}.
-   * <ul>
-   *   <li>Given empty string.</li>
-   *   <li>When {@link Process} {@link Process#getDocumentation()} return empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
-   */
-  @Test
-  @DisplayName("Test writeProcess(Process, XMLStreamWriter); given empty string; when Process getDocumentation() return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessExport.writeProcess(Process, XMLStreamWriter)"})
-  void testWriteProcess_givenEmptyString_whenProcessGetDocumentationReturnEmptyString() throws Exception {
-    // Arrange
-    Process process = mock(Process.class);
-    when(process.isExecutable()).thenReturn(true);
-    when(process.getId()).thenReturn("42");
-    when(process.getDocumentation()).thenReturn("");
-    when(process.getName()).thenReturn("Name");
-    when(process.getCandidateStarterGroups()).thenReturn(new ArrayList<>());
-    when(process.getCandidateStarterUsers()).thenReturn(new ArrayList<>());
-    when(process.getEventListeners()).thenReturn(new ArrayList<>());
-    when(process.getExecutionListeners()).thenReturn(new ArrayList<>());
-    when(process.getLanes()).thenReturn(new ArrayList<>());
-    when(process.getAttributes()).thenReturn(new HashMap<>());
-    when(process.getExtensionElements()).thenReturn(new HashMap<>());
-    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-
-    // Act
-    ProcessExport.writeProcess(process, xtw);
-
-    // Assert
-    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    verify(xtw).writeStartElement(eq("bpmn2"), eq("process"), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
-    verify(process).getAttributes();
-    verify(process).getExtensionElements();
-    verify(process).getId();
-    verify(process).getCandidateStarterGroups();
-    verify(process).getCandidateStarterUsers();
-    verify(process).getDocumentation();
-    verify(process).getEventListeners();
-    verify(process).getExecutionListeners();
-    verify(process).getLanes();
-    verify(process, atLeast(1)).getName();
-    verify(process).isExecutable();
-  }
-
-  /**
-   * Test {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}.
-   * <ul>
-   *   <li>Given {@link EventListener} {@link EventListener#getEntityType()} return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
-   */
-  @Test
-  @DisplayName("Test writeProcess(Process, XMLStreamWriter); given EventListener getEntityType() return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessExport.writeProcess(Process, XMLStreamWriter)"})
-  void testWriteProcess_givenEventListenerGetEntityTypeReturnNull() throws Exception {
-    // Arrange
-    ArrayList<String> stringList = new ArrayList<>();
-    stringList.add("bpmn2");
-    EventListener eventListener = mock(EventListener.class);
-    when(eventListener.getEntityType()).thenReturn("null");
-    when(eventListener.getEvents()).thenReturn("Events");
-    when(eventListener.getImplementationType()).thenReturn("Implementation Type");
-
-    ArrayList<EventListener> eventListenerList = new ArrayList<>();
-    eventListenerList.add(eventListener);
-    Process process = mock(Process.class);
-    when(process.isExecutable()).thenReturn(true);
-    when(process.getId()).thenReturn("42");
-    when(process.getDocumentation()).thenReturn("Documentation");
-    when(process.getName()).thenReturn("Name");
-    when(process.getCandidateStarterGroups()).thenReturn(stringList);
-    when(process.getCandidateStarterUsers()).thenReturn(new ArrayList<>());
-    when(process.getEventListeners()).thenReturn(eventListenerList);
-    when(process.getExecutionListeners()).thenReturn(new ArrayList<>());
-    when(process.getLanes()).thenReturn(new ArrayList<>());
-    when(process.getAttributes()).thenReturn(new HashMap<>());
-    when(process.getExtensionElements()).thenReturn(new HashMap<>());
-    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
-    doNothing().when(xtw)
-        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
-    doNothing().when(xtw).writeEndElement();
-    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-
-    // Act
-    ProcessExport.writeProcess(process, xtw);
-
-    // Assert
-    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    verify(xtw).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("candidateStarterGroups"),
-        eq("bpmn2"));
-    verify(xtw).writeCharacters(eq("Documentation"));
-    verify(xtw, atLeast(1)).writeEndElement();
-    verify(xtw).writeStartElement(eq("extensionElements"));
-    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-    verify(process).getAttributes();
-    verify(process).getExtensionElements();
-    verify(process).getId();
-    verify(eventListener).getEntityType();
-    verify(eventListener).getEvents();
-    verify(eventListener, atLeast(1)).getImplementationType();
-    verify(process, atLeast(1)).getCandidateStarterGroups();
-    verify(process).getCandidateStarterUsers();
-    verify(process, atLeast(1)).getDocumentation();
-    verify(process).getEventListeners();
-    verify(process).getExecutionListeners();
-    verify(process).getLanes();
-    verify(process, atLeast(1)).getName();
-    verify(process).isExecutable();
-  }
-
-  /**
-   * Test {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code bpmn2} is {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then calls {@link EventListener#getEntityType()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
-   */
-  @Test
-  @DisplayName("Test writeProcess(Process, XMLStreamWriter); given HashMap() 'bpmn2' is ArrayList(); then calls getEntityType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessExport.writeProcess(Process, XMLStreamWriter)"})
-  void testWriteProcess_givenHashMapBpmn2IsArrayList_thenCallsGetEntityType() throws Exception {
-    // Arrange
-    ArrayList<String> stringList = new ArrayList<>();
-    stringList.add("bpmn2");
-    EventListener eventListener = mock(EventListener.class);
-    when(eventListener.getEntityType()).thenReturn("Entity Type");
-    when(eventListener.getEvents()).thenReturn("Events");
-    when(eventListener.getImplementationType()).thenReturn("Implementation Type");
-
-    ArrayList<EventListener> eventListenerList = new ArrayList<>();
-    eventListenerList.add(eventListener);
-
-    HashMap<String, List<ExtensionAttribute>> stringListMap = new HashMap<>();
-    stringListMap.put("bpmn2", new ArrayList<>());
-    Process process = mock(Process.class);
-    when(process.isExecutable()).thenReturn(true);
-    when(process.getId()).thenReturn("42");
-    when(process.getDocumentation()).thenReturn("Documentation");
-    when(process.getName()).thenReturn("Name");
-    when(process.getCandidateStarterGroups()).thenReturn(stringList);
-    when(process.getCandidateStarterUsers()).thenReturn(new ArrayList<>());
-    when(process.getEventListeners()).thenReturn(eventListenerList);
-    when(process.getExecutionListeners()).thenReturn(new ArrayList<>());
-    when(process.getLanes()).thenReturn(new ArrayList<>());
-    when(process.getAttributes()).thenReturn(stringListMap);
-    when(process.getExtensionElements()).thenReturn(new HashMap<>());
-    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
-    doNothing().when(xtw)
-        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
-    doNothing().when(xtw).writeEndElement();
-    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-
-    // Act
-    ProcessExport.writeProcess(process, xtw);
-
-    // Assert
-    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    verify(xtw).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("candidateStarterGroups"),
-        eq("bpmn2"));
-    verify(xtw).writeCharacters(eq("Documentation"));
-    verify(xtw, atLeast(1)).writeEndElement();
-    verify(xtw).writeStartElement(eq("extensionElements"));
-    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-    verify(process).getAttributes();
-    verify(process).getExtensionElements();
-    verify(process).getId();
-    verify(eventListener).getEntityType();
-    verify(eventListener).getEvents();
-    verify(eventListener, atLeast(1)).getImplementationType();
-    verify(process, atLeast(1)).getCandidateStarterGroups();
-    verify(process).getCandidateStarterUsers();
-    verify(process, atLeast(1)).getDocumentation();
-    verify(process).getEventListeners();
-    verify(process).getExecutionListeners();
-    verify(process).getLanes();
-    verify(process, atLeast(1)).getName();
-    verify(process).isExecutable();
-  }
-
-  /**
-   * Test {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code bpmn2} is {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then calls {@link EventListener#getEntityType()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
-   */
-  @Test
-  @DisplayName("Test writeProcess(Process, XMLStreamWriter); given HashMap() 'bpmn2' is ArrayList(); then calls getEntityType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessExport.writeProcess(Process, XMLStreamWriter)"})
-  void testWriteProcess_givenHashMapBpmn2IsArrayList_thenCallsGetEntityType2() throws Exception {
-    // Arrange
-    ArrayList<String> stringList = new ArrayList<>();
-    stringList.add("bpmn2");
-    EventListener eventListener = mock(EventListener.class);
-    when(eventListener.getEntityType()).thenReturn("Entity Type");
-    when(eventListener.getEvents()).thenReturn("Events");
-    when(eventListener.getImplementationType()).thenReturn("Implementation Type");
-
-    ArrayList<EventListener> eventListenerList = new ArrayList<>();
-    eventListenerList.add(eventListener);
-
-    HashMap<String, List<ExtensionElement>> stringListMap = new HashMap<>();
-    stringListMap.put("bpmn2", new ArrayList<>());
-    Process process = mock(Process.class);
-    when(process.isExecutable()).thenReturn(true);
-    when(process.getId()).thenReturn("42");
-    when(process.getDocumentation()).thenReturn("Documentation");
-    when(process.getName()).thenReturn("Name");
-    when(process.getCandidateStarterGroups()).thenReturn(stringList);
-    when(process.getCandidateStarterUsers()).thenReturn(new ArrayList<>());
-    when(process.getEventListeners()).thenReturn(eventListenerList);
-    when(process.getExecutionListeners()).thenReturn(new ArrayList<>());
-    when(process.getLanes()).thenReturn(new ArrayList<>());
-    when(process.getAttributes()).thenReturn(new HashMap<>());
-    when(process.getExtensionElements()).thenReturn(stringListMap);
-    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
-    doNothing().when(xtw)
-        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
-    doNothing().when(xtw).writeEndElement();
-    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-
-    // Act
-    ProcessExport.writeProcess(process, xtw);
-
-    // Assert
-    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    verify(xtw).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("candidateStarterGroups"),
-        eq("bpmn2"));
-    verify(xtw).writeCharacters(eq("Documentation"));
-    verify(xtw, atLeast(1)).writeEndElement();
-    verify(xtw).writeStartElement(eq("extensionElements"));
-    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-    verify(process).getAttributes();
-    verify(process, atLeast(1)).getExtensionElements();
-    verify(process).getId();
-    verify(eventListener).getEntityType();
-    verify(eventListener).getEvents();
-    verify(eventListener, atLeast(1)).getImplementationType();
-    verify(process, atLeast(1)).getCandidateStarterGroups();
-    verify(process).getCandidateStarterUsers();
-    verify(process, atLeast(1)).getDocumentation();
-    verify(process).getEventListeners();
-    verify(process).getExecutionListeners();
-    verify(process).getLanes();
-    verify(process, atLeast(1)).getName();
-    verify(process).isExecutable();
-  }
-
-  /**
-   * Test {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}.
-   * <ul>
-   *   <li>Then calls {@link ActivitiListener#getCustomPropertiesResolverImplementationType()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
-   */
-  @Test
-  @DisplayName("Test writeProcess(Process, XMLStreamWriter); then calls getCustomPropertiesResolverImplementationType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessExport.writeProcess(Process, XMLStreamWriter)"})
-  void testWriteProcess_thenCallsGetCustomPropertiesResolverImplementationType() throws Exception {
-    // Arrange
-    ArrayList<String> stringList = new ArrayList<>();
-    stringList.add("bpmn2");
-    EventListener eventListener = mock(EventListener.class);
-    when(eventListener.getEntityType()).thenReturn("Entity Type");
-    when(eventListener.getEvents()).thenReturn("Events");
-    when(eventListener.getImplementationType()).thenReturn("Implementation Type");
-
-    ArrayList<EventListener> eventListenerList = new ArrayList<>();
-    eventListenerList.add(eventListener);
-    ActivitiListener activitiListener = mock(ActivitiListener.class);
-    when(activitiListener.getCustomPropertiesResolverImplementationType())
-        .thenReturn("Custom Properties Resolver Implementation Type");
-    when(activitiListener.getImplementationType()).thenReturn("Implementation Type");
-    when(activitiListener.getOnTransaction()).thenReturn("On Transaction");
-    when(activitiListener.getFieldExtensions()).thenReturn(new ArrayList<>());
-    when(activitiListener.getEvent()).thenReturn("Event");
-
-    ArrayList<ActivitiListener> activitiListenerList = new ArrayList<>();
-    activitiListenerList.add(activitiListener);
-    Process process = mock(Process.class);
-    when(process.isExecutable()).thenReturn(true);
-    when(process.getId()).thenReturn("42");
-    when(process.getDocumentation()).thenReturn("Documentation");
-    when(process.getName()).thenReturn("Name");
-    when(process.getCandidateStarterGroups()).thenReturn(stringList);
-    when(process.getCandidateStarterUsers()).thenReturn(new ArrayList<>());
-    when(process.getEventListeners()).thenReturn(eventListenerList);
-    when(process.getExecutionListeners()).thenReturn(activitiListenerList);
-    when(process.getLanes()).thenReturn(new ArrayList<>());
-    when(process.getAttributes()).thenReturn(new HashMap<>());
-    when(process.getExtensionElements()).thenReturn(new HashMap<>());
-    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
-    doNothing().when(xtw)
-        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
-    doNothing().when(xtw).writeEndElement();
-    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-
-    // Act
-    ProcessExport.writeProcess(process, xtw);
-
-    // Assert
-    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    verify(xtw).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("candidateStarterGroups"),
-        eq("bpmn2"));
-    verify(xtw).writeCharacters(eq("Documentation"));
-    verify(xtw, atLeast(1)).writeEndElement();
-    verify(xtw).writeStartElement(eq("extensionElements"));
-    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-    verify(activitiListener, atLeast(1)).getCustomPropertiesResolverImplementationType();
-    verify(activitiListener, atLeast(1)).getEvent();
-    verify(activitiListener).getFieldExtensions();
-    verify(activitiListener, atLeast(1)).getImplementationType();
-    verify(activitiListener).getOnTransaction();
-    verify(process).getAttributes();
-    verify(process).getExtensionElements();
-    verify(process).getId();
-    verify(eventListener).getEntityType();
-    verify(eventListener).getEvents();
-    verify(eventListener, atLeast(1)).getImplementationType();
-    verify(process, atLeast(1)).getCandidateStarterGroups();
-    verify(process).getCandidateStarterUsers();
-    verify(process, atLeast(1)).getDocumentation();
-    verify(process).getEventListeners();
-    verify(process).getExecutionListeners();
-    verify(process).getLanes();
-    verify(process, atLeast(1)).getName();
-    verify(process).isExecutable();
-  }
-
-  /**
-   * Test {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}.
-   * <ul>
-   *   <li>Then calls {@link EventListener#getEntityType()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
-   */
-  @Test
-  @DisplayName("Test writeProcess(Process, XMLStreamWriter); then calls getEntityType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessExport.writeProcess(Process, XMLStreamWriter)"})
-  void testWriteProcess_thenCallsGetEntityType() throws Exception {
-    // Arrange
-    ArrayList<String> stringList = new ArrayList<>();
-    stringList.add("bpmn2");
-    EventListener eventListener = mock(EventListener.class);
-    when(eventListener.getEntityType()).thenReturn("Entity Type");
-    when(eventListener.getEvents()).thenReturn("Events");
-    when(eventListener.getImplementationType()).thenReturn("Implementation Type");
-
-    ArrayList<EventListener> eventListenerList = new ArrayList<>();
-    eventListenerList.add(eventListener);
-    Process process = mock(Process.class);
-    when(process.isExecutable()).thenReturn(true);
-    when(process.getId()).thenReturn("42");
-    when(process.getDocumentation()).thenReturn("Documentation");
-    when(process.getName()).thenReturn("Name");
-    when(process.getCandidateStarterGroups()).thenReturn(stringList);
-    when(process.getCandidateStarterUsers()).thenReturn(new ArrayList<>());
-    when(process.getEventListeners()).thenReturn(eventListenerList);
-    when(process.getExecutionListeners()).thenReturn(new ArrayList<>());
-    when(process.getLanes()).thenReturn(new ArrayList<>());
-    when(process.getAttributes()).thenReturn(new HashMap<>());
-    when(process.getExtensionElements()).thenReturn(new HashMap<>());
-    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
-    doNothing().when(xtw)
-        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
-    doNothing().when(xtw).writeEndElement();
-    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-
-    // Act
-    ProcessExport.writeProcess(process, xtw);
-
-    // Assert
-    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    verify(xtw).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("candidateStarterGroups"),
-        eq("bpmn2"));
-    verify(xtw).writeCharacters(eq("Documentation"));
-    verify(xtw, atLeast(1)).writeEndElement();
-    verify(xtw).writeStartElement(eq("extensionElements"));
-    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-    verify(process).getAttributes();
-    verify(process).getExtensionElements();
-    verify(process).getId();
-    verify(eventListener).getEntityType();
-    verify(eventListener).getEvents();
-    verify(eventListener, atLeast(1)).getImplementationType();
-    verify(process, atLeast(1)).getCandidateStarterGroups();
-    verify(process).getCandidateStarterUsers();
-    verify(process, atLeast(1)).getDocumentation();
-    verify(process).getEventListeners();
-    verify(process).getExecutionListeners();
-    verify(process).getLanes();
-    verify(process, atLeast(1)).getName();
-    verify(process).isExecutable();
-  }
-
-  /**
-   * Test {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}.
-   * <ul>
-   *   <li>Then calls {@link EventListener#getImplementation()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
-   */
-  @Test
-  @DisplayName("Test writeProcess(Process, XMLStreamWriter); then calls getImplementation()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessExport.writeProcess(Process, XMLStreamWriter)"})
-  void testWriteProcess_thenCallsGetImplementation() throws Exception {
+  void testWriteProcess17() throws Exception {
     // Arrange
     ArrayList<String> stringList = new ArrayList<>();
     stringList.add("bpmn2");

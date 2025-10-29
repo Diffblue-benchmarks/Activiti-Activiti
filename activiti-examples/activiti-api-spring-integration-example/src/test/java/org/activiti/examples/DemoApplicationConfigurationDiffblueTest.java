@@ -16,9 +16,6 @@
 package org.activiti.examples;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,30 +31,19 @@ class DemoApplicationConfigurationDiffblueTest {
   private DemoApplicationConfiguration demoApplicationConfiguration;
 
   /**
-   * Test {@link DemoApplicationConfiguration#myUserDetailsService()}.
-   * <p>
-   * Method under test: {@link DemoApplicationConfiguration#myUserDetailsService()}
+   * Method under test:
+   * {@link DemoApplicationConfiguration#myUserDetailsService()}
    */
   @Test
-  @DisplayName("Test myUserDetailsService()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.springframework.security.core.userdetails.UserDetailsService DemoApplicationConfiguration.myUserDetailsService()"})
   void testMyUserDetailsService() {
     // Arrange, Act and Assert
     assertTrue(demoApplicationConfiguration.myUserDetailsService() instanceof InMemoryUserDetailsManager);
   }
 
   /**
-   * Test {@link DemoApplicationConfiguration#passwordEncoder()}.
-   * <p>
    * Method under test: {@link DemoApplicationConfiguration#passwordEncoder()}
    */
   @Test
-  @DisplayName("Test passwordEncoder()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.springframework.security.crypto.password.PasswordEncoder DemoApplicationConfiguration.passwordEncoder()"})
   void testPasswordEncoder() {
     // Arrange, Act and Assert
     assertTrue(demoApplicationConfiguration.passwordEncoder() instanceof BCryptPasswordEncoder);

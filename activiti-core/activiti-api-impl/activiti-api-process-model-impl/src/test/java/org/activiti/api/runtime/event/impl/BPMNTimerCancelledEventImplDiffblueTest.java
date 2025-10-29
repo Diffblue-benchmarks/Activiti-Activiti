@@ -18,25 +18,30 @@ package org.activiti.api.runtime.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
 import org.activiti.api.process.model.BPMNTimer;
 import org.activiti.api.process.model.events.BPMNTimerEvent;
-import org.activiti.api.process.model.events.BPMNTimerEvent.TimerEvents;
+import org.activiti.api.process.model.payloads.TimerPayload;
 import org.activiti.api.runtime.model.impl.BPMNTimerImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class BPMNTimerCancelledEventImplDiffblueTest {
   /**
-   * Test {@link BPMNTimerCancelledEventImpl#BPMNTimerCancelledEventImpl()}.
-   * <p>
-   * Method under test: {@link BPMNTimerCancelledEventImpl#BPMNTimerCancelledEventImpl()}
+   * Method under test: {@link BPMNTimerCancelledEventImpl#getEventType()}
    */
   @Test
-  @DisplayName("Test new BPMNTimerCancelledEventImpl()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BPMNTimerCancelledEventImpl.<init>()"})
+  void testGetEventType() {
+    // Arrange, Act and Assert
+    assertEquals(BPMNTimerEvent.TimerEvents.TIMER_CANCELLED, (new BPMNTimerCancelledEventImpl()).getEventType());
+  }
+
+  /**
+   * Method under test:
+   * {@link BPMNTimerCancelledEventImpl#BPMNTimerCancelledEventImpl()}
+   */
+  @Test
   void testNewBPMNTimerCancelledEventImpl() {
     // Arrange and Act
     BPMNTimerCancelledEventImpl actualBpmnTimerCancelledEventImpl = new BPMNTimerCancelledEventImpl();
@@ -49,18 +54,14 @@ class BPMNTimerCancelledEventImplDiffblueTest {
     assertNull(actualBpmnTimerCancelledEventImpl.getProcessDefinitionKey());
     assertNull(actualBpmnTimerCancelledEventImpl.getProcessInstanceId());
     assertNull(actualBpmnTimerCancelledEventImpl.getEntity());
-    assertEquals(TimerEvents.TIMER_CANCELLED, actualBpmnTimerCancelledEventImpl.getEventType());
+    assertEquals(BPMNTimerEvent.TimerEvents.TIMER_CANCELLED, actualBpmnTimerCancelledEventImpl.getEventType());
   }
 
   /**
-   * Test {@link BPMNTimerCancelledEventImpl#BPMNTimerCancelledEventImpl(BPMNTimer)}.
-   * <p>
-   * Method under test: {@link BPMNTimerCancelledEventImpl#BPMNTimerCancelledEventImpl(BPMNTimer)}
+   * Method under test:
+   * {@link BPMNTimerCancelledEventImpl#BPMNTimerCancelledEventImpl(BPMNTimer)}
    */
   @Test
-  @DisplayName("Test new BPMNTimerCancelledEventImpl(BPMNTimer)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BPMNTimerCancelledEventImpl.<init>(BPMNTimer)"})
   void testNewBPMNTimerCancelledEventImpl2() {
     // Arrange
     BPMNTimerImpl entity = new BPMNTimerImpl("42");
@@ -75,21 +76,40 @@ class BPMNTimerCancelledEventImplDiffblueTest {
     assertNull(actualBpmnTimerCancelledEventImpl.getProcessDefinitionId());
     assertNull(actualBpmnTimerCancelledEventImpl.getProcessDefinitionKey());
     assertNull(actualBpmnTimerCancelledEventImpl.getProcessInstanceId());
-    assertEquals(TimerEvents.TIMER_CANCELLED, actualBpmnTimerCancelledEventImpl.getEventType());
+    assertEquals(BPMNTimerEvent.TimerEvents.TIMER_CANCELLED, actualBpmnTimerCancelledEventImpl.getEventType());
     assertSame(entity, actualBpmnTimerCancelledEventImpl.getEntity());
   }
 
   /**
-   * Test {@link BPMNTimerCancelledEventImpl#getEventType()}.
-   * <p>
-   * Method under test: {@link BPMNTimerCancelledEventImpl#getEventType()}
+   * Method under test:
+   * {@link BPMNTimerCancelledEventImpl#BPMNTimerCancelledEventImpl(BPMNTimer)}
    */
   @Test
-  @DisplayName("Test getEventType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TimerEvents BPMNTimerCancelledEventImpl.getEventType()"})
-  void testGetEventType() {
-    // Arrange, Act and Assert
-    assertEquals(TimerEvents.TIMER_CANCELLED, (new BPMNTimerCancelledEventImpl()).getEventType());
+  void testNewBPMNTimerCancelledEventImpl3() {
+    // Arrange
+    TimerPayload timerPayload = new TimerPayload();
+    timerPayload.setDuedate(mock(java.sql.Date.class));
+    timerPayload
+        .setEndDate(java.util.Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload.setExceptionMessage("An error occurred");
+    timerPayload.setMaxIterations(3);
+    timerPayload.setRepeat("Repeat");
+    timerPayload.setRetries(1);
+
+    BPMNTimerImpl entity = new BPMNTimerImpl("42");
+    entity.setTimerPayload(timerPayload);
+
+    // Act
+    BPMNTimerCancelledEventImpl actualBpmnTimerCancelledEventImpl = new BPMNTimerCancelledEventImpl(entity);
+
+    // Assert
+    assertNull(actualBpmnTimerCancelledEventImpl.getProcessDefinitionVersion());
+    assertNull(actualBpmnTimerCancelledEventImpl.getBusinessKey());
+    assertNull(actualBpmnTimerCancelledEventImpl.getParentProcessInstanceId());
+    assertNull(actualBpmnTimerCancelledEventImpl.getProcessDefinitionId());
+    assertNull(actualBpmnTimerCancelledEventImpl.getProcessDefinitionKey());
+    assertNull(actualBpmnTimerCancelledEventImpl.getProcessInstanceId());
+    assertEquals(BPMNTimerEvent.TimerEvents.TIMER_CANCELLED, actualBpmnTimerCancelledEventImpl.getEventType());
+    assertSame(entity, actualBpmnTimerCancelledEventImpl.getEntity());
   }
 }

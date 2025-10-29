@@ -19,32 +19,188 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.activiti.bpmn.model.BpmnModel;
+import org.activiti.bpmn.model.Resource;
 import org.activiti.bpmn.model.Signal;
 import org.activiti.validation.ValidationError;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class SignalValidatorDiffblueTest {
   /**
-   * Test {@link SignalValidator#validate(BpmnModel, List)}.
-   * <ul>
-   *   <li>Given {@link Signal#Signal(String, String)} with {@code Id} and {@code Name}.</li>
-   *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SignalValidator#validate(BpmnModel, List)}
    */
   @Test
-  @DisplayName("Test validate(BpmnModel, List); given Signal(String, String) with 'Id' and 'Name'; then ArrayList() size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SignalValidator.validate(BpmnModel, List)"})
-  void testValidate_givenSignalWithIdAndName_thenArrayListSizeIsTwo() {
+  void testValidate() {
+    // Arrange
+    SignalValidator signalValidator = new SignalValidator();
+    BpmnModel bpmnModel = new BpmnModel();
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    signalValidator.validate(bpmnModel, errors);
+
+    // Assert that nothing has changed
+    Collection<Resource> resources = bpmnModel.getResources();
+    assertTrue(resources instanceof List);
+    assertTrue(errors.isEmpty());
+    assertTrue(resources.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link SignalValidator#validate(BpmnModel, List)}
+   */
+  @Test
+  void testValidate2() {
+    // Arrange
+    SignalValidator signalValidator = new SignalValidator();
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addSignal(new Signal("42", "Name"));
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    signalValidator.validate(bpmnModel, errors);
+
+    // Assert that nothing has changed
+    Collection<Resource> resources = bpmnModel.getResources();
+    assertTrue(resources instanceof List);
+    assertTrue(errors.isEmpty());
+    assertTrue(resources.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link SignalValidator#validate(BpmnModel, List)}
+   */
+  @Test
+  void testValidate3() {
+    // Arrange
+    SignalValidator signalValidator = new SignalValidator();
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addSignal(new Signal(null, "Name"));
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    signalValidator.validate(bpmnModel, errors);
+
+    // Assert
+    Collection<Resource> resources = bpmnModel.getResources();
+    assertTrue(resources instanceof List);
+    assertEquals(1, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("SIGNAL_MISSING_ID", getResult.getDefaultDescription());
+    assertEquals("SIGNAL_MISSING_ID", getResult.getKey());
+    assertEquals("SIGNAL_MISSING_ID", getResult.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
+    assertTrue(resources.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link SignalValidator#validate(BpmnModel, List)}
+   */
+  @Test
+  void testValidate4() {
+    // Arrange
+    SignalValidator signalValidator = new SignalValidator();
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addSignal(new Signal("", "Name"));
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    signalValidator.validate(bpmnModel, errors);
+
+    // Assert
+    Collection<Resource> resources = bpmnModel.getResources();
+    assertTrue(resources instanceof List);
+    assertEquals(1, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("SIGNAL_MISSING_ID", getResult.getDefaultDescription());
+    assertEquals("SIGNAL_MISSING_ID", getResult.getKey());
+    assertEquals("SIGNAL_MISSING_ID", getResult.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
+    assertTrue(resources.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link SignalValidator#validate(BpmnModel, List)}
+   */
+  @Test
+  void testValidate5() {
+    // Arrange
+    SignalValidator signalValidator = new SignalValidator();
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addSignal(new Signal("42", null));
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    signalValidator.validate(bpmnModel, errors);
+
+    // Assert
+    Collection<Resource> resources = bpmnModel.getResources();
+    assertTrue(resources instanceof List);
+    assertEquals(1, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("SIGNAL_MISSING_NAME", getResult.getDefaultDescription());
+    assertEquals("SIGNAL_MISSING_NAME", getResult.getKey());
+    assertEquals("SIGNAL_MISSING_NAME", getResult.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
+    assertTrue(resources.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link SignalValidator#validate(BpmnModel, List)}
+   */
+  @Test
+  void testValidate6() {
     // Arrange
     SignalValidator signalValidator = new SignalValidator();
 
@@ -57,6 +213,8 @@ class SignalValidatorDiffblueTest {
     signalValidator.validate(bpmnModel, errors);
 
     // Assert
+    Collection<Resource> resources = bpmnModel.getResources();
+    assertTrue(resources instanceof List);
     assertEquals(2, errors.size());
     ValidationError getResult = errors.get(0);
     assertEquals("SIGNAL_DUPLICATE_NAME", getResult.getDefaultDescription());
@@ -66,30 +224,36 @@ class SignalValidatorDiffblueTest {
     assertEquals("SIGNAL_DUPLICATE_NAME", getResult2.getKey());
     assertEquals("SIGNAL_DUPLICATE_NAME", getResult.getProblem());
     assertEquals("SIGNAL_DUPLICATE_NAME", getResult2.getProblem());
+    assertNull(getResult.getActivityId());
     assertNull(getResult2.getActivityId());
+    assertNull(getResult.getActivityName());
     assertNull(getResult2.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
     assertNull(getResult2.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
     assertNull(getResult2.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
     assertNull(getResult2.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
     assertEquals(0, getResult2.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
     assertEquals(0, getResult2.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
     assertFalse(getResult2.isWarning());
+    assertTrue(resources.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
     assertTrue(getResult2.getParams().isEmpty());
   }
 
   /**
-   * Test {@link SignalValidator#validate(BpmnModel, List)}.
-   * <ul>
-   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and name is {@code 42}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SignalValidator#validate(BpmnModel, List)}
    */
   @Test
-  @DisplayName("Test validate(BpmnModel, List); given Signal(String, String) with id is '42' and name is '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SignalValidator.validate(BpmnModel, List)"})
-  void testValidate_givenSignalWithIdIs42AndNameIs42() {
+  void testValidate7() {
     // Arrange
     SignalValidator signalValidator = new SignalValidator();
 
@@ -102,22 +266,21 @@ class SignalValidatorDiffblueTest {
     signalValidator.validate(bpmnModel, errors);
 
     // Assert that nothing has changed
+    Collection<Resource> resources = bpmnModel.getResources();
+    assertTrue(resources instanceof List);
     assertTrue(errors.isEmpty());
+    assertTrue(resources.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
   }
 
   /**
-   * Test {@link SignalValidator#validate(BpmnModel, List)}.
-   * <ul>
-   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and name is {@code SIGNAL_MISSING_ID}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SignalValidator#validate(BpmnModel, List)}
    */
   @Test
-  @DisplayName("Test validate(BpmnModel, List); given Signal(String, String) with id is '42' and name is 'SIGNAL_MISSING_ID'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SignalValidator.validate(BpmnModel, List)"})
-  void testValidate_givenSignalWithIdIs42AndNameIsSignalMissingId() {
+  void testValidate8() {
     // Arrange
     SignalValidator signalValidator = new SignalValidator();
 
@@ -130,173 +293,48 @@ class SignalValidatorDiffblueTest {
     signalValidator.validate(bpmnModel, errors);
 
     // Assert
+    Collection<Resource> resources = bpmnModel.getResources();
+    assertTrue(resources instanceof List);
     assertEquals(1, errors.size());
     ValidationError getResult = errors.get(0);
     assertEquals("SIGNAL_MISSING_ID", getResult.getDefaultDescription());
     assertEquals("SIGNAL_MISSING_ID", getResult.getKey());
     assertEquals("SIGNAL_MISSING_ID", getResult.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
+    assertTrue(resources.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
   }
 
   /**
-   * Test {@link SignalValidator#validate(BpmnModel, List)}.
-   * <ul>
-   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and {@code Name}.</li>
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SignalValidator#validate(BpmnModel, List)}
+   * Method under test:
+   * {@link SignalValidator#duplicateName(Collection, String, String)}
    */
   @Test
-  @DisplayName("Test validate(BpmnModel, List); given Signal(String, String) with id is '42' and 'Name'; then ArrayList() Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SignalValidator.validate(BpmnModel, List)"})
-  void testValidate_givenSignalWithIdIs42AndName_thenArrayListEmpty() {
+  void testDuplicateName() {
     // Arrange
     SignalValidator signalValidator = new SignalValidator();
 
-    BpmnModel bpmnModel = new BpmnModel();
-    bpmnModel.addSignal(new Signal("42", "Name"));
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    signalValidator.validate(bpmnModel, errors);
-
-    // Assert that nothing has changed
-    assertTrue(errors.isEmpty());
+    // Act and Assert
+    assertFalse(signalValidator.duplicateName(new ArrayList<>(), "42", "Name"));
   }
 
   /**
-   * Test {@link SignalValidator#validate(BpmnModel, List)}.
-   * <ul>
-   *   <li>Given {@link Signal#Signal(String, String)} with id is empty string and {@code Name}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SignalValidator#validate(BpmnModel, List)}
+   * Method under test:
+   * {@link SignalValidator#duplicateName(Collection, String, String)}
    */
   @Test
-  @DisplayName("Test validate(BpmnModel, List); given Signal(String, String) with id is empty string and 'Name'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SignalValidator.validate(BpmnModel, List)"})
-  void testValidate_givenSignalWithIdIsEmptyStringAndName() {
-    // Arrange
-    SignalValidator signalValidator = new SignalValidator();
-
-    BpmnModel bpmnModel = new BpmnModel();
-    bpmnModel.addSignal(new Signal("", "Name"));
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    signalValidator.validate(bpmnModel, errors);
-
-    // Assert
-    assertEquals(1, errors.size());
-    ValidationError getResult = errors.get(0);
-    assertEquals("SIGNAL_MISSING_ID", getResult.getDefaultDescription());
-    assertEquals("SIGNAL_MISSING_ID", getResult.getKey());
-    assertEquals("SIGNAL_MISSING_ID", getResult.getProblem());
-  }
-
-  /**
-   * Test {@link SignalValidator#validate(BpmnModel, List)}.
-   * <ul>
-   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code null} and {@code Name}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SignalValidator#validate(BpmnModel, List)}
-   */
-  @Test
-  @DisplayName("Test validate(BpmnModel, List); given Signal(String, String) with id is 'null' and 'Name'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SignalValidator.validate(BpmnModel, List)"})
-  void testValidate_givenSignalWithIdIsNullAndName() {
-    // Arrange
-    SignalValidator signalValidator = new SignalValidator();
-
-    BpmnModel bpmnModel = new BpmnModel();
-    bpmnModel.addSignal(new Signal(null, "Name"));
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    signalValidator.validate(bpmnModel, errors);
-
-    // Assert
-    assertEquals(1, errors.size());
-    ValidationError getResult = errors.get(0);
-    assertEquals("SIGNAL_MISSING_ID", getResult.getDefaultDescription());
-    assertEquals("SIGNAL_MISSING_ID", getResult.getKey());
-    assertEquals("SIGNAL_MISSING_ID", getResult.getProblem());
-  }
-
-  /**
-   * Test {@link SignalValidator#validate(BpmnModel, List)}.
-   * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} first DefaultDescription is {@code SIGNAL_MISSING_NAME}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SignalValidator#validate(BpmnModel, List)}
-   */
-  @Test
-  @DisplayName("Test validate(BpmnModel, List); then ArrayList() first DefaultDescription is 'SIGNAL_MISSING_NAME'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SignalValidator.validate(BpmnModel, List)"})
-  void testValidate_thenArrayListFirstDefaultDescriptionIsSignalMissingName() {
-    // Arrange
-    SignalValidator signalValidator = new SignalValidator();
-
-    BpmnModel bpmnModel = new BpmnModel();
-    bpmnModel.addSignal(new Signal("42", null));
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    signalValidator.validate(bpmnModel, errors);
-
-    // Assert
-    assertEquals(1, errors.size());
-    ValidationError getResult = errors.get(0);
-    assertEquals("SIGNAL_MISSING_NAME", getResult.getDefaultDescription());
-    assertEquals("SIGNAL_MISSING_NAME", getResult.getKey());
-    assertEquals("SIGNAL_MISSING_NAME", getResult.getProblem());
-  }
-
-  /**
-   * Test {@link SignalValidator#validate(BpmnModel, List)}.
-   * <ul>
-   *   <li>When {@link BpmnModel} (default constructor).</li>
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SignalValidator#validate(BpmnModel, List)}
-   */
-  @Test
-  @DisplayName("Test validate(BpmnModel, List); when BpmnModel (default constructor); then ArrayList() Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SignalValidator.validate(BpmnModel, List)"})
-  void testValidate_whenBpmnModel_thenArrayListEmpty() {
-    // Arrange
-    SignalValidator signalValidator = new SignalValidator();
-    BpmnModel bpmnModel = new BpmnModel();
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    signalValidator.validate(bpmnModel, errors);
-
-    // Assert that nothing has changed
-    assertTrue(errors.isEmpty());
-  }
-
-  /**
-   * Test {@link SignalValidator#duplicateName(Collection, String, String)}.
-   * <ul>
-   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and {@code Name}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SignalValidator#duplicateName(Collection, String, String)}
-   */
-  @Test
-  @DisplayName("Test duplicateName(Collection, String, String); given Signal(String, String) with id is '42' and 'Name'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean SignalValidator.duplicateName(Collection, String, String)"})
-  void testDuplicateName_givenSignalWithIdIs42AndName() {
+  void testDuplicateName2() {
     // Arrange
     SignalValidator signalValidator = new SignalValidator();
 
@@ -308,18 +346,11 @@ class SignalValidatorDiffblueTest {
   }
 
   /**
-   * Test {@link SignalValidator#duplicateName(Collection, String, String)}.
-   * <ul>
-   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and {@code Name}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SignalValidator#duplicateName(Collection, String, String)}
+   * Method under test:
+   * {@link SignalValidator#duplicateName(Collection, String, String)}
    */
   @Test
-  @DisplayName("Test duplicateName(Collection, String, String); given Signal(String, String) with id is '42' and 'Name'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean SignalValidator.duplicateName(Collection, String, String)"})
-  void testDuplicateName_givenSignalWithIdIs42AndName2() {
+  void testDuplicateName3() {
     // Arrange
     SignalValidator signalValidator = new SignalValidator();
 
@@ -332,67 +363,11 @@ class SignalValidatorDiffblueTest {
   }
 
   /**
-   * Test {@link SignalValidator#duplicateName(Collection, String, String)}.
-   * <ul>
-   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and name is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SignalValidator#duplicateName(Collection, String, String)}
+   * Method under test:
+   * {@link SignalValidator#duplicateName(Collection, String, String)}
    */
   @Test
-  @DisplayName("Test duplicateName(Collection, String, String); given Signal(String, String) with id is '42' and name is '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean SignalValidator.duplicateName(Collection, String, String)"})
-  void testDuplicateName_givenSignalWithIdIs42AndNameIs42() {
-    // Arrange
-    SignalValidator signalValidator = new SignalValidator();
-
-    ArrayList<Signal> signals = new ArrayList<>();
-    signals.add(new Signal("42", "42"));
-
-    // Act and Assert
-    assertFalse(signalValidator.duplicateName(signals, "42", "Name"));
-  }
-
-  /**
-   * Test {@link SignalValidator#duplicateName(Collection, String, String)}.
-   * <ul>
-   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and {@code Name}.</li>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SignalValidator#duplicateName(Collection, String, String)}
-   */
-  @Test
-  @DisplayName("Test duplicateName(Collection, String, String); given Signal(String, String) with id is '42' and 'Name'; when 'null'; then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean SignalValidator.duplicateName(Collection, String, String)"})
-  void testDuplicateName_givenSignalWithIdIs42AndName_whenNull_thenReturnFalse() {
-    // Arrange
-    SignalValidator signalValidator = new SignalValidator();
-
-    ArrayList<Signal> signals = new ArrayList<>();
-    signals.add(new Signal("42", "Name"));
-
-    // Act and Assert
-    assertFalse(signalValidator.duplicateName(signals, null, "Name"));
-  }
-
-  /**
-   * Test {@link SignalValidator#duplicateName(Collection, String, String)}.
-   * <ul>
-   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code Name} and {@code Name}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SignalValidator#duplicateName(Collection, String, String)}
-   */
-  @Test
-  @DisplayName("Test duplicateName(Collection, String, String); given Signal(String, String) with id is 'Name' and 'Name'; then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean SignalValidator.duplicateName(Collection, String, String)"})
-  void testDuplicateName_givenSignalWithIdIsNameAndName_thenReturnTrue() {
+  void testDuplicateName4() {
     // Arrange
     SignalValidator signalValidator = new SignalValidator();
 
@@ -404,18 +379,11 @@ class SignalValidatorDiffblueTest {
   }
 
   /**
-   * Test {@link SignalValidator#duplicateName(Collection, String, String)}.
-   * <ul>
-   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code null} and {@code Name}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SignalValidator#duplicateName(Collection, String, String)}
+   * Method under test:
+   * {@link SignalValidator#duplicateName(Collection, String, String)}
    */
   @Test
-  @DisplayName("Test duplicateName(Collection, String, String); given Signal(String, String) with id is 'null' and 'Name'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean SignalValidator.duplicateName(Collection, String, String)"})
-  void testDuplicateName_givenSignalWithIdIsNullAndName() {
+  void testDuplicateName5() {
     // Arrange
     SignalValidator signalValidator = new SignalValidator();
 
@@ -427,23 +395,34 @@ class SignalValidatorDiffblueTest {
   }
 
   /**
-   * Test {@link SignalValidator#duplicateName(Collection, String, String)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SignalValidator#duplicateName(Collection, String, String)}
+   * Method under test:
+   * {@link SignalValidator#duplicateName(Collection, String, String)}
    */
   @Test
-  @DisplayName("Test duplicateName(Collection, String, String); when ArrayList(); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean SignalValidator.duplicateName(Collection, String, String)"})
-  void testDuplicateName_whenArrayList_thenReturnFalse() {
+  void testDuplicateName6() {
     // Arrange
     SignalValidator signalValidator = new SignalValidator();
 
+    ArrayList<Signal> signals = new ArrayList<>();
+    signals.add(new Signal("42", "42"));
+
     // Act and Assert
-    assertFalse(signalValidator.duplicateName(new ArrayList<>(), "42", "Name"));
+    assertFalse(signalValidator.duplicateName(signals, "42", "Name"));
+  }
+
+  /**
+   * Method under test:
+   * {@link SignalValidator#duplicateName(Collection, String, String)}
+   */
+  @Test
+  void testDuplicateName7() {
+    // Arrange
+    SignalValidator signalValidator = new SignalValidator();
+
+    ArrayList<Signal> signals = new ArrayList<>();
+    signals.add(new Signal("42", "Name"));
+
+    // Act and Assert
+    assertFalse(signalValidator.duplicateName(signals, null, "Name"));
   }
 }

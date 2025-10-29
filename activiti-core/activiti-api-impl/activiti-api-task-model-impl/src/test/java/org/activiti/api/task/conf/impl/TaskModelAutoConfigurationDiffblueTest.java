@@ -18,25 +18,18 @@ package org.activiti.api.task.conf.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import java.util.List;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class TaskModelAutoConfigurationDiffblueTest {
   /**
-   * Test {@link TaskModelAutoConfiguration#customizeTaskModelObjectMapper()}.
-   * <p>
-   * Method under test: {@link TaskModelAutoConfiguration#customizeTaskModelObjectMapper()}
+   * Method under test:
+   * {@link TaskModelAutoConfiguration#customizeTaskModelObjectMapper()}
    */
   @Test
-  @DisplayName("Test customizeTaskModelObjectMapper()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Module TaskModelAutoConfiguration.customizeTaskModelObjectMapper()"})
   void testCustomizeTaskModelObjectMapper() {
     // Arrange and Act
     Module actualCustomizeTaskModelObjectMapperResult = (new TaskModelAutoConfiguration())

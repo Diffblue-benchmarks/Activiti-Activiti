@@ -17,44 +17,30 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashSet;
 import java.util.Set;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.impl.interceptor.CommandContext;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class GetExecutionsVariablesCmdDiffblueTest {
   /**
-   * Test {@link GetExecutionsVariablesCmd#GetExecutionsVariablesCmd(Set)}.
-   * <p>
-   * Method under test: {@link GetExecutionsVariablesCmd#GetExecutionsVariablesCmd(Set)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void GetExecutionsVariablesCmd.<init>(Set)"})
-  public void testNewGetExecutionsVariablesCmd() {
-    // Arrange, Act and Assert
-    assertTrue((new GetExecutionsVariablesCmd(new HashSet<>())).executionIds.isEmpty());
-  }
-
-  /**
-   * Test {@link GetExecutionsVariablesCmd#execute(CommandContext)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link GetExecutionsVariablesCmd#execute(CommandContext)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.util.List GetExecutionsVariablesCmd.execute(CommandContext)"})
-  public void testExecute_whenNull_thenThrowActivitiIllegalArgumentException() {
+  public void testExecute() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
         () -> (new GetExecutionsVariablesCmd(new HashSet<>())).execute(null));
+  }
+
+  /**
+   * Method under test:
+   * {@link GetExecutionsVariablesCmd#GetExecutionsVariablesCmd(Set)}
+   */
+  @Test
+  public void testNewGetExecutionsVariablesCmd() {
+    // Arrange, Act and Assert
+    assertTrue((new GetExecutionsVariablesCmd(new HashSet<>())).executionIds.isEmpty());
   }
 }

@@ -16,20 +16,14 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ChangeDeploymentTenantIdCmdDiffblueTest {
   /**
-   * Test {@link ChangeDeploymentTenantIdCmd#ChangeDeploymentTenantIdCmd(String, String)}.
-   * <p>
-   * Method under test: {@link ChangeDeploymentTenantIdCmd#ChangeDeploymentTenantIdCmd(String, String)}
+   * Method under test:
+   * {@link ChangeDeploymentTenantIdCmd#ChangeDeploymentTenantIdCmd(String, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ChangeDeploymentTenantIdCmd.<init>(String, String)"})
   public void testNewChangeDeploymentTenantIdCmd() {
     // Arrange and Act
     ChangeDeploymentTenantIdCmd actualChangeDeploymentTenantIdCmd = new ChangeDeploymentTenantIdCmd("42", "42");

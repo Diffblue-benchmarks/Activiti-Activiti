@@ -16,13 +16,10 @@
 package org.activiti.runtime.api.conf.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.activiti.api.model.shared.event.RuntimeEvent;
 import org.activiti.api.runtime.shared.events.VariableEventListener;
 import org.activiti.api.task.runtime.events.listener.TaskRuntimeEventListener;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,28 +48,20 @@ class TaskRuntimeConfigurationImplDiffblueTest {
   private VariableEventListener<RuntimeEvent<?, ?>> variableEventListener;
 
   /**
-   * Test {@link TaskRuntimeConfigurationImpl#taskRuntimeEventListeners()}.
-   * <p>
-   * Method under test: {@link TaskRuntimeConfigurationImpl#taskRuntimeEventListeners()}
+   * Method under test:
+   * {@link TaskRuntimeConfigurationImpl#taskRuntimeEventListeners()}
    */
   @Test
-  @DisplayName("Test taskRuntimeEventListeners()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List TaskRuntimeConfigurationImpl.taskRuntimeEventListeners()"})
   void testTaskRuntimeEventListeners() {
     // Arrange, Act and Assert
     assertEquals(1, taskRuntimeConfigurationImpl.taskRuntimeEventListeners().size());
   }
 
   /**
-   * Test {@link TaskRuntimeConfigurationImpl#variableEventListeners()}.
-   * <p>
-   * Method under test: {@link TaskRuntimeConfigurationImpl#variableEventListeners()}
+   * Method under test:
+   * {@link TaskRuntimeConfigurationImpl#variableEventListeners()}
    */
   @Test
-  @DisplayName("Test variableEventListeners()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List TaskRuntimeConfigurationImpl.variableEventListeners()"})
   void testVariableEventListeners() {
     // Arrange, Act and Assert
     assertEquals(1, taskRuntimeConfigurationImpl.variableEventListeners().size());

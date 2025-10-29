@@ -16,15 +16,10 @@
 package org.activiti.engine.repository;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class DiagramEdgeWaypointDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link DiagramEdgeWaypoint}
@@ -35,10 +30,6 @@ public class DiagramEdgeWaypointDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DiagramEdgeWaypoint.<init>()", "Double DiagramEdgeWaypoint.getX()",
-      "Double DiagramEdgeWaypoint.getY()", "void DiagramEdgeWaypoint.setX(Double)",
-      "void DiagramEdgeWaypoint.setY(Double)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     DiagramEdgeWaypoint actualDiagramEdgeWaypoint = new DiagramEdgeWaypoint();
@@ -47,7 +38,7 @@ public class DiagramEdgeWaypointDiffblueTest {
     Double actualX = actualDiagramEdgeWaypoint.getX();
     Double actualY = actualDiagramEdgeWaypoint.getY();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals(2.0d, actualX.doubleValue(), 0.0);
     assertEquals(3.0d, actualY.doubleValue(), 0.0);
   }

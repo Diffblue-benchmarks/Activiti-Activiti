@@ -18,58 +18,19 @@ package org.activiti.engine.impl.bpmn.webservice;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.bpmn.data.FieldBaseStructureInstance;
 import org.activiti.engine.impl.bpmn.data.ItemDefinition;
 import org.activiti.engine.impl.bpmn.data.ItemInstance;
 import org.activiti.engine.impl.bpmn.data.SimpleStructureDefinition;
 import org.activiti.engine.impl.bpmn.data.StructureInstance;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class MessageDefinitionDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link MessageDefinition#MessageDefinition(String)}
-   *   <li>{@link MessageDefinition#setItemDefinition(ItemDefinition)}
-   *   <li>{@link MessageDefinition#getId()}
-   *   <li>{@link MessageDefinition#getItemDefinition()}
-   * </ul>
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void MessageDefinition.<init>(String)", "String MessageDefinition.getId()",
-      "ItemDefinition MessageDefinition.getItemDefinition()",
-      "void MessageDefinition.setItemDefinition(ItemDefinition)"})
-  public void testGettersAndSetters() {
-    // Arrange and Act
-    MessageDefinition actualMessageDefinition = new MessageDefinition("42");
-    ItemDefinition itemDefinition = new ItemDefinition("42", new SimpleStructureDefinition("42"));
-
-    actualMessageDefinition.setItemDefinition(itemDefinition);
-    String actualId = actualMessageDefinition.getId();
-
-    // Assert
-    assertEquals("42", actualId);
-    assertSame(itemDefinition, actualMessageDefinition.getItemDefinition());
-  }
-
-  /**
-   * Test {@link MessageDefinition#createInstance()}.
-   * <ul>
-   *   <li>Then StructureInstance return {@link FieldBaseStructureInstance}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link MessageDefinition#createInstance()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"MessageInstance MessageDefinition.createInstance()"})
-  public void testCreateInstance_thenStructureInstanceReturnFieldBaseStructureInstance() {
+  public void testCreateInstance() {
     // Arrange
     MessageDefinition messageDefinition = new MessageDefinition("42");
     ItemDefinition itemDefinition = new ItemDefinition("42", new SimpleStructureDefinition("42"));
@@ -91,18 +52,10 @@ public class MessageDefinitionDiffblueTest {
   }
 
   /**
-   * Test {@link MessageDefinition#getStructureDefinition()}.
-   * <ul>
-   *   <li>Then return {@link SimpleStructureDefinition#SimpleStructureDefinition(String)} with id is {@code 42}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link MessageDefinition#getStructureDefinition()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.data.StructureDefinition MessageDefinition.getStructureDefinition()"})
-  public void testGetStructureDefinition_thenReturnSimpleStructureDefinitionWithIdIs42() {
+  public void testGetStructureDefinition() {
     // Arrange
     MessageDefinition messageDefinition = new MessageDefinition("42");
     SimpleStructureDefinition structure = new SimpleStructureDefinition("42");
@@ -110,5 +63,28 @@ public class MessageDefinitionDiffblueTest {
 
     // Act and Assert
     assertSame(structure, messageDefinition.getStructureDefinition());
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>{@link MessageDefinition#MessageDefinition(String)}
+   *   <li>{@link MessageDefinition#setItemDefinition(ItemDefinition)}
+   *   <li>{@link MessageDefinition#getId()}
+   *   <li>{@link MessageDefinition#getItemDefinition()}
+   * </ul>
+   */
+  @Test
+  public void testGettersAndSetters() {
+    // Arrange and Act
+    MessageDefinition actualMessageDefinition = new MessageDefinition("42");
+    ItemDefinition itemDefinition = new ItemDefinition("42", new SimpleStructureDefinition("42"));
+
+    actualMessageDefinition.setItemDefinition(itemDefinition);
+    String actualId = actualMessageDefinition.getId();
+
+    // Assert that nothing has changed
+    assertEquals("42", actualId);
+    assertSame(itemDefinition, actualMessageDefinition.getItemDefinition());
   }
 }

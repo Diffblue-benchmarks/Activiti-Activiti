@@ -18,6 +18,8 @@ package org.activiti.api.runtime.model.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
@@ -28,21 +30,21 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonStreamContext;
 import com.fasterxml.jackson.core.filter.FilteringGeneratorDelegate;
 import com.fasterxml.jackson.core.filter.TokenFilter;
-import com.fasterxml.jackson.core.filter.TokenFilter.Inclusion;
 import com.fasterxml.jackson.core.filter.TokenFilterContext;
+import com.fasterxml.jackson.core.io.ContentReference;
+import com.fasterxml.jackson.core.io.IOContext;
+import com.fasterxml.jackson.core.json.UTF8JsonGenerator;
+import com.fasterxml.jackson.core.util.BufferRecycler;
 import com.fasterxml.jackson.core.util.JsonGeneratorDelegate;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.ser.DefaultSerializerProvider;
-import com.fasterxml.jackson.databind.ser.DefaultSerializerProvider.Impl;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.convert.ApplicationConversionService;
@@ -50,14 +52,10 @@ import org.springframework.core.convert.ConversionService;
 
 class ProcessVariablesMapSerializerDiffblueTest {
   /**
-   * Test {@link ProcessVariablesMapSerializer#ProcessVariablesMapSerializer(ConversionService)}.
-   * <p>
-   * Method under test: {@link ProcessVariablesMapSerializer#ProcessVariablesMapSerializer(ConversionService)}
+   * Method under test:
+   * {@link ProcessVariablesMapSerializer#ProcessVariablesMapSerializer(ConversionService)}
    */
   @Test
-  @DisplayName("Test new ProcessVariablesMapSerializer(ConversionService)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessVariablesMapSerializer.<init>(ConversionService)"})
   void testNewProcessVariablesMapSerializer() {
     // Arrange and Act
     ProcessVariablesMapSerializer actualProcessVariablesMapSerializer = new ProcessVariablesMapSerializer(
@@ -69,16 +67,11 @@ class ProcessVariablesMapSerializerDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessVariablesMapSerializer#serialize(ProcessVariablesMap, JsonGenerator, SerializerProvider)} with {@code ProcessVariablesMap}, {@code JsonGenerator}, {@code SerializerProvider}.
-   * <p>
-   * Method under test: {@link ProcessVariablesMapSerializer#serialize(ProcessVariablesMap, JsonGenerator, SerializerProvider)}
+   * Method under test:
+   * {@link ProcessVariablesMapSerializer#serialize(ProcessVariablesMap, JsonGenerator, SerializerProvider)}
    */
   @Test
-  @DisplayName("Test serialize(ProcessVariablesMap, JsonGenerator, SerializerProvider) with 'ProcessVariablesMap', 'JsonGenerator', 'SerializerProvider'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void ProcessVariablesMapSerializer.serialize(ProcessVariablesMap, JsonGenerator, SerializerProvider)"})
-  void testSerializeWithProcessVariablesMapJsonGeneratorSerializerProvider() throws IOException {
+  void testSerialize() throws IOException {
     // Arrange
     ProcessVariablesMapSerializer processVariablesMapSerializer = new ProcessVariablesMapSerializer(
         new ApplicationConversionService());
@@ -88,23 +81,41 @@ class ProcessVariablesMapSerializerDiffblueTest {
     JsonGeneratorDelegate gen = new JsonGeneratorDelegate(new JsonGeneratorDelegate(d), true);
 
     // Act
-    processVariablesMapSerializer.serialize(processVariablesMap, gen, new Impl());
+    processVariablesMapSerializer.serialize(processVariablesMap, gen, new DefaultSerializerProvider.Impl());
 
     // Assert
     verify(d).writeObject(isA(Object.class));
   }
 
   /**
-   * Test {@link ProcessVariablesMapSerializer#serialize(ProcessVariablesMap, JsonGenerator, SerializerProvider)} with {@code ProcessVariablesMap}, {@code JsonGenerator}, {@code SerializerProvider}.
-   * <p>
-   * Method under test: {@link ProcessVariablesMapSerializer#serialize(ProcessVariablesMap, JsonGenerator, SerializerProvider)}
+   * Method under test:
+   * {@link ProcessVariablesMapSerializer#serialize(ProcessVariablesMap, JsonGenerator, SerializerProvider)}
    */
   @Test
-  @DisplayName("Test serialize(ProcessVariablesMap, JsonGenerator, SerializerProvider) with 'ProcessVariablesMap', 'JsonGenerator', 'SerializerProvider'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void ProcessVariablesMapSerializer.serialize(ProcessVariablesMap, JsonGenerator, SerializerProvider)"})
-  void testSerializeWithProcessVariablesMapJsonGeneratorSerializerProvider2() throws IOException {
+  void testSerialize2() throws IOException {
+    // Arrange
+    ProcessVariablesMapSerializer processVariablesMapSerializer = new ProcessVariablesMapSerializer(
+        new ApplicationConversionService());
+
+    ProcessVariablesMap<String, Object> processVariablesMap = new ProcessVariablesMap<>();
+    processVariablesMap.put("foo", "42");
+    JsonGenerator d = mock(JsonGenerator.class);
+    doNothing().when(d).writeObject(Mockito.<Object>any());
+    JsonGeneratorDelegate gen = new JsonGeneratorDelegate(new JsonGeneratorDelegate(d), true);
+
+    // Act
+    processVariablesMapSerializer.serialize(processVariablesMap, gen, new DefaultSerializerProvider.Impl());
+
+    // Assert
+    verify(d).writeObject(isA(Object.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessVariablesMapSerializer#serialize(ProcessVariablesMap, JsonGenerator, SerializerProvider)}
+   */
+  @Test
+  void testSerialize3() throws IOException {
     // Arrange
     ProcessVariablesMapSerializer processVariablesMapSerializer = new ProcessVariablesMapSerializer(
         new ApplicationConversionService());
@@ -113,7 +124,7 @@ class ProcessVariablesMapSerializerDiffblueTest {
     doNothing().when(d).writeEndObject();
     doNothing().when(d).writeStartObject();
     doNothing().when(d).flush();
-    when(d.getCodec()).thenReturn(JsonMapper.builder().findAndAddModules().build());
+    when(d.getCodec()).thenReturn(new ObjectMapper());
     JsonGeneratorDelegate d2 = new JsonGeneratorDelegate(new JsonGeneratorDelegate(d), true);
 
     TokenFilter tokenFilter = mock(TokenFilter.class);
@@ -123,11 +134,12 @@ class ProcessVariablesMapSerializerDiffblueTest {
     when(tokenFilter2.filterStartObject()).thenReturn(tokenFilter);
     TokenFilter f = mock(TokenFilter.class);
     when(f.includeRootValue(anyInt())).thenReturn(tokenFilter2);
-    JsonGeneratorDelegate gen = new JsonGeneratorDelegate(
-        new FilteringGeneratorDelegate(d2, f, Inclusion.ONLY_INCLUDE_ALL, true), true);
+    FilteringGeneratorDelegate d3 = new FilteringGeneratorDelegate(d2, f, TokenFilter.Inclusion.ONLY_INCLUDE_ALL, true);
+
+    JsonGeneratorDelegate gen = new JsonGeneratorDelegate(d3, true);
 
     // Act
-    processVariablesMapSerializer.serialize(processVariablesMap, gen, new Impl());
+    processVariablesMapSerializer.serialize(processVariablesMap, gen, new DefaultSerializerProvider.Impl());
 
     // Assert
     verify(d).flush();
@@ -145,19 +157,15 @@ class ProcessVariablesMapSerializerDiffblueTest {
     assertEquals(0, ((FilteringGeneratorDelegate) delegateResult).getMatchCount());
     assertEquals(1, outputContext.getEntryCount());
     assertTrue(outputContext.hasCurrentIndex());
+    assertSame(d3, delegateResult);
   }
 
   /**
-   * Test {@link ProcessVariablesMapSerializer#serialize(ProcessVariablesMap, JsonGenerator, SerializerProvider)} with {@code ProcessVariablesMap}, {@code JsonGenerator}, {@code SerializerProvider}.
-   * <p>
-   * Method under test: {@link ProcessVariablesMapSerializer#serialize(ProcessVariablesMap, JsonGenerator, SerializerProvider)}
+   * Method under test:
+   * {@link ProcessVariablesMapSerializer#serialize(ProcessVariablesMap, JsonGenerator, SerializerProvider)}
    */
   @Test
-  @DisplayName("Test serialize(ProcessVariablesMap, JsonGenerator, SerializerProvider) with 'ProcessVariablesMap', 'JsonGenerator', 'SerializerProvider'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void ProcessVariablesMapSerializer.serialize(ProcessVariablesMap, JsonGenerator, SerializerProvider)"})
-  void testSerializeWithProcessVariablesMapJsonGeneratorSerializerProvider3() throws IOException {
+  void testSerialize4() throws IOException {
     // Arrange
     ProcessVariablesMapSerializer processVariablesMapSerializer = new ProcessVariablesMapSerializer(
         new ApplicationConversionService());
@@ -170,7 +178,7 @@ class ProcessVariablesMapSerializerDiffblueTest {
     doNothing().when(d).writeEndObject();
     doNothing().when(d).writeStartObject();
     doNothing().when(d).flush();
-    when(d.getCodec()).thenReturn(JsonMapper.builder().findAndAddModules().build());
+    when(d.getCodec()).thenReturn(new ObjectMapper());
     JsonGeneratorDelegate d2 = new JsonGeneratorDelegate(new JsonGeneratorDelegate(d), true);
 
     TokenFilter tokenFilter = mock(TokenFilter.class);
@@ -189,11 +197,12 @@ class ProcessVariablesMapSerializerDiffblueTest {
     when(tokenFilter5.filterStartObject()).thenReturn(tokenFilter4);
     TokenFilter f = mock(TokenFilter.class);
     when(f.includeRootValue(anyInt())).thenReturn(tokenFilter5);
-    JsonGeneratorDelegate gen = new JsonGeneratorDelegate(
-        new FilteringGeneratorDelegate(d2, f, Inclusion.ONLY_INCLUDE_ALL, true), true);
+    FilteringGeneratorDelegate d3 = new FilteringGeneratorDelegate(d2, f, TokenFilter.Inclusion.ONLY_INCLUDE_ALL, true);
+
+    JsonGeneratorDelegate gen = new JsonGeneratorDelegate(d3, true);
 
     // Act
-    processVariablesMapSerializer.serialize(processVariablesMap, gen, new Impl());
+    processVariablesMapSerializer.serialize(processVariablesMap, gen, new DefaultSerializerProvider.Impl());
 
     // Assert
     verify(d).flush();
@@ -218,19 +227,15 @@ class ProcessVariablesMapSerializerDiffblueTest {
     assertEquals(1, outputContext.getEntryCount());
     assertEquals(2, ((FilteringGeneratorDelegate) delegateResult).getMatchCount());
     assertTrue(outputContext.hasCurrentIndex());
+    assertSame(d3, delegateResult);
   }
 
   /**
-   * Test {@link ProcessVariablesMapSerializer#serialize(ProcessVariablesMap, JsonGenerator, SerializerProvider)} with {@code ProcessVariablesMap}, {@code JsonGenerator}, {@code SerializerProvider}.
-   * <p>
-   * Method under test: {@link ProcessVariablesMapSerializer#serialize(ProcessVariablesMap, JsonGenerator, SerializerProvider)}
+   * Method under test:
+   * {@link ProcessVariablesMapSerializer#serialize(ProcessVariablesMap, JsonGenerator, SerializerProvider)}
    */
   @Test
-  @DisplayName("Test serialize(ProcessVariablesMap, JsonGenerator, SerializerProvider) with 'ProcessVariablesMap', 'JsonGenerator', 'SerializerProvider'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void ProcessVariablesMapSerializer.serialize(ProcessVariablesMap, JsonGenerator, SerializerProvider)"})
-  void testSerializeWithProcessVariablesMapJsonGeneratorSerializerProvider4() throws IOException {
+  void testSerialize5() throws IOException {
     // Arrange
     ProcessVariablesMapSerializer processVariablesMapSerializer = new ProcessVariablesMapSerializer(
         new ApplicationConversionService());
@@ -242,7 +247,7 @@ class ProcessVariablesMapSerializerDiffblueTest {
     doNothing().when(d).writeEndObject();
     doNothing().when(d).writeStartObject();
     doNothing().when(d).flush();
-    when(d.getCodec()).thenReturn(JsonMapper.builder().findAndAddModules().build());
+    when(d.getCodec()).thenReturn(new ObjectMapper());
     JsonGeneratorDelegate d2 = new JsonGeneratorDelegate(new JsonGeneratorDelegate(d), true);
 
     TokenFilter tokenFilter = mock(TokenFilter.class);
@@ -260,11 +265,12 @@ class ProcessVariablesMapSerializerDiffblueTest {
     when(tokenFilter4.filterStartObject()).thenReturn(tokenFilter3);
     TokenFilter f = mock(TokenFilter.class);
     when(f.includeRootValue(anyInt())).thenReturn(tokenFilter4);
-    JsonGeneratorDelegate gen = new JsonGeneratorDelegate(
-        new FilteringGeneratorDelegate(d2, f, Inclusion.ONLY_INCLUDE_ALL, true), true);
+    FilteringGeneratorDelegate d3 = new FilteringGeneratorDelegate(d2, f, TokenFilter.Inclusion.ONLY_INCLUDE_ALL, true);
+
+    JsonGeneratorDelegate gen = new JsonGeneratorDelegate(d3, true);
 
     // Act
-    processVariablesMapSerializer.serialize(processVariablesMap, gen, new Impl());
+    processVariablesMapSerializer.serialize(processVariablesMap, gen, new DefaultSerializerProvider.Impl());
 
     // Assert
     verify(d).flush();
@@ -285,36 +291,88 @@ class ProcessVariablesMapSerializerDiffblueTest {
     assertEquals(1, outputContext.getEntryCount());
     assertEquals(1, ((FilteringGeneratorDelegate) delegateResult).getMatchCount());
     assertTrue(outputContext.hasCurrentIndex());
+    assertSame(d3, delegateResult);
   }
 
   /**
-   * Test {@link ProcessVariablesMapSerializer#serialize(ProcessVariablesMap, JsonGenerator, SerializerProvider)} with {@code ProcessVariablesMap}, {@code JsonGenerator}, {@code SerializerProvider}.
-   * <ul>
-   *   <li>Given {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessVariablesMapSerializer#serialize(ProcessVariablesMap, JsonGenerator, SerializerProvider)}
+   * Method under test:
+   * {@link ProcessVariablesMapSerializer#serialize(ProcessVariablesMap, JsonGenerator, SerializerProvider)}
    */
   @Test
-  @DisplayName("Test serialize(ProcessVariablesMap, JsonGenerator, SerializerProvider) with 'ProcessVariablesMap', 'JsonGenerator', 'SerializerProvider'; given 'foo'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void ProcessVariablesMapSerializer.serialize(ProcessVariablesMap, JsonGenerator, SerializerProvider)"})
-  void testSerializeWithProcessVariablesMapJsonGeneratorSerializerProvider_givenFoo() throws IOException {
+  void testSerialize6() throws IOException {
     // Arrange
     ProcessVariablesMapSerializer processVariablesMapSerializer = new ProcessVariablesMapSerializer(
         new ApplicationConversionService());
 
     ProcessVariablesMap<String, Object> processVariablesMap = new ProcessVariablesMap<>();
-    processVariablesMap.put("foo", "42");
+    processVariablesMap.put("", null);
     JsonGenerator d = mock(JsonGenerator.class);
-    doNothing().when(d).writeObject(Mockito.<Object>any());
-    JsonGeneratorDelegate gen = new JsonGeneratorDelegate(new JsonGeneratorDelegate(d), true);
+    when(d.getCodec()).thenReturn(null);
+    JsonGeneratorDelegate gen = new JsonGeneratorDelegate(
+        new FilteringGeneratorDelegate(new JsonGeneratorDelegate(new JsonGeneratorDelegate(d), true),
+            mock(TokenFilter.class), TokenFilter.Inclusion.ONLY_INCLUDE_ALL, true),
+        true);
+
+    // Act and Assert
+    assertThrows(IllegalStateException.class,
+        () -> processVariablesMapSerializer.serialize(processVariablesMap, gen, new DefaultSerializerProvider.Impl()));
+    verify(d).getCodec();
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessVariablesMapSerializer#serialize(ProcessVariablesMap, JsonGenerator, SerializerProvider)}
+   */
+  @Test
+  void testSerialize7() throws IOException {
+    // Arrange
+    ProcessVariablesMapSerializer processVariablesMapSerializer = new ProcessVariablesMapSerializer(
+        new ApplicationConversionService());
+
+    ProcessVariablesMap<String, Object> processVariablesMap = new ProcessVariablesMap<>();
+    processVariablesMap.put("", null);
+    new IOException("foo");
+    TokenFilter tokenFilter = mock(TokenFilter.class);
+    when(tokenFilter.includeEmptyObject(anyBoolean())).thenReturn(true);
+    when(tokenFilter.includeProperty(Mockito.<String>any())).thenReturn(mock(TokenFilter.class));
+    doNothing().when(tokenFilter).filterFinishObject();
+    TokenFilter tokenFilter2 = mock(TokenFilter.class);
+    when(tokenFilter2.includeNull()).thenReturn(true);
+    when(tokenFilter2.filterStartObject()).thenReturn(tokenFilter);
+    TokenFilter tokenFilter3 = mock(TokenFilter.class);
+    when(tokenFilter3.includeProperty(Mockito.<String>any())).thenReturn(tokenFilter2);
+    when(tokenFilter3.includeEmptyObject(anyBoolean())).thenReturn(true);
+    doNothing().when(tokenFilter3).filterFinishObject();
+    TokenFilter tokenFilter4 = mock(TokenFilter.class);
+    when(tokenFilter4.filterStartObject()).thenReturn(tokenFilter3);
+    TokenFilter f = mock(TokenFilter.class);
+    when(f.includeRootValue(anyInt())).thenReturn(tokenFilter4);
+    BufferRecycler br = new BufferRecycler();
+    IOContext ctxt = new IOContext(br, ContentReference.redacted(), true);
+
+    ObjectMapper codec = new ObjectMapper();
+    ByteArrayOutputStream out = new ByteArrayOutputStream(1);
+    FilteringGeneratorDelegate d = new FilteringGeneratorDelegate(
+        new JsonGeneratorDelegate(new UTF8JsonGenerator(ctxt, 1, codec, out), true), f,
+        TokenFilter.Inclusion.ONLY_INCLUDE_ALL, true);
+
+    JsonGeneratorDelegate gen = new JsonGeneratorDelegate(d, true);
 
     // Act
-    processVariablesMapSerializer.serialize(processVariablesMap, gen, new Impl());
+    processVariablesMapSerializer.serialize(processVariablesMap, gen, new DefaultSerializerProvider.Impl());
 
     // Assert
-    verify(d).writeObject(isA(Object.class));
+    verify(tokenFilter3).filterFinishObject();
+    verify(tokenFilter4).filterStartObject();
+    verify(tokenFilter3).includeEmptyObject(eq(true));
+    verify(tokenFilter2).includeNull();
+    verify(tokenFilter3).includeProperty(eq(""));
+    verify(f).includeRootValue(eq(0));
+    JsonStreamContext outputContext = gen.getOutputContext();
+    assertTrue(outputContext instanceof TokenFilterContext);
+    assertEquals(1, outputContext.getEntryCount());
+    assertTrue(outputContext.hasCurrentIndex());
+    assertSame(d, gen.delegate());
+    assertSame(out, gen.getOutputTarget());
   }
 }

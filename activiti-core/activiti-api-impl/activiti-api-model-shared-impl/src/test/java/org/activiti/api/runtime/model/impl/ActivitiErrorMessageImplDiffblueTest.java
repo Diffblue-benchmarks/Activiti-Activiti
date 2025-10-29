@@ -16,15 +16,10 @@
 package org.activiti.api.runtime.model.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ActivitiErrorMessageImplDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link ActivitiErrorMessageImpl#ActivitiErrorMessageImpl()}
@@ -35,11 +30,6 @@ class ActivitiErrorMessageImplDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ActivitiErrorMessageImpl.<init>()", "void ActivitiErrorMessageImpl.<init>(int, String)",
-      "int ActivitiErrorMessageImpl.getCode()", "String ActivitiErrorMessageImpl.getMessage()",
-      "void ActivitiErrorMessageImpl.setCode(int)", "void ActivitiErrorMessageImpl.setMessage(String)"})
   void testGettersAndSetters() {
     // Arrange and Act
     ActivitiErrorMessageImpl actualActivitiErrorMessageImpl = new ActivitiErrorMessageImpl();
@@ -47,17 +37,12 @@ class ActivitiErrorMessageImplDiffblueTest {
     actualActivitiErrorMessageImpl.setMessage("Not all who wander are lost");
     int actualCode = actualActivitiErrorMessageImpl.getCode();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("Not all who wander are lost", actualActivitiErrorMessageImpl.getMessage());
     assertEquals(1, actualCode);
   }
 
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When one.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link ActivitiErrorMessageImpl#ActivitiErrorMessageImpl(int, String)}
@@ -68,12 +53,7 @@ class ActivitiErrorMessageImplDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters; when one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ActivitiErrorMessageImpl.<init>()", "void ActivitiErrorMessageImpl.<init>(int, String)",
-      "int ActivitiErrorMessageImpl.getCode()", "String ActivitiErrorMessageImpl.getMessage()",
-      "void ActivitiErrorMessageImpl.setCode(int)", "void ActivitiErrorMessageImpl.setMessage(String)"})
-  void testGettersAndSetters_whenOne() {
+  void testGettersAndSetters2() {
     // Arrange and Act
     ActivitiErrorMessageImpl actualActivitiErrorMessageImpl = new ActivitiErrorMessageImpl(1,
         "Not all who wander are lost");
@@ -81,7 +61,7 @@ class ActivitiErrorMessageImplDiffblueTest {
     actualActivitiErrorMessageImpl.setMessage("Not all who wander are lost");
     int actualCode = actualActivitiErrorMessageImpl.getCode();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("Not all who wander are lost", actualActivitiErrorMessageImpl.getMessage());
     assertEquals(1, actualCode);
   }

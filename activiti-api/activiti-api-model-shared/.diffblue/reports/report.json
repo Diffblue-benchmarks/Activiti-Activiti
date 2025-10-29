@@ -3,23 +3,22 @@
     "reportVersion" : "2.6"
   },
   "run" : {
-    "version" : "2025.02.02-08b2a5a-licensed",
-    "creationTimestamp" : "2025-10-21T18:36:58.703503864Z",
+    "version" : "2024.10.01-2ee2e3d-licensed",
+    "creationTimestamp" : "2025-10-28T11:31:52.893683331Z",
     "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
-    "totalTime" : 85.141,
-    "environmentDetectionTime" : 0.708,
-    "indexingTime" : 0.306,
-    "entryPointsTime" : 0.689,
-    "generationTime" : 12.129,
-    "timeToFirstTest" : 61.534,
-    "timeToLastTest" : 63.745,
-    "indexQueryTime" : 3.083,
-    "verificationTime" : 2.23,
-    "validationTime" : 11.299
+    "totalTime" : 111.272,
+    "environmentDetectionTime" : 0.851,
+    "indexingTime" : 0.279,
+    "entryPointsTime" : 0.837,
+    "generationTime" : 11.686,
+    "timeToFirstTest" : 87.907,
+    "timeToLastTest" : 90.172,
+    "indexQueryTime" : 3.243,
+    "verificationTime" : 2.219,
+    "validationTime" : 11.213
   },
   "codes" : {
     "R000" : "Success",
-    "R013" : "No inputs found that don't throw a trivial exception",
     "T000" : "Method eligible for test creation",
     "T003" : "Private method",
     "T005" : "Trivial constructor",
@@ -30,9 +29,9 @@
   "summary" : {
     "classesCount" : 9,
     "methodsCount" : 32,
-    "cumulativeDiffblueTestCount" : 3,
+    "cumulativeDiffblueTestCount" : 4,
     "cumulativeManualTestCount" : 0,
-    "completeTestCount" : 3,
+    "completeTestCount" : 5,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 85,
@@ -44,17 +43,16 @@
       "T012" : 4
     },
     "perMethodOutcome" : {
-      "R000" : 3,
-      "R013" : 1,
+      "R000" : 4,
       "T003" : 1,
       "T010" : 23,
       "T012" : 4
     },
     "perTestOutcome" : {
-      "R000" : 3
+      "R000" : 5
     },
     "perTestValidation" : {
-      "V000" : 3
+      "V000" : 5
     }
   },
   "classes" : {
@@ -85,19 +83,18 @@
     },
     "org.activiti.api.model.shared.Result" : {
       "methodsCount" : 4,
-      "completeTestCount" : 1,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
         "T010" : 2
       },
       "perMethodOutcome" : {
-        "R000" : 1,
-        "R013" : 1,
+        "R000" : 2,
         "T010" : 2
       },
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 3
       }
     },
     "org.activiti.api.model.shared.event.RuntimeEvent" : {
@@ -225,6 +222,18 @@
       ]
     },
     "org.activiti.api.model.shared.Result.getEntity:()Ljava/lang/Object;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        41
+      ]
+    },
+    "org.activiti.api.model.shared.Result.getPayload:()Lorg/activiti/api/model/shared/Payload;" : {
       "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
@@ -232,15 +241,6 @@
       "perTestOutcome" : {
         "R000" : 1
       },
-      "lineNumbers" : [
-        41
-      ]
-    },
-    "org.activiti.api.model.shared.Result.getPayload:()Lorg/activiti/api/model/shared/Payload;" : {
-      "completeTestCount" : 0,
-      "incompleteTestCount" : 0,
-      "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         37
       ]

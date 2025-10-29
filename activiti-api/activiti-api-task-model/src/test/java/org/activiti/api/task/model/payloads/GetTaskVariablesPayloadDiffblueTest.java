@@ -17,43 +17,10 @@ package org.activiti.api.task.model.payloads;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class GetTaskVariablesPayloadDiffblueTest {
   /**
-   * Test {@link GetTaskVariablesPayload#GetTaskVariablesPayload()}.
-   * <p>
-   * Method under test: {@link GetTaskVariablesPayload#GetTaskVariablesPayload()}
-   */
-  @Test
-  @DisplayName("Test new GetTaskVariablesPayload()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void GetTaskVariablesPayload.<init>()"})
-  void testNewGetTaskVariablesPayload() {
-    // Arrange, Act and Assert
-    assertNull((new GetTaskVariablesPayload()).getTaskId());
-  }
-
-  /**
-   * Test {@link GetTaskVariablesPayload#GetTaskVariablesPayload(String)}.
-   * <p>
-   * Method under test: {@link GetTaskVariablesPayload#GetTaskVariablesPayload(String)}
-   */
-  @Test
-  @DisplayName("Test new GetTaskVariablesPayload(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void GetTaskVariablesPayload.<init>(String)"})
-  void testNewGetTaskVariablesPayload2() {
-    // Arrange, Act and Assert
-    assertEquals("42", (new GetTaskVariablesPayload("42")).getTaskId());
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link GetTaskVariablesPayload#setTaskId(String)}
@@ -62,10 +29,6 @@ class GetTaskVariablesPayloadDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String GetTaskVariablesPayload.getId()", "String GetTaskVariablesPayload.getTaskId()",
-      "void GetTaskVariablesPayload.setTaskId(String)"})
   void testGettersAndSetters() {
     // Arrange
     GetTaskVariablesPayload getTaskVariablesPayload = new GetTaskVariablesPayload();
@@ -74,7 +37,17 @@ class GetTaskVariablesPayloadDiffblueTest {
     getTaskVariablesPayload.setTaskId("42");
     getTaskVariablesPayload.getId();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("42", getTaskVariablesPayload.getTaskId());
+  }
+
+  /**
+   * Method under test: {@link GetTaskVariablesPayload#GetTaskVariablesPayload()}
+   */
+  @Test
+  void testNewGetTaskVariablesPayload() {
+    // Arrange, Act and Assert
+    assertNull((new GetTaskVariablesPayload()).getTaskId());
+    assertEquals("42", (new GetTaskVariablesPayload("42")).getTaskId());
   }
 }

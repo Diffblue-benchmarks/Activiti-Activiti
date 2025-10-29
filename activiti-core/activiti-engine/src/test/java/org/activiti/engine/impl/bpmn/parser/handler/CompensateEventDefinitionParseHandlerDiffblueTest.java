@@ -16,9 +16,10 @@
 package org.activiti.engine.impl.bpmn.parser.handler;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BoundaryEvent;
 import org.activiti.bpmn.model.CompensateEventDefinition;
@@ -29,47 +30,53 @@ import org.activiti.engine.impl.bpmn.behavior.IntermediateThrowCompensationEvent
 import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
+import org.activiti.engine.impl.cfg.BpmnParseFactory;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class CompensateEventDefinitionParseHandlerDiffblueTest {
   /**
-   * Test {@link CompensateEventDefinitionParseHandler#executeParse(BpmnParse, CompensateEventDefinition)} with {@code BpmnParse}, {@code CompensateEventDefinition}.
-   * <p>
-   * Method under test: {@link CompensateEventDefinitionParseHandler#executeParse(BpmnParse, CompensateEventDefinition)}
+   * Method under test:
+   * {@link CompensateEventDefinitionParseHandler#executeParse(BpmnParse, CompensateEventDefinition)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CompensateEventDefinitionParseHandler.executeParse(BpmnParse, CompensateEventDefinition)"})
-  public void testExecuteParseWithBpmnParseCompensateEventDefinition() {
+  public void testExecuteParse() {
     // Arrange
     CompensateEventDefinitionParseHandler compensateEventDefinitionParseHandler = new CompensateEventDefinitionParseHandler();
-
-    BpmnParser parser = new BpmnParser();
-    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
-
-    BpmnParse bpmnParse = new BpmnParse(parser);
-    bpmnParse.setCurrentFlowElement(new ThrowEvent());
+    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
 
     // Act
     compensateEventDefinitionParseHandler.executeParse(bpmnParse, new CompensateEventDefinition());
 
-    // Assert
-    FlowElement currentFlowElement = bpmnParse.getCurrentFlowElement();
-    assertTrue(currentFlowElement instanceof ThrowEvent);
-    assertTrue(
-        ((ThrowEvent) currentFlowElement).getBehavior() instanceof IntermediateThrowCompensationEventActivityBehavior);
+    // Assert that nothing has changed
+    assertNull(bpmnParse.getCurrentFlowElement());
   }
 
   /**
-   * Test {@link CompensateEventDefinitionParseHandler#executeParse(BpmnParse, CompensateEventDefinition)} with {@code BpmnParse}, {@code CompensateEventDefinition}.
-   * <p>
-   * Method under test: {@link CompensateEventDefinitionParseHandler#executeParse(BpmnParse, CompensateEventDefinition)}
+   * Method under test:
+   * {@link CompensateEventDefinitionParseHandler#executeParse(BpmnParse, CompensateEventDefinition)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CompensateEventDefinitionParseHandler.executeParse(BpmnParse, CompensateEventDefinition)"})
-  public void testExecuteParseWithBpmnParseCompensateEventDefinition2() {
+  public void testExecuteParse2() {
+    // Arrange
+    CompensateEventDefinitionParseHandler compensateEventDefinitionParseHandler = new CompensateEventDefinitionParseHandler();
+
+    BpmnParser parser = new BpmnParser();
+    parser.setBpmnParseFactory(mock(BpmnParseFactory.class));
+    BpmnParse bpmnParse = new BpmnParse(parser);
+
+    // Act
+    compensateEventDefinitionParseHandler.executeParse(bpmnParse, new CompensateEventDefinition());
+
+    // Assert that nothing has changed
+    assertNull(bpmnParse.getCurrentFlowElement());
+  }
+
+  /**
+   * Method under test:
+   * {@link CompensateEventDefinitionParseHandler#executeParse(BpmnParse, CompensateEventDefinition)}
+   */
+  @Test
+  public void testExecuteParse3() {
     // Arrange
     CompensateEventDefinitionParseHandler compensateEventDefinitionParseHandler = new CompensateEventDefinitionParseHandler();
 
@@ -77,32 +84,57 @@ public class CompensateEventDefinitionParseHandlerDiffblueTest {
     parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
 
     BpmnParse bpmnParse = new BpmnParse(parser);
-    bpmnParse.setCurrentFlowElement(new BoundaryEvent());
+    ThrowEvent currentFlowElement = new ThrowEvent();
+    bpmnParse.setCurrentFlowElement(currentFlowElement);
 
     // Act
     compensateEventDefinitionParseHandler.executeParse(bpmnParse, new CompensateEventDefinition());
 
     // Assert
-    FlowElement currentFlowElement = bpmnParse.getCurrentFlowElement();
-    assertTrue(currentFlowElement instanceof BoundaryEvent);
-    Object behavior = ((BoundaryEvent) currentFlowElement).getBehavior();
+    FlowElement currentFlowElement2 = bpmnParse.getCurrentFlowElement();
+    assertTrue(currentFlowElement2 instanceof ThrowEvent);
+    assertTrue(
+        ((ThrowEvent) currentFlowElement2).getBehavior() instanceof IntermediateThrowCompensationEventActivityBehavior);
+    assertSame(currentFlowElement, currentFlowElement2);
+  }
+
+  /**
+   * Method under test:
+   * {@link CompensateEventDefinitionParseHandler#executeParse(BpmnParse, CompensateEventDefinition)}
+   */
+  @Test
+  public void testExecuteParse4() {
+    // Arrange
+    CompensateEventDefinitionParseHandler compensateEventDefinitionParseHandler = new CompensateEventDefinitionParseHandler();
+
+    BpmnParser parser = new BpmnParser();
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+
+    BpmnParse bpmnParse = new BpmnParse(parser);
+    BoundaryEvent currentFlowElement = new BoundaryEvent();
+    bpmnParse.setCurrentFlowElement(currentFlowElement);
+
+    // Act
+    compensateEventDefinitionParseHandler.executeParse(bpmnParse, new CompensateEventDefinition());
+
+    // Assert
+    FlowElement currentFlowElement2 = bpmnParse.getCurrentFlowElement();
+    assertTrue(currentFlowElement2 instanceof BoundaryEvent);
+    Object behavior = ((BoundaryEvent) currentFlowElement2).getBehavior();
     assertTrue(behavior instanceof BoundaryCompensateEventActivityBehavior);
     assertTrue(((BoundaryCompensateEventActivityBehavior) behavior).isInterrupting());
+    assertSame(currentFlowElement, currentFlowElement2);
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of {@link CompensateEventDefinitionParseHandler}
+   *   <li>default or parameterless constructor of
+   * {@link CompensateEventDefinitionParseHandler}
    *   <li>{@link CompensateEventDefinitionParseHandler#getHandledType()}
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CompensateEventDefinitionParseHandler.<init>()",
-      "Class CompensateEventDefinitionParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends BaseElement> actualHandledType = (new CompensateEventDefinitionParseHandler()).getHandledType();

@@ -15,40 +15,42 @@
  */
 package org.activiti.api.runtime.model.impl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import static org.mockito.Mockito.mock;
+import java.util.function.BiFunction;
 import org.junit.jupiter.api.Test;
 
 class ProcessVariablesMapDiffblueTest {
   /**
-   * Test {@link ProcessVariablesMap#clone()}.
-   * <p>
    * Method under test: {@link ProcessVariablesMap#clone()}
    */
   @Test
-  @DisplayName("Test clone()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ProcessVariablesMap ProcessVariablesMap.clone()"})
   void testClone() {
     // Arrange
     ProcessVariablesMap<Object, Object> objectObjectMap = new ProcessVariablesMap<>();
 
     // Act and Assert
-    assertEquals(objectObjectMap, objectObjectMap.clone());
+    assertTrue(objectObjectMap.clone().isEmpty());
   }
 
   /**
-   * Test new {@link ProcessVariablesMap} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link ProcessVariablesMap}
+   * Method under test: {@link ProcessVariablesMap#clone()}
    */
   @Test
-  @DisplayName("Test new ProcessVariablesMap (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessVariablesMap.<init>()"})
+  void testClone2() {
+    // Arrange
+    ProcessVariablesMap<Object, Object> objectObjectMap = new ProcessVariablesMap<>();
+    objectObjectMap.computeIfPresent("42", mock(BiFunction.class));
+
+    // Act and Assert
+    assertTrue(objectObjectMap.clone().isEmpty());
+  }
+
+  /**
+   * Method under test: default or parameterless constructor of
+   * {@link ProcessVariablesMap}
+   */
+  @Test
   void testNewProcessVariablesMap() {
     // Arrange and Act
     ProcessVariablesMap<Object, Object> actualObjectObjectMap = new ProcessVariablesMap<>();

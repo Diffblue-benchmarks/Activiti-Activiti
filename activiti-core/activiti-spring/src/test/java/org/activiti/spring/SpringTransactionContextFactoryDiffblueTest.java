@@ -19,28 +19,21 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Collection;
 import java.util.List;
 import org.activiti.engine.impl.cfg.TransactionContext;
 import org.activiti.engine.impl.interceptor.CommandContext;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionExecutionListener;
 
 public class SpringTransactionContextFactoryDiffblueTest {
   /**
-   * Test {@link SpringTransactionContextFactory#SpringTransactionContextFactory(PlatformTransactionManager)}.
-   * <p>
-   * Method under test: {@link SpringTransactionContextFactory#SpringTransactionContextFactory(PlatformTransactionManager)}
+   * Method under test:
+   * {@link SpringTransactionContextFactory#SpringTransactionContextFactory(PlatformTransactionManager)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SpringTransactionContextFactory.<init>(PlatformTransactionManager)",
-      "void SpringTransactionContextFactory.<init>(PlatformTransactionManager, Integer)"})
   public void testNewSpringTransactionContextFactory() {
     // Arrange and Act
     SpringTransactionContextFactory actualSpringTransactionContextFactory = new SpringTransactionContextFactory(
@@ -66,28 +59,10 @@ public class SpringTransactionContextFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link SpringTransactionContextFactory#SpringTransactionContextFactory(PlatformTransactionManager, Integer)}.
-   * <p>
-   * Method under test: {@link SpringTransactionContextFactory#SpringTransactionContextFactory(PlatformTransactionManager, Integer)}
+   * Method under test:
+   * {@link SpringTransactionContextFactory#openTransactionContext(CommandContext)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SpringTransactionContextFactory.<init>(PlatformTransactionManager)",
-      "void SpringTransactionContextFactory.<init>(PlatformTransactionManager, Integer)"})
-  public void testNewSpringTransactionContextFactory2() {
-    // Arrange, Act and Assert
-    assertEquals(1, (new SpringTransactionContextFactory(new DataSourceTransactionManager(),
-        1)).transactionSynchronizationAdapterOrder.intValue());
-  }
-
-  /**
-   * Test {@link SpringTransactionContextFactory#openTransactionContext(CommandContext)}.
-   * <p>
-   * Method under test: {@link SpringTransactionContextFactory#openTransactionContext(CommandContext)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"TransactionContext SpringTransactionContextFactory.openTransactionContext(CommandContext)"})
   public void testOpenTransactionContext() {
     // Arrange and Act
     TransactionContext actualOpenTransactionContextResult = (new SpringTransactionContextFactory(
@@ -117,13 +92,10 @@ public class SpringTransactionContextFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link SpringTransactionContextFactory#openTransactionContext(CommandContext)}.
-   * <p>
-   * Method under test: {@link SpringTransactionContextFactory#openTransactionContext(CommandContext)}
+   * Method under test:
+   * {@link SpringTransactionContextFactory#openTransactionContext(CommandContext)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"TransactionContext SpringTransactionContextFactory.openTransactionContext(CommandContext)"})
   public void testOpenTransactionContext2() {
     // Arrange and Act
     TransactionContext actualOpenTransactionContextResult = (new SpringTransactionContextFactory(
@@ -150,5 +122,16 @@ public class SpringTransactionContextFactoryDiffblueTest {
     assertTrue(transactionExecutionListeners.isEmpty());
     assertTrue(((DataSourceTransactionManager) platformTransactionManager).isGlobalRollbackOnParticipationFailure());
     assertTrue(((DataSourceTransactionManager) platformTransactionManager).isNestedTransactionAllowed());
+  }
+
+  /**
+   * Method under test:
+   * {@link SpringTransactionContextFactory#SpringTransactionContextFactory(PlatformTransactionManager, Integer)}
+   */
+  @Test
+  public void testNewSpringTransactionContextFactory2() {
+    // Arrange, Act and Assert
+    assertEquals(1, (new SpringTransactionContextFactory(new DataSourceTransactionManager(),
+        1)).transactionSynchronizationAdapterOrder.intValue());
   }
 }

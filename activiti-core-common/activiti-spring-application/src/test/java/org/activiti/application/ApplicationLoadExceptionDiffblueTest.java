@@ -17,21 +17,14 @@ package org.activiti.application;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ApplicationLoadExceptionDiffblueTest {
   /**
-   * Test {@link ApplicationLoadException#ApplicationLoadException(String, Throwable)}.
-   * <p>
-   * Method under test: {@link ApplicationLoadException#ApplicationLoadException(String, Throwable)}
+   * Method under test:
+   * {@link ApplicationLoadException#ApplicationLoadException(String, Throwable)}
    */
   @Test
-  @DisplayName("Test new ApplicationLoadException(String, Throwable)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ApplicationLoadException.<init>(String, Throwable)"})
   void testNewApplicationLoadException() {
     // Arrange
     Throwable cause = new Throwable();

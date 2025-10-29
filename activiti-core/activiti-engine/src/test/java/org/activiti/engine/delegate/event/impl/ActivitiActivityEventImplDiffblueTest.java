@@ -17,45 +17,11 @@ package org.activiti.engine.delegate.event.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ActivitiActivityEventImplDiffblueTest {
   /**
-   * Test {@link ActivitiActivityEventImpl#ActivitiActivityEventImpl(ActivitiEventType)}.
-   * <ul>
-   *   <li>When {@code ENTITY_CREATED}.</li>
-   *   <li>Then return ActivityId is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ActivitiActivityEventImpl#ActivitiActivityEventImpl(ActivitiEventType)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiActivityEventImpl.<init>(ActivitiEventType)"})
-  public void testNewActivitiActivityEventImpl_whenEntityCreated_thenReturnActivityIdIsNull() {
-    // Arrange and Act
-    ActivitiActivityEventImpl actualActivitiActivityEventImpl = new ActivitiActivityEventImpl(
-        ActivitiEventType.ENTITY_CREATED);
-
-    // Assert
-    assertNull(actualActivitiActivityEventImpl.getActivityId());
-    assertNull(actualActivitiActivityEventImpl.getActivityName());
-    assertNull(actualActivitiActivityEventImpl.getActivityType());
-    assertNull(actualActivitiActivityEventImpl.getBehaviorClass());
-    assertNull(actualActivitiActivityEventImpl.getExecutionId());
-    assertNull(actualActivitiActivityEventImpl.getProcessDefinitionId());
-    assertNull(actualActivitiActivityEventImpl.getProcessInstanceId());
-    assertNull(actualActivitiActivityEventImpl.getReason());
-    assertEquals(ActivitiEventType.ENTITY_CREATED, actualActivitiActivityEventImpl.getType());
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link ActivitiActivityEventImpl#setActivityId(String)}
@@ -69,13 +35,6 @@ public class ActivitiActivityEventImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String ActivitiActivityEventImpl.getActivityId()",
-      "String ActivitiActivityEventImpl.getActivityName()", "String ActivitiActivityEventImpl.getActivityType()",
-      "String ActivitiActivityEventImpl.getBehaviorClass()", "void ActivitiActivityEventImpl.setActivityId(String)",
-      "void ActivitiActivityEventImpl.setActivityName(String)",
-      "void ActivitiActivityEventImpl.setActivityType(String)",
-      "void ActivitiActivityEventImpl.setBehaviorClass(String)"})
   public void testGettersAndSetters() {
     // Arrange
     ActivitiActivityEventImpl activitiActivityEventImpl = new ActivitiActivityEventImpl(
@@ -90,10 +49,32 @@ public class ActivitiActivityEventImplDiffblueTest {
     String actualActivityName = activitiActivityEventImpl.getActivityName();
     String actualActivityType = activitiActivityEventImpl.getActivityType();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("42", actualActivityId);
     assertEquals("Activity Name", actualActivityName);
     assertEquals("Activity Type", actualActivityType);
     assertEquals("Behavior Class", activitiActivityEventImpl.getBehaviorClass());
+  }
+
+  /**
+   * Method under test:
+   * {@link ActivitiActivityEventImpl#ActivitiActivityEventImpl(ActivitiEventType)}
+   */
+  @Test
+  public void testNewActivitiActivityEventImpl() {
+    // Arrange and Act
+    ActivitiActivityEventImpl actualActivitiActivityEventImpl = new ActivitiActivityEventImpl(
+        ActivitiEventType.ENTITY_CREATED);
+
+    // Assert
+    assertNull(actualActivitiActivityEventImpl.getActivityId());
+    assertNull(actualActivitiActivityEventImpl.getActivityName());
+    assertNull(actualActivitiActivityEventImpl.getActivityType());
+    assertNull(actualActivitiActivityEventImpl.getBehaviorClass());
+    assertNull(actualActivitiActivityEventImpl.getExecutionId());
+    assertNull(actualActivitiActivityEventImpl.getProcessDefinitionId());
+    assertNull(actualActivitiActivityEventImpl.getProcessInstanceId());
+    assertNull(actualActivitiActivityEventImpl.getReason());
+    assertEquals(ActivitiEventType.ENTITY_CREATED, actualActivitiActivityEventImpl.getType());
   }
 }

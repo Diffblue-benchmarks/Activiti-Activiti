@@ -21,8 +21,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
@@ -33,20 +31,843 @@ import java.util.Set;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.history.HistoricProcessInstanceQuery;
-import org.activiti.engine.impl.AbstractQuery.NullHandlingOnOrder;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class HistoricProcessInstanceQueryImplDiffblueTest {
+  @InjectMocks
+  private HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl;
+
   /**
-   * Test {@link HistoricProcessInstanceQueryImpl#HistoricProcessInstanceQueryImpl()}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#HistoricProcessInstanceQueryImpl()}
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#processInstanceId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricProcessInstanceQueryImpl.<init>()"})
+  public void testProcessInstanceId() {
+    // Arrange and Act
+    HistoricProcessInstanceQueryImpl actualProcessInstanceIdResult = historicProcessInstanceQueryImpl
+        .processInstanceId("42");
+
+    // Assert
+    assertEquals("42", historicProcessInstanceQueryImpl.getProcessInstanceId());
+    assertSame(historicProcessInstanceQueryImpl, actualProcessInstanceIdResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#processInstanceIds(Set)}
+   */
+  @Test
+  public void testProcessInstanceIds() {
+    // Arrange
+    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> historicProcessInstanceQueryImpl.processInstanceIds(new HashSet<>()));
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#processDefinitionId(String)}
+   */
+  @Test
+  public void testProcessDefinitionId() {
+    // Arrange and Act
+    HistoricProcessInstanceQueryImpl actualProcessDefinitionIdResult = historicProcessInstanceQueryImpl
+        .processDefinitionId("42");
+
+    // Assert
+    assertEquals("42", historicProcessInstanceQueryImpl.getProcessDefinitionId());
+    assertSame(historicProcessInstanceQueryImpl, actualProcessDefinitionIdResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#processDefinitionKey(String)}
+   */
+  @Test
+  public void testProcessDefinitionKey() {
+    // Arrange and Act
+    HistoricProcessInstanceQuery actualProcessDefinitionKeyResult = historicProcessInstanceQueryImpl
+        .processDefinitionKey("Process Definition Key");
+
+    // Assert
+    assertEquals("Process Definition Key", historicProcessInstanceQueryImpl.getProcessDefinitionKey());
+    assertEquals("Process Definition Key:%:%", historicProcessInstanceQueryImpl.getProcessDefinitionIdLike());
+    assertSame(historicProcessInstanceQueryImpl, actualProcessDefinitionKeyResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#processDefinitionKeyIn(List)}
+   */
+  @Test
+  public void testProcessDefinitionKeyIn() {
+    // Arrange
+    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
+    ArrayList<String> processDefinitionKeys = new ArrayList<>();
+
+    // Act
+    HistoricProcessInstanceQuery actualProcessDefinitionKeyInResult = historicProcessInstanceQueryImpl
+        .processDefinitionKeyIn(processDefinitionKeys);
+
+    // Assert
+    assertSame(processDefinitionKeys, historicProcessInstanceQueryImpl.getProcessDefinitionKeyIn());
+    assertSame(historicProcessInstanceQueryImpl, actualProcessDefinitionKeyInResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#processDefinitionCategory(String)}
+   */
+  @Test
+  public void testProcessDefinitionCategory() {
+    // Arrange and Act
+    HistoricProcessInstanceQuery actualProcessDefinitionCategoryResult = historicProcessInstanceQueryImpl
+        .processDefinitionCategory("Process Definition Category");
+
+    // Assert
+    assertEquals("Process Definition Category", historicProcessInstanceQueryImpl.getProcessDefinitionCategory());
+    assertSame(historicProcessInstanceQueryImpl, actualProcessDefinitionCategoryResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#processDefinitionName(String)}
+   */
+  @Test
+  public void testProcessDefinitionName() {
+    // Arrange and Act
+    HistoricProcessInstanceQuery actualProcessDefinitionNameResult = historicProcessInstanceQueryImpl
+        .processDefinitionName("Process Definition Name");
+
+    // Assert
+    assertEquals("Process Definition Name", historicProcessInstanceQueryImpl.getProcessDefinitionName());
+    assertSame(historicProcessInstanceQueryImpl, actualProcessDefinitionNameResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#processDefinitionVersion(Integer)}
+   */
+  @Test
+  public void testProcessDefinitionVersion() {
+    // Arrange
+    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
+
+    // Act
+    HistoricProcessInstanceQuery actualProcessDefinitionVersionResult = historicProcessInstanceQueryImpl
+        .processDefinitionVersion(1);
+
+    // Assert
+    assertEquals(1, historicProcessInstanceQueryImpl.getProcessDefinitionVersion().intValue());
+    assertSame(historicProcessInstanceQueryImpl, actualProcessDefinitionVersionResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#processInstanceBusinessKey(String)}
+   */
+  @Test
+  public void testProcessInstanceBusinessKey() {
+    // Arrange and Act
+    HistoricProcessInstanceQuery actualProcessInstanceBusinessKeyResult = historicProcessInstanceQueryImpl
+        .processInstanceBusinessKey("Business Key");
+
+    // Assert
+    assertEquals("Business Key", historicProcessInstanceQueryImpl.getBusinessKey());
+    assertSame(historicProcessInstanceQueryImpl, actualProcessInstanceBusinessKeyResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#deploymentId(String)}
+   */
+  @Test
+  public void testDeploymentId() {
+    // Arrange and Act
+    HistoricProcessInstanceQuery actualDeploymentIdResult = historicProcessInstanceQueryImpl.deploymentId("42");
+
+    // Assert
+    assertEquals("42", historicProcessInstanceQueryImpl.getDeploymentId());
+    assertSame(historicProcessInstanceQueryImpl, actualDeploymentIdResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#deploymentIdIn(List)}
+   */
+  @Test
+  public void testDeploymentIdIn() {
+    // Arrange
+    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
+    ArrayList<String> deploymentIds = new ArrayList<>();
+
+    // Act
+    HistoricProcessInstanceQuery actualDeploymentIdInResult = historicProcessInstanceQueryImpl
+        .deploymentIdIn(deploymentIds);
+
+    // Assert
+    assertSame(deploymentIds, historicProcessInstanceQueryImpl.getDeploymentIds());
+    assertSame(historicProcessInstanceQueryImpl, actualDeploymentIdInResult);
+  }
+
+  /**
+   * Method under test: {@link HistoricProcessInstanceQueryImpl#finished()}
+   */
+  @Test
+  public void testFinished() {
+    // Arrange
+    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
+
+    // Act
+    HistoricProcessInstanceQuery actualFinishedResult = historicProcessInstanceQueryImpl.finished();
+
+    // Assert
+    assertTrue(historicProcessInstanceQueryImpl.isFinished());
+    assertSame(historicProcessInstanceQueryImpl, actualFinishedResult);
+  }
+
+  /**
+   * Method under test: {@link HistoricProcessInstanceQueryImpl#unfinished()}
+   */
+  @Test
+  public void testUnfinished() {
+    // Arrange
+    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
+
+    // Act
+    HistoricProcessInstanceQuery actualUnfinishedResult = historicProcessInstanceQueryImpl.unfinished();
+
+    // Assert
+    assertTrue(historicProcessInstanceQueryImpl.isOpen());
+    assertTrue(historicProcessInstanceQueryImpl.isUnfinished());
+    assertSame(historicProcessInstanceQueryImpl, actualUnfinishedResult);
+  }
+
+  /**
+   * Method under test: {@link HistoricProcessInstanceQueryImpl#deleted()}
+   */
+  @Test
+  public void testDeleted() {
+    // Arrange
+    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
+
+    // Act
+    HistoricProcessInstanceQuery actualDeletedResult = historicProcessInstanceQueryImpl.deleted();
+
+    // Assert
+    assertTrue(historicProcessInstanceQueryImpl.isDeleted());
+    assertSame(historicProcessInstanceQueryImpl, actualDeletedResult);
+  }
+
+  /**
+   * Method under test: {@link HistoricProcessInstanceQueryImpl#notDeleted()}
+   */
+  @Test
+  public void testNotDeleted() {
+    // Arrange
+    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
+
+    // Act
+    HistoricProcessInstanceQuery actualNotDeletedResult = historicProcessInstanceQueryImpl.notDeleted();
+
+    // Assert
+    assertTrue(historicProcessInstanceQueryImpl.isNotDeleted());
+    assertSame(historicProcessInstanceQueryImpl, actualNotDeletedResult);
+  }
+
+  /**
+   * Method under test: {@link HistoricProcessInstanceQueryImpl#startedBy(String)}
+   */
+  @Test
+  public void testStartedBy() {
+    // Arrange and Act
+    HistoricProcessInstanceQuery actualStartedByResult = historicProcessInstanceQueryImpl.startedBy("Started By");
+
+    // Assert
+    assertEquals("Started By", historicProcessInstanceQueryImpl.getStartedBy());
+    assertSame(historicProcessInstanceQueryImpl, actualStartedByResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#processDefinitionKeyNotIn(List)}
+   */
+  @Test
+  public void testProcessDefinitionKeyNotIn() {
+    // Arrange
+    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
+    ArrayList<String> processDefinitionKeys = new ArrayList<>();
+
+    // Act
+    HistoricProcessInstanceQuery actualProcessDefinitionKeyNotInResult = historicProcessInstanceQueryImpl
+        .processDefinitionKeyNotIn(processDefinitionKeys);
+
+    // Assert
+    assertSame(processDefinitionKeys, historicProcessInstanceQueryImpl.getProcessKeyNotIn());
+    assertSame(historicProcessInstanceQueryImpl, actualProcessDefinitionKeyNotInResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#startedAfter(Date)}
+   */
+  @Test
+  public void testStartedAfter() {
+    // Arrange
+    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
+    Date startedAfter = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+
+    // Act and Assert
+    assertSame(historicProcessInstanceQueryImpl, historicProcessInstanceQueryImpl.startedAfter(startedAfter));
+    assertSame(startedAfter, historicProcessInstanceQueryImpl.getStartedAfter());
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#startedBefore(Date)}
+   */
+  @Test
+  public void testStartedBefore() {
+    // Arrange
+    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
+    Date startedBefore = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+
+    // Act and Assert
+    assertSame(historicProcessInstanceQueryImpl, historicProcessInstanceQueryImpl.startedBefore(startedBefore));
+    assertSame(startedBefore, historicProcessInstanceQueryImpl.getStartedBefore());
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#finishedAfter(Date)}
+   */
+  @Test
+  public void testFinishedAfter() {
+    // Arrange
+    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
+    Date finishedAfter = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+
+    // Act
+    HistoricProcessInstanceQuery actualFinishedAfterResult = historicProcessInstanceQueryImpl
+        .finishedAfter(finishedAfter);
+
+    // Assert
+    assertTrue(historicProcessInstanceQueryImpl.isFinished());
+    assertSame(historicProcessInstanceQueryImpl, actualFinishedAfterResult);
+    assertSame(finishedAfter, historicProcessInstanceQueryImpl.getFinishedAfter());
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#finishedBefore(Date)}
+   */
+  @Test
+  public void testFinishedBefore() {
+    // Arrange
+    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
+    Date finishedBefore = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+
+    // Act
+    HistoricProcessInstanceQuery actualFinishedBeforeResult = historicProcessInstanceQueryImpl
+        .finishedBefore(finishedBefore);
+
+    // Assert
+    assertTrue(historicProcessInstanceQueryImpl.isFinished());
+    assertSame(historicProcessInstanceQueryImpl, actualFinishedBeforeResult);
+    assertSame(finishedBefore, historicProcessInstanceQueryImpl.getFinishedBefore());
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#superProcessInstanceId(String)}
+   */
+  @Test
+  public void testSuperProcessInstanceId() {
+    // Arrange and Act
+    HistoricProcessInstanceQuery actualSuperProcessInstanceIdResult = historicProcessInstanceQueryImpl
+        .superProcessInstanceId("42");
+
+    // Assert
+    assertEquals("42", historicProcessInstanceQueryImpl.getSuperProcessInstanceId());
+    assertSame(historicProcessInstanceQueryImpl, actualSuperProcessInstanceIdResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#excludeSubprocesses(boolean)}
+   */
+  @Test
+  public void testExcludeSubprocesses() {
+    // Arrange
+    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
+
+    // Act
+    HistoricProcessInstanceQuery actualExcludeSubprocessesResult = historicProcessInstanceQueryImpl
+        .excludeSubprocesses(true);
+
+    // Assert
+    assertTrue(historicProcessInstanceQueryImpl.isExcludeSubprocesses());
+    assertSame(historicProcessInstanceQueryImpl, actualExcludeSubprocessesResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#involvedUser(String)}
+   */
+  @Test
+  public void testInvolvedUser() {
+    // Arrange and Act
+    HistoricProcessInstanceQuery actualInvolvedUserResult = historicProcessInstanceQueryImpl
+        .involvedUser("Involved User");
+
+    // Assert
+    assertEquals("Involved User", historicProcessInstanceQueryImpl.getInvolvedUser());
+    assertSame(historicProcessInstanceQueryImpl, actualInvolvedUserResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#processInstanceTenantId(String)}
+   */
+  @Test
+  public void testProcessInstanceTenantId() {
+    // Arrange and Act
+    HistoricProcessInstanceQuery actualProcessInstanceTenantIdResult = historicProcessInstanceQueryImpl
+        .processInstanceTenantId("42");
+
+    // Assert
+    assertEquals("42", historicProcessInstanceQueryImpl.getTenantId());
+    assertSame(historicProcessInstanceQueryImpl, actualProcessInstanceTenantIdResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#processInstanceTenantId(String)}
+   */
+  @Test
+  public void testProcessInstanceTenantId2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> historicProcessInstanceQueryImpl.processInstanceTenantId(null));
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#processInstanceTenantIdLike(String)}
+   */
+  @Test
+  public void testProcessInstanceTenantIdLike() {
+    // Arrange and Act
+    HistoricProcessInstanceQuery actualProcessInstanceTenantIdLikeResult = historicProcessInstanceQueryImpl
+        .processInstanceTenantIdLike("Tenant Id Like");
+
+    // Assert
+    assertEquals("Tenant Id Like", historicProcessInstanceQueryImpl.getTenantIdLike());
+    assertSame(historicProcessInstanceQueryImpl, actualProcessInstanceTenantIdLikeResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#processInstanceTenantIdLike(String)}
+   */
+  @Test
+  public void testProcessInstanceTenantIdLike2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> historicProcessInstanceQueryImpl.processInstanceTenantIdLike(null));
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#processInstanceWithoutTenantId()}
+   */
+  @Test
+  public void testProcessInstanceWithoutTenantId() {
+    // Arrange
+    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
+
+    // Act
+    HistoricProcessInstanceQuery actualProcessInstanceWithoutTenantIdResult = historicProcessInstanceQueryImpl
+        .processInstanceWithoutTenantId();
+
+    // Assert
+    assertTrue(historicProcessInstanceQueryImpl.isWithoutTenantId());
+    assertSame(historicProcessInstanceQueryImpl, actualProcessInstanceWithoutTenantIdResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#processInstanceName(String)}
+   */
+  @Test
+  public void testProcessInstanceName() {
+    // Arrange and Act
+    HistoricProcessInstanceQuery actualProcessInstanceNameResult = historicProcessInstanceQueryImpl
+        .processInstanceName("Name");
+
+    // Assert
+    assertEquals("Name", historicProcessInstanceQueryImpl.getName());
+    assertSame(historicProcessInstanceQueryImpl, actualProcessInstanceNameResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#processInstanceNameLike(String)}
+   */
+  @Test
+  public void testProcessInstanceNameLike() {
+    // Arrange and Act
+    HistoricProcessInstanceQuery actualProcessInstanceNameLikeResult = historicProcessInstanceQueryImpl
+        .processInstanceNameLike("Name Like");
+
+    // Assert
+    assertEquals("Name Like", historicProcessInstanceQueryImpl.getNameLike());
+    assertSame(historicProcessInstanceQueryImpl, actualProcessInstanceNameLikeResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#processInstanceNameLikeIgnoreCase(String)}
+   */
+  @Test
+  public void testProcessInstanceNameLikeIgnoreCase() {
+    // Arrange and Act
+    HistoricProcessInstanceQuery actualProcessInstanceNameLikeIgnoreCaseResult = historicProcessInstanceQueryImpl
+        .processInstanceNameLikeIgnoreCase("Name Like Ignore Case");
+
+    // Assert
+    assertEquals("name like ignore case", historicProcessInstanceQueryImpl.getNameLikeIgnoreCase());
+    assertSame(historicProcessInstanceQueryImpl, actualProcessInstanceNameLikeIgnoreCaseResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#variableValueEquals(Object)}
+   */
+  @Test
+  public void testVariableValueEquals() {
+    // Arrange
+    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
+
+    // Act
+    HistoricProcessInstanceQuery actualVariableValueEqualsResult = historicProcessInstanceQueryImpl
+        .variableValueEquals(JSONObject.NULL);
+
+    // Assert
+    assertTrue(historicProcessInstanceQueryImpl.hasLocalQueryVariableValue());
+    assertSame(historicProcessInstanceQueryImpl, actualVariableValueEqualsResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#variableValueEquals(String, Object)}
+   */
+  @Test
+  public void testVariableValueEquals2() {
+    // Arrange and Act
+    HistoricProcessInstanceQuery actualVariableValueEqualsResult = historicProcessInstanceQueryImpl
+        .variableValueEquals("Variable Name", JSONObject.NULL);
+
+    // Assert
+    assertTrue(historicProcessInstanceQueryImpl.hasLocalQueryVariableValue());
+    assertSame(historicProcessInstanceQueryImpl, actualVariableValueEqualsResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#variableValueEquals(String, Object)}
+   */
+  @Test
+  public void testVariableValueEquals3() {
+    // Arrange and Act
+    HistoricProcessInstanceQuery actualVariableValueEqualsResult = historicProcessInstanceQueryImpl
+        .variableValueEquals("Variable Name", null);
+
+    // Assert
+    assertTrue(historicProcessInstanceQueryImpl.hasLocalQueryVariableValue());
+    assertSame(historicProcessInstanceQueryImpl, actualVariableValueEqualsResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#variableValueNotEquals(String, Object)}
+   */
+  @Test
+  public void testVariableValueNotEquals() {
+    // Arrange and Act
+    HistoricProcessInstanceQuery actualVariableValueNotEqualsResult = historicProcessInstanceQueryImpl
+        .variableValueNotEquals("Variable Name", JSONObject.NULL);
+
+    // Assert
+    assertTrue(historicProcessInstanceQueryImpl.hasLocalQueryVariableValue());
+    assertSame(historicProcessInstanceQueryImpl, actualVariableValueNotEqualsResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#variableValueNotEquals(String, Object)}
+   */
+  @Test
+  public void testVariableValueNotEquals2() {
+    // Arrange and Act
+    HistoricProcessInstanceQuery actualVariableValueNotEqualsResult = historicProcessInstanceQueryImpl
+        .variableValueNotEquals("Variable Name", null);
+
+    // Assert
+    assertTrue(historicProcessInstanceQueryImpl.hasLocalQueryVariableValue());
+    assertSame(historicProcessInstanceQueryImpl, actualVariableValueNotEqualsResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#variableValueEqualsIgnoreCase(String, String)}
+   */
+  @Test
+  public void testVariableValueEqualsIgnoreCase() {
+    // Arrange and Act
+    HistoricProcessInstanceQuery actualVariableValueEqualsIgnoreCaseResult = historicProcessInstanceQueryImpl
+        .variableValueEqualsIgnoreCase("Name", "42");
+
+    // Assert
+    assertTrue(historicProcessInstanceQueryImpl.hasLocalQueryVariableValue());
+    assertSame(historicProcessInstanceQueryImpl, actualVariableValueEqualsIgnoreCaseResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#variableValueNotEqualsIgnoreCase(String, String)}
+   */
+  @Test
+  public void testVariableValueNotEqualsIgnoreCase() {
+    // Arrange and Act
+    HistoricProcessInstanceQuery actualVariableValueNotEqualsIgnoreCaseResult = historicProcessInstanceQueryImpl
+        .variableValueNotEqualsIgnoreCase("Name", "42");
+
+    // Assert
+    assertTrue(historicProcessInstanceQueryImpl.hasLocalQueryVariableValue());
+    assertSame(historicProcessInstanceQueryImpl, actualVariableValueNotEqualsIgnoreCaseResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#variableValueGreaterThan(String, Object)}
+   */
+  @Test
+  public void testVariableValueGreaterThan() {
+    // Arrange and Act
+    HistoricProcessInstanceQuery actualVariableValueGreaterThanResult = historicProcessInstanceQueryImpl
+        .variableValueGreaterThan("Name", JSONObject.NULL);
+
+    // Assert
+    assertTrue(historicProcessInstanceQueryImpl.hasLocalQueryVariableValue());
+    assertSame(historicProcessInstanceQueryImpl, actualVariableValueGreaterThanResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#variableValueGreaterThanOrEqual(String, Object)}
+   */
+  @Test
+  public void testVariableValueGreaterThanOrEqual() {
+    // Arrange and Act
+    HistoricProcessInstanceQuery actualVariableValueGreaterThanOrEqualResult = historicProcessInstanceQueryImpl
+        .variableValueGreaterThanOrEqual("Name", JSONObject.NULL);
+
+    // Assert
+    assertTrue(historicProcessInstanceQueryImpl.hasLocalQueryVariableValue());
+    assertSame(historicProcessInstanceQueryImpl, actualVariableValueGreaterThanOrEqualResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#variableValueLessThan(String, Object)}
+   */
+  @Test
+  public void testVariableValueLessThan() {
+    // Arrange and Act
+    HistoricProcessInstanceQuery actualVariableValueLessThanResult = historicProcessInstanceQueryImpl
+        .variableValueLessThan("Name", JSONObject.NULL);
+
+    // Assert
+    assertTrue(historicProcessInstanceQueryImpl.hasLocalQueryVariableValue());
+    assertSame(historicProcessInstanceQueryImpl, actualVariableValueLessThanResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#variableValueLessThanOrEqual(String, Object)}
+   */
+  @Test
+  public void testVariableValueLessThanOrEqual() {
+    // Arrange and Act
+    HistoricProcessInstanceQuery actualVariableValueLessThanOrEqualResult = historicProcessInstanceQueryImpl
+        .variableValueLessThanOrEqual("Name", JSONObject.NULL);
+
+    // Assert
+    assertTrue(historicProcessInstanceQueryImpl.hasLocalQueryVariableValue());
+    assertSame(historicProcessInstanceQueryImpl, actualVariableValueLessThanOrEqualResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#variableValueLike(String, String)}
+   */
+  @Test
+  public void testVariableValueLike() {
+    // Arrange and Act
+    HistoricProcessInstanceQuery actualVariableValueLikeResult = historicProcessInstanceQueryImpl
+        .variableValueLike("Name", "42");
+
+    // Assert
+    assertTrue(historicProcessInstanceQueryImpl.hasLocalQueryVariableValue());
+    assertSame(historicProcessInstanceQueryImpl, actualVariableValueLikeResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#variableValueLikeIgnoreCase(String, String)}
+   */
+  @Test
+  public void testVariableValueLikeIgnoreCase() {
+    // Arrange and Act
+    HistoricProcessInstanceQuery actualVariableValueLikeIgnoreCaseResult = historicProcessInstanceQueryImpl
+        .variableValueLikeIgnoreCase("Name", "42");
+
+    // Assert
+    assertTrue(historicProcessInstanceQueryImpl.hasLocalQueryVariableValue());
+    assertSame(historicProcessInstanceQueryImpl, actualVariableValueLikeIgnoreCaseResult);
+  }
+
+  /**
+   * Method under test: {@link HistoricProcessInstanceQueryImpl#or()}
+   */
+  @Test
+  public void testOr() {
+    // Arrange
+    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
+
+    // Act
+    HistoricProcessInstanceQuery actualOrResult = historicProcessInstanceQueryImpl.or();
+
+    // Assert
+    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl2 = historicProcessInstanceQueryImpl.currentOrQueryObject;
+    assertEquals("RES.ID_ asc", historicProcessInstanceQueryImpl2.getOrderBy());
+    assertEquals("RES.ID_ asc", historicProcessInstanceQueryImpl2.getOrderByColumns());
+    assertEquals("TEMPRES_ID_ asc", historicProcessInstanceQueryImpl2.getMssqlOrDB2OrderBy());
+    assertEquals("null:%:%", historicProcessInstanceQueryImpl2.getProcessDefinitionIdLike());
+    assertNull(historicProcessInstanceQueryImpl2.getProcessDefinitionVersion());
+    assertNull(historicProcessInstanceQueryImpl2.getProcessInstanceVariablesLimit());
+    assertNull(historicProcessInstanceQueryImpl2.getDatabaseType());
+    assertNull(historicProcessInstanceQueryImpl2.getBusinessKey());
+    assertNull(historicProcessInstanceQueryImpl2.getDeploymentId());
+    assertNull(historicProcessInstanceQueryImpl2.getInvolvedUser());
+    assertNull(historicProcessInstanceQueryImpl2.getName());
+    assertNull(historicProcessInstanceQueryImpl2.getNameLike());
+    assertNull(historicProcessInstanceQueryImpl2.getNameLikeIgnoreCase());
+    assertNull(historicProcessInstanceQueryImpl2.getProcessDefinitionCategory());
+    assertNull(historicProcessInstanceQueryImpl2.getProcessDefinitionId());
+    assertNull(historicProcessInstanceQueryImpl2.getProcessDefinitionKey());
+    assertNull(historicProcessInstanceQueryImpl2.getProcessDefinitionName());
+    assertNull(historicProcessInstanceQueryImpl2.getProcessInstanceId());
+    assertNull(historicProcessInstanceQueryImpl2.getStartedBy());
+    assertNull(historicProcessInstanceQueryImpl2.getSuperProcessInstanceId());
+    assertNull(historicProcessInstanceQueryImpl2.getTenantId());
+    assertNull(historicProcessInstanceQueryImpl2.getTenantIdLike());
+    assertNull(historicProcessInstanceQueryImpl2.orderBy);
+    assertNull(historicProcessInstanceQueryImpl2.locale);
+    assertNull(historicProcessInstanceQueryImpl2.getFinishedAfter());
+    assertNull(historicProcessInstanceQueryImpl2.getFinishedBefore());
+    assertNull(historicProcessInstanceQueryImpl2.getStartedAfter());
+    assertNull(historicProcessInstanceQueryImpl2.getStartedBefore());
+    assertNull(historicProcessInstanceQueryImpl2.getDeploymentIds());
+    assertNull(historicProcessInstanceQueryImpl2.getInvolvedGroups());
+    assertNull(historicProcessInstanceQueryImpl2.getProcessDefinitionKeyIn());
+    assertNull(historicProcessInstanceQueryImpl2.getProcessKeyNotIn());
+    assertNull(historicProcessInstanceQueryImpl2.getProcessInstanceIds());
+    assertNull(historicProcessInstanceQueryImpl2.nullHandlingOnOrder);
+    assertNull(historicProcessInstanceQueryImpl2.resultType);
+    assertNull(historicProcessInstanceQueryImpl2.currentOrQueryObject);
+    assertNull(historicProcessInstanceQueryImpl2.commandContext);
+    assertNull(historicProcessInstanceQueryImpl2.commandExecutor);
+    assertNull(historicProcessInstanceQueryImpl2.orderProperty);
+    assertEquals(0, historicProcessInstanceQueryImpl2.getFirstResult());
+    assertEquals(1, historicProcessInstanceQueryImpl2.getFirstRow());
+    assertFalse(historicProcessInstanceQueryImpl2.hasLocalQueryVariableValue());
+    assertFalse(historicProcessInstanceQueryImpl2.hasNonLocalQueryVariableValue());
+    assertFalse(historicProcessInstanceQueryImpl2.isDeleted());
+    assertFalse(historicProcessInstanceQueryImpl2.isExcludeSubprocesses());
+    assertFalse(historicProcessInstanceQueryImpl2.isFinished());
+    assertFalse(historicProcessInstanceQueryImpl2.isIncludeProcessVariables());
+    assertFalse(historicProcessInstanceQueryImpl2.isNotDeleted());
+    assertFalse(historicProcessInstanceQueryImpl2.isOpen());
+    assertFalse(historicProcessInstanceQueryImpl2.isUnfinished());
+    assertFalse(historicProcessInstanceQueryImpl2.isWithException());
+    assertFalse(historicProcessInstanceQueryImpl2.isWithoutTenantId());
+    assertFalse(historicProcessInstanceQueryImpl2.inOrStatement);
+    assertFalse(historicProcessInstanceQueryImpl2.withLocalizationFallback);
+    assertTrue(historicProcessInstanceQueryImpl.inOrStatement);
+    assertEquals(Integer.MAX_VALUE, historicProcessInstanceQueryImpl2.getLastRow());
+    assertEquals(Integer.MAX_VALUE, historicProcessInstanceQueryImpl2.getMaxResults());
+    assertSame(historicProcessInstanceQueryImpl, actualOrResult);
+    HistoricProcessInstanceQueryImpl expectedParameter = ((HistoricProcessInstanceQueryImpl) actualOrResult).currentOrQueryObject;
+    assertSame(expectedParameter, historicProcessInstanceQueryImpl2.getParameter());
+  }
+
+  /**
+   * Method under test: {@link HistoricProcessInstanceQueryImpl#endOr()}
+   */
+  @Test
+  public void testEndOr() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiException.class, () -> (new HistoricProcessInstanceQueryImpl()).endOr());
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#getMssqlOrDB2OrderBy()}
+   */
+  @Test
+  public void testGetMssqlOrDB2OrderBy() {
+    // Arrange, Act and Assert
+    assertEquals("TEMPRES_ID_ asc", (new HistoricProcessInstanceQueryImpl()).getMssqlOrDB2OrderBy());
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#getProcessDefinitionIdLike()}
+   */
+  @Test
+  public void testGetProcessDefinitionIdLike() {
+    // Arrange, Act and Assert
+    assertEquals("null:%:%", (new HistoricProcessInstanceQueryImpl()).getProcessDefinitionIdLike());
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#involvedGroupsIn(List)}
+   */
+  @Test
+  public void testInvolvedGroupsIn() {
+    // Arrange
+    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> historicProcessInstanceQueryImpl.involvedGroupsIn(new ArrayList<>()));
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricProcessInstanceQueryImpl#HistoricProcessInstanceQueryImpl()}
+   */
+  @Test
   public void testNewHistoricProcessInstanceQueryImpl() {
     // Arrange and Act
     HistoricProcessInstanceQueryImpl actualHistoricProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
@@ -111,1340 +932,5 @@ public class HistoricProcessInstanceQueryImplDiffblueTest {
     assertEquals(Integer.MAX_VALUE, actualHistoricProcessInstanceQueryImpl.getLastRow());
     assertEquals(Integer.MAX_VALUE, actualHistoricProcessInstanceQueryImpl.getMaxResults());
     assertSame(actualHistoricProcessInstanceQueryImpl, actualHistoricProcessInstanceQueryImpl.getParameter());
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#processInstanceId(String)}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#processInstanceId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQueryImpl HistoricProcessInstanceQueryImpl.processInstanceId(String)"})
-  public void testProcessInstanceId() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQueryImpl actualProcessInstanceIdResult = historicProcessInstanceQueryImpl
-        .processInstanceId("42");
-
-    // Assert
-    assertEquals("42", historicProcessInstanceQueryImpl.getProcessInstanceId());
-    assertSame(historicProcessInstanceQueryImpl, actualProcessInstanceIdResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#processInstanceIds(Set)}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#processInstanceIds(Set)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.processInstanceIds(Set)"})
-  public void testProcessInstanceIds() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    HashSet<String> processInstanceIds = new HashSet<>();
-    processInstanceIds.add("Set of process instance ids is empty");
-
-    // Act
-    HistoricProcessInstanceQuery actualProcessInstanceIdsResult = historicProcessInstanceQueryImpl
-        .processInstanceIds(processInstanceIds);
-
-    // Assert
-    assertSame(processInstanceIds, historicProcessInstanceQueryImpl.getProcessInstanceIds());
-    assertSame(historicProcessInstanceQueryImpl, actualProcessInstanceIdsResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#processInstanceIds(Set)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link HashSet#HashSet()} add {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#processInstanceIds(Set)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.processInstanceIds(Set)"})
-  public void testProcessInstanceIds_given42_whenHashSetAdd42() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    HashSet<String> processInstanceIds = new HashSet<>();
-    processInstanceIds.add("42");
-    processInstanceIds.add("Set of process instance ids is empty");
-
-    // Act
-    HistoricProcessInstanceQuery actualProcessInstanceIdsResult = historicProcessInstanceQueryImpl
-        .processInstanceIds(processInstanceIds);
-
-    // Assert
-    assertSame(processInstanceIds, historicProcessInstanceQueryImpl.getProcessInstanceIds());
-    assertSame(historicProcessInstanceQueryImpl, actualProcessInstanceIdsResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#processInstanceIds(Set)}.
-   * <ul>
-   *   <li>When {@link HashSet#HashSet()}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#processInstanceIds(Set)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.processInstanceIds(Set)"})
-  public void testProcessInstanceIds_whenHashSet_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> historicProcessInstanceQueryImpl.processInstanceIds(new HashSet<>()));
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#processDefinitionId(String)}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#processDefinitionId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQueryImpl HistoricProcessInstanceQueryImpl.processDefinitionId(String)"})
-  public void testProcessDefinitionId() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQueryImpl actualProcessDefinitionIdResult = historicProcessInstanceQueryImpl
-        .processDefinitionId("42");
-
-    // Assert
-    assertEquals("42", historicProcessInstanceQueryImpl.getProcessDefinitionId());
-    assertSame(historicProcessInstanceQueryImpl, actualProcessDefinitionIdResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#processDefinitionKey(String)}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#processDefinitionKey(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.processDefinitionKey(String)"})
-  public void testProcessDefinitionKey() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualProcessDefinitionKeyResult = historicProcessInstanceQueryImpl
-        .processDefinitionKey("Process Definition Key");
-
-    // Assert
-    assertEquals("Process Definition Key", historicProcessInstanceQueryImpl.getProcessDefinitionKey());
-    assertEquals("Process Definition Key:%:%", historicProcessInstanceQueryImpl.getProcessDefinitionIdLike());
-    assertSame(historicProcessInstanceQueryImpl, actualProcessDefinitionKeyResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#processDefinitionKeyIn(List)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#processDefinitionKeyIn(List)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.processDefinitionKeyIn(List)"})
-  public void testProcessDefinitionKeyIn_given42_whenArrayListAdd42() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    ArrayList<String> processDefinitionKeys = new ArrayList<>();
-    processDefinitionKeys.add("42");
-    processDefinitionKeys.add("foo");
-
-    // Act
-    HistoricProcessInstanceQuery actualProcessDefinitionKeyInResult = historicProcessInstanceQueryImpl
-        .processDefinitionKeyIn(processDefinitionKeys);
-
-    // Assert
-    assertSame(processDefinitionKeys, historicProcessInstanceQueryImpl.getProcessDefinitionKeyIn());
-    assertSame(historicProcessInstanceQueryImpl, actualProcessDefinitionKeyInResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#processDefinitionKeyIn(List)}.
-   * <ul>
-   *   <li>Given {@code foo}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#processDefinitionKeyIn(List)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.processDefinitionKeyIn(List)"})
-  public void testProcessDefinitionKeyIn_givenFoo_whenArrayListAddFoo() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    ArrayList<String> processDefinitionKeys = new ArrayList<>();
-    processDefinitionKeys.add("foo");
-
-    // Act
-    HistoricProcessInstanceQuery actualProcessDefinitionKeyInResult = historicProcessInstanceQueryImpl
-        .processDefinitionKeyIn(processDefinitionKeys);
-
-    // Assert
-    assertSame(processDefinitionKeys, historicProcessInstanceQueryImpl.getProcessDefinitionKeyIn());
-    assertSame(historicProcessInstanceQueryImpl, actualProcessDefinitionKeyInResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#processDefinitionKeyIn(List)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#processDefinitionKeyIn(List)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.processDefinitionKeyIn(List)"})
-  public void testProcessDefinitionKeyIn_whenArrayList() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-    ArrayList<String> processDefinitionKeys = new ArrayList<>();
-
-    // Act
-    HistoricProcessInstanceQuery actualProcessDefinitionKeyInResult = historicProcessInstanceQueryImpl
-        .processDefinitionKeyIn(processDefinitionKeys);
-
-    // Assert
-    assertSame(processDefinitionKeys, historicProcessInstanceQueryImpl.getProcessDefinitionKeyIn());
-    assertSame(historicProcessInstanceQueryImpl, actualProcessDefinitionKeyInResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#processDefinitionCategory(String)}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#processDefinitionCategory(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.processDefinitionCategory(String)"})
-  public void testProcessDefinitionCategory() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualProcessDefinitionCategoryResult = historicProcessInstanceQueryImpl
-        .processDefinitionCategory("Process Definition Category");
-
-    // Assert
-    assertEquals("Process Definition Category", historicProcessInstanceQueryImpl.getProcessDefinitionCategory());
-    assertSame(historicProcessInstanceQueryImpl, actualProcessDefinitionCategoryResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#processDefinitionName(String)}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#processDefinitionName(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.processDefinitionName(String)"})
-  public void testProcessDefinitionName() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualProcessDefinitionNameResult = historicProcessInstanceQueryImpl
-        .processDefinitionName("Process Definition Name");
-
-    // Assert
-    assertEquals("Process Definition Name", historicProcessInstanceQueryImpl.getProcessDefinitionName());
-    assertSame(historicProcessInstanceQueryImpl, actualProcessDefinitionNameResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#processDefinitionVersion(Integer)}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#processDefinitionVersion(Integer)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.processDefinitionVersion(Integer)"})
-  public void testProcessDefinitionVersion() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualProcessDefinitionVersionResult = historicProcessInstanceQueryImpl
-        .processDefinitionVersion(1);
-
-    // Assert
-    assertEquals(1, historicProcessInstanceQueryImpl.getProcessDefinitionVersion().intValue());
-    assertSame(historicProcessInstanceQueryImpl, actualProcessDefinitionVersionResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#processInstanceBusinessKey(String)}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#processInstanceBusinessKey(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.processInstanceBusinessKey(String)"})
-  public void testProcessInstanceBusinessKey() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualProcessInstanceBusinessKeyResult = historicProcessInstanceQueryImpl
-        .processInstanceBusinessKey("Business Key");
-
-    // Assert
-    assertEquals("Business Key", historicProcessInstanceQueryImpl.getBusinessKey());
-    assertSame(historicProcessInstanceQueryImpl, actualProcessInstanceBusinessKeyResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#deploymentId(String)}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#deploymentId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.deploymentId(String)"})
-  public void testDeploymentId() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualDeploymentIdResult = historicProcessInstanceQueryImpl.deploymentId("42");
-
-    // Assert
-    assertEquals("42", historicProcessInstanceQueryImpl.getDeploymentId());
-    assertSame(historicProcessInstanceQueryImpl, actualDeploymentIdResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#deploymentIdIn(List)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#deploymentIdIn(List)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.deploymentIdIn(List)"})
-  public void testDeploymentIdIn_given42_whenArrayListAdd42() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    ArrayList<String> deploymentIds = new ArrayList<>();
-    deploymentIds.add("42");
-    deploymentIds.add("foo");
-
-    // Act
-    HistoricProcessInstanceQuery actualDeploymentIdInResult = historicProcessInstanceQueryImpl
-        .deploymentIdIn(deploymentIds);
-
-    // Assert
-    assertSame(deploymentIds, historicProcessInstanceQueryImpl.getDeploymentIds());
-    assertSame(historicProcessInstanceQueryImpl, actualDeploymentIdInResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#deploymentIdIn(List)}.
-   * <ul>
-   *   <li>Given {@code foo}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#deploymentIdIn(List)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.deploymentIdIn(List)"})
-  public void testDeploymentIdIn_givenFoo_whenArrayListAddFoo() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    ArrayList<String> deploymentIds = new ArrayList<>();
-    deploymentIds.add("foo");
-
-    // Act
-    HistoricProcessInstanceQuery actualDeploymentIdInResult = historicProcessInstanceQueryImpl
-        .deploymentIdIn(deploymentIds);
-
-    // Assert
-    assertSame(deploymentIds, historicProcessInstanceQueryImpl.getDeploymentIds());
-    assertSame(historicProcessInstanceQueryImpl, actualDeploymentIdInResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#deploymentIdIn(List)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#deploymentIdIn(List)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.deploymentIdIn(List)"})
-  public void testDeploymentIdIn_whenArrayList() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-    ArrayList<String> deploymentIds = new ArrayList<>();
-
-    // Act
-    HistoricProcessInstanceQuery actualDeploymentIdInResult = historicProcessInstanceQueryImpl
-        .deploymentIdIn(deploymentIds);
-
-    // Assert
-    assertSame(deploymentIds, historicProcessInstanceQueryImpl.getDeploymentIds());
-    assertSame(historicProcessInstanceQueryImpl, actualDeploymentIdInResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#finished()}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#finished()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.finished()"})
-  public void testFinished() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualFinishedResult = historicProcessInstanceQueryImpl.finished();
-
-    // Assert
-    assertTrue(historicProcessInstanceQueryImpl.isFinished());
-    assertSame(historicProcessInstanceQueryImpl, actualFinishedResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#unfinished()}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#unfinished()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.unfinished()"})
-  public void testUnfinished() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualUnfinishedResult = historicProcessInstanceQueryImpl.unfinished();
-
-    // Assert
-    assertTrue(historicProcessInstanceQueryImpl.isOpen());
-    assertTrue(historicProcessInstanceQueryImpl.isUnfinished());
-    assertSame(historicProcessInstanceQueryImpl, actualUnfinishedResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#deleted()}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#deleted()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.deleted()"})
-  public void testDeleted() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualDeletedResult = historicProcessInstanceQueryImpl.deleted();
-
-    // Assert
-    assertTrue(historicProcessInstanceQueryImpl.isDeleted());
-    assertSame(historicProcessInstanceQueryImpl, actualDeletedResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#notDeleted()}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#notDeleted()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.notDeleted()"})
-  public void testNotDeleted() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualNotDeletedResult = historicProcessInstanceQueryImpl.notDeleted();
-
-    // Assert
-    assertTrue(historicProcessInstanceQueryImpl.isNotDeleted());
-    assertSame(historicProcessInstanceQueryImpl, actualNotDeletedResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#startedBy(String)}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#startedBy(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.startedBy(String)"})
-  public void testStartedBy() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualStartedByResult = historicProcessInstanceQueryImpl.startedBy("Started By");
-
-    // Assert
-    assertEquals("Started By", historicProcessInstanceQueryImpl.getStartedBy());
-    assertSame(historicProcessInstanceQueryImpl, actualStartedByResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#processDefinitionKeyNotIn(List)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#processDefinitionKeyNotIn(List)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.processDefinitionKeyNotIn(List)"})
-  public void testProcessDefinitionKeyNotIn_given42_whenArrayListAdd42() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    ArrayList<String> processDefinitionKeys = new ArrayList<>();
-    processDefinitionKeys.add("42");
-    processDefinitionKeys.add("foo");
-
-    // Act
-    HistoricProcessInstanceQuery actualProcessDefinitionKeyNotInResult = historicProcessInstanceQueryImpl
-        .processDefinitionKeyNotIn(processDefinitionKeys);
-
-    // Assert
-    assertSame(processDefinitionKeys, historicProcessInstanceQueryImpl.getProcessKeyNotIn());
-    assertSame(historicProcessInstanceQueryImpl, actualProcessDefinitionKeyNotInResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#processDefinitionKeyNotIn(List)}.
-   * <ul>
-   *   <li>Given {@code foo}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#processDefinitionKeyNotIn(List)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.processDefinitionKeyNotIn(List)"})
-  public void testProcessDefinitionKeyNotIn_givenFoo_whenArrayListAddFoo() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    ArrayList<String> processDefinitionKeys = new ArrayList<>();
-    processDefinitionKeys.add("foo");
-
-    // Act
-    HistoricProcessInstanceQuery actualProcessDefinitionKeyNotInResult = historicProcessInstanceQueryImpl
-        .processDefinitionKeyNotIn(processDefinitionKeys);
-
-    // Assert
-    assertSame(processDefinitionKeys, historicProcessInstanceQueryImpl.getProcessKeyNotIn());
-    assertSame(historicProcessInstanceQueryImpl, actualProcessDefinitionKeyNotInResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#processDefinitionKeyNotIn(List)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#processDefinitionKeyNotIn(List)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.processDefinitionKeyNotIn(List)"})
-  public void testProcessDefinitionKeyNotIn_whenArrayList() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-    ArrayList<String> processDefinitionKeys = new ArrayList<>();
-
-    // Act
-    HistoricProcessInstanceQuery actualProcessDefinitionKeyNotInResult = historicProcessInstanceQueryImpl
-        .processDefinitionKeyNotIn(processDefinitionKeys);
-
-    // Assert
-    assertSame(processDefinitionKeys, historicProcessInstanceQueryImpl.getProcessKeyNotIn());
-    assertSame(historicProcessInstanceQueryImpl, actualProcessDefinitionKeyNotInResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#startedAfter(Date)}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#startedAfter(Date)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.startedAfter(Date)"})
-  public void testStartedAfter() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-    Date startedAfter = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
-
-    // Act and Assert
-    assertSame(historicProcessInstanceQueryImpl, historicProcessInstanceQueryImpl.startedAfter(startedAfter));
-    assertSame(startedAfter, historicProcessInstanceQueryImpl.getStartedAfter());
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#startedBefore(Date)}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#startedBefore(Date)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.startedBefore(Date)"})
-  public void testStartedBefore() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-    Date startedBefore = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
-
-    // Act and Assert
-    assertSame(historicProcessInstanceQueryImpl, historicProcessInstanceQueryImpl.startedBefore(startedBefore));
-    assertSame(startedBefore, historicProcessInstanceQueryImpl.getStartedBefore());
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#finishedAfter(Date)}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#finishedAfter(Date)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.finishedAfter(Date)"})
-  public void testFinishedAfter() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-    Date finishedAfter = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
-
-    // Act
-    HistoricProcessInstanceQuery actualFinishedAfterResult = historicProcessInstanceQueryImpl
-        .finishedAfter(finishedAfter);
-
-    // Assert
-    assertTrue(historicProcessInstanceQueryImpl.isFinished());
-    assertSame(historicProcessInstanceQueryImpl, actualFinishedAfterResult);
-    assertSame(finishedAfter, historicProcessInstanceQueryImpl.getFinishedAfter());
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#finishedBefore(Date)}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#finishedBefore(Date)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.finishedBefore(Date)"})
-  public void testFinishedBefore() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-    Date finishedBefore = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
-
-    // Act
-    HistoricProcessInstanceQuery actualFinishedBeforeResult = historicProcessInstanceQueryImpl
-        .finishedBefore(finishedBefore);
-
-    // Assert
-    assertTrue(historicProcessInstanceQueryImpl.isFinished());
-    assertSame(historicProcessInstanceQueryImpl, actualFinishedBeforeResult);
-    assertSame(finishedBefore, historicProcessInstanceQueryImpl.getFinishedBefore());
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#superProcessInstanceId(String)}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#superProcessInstanceId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.superProcessInstanceId(String)"})
-  public void testSuperProcessInstanceId() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualSuperProcessInstanceIdResult = historicProcessInstanceQueryImpl
-        .superProcessInstanceId("42");
-
-    // Assert
-    assertEquals("42", historicProcessInstanceQueryImpl.getSuperProcessInstanceId());
-    assertSame(historicProcessInstanceQueryImpl, actualSuperProcessInstanceIdResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#excludeSubprocesses(boolean)}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#excludeSubprocesses(boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.excludeSubprocesses(boolean)"})
-  public void testExcludeSubprocesses() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualExcludeSubprocessesResult = historicProcessInstanceQueryImpl
-        .excludeSubprocesses(true);
-
-    // Assert
-    assertTrue(historicProcessInstanceQueryImpl.isExcludeSubprocesses());
-    assertSame(historicProcessInstanceQueryImpl, actualExcludeSubprocessesResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#involvedUser(String)}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#involvedUser(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.involvedUser(String)"})
-  public void testInvolvedUser() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualInvolvedUserResult = historicProcessInstanceQueryImpl
-        .involvedUser("Involved User");
-
-    // Assert
-    assertEquals("Involved User", historicProcessInstanceQueryImpl.getInvolvedUser());
-    assertSame(historicProcessInstanceQueryImpl, actualInvolvedUserResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#processInstanceTenantId(String)}.
-   * <ul>
-   *   <li>Then {@link HistoricProcessInstanceQueryImpl#HistoricProcessInstanceQueryImpl()} TenantId is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#processInstanceTenantId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.processInstanceTenantId(String)"})
-  public void testProcessInstanceTenantId_thenHistoricProcessInstanceQueryImplTenantIdIs42() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualProcessInstanceTenantIdResult = historicProcessInstanceQueryImpl
-        .processInstanceTenantId("42");
-
-    // Assert
-    assertEquals("42", historicProcessInstanceQueryImpl.getTenantId());
-    assertSame(historicProcessInstanceQueryImpl, actualProcessInstanceTenantIdResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#processInstanceTenantId(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#processInstanceTenantId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.processInstanceTenantId(String)"})
-  public void testProcessInstanceTenantId_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> (new HistoricProcessInstanceQueryImpl()).processInstanceTenantId(null));
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#processInstanceTenantIdLike(String)}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#processInstanceTenantIdLike(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.processInstanceTenantIdLike(String)"})
-  public void testProcessInstanceTenantIdLike() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualProcessInstanceTenantIdLikeResult = historicProcessInstanceQueryImpl
-        .processInstanceTenantIdLike("Tenant Id Like");
-
-    // Assert
-    assertEquals("Tenant Id Like", historicProcessInstanceQueryImpl.getTenantIdLike());
-    assertSame(historicProcessInstanceQueryImpl, actualProcessInstanceTenantIdLikeResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#processInstanceTenantIdLike(String)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#processInstanceTenantIdLike(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.processInstanceTenantIdLike(String)"})
-  public void testProcessInstanceTenantIdLike_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> (new HistoricProcessInstanceQueryImpl()).processInstanceTenantIdLike(null));
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#processInstanceWithoutTenantId()}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#processInstanceWithoutTenantId()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.processInstanceWithoutTenantId()"})
-  public void testProcessInstanceWithoutTenantId() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualProcessInstanceWithoutTenantIdResult = historicProcessInstanceQueryImpl
-        .processInstanceWithoutTenantId();
-
-    // Assert
-    assertTrue(historicProcessInstanceQueryImpl.isWithoutTenantId());
-    assertSame(historicProcessInstanceQueryImpl, actualProcessInstanceWithoutTenantIdResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#processInstanceName(String)}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#processInstanceName(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.processInstanceName(String)"})
-  public void testProcessInstanceName() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualProcessInstanceNameResult = historicProcessInstanceQueryImpl
-        .processInstanceName("Name");
-
-    // Assert
-    assertEquals("Name", historicProcessInstanceQueryImpl.getName());
-    assertSame(historicProcessInstanceQueryImpl, actualProcessInstanceNameResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#processInstanceNameLike(String)}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#processInstanceNameLike(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.processInstanceNameLike(String)"})
-  public void testProcessInstanceNameLike() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualProcessInstanceNameLikeResult = historicProcessInstanceQueryImpl
-        .processInstanceNameLike("Name Like");
-
-    // Assert
-    assertEquals("Name Like", historicProcessInstanceQueryImpl.getNameLike());
-    assertSame(historicProcessInstanceQueryImpl, actualProcessInstanceNameLikeResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#processInstanceNameLikeIgnoreCase(String)}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#processInstanceNameLikeIgnoreCase(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.processInstanceNameLikeIgnoreCase(String)"})
-  public void testProcessInstanceNameLikeIgnoreCase() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualProcessInstanceNameLikeIgnoreCaseResult = historicProcessInstanceQueryImpl
-        .processInstanceNameLikeIgnoreCase("Name Like Ignore Case");
-
-    // Assert
-    assertEquals("name like ignore case", historicProcessInstanceQueryImpl.getNameLikeIgnoreCase());
-    assertSame(historicProcessInstanceQueryImpl, actualProcessInstanceNameLikeIgnoreCaseResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#variableValueEquals(String, Object)} with {@code variableName}, {@code variableValue}.
-   * <ul>
-   *   <li>When {@link JSONObject#NULL}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#variableValueEquals(String, Object)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.variableValueEquals(String, Object)"})
-  public void testVariableValueEqualsWithVariableNameVariableValue_whenNull() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualVariableValueEqualsResult = historicProcessInstanceQueryImpl
-        .variableValueEquals("Variable Name", JSONObject.NULL);
-
-    // Assert
-    assertTrue(historicProcessInstanceQueryImpl.hasLocalQueryVariableValue());
-    assertSame(historicProcessInstanceQueryImpl, actualVariableValueEqualsResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#variableValueEquals(String, Object)} with {@code variableName}, {@code variableValue}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#variableValueEquals(String, Object)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.variableValueEquals(String, Object)"})
-  public void testVariableValueEqualsWithVariableNameVariableValue_whenNull2() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualVariableValueEqualsResult = historicProcessInstanceQueryImpl
-        .variableValueEquals("Variable Name", null);
-
-    // Assert
-    assertTrue(historicProcessInstanceQueryImpl.hasLocalQueryVariableValue());
-    assertSame(historicProcessInstanceQueryImpl, actualVariableValueEqualsResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#variableValueEquals(Object)} with {@code variableValue}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#variableValueEquals(Object)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.variableValueEquals(Object)"})
-  public void testVariableValueEqualsWithVariableValue() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualVariableValueEqualsResult = historicProcessInstanceQueryImpl
-        .variableValueEquals(JSONObject.NULL);
-
-    // Assert
-    assertTrue(historicProcessInstanceQueryImpl.hasLocalQueryVariableValue());
-    assertSame(historicProcessInstanceQueryImpl, actualVariableValueEqualsResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#variableValueNotEquals(String, Object)} with {@code variableName}, {@code variableValue}.
-   * <ul>
-   *   <li>When {@link JSONObject#NULL}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#variableValueNotEquals(String, Object)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.variableValueNotEquals(String, Object)"})
-  public void testVariableValueNotEqualsWithVariableNameVariableValue_whenNull() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualVariableValueNotEqualsResult = historicProcessInstanceQueryImpl
-        .variableValueNotEquals("Variable Name", JSONObject.NULL);
-
-    // Assert
-    assertTrue(historicProcessInstanceQueryImpl.hasLocalQueryVariableValue());
-    assertSame(historicProcessInstanceQueryImpl, actualVariableValueNotEqualsResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#variableValueNotEquals(String, Object)} with {@code variableName}, {@code variableValue}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#variableValueNotEquals(String, Object)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.variableValueNotEquals(String, Object)"})
-  public void testVariableValueNotEqualsWithVariableNameVariableValue_whenNull2() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualVariableValueNotEqualsResult = historicProcessInstanceQueryImpl
-        .variableValueNotEquals("Variable Name", null);
-
-    // Assert
-    assertTrue(historicProcessInstanceQueryImpl.hasLocalQueryVariableValue());
-    assertSame(historicProcessInstanceQueryImpl, actualVariableValueNotEqualsResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#variableValueEqualsIgnoreCase(String, String)} with {@code name}, {@code value}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#variableValueEqualsIgnoreCase(String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.variableValueEqualsIgnoreCase(String, String)"})
-  public void testVariableValueEqualsIgnoreCaseWithNameValue() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualVariableValueEqualsIgnoreCaseResult = historicProcessInstanceQueryImpl
-        .variableValueEqualsIgnoreCase("Name", "42");
-
-    // Assert
-    assertTrue(historicProcessInstanceQueryImpl.hasLocalQueryVariableValue());
-    assertSame(historicProcessInstanceQueryImpl, actualVariableValueEqualsIgnoreCaseResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#variableValueNotEqualsIgnoreCase(String, String)} with {@code name}, {@code value}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#variableValueNotEqualsIgnoreCase(String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.variableValueNotEqualsIgnoreCase(String, String)"})
-  public void testVariableValueNotEqualsIgnoreCaseWithNameValue() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualVariableValueNotEqualsIgnoreCaseResult = historicProcessInstanceQueryImpl
-        .variableValueNotEqualsIgnoreCase("Name", "42");
-
-    // Assert
-    assertTrue(historicProcessInstanceQueryImpl.hasLocalQueryVariableValue());
-    assertSame(historicProcessInstanceQueryImpl, actualVariableValueNotEqualsIgnoreCaseResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#variableValueGreaterThan(String, Object)} with {@code name}, {@code value}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#variableValueGreaterThan(String, Object)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.variableValueGreaterThan(String, Object)"})
-  public void testVariableValueGreaterThanWithNameValue() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualVariableValueGreaterThanResult = historicProcessInstanceQueryImpl
-        .variableValueGreaterThan("Name", JSONObject.NULL);
-
-    // Assert
-    assertTrue(historicProcessInstanceQueryImpl.hasLocalQueryVariableValue());
-    assertSame(historicProcessInstanceQueryImpl, actualVariableValueGreaterThanResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#variableValueGreaterThanOrEqual(String, Object)} with {@code name}, {@code value}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#variableValueGreaterThanOrEqual(String, Object)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.variableValueGreaterThanOrEqual(String, Object)"})
-  public void testVariableValueGreaterThanOrEqualWithNameValue() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualVariableValueGreaterThanOrEqualResult = historicProcessInstanceQueryImpl
-        .variableValueGreaterThanOrEqual("Name", JSONObject.NULL);
-
-    // Assert
-    assertTrue(historicProcessInstanceQueryImpl.hasLocalQueryVariableValue());
-    assertSame(historicProcessInstanceQueryImpl, actualVariableValueGreaterThanOrEqualResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#variableValueLessThan(String, Object)} with {@code name}, {@code value}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#variableValueLessThan(String, Object)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.variableValueLessThan(String, Object)"})
-  public void testVariableValueLessThanWithNameValue() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualVariableValueLessThanResult = historicProcessInstanceQueryImpl
-        .variableValueLessThan("Name", JSONObject.NULL);
-
-    // Assert
-    assertTrue(historicProcessInstanceQueryImpl.hasLocalQueryVariableValue());
-    assertSame(historicProcessInstanceQueryImpl, actualVariableValueLessThanResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#variableValueLessThanOrEqual(String, Object)} with {@code name}, {@code value}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#variableValueLessThanOrEqual(String, Object)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.variableValueLessThanOrEqual(String, Object)"})
-  public void testVariableValueLessThanOrEqualWithNameValue() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualVariableValueLessThanOrEqualResult = historicProcessInstanceQueryImpl
-        .variableValueLessThanOrEqual("Name", JSONObject.NULL);
-
-    // Assert
-    assertTrue(historicProcessInstanceQueryImpl.hasLocalQueryVariableValue());
-    assertSame(historicProcessInstanceQueryImpl, actualVariableValueLessThanOrEqualResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#variableValueLike(String, String)} with {@code name}, {@code value}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#variableValueLike(String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.variableValueLike(String, String)"})
-  public void testVariableValueLikeWithNameValue() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualVariableValueLikeResult = historicProcessInstanceQueryImpl
-        .variableValueLike("Name", "42");
-
-    // Assert
-    assertTrue(historicProcessInstanceQueryImpl.hasLocalQueryVariableValue());
-    assertSame(historicProcessInstanceQueryImpl, actualVariableValueLikeResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#variableValueLikeIgnoreCase(String, String)} with {@code name}, {@code value}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#variableValueLikeIgnoreCase(String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.variableValueLikeIgnoreCase(String, String)"})
-  public void testVariableValueLikeIgnoreCaseWithNameValue() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act
-    HistoricProcessInstanceQuery actualVariableValueLikeIgnoreCaseResult = historicProcessInstanceQueryImpl
-        .variableValueLikeIgnoreCase("Name", "42");
-
-    // Assert
-    assertTrue(historicProcessInstanceQueryImpl.hasLocalQueryVariableValue());
-    assertSame(historicProcessInstanceQueryImpl, actualVariableValueLikeIgnoreCaseResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#endOr()}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#endOr()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.endOr()"})
-  public void testEndOr() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiException.class, () -> (new HistoricProcessInstanceQueryImpl()).endOr());
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#getMssqlOrDB2OrderBy()}.
-   * <ul>
-   *   <li>Then return {@code TEMPRES_ID_ asc}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#getMssqlOrDB2OrderBy()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String HistoricProcessInstanceQueryImpl.getMssqlOrDB2OrderBy()"})
-  public void testGetMssqlOrDB2OrderBy_thenReturnTempresIdAsc() {
-    // Arrange, Act and Assert
-    assertEquals("TEMPRES_ID_ asc", (new HistoricProcessInstanceQueryImpl()).getMssqlOrDB2OrderBy());
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#getMssqlOrDB2OrderBy()}.
-   * <ul>
-   *   <li>Then return {@code TEMPRES_ID_ asc asc}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#getMssqlOrDB2OrderBy()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String HistoricProcessInstanceQueryImpl.getMssqlOrDB2OrderBy()"})
-  public void testGetMssqlOrDB2OrderBy_thenReturnTempresIdAscAsc() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-    historicProcessInstanceQueryImpl.addOrder("RES.ID_ asc", AbstractQuery.SORTORDER_ASC,
-        NullHandlingOnOrder.NULLS_FIRST);
-
-    // Act and Assert
-    assertEquals("TEMPRES_ID_ asc asc", historicProcessInstanceQueryImpl.getMssqlOrDB2OrderBy());
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#getProcessDefinitionIdLike()}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#getProcessDefinitionIdLike()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String HistoricProcessInstanceQueryImpl.getProcessDefinitionIdLike()"})
-  public void testGetProcessDefinitionIdLike() {
-    // Arrange, Act and Assert
-    assertEquals("null:%:%", (new HistoricProcessInstanceQueryImpl()).getProcessDefinitionIdLike());
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#involvedGroupsIn(List)}.
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#involvedGroupsIn(List)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.involvedGroupsIn(List)"})
-  public void testInvolvedGroupsIn() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    ArrayList<String> involvedGroups = new ArrayList<>();
-    involvedGroups.add("Involved groups list is null or empty.");
-
-    // Act
-    HistoricProcessInstanceQuery actualInvolvedGroupsInResult = historicProcessInstanceQueryImpl
-        .involvedGroupsIn(involvedGroups);
-
-    // Assert
-    assertSame(involvedGroups, historicProcessInstanceQueryImpl.getInvolvedGroups());
-    assertSame(historicProcessInstanceQueryImpl, actualInvolvedGroupsInResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#involvedGroupsIn(List)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#involvedGroupsIn(List)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.involvedGroupsIn(List)"})
-  public void testInvolvedGroupsIn_given42_whenArrayListAdd42() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    ArrayList<String> involvedGroups = new ArrayList<>();
-    involvedGroups.add("42");
-    involvedGroups.add("Involved groups list is null or empty.");
-
-    // Act
-    HistoricProcessInstanceQuery actualInvolvedGroupsInResult = historicProcessInstanceQueryImpl
-        .involvedGroupsIn(involvedGroups);
-
-    // Assert
-    assertSame(involvedGroups, historicProcessInstanceQueryImpl.getInvolvedGroups());
-    assertSame(historicProcessInstanceQueryImpl, actualInvolvedGroupsInResult);
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceQueryImpl#involvedGroupsIn(List)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricProcessInstanceQueryImpl#involvedGroupsIn(List)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoricProcessInstanceQueryImpl.involvedGroupsIn(List)"})
-  public void testInvolvedGroupsIn_whenArrayList_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    HistoricProcessInstanceQueryImpl historicProcessInstanceQueryImpl = new HistoricProcessInstanceQueryImpl();
-
-    // Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> historicProcessInstanceQueryImpl.involvedGroupsIn(new ArrayList<>()));
   }
 }

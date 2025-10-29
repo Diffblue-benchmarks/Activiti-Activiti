@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.api.model.shared.event.RuntimeEvent;
@@ -45,7 +44,6 @@ import org.activiti.api.process.runtime.events.ProcessResumedEvent;
 import org.activiti.api.process.runtime.events.ProcessStartedEvent;
 import org.activiti.api.process.runtime.events.ProcessSuspendedEvent;
 import org.activiti.api.task.model.Task;
-import org.activiti.api.task.model.Task.TaskStatus;
 import org.activiti.api.task.runtime.TaskRuntime;
 import org.activiti.api.task.runtime.events.TaskAssignedEvent;
 import org.activiti.api.task.runtime.events.TaskCancelledEvent;
@@ -61,20 +59,14 @@ import org.activiti.test.assertions.ProcessInstanceAssertionsImpl;
 import org.activiti.test.assertions.SignalAssertionsImpl;
 import org.activiti.test.assertions.TaskAssertionsImpl;
 import org.activiti.test.operations.ProcessRuntimeOperations;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ActivitiAssertionsAutoConfigurationDiffblueTest {
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#handledEvents()}.
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#handledEvents()}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#handledEvents()}
    */
   @Test
-  @DisplayName("Test handledEvents()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"LocalEventSource ActivitiAssertionsAutoConfiguration.handledEvents()"})
   void testHandledEvents() {
     // Arrange and Act
     LocalEventSource actualHandledEventsResult = (new ActivitiAssertionsAutoConfiguration()).handledEvents();
@@ -89,14 +81,10 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#localTaskProvider(TaskRuntime)}.
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#localTaskProvider(TaskRuntime)}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#localTaskProvider(TaskRuntime)}
    */
   @Test
-  @DisplayName("Test localTaskProvider(TaskRuntime)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TaskSource ActivitiAssertionsAutoConfiguration.localTaskProvider(TaskRuntime)"})
   void testLocalTaskProvider() {
     // Arrange and Act
     TaskSource actualLocalTaskProviderResult = (new ActivitiAssertionsAutoConfiguration())
@@ -104,86 +92,15 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
 
     // Assert
     assertTrue(actualLocalTaskProviderResult instanceof LocalTaskSource);
-    assertTrue(actualLocalTaskProviderResult.canHandle(TaskStatus.CREATED));
+    assertTrue(actualLocalTaskProviderResult.canHandle(Task.TaskStatus.CREATED));
   }
 
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#processRuntimeOperations(ProcessRuntime, EventSource, List)}.
-   * <ul>
-   *   <li>Given {@link LocalTaskSource#LocalTaskSource(TaskRuntime)} with {@link TaskRuntime}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#processRuntimeOperations(ProcessRuntime, EventSource, List)}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#processRuntimeOperations(ProcessRuntime, EventSource, List)}
    */
   @Test
-  @DisplayName("Test processRuntimeOperations(ProcessRuntime, EventSource, List); given LocalTaskSource(TaskRuntime) with TaskRuntime")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "ProcessRuntimeOperations ActivitiAssertionsAutoConfiguration.processRuntimeOperations(ProcessRuntime, EventSource, List)"})
-  void testProcessRuntimeOperations_givenLocalTaskSourceWithTaskRuntime() {
-    // Arrange
-    ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
-    ProcessRuntime processRuntime = mock(ProcessRuntime.class);
-    EventSource eventSource = mock(EventSource.class);
-
-    ArrayList<TaskSource> taskSources = new ArrayList<>();
-    taskSources.add(new LocalTaskSource(mock(TaskRuntime.class)));
-
-    // Act
-    ProcessRuntimeOperations actualProcessRuntimeOperationsResult = activitiAssertionsAutoConfiguration
-        .processRuntimeOperations(processRuntime, eventSource, taskSources);
-
-    // Assert
-    assertTrue(actualProcessRuntimeOperationsResult.start(null) instanceof ProcessInstanceAssertionsImpl);
-    assertTrue(actualProcessRuntimeOperationsResult.signal(null) instanceof SignalAssertionsImpl);
-  }
-
-  /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#processRuntimeOperations(ProcessRuntime, EventSource, List)}.
-   * <ul>
-   *   <li>Given {@link LocalTaskSource#LocalTaskSource(TaskRuntime)} with {@link TaskRuntime}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#processRuntimeOperations(ProcessRuntime, EventSource, List)}
-   */
-  @Test
-  @DisplayName("Test processRuntimeOperations(ProcessRuntime, EventSource, List); given LocalTaskSource(TaskRuntime) with TaskRuntime")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "ProcessRuntimeOperations ActivitiAssertionsAutoConfiguration.processRuntimeOperations(ProcessRuntime, EventSource, List)"})
-  void testProcessRuntimeOperations_givenLocalTaskSourceWithTaskRuntime2() {
-    // Arrange
-    ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
-    ProcessRuntime processRuntime = mock(ProcessRuntime.class);
-    EventSource eventSource = mock(EventSource.class);
-
-    ArrayList<TaskSource> taskSources = new ArrayList<>();
-    taskSources.add(new LocalTaskSource(mock(TaskRuntime.class)));
-    taskSources.add(new LocalTaskSource(mock(TaskRuntime.class)));
-
-    // Act
-    ProcessRuntimeOperations actualProcessRuntimeOperationsResult = activitiAssertionsAutoConfiguration
-        .processRuntimeOperations(processRuntime, eventSource, taskSources);
-
-    // Assert
-    assertTrue(actualProcessRuntimeOperationsResult.start(null) instanceof ProcessInstanceAssertionsImpl);
-    assertTrue(actualProcessRuntimeOperationsResult.signal(null) instanceof SignalAssertionsImpl);
-  }
-
-  /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#processRuntimeOperations(ProcessRuntime, EventSource, List)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#processRuntimeOperations(ProcessRuntime, EventSource, List)}
-   */
-  @Test
-  @DisplayName("Test processRuntimeOperations(ProcessRuntime, EventSource, List); when ArrayList()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "ProcessRuntimeOperations ActivitiAssertionsAutoConfiguration.processRuntimeOperations(ProcessRuntime, EventSource, List)"})
-  void testProcessRuntimeOperations_whenArrayList() {
+  void testProcessRuntimeOperations() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
     ProcessRuntime processRuntime = mock(ProcessRuntime.class);
@@ -199,74 +116,58 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#taskRuntimeOperations(TaskRuntime, EventSource, List)}.
-   * <ul>
-   *   <li>Given {@link LocalTaskSource#LocalTaskSource(TaskRuntime)} with {@link TaskRuntime}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#taskRuntimeOperations(TaskRuntime, EventSource, List)}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#processRuntimeOperations(ProcessRuntime, EventSource, List)}
    */
   @Test
-  @DisplayName("Test taskRuntimeOperations(TaskRuntime, EventSource, List); given LocalTaskSource(TaskRuntime) with TaskRuntime")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.test.operations.TaskRuntimeOperations ActivitiAssertionsAutoConfiguration.taskRuntimeOperations(TaskRuntime, EventSource, List)"})
-  void testTaskRuntimeOperations_givenLocalTaskSourceWithTaskRuntime() {
+  void testProcessRuntimeOperations2() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
-    TaskRuntime taskRuntime = mock(TaskRuntime.class);
+    ProcessRuntime processRuntime = mock(ProcessRuntime.class);
     EventSource eventSource = mock(EventSource.class);
 
     ArrayList<TaskSource> taskSources = new ArrayList<>();
     taskSources.add(new LocalTaskSource(mock(TaskRuntime.class)));
 
-    // Act and Assert
-    assertTrue(activitiAssertionsAutoConfiguration.taskRuntimeOperations(taskRuntime, eventSource, taskSources)
-        .claim(null) instanceof TaskAssertionsImpl);
+    // Act
+    ProcessRuntimeOperations actualProcessRuntimeOperationsResult = activitiAssertionsAutoConfiguration
+        .processRuntimeOperations(processRuntime, eventSource, taskSources);
+
+    // Assert
+    assertTrue(actualProcessRuntimeOperationsResult.start(null) instanceof ProcessInstanceAssertionsImpl);
+    assertTrue(actualProcessRuntimeOperationsResult.signal(null) instanceof SignalAssertionsImpl);
   }
 
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#taskRuntimeOperations(TaskRuntime, EventSource, List)}.
-   * <ul>
-   *   <li>Given {@link LocalTaskSource#LocalTaskSource(TaskRuntime)} with {@link TaskRuntime}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#taskRuntimeOperations(TaskRuntime, EventSource, List)}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#processRuntimeOperations(ProcessRuntime, EventSource, List)}
    */
   @Test
-  @DisplayName("Test taskRuntimeOperations(TaskRuntime, EventSource, List); given LocalTaskSource(TaskRuntime) with TaskRuntime")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.test.operations.TaskRuntimeOperations ActivitiAssertionsAutoConfiguration.taskRuntimeOperations(TaskRuntime, EventSource, List)"})
-  void testTaskRuntimeOperations_givenLocalTaskSourceWithTaskRuntime2() {
+  void testProcessRuntimeOperations3() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
-    TaskRuntime taskRuntime = mock(TaskRuntime.class);
+    ProcessRuntime processRuntime = mock(ProcessRuntime.class);
     EventSource eventSource = mock(EventSource.class);
 
     ArrayList<TaskSource> taskSources = new ArrayList<>();
     taskSources.add(new LocalTaskSource(mock(TaskRuntime.class)));
     taskSources.add(new LocalTaskSource(mock(TaskRuntime.class)));
 
-    // Act and Assert
-    assertTrue(activitiAssertionsAutoConfiguration.taskRuntimeOperations(taskRuntime, eventSource, taskSources)
-        .claim(null) instanceof TaskAssertionsImpl);
+    // Act
+    ProcessRuntimeOperations actualProcessRuntimeOperationsResult = activitiAssertionsAutoConfiguration
+        .processRuntimeOperations(processRuntime, eventSource, taskSources);
+
+    // Assert
+    assertTrue(actualProcessRuntimeOperationsResult.start(null) instanceof ProcessInstanceAssertionsImpl);
+    assertTrue(actualProcessRuntimeOperationsResult.signal(null) instanceof SignalAssertionsImpl);
   }
 
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#taskRuntimeOperations(TaskRuntime, EventSource, List)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#taskRuntimeOperations(TaskRuntime, EventSource, List)}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#taskRuntimeOperations(TaskRuntime, EventSource, List)}
    */
   @Test
-  @DisplayName("Test taskRuntimeOperations(TaskRuntime, EventSource, List); when ArrayList()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.test.operations.TaskRuntimeOperations ActivitiAssertionsAutoConfiguration.taskRuntimeOperations(TaskRuntime, EventSource, List)"})
-  void testTaskRuntimeOperations_whenArrayList() {
+  void testTaskRuntimeOperations() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
     TaskRuntime taskRuntime = mock(TaskRuntime.class);
@@ -278,15 +179,49 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnActivityStartedListener()}.
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnActivityStartedListener()}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#taskRuntimeOperations(TaskRuntime, EventSource, List)}
    */
   @Test
-  @DisplayName("Test keepInMemoryBpmnActivityStartedListener()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.process.runtime.events.listener.BPMNElementEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryBpmnActivityStartedListener()"})
+  void testTaskRuntimeOperations2() {
+    // Arrange
+    ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
+    TaskRuntime taskRuntime = mock(TaskRuntime.class);
+    EventSource eventSource = mock(EventSource.class);
+
+    ArrayList<TaskSource> taskSources = new ArrayList<>();
+    taskSources.add(new LocalTaskSource(mock(TaskRuntime.class)));
+
+    // Act and Assert
+    assertTrue(activitiAssertionsAutoConfiguration.taskRuntimeOperations(taskRuntime, eventSource, taskSources)
+        .claim(null) instanceof TaskAssertionsImpl);
+  }
+
+  /**
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#taskRuntimeOperations(TaskRuntime, EventSource, List)}
+   */
+  @Test
+  void testTaskRuntimeOperations3() {
+    // Arrange
+    ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
+    TaskRuntime taskRuntime = mock(TaskRuntime.class);
+    EventSource eventSource = mock(EventSource.class);
+
+    ArrayList<TaskSource> taskSources = new ArrayList<>();
+    taskSources.add(new LocalTaskSource(mock(TaskRuntime.class)));
+    taskSources.add(new LocalTaskSource(mock(TaskRuntime.class)));
+
+    // Act and Assert
+    assertTrue(activitiAssertionsAutoConfiguration.taskRuntimeOperations(taskRuntime, eventSource, taskSources)
+        .claim(null) instanceof TaskAssertionsImpl);
+  }
+
+  /**
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnActivityStartedListener()}
+   */
+  @Test
   void testKeepInMemoryBpmnActivityStartedListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -296,21 +231,21 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
     activitiAssertionsAutoConfiguration.keepInMemoryBpmnActivityStartedListener().onEvent(bpmnActivityStartedEvent);
 
     // Assert
-    List<RuntimeEvent<?, ?>> events = activitiAssertionsAutoConfiguration.handledEvents().getEvents();
+    LocalEventSource handledEventsResult = activitiAssertionsAutoConfiguration.handledEvents();
+    List<RuntimeEvent<?, ?>> events = handledEventsResult.getEvents();
     assertEquals(1, events.size());
+    assertTrue(handledEventsResult.getTaskEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerCancelledEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerFiredEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerScheduledEvents().isEmpty());
     assertSame(bpmnActivityStartedEvent, events.get(0));
   }
 
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnActivityCompletedListener()}.
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnActivityCompletedListener()}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnActivityCompletedListener()}
    */
   @Test
-  @DisplayName("Test keepInMemoryBpmnActivityCompletedListener()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.process.runtime.events.listener.BPMNElementEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryBpmnActivityCompletedListener()"})
   void testKeepInMemoryBpmnActivityCompletedListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -320,21 +255,21 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
     activitiAssertionsAutoConfiguration.keepInMemoryBpmnActivityCompletedListener().onEvent(bpmnActivityCompletedEvent);
 
     // Assert
-    List<RuntimeEvent<?, ?>> events = activitiAssertionsAutoConfiguration.handledEvents().getEvents();
+    LocalEventSource handledEventsResult = activitiAssertionsAutoConfiguration.handledEvents();
+    List<RuntimeEvent<?, ?>> events = handledEventsResult.getEvents();
     assertEquals(1, events.size());
+    assertTrue(handledEventsResult.getTaskEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerCancelledEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerFiredEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerScheduledEvents().isEmpty());
     assertSame(bpmnActivityCompletedEvent, events.get(0));
   }
 
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnActivityCancelledListener()}.
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnActivityCancelledListener()}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnActivityCancelledListener()}
    */
   @Test
-  @DisplayName("Test keepInMemoryBpmnActivityCancelledListener()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.process.runtime.events.listener.BPMNElementEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryBpmnActivityCancelledListener()"})
   void testKeepInMemoryBpmnActivityCancelledListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -344,21 +279,21 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
     activitiAssertionsAutoConfiguration.keepInMemoryBpmnActivityCancelledListener().onEvent(bpmnActivityCancelledEvent);
 
     // Assert
-    List<RuntimeEvent<?, ?>> events = activitiAssertionsAutoConfiguration.handledEvents().getEvents();
+    LocalEventSource handledEventsResult = activitiAssertionsAutoConfiguration.handledEvents();
+    List<RuntimeEvent<?, ?>> events = handledEventsResult.getEvents();
     assertEquals(1, events.size());
+    assertTrue(handledEventsResult.getTaskEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerCancelledEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerFiredEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerScheduledEvents().isEmpty());
     assertSame(bpmnActivityCancelledEvent, events.get(0));
   }
 
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnSequenceFlowTakenListener()}.
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnSequenceFlowTakenListener()}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnSequenceFlowTakenListener()}
    */
   @Test
-  @DisplayName("Test keepInMemoryBpmnSequenceFlowTakenListener()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.process.runtime.events.listener.BPMNElementEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryBpmnSequenceFlowTakenListener()"})
   void testKeepInMemoryBpmnSequenceFlowTakenListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -368,21 +303,21 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
     activitiAssertionsAutoConfiguration.keepInMemoryBpmnSequenceFlowTakenListener().onEvent(bpmnSequenceFlowTakenEvent);
 
     // Assert
-    List<RuntimeEvent<?, ?>> events = activitiAssertionsAutoConfiguration.handledEvents().getEvents();
+    LocalEventSource handledEventsResult = activitiAssertionsAutoConfiguration.handledEvents();
+    List<RuntimeEvent<?, ?>> events = handledEventsResult.getEvents();
     assertEquals(1, events.size());
+    assertTrue(handledEventsResult.getTaskEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerCancelledEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerFiredEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerScheduledEvents().isEmpty());
     assertSame(bpmnSequenceFlowTakenEvent, events.get(0));
   }
 
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessCreatedListener()}.
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessCreatedListener()}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessCreatedListener()}
    */
   @Test
-  @DisplayName("Test keepInMemoryProcessCreatedListener()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryProcessCreatedListener()"})
   void testKeepInMemoryProcessCreatedListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -392,21 +327,21 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
     activitiAssertionsAutoConfiguration.keepInMemoryProcessCreatedListener().onEvent(processCreatedEvent);
 
     // Assert
-    List<RuntimeEvent<?, ?>> events = activitiAssertionsAutoConfiguration.handledEvents().getEvents();
+    LocalEventSource handledEventsResult = activitiAssertionsAutoConfiguration.handledEvents();
+    List<RuntimeEvent<?, ?>> events = handledEventsResult.getEvents();
     assertEquals(1, events.size());
+    assertTrue(handledEventsResult.getTaskEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerCancelledEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerFiredEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerScheduledEvents().isEmpty());
     assertSame(processCreatedEvent, events.get(0));
   }
 
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessStartedListener()}.
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessStartedListener()}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessStartedListener()}
    */
   @Test
-  @DisplayName("Test keepInMemoryProcessStartedListener()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryProcessStartedListener()"})
   void testKeepInMemoryProcessStartedListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -416,21 +351,21 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
     activitiAssertionsAutoConfiguration.keepInMemoryProcessStartedListener().onEvent(processStartedEvent);
 
     // Assert
-    List<RuntimeEvent<?, ?>> events = activitiAssertionsAutoConfiguration.handledEvents().getEvents();
+    LocalEventSource handledEventsResult = activitiAssertionsAutoConfiguration.handledEvents();
+    List<RuntimeEvent<?, ?>> events = handledEventsResult.getEvents();
     assertEquals(1, events.size());
+    assertTrue(handledEventsResult.getTaskEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerCancelledEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerFiredEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerScheduledEvents().isEmpty());
     assertSame(processStartedEvent, events.get(0));
   }
 
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessCompletedListener()}.
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessCompletedListener()}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessCompletedListener()}
    */
   @Test
-  @DisplayName("Test keepInMemoryProcessCompletedListener()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryProcessCompletedListener()"})
   void testKeepInMemoryProcessCompletedListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -440,21 +375,21 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
     activitiAssertionsAutoConfiguration.keepInMemoryProcessCompletedListener().onEvent(processCompletedEvent);
 
     // Assert
-    List<RuntimeEvent<?, ?>> events = activitiAssertionsAutoConfiguration.handledEvents().getEvents();
+    LocalEventSource handledEventsResult = activitiAssertionsAutoConfiguration.handledEvents();
+    List<RuntimeEvent<?, ?>> events = handledEventsResult.getEvents();
     assertEquals(1, events.size());
+    assertTrue(handledEventsResult.getTaskEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerCancelledEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerFiredEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerScheduledEvents().isEmpty());
     assertSame(processCompletedEvent, events.get(0));
   }
 
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessResumedListener()}.
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessResumedListener()}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessResumedListener()}
    */
   @Test
-  @DisplayName("Test keepInMemoryProcessResumedListener()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryProcessResumedListener()"})
   void testKeepInMemoryProcessResumedListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -464,21 +399,21 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
     activitiAssertionsAutoConfiguration.keepInMemoryProcessResumedListener().onEvent(processResumedEvent);
 
     // Assert
-    List<RuntimeEvent<?, ?>> events = activitiAssertionsAutoConfiguration.handledEvents().getEvents();
+    LocalEventSource handledEventsResult = activitiAssertionsAutoConfiguration.handledEvents();
+    List<RuntimeEvent<?, ?>> events = handledEventsResult.getEvents();
     assertEquals(1, events.size());
+    assertTrue(handledEventsResult.getTaskEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerCancelledEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerFiredEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerScheduledEvents().isEmpty());
     assertSame(processResumedEvent, events.get(0));
   }
 
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessSuspendedListener()}.
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessSuspendedListener()}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessSuspendedListener()}
    */
   @Test
-  @DisplayName("Test keepInMemoryProcessSuspendedListener()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryProcessSuspendedListener()"})
   void testKeepInMemoryProcessSuspendedListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -488,21 +423,21 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
     activitiAssertionsAutoConfiguration.keepInMemoryProcessSuspendedListener().onEvent(processSuspendedEvent);
 
     // Assert
-    List<RuntimeEvent<?, ?>> events = activitiAssertionsAutoConfiguration.handledEvents().getEvents();
+    LocalEventSource handledEventsResult = activitiAssertionsAutoConfiguration.handledEvents();
+    List<RuntimeEvent<?, ?>> events = handledEventsResult.getEvents();
     assertEquals(1, events.size());
+    assertTrue(handledEventsResult.getTaskEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerCancelledEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerFiredEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerScheduledEvents().isEmpty());
     assertSame(processSuspendedEvent, events.get(0));
   }
 
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessCancelledListener()}.
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessCancelledListener()}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessCancelledListener()}
    */
   @Test
-  @DisplayName("Test keepInMemoryProcessCancelledListener()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryProcessCancelledListener()"})
   void testKeepInMemoryProcessCancelledListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -512,21 +447,21 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
     activitiAssertionsAutoConfiguration.keepInMemoryProcessCancelledListener().onEvent(processCancelledEvent);
 
     // Assert
-    List<RuntimeEvent<?, ?>> events = activitiAssertionsAutoConfiguration.handledEvents().getEvents();
+    LocalEventSource handledEventsResult = activitiAssertionsAutoConfiguration.handledEvents();
+    List<RuntimeEvent<?, ?>> events = handledEventsResult.getEvents();
     assertEquals(1, events.size());
+    assertTrue(handledEventsResult.getTaskEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerCancelledEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerFiredEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerScheduledEvents().isEmpty());
     assertSame(processCancelledEvent, events.get(0));
   }
 
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryVariableCreatedEventListener()}.
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryVariableCreatedEventListener()}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryVariableCreatedEventListener()}
    */
   @Test
-  @DisplayName("Test keepInMemoryVariableCreatedEventListener()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.runtime.shared.events.VariableEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryVariableCreatedEventListener()"})
   void testKeepInMemoryVariableCreatedEventListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -536,21 +471,21 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
     activitiAssertionsAutoConfiguration.keepInMemoryVariableCreatedEventListener().onEvent(variableCreatedEvent);
 
     // Assert
-    List<RuntimeEvent<?, ?>> events = activitiAssertionsAutoConfiguration.handledEvents().getEvents();
+    LocalEventSource handledEventsResult = activitiAssertionsAutoConfiguration.handledEvents();
+    List<RuntimeEvent<?, ?>> events = handledEventsResult.getEvents();
     assertEquals(1, events.size());
+    assertTrue(handledEventsResult.getTaskEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerCancelledEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerFiredEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerScheduledEvents().isEmpty());
     assertSame(variableCreatedEvent, events.get(0));
   }
 
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryVariableDeletedEventListener()}.
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryVariableDeletedEventListener()}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryVariableDeletedEventListener()}
    */
   @Test
-  @DisplayName("Test keepInMemoryVariableDeletedEventListener()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.runtime.shared.events.VariableEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryVariableDeletedEventListener()"})
   void testKeepInMemoryVariableDeletedEventListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -560,21 +495,21 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
     activitiAssertionsAutoConfiguration.keepInMemoryVariableDeletedEventListener().onEvent(variableDeletedEvent);
 
     // Assert
-    List<RuntimeEvent<?, ?>> events = activitiAssertionsAutoConfiguration.handledEvents().getEvents();
+    LocalEventSource handledEventsResult = activitiAssertionsAutoConfiguration.handledEvents();
+    List<RuntimeEvent<?, ?>> events = handledEventsResult.getEvents();
     assertEquals(1, events.size());
+    assertTrue(handledEventsResult.getTaskEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerCancelledEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerFiredEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerScheduledEvents().isEmpty());
     assertSame(variableDeletedEvent, events.get(0));
   }
 
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryVariableUpdatedEventListener()}.
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryVariableUpdatedEventListener()}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryVariableUpdatedEventListener()}
    */
   @Test
-  @DisplayName("Test keepInMemoryVariableUpdatedEventListener()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.runtime.shared.events.VariableEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryVariableUpdatedEventListener()"})
   void testKeepInMemoryVariableUpdatedEventListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -584,21 +519,21 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
     activitiAssertionsAutoConfiguration.keepInMemoryVariableUpdatedEventListener().onEvent(variableUpdatedEvent);
 
     // Assert
-    List<RuntimeEvent<?, ?>> events = activitiAssertionsAutoConfiguration.handledEvents().getEvents();
+    LocalEventSource handledEventsResult = activitiAssertionsAutoConfiguration.handledEvents();
+    List<RuntimeEvent<?, ?>> events = handledEventsResult.getEvents();
     assertEquals(1, events.size());
+    assertTrue(handledEventsResult.getTaskEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerCancelledEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerFiredEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerScheduledEvents().isEmpty());
     assertSame(variableUpdatedEvent, events.get(0));
   }
 
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskCreatedEventListener()}.
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskCreatedEventListener()}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskCreatedEventListener()}
    */
   @Test
-  @DisplayName("Test keepInMemoryTaskCreatedEventListener()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.task.runtime.events.listener.TaskEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryTaskCreatedEventListener()"})
   void testKeepInMemoryTaskCreatedEventListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -608,21 +543,21 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
     activitiAssertionsAutoConfiguration.keepInMemoryTaskCreatedEventListener().onEvent(taskCreatedEvent);
 
     // Assert
-    List<RuntimeEvent<?, ?>> events = activitiAssertionsAutoConfiguration.handledEvents().getEvents();
+    LocalEventSource handledEventsResult = activitiAssertionsAutoConfiguration.handledEvents();
+    List<RuntimeEvent<?, ?>> events = handledEventsResult.getEvents();
     assertEquals(1, events.size());
+    assertTrue(handledEventsResult.getTaskEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerCancelledEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerFiredEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerScheduledEvents().isEmpty());
     assertSame(taskCreatedEvent, events.get(0));
   }
 
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskUpdatedEventListener()}.
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskUpdatedEventListener()}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskUpdatedEventListener()}
    */
   @Test
-  @DisplayName("Test keepInMemoryTaskUpdatedEventListener()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.task.runtime.events.listener.TaskEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryTaskUpdatedEventListener()"})
   void testKeepInMemoryTaskUpdatedEventListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -632,21 +567,21 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
     activitiAssertionsAutoConfiguration.keepInMemoryTaskUpdatedEventListener().onEvent(taskUpdatedEvent);
 
     // Assert
-    List<RuntimeEvent<?, ?>> events = activitiAssertionsAutoConfiguration.handledEvents().getEvents();
+    LocalEventSource handledEventsResult = activitiAssertionsAutoConfiguration.handledEvents();
+    List<RuntimeEvent<?, ?>> events = handledEventsResult.getEvents();
     assertEquals(1, events.size());
+    assertTrue(handledEventsResult.getTaskEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerCancelledEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerFiredEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerScheduledEvents().isEmpty());
     assertSame(taskUpdatedEvent, events.get(0));
   }
 
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskCompletedEventListener()}.
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskCompletedEventListener()}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskCompletedEventListener()}
    */
   @Test
-  @DisplayName("Test keepInMemoryTaskCompletedEventListener()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.task.runtime.events.listener.TaskEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryTaskCompletedEventListener()"})
   void testKeepInMemoryTaskCompletedEventListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -656,21 +591,21 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
     activitiAssertionsAutoConfiguration.keepInMemoryTaskCompletedEventListener().onEvent(taskCompletedEvent);
 
     // Assert
-    List<RuntimeEvent<?, ?>> events = activitiAssertionsAutoConfiguration.handledEvents().getEvents();
+    LocalEventSource handledEventsResult = activitiAssertionsAutoConfiguration.handledEvents();
+    List<RuntimeEvent<?, ?>> events = handledEventsResult.getEvents();
     assertEquals(1, events.size());
+    assertTrue(handledEventsResult.getTaskEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerCancelledEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerFiredEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerScheduledEvents().isEmpty());
     assertSame(taskCompletedEvent, events.get(0));
   }
 
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskSuspendedEventListener()}.
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskSuspendedEventListener()}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskSuspendedEventListener()}
    */
   @Test
-  @DisplayName("Test keepInMemoryTaskSuspendedEventListener()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.task.runtime.events.listener.TaskEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryTaskSuspendedEventListener()"})
   void testKeepInMemoryTaskSuspendedEventListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -680,21 +615,21 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
     activitiAssertionsAutoConfiguration.keepInMemoryTaskSuspendedEventListener().onEvent(taskSuspendedEvent);
 
     // Assert
-    List<RuntimeEvent<?, ?>> events = activitiAssertionsAutoConfiguration.handledEvents().getEvents();
+    LocalEventSource handledEventsResult = activitiAssertionsAutoConfiguration.handledEvents();
+    List<RuntimeEvent<?, ?>> events = handledEventsResult.getEvents();
     assertEquals(1, events.size());
+    assertTrue(handledEventsResult.getTaskEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerCancelledEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerFiredEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerScheduledEvents().isEmpty());
     assertSame(taskSuspendedEvent, events.get(0));
   }
 
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskAssignedEventListener()}.
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskAssignedEventListener()}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskAssignedEventListener()}
    */
   @Test
-  @DisplayName("Test keepInMemoryTaskAssignedEventListener()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.task.runtime.events.listener.TaskEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryTaskAssignedEventListener()"})
   void testKeepInMemoryTaskAssignedEventListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -704,21 +639,21 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
     activitiAssertionsAutoConfiguration.keepInMemoryTaskAssignedEventListener().onEvent(taskAssignedEvent);
 
     // Assert
-    List<RuntimeEvent<?, ?>> events = activitiAssertionsAutoConfiguration.handledEvents().getEvents();
+    LocalEventSource handledEventsResult = activitiAssertionsAutoConfiguration.handledEvents();
+    List<RuntimeEvent<?, ?>> events = handledEventsResult.getEvents();
     assertEquals(1, events.size());
+    assertTrue(handledEventsResult.getTaskEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerCancelledEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerFiredEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerScheduledEvents().isEmpty());
     assertSame(taskAssignedEvent, events.get(0));
   }
 
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskCancelledEventListener()}.
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskCancelledEventListener()}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskCancelledEventListener()}
    */
   @Test
-  @DisplayName("Test keepInMemoryTaskCancelledEventListener()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.task.runtime.events.listener.TaskEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryTaskCancelledEventListener()"})
   void testKeepInMemoryTaskCancelledEventListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -728,21 +663,21 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
     activitiAssertionsAutoConfiguration.keepInMemoryTaskCancelledEventListener().onEvent(taskCancelledEvent);
 
     // Assert
-    List<RuntimeEvent<?, ?>> events = activitiAssertionsAutoConfiguration.handledEvents().getEvents();
+    LocalEventSource handledEventsResult = activitiAssertionsAutoConfiguration.handledEvents();
+    List<RuntimeEvent<?, ?>> events = handledEventsResult.getEvents();
     assertEquals(1, events.size());
+    assertTrue(handledEventsResult.getTaskEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerCancelledEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerFiredEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerScheduledEvents().isEmpty());
     assertSame(taskCancelledEvent, events.get(0));
   }
 
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnSignalReceivedListener()}.
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnSignalReceivedListener()}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnSignalReceivedListener()}
    */
   @Test
-  @DisplayName("Test keepInMemoryBpmnSignalReceivedListener()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.process.runtime.events.listener.BPMNElementEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryBpmnSignalReceivedListener()"})
   void testKeepInMemoryBpmnSignalReceivedListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -752,21 +687,21 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
     activitiAssertionsAutoConfiguration.keepInMemoryBpmnSignalReceivedListener().onEvent(bpmnSignalReceivedEvent);
 
     // Assert
-    List<RuntimeEvent<?, ?>> events = activitiAssertionsAutoConfiguration.handledEvents().getEvents();
+    LocalEventSource handledEventsResult = activitiAssertionsAutoConfiguration.handledEvents();
+    List<RuntimeEvent<?, ?>> events = handledEventsResult.getEvents();
     assertEquals(1, events.size());
+    assertTrue(handledEventsResult.getTaskEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerCancelledEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerFiredEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerScheduledEvents().isEmpty());
     assertSame(bpmnSignalReceivedEvent, events.get(0));
   }
 
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerScheduledListener()}.
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerScheduledListener()}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerScheduledListener()}
    */
   @Test
-  @DisplayName("Test keepInMemoryTimerScheduledListener()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.process.runtime.events.listener.BPMNElementEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryTimerScheduledListener()"})
   void testKeepInMemoryTimerScheduledListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -776,21 +711,21 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
     activitiAssertionsAutoConfiguration.keepInMemoryTimerScheduledListener().onEvent(bpmnTimerScheduledEvent);
 
     // Assert
-    List<RuntimeEvent<?, ?>> events = activitiAssertionsAutoConfiguration.handledEvents().getEvents();
+    LocalEventSource handledEventsResult = activitiAssertionsAutoConfiguration.handledEvents();
+    List<RuntimeEvent<?, ?>> events = handledEventsResult.getEvents();
     assertEquals(1, events.size());
+    assertTrue(handledEventsResult.getTaskEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerCancelledEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerFiredEvents().isEmpty());
+    assertEquals(events, handledEventsResult.getTimerScheduledEvents());
     assertSame(bpmnTimerScheduledEvent, events.get(0));
   }
 
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerFiredListener()}.
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerFiredListener()}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerFiredListener()}
    */
   @Test
-  @DisplayName("Test keepInMemoryTimerFiredListener()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.process.runtime.events.listener.BPMNElementEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryTimerFiredListener()"})
   void testKeepInMemoryTimerFiredListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -800,21 +735,21 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
     activitiAssertionsAutoConfiguration.keepInMemoryTimerFiredListener().onEvent(bpmnTimerFiredEvent);
 
     // Assert
-    List<RuntimeEvent<?, ?>> events = activitiAssertionsAutoConfiguration.handledEvents().getEvents();
+    LocalEventSource handledEventsResult = activitiAssertionsAutoConfiguration.handledEvents();
+    List<RuntimeEvent<?, ?>> events = handledEventsResult.getEvents();
     assertEquals(1, events.size());
+    assertTrue(handledEventsResult.getTaskEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerCancelledEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerScheduledEvents().isEmpty());
+    assertEquals(events, handledEventsResult.getTimerFiredEvents());
     assertSame(bpmnTimerFiredEvent, events.get(0));
   }
 
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerExecutedListener()}.
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerExecutedListener()}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerExecutedListener()}
    */
   @Test
-  @DisplayName("Test keepInMemoryTimerExecutedListener()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.process.runtime.events.listener.BPMNElementEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryTimerExecutedListener()"})
   void testKeepInMemoryTimerExecutedListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -824,21 +759,21 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
     activitiAssertionsAutoConfiguration.keepInMemoryTimerExecutedListener().onEvent(bpmnTimerExecutedEvent);
 
     // Assert
-    List<RuntimeEvent<?, ?>> events = activitiAssertionsAutoConfiguration.handledEvents().getEvents();
+    LocalEventSource handledEventsResult = activitiAssertionsAutoConfiguration.handledEvents();
+    List<RuntimeEvent<?, ?>> events = handledEventsResult.getEvents();
     assertEquals(1, events.size());
+    assertTrue(handledEventsResult.getTaskEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerCancelledEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerFiredEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerScheduledEvents().isEmpty());
     assertSame(bpmnTimerExecutedEvent, events.get(0));
   }
 
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerFailedListener()}.
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerFailedListener()}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerFailedListener()}
    */
   @Test
-  @DisplayName("Test keepInMemoryTimerFailedListener()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.process.runtime.events.listener.BPMNElementEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryTimerFailedListener()"})
   void testKeepInMemoryTimerFailedListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -848,21 +783,21 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
     activitiAssertionsAutoConfiguration.keepInMemoryTimerFailedListener().onEvent(bpmnTimerFailedEvent);
 
     // Assert
-    List<RuntimeEvent<?, ?>> events = activitiAssertionsAutoConfiguration.handledEvents().getEvents();
+    LocalEventSource handledEventsResult = activitiAssertionsAutoConfiguration.handledEvents();
+    List<RuntimeEvent<?, ?>> events = handledEventsResult.getEvents();
     assertEquals(1, events.size());
+    assertTrue(handledEventsResult.getTaskEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerCancelledEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerFiredEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerScheduledEvents().isEmpty());
     assertSame(bpmnTimerFailedEvent, events.get(0));
   }
 
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerCancelledListener()}.
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerCancelledListener()}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerCancelledListener()}
    */
   @Test
-  @DisplayName("Test keepInMemoryTimerCancelledListener()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.process.runtime.events.listener.BPMNElementEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryTimerCancelledListener()"})
   void testKeepInMemoryTimerCancelledListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -872,21 +807,21 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
     activitiAssertionsAutoConfiguration.keepInMemoryTimerCancelledListener().onEvent(bpmnTimerCancelledEvent);
 
     // Assert
-    List<RuntimeEvent<?, ?>> events = activitiAssertionsAutoConfiguration.handledEvents().getEvents();
+    LocalEventSource handledEventsResult = activitiAssertionsAutoConfiguration.handledEvents();
+    List<RuntimeEvent<?, ?>> events = handledEventsResult.getEvents();
     assertEquals(1, events.size());
+    assertTrue(handledEventsResult.getTaskEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerFiredEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerScheduledEvents().isEmpty());
+    assertEquals(events, handledEventsResult.getTimerCancelledEvents());
     assertSame(bpmnTimerCancelledEvent, events.get(0));
   }
 
   /**
-   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryErrorReceivedListener()}.
-   * <p>
-   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryErrorReceivedListener()}
+   * Method under test:
+   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryErrorReceivedListener()}
    */
   @Test
-  @DisplayName("Test keepInMemoryErrorReceivedListener()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "org.activiti.api.process.runtime.events.listener.BPMNElementEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryErrorReceivedListener()"})
   void testKeepInMemoryErrorReceivedListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -896,20 +831,21 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
     activitiAssertionsAutoConfiguration.keepInMemoryErrorReceivedListener().onEvent(bpmnErrorReceivedEvent);
 
     // Assert
-    List<RuntimeEvent<?, ?>> events = activitiAssertionsAutoConfiguration.handledEvents().getEvents();
+    LocalEventSource handledEventsResult = activitiAssertionsAutoConfiguration.handledEvents();
+    List<RuntimeEvent<?, ?>> events = handledEventsResult.getEvents();
     assertEquals(1, events.size());
+    assertTrue(handledEventsResult.getTaskEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerCancelledEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerFiredEvents().isEmpty());
+    assertTrue(handledEventsResult.getTimerScheduledEvents().isEmpty());
     assertSame(bpmnErrorReceivedEvent, events.get(0));
   }
 
   /**
-   * Test new {@link ActivitiAssertionsAutoConfiguration} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link ActivitiAssertionsAutoConfiguration}
+   * Method under test: default or parameterless constructor of
+   * {@link ActivitiAssertionsAutoConfiguration}
    */
   @Test
-  @DisplayName("Test new ActivitiAssertionsAutoConfiguration (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ActivitiAssertionsAutoConfiguration.<init>()"})
   void testNewActivitiAssertionsAutoConfiguration() {
     // Arrange, Act and Assert
     LocalEventSource handledEventsResult = (new ActivitiAssertionsAutoConfiguration()).handledEvents();

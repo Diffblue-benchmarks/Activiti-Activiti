@@ -17,23 +17,16 @@ package org.activiti.application.conf;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.application.ApplicationEntryDiscovery;
 import org.activiti.application.discovery.ProcessEntryDiscovery;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ApplicationProcessAutoConfigurationDiffblueTest {
   /**
-   * Test {@link ApplicationProcessAutoConfiguration#processEntryDiscovery()}.
-   * <p>
-   * Method under test: {@link ApplicationProcessAutoConfiguration#processEntryDiscovery()}
+   * Method under test:
+   * {@link ApplicationProcessAutoConfiguration#processEntryDiscovery()}
    */
   @Test
-  @DisplayName("Test processEntryDiscovery()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ApplicationEntryDiscovery ApplicationProcessAutoConfiguration.processEntryDiscovery()"})
   void testProcessEntryDiscovery() {
     // Arrange and Act
     ApplicationEntryDiscovery actualProcessEntryDiscoveryResult = (new ApplicationProcessAutoConfiguration())

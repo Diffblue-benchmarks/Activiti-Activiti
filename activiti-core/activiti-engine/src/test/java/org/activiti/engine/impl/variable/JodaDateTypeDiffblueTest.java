@@ -19,8 +19,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
@@ -28,56 +29,35 @@ import org.activiti.engine.impl.persistence.entity.HistoricDetailVariableInstanc
 import org.activiti.engine.impl.persistence.entity.HistoricVariableInstanceEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class JodaDateTypeDiffblueTest {
   /**
-   * Test {@link JodaDateType#isAbleToStore(Object)}.
-   * <ul>
-   *   <li>When {@link JSONObject#NULL}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link JodaDateType#isAbleToStore(Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean JodaDateType.isAbleToStore(Object)"})
-  public void testIsAbleToStore_whenNull_thenReturnFalse() {
+  public void testIsAbleToStore() {
     // Arrange, Act and Assert
     assertFalse((new JodaDateType()).isAbleToStore(JSONObject.NULL));
-  }
-
-  /**
-   * Test {@link JodaDateType#isAbleToStore(Object)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JodaDateType#isAbleToStore(Object)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean JodaDateType.isAbleToStore(Object)"})
-  public void testIsAbleToStore_whenNull_thenReturnTrue() {
-    // Arrange, Act and Assert
     assertTrue((new JodaDateType()).isAbleToStore(null));
   }
 
   /**
-   * Test {@link JodaDateType#getValue(ValueFields)}.
-   * <ul>
-   *   <li>Given {@link JSONObject#NULL}.</li>
-   *   <li>Then return toString is {@code 1970-01-01}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link JodaDateType#getValue(ValueFields)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object JodaDateType.getValue(ValueFields)"})
-  public void testGetValue_givenNull_thenReturnToStringIs19700101() {
+  public void testGetValue() {
+    // Arrange
+    JodaDateType jodaDateType = new JodaDateType();
+
+    // Act and Assert
+    assertNull(jodaDateType.getValue(new HistoricDetailVariableInstanceUpdateEntityImpl()));
+  }
+
+  /**
+   * Method under test: {@link JodaDateType#getValue(ValueFields)}
+   */
+  @Test
+  public void testGetValue2() {
     // Arrange
     JodaDateType jodaDateType = new JodaDateType();
 
@@ -106,34 +86,44 @@ public class JodaDateTypeDiffblueTest {
   }
 
   /**
-   * Test {@link JodaDateType#getValue(ValueFields)}.
-   * <ul>
-   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor).</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link JodaDateType#getValue(ValueFields)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object JodaDateType.getValue(ValueFields)"})
-  public void testGetValue_whenHistoricDetailVariableInstanceUpdateEntityImpl_thenReturnNull() {
+  public void testGetValue3() {
     // Arrange
     JodaDateType jodaDateType = new JodaDateType();
+    ValueFields valueFields = mock(ValueFields.class);
+    when(valueFields.getLongValue()).thenReturn(42L);
 
-    // Act and Assert
-    assertNull(jodaDateType.getValue(new HistoricDetailVariableInstanceUpdateEntityImpl()));
+    // Act
+    Object actualValue = jodaDateType.getValue(valueFields);
+
+    // Assert
+    verify(valueFields).getLongValue();
+    assertEquals("1970-01-01", actualValue.toString());
   }
 
   /**
-   * Test {@link JodaDateType#setValue(Object, ValueFields)}.
-   * <p>
    * Method under test: {@link JodaDateType#setValue(Object, ValueFields)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void JodaDateType.setValue(Object, ValueFields)"})
   public void testSetValue() {
+    // Arrange
+    JodaDateType jodaDateType = new JodaDateType();
+    HistoricDetailVariableInstanceUpdateEntityImpl valueFields = new HistoricDetailVariableInstanceUpdateEntityImpl();
+
+    // Act
+    jodaDateType.setValue(null, valueFields);
+
+    // Assert
+    assertNull(valueFields.getLongValue());
+  }
+
+  /**
+   * Method under test: {@link JodaDateType#setValue(Object, ValueFields)}
+   */
+  @Test
+  public void testSetValue2() {
     // Arrange
     JodaDateType jodaDateType = new JodaDateType();
     org.joda.time.LocalDate localDate = new org.joda.time.LocalDate(1970, 1, 1);
@@ -148,31 +138,6 @@ public class JodaDateTypeDiffblueTest {
   }
 
   /**
-   * Test {@link JodaDateType#setValue(Object, ValueFields)}.
-   * <ul>
-   *   <li>Then {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor) LongValue is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JodaDateType#setValue(Object, ValueFields)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void JodaDateType.setValue(Object, ValueFields)"})
-  public void testSetValue_thenHistoricDetailVariableInstanceUpdateEntityImplLongValueIsNull() {
-    // Arrange
-    JodaDateType jodaDateType = new JodaDateType();
-    HistoricDetailVariableInstanceUpdateEntityImpl valueFields = new HistoricDetailVariableInstanceUpdateEntityImpl();
-
-    // Act
-    jodaDateType.setValue(null, valueFields);
-
-    // Assert that nothing has changed
-    assertNull(valueFields.getLongValue());
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link JodaDateType}
@@ -181,9 +146,6 @@ public class JodaDateTypeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void JodaDateType.<init>()", "String JodaDateType.getTypeName()",
-      "boolean JodaDateType.isCachable()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     JodaDateType actualJodaDateType = new JodaDateType();

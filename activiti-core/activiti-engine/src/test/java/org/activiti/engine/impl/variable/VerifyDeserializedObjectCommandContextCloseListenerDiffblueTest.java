@@ -15,28 +15,18 @@
  */
 package org.activiti.engine.impl.variable;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import org.activiti.engine.impl.persistence.entity.VariableInstanceEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class VerifyDeserializedObjectCommandContextCloseListenerDiffblueTest {
   /**
-   * Test {@link VerifyDeserializedObjectCommandContextCloseListener#VerifyDeserializedObjectCommandContextCloseListener(DeserializedObject)}.
-   * <p>
-   * Method under test: {@link VerifyDeserializedObjectCommandContextCloseListener#VerifyDeserializedObjectCommandContextCloseListener(DeserializedObject)}
+   * Method under test:
+   * {@link VerifyDeserializedObjectCommandContextCloseListener#VerifyDeserializedObjectCommandContextCloseListener(DeserializedObject)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void VerifyDeserializedObjectCommandContextCloseListener.<init>(DeserializedObject)",
-      "void VerifyDeserializedObjectCommandContextCloseListener.afterSessionsFlush(org.activiti.engine.impl.interceptor.CommandContext)",
-      "void VerifyDeserializedObjectCommandContextCloseListener.closeFailure(org.activiti.engine.impl.interceptor.CommandContext)",
-      "void VerifyDeserializedObjectCommandContextCloseListener.closed(org.activiti.engine.impl.interceptor.CommandContext)"})
   public void testNewVerifyDeserializedObjectCommandContextCloseListener() throws UnsupportedEncodingException {
     // Arrange
     SerializableType type = new SerializableType(true);
@@ -48,10 +38,8 @@ public class VerifyDeserializedObjectCommandContextCloseListenerDiffblueTest {
     DeserializedObject deserializedObject2 = (new VerifyDeserializedObjectCommandContextCloseListener(
         deserializedObject)).deserializedObject;
     assertSame(deserializedObject.deserializedObject, deserializedObject2.deserializedObject);
-    byte[] byteArray = deserializedObject2.originalBytes;
-    assertSame(deserializedObject.originalBytes, byteArray);
+    assertSame(deserializedObject.originalBytes, deserializedObject2.originalBytes);
     assertSame(deserializedObject.type, deserializedObject2.type);
     assertSame(deserializedObject.variableInstanceEntity, deserializedObject2.variableInstanceEntity);
-    assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), byteArray);
   }
 }

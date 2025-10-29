@@ -19,33 +19,33 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import ch.qos.logback.core.net.SyslogOutputStream;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
-import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import org.activiti.engine.ActivitiException;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class IoUtilDiffblueTest {
+  @InjectMocks
+  private IoUtil ioUtil;
+
   /**
-   * Test {@link IoUtil#readInputStream(InputStream, String)}.
-   * <p>
    * Method under test: {@link IoUtil#readInputStream(InputStream, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"byte[] IoUtil.readInputStream(InputStream, String)"})
   public void testReadInputStream() throws IOException {
     // Arrange
     ByteArrayInputStream inputStream = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
@@ -59,17 +59,10 @@ public class IoUtilDiffblueTest {
   }
 
   /**
-   * Test {@link IoUtil#readInputStream(InputStream, String)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link IoUtil#readInputStream(InputStream, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"byte[] IoUtil.readInputStream(InputStream, String)"})
-  public void testReadInputStream_thenThrowActivitiException() throws IOException {
+  public void testReadInputStream2() throws IOException {
     // Arrange
     DataInputStream inputStream = mock(DataInputStream.class);
     when(inputStream.read(Mockito.<byte[]>any())).thenThrow(new ActivitiException("An error occurred"));
@@ -80,101 +73,56 @@ public class IoUtilDiffblueTest {
   }
 
   /**
-   * Test {@link IoUtil#readFileAsString(String)}.
-   * <ul>
-   *   <li>When {@code /directory/foo.txt}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link IoUtil#readFileAsString(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String IoUtil.readFileAsString(String)"})
-  public void testReadFileAsString_whenDirectoryFooTxt() {
+  public void testReadFileAsString() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> IoUtil.readFileAsString("/directory/foo.txt"));
-  }
-
-  /**
-   * Test {@link IoUtil#readFileAsString(String)}.
-   * <ul>
-   *   <li>When empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link IoUtil#readFileAsString(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String IoUtil.readFileAsString(String)"})
-  public void testReadFileAsString_whenEmptyString() {
-    // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> IoUtil.readFileAsString(""));
   }
 
   /**
-   * Test {@link IoUtil#getFile(String)}.
-   * <ul>
-   *   <li>When {@code /directory/foo.txt}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link IoUtil#getFile(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.io.File IoUtil.getFile(String)"})
-  public void testGetFile_whenDirectoryFooTxt() {
+  public void testGetFile() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> IoUtil.getFile("/directory/foo.txt"));
   }
 
   /**
-   * Test {@link IoUtil#writeStringToFile(String, String)}.
-   * <ul>
-   *   <li>When {@code /directory/foo.txt}.</li>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link IoUtil#writeStringToFile(String, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void IoUtil.writeStringToFile(String, String)"})
-  public void testWriteStringToFile_whenDirectoryFooTxt_thenThrowActivitiException() {
+  public void testWriteStringToFile() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class,
         () -> IoUtil.writeStringToFile("Not all who wander are lost", "/directory/foo.txt"));
-  }
-
-  /**
-   * Test {@link IoUtil#writeStringToFile(String, String)}.
-   * <ul>
-   *   <li>When empty string.</li>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link IoUtil#writeStringToFile(String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void IoUtil.writeStringToFile(String, String)"})
-  public void testWriteStringToFile_whenEmptyString_thenThrowActivitiException() {
-    // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> IoUtil.writeStringToFile("Not all who wander are lost", ""));
   }
 
   /**
-   * Test {@link IoUtil#closeSilently(InputStream)} with {@code inputStream}.
-   * <ul>
-   *   <li>Given {@link IOException#IOException(String)} with {@code foo}.</li>
-   *   <li>Then calls {@link FilterInputStream#close()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link IoUtil#closeSilently(InputStream)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void IoUtil.closeSilently(InputStream)"})
-  public void testCloseSilentlyWithInputStream_givenIOExceptionWithFoo_thenCallsClose() throws IOException {
+  public void testCloseSilently() throws IOException {
+    // Arrange
+    DataInputStream inputStream = mock(DataInputStream.class);
+    doNothing().when(inputStream).close();
+
+    // Act
+    IoUtil.closeSilently(inputStream);
+
+    // Assert that nothing has changed
+    verify(inputStream).close();
+  }
+
+  /**
+   * Method under test: {@link IoUtil#closeSilently(InputStream)}
+   */
+  @Test
+  public void testCloseSilently2() throws IOException {
     // Arrange
     DataInputStream inputStream = mock(DataInputStream.class);
     doThrow(new IOException("foo")).when(inputStream).close();
@@ -182,22 +130,31 @@ public class IoUtilDiffblueTest {
     // Act
     IoUtil.closeSilently(inputStream);
 
-    // Assert
+    // Assert that nothing has changed
     verify(inputStream).close();
   }
 
   /**
-   * Test {@link IoUtil#closeSilently(OutputStream)} with {@code outputStream}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link IoUtil#closeSilently(OutputStream)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void IoUtil.closeSilently(OutputStream)"})
-  public void testCloseSilentlyWithOutputStream_thenThrowActivitiException() {
+  public void testCloseSilently3() {
+    // Arrange
+    SyslogOutputStream outputStream = mock(SyslogOutputStream.class);
+    doNothing().when(outputStream).close();
+
+    // Act
+    IoUtil.closeSilently(outputStream);
+
+    // Assert that nothing has changed
+    verify(outputStream).close();
+  }
+
+  /**
+   * Method under test: {@link IoUtil#closeSilently(OutputStream)}
+   */
+  @Test
+  public void testCloseSilently4() {
     // Arrange
     SyslogOutputStream outputStream = mock(SyslogOutputStream.class);
     doThrow(new ActivitiException("An error occurred")).when(outputStream).close();

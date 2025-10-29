@@ -17,6 +17,7 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
@@ -25,8 +26,6 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -43,20 +42,16 @@ import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntityImpl;
 import org.activiti.engine.impl.runtime.ProcessInstanceBuilderImpl;
 import org.activiti.engine.impl.util.ProcessInstanceHelper;
 import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class StartProcessInstanceCmdDiffblueTest {
   /**
-   * Test {@link StartProcessInstanceCmd#StartProcessInstanceCmd(String, String, String, Map)}.
-   * <p>
-   * Method under test: {@link StartProcessInstanceCmd#StartProcessInstanceCmd(String, String, String, Map)}
+   * Method under test:
+   * {@link StartProcessInstanceCmd#StartProcessInstanceCmd(String, String, String, Map)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void StartProcessInstanceCmd.<init>(String, String, String, Map)",
-      "void StartProcessInstanceCmd.<init>(String, String, String, Map, String)"})
   public void testNewStartProcessInstanceCmd() {
     // Arrange and Act
     StartProcessInstanceCmd<Object> actualStartProcessInstanceCmd = new StartProcessInstanceCmd<>(
@@ -67,14 +62,59 @@ public class StartProcessInstanceCmdDiffblueTest {
   }
 
   /**
-   * Test {@link StartProcessInstanceCmd#StartProcessInstanceCmd(String, String, String, Map, String)}.
-   * <p>
-   * Method under test: {@link StartProcessInstanceCmd#StartProcessInstanceCmd(String, String, String, Map, String)}
+   * Method under test:
+   * {@link StartProcessInstanceCmd#processDataObjects(Collection)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void StartProcessInstanceCmd.<init>(String, String, String, Map)",
-      "void StartProcessInstanceCmd.<init>(String, String, String, Map, String)"})
+  public void testProcessDataObjects() {
+    // Arrange
+    StartProcessInstanceCmd<Object> startProcessInstanceCmd = new StartProcessInstanceCmd<>(
+        new ProcessInstanceBuilderImpl(new RuntimeServiceImpl()));
+
+    // Act and Assert
+    assertTrue(startProcessInstanceCmd.processDataObjects(new ArrayList<>()).isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link StartProcessInstanceCmd#processDataObjects(Collection)}
+   */
+  @Test
+  public void testProcessDataObjects2() {
+    // Arrange
+    StartProcessInstanceCmd<Object> startProcessInstanceCmd = new StartProcessInstanceCmd<>(
+        new ProcessInstanceBuilderImpl(new RuntimeServiceImpl()));
+
+    // Act and Assert
+    assertTrue(startProcessInstanceCmd.processDataObjects(null).isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link StartProcessInstanceCmd#processDataObjects(Collection)}
+   */
+  @Test
+  public void testProcessDataObjects3() {
+    // Arrange
+    StartProcessInstanceCmd<Object> startProcessInstanceCmd = new StartProcessInstanceCmd<>(
+        new ProcessInstanceBuilderImpl(new RuntimeServiceImpl()));
+
+    LinkedHashSet<ValuedDataObject> dataObjects = new LinkedHashSet<>();
+    dataObjects.add(new BooleanDataObject());
+
+    // Act
+    Map<String, Object> actualProcessDataObjectsResult = startProcessInstanceCmd.processDataObjects(dataObjects);
+
+    // Assert
+    assertEquals(1, actualProcessDataObjectsResult.size());
+    assertNull(actualProcessDataObjectsResult.get(null));
+  }
+
+  /**
+   * Method under test:
+   * {@link StartProcessInstanceCmd#StartProcessInstanceCmd(String, String, String, Map, String)}
+   */
+  @Test
   public void testNewStartProcessInstanceCmd2() {
     // Arrange and Act
     StartProcessInstanceCmd<Object> actualStartProcessInstanceCmd = new StartProcessInstanceCmd<>(
@@ -85,85 +125,11 @@ public class StartProcessInstanceCmdDiffblueTest {
   }
 
   /**
-   * Test {@link StartProcessInstanceCmd#StartProcessInstanceCmd(ProcessInstanceBuilderImpl)}.
-   * <ul>
-   *   <li>Given empty string.</li>
-   *   <li>Then return {@link StartProcessInstanceCmd#tenantId} is empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StartProcessInstanceCmd#StartProcessInstanceCmd(ProcessInstanceBuilderImpl)}
+   * Method under test:
+   * {@link StartProcessInstanceCmd#StartProcessInstanceCmd(ProcessInstanceBuilderImpl)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void StartProcessInstanceCmd.<init>(ProcessInstanceBuilderImpl)"})
-  public void testNewStartProcessInstanceCmd_givenEmptyString_thenReturnTenantIdIsEmptyString() {
-    // Arrange
-    ProcessInstanceBuilderImpl processInstanceBuilder = mock(ProcessInstanceBuilderImpl.class);
-    when(processInstanceBuilder.getBusinessKey()).thenReturn("Business Key");
-    when(processInstanceBuilder.getProcessDefinitionId()).thenReturn("42");
-    when(processInstanceBuilder.getProcessDefinitionKey()).thenReturn("Process Definition Key");
-    when(processInstanceBuilder.getProcessInstanceName()).thenReturn("Process Instance Name");
-    when(processInstanceBuilder.getTenantId()).thenReturn("");
-    when(processInstanceBuilder.getTransientVariables()).thenReturn(new HashMap<>());
-    when(processInstanceBuilder.getVariables()).thenReturn(new HashMap<>());
-    when(processInstanceBuilder.processDefinitionId(Mockito.<String>any()))
-        .thenReturn(new ProcessInstanceBuilderImpl(new RuntimeServiceImpl()));
-    processInstanceBuilder.processDefinitionId("42");
-
-    // Act
-    StartProcessInstanceCmd<Object> actualStartProcessInstanceCmd = new StartProcessInstanceCmd<>(
-        processInstanceBuilder);
-    DeploymentManager deploymentManager = mock(DeploymentManager.class);
-    when(deploymentManager.findDeployedLatestProcessDefinitionByKey(Mockito.<String>any()))
-        .thenReturn(new ProcessDefinitionEntityImpl());
-    when(deploymentManager.findDeployedProcessDefinitionById(Mockito.<String>any())).thenReturn(null);
-    ProcessInstanceHelper processInstanceHelper = mock(ProcessInstanceHelper.class);
-    when(processInstanceHelper.createAndStartProcessInstance(Mockito.<ProcessDefinition>any(), Mockito.<String>any(),
-        Mockito.<String>any(), Mockito.<Map<String, Object>>any(), Mockito.<Map<String, Object>>any()))
-        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
-    when(jtaProcessEngineConfiguration.getProcessInstanceHelper()).thenReturn(processInstanceHelper);
-    when(jtaProcessEngineConfiguration.getDeploymentManager()).thenReturn(deploymentManager);
-    CommandContext commandContext = mock(CommandContext.class);
-    when(commandContext.getProcessEngineConfiguration()).thenReturn(jtaProcessEngineConfiguration);
-    actualStartProcessInstanceCmd.execute(commandContext);
-
-    // Assert
-    verify(jtaProcessEngineConfiguration).getDeploymentManager();
-    verify(jtaProcessEngineConfiguration).getProcessInstanceHelper();
-    verify(commandContext, atLeast(1)).getProcessEngineConfiguration();
-    verify(deploymentManager).findDeployedLatestProcessDefinitionByKey(eq("Process Definition Key"));
-    verify(deploymentManager).findDeployedProcessDefinitionById(eq("42"));
-    verify(processInstanceBuilder).getBusinessKey();
-    verify(processInstanceBuilder).getProcessDefinitionId();
-    verify(processInstanceBuilder).getProcessDefinitionKey();
-    verify(processInstanceBuilder).getProcessInstanceName();
-    verify(processInstanceBuilder).getTenantId();
-    verify(processInstanceBuilder).getTransientVariables();
-    verify(processInstanceBuilder).getVariables();
-    verify(processInstanceBuilder).processDefinitionId(eq("42"));
-    verify(processInstanceHelper).createAndStartProcessInstance(isA(ProcessDefinition.class), eq("Business Key"),
-        eq("Process Instance Name"), isA(Map.class), isA(Map.class));
-    assertEquals("", actualStartProcessInstanceCmd.tenantId);
-    assertEquals("Business Key", actualStartProcessInstanceCmd.businessKey);
-    assertEquals("Process Definition Key", actualStartProcessInstanceCmd.processDefinitionKey);
-    assertEquals("Process Instance Name", actualStartProcessInstanceCmd.processInstanceName);
-    assertTrue(actualStartProcessInstanceCmd.transientVariables.isEmpty());
-    assertTrue(actualStartProcessInstanceCmd.variables.isEmpty());
-  }
-
-  /**
-   * Test {@link StartProcessInstanceCmd#StartProcessInstanceCmd(ProcessInstanceBuilderImpl)}.
-   * <ul>
-   *   <li>Then return {@link StartProcessInstanceCmd#businessKey} is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StartProcessInstanceCmd#StartProcessInstanceCmd(ProcessInstanceBuilderImpl)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void StartProcessInstanceCmd.<init>(ProcessInstanceBuilderImpl)"})
-  public void testNewStartProcessInstanceCmd_thenReturnBusinessKeyIsNull() {
+  public void testNewStartProcessInstanceCmd3() {
     // Arrange
     ProcessInstanceBuilderImpl processInstanceBuilder = new ProcessInstanceBuilderImpl(new RuntimeServiceImpl());
     processInstanceBuilder.processDefinitionId("42");
@@ -175,15 +141,17 @@ public class StartProcessInstanceCmdDiffblueTest {
     when(deploymentManager.findDeployedProcessDefinitionById(Mockito.<String>any()))
         .thenReturn(new ProcessDefinitionEntityImpl());
     ProcessInstanceHelper processInstanceHelper = mock(ProcessInstanceHelper.class);
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
     when(processInstanceHelper.createAndStartProcessInstance(Mockito.<ProcessDefinition>any(), Mockito.<String>any(),
         Mockito.<String>any(), Mockito.<Map<String, Object>>any(), Mockito.<Map<String, Object>>any()))
-        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+        .thenReturn(createWithEmptyRelationshipCollectionsResult);
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
     when(jtaProcessEngineConfiguration.getProcessInstanceHelper()).thenReturn(processInstanceHelper);
     when(jtaProcessEngineConfiguration.getDeploymentManager()).thenReturn(deploymentManager);
     CommandContext commandContext = mock(CommandContext.class);
     when(commandContext.getProcessEngineConfiguration()).thenReturn(jtaProcessEngineConfiguration);
-    actualStartProcessInstanceCmd.execute(commandContext);
+    ProcessInstance actualExecuteResult = actualStartProcessInstanceCmd.execute(commandContext);
 
     // Assert
     verify(jtaProcessEngineConfiguration).getDeploymentManager();
@@ -192,26 +160,22 @@ public class StartProcessInstanceCmdDiffblueTest {
     verify(deploymentManager).findDeployedProcessDefinitionById(eq("42"));
     verify(processInstanceHelper).createAndStartProcessInstance(isA(ProcessDefinition.class), isNull(), isNull(),
         isNull(), isNull());
+    assertEquals("42", actualStartProcessInstanceCmd.processDefinitionId);
     assertNull(actualStartProcessInstanceCmd.businessKey);
     assertNull(actualStartProcessInstanceCmd.processDefinitionKey);
     assertNull(actualStartProcessInstanceCmd.processInstanceName);
     assertNull(actualStartProcessInstanceCmd.tenantId);
     assertNull(actualStartProcessInstanceCmd.transientVariables);
     assertNull(actualStartProcessInstanceCmd.variables);
+    assertSame(createWithEmptyRelationshipCollectionsResult, actualExecuteResult);
   }
 
   /**
-   * Test {@link StartProcessInstanceCmd#StartProcessInstanceCmd(ProcessInstanceBuilderImpl)}.
-   * <ul>
-   *   <li>Then return {@link StartProcessInstanceCmd#tenantId} is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StartProcessInstanceCmd#StartProcessInstanceCmd(ProcessInstanceBuilderImpl)}
+   * Method under test:
+   * {@link StartProcessInstanceCmd#StartProcessInstanceCmd(ProcessInstanceBuilderImpl)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void StartProcessInstanceCmd.<init>(ProcessInstanceBuilderImpl)"})
-  public void testNewStartProcessInstanceCmd_thenReturnTenantIdIs42() {
+  public void testNewStartProcessInstanceCmd4() {
     // Arrange
     ProcessInstanceBuilderImpl processInstanceBuilder = mock(ProcessInstanceBuilderImpl.class);
     when(processInstanceBuilder.getBusinessKey()).thenReturn("Business Key");
@@ -233,15 +197,17 @@ public class StartProcessInstanceCmdDiffblueTest {
         Mockito.<String>any())).thenReturn(new ProcessDefinitionEntityImpl());
     when(deploymentManager.findDeployedProcessDefinitionById(Mockito.<String>any())).thenReturn(null);
     ProcessInstanceHelper processInstanceHelper = mock(ProcessInstanceHelper.class);
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
     when(processInstanceHelper.createAndStartProcessInstance(Mockito.<ProcessDefinition>any(), Mockito.<String>any(),
         Mockito.<String>any(), Mockito.<Map<String, Object>>any(), Mockito.<Map<String, Object>>any()))
-        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+        .thenReturn(createWithEmptyRelationshipCollectionsResult);
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
     when(jtaProcessEngineConfiguration.getProcessInstanceHelper()).thenReturn(processInstanceHelper);
     when(jtaProcessEngineConfiguration.getDeploymentManager()).thenReturn(deploymentManager);
     CommandContext commandContext = mock(CommandContext.class);
     when(commandContext.getProcessEngineConfiguration()).thenReturn(jtaProcessEngineConfiguration);
-    actualStartProcessInstanceCmd.execute(commandContext);
+    ProcessInstance actualExecuteResult = actualStartProcessInstanceCmd.execute(commandContext);
 
     // Assert
     verify(jtaProcessEngineConfiguration).getDeploymentManager();
@@ -260,81 +226,78 @@ public class StartProcessInstanceCmdDiffblueTest {
     verify(processInstanceBuilder).processDefinitionId(eq("42"));
     verify(processInstanceHelper).createAndStartProcessInstance(isA(ProcessDefinition.class), eq("Business Key"),
         eq("Process Instance Name"), isA(Map.class), isA(Map.class));
+    assertEquals("42", actualStartProcessInstanceCmd.processDefinitionId);
     assertEquals("42", actualStartProcessInstanceCmd.tenantId);
     assertEquals("Business Key", actualStartProcessInstanceCmd.businessKey);
     assertEquals("Process Definition Key", actualStartProcessInstanceCmd.processDefinitionKey);
     assertEquals("Process Instance Name", actualStartProcessInstanceCmd.processInstanceName);
     assertTrue(actualStartProcessInstanceCmd.transientVariables.isEmpty());
     assertTrue(actualStartProcessInstanceCmd.variables.isEmpty());
+    assertSame(createWithEmptyRelationshipCollectionsResult, actualExecuteResult);
   }
 
   /**
-   * Test {@link StartProcessInstanceCmd#processDataObjects(Collection)}.
-   * <ul>
-   *   <li>Given {@link BooleanDataObject} (default constructor).</li>
-   *   <li>Then return size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StartProcessInstanceCmd#processDataObjects(Collection)}
+   * Method under test:
+   * {@link StartProcessInstanceCmd#StartProcessInstanceCmd(ProcessInstanceBuilderImpl)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Map StartProcessInstanceCmd.processDataObjects(Collection)"})
-  public void testProcessDataObjects_givenBooleanDataObject_thenReturnSizeIsOne() {
+  public void testNewStartProcessInstanceCmd5() {
     // Arrange
-    StartProcessInstanceCmd<Object> startProcessInstanceCmd = new StartProcessInstanceCmd<>(
-        new ProcessInstanceBuilderImpl(new RuntimeServiceImpl()));
-
-    LinkedHashSet<ValuedDataObject> dataObjects = new LinkedHashSet<>();
-    dataObjects.add(new BooleanDataObject());
+    ProcessInstanceBuilderImpl processInstanceBuilder = mock(ProcessInstanceBuilderImpl.class);
+    when(processInstanceBuilder.getBusinessKey()).thenReturn("Business Key");
+    when(processInstanceBuilder.getProcessDefinitionId()).thenReturn("42");
+    when(processInstanceBuilder.getProcessDefinitionKey()).thenReturn("Process Definition Key");
+    when(processInstanceBuilder.getProcessInstanceName()).thenReturn("Process Instance Name");
+    when(processInstanceBuilder.getTenantId()).thenReturn("");
+    when(processInstanceBuilder.getTransientVariables()).thenReturn(new HashMap<>());
+    when(processInstanceBuilder.getVariables()).thenReturn(new HashMap<>());
+    when(processInstanceBuilder.processDefinitionId(Mockito.<String>any()))
+        .thenReturn(new ProcessInstanceBuilderImpl(new RuntimeServiceImpl()));
+    processInstanceBuilder.processDefinitionId("42");
 
     // Act
-    Map<String, Object> actualProcessDataObjectsResult = startProcessInstanceCmd.processDataObjects(dataObjects);
+    StartProcessInstanceCmd<Object> actualStartProcessInstanceCmd = new StartProcessInstanceCmd<>(
+        processInstanceBuilder);
+    DeploymentManager deploymentManager = mock(DeploymentManager.class);
+    when(deploymentManager.findDeployedLatestProcessDefinitionByKey(Mockito.<String>any()))
+        .thenReturn(new ProcessDefinitionEntityImpl());
+    when(deploymentManager.findDeployedProcessDefinitionById(Mockito.<String>any())).thenReturn(null);
+    ProcessInstanceHelper processInstanceHelper = mock(ProcessInstanceHelper.class);
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
+    when(processInstanceHelper.createAndStartProcessInstance(Mockito.<ProcessDefinition>any(), Mockito.<String>any(),
+        Mockito.<String>any(), Mockito.<Map<String, Object>>any(), Mockito.<Map<String, Object>>any()))
+        .thenReturn(createWithEmptyRelationshipCollectionsResult);
+    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(jtaProcessEngineConfiguration.getProcessInstanceHelper()).thenReturn(processInstanceHelper);
+    when(jtaProcessEngineConfiguration.getDeploymentManager()).thenReturn(deploymentManager);
+    CommandContext commandContext = mock(CommandContext.class);
+    when(commandContext.getProcessEngineConfiguration()).thenReturn(jtaProcessEngineConfiguration);
+    ProcessInstance actualExecuteResult = actualStartProcessInstanceCmd.execute(commandContext);
 
     // Assert
-    assertEquals(1, actualProcessDataObjectsResult.size());
-    assertNull(actualProcessDataObjectsResult.get(null));
-  }
-
-  /**
-   * Test {@link StartProcessInstanceCmd#processDataObjects(Collection)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StartProcessInstanceCmd#processDataObjects(Collection)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Map StartProcessInstanceCmd.processDataObjects(Collection)"})
-  public void testProcessDataObjects_whenArrayList_thenReturnEmpty() {
-    // Arrange
-    StartProcessInstanceCmd<Object> startProcessInstanceCmd = new StartProcessInstanceCmd<>(
-        new ProcessInstanceBuilderImpl(new RuntimeServiceImpl()));
-
-    // Act and Assert
-    assertTrue(startProcessInstanceCmd.processDataObjects(new ArrayList<>()).isEmpty());
-  }
-
-  /**
-   * Test {@link StartProcessInstanceCmd#processDataObjects(Collection)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StartProcessInstanceCmd#processDataObjects(Collection)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Map StartProcessInstanceCmd.processDataObjects(Collection)"})
-  public void testProcessDataObjects_whenNull_thenReturnEmpty() {
-    // Arrange
-    StartProcessInstanceCmd<Object> startProcessInstanceCmd = new StartProcessInstanceCmd<>(
-        new ProcessInstanceBuilderImpl(new RuntimeServiceImpl()));
-
-    // Act and Assert
-    assertTrue(startProcessInstanceCmd.processDataObjects(null).isEmpty());
+    verify(jtaProcessEngineConfiguration).getDeploymentManager();
+    verify(jtaProcessEngineConfiguration).getProcessInstanceHelper();
+    verify(commandContext, atLeast(1)).getProcessEngineConfiguration();
+    verify(deploymentManager).findDeployedLatestProcessDefinitionByKey(eq("Process Definition Key"));
+    verify(deploymentManager).findDeployedProcessDefinitionById(eq("42"));
+    verify(processInstanceBuilder).getBusinessKey();
+    verify(processInstanceBuilder).getProcessDefinitionId();
+    verify(processInstanceBuilder).getProcessDefinitionKey();
+    verify(processInstanceBuilder).getProcessInstanceName();
+    verify(processInstanceBuilder).getTenantId();
+    verify(processInstanceBuilder).getTransientVariables();
+    verify(processInstanceBuilder).getVariables();
+    verify(processInstanceBuilder).processDefinitionId(eq("42"));
+    verify(processInstanceHelper).createAndStartProcessInstance(isA(ProcessDefinition.class), eq("Business Key"),
+        eq("Process Instance Name"), isA(Map.class), isA(Map.class));
+    assertEquals("", actualStartProcessInstanceCmd.tenantId);
+    assertEquals("42", actualStartProcessInstanceCmd.processDefinitionId);
+    assertEquals("Business Key", actualStartProcessInstanceCmd.businessKey);
+    assertEquals("Process Definition Key", actualStartProcessInstanceCmd.processDefinitionKey);
+    assertEquals("Process Instance Name", actualStartProcessInstanceCmd.processInstanceName);
+    assertTrue(actualStartProcessInstanceCmd.transientVariables.isEmpty());
+    assertTrue(actualStartProcessInstanceCmd.variables.isEmpty());
+    assertSame(createWithEmptyRelationshipCollectionsResult, actualExecuteResult);
   }
 }

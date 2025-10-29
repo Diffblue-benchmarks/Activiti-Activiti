@@ -21,8 +21,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.Collection;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ForkJoinPool;
@@ -32,42 +31,13 @@ import java.util.concurrent.ThreadPoolExecutor;
 import javax.enterprise.concurrent.ManagedThreadFactory;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ManagedAsyncJobExecutorDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link ManagedAsyncJobExecutor#setThreadFactory(ManagedThreadFactory)}
-   *   <li>{@link ManagedAsyncJobExecutor#getThreadFactory()}
-   * </ul>
+   * Method under test:
+   * {@link ManagedAsyncJobExecutor#initAsyncJobExecutionThreadPool()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ManagedThreadFactory ManagedAsyncJobExecutor.getThreadFactory()",
-      "void ManagedAsyncJobExecutor.setThreadFactory(ManagedThreadFactory)"})
-  public void testGettersAndSetters() {
-    // Arrange
-    ManagedAsyncJobExecutor managedAsyncJobExecutor = new ManagedAsyncJobExecutor();
-    ManagedThreadFactory threadFactory = mock(ManagedThreadFactory.class);
-
-    // Act
-    managedAsyncJobExecutor.setThreadFactory(threadFactory);
-
-    // Assert
-    assertSame(threadFactory, managedAsyncJobExecutor.getThreadFactory());
-  }
-
-  /**
-   * Test {@link ManagedAsyncJobExecutor#initAsyncJobExecutionThreadPool()}.
-   * <p>
-   * Method under test: {@link ManagedAsyncJobExecutor#initAsyncJobExecutionThreadPool()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ManagedAsyncJobExecutor.initAsyncJobExecutionThreadPool()"})
   public void testInitAsyncJobExecutionThreadPool() {
     // Arrange
     ManagedAsyncJobExecutor managedAsyncJobExecutor = new ManagedAsyncJobExecutor();
@@ -84,17 +54,24 @@ public class ManagedAsyncJobExecutorDiffblueTest {
     assertNull(((BasicThreadFactory) threadFactory).getDaemonFlag());
     assertNull(((BasicThreadFactory) threadFactory).getPriority());
     assertNull(((BasicThreadFactory) threadFactory).getUncaughtExceptionHandler());
+    assertEquals(0, ((ThreadPoolExecutor) executorService).getActiveCount());
+    assertEquals(0, ((ThreadPoolExecutor) executorService).getLargestPoolSize());
+    assertEquals(0, ((ThreadPoolExecutor) executorService).getPoolSize());
+    assertEquals(0L, ((ThreadPoolExecutor) executorService).getCompletedTaskCount());
+    assertEquals(0L, ((ThreadPoolExecutor) executorService).getTaskCount());
     assertEquals(0L, ((BasicThreadFactory) threadFactory).getThreadCount());
+    assertEquals(10, ((ThreadPoolExecutor) executorService).getMaximumPoolSize());
+    assertEquals(2, ((ThreadPoolExecutor) executorService).getCorePoolSize());
+    BlockingQueue<Runnable> threadPoolQueue = managedAsyncJobExecutor.getThreadPoolQueue();
+    assertTrue(threadPoolQueue.isEmpty());
+    assertSame(threadPoolQueue, ((ThreadPoolExecutor) executorService).getQueue());
   }
 
   /**
-   * Test {@link ManagedAsyncJobExecutor#initAsyncJobExecutionThreadPool()}.
-   * <p>
-   * Method under test: {@link ManagedAsyncJobExecutor#initAsyncJobExecutionThreadPool()}
+   * Method under test:
+   * {@link ManagedAsyncJobExecutor#initAsyncJobExecutionThreadPool()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ManagedAsyncJobExecutor.initAsyncJobExecutionThreadPool()"})
   public void testInitAsyncJobExecutionThreadPool2() {
     // Arrange
     ManagedAsyncJobExecutor managedAsyncJobExecutor = new ManagedAsyncJobExecutor();
@@ -114,13 +91,10 @@ public class ManagedAsyncJobExecutorDiffblueTest {
   }
 
   /**
-   * Test {@link ManagedAsyncJobExecutor#initAsyncJobExecutionThreadPool()}.
-   * <p>
-   * Method under test: {@link ManagedAsyncJobExecutor#initAsyncJobExecutionThreadPool()}
+   * Method under test:
+   * {@link ManagedAsyncJobExecutor#initAsyncJobExecutionThreadPool()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ManagedAsyncJobExecutor.initAsyncJobExecutionThreadPool()"})
   public void testInitAsyncJobExecutionThreadPool3() {
     // Arrange
     ManagedAsyncJobExecutor managedAsyncJobExecutor = new ManagedAsyncJobExecutor();
@@ -141,16 +115,16 @@ public class ManagedAsyncJobExecutorDiffblueTest {
     assertEquals(0L, ((ThreadPoolExecutor) executorService).getTaskCount());
     assertEquals(10, ((ThreadPoolExecutor) executorService).getMaximumPoolSize());
     assertEquals(2, ((ThreadPoolExecutor) executorService).getCorePoolSize());
+    BlockingQueue<Runnable> threadPoolQueue = managedAsyncJobExecutor.getThreadPoolQueue();
+    assertTrue(threadPoolQueue.isEmpty());
+    assertSame(threadPoolQueue, ((ThreadPoolExecutor) executorService).getQueue());
   }
 
   /**
-   * Test {@link ManagedAsyncJobExecutor#initAsyncJobExecutionThreadPool()}.
-   * <p>
-   * Method under test: {@link ManagedAsyncJobExecutor#initAsyncJobExecutionThreadPool()}
+   * Method under test:
+   * {@link ManagedAsyncJobExecutor#initAsyncJobExecutionThreadPool()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ManagedAsyncJobExecutor.initAsyncJobExecutionThreadPool()"})
   public void testInitAsyncJobExecutionThreadPool4() {
     // Arrange
     ManagedAsyncJobExecutor managedAsyncJobExecutor = new ManagedAsyncJobExecutor();
@@ -170,13 +144,10 @@ public class ManagedAsyncJobExecutorDiffblueTest {
   }
 
   /**
-   * Test {@link ManagedAsyncJobExecutor#initAsyncJobExecutionThreadPool()}.
-   * <p>
-   * Method under test: {@link ManagedAsyncJobExecutor#initAsyncJobExecutionThreadPool()}
+   * Method under test:
+   * {@link ManagedAsyncJobExecutor#initAsyncJobExecutionThreadPool()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ManagedAsyncJobExecutor.initAsyncJobExecutionThreadPool()"})
   public void testInitAsyncJobExecutionThreadPool5() {
     // Arrange
     ManagedAsyncJobExecutor managedAsyncJobExecutor = new ManagedAsyncJobExecutor();
@@ -199,13 +170,10 @@ public class ManagedAsyncJobExecutorDiffblueTest {
   }
 
   /**
-   * Test {@link ManagedAsyncJobExecutor#initAsyncJobExecutionThreadPool()}.
-   * <p>
-   * Method under test: {@link ManagedAsyncJobExecutor#initAsyncJobExecutionThreadPool()}
+   * Method under test:
+   * {@link ManagedAsyncJobExecutor#initAsyncJobExecutionThreadPool()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ManagedAsyncJobExecutor.initAsyncJobExecutionThreadPool()"})
   public void testInitAsyncJobExecutionThreadPool6() {
     // Arrange
     ManagedAsyncJobExecutor managedAsyncJobExecutor = new ManagedAsyncJobExecutor();
@@ -218,7 +186,7 @@ public class ManagedAsyncJobExecutorDiffblueTest {
     // Act
     managedAsyncJobExecutor.initAsyncJobExecutionThreadPool();
 
-    // Assert that nothing has changed
+    // Assert
     ExecutorService executorService2 = managedAsyncJobExecutor.getExecutorService();
     assertTrue(executorService2 instanceof ForkJoinPool);
     BlockingQueue<Runnable> threadPoolQueue2 = managedAsyncJobExecutor.getThreadPoolQueue();
@@ -228,13 +196,10 @@ public class ManagedAsyncJobExecutorDiffblueTest {
   }
 
   /**
-   * Test {@link ManagedAsyncJobExecutor#initAsyncJobExecutionThreadPool()}.
-   * <p>
-   * Method under test: {@link ManagedAsyncJobExecutor#initAsyncJobExecutionThreadPool()}
+   * Method under test:
+   * {@link ManagedAsyncJobExecutor#initAsyncJobExecutionThreadPool()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ManagedAsyncJobExecutor.initAsyncJobExecutionThreadPool()"})
   public void testInitAsyncJobExecutionThreadPool7() {
     // Arrange
     ManagedAsyncJobExecutor managedAsyncJobExecutor = new ManagedAsyncJobExecutor();
@@ -258,13 +223,30 @@ public class ManagedAsyncJobExecutorDiffblueTest {
   }
 
   /**
-   * Test new {@link ManagedAsyncJobExecutor} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link ManagedAsyncJobExecutor}
+   * Methods under test:
+   * <ul>
+   *   <li>{@link ManagedAsyncJobExecutor#setThreadFactory(ManagedThreadFactory)}
+   *   <li>{@link ManagedAsyncJobExecutor#getThreadFactory()}
+   * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ManagedAsyncJobExecutor.<init>()"})
+  public void testGettersAndSetters() {
+    // Arrange
+    ManagedAsyncJobExecutor managedAsyncJobExecutor = new ManagedAsyncJobExecutor();
+    ManagedThreadFactory threadFactory = mock(ManagedThreadFactory.class);
+
+    // Act
+    managedAsyncJobExecutor.setThreadFactory(threadFactory);
+
+    // Assert that nothing has changed
+    assertSame(threadFactory, managedAsyncJobExecutor.getThreadFactory());
+  }
+
+  /**
+   * Method under test: default or parameterless constructor of
+   * {@link ManagedAsyncJobExecutor}
+   */
+  @Test
   public void testNewManagedAsyncJobExecutor() {
     // Arrange and Act
     ManagedAsyncJobExecutor actualManagedAsyncJobExecutor = new ManagedAsyncJobExecutor();

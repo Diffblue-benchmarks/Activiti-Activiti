@@ -17,43 +17,10 @@ package org.activiti.api.task.model.payloads;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ReleaseTaskPayloadDiffblueTest {
   /**
-   * Test {@link ReleaseTaskPayload#ReleaseTaskPayload()}.
-   * <p>
-   * Method under test: {@link ReleaseTaskPayload#ReleaseTaskPayload()}
-   */
-  @Test
-  @DisplayName("Test new ReleaseTaskPayload()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ReleaseTaskPayload.<init>()"})
-  void testNewReleaseTaskPayload() {
-    // Arrange, Act and Assert
-    assertNull((new ReleaseTaskPayload()).getTaskId());
-  }
-
-  /**
-   * Test {@link ReleaseTaskPayload#ReleaseTaskPayload(String)}.
-   * <p>
-   * Method under test: {@link ReleaseTaskPayload#ReleaseTaskPayload(String)}
-   */
-  @Test
-  @DisplayName("Test new ReleaseTaskPayload(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ReleaseTaskPayload.<init>(String)"})
-  void testNewReleaseTaskPayload2() {
-    // Arrange, Act and Assert
-    assertEquals("42", (new ReleaseTaskPayload("42")).getTaskId());
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link ReleaseTaskPayload#setTaskId(String)}
@@ -62,10 +29,6 @@ class ReleaseTaskPayloadDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ReleaseTaskPayload.getId()", "String ReleaseTaskPayload.getTaskId()",
-      "void ReleaseTaskPayload.setTaskId(String)"})
   void testGettersAndSetters() {
     // Arrange
     ReleaseTaskPayload releaseTaskPayload = new ReleaseTaskPayload();
@@ -74,7 +37,17 @@ class ReleaseTaskPayloadDiffblueTest {
     releaseTaskPayload.setTaskId("42");
     releaseTaskPayload.getId();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("42", releaseTaskPayload.getTaskId());
+  }
+
+  /**
+   * Method under test: {@link ReleaseTaskPayload#ReleaseTaskPayload()}
+   */
+  @Test
+  void testNewReleaseTaskPayload() {
+    // Arrange, Act and Assert
+    assertNull((new ReleaseTaskPayload()).getTaskId());
+    assertEquals("42", (new ReleaseTaskPayload("42")).getTaskId());
   }
 }

@@ -18,59 +18,79 @@ package org.activiti.runtime.api.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import java.sql.Date;
 import org.activiti.api.task.model.Task;
-import org.activiti.api.task.model.Task.TaskStatus;
 import org.activiti.api.task.model.events.TaskRuntimeEvent;
-import org.activiti.api.task.model.events.TaskRuntimeEvent.TaskEvents;
 import org.activiti.api.task.model.impl.TaskImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class TaskCreatedEventImplDiffblueTest {
   /**
-   * Test {@link TaskCreatedEventImpl#TaskCreatedEventImpl(Task)}.
-   * <p>
+   * Method under test: {@link TaskCreatedEventImpl#getEventType()}
+   */
+  @Test
+  void testGetEventType() {
+    // Arrange, Act and Assert
+    assertEquals(TaskRuntimeEvent.TaskEvents.TASK_CREATED,
+        (new TaskCreatedEventImpl(new TaskImpl("42", "Name", Task.TaskStatus.CREATED))).getEventType());
+  }
+
+  /**
+   * Method under test: {@link TaskCreatedEventImpl#getEventType()}
+   */
+  @Test
+  void testGetEventType2() {
+    // Arrange
+    TaskImpl entity = new TaskImpl("42", "Name", Task.TaskStatus.CREATED);
+    entity.setCreatedDate(mock(Date.class));
+
+    // Act and Assert
+    assertEquals(TaskRuntimeEvent.TaskEvents.TASK_CREATED, (new TaskCreatedEventImpl(entity)).getEventType());
+  }
+
+  /**
    * Method under test: {@link TaskCreatedEventImpl#TaskCreatedEventImpl(Task)}
    */
   @Test
-  @DisplayName("Test new TaskCreatedEventImpl(Task)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void TaskCreatedEventImpl.<init>(Task)"})
   void testNewTaskCreatedEventImpl() {
     // Arrange
-    TaskImpl entity = new TaskImpl("42", "Name", TaskStatus.CREATED);
+    TaskImpl entity = new TaskImpl("42", "Name", Task.TaskStatus.CREATED);
 
     // Act
     TaskCreatedEventImpl actualTaskCreatedEventImpl = new TaskCreatedEventImpl(entity);
 
     // Assert
-    Task entity2 = actualTaskCreatedEventImpl.getEntity();
-    assertTrue(entity2 instanceof TaskImpl);
     assertNull(actualTaskCreatedEventImpl.getProcessDefinitionVersion());
     assertNull(actualTaskCreatedEventImpl.getBusinessKey());
     assertNull(actualTaskCreatedEventImpl.getParentProcessInstanceId());
     assertNull(actualTaskCreatedEventImpl.getProcessDefinitionId());
     assertNull(actualTaskCreatedEventImpl.getProcessDefinitionKey());
     assertNull(actualTaskCreatedEventImpl.getProcessInstanceId());
-    assertEquals(TaskEvents.TASK_CREATED, actualTaskCreatedEventImpl.getEventType());
-    assertSame(entity, entity2);
+    assertEquals(TaskRuntimeEvent.TaskEvents.TASK_CREATED, actualTaskCreatedEventImpl.getEventType());
+    assertSame(entity, actualTaskCreatedEventImpl.getEntity());
   }
 
   /**
-   * Test {@link TaskCreatedEventImpl#getEventType()}.
-   * <p>
-   * Method under test: {@link TaskCreatedEventImpl#getEventType()}
+   * Method under test: {@link TaskCreatedEventImpl#TaskCreatedEventImpl(Task)}
    */
   @Test
-  @DisplayName("Test getEventType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TaskRuntimeEvent.TaskEvents TaskCreatedEventImpl.getEventType()"})
-  void testGetEventType() {
-    // Arrange, Act and Assert
-    assertEquals(TaskEvents.TASK_CREATED,
-        (new TaskCreatedEventImpl(new TaskImpl("42", "Name", TaskStatus.CREATED))).getEventType());
+  void testNewTaskCreatedEventImpl2() {
+    // Arrange
+    TaskImpl entity = new TaskImpl("42", "Name", Task.TaskStatus.CREATED);
+    entity.setCreatedDate(mock(Date.class));
+
+    // Act
+    TaskCreatedEventImpl actualTaskCreatedEventImpl = new TaskCreatedEventImpl(entity);
+
+    // Assert
+    assertNull(actualTaskCreatedEventImpl.getProcessDefinitionVersion());
+    assertNull(actualTaskCreatedEventImpl.getBusinessKey());
+    assertNull(actualTaskCreatedEventImpl.getParentProcessInstanceId());
+    assertNull(actualTaskCreatedEventImpl.getProcessDefinitionId());
+    assertNull(actualTaskCreatedEventImpl.getProcessDefinitionKey());
+    assertNull(actualTaskCreatedEventImpl.getProcessInstanceId());
+    assertEquals(TaskRuntimeEvent.TaskEvents.TASK_CREATED, actualTaskCreatedEventImpl.getEventType());
+    assertSame(entity, actualTaskCreatedEventImpl.getEntity());
   }
 }

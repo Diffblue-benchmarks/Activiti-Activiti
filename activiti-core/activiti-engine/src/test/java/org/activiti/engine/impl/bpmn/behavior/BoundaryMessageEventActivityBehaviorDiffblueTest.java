@@ -18,51 +18,15 @@ package org.activiti.engine.impl.bpmn.behavior;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.MessageEventDefinition;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultMessageExecutionContext;
 import org.activiti.engine.impl.bpmn.parser.factory.MessageExecutionContext;
 import org.activiti.engine.impl.delegate.MessagePayloadMappingProvider;
 import org.activiti.engine.impl.el.ExpressionManager;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class BoundaryMessageEventActivityBehaviorDiffblueTest {
   /**
-   * Test {@link BoundaryMessageEventActivityBehavior#BoundaryMessageEventActivityBehavior(MessageEventDefinition, boolean, MessageExecutionContext)}.
-   * <p>
-   * Method under test: {@link BoundaryMessageEventActivityBehavior#BoundaryMessageEventActivityBehavior(MessageEventDefinition, boolean, MessageExecutionContext)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void BoundaryMessageEventActivityBehavior.<init>(MessageEventDefinition, boolean, MessageExecutionContext)"})
-  public void testNewBoundaryMessageEventActivityBehavior() {
-    // Arrange
-    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
-    MessageEventDefinition messageEventDefinition2 = new MessageEventDefinition();
-    ExpressionManager expressionManager = new ExpressionManager();
-    DefaultMessageExecutionContext messageExecutionContext = new DefaultMessageExecutionContext(messageEventDefinition2,
-        expressionManager, mock(MessagePayloadMappingProvider.class));
-
-    // Act
-    BoundaryMessageEventActivityBehavior actualBoundaryMessageEventActivityBehavior = new BoundaryMessageEventActivityBehavior(
-        messageEventDefinition, true, messageExecutionContext);
-
-    // Assert
-    MessageExecutionContext messageExecutionContext2 = actualBoundaryMessageEventActivityBehavior
-        .getMessageExecutionContext();
-    assertTrue(messageExecutionContext2 instanceof DefaultMessageExecutionContext);
-    assertTrue(actualBoundaryMessageEventActivityBehavior.isInterrupting());
-    assertSame(messageEventDefinition, actualBoundaryMessageEventActivityBehavior.getMessageEventDefinition());
-    assertSame(messageExecutionContext, messageExecutionContext2);
-    assertSame(expressionManager, ((DefaultMessageExecutionContext) messageExecutionContext2).getExpressionManager());
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link BoundaryMessageEventActivityBehavior#getMessageEventDefinition()}
@@ -70,9 +34,6 @@ public class BoundaryMessageEventActivityBehaviorDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"MessageEventDefinition BoundaryMessageEventActivityBehavior.getMessageEventDefinition()",
-      "MessageExecutionContext BoundaryMessageEventActivityBehavior.getMessageExecutionContext()"})
   public void testGettersAndSetters() {
     // Arrange
     MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
@@ -90,5 +51,27 @@ public class BoundaryMessageEventActivityBehaviorDiffblueTest {
     // Assert
     assertSame(messageEventDefinition, actualMessageEventDefinition);
     assertSame(messageExecutionContext, boundaryMessageEventActivityBehavior.getMessageExecutionContext());
+  }
+
+  /**
+   * Method under test:
+   * {@link BoundaryMessageEventActivityBehavior#BoundaryMessageEventActivityBehavior(MessageEventDefinition, boolean, MessageExecutionContext)}
+   */
+  @Test
+  public void testNewBoundaryMessageEventActivityBehavior() {
+    // Arrange
+    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
+    MessageEventDefinition messageEventDefinition2 = new MessageEventDefinition();
+    DefaultMessageExecutionContext messageExecutionContext = new DefaultMessageExecutionContext(messageEventDefinition2,
+        new ExpressionManager(), mock(MessagePayloadMappingProvider.class));
+
+    // Act
+    BoundaryMessageEventActivityBehavior actualBoundaryMessageEventActivityBehavior = new BoundaryMessageEventActivityBehavior(
+        messageEventDefinition, true, messageExecutionContext);
+
+    // Assert
+    assertTrue(actualBoundaryMessageEventActivityBehavior.isInterrupting());
+    assertSame(messageEventDefinition, actualBoundaryMessageEventActivityBehavior.getMessageEventDefinition());
+    assertSame(messageExecutionContext, actualBoundaryMessageEventActivityBehavior.getMessageExecutionContext());
   }
 }

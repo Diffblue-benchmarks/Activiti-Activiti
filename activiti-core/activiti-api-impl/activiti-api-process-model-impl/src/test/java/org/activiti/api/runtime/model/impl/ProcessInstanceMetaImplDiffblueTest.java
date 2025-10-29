@@ -18,17 +18,12 @@ package org.activiti.api.runtime.model.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ProcessInstanceMetaImplDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link ProcessInstanceMetaImpl#ProcessInstanceMetaImpl()}
@@ -39,12 +34,6 @@ class ProcessInstanceMetaImplDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessInstanceMetaImpl.<init>()", "void ProcessInstanceMetaImpl.<init>(String)",
-      "List ProcessInstanceMetaImpl.getActiveActivitiesIds()", "String ProcessInstanceMetaImpl.getProcessInstanceId()",
-      "void ProcessInstanceMetaImpl.setActiveActivitiesIds(List)",
-      "void ProcessInstanceMetaImpl.setProcessInstanceId(String)"})
   void testGettersAndSetters() {
     // Arrange and Act
     ProcessInstanceMetaImpl actualProcessInstanceMetaImpl = new ProcessInstanceMetaImpl();
@@ -53,18 +42,13 @@ class ProcessInstanceMetaImplDiffblueTest {
     actualProcessInstanceMetaImpl.setProcessInstanceId("42");
     List<String> actualActiveActivitiesIds = actualProcessInstanceMetaImpl.getActiveActivitiesIds();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("42", actualProcessInstanceMetaImpl.getProcessInstanceId());
     assertTrue(actualActiveActivitiesIds.isEmpty());
     assertSame(activeActivitiesIds, actualActiveActivitiesIds);
   }
 
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link ProcessInstanceMetaImpl#ProcessInstanceMetaImpl(String)}
@@ -75,13 +59,7 @@ class ProcessInstanceMetaImplDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters; when '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessInstanceMetaImpl.<init>()", "void ProcessInstanceMetaImpl.<init>(String)",
-      "List ProcessInstanceMetaImpl.getActiveActivitiesIds()", "String ProcessInstanceMetaImpl.getProcessInstanceId()",
-      "void ProcessInstanceMetaImpl.setActiveActivitiesIds(List)",
-      "void ProcessInstanceMetaImpl.setProcessInstanceId(String)"})
-  void testGettersAndSetters_when42() {
+  void testGettersAndSetters2() {
     // Arrange and Act
     ProcessInstanceMetaImpl actualProcessInstanceMetaImpl = new ProcessInstanceMetaImpl("42");
     ArrayList<String> activeActivitiesIds = new ArrayList<>();
@@ -89,7 +67,7 @@ class ProcessInstanceMetaImplDiffblueTest {
     actualProcessInstanceMetaImpl.setProcessInstanceId("42");
     List<String> actualActiveActivitiesIds = actualProcessInstanceMetaImpl.getActiveActivitiesIds();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("42", actualProcessInstanceMetaImpl.getProcessInstanceId());
     assertTrue(actualActiveActivitiesIds.isEmpty());
     assertSame(activeActivitiesIds, actualActiveActivitiesIds);

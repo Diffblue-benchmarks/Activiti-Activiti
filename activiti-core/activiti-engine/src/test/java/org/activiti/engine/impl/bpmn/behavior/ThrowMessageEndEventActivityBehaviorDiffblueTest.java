@@ -16,10 +16,7 @@
 package org.activiti.engine.impl.bpmn.behavior;
 
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.EndEvent;
 import org.activiti.bpmn.model.MessageEventDefinition;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultMessageExecutionContext;
@@ -28,18 +25,32 @@ import org.activiti.engine.impl.delegate.MessagePayloadMappingProvider;
 import org.activiti.engine.impl.delegate.ThrowMessageDelegate;
 import org.activiti.engine.impl.el.ExpressionManager;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ThrowMessageEndEventActivityBehaviorDiffblueTest {
   /**
-   * Test {@link ThrowMessageEndEventActivityBehavior#ThrowMessageEndEventActivityBehavior(EndEvent, MessageEventDefinition, ThrowMessageDelegate, MessageExecutionContext)}.
-   * <p>
-   * Method under test: {@link ThrowMessageEndEventActivityBehavior#ThrowMessageEndEventActivityBehavior(EndEvent, MessageEventDefinition, ThrowMessageDelegate, MessageExecutionContext)}
+   * Method under test: {@link ThrowMessageEndEventActivityBehavior#getEndEvent()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void ThrowMessageEndEventActivityBehavior.<init>(EndEvent, MessageEventDefinition, ThrowMessageDelegate, MessageExecutionContext)"})
+  public void testGetEndEvent() {
+    // Arrange
+    EndEvent endEvent = new EndEvent();
+    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
+    ThrowMessageDelegate delegate = mock(ThrowMessageDelegate.class);
+    MessageEventDefinition messageEventDefinition2 = new MessageEventDefinition();
+
+    // Act and Assert
+    assertSame(endEvent,
+        (new ThrowMessageEndEventActivityBehavior(endEvent, messageEventDefinition, delegate,
+            new DefaultMessageExecutionContext(messageEventDefinition2, new ExpressionManager(),
+                mock(MessagePayloadMappingProvider.class))))
+            .getEndEvent());
+  }
+
+  /**
+   * Method under test:
+   * {@link ThrowMessageEndEventActivityBehavior#ThrowMessageEndEventActivityBehavior(EndEvent, MessageEventDefinition, ThrowMessageDelegate, MessageExecutionContext)}
+   */
+  @Test
   public void testNewThrowMessageEndEventActivityBehavior() {
     // Arrange
     EndEvent endEvent = new EndEvent();
@@ -54,35 +65,9 @@ public class ThrowMessageEndEventActivityBehaviorDiffblueTest {
         endEvent, messageEventDefinition, delegate, messageExecutionContext);
 
     // Assert
-    MessageExecutionContext messageExecutionContext2 = actualThrowMessageEndEventActivityBehavior
-        .getMessageExecutionContext();
-    assertTrue(messageExecutionContext2 instanceof DefaultMessageExecutionContext);
     assertSame(endEvent, actualThrowMessageEndEventActivityBehavior.getEndEvent());
     assertSame(messageEventDefinition, actualThrowMessageEndEventActivityBehavior.getMessageEventDefinition());
-    assertSame(messageExecutionContext, messageExecutionContext2);
+    assertSame(messageExecutionContext, actualThrowMessageEndEventActivityBehavior.getMessageExecutionContext());
     assertSame(delegate, actualThrowMessageEndEventActivityBehavior.getDelegate());
-  }
-
-  /**
-   * Test {@link ThrowMessageEndEventActivityBehavior#getEndEvent()}.
-   * <p>
-   * Method under test: {@link ThrowMessageEndEventActivityBehavior#getEndEvent()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"EndEvent ThrowMessageEndEventActivityBehavior.getEndEvent()"})
-  public void testGetEndEvent() {
-    // Arrange
-    EndEvent endEvent = new EndEvent();
-    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
-    ThrowMessageDelegate delegate = mock(ThrowMessageDelegate.class);
-    MessageEventDefinition messageEventDefinition2 = new MessageEventDefinition();
-
-    // Act and Assert
-    assertSame(endEvent,
-        (new ThrowMessageEndEventActivityBehavior(endEvent, messageEventDefinition, delegate,
-            new DefaultMessageExecutionContext(messageEventDefinition2, new ExpressionManager(),
-                mock(MessagePayloadMappingProvider.class))))
-            .getEndEvent());
   }
 }

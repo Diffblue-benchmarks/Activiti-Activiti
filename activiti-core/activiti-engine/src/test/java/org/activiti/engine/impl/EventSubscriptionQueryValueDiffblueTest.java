@@ -16,18 +16,14 @@
 package org.activiti.engine.impl;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class EventSubscriptionQueryValueDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>{@link EventSubscriptionQueryValue#EventSubscriptionQueryValue(String, String)}
+   *   <li>
+   * {@link EventSubscriptionQueryValue#EventSubscriptionQueryValue(String, String)}
    *   <li>{@link EventSubscriptionQueryValue#setEventName(String)}
    *   <li>{@link EventSubscriptionQueryValue#setEventType(String)}
    *   <li>{@link EventSubscriptionQueryValue#getEventName()}
@@ -35,10 +31,6 @@ public class EventSubscriptionQueryValueDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void EventSubscriptionQueryValue.<init>(String, String)",
-      "String EventSubscriptionQueryValue.getEventName()", "String EventSubscriptionQueryValue.getEventType()",
-      "void EventSubscriptionQueryValue.setEventName(String)", "void EventSubscriptionQueryValue.setEventType(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     EventSubscriptionQueryValue actualEventSubscriptionQueryValue = new EventSubscriptionQueryValue("Event Name",
@@ -47,7 +39,7 @@ public class EventSubscriptionQueryValueDiffblueTest {
     actualEventSubscriptionQueryValue.setEventType("Event Type");
     String actualEventName = actualEventSubscriptionQueryValue.getEventName();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("Event Name", actualEventName);
     assertEquals("Event Type", actualEventSubscriptionQueryValue.getEventType());
   }

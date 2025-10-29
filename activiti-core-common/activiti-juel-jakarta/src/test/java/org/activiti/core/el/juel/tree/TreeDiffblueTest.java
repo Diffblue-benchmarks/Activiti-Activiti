@@ -24,7 +24,6 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELException;
 import jakarta.el.FunctionMapper;
 import jakarta.el.VariableMapper;
@@ -34,15 +33,124 @@ import org.activiti.core.el.juel.misc.TypeConverter;
 import org.activiti.core.el.juel.tree.impl.ast.AstFunction;
 import org.activiti.core.el.juel.tree.impl.ast.AstNull;
 import org.activiti.core.el.juel.tree.impl.ast.AstParameters;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class TreeDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link Tree#bind(FunctionMapper, VariableMapper)}
+   */
+  @Test
+  void testBind() {
+    // Arrange
+    AstNull root = new AstNull();
+    ArrayList<FunctionNode> functions = new ArrayList<>();
+
+    // Act
+    Bindings actualBindResult = (new Tree(root, functions, new ArrayList<>(), true)).bind(mock(FunctionMapper.class),
+        mock(VariableMapper.class));
+
+    // Assert
+    assertFalse(actualBindResult.isFunctionBound(1));
+    assertFalse(actualBindResult.isVariableBound(1));
+  }
+
+  /**
+   * Method under test: {@link Tree#bind(FunctionMapper, VariableMapper)}
+   */
+  @Test
+  void testBind2() {
+    // Arrange
+    ArrayList<FunctionNode> functions = new ArrayList<>();
+    functions.add(new AstFunction("Name", 1, new AstParameters(new ArrayList<>())));
+    AstNull root = new AstNull();
+    Tree tree = new Tree(root, functions, new ArrayList<>(), true);
+    FunctionMapper fnMapper = mock(FunctionMapper.class);
+    when(fnMapper.resolveFunction(Mockito.<String>any(), Mockito.<String>any())).thenReturn(null);
+
+    // Act and Assert
+    assertThrows(ELException.class, () -> tree.bind(fnMapper, mock(VariableMapper.class)));
+    verify(fnMapper).resolveFunction(eq(""), eq("Name"));
+  }
+
+  /**
+   * Method under test: {@link Tree#bind(FunctionMapper, VariableMapper)}
+   */
+  @Test
+  void testBind3() {
+    // Arrange
+    ArrayList<FunctionNode> functions = new ArrayList<>();
+    functions.add(new AstFunction("Name", 1, new AstParameters(new ArrayList<>())));
+    AstNull root = new AstNull();
+    Tree tree = new Tree(root, functions, new ArrayList<>(), true);
+    FunctionMapper fnMapper = mock(FunctionMapper.class);
+    when(fnMapper.resolveFunction(Mockito.<String>any(), Mockito.<String>any()))
+        .thenThrow(new ELException("An error occurred"));
+
+    // Act and Assert
+    assertThrows(ELException.class, () -> tree.bind(fnMapper, mock(VariableMapper.class)));
+    verify(fnMapper).resolveFunction(eq(""), eq("Name"));
+  }
+
+  /**
+   * Method under test:
+   * {@link Tree#bind(FunctionMapper, VariableMapper, TypeConverter)}
+   */
+  @Test
+  void testBind4() {
+    // Arrange
+    AstNull root = new AstNull();
+    ArrayList<FunctionNode> functions = new ArrayList<>();
+
+    // Act
+    Bindings actualBindResult = (new Tree(root, functions, new ArrayList<>(), true)).bind(mock(FunctionMapper.class),
+        mock(VariableMapper.class), mock(TypeConverter.class));
+
+    // Assert
+    assertFalse(actualBindResult.isFunctionBound(1));
+    assertFalse(actualBindResult.isVariableBound(1));
+  }
+
+  /**
+   * Method under test:
+   * {@link Tree#bind(FunctionMapper, VariableMapper, TypeConverter)}
+   */
+  @Test
+  void testBind5() {
+    // Arrange
+    ArrayList<FunctionNode> functions = new ArrayList<>();
+    functions.add(new AstFunction("Name", 1, new AstParameters(new ArrayList<>())));
+    AstNull root = new AstNull();
+    Tree tree = new Tree(root, functions, new ArrayList<>(), true);
+    FunctionMapper fnMapper = mock(FunctionMapper.class);
+    when(fnMapper.resolveFunction(Mockito.<String>any(), Mockito.<String>any())).thenReturn(null);
+
+    // Act and Assert
+    assertThrows(ELException.class, () -> tree.bind(fnMapper, mock(VariableMapper.class), mock(TypeConverter.class)));
+    verify(fnMapper).resolveFunction(eq(""), eq("Name"));
+  }
+
+  /**
+   * Method under test:
+   * {@link Tree#bind(FunctionMapper, VariableMapper, TypeConverter)}
+   */
+  @Test
+  void testBind6() {
+    // Arrange
+    ArrayList<FunctionNode> functions = new ArrayList<>();
+    functions.add(new AstFunction("Name", 1, new AstParameters(new ArrayList<>())));
+    AstNull root = new AstNull();
+    Tree tree = new Tree(root, functions, new ArrayList<>(), true);
+    FunctionMapper fnMapper = mock(FunctionMapper.class);
+    when(fnMapper.resolveFunction(Mockito.<String>any(), Mockito.<String>any()))
+        .thenThrow(new ELException("An error occurred"));
+
+    // Act and Assert
+    assertThrows(ELException.class, () -> tree.bind(fnMapper, mock(VariableMapper.class), mock(TypeConverter.class)));
+    verify(fnMapper).resolveFunction(eq(""), eq("Name"));
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>{@link Tree#Tree(ExpressionNode, List, List, boolean)}
@@ -54,11 +162,6 @@ class TreeDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void Tree.<init>(ExpressionNode, List, List, boolean)", "Iterable Tree.getFunctionNodes()",
-      "Iterable Tree.getIdentifierNodes()", "ExpressionNode Tree.getRoot()", "boolean Tree.isDeferred()",
-      "String Tree.toString()"})
   void testGettersAndSetters() {
     // Arrange
     AstNull root = new AstNull();
@@ -80,161 +183,5 @@ class TreeDiffblueTest {
     assertSame(functions, actualFunctionNodes);
     assertSame(identifiers, actualIdentifierNodes);
     assertSame(root, actualRoot);
-  }
-
-  /**
-   * Test {@link Tree#bind(FunctionMapper, VariableMapper, TypeConverter)} with {@code fnMapper}, {@code varMapper}, {@code converter}.
-   * <p>
-   * Method under test: {@link Tree#bind(FunctionMapper, VariableMapper, TypeConverter)}
-   */
-  @Test
-  @DisplayName("Test bind(FunctionMapper, VariableMapper, TypeConverter) with 'fnMapper', 'varMapper', 'converter'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Bindings Tree.bind(FunctionMapper, VariableMapper, TypeConverter)"})
-  void testBindWithFnMapperVarMapperConverter() {
-    // Arrange
-    ArrayList<FunctionNode> functions = new ArrayList<>();
-    functions.add(new AstFunction("Name", 1, new AstParameters(new ArrayList<>())));
-    AstNull root = new AstNull();
-    Tree tree = new Tree(root, functions, new ArrayList<>(), true);
-    FunctionMapper fnMapper = mock(FunctionMapper.class);
-    when(fnMapper.resolveFunction(Mockito.<String>any(), Mockito.<String>any()))
-        .thenThrow(new ELException("An error occurred"));
-
-    // Act and Assert
-    assertThrows(ELException.class, () -> tree.bind(fnMapper, mock(VariableMapper.class), mock(TypeConverter.class)));
-    verify(fnMapper).resolveFunction(eq(""), eq("Name"));
-  }
-
-  /**
-   * Test {@link Tree#bind(FunctionMapper, VariableMapper, TypeConverter)} with {@code fnMapper}, {@code varMapper}, {@code converter}.
-   * <ul>
-   *   <li>Then return not FunctionBound is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Tree#bind(FunctionMapper, VariableMapper, TypeConverter)}
-   */
-  @Test
-  @DisplayName("Test bind(FunctionMapper, VariableMapper, TypeConverter) with 'fnMapper', 'varMapper', 'converter'; then return not FunctionBound is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Bindings Tree.bind(FunctionMapper, VariableMapper, TypeConverter)"})
-  void testBindWithFnMapperVarMapperConverter_thenReturnNotFunctionBoundIsOne() {
-    // Arrange
-    AstNull root = new AstNull();
-    ArrayList<FunctionNode> functions = new ArrayList<>();
-
-    // Act
-    Bindings actualBindResult = (new Tree(root, functions, new ArrayList<>(), true)).bind(mock(FunctionMapper.class),
-        mock(VariableMapper.class), mock(TypeConverter.class));
-
-    // Assert
-    assertFalse(actualBindResult.isFunctionBound(1));
-    assertFalse(actualBindResult.isVariableBound(1));
-  }
-
-  /**
-   * Test {@link Tree#bind(FunctionMapper, VariableMapper, TypeConverter)} with {@code fnMapper}, {@code varMapper}, {@code converter}.
-   * <ul>
-   *   <li>Then throw {@link ELException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Tree#bind(FunctionMapper, VariableMapper, TypeConverter)}
-   */
-  @Test
-  @DisplayName("Test bind(FunctionMapper, VariableMapper, TypeConverter) with 'fnMapper', 'varMapper', 'converter'; then throw ELException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Bindings Tree.bind(FunctionMapper, VariableMapper, TypeConverter)"})
-  void testBindWithFnMapperVarMapperConverter_thenThrowELException() {
-    // Arrange
-    ArrayList<FunctionNode> functions = new ArrayList<>();
-    functions.add(new AstFunction("Name", 1, new AstParameters(new ArrayList<>())));
-    AstNull root = new AstNull();
-    Tree tree = new Tree(root, functions, new ArrayList<>(), true);
-    FunctionMapper fnMapper = mock(FunctionMapper.class);
-    when(fnMapper.resolveFunction(Mockito.<String>any(), Mockito.<String>any())).thenReturn(null);
-
-    // Act and Assert
-    assertThrows(ELException.class, () -> tree.bind(fnMapper, mock(VariableMapper.class), mock(TypeConverter.class)));
-    verify(fnMapper).resolveFunction(eq(""), eq("Name"));
-  }
-
-  /**
-   * Test {@link Tree#bind(FunctionMapper, VariableMapper)} with {@code fnMapper}, {@code varMapper}.
-   * <ul>
-   *   <li>Given {@link ELException#ELException(String)} with pMessage is {@code An error occurred}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Tree#bind(FunctionMapper, VariableMapper)}
-   */
-  @Test
-  @DisplayName("Test bind(FunctionMapper, VariableMapper) with 'fnMapper', 'varMapper'; given ELException(String) with pMessage is 'An error occurred'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Bindings Tree.bind(FunctionMapper, VariableMapper)"})
-  void testBindWithFnMapperVarMapper_givenELExceptionWithPMessageIsAnErrorOccurred() {
-    // Arrange
-    ArrayList<FunctionNode> functions = new ArrayList<>();
-    functions.add(new AstFunction("Name", 1, new AstParameters(new ArrayList<>())));
-    AstNull root = new AstNull();
-    Tree tree = new Tree(root, functions, new ArrayList<>(), true);
-    FunctionMapper fnMapper = mock(FunctionMapper.class);
-    when(fnMapper.resolveFunction(Mockito.<String>any(), Mockito.<String>any()))
-        .thenThrow(new ELException("An error occurred"));
-
-    // Act and Assert
-    assertThrows(ELException.class, () -> tree.bind(fnMapper, mock(VariableMapper.class)));
-    verify(fnMapper).resolveFunction(eq(""), eq("Name"));
-  }
-
-  /**
-   * Test {@link Tree#bind(FunctionMapper, VariableMapper)} with {@code fnMapper}, {@code varMapper}.
-   * <ul>
-   *   <li>Then throw {@link ELException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Tree#bind(FunctionMapper, VariableMapper)}
-   */
-  @Test
-  @DisplayName("Test bind(FunctionMapper, VariableMapper) with 'fnMapper', 'varMapper'; then throw ELException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Bindings Tree.bind(FunctionMapper, VariableMapper)"})
-  void testBindWithFnMapperVarMapper_thenThrowELException() {
-    // Arrange
-    ArrayList<FunctionNode> functions = new ArrayList<>();
-    functions.add(new AstFunction("Name", 1, new AstParameters(new ArrayList<>())));
-    AstNull root = new AstNull();
-    Tree tree = new Tree(root, functions, new ArrayList<>(), true);
-    FunctionMapper fnMapper = mock(FunctionMapper.class);
-    when(fnMapper.resolveFunction(Mockito.<String>any(), Mockito.<String>any())).thenReturn(null);
-
-    // Act and Assert
-    assertThrows(ELException.class, () -> tree.bind(fnMapper, mock(VariableMapper.class)));
-    verify(fnMapper).resolveFunction(eq(""), eq("Name"));
-  }
-
-  /**
-   * Test {@link Tree#bind(FunctionMapper, VariableMapper)} with {@code fnMapper}, {@code varMapper}.
-   * <ul>
-   *   <li>When {@link FunctionMapper}.</li>
-   *   <li>Then return not FunctionBound is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Tree#bind(FunctionMapper, VariableMapper)}
-   */
-  @Test
-  @DisplayName("Test bind(FunctionMapper, VariableMapper) with 'fnMapper', 'varMapper'; when FunctionMapper; then return not FunctionBound is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Bindings Tree.bind(FunctionMapper, VariableMapper)"})
-  void testBindWithFnMapperVarMapper_whenFunctionMapper_thenReturnNotFunctionBoundIsOne() {
-    // Arrange
-    AstNull root = new AstNull();
-    ArrayList<FunctionNode> functions = new ArrayList<>();
-
-    // Act
-    Bindings actualBindResult = (new Tree(root, functions, new ArrayList<>(), true)).bind(mock(FunctionMapper.class),
-        mock(VariableMapper.class));
-
-    // Assert
-    assertFalse(actualBindResult.isFunctionBound(1));
-    assertFalse(actualBindResult.isVariableBound(1));
   }
 }

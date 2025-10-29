@@ -17,28 +17,40 @@ package org.activiti.application;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ApplicationReaderDiffblueTest {
   /**
-   * Test {@link ApplicationReader#read(InputStream)}.
-   * <p>
    * Method under test: {@link ApplicationReader#read(InputStream)}
    */
   @Test
-  @DisplayName("Test read(InputStream)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ApplicationContent ApplicationReader.read(InputStream)"})
   void testRead() throws IOException {
     // Arrange
     ApplicationReader applicationReader = new ApplicationReader(new ArrayList<>());
+    ByteArrayInputStream inputStream = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
+
+    // Act
+    ApplicationContent actualReadResult = applicationReader.read(inputStream);
+
+    // Assert
+    assertEquals(-1, inputStream.read(new byte[]{}));
+    assertTrue(actualReadResult.getFileContents("Entry Type").isEmpty());
+  }
+
+  /**
+   * Method under test: {@link ApplicationReader#read(InputStream)}
+   */
+  @Test
+  void testRead2() throws IOException {
+    // Arrange
+    ArrayList<ApplicationEntryDiscovery> applicationEntryDiscoveries = new ArrayList<>();
+    applicationEntryDiscoveries.add(mock(ApplicationEntryDiscovery.class));
+    ApplicationReader applicationReader = new ApplicationReader(applicationEntryDiscoveries);
     ByteArrayInputStream inputStream = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
 
     // Act

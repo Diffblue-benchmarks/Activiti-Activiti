@@ -17,177 +17,82 @@ package org.activiti.editor.language.json.converter.util;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class CollectionUtilsDiffblueTest {
   /**
-   * Test {@link CollectionUtils#isEmpty(Collection)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link CollectionUtils#isEmpty(Collection)}
    */
   @Test
-  @DisplayName("Test isEmpty(Collection); given '42'; when ArrayList() add '42'; then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean CollectionUtils.isEmpty(Collection)"})
-  void testIsEmpty_given42_whenArrayListAdd42_thenReturnFalse() {
-    // Arrange
-    ArrayList<Object> collection = new ArrayList<>();
-    collection.add("42");
-
-    // Act and Assert
-    assertFalse(CollectionUtils.isEmpty(collection));
-  }
-
-  /**
-   * Test {@link CollectionUtils#isEmpty(Collection)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CollectionUtils#isEmpty(Collection)}
-   */
-  @Test
-  @DisplayName("Test isEmpty(Collection); given '42'; when ArrayList() add '42'; then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean CollectionUtils.isEmpty(Collection)"})
-  void testIsEmpty_given42_whenArrayListAdd42_thenReturnFalse2() {
-    // Arrange
-    ArrayList<Object> collection = new ArrayList<>();
-    collection.add("42");
-    collection.add("42");
-
-    // Act and Assert
-    assertFalse(CollectionUtils.isEmpty(collection));
-  }
-
-  /**
-   * Test {@link CollectionUtils#isEmpty(Collection)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CollectionUtils#isEmpty(Collection)}
-   */
-  @Test
-  @DisplayName("Test isEmpty(Collection); when ArrayList(); then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean CollectionUtils.isEmpty(Collection)"})
-  void testIsEmpty_whenArrayList_thenReturnTrue() {
+  void testIsEmpty() {
     // Arrange, Act and Assert
     assertTrue(CollectionUtils.isEmpty(new ArrayList<>()));
-  }
-
-  /**
-   * Test {@link CollectionUtils#isEmpty(Collection)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CollectionUtils#isEmpty(Collection)}
-   */
-  @Test
-  @DisplayName("Test isEmpty(Collection); when 'null'; then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean CollectionUtils.isEmpty(Collection)"})
-  void testIsEmpty_whenNull_thenReturnTrue() {
-    // Arrange, Act and Assert
     assertTrue(CollectionUtils.isEmpty(null));
   }
 
   /**
-   * Test {@link CollectionUtils#isNotEmpty(Collection)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CollectionUtils#isNotEmpty(Collection)}
+   * Method under test: {@link CollectionUtils#isEmpty(Collection)}
    */
   @Test
-  @DisplayName("Test isNotEmpty(Collection); given '42'; when ArrayList() add '42'; then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean CollectionUtils.isNotEmpty(Collection)"})
-  void testIsNotEmpty_given42_whenArrayListAdd42_thenReturnTrue() {
+  void testIsEmpty2() {
     // Arrange
     ArrayList<Object> collection = new ArrayList<>();
     collection.add("42");
 
     // Act and Assert
-    assertTrue(CollectionUtils.isNotEmpty(collection));
+    assertFalse(CollectionUtils.isEmpty(collection));
   }
 
   /**
-   * Test {@link CollectionUtils#isNotEmpty(Collection)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CollectionUtils#isNotEmpty(Collection)}
+   * Method under test: {@link CollectionUtils#isEmpty(Collection)}
    */
   @Test
-  @DisplayName("Test isNotEmpty(Collection); given '42'; when ArrayList() add '42'; then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean CollectionUtils.isNotEmpty(Collection)"})
-  void testIsNotEmpty_given42_whenArrayListAdd42_thenReturnTrue2() {
+  void testIsEmpty3() {
     // Arrange
     ArrayList<Object> collection = new ArrayList<>();
     collection.add("42");
     collection.add("42");
 
     // Act and Assert
-    assertTrue(CollectionUtils.isNotEmpty(collection));
+    assertFalse(CollectionUtils.isEmpty(collection));
   }
 
   /**
-   * Test {@link CollectionUtils#isNotEmpty(Collection)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link CollectionUtils#isNotEmpty(Collection)}
    */
   @Test
-  @DisplayName("Test isNotEmpty(Collection); when ArrayList(); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean CollectionUtils.isNotEmpty(Collection)"})
-  void testIsNotEmpty_whenArrayList_thenReturnFalse() {
+  void testIsNotEmpty() {
     // Arrange, Act and Assert
     assertFalse(CollectionUtils.isNotEmpty(new ArrayList<>()));
+    assertFalse(CollectionUtils.isNotEmpty(null));
   }
 
   /**
-   * Test {@link CollectionUtils#isNotEmpty(Collection)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link CollectionUtils#isNotEmpty(Collection)}
    */
   @Test
-  @DisplayName("Test isNotEmpty(Collection); when 'null'; then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean CollectionUtils.isNotEmpty(Collection)"})
-  void testIsNotEmpty_whenNull_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(CollectionUtils.isNotEmpty(null));
+  void testIsNotEmpty2() {
+    // Arrange
+    ArrayList<Object> collection = new ArrayList<>();
+    collection.add("42");
+
+    // Act and Assert
+    assertTrue(CollectionUtils.isNotEmpty(collection));
+  }
+
+  /**
+   * Method under test: {@link CollectionUtils#isNotEmpty(Collection)}
+   */
+  @Test
+  void testIsNotEmpty3() {
+    // Arrange
+    ArrayList<Object> collection = new ArrayList<>();
+    collection.add("42");
+    collection.add("42");
+
+    // Act and Assert
+    assertTrue(CollectionUtils.isNotEmpty(collection));
   }
 }

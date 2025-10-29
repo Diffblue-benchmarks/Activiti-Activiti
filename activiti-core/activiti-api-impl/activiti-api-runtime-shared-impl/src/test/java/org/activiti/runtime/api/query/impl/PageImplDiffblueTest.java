@@ -18,17 +18,12 @@ package org.activiti.runtime.api.query.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PageImplDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link PageImpl#PageImpl(List, int)}
@@ -37,9 +32,6 @@ class PageImplDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void PageImpl.<init>(List, int)", "List PageImpl.getContent()", "int PageImpl.getTotalItems()"})
   void testGettersAndSetters() {
     // Arrange
     ArrayList<Object> content = new ArrayList<>();

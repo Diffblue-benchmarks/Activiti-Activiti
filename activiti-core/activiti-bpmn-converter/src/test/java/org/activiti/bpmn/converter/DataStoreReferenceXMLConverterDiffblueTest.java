@@ -21,32 +21,41 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import javax.xml.stream.XMLStreamWriter;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.DataStoreReference;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class DataStoreReferenceXMLConverterDiffblueTest {
   /**
-   * Test {@link DataStoreReferenceXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}.
+   * Methods under test:
    * <ul>
-   *   <li>Given {@code Data Store Ref}.</li>
-   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeAttribute(String, String)}.</li>
+   *   <li>default or parameterless constructor of
+   * {@link DataStoreReferenceXMLConverter}
+   *   <li>{@link DataStoreReferenceXMLConverter#getBpmnElementType()}
+   *   <li>{@link DataStoreReferenceXMLConverter#getXMLElementName()}
    * </ul>
-   * <p>
-   * Method under test: {@link DataStoreReferenceXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter); given 'Data Store Ref'; then calls writeAttribute(String, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void DataStoreReferenceXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)"})
-  void testWriteAdditionalAttributes_givenDataStoreRef_thenCallsWriteAttribute() throws Exception {
+  void testGettersAndSetters() {
+    // Arrange and Act
+    DataStoreReferenceXMLConverter actualDataStoreReferenceXMLConverter = new DataStoreReferenceXMLConverter();
+    Class<? extends BaseElement> actualBpmnElementType = actualDataStoreReferenceXMLConverter.getBpmnElementType();
+
+    // Assert
+    assertEquals("dataStoreReference", actualDataStoreReferenceXMLConverter.getXMLElementName());
+    Class<DataStoreReference> expectedBpmnElementType = DataStoreReference.class;
+    assertEquals(expectedBpmnElementType, actualBpmnElementType);
+  }
+
+  /**
+   * Method under test:
+   * {@link DataStoreReferenceXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
+   */
+  @Test
+  void testWriteAdditionalAttributes() throws Exception {
     // Arrange
     DataStoreReferenceXMLConverter dataStoreReferenceXMLConverter = new DataStoreReferenceXMLConverter();
 
@@ -60,24 +69,16 @@ class DataStoreReferenceXMLConverterDiffblueTest {
     // Act
     dataStoreReferenceXMLConverter.writeAdditionalAttributes(element, model, new IndentingXMLStreamWriter(writer));
 
-    // Assert
+    // Assert that nothing has changed
     verify(writer).writeAttribute(eq("dataStoreRef"), eq("Data Store Ref"));
   }
 
   /**
-   * Test {@link DataStoreReferenceXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}.
-   * <ul>
-   *   <li>Given {@code Hello from the Dreaming Spires}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DataStoreReferenceXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
+   * Method under test:
+   * {@link DataStoreReferenceXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter); given 'Hello from the Dreaming Spires'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void DataStoreReferenceXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)"})
-  void testWriteAdditionalAttributes_givenHelloFromTheDreamingSpires() throws Exception {
+  void testWriteAdditionalAttributes2() throws Exception {
     // Arrange
     DataStoreReferenceXMLConverter dataStoreReferenceXMLConverter = new DataStoreReferenceXMLConverter();
 
@@ -91,25 +92,16 @@ class DataStoreReferenceXMLConverterDiffblueTest {
     // Act
     dataStoreReferenceXMLConverter.writeAdditionalAttributes(element, model, new IndentingXMLStreamWriter(writer));
 
-    // Assert
+    // Assert that nothing has changed
     verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
   }
 
   /**
-   * Test {@link DataStoreReferenceXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}.
-   * <ul>
-   *   <li>Given {@code Data State}.</li>
-   *   <li>Then calls {@link IndentingXMLStreamWriter#writeCharacters(String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DataStoreReferenceXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
+   * Method under test:
+   * {@link DataStoreReferenceXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter); given 'Data State'; then calls writeCharacters(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void DataStoreReferenceXMLConverter.writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)"})
-  void testWriteAdditionalChildElements_givenDataState_thenCallsWriteCharacters() throws Exception {
+  void testWriteAdditionalChildElements() throws Exception {
     // Arrange
     DataStoreReferenceXMLConverter dataStoreReferenceXMLConverter = new DataStoreReferenceXMLConverter();
 
@@ -128,32 +120,5 @@ class DataStoreReferenceXMLConverterDiffblueTest {
     verify(writer).writeCharacters(eq("Data State"));
     verify(writer).writeEndElement();
     verify(writer).writeStartElement(eq("dataState"));
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>default or parameterless constructor of {@link DataStoreReferenceXMLConverter}
-   *   <li>{@link DataStoreReferenceXMLConverter#getBpmnElementType()}
-   *   <li>{@link DataStoreReferenceXMLConverter#getXMLElementName()}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DataStoreReferenceXMLConverter.<init>()",
-      "Class DataStoreReferenceXMLConverter.getBpmnElementType()",
-      "String DataStoreReferenceXMLConverter.getXMLElementName()"})
-  void testGettersAndSetters() {
-    // Arrange and Act
-    DataStoreReferenceXMLConverter actualDataStoreReferenceXMLConverter = new DataStoreReferenceXMLConverter();
-    Class<? extends BaseElement> actualBpmnElementType = actualDataStoreReferenceXMLConverter.getBpmnElementType();
-
-    // Assert
-    assertEquals("dataStoreReference", actualDataStoreReferenceXMLConverter.getXMLElementName());
-    Class<DataStoreReference> expectedBpmnElementType = DataStoreReference.class;
-    assertEquals(expectedBpmnElementType, actualBpmnElementType);
   }
 }

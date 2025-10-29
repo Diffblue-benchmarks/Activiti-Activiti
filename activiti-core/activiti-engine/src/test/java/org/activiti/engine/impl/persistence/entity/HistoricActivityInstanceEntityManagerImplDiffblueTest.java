@@ -25,8 +25,6 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,7 +40,6 @@ import org.activiti.engine.impl.persistence.entity.data.DataManager;
 import org.activiti.engine.impl.persistence.entity.data.HistoricActivityInstanceDataManager;
 import org.activiti.engine.impl.persistence.entity.data.impl.MybatisHistoricActivityInstanceDataManager;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -51,68 +48,26 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HistoricActivityInstanceEntityManagerImplDiffblueTest {
+  @Mock
+  private HistoricActivityInstanceDataManager historicActivityInstanceDataManager;
+
   @InjectMocks
   private HistoricActivityInstanceEntityManagerImpl historicActivityInstanceEntityManagerImpl;
 
   @Mock
   private ProcessEngineConfigurationImpl processEngineConfigurationImpl;
 
-  @Mock
-  private HistoricActivityInstanceDataManager historicActivityInstanceDataManager;
-
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link HistoricActivityInstanceEntityManagerImpl#HistoricActivityInstanceEntityManagerImpl(ProcessEngineConfigurationImpl, HistoricActivityInstanceDataManager)}
-   *   <li>{@link HistoricActivityInstanceEntityManagerImpl#setHistoricActivityInstanceDataManager(HistoricActivityInstanceDataManager)}
-   *   <li>{@link HistoricActivityInstanceEntityManagerImpl#getDataManager()}
-   *   <li>{@link HistoricActivityInstanceEntityManagerImpl#getHistoricActivityInstanceDataManager()}
-   * </ul>
+   * Method under test:
+   * {@link HistoricActivityInstanceEntityManagerImpl#findUnfinishedHistoricActivityInstancesByExecutionAndActivityId(String, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void HistoricActivityInstanceEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, HistoricActivityInstanceDataManager)",
-      "DataManager HistoricActivityInstanceEntityManagerImpl.getDataManager()",
-      "HistoricActivityInstanceDataManager HistoricActivityInstanceEntityManagerImpl.getHistoricActivityInstanceDataManager()",
-      "void HistoricActivityInstanceEntityManagerImpl.setHistoricActivityInstanceDataManager(HistoricActivityInstanceDataManager)"})
-  public void testGettersAndSetters() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-
-    // Act
-    HistoricActivityInstanceEntityManagerImpl actualHistoricActivityInstanceEntityManagerImpl = new HistoricActivityInstanceEntityManagerImpl(
-        processEngineConfiguration,
-        new MybatisHistoricActivityInstanceDataManager(new JtaProcessEngineConfiguration()));
-    MybatisHistoricActivityInstanceDataManager historicActivityInstanceDataManager = new MybatisHistoricActivityInstanceDataManager(
-        new JtaProcessEngineConfiguration());
-    actualHistoricActivityInstanceEntityManagerImpl
-        .setHistoricActivityInstanceDataManager(historicActivityInstanceDataManager);
-    DataManager<HistoricActivityInstanceEntity> actualDataManager = actualHistoricActivityInstanceEntityManagerImpl
-        .getDataManager();
-
-    // Assert
-    assertSame(historicActivityInstanceDataManager, actualDataManager);
-    assertSame(historicActivityInstanceDataManager,
-        actualHistoricActivityInstanceEntityManagerImpl.getHistoricActivityInstanceDataManager());
-  }
-
-  /**
-   * Test {@link HistoricActivityInstanceEntityManagerImpl#findUnfinishedHistoricActivityInstancesByExecutionAndActivityId(String, String)}.
-   * <p>
-   * Method under test: {@link HistoricActivityInstanceEntityManagerImpl#findUnfinishedHistoricActivityInstancesByExecutionAndActivityId(String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "List HistoricActivityInstanceEntityManagerImpl.findUnfinishedHistoricActivityInstancesByExecutionAndActivityId(String, String)"})
   public void testFindUnfinishedHistoricActivityInstancesByExecutionAndActivityId() {
     // Arrange
+    ArrayList<HistoricActivityInstanceEntity> historicActivityInstanceEntityList = new ArrayList<>();
     when(historicActivityInstanceDataManager
         .findUnfinishedHistoricActivityInstancesByExecutionAndActivityId(Mockito.<String>any(), Mockito.<String>any()))
-        .thenReturn(new ArrayList<>());
+        .thenReturn(historicActivityInstanceEntityList);
 
     // Act
     List<HistoricActivityInstanceEntity> actualFindUnfinishedHistoricActivityInstancesByExecutionAndActivityIdResult = historicActivityInstanceEntityManagerImpl
@@ -122,22 +77,21 @@ public class HistoricActivityInstanceEntityManagerImplDiffblueTest {
     verify(historicActivityInstanceDataManager)
         .findUnfinishedHistoricActivityInstancesByExecutionAndActivityId(eq("42"), eq("42"));
     assertTrue(actualFindUnfinishedHistoricActivityInstancesByExecutionAndActivityIdResult.isEmpty());
+    assertSame(historicActivityInstanceEntityList,
+        actualFindUnfinishedHistoricActivityInstancesByExecutionAndActivityIdResult);
   }
 
   /**
-   * Test {@link HistoricActivityInstanceEntityManagerImpl#findUnfinishedHistoricActivityInstancesByProcessInstanceId(String)}.
-   * <p>
-   * Method under test: {@link HistoricActivityInstanceEntityManagerImpl#findUnfinishedHistoricActivityInstancesByProcessInstanceId(String)}
+   * Method under test:
+   * {@link HistoricActivityInstanceEntityManagerImpl#findUnfinishedHistoricActivityInstancesByProcessInstanceId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "List HistoricActivityInstanceEntityManagerImpl.findUnfinishedHistoricActivityInstancesByProcessInstanceId(String)"})
   public void testFindUnfinishedHistoricActivityInstancesByProcessInstanceId() {
     // Arrange
+    ArrayList<HistoricActivityInstanceEntity> historicActivityInstanceEntityList = new ArrayList<>();
     when(historicActivityInstanceDataManager
         .findUnfinishedHistoricActivityInstancesByProcessInstanceId(Mockito.<String>any()))
-        .thenReturn(new ArrayList<>());
+        .thenReturn(historicActivityInstanceEntityList);
 
     // Act
     List<HistoricActivityInstanceEntity> actualFindUnfinishedHistoricActivityInstancesByProcessInstanceIdResult = historicActivityInstanceEntityManagerImpl
@@ -146,42 +100,36 @@ public class HistoricActivityInstanceEntityManagerImplDiffblueTest {
     // Assert
     verify(historicActivityInstanceDataManager).findUnfinishedHistoricActivityInstancesByProcessInstanceId(eq("42"));
     assertTrue(actualFindUnfinishedHistoricActivityInstancesByProcessInstanceIdResult.isEmpty());
+    assertSame(historicActivityInstanceEntityList,
+        actualFindUnfinishedHistoricActivityInstancesByProcessInstanceIdResult);
   }
 
   /**
-   * Test {@link HistoricActivityInstanceEntityManagerImpl#deleteHistoricActivityInstancesByProcessInstanceId(String)}.
-   * <p>
-   * Method under test: {@link HistoricActivityInstanceEntityManagerImpl#deleteHistoricActivityInstancesByProcessInstanceId(String)}
+   * Method under test:
+   * {@link HistoricActivityInstanceEntityManagerImpl#deleteHistoricActivityInstancesByProcessInstanceId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void HistoricActivityInstanceEntityManagerImpl.deleteHistoricActivityInstancesByProcessInstanceId(String)"})
   public void testDeleteHistoricActivityInstancesByProcessInstanceId() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.NONE));
 
     // Act
     historicActivityInstanceEntityManagerImpl.deleteHistoricActivityInstancesByProcessInstanceId("42");
 
-    // Assert
+    // Assert that nothing has changed
     verify(processEngineConfigurationImpl).getHistoryManager();
   }
 
   /**
-   * Test {@link HistoricActivityInstanceEntityManagerImpl#deleteHistoricActivityInstancesByProcessInstanceId(String)}.
-   * <p>
-   * Method under test: {@link HistoricActivityInstanceEntityManagerImpl#deleteHistoricActivityInstancesByProcessInstanceId(String)}
+   * Method under test:
+   * {@link HistoricActivityInstanceEntityManagerImpl#deleteHistoricActivityInstancesByProcessInstanceId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void HistoricActivityInstanceEntityManagerImpl.deleteHistoricActivityInstancesByProcessInstanceId(String)"})
   public void testDeleteHistoricActivityInstancesByProcessInstanceId2() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
+        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.ACTIVITY));
     doNothing().when(historicActivityInstanceDataManager)
         .deleteHistoricActivityInstancesByProcessInstanceId(Mockito.<String>any());
 
@@ -194,18 +142,11 @@ public class HistoricActivityInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricActivityInstanceEntityManagerImpl#findHistoricActivityInstanceCountByQueryCriteria(HistoricActivityInstanceQueryImpl)}.
-   * <ul>
-   *   <li>Then return three.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricActivityInstanceEntityManagerImpl#findHistoricActivityInstanceCountByQueryCriteria(HistoricActivityInstanceQueryImpl)}
+   * Method under test:
+   * {@link HistoricActivityInstanceEntityManagerImpl#findHistoricActivityInstanceCountByQueryCriteria(HistoricActivityInstanceQueryImpl)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "long HistoricActivityInstanceEntityManagerImpl.findHistoricActivityInstanceCountByQueryCriteria(HistoricActivityInstanceQueryImpl)"})
-  public void testFindHistoricActivityInstanceCountByQueryCriteria_thenReturnThree() {
+  public void testFindHistoricActivityInstanceCountByQueryCriteria() {
     // Arrange
     HistoricActivityInstanceDataManager historicActivityInstanceDataManager = mock(
         HistoricActivityInstanceDataManager.class);
@@ -226,23 +167,18 @@ public class HistoricActivityInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricActivityInstanceEntityManagerImpl#findHistoricActivityInstancesByQueryCriteria(HistoricActivityInstanceQueryImpl, Page)}.
-   * <ul>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricActivityInstanceEntityManagerImpl#findHistoricActivityInstancesByQueryCriteria(HistoricActivityInstanceQueryImpl, Page)}
+   * Method under test:
+   * {@link HistoricActivityInstanceEntityManagerImpl#findHistoricActivityInstancesByQueryCriteria(HistoricActivityInstanceQueryImpl, Page)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "List HistoricActivityInstanceEntityManagerImpl.findHistoricActivityInstancesByQueryCriteria(HistoricActivityInstanceQueryImpl, Page)"})
-  public void testFindHistoricActivityInstancesByQueryCriteria_thenReturnEmpty() {
+  public void testFindHistoricActivityInstancesByQueryCriteria() {
     // Arrange
     HistoricActivityInstanceDataManager historicActivityInstanceDataManager = mock(
         HistoricActivityInstanceDataManager.class);
+    ArrayList<HistoricActivityInstance> historicActivityInstanceList = new ArrayList<>();
     when(historicActivityInstanceDataManager.findHistoricActivityInstancesByQueryCriteria(
-        Mockito.<HistoricActivityInstanceQueryImpl>any(), Mockito.<Page>any())).thenReturn(new ArrayList<>());
+        Mockito.<HistoricActivityInstanceQueryImpl>any(), Mockito.<Page>any()))
+        .thenReturn(historicActivityInstanceList);
     HistoricActivityInstanceEntityManagerImpl historicActivityInstanceEntityManagerImpl = new HistoricActivityInstanceEntityManagerImpl(
         new JtaProcessEngineConfiguration(), historicActivityInstanceDataManager);
     HistoricActivityInstanceQueryImpl historicActivityInstanceQuery = new HistoricActivityInstanceQueryImpl();
@@ -255,27 +191,22 @@ public class HistoricActivityInstanceEntityManagerImplDiffblueTest {
     verify(historicActivityInstanceDataManager)
         .findHistoricActivityInstancesByQueryCriteria(isA(HistoricActivityInstanceQueryImpl.class), isA(Page.class));
     assertTrue(actualFindHistoricActivityInstancesByQueryCriteriaResult.isEmpty());
+    assertSame(historicActivityInstanceList, actualFindHistoricActivityInstancesByQueryCriteriaResult);
   }
 
   /**
-   * Test {@link HistoricActivityInstanceEntityManagerImpl#findHistoricActivityInstancesByNativeQuery(Map, int, int)}.
-   * <ul>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricActivityInstanceEntityManagerImpl#findHistoricActivityInstancesByNativeQuery(Map, int, int)}
+   * Method under test:
+   * {@link HistoricActivityInstanceEntityManagerImpl#findHistoricActivityInstancesByNativeQuery(Map, int, int)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "List HistoricActivityInstanceEntityManagerImpl.findHistoricActivityInstancesByNativeQuery(Map, int, int)"})
-  public void testFindHistoricActivityInstancesByNativeQuery_thenReturnEmpty() {
+  public void testFindHistoricActivityInstancesByNativeQuery() {
     // Arrange
     HistoricActivityInstanceDataManager historicActivityInstanceDataManager = mock(
         HistoricActivityInstanceDataManager.class);
+    ArrayList<HistoricActivityInstance> historicActivityInstanceList = new ArrayList<>();
     when(historicActivityInstanceDataManager
         .findHistoricActivityInstancesByNativeQuery(Mockito.<Map<String, Object>>any(), anyInt(), anyInt()))
-        .thenReturn(new ArrayList<>());
+        .thenReturn(historicActivityInstanceList);
     HistoricActivityInstanceEntityManagerImpl historicActivityInstanceEntityManagerImpl = new HistoricActivityInstanceEntityManagerImpl(
         new JtaProcessEngineConfiguration(), historicActivityInstanceDataManager);
 
@@ -287,21 +218,15 @@ public class HistoricActivityInstanceEntityManagerImplDiffblueTest {
     verify(historicActivityInstanceDataManager).findHistoricActivityInstancesByNativeQuery(isA(Map.class), eq(1),
         eq(3));
     assertTrue(actualFindHistoricActivityInstancesByNativeQueryResult.isEmpty());
+    assertSame(historicActivityInstanceList, actualFindHistoricActivityInstancesByNativeQueryResult);
   }
 
   /**
-   * Test {@link HistoricActivityInstanceEntityManagerImpl#findHistoricActivityInstanceCountByNativeQuery(Map)}.
-   * <ul>
-   *   <li>Then return three.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricActivityInstanceEntityManagerImpl#findHistoricActivityInstanceCountByNativeQuery(Map)}
+   * Method under test:
+   * {@link HistoricActivityInstanceEntityManagerImpl#findHistoricActivityInstanceCountByNativeQuery(Map)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "long HistoricActivityInstanceEntityManagerImpl.findHistoricActivityInstanceCountByNativeQuery(Map)"})
-  public void testFindHistoricActivityInstanceCountByNativeQuery_thenReturnThree() {
+  public void testFindHistoricActivityInstanceCountByNativeQuery() {
     // Arrange
     HistoricActivityInstanceDataManager historicActivityInstanceDataManager = mock(
         HistoricActivityInstanceDataManager.class);
@@ -317,5 +242,39 @@ public class HistoricActivityInstanceEntityManagerImplDiffblueTest {
     // Assert
     verify(historicActivityInstanceDataManager).findHistoricActivityInstanceCountByNativeQuery(isA(Map.class));
     assertEquals(3L, actualFindHistoricActivityInstanceCountByNativeQueryResult);
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>
+   * {@link HistoricActivityInstanceEntityManagerImpl#HistoricActivityInstanceEntityManagerImpl(ProcessEngineConfigurationImpl, HistoricActivityInstanceDataManager)}
+   *   <li>
+   * {@link HistoricActivityInstanceEntityManagerImpl#setHistoricActivityInstanceDataManager(HistoricActivityInstanceDataManager)}
+   *   <li>{@link HistoricActivityInstanceEntityManagerImpl#getDataManager()}
+   *   <li>
+   * {@link HistoricActivityInstanceEntityManagerImpl#getHistoricActivityInstanceDataManager()}
+   * </ul>
+   */
+  @Test
+  public void testGettersAndSetters() {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+
+    // Act
+    HistoricActivityInstanceEntityManagerImpl actualHistoricActivityInstanceEntityManagerImpl = new HistoricActivityInstanceEntityManagerImpl(
+        processEngineConfiguration,
+        new MybatisHistoricActivityInstanceDataManager(new JtaProcessEngineConfiguration()));
+    MybatisHistoricActivityInstanceDataManager historicActivityInstanceDataManager = new MybatisHistoricActivityInstanceDataManager(
+        new JtaProcessEngineConfiguration());
+    actualHistoricActivityInstanceEntityManagerImpl
+        .setHistoricActivityInstanceDataManager(historicActivityInstanceDataManager);
+    DataManager<HistoricActivityInstanceEntity> actualDataManager = actualHistoricActivityInstanceEntityManagerImpl
+        .getDataManager();
+
+    // Assert that nothing has changed
+    assertSame(historicActivityInstanceDataManager, actualDataManager);
+    assertSame(historicActivityInstanceDataManager,
+        actualHistoricActivityInstanceEntityManagerImpl.getHistoricActivityInstanceDataManager());
   }
 }

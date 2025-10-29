@@ -16,30 +16,22 @@
 package org.activiti.engine.impl.persistence.entity.integration;
 
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.persistence.entity.data.integration.IntegrationContextDataManager;
 import org.activiti.engine.impl.persistence.entity.data.integration.MybatisIntegrationContextDataManager;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class IntegrationContextManagerImplDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>{@link IntegrationContextManagerImpl#IntegrationContextManagerImpl(ProcessEngineConfigurationImpl, IntegrationContextDataManager)}
+   *   <li>
+   * {@link IntegrationContextManagerImpl#IntegrationContextManagerImpl(ProcessEngineConfigurationImpl, IntegrationContextDataManager)}
    *   <li>{@link IntegrationContextManagerImpl#getDataManager()}
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void IntegrationContextManagerImpl.<init>(ProcessEngineConfigurationImpl, IntegrationContextDataManager)",
-      "org.activiti.engine.impl.persistence.entity.data.DataManager IntegrationContextManagerImpl.getDataManager()"})
   public void testGettersAndSetters() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();

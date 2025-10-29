@@ -18,26 +18,15 @@ package org.activiti.image.exception;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ActivitiImageExceptionDiffblueTest {
   /**
-   * Test {@link ActivitiImageException#ActivitiImageException(String)}.
-   * <ul>
-   *   <li>When {@code An error occurred}.</li>
-   *   <li>Then return Cause is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ActivitiImageException#ActivitiImageException(String)}
+   * Method under test:
+   * {@link ActivitiImageException#ActivitiImageException(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiImageException.<init>(String)",
-      "void ActivitiImageException.<init>(String, Throwable)"})
-  public void testNewActivitiImageException_whenAnErrorOccurred_thenReturnCauseIsNull() {
+  public void testNewActivitiImageException() {
     // Arrange and Act
     ActivitiImageException actualActivitiImageException = new ActivitiImageException("An error occurred");
 
@@ -48,19 +37,11 @@ public class ActivitiImageExceptionDiffblueTest {
   }
 
   /**
-   * Test {@link ActivitiImageException#ActivitiImageException(String, Throwable)}.
-   * <ul>
-   *   <li>When {@link Throwable#Throwable()}.</li>
-   *   <li>Then return Cause is {@link Throwable#Throwable()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ActivitiImageException#ActivitiImageException(String, Throwable)}
+   * Method under test:
+   * {@link ActivitiImageException#ActivitiImageException(String, Throwable)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiImageException.<init>(String)",
-      "void ActivitiImageException.<init>(String, Throwable)"})
-  public void testNewActivitiImageException_whenThrowable_thenReturnCauseIsThrowable() {
+  public void testNewActivitiImageException2() {
     // Arrange
     Throwable cause = new Throwable();
 

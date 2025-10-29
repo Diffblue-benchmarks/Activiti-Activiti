@@ -18,26 +18,26 @@ package org.activiti.api.runtime.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.model.shared.event.VariableEvent;
-import org.activiti.api.model.shared.event.VariableEvent.VariableEvents;
 import org.activiti.api.model.shared.model.VariableInstance;
 import org.activiti.api.runtime.model.impl.VariableInstanceImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class VariableDeletedEventImplDiffblueTest {
   /**
-   * Test {@link VariableDeletedEventImpl#VariableDeletedEventImpl()}.
-   * <p>
-   * Method under test: {@link VariableDeletedEventImpl#VariableDeletedEventImpl()}
+   * Method under test: {@link VariableDeletedEventImpl#getEventType()}
    */
   @Test
-  @DisplayName("Test new VariableDeletedEventImpl()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void VariableDeletedEventImpl.<init>()"})
+  void testGetEventType() {
+    // Arrange, Act and Assert
+    assertEquals(VariableEvent.VariableEvents.VARIABLE_DELETED, (new VariableDeletedEventImpl()).getEventType());
+  }
+
+  /**
+   * Method under test:
+   * {@link VariableDeletedEventImpl#VariableDeletedEventImpl()}
+   */
+  @Test
   void testNewVariableDeletedEventImpl() {
     // Arrange and Act
     VariableDeletedEventImpl actualVariableDeletedEventImpl = new VariableDeletedEventImpl();
@@ -50,18 +50,14 @@ class VariableDeletedEventImplDiffblueTest {
     assertNull(actualVariableDeletedEventImpl.getProcessDefinitionKey());
     assertNull(actualVariableDeletedEventImpl.getProcessInstanceId());
     assertNull(actualVariableDeletedEventImpl.getEntity());
-    assertEquals(VariableEvents.VARIABLE_DELETED, actualVariableDeletedEventImpl.getEventType());
+    assertEquals(VariableEvent.VariableEvents.VARIABLE_DELETED, actualVariableDeletedEventImpl.getEventType());
   }
 
   /**
-   * Test {@link VariableDeletedEventImpl#VariableDeletedEventImpl(VariableInstance)}.
-   * <p>
-   * Method under test: {@link VariableDeletedEventImpl#VariableDeletedEventImpl(VariableInstance)}
+   * Method under test:
+   * {@link VariableDeletedEventImpl#VariableDeletedEventImpl(VariableInstance)}
    */
   @Test
-  @DisplayName("Test new VariableDeletedEventImpl(VariableInstance)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void VariableDeletedEventImpl.<init>(VariableInstance)"})
   void testNewVariableDeletedEventImpl2() {
     // Arrange
     VariableInstanceImpl<Object> entity = new VariableInstanceImpl<>();
@@ -70,29 +66,13 @@ class VariableDeletedEventImplDiffblueTest {
     VariableDeletedEventImpl actualVariableDeletedEventImpl = new VariableDeletedEventImpl(entity);
 
     // Assert
-    VariableInstance entity2 = actualVariableDeletedEventImpl.getEntity();
-    assertTrue(entity2 instanceof VariableInstanceImpl);
     assertNull(actualVariableDeletedEventImpl.getProcessDefinitionVersion());
     assertNull(actualVariableDeletedEventImpl.getBusinessKey());
     assertNull(actualVariableDeletedEventImpl.getParentProcessInstanceId());
     assertNull(actualVariableDeletedEventImpl.getProcessDefinitionId());
     assertNull(actualVariableDeletedEventImpl.getProcessDefinitionKey());
     assertNull(actualVariableDeletedEventImpl.getProcessInstanceId());
-    assertEquals(VariableEvents.VARIABLE_DELETED, actualVariableDeletedEventImpl.getEventType());
-    assertSame(entity, entity2);
-  }
-
-  /**
-   * Test {@link VariableDeletedEventImpl#getEventType()}.
-   * <p>
-   * Method under test: {@link VariableDeletedEventImpl#getEventType()}
-   */
-  @Test
-  @DisplayName("Test getEventType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"VariableEvents VariableDeletedEventImpl.getEventType()"})
-  void testGetEventType() {
-    // Arrange, Act and Assert
-    assertEquals(VariableEvents.VARIABLE_DELETED, (new VariableDeletedEventImpl()).getEventType());
+    assertEquals(VariableEvent.VariableEvents.VARIABLE_DELETED, actualVariableDeletedEventImpl.getEventType());
+    assertSame(entity, actualVariableDeletedEventImpl.getEntity());
   }
 }

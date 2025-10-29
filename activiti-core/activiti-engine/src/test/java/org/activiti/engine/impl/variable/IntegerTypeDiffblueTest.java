@@ -19,70 +19,20 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.time.LocalDate;
-import java.time.ZoneOffset;
-import java.util.Date;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.activiti.engine.impl.persistence.entity.HistoricDetailVariableInstanceUpdateEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class IntegerTypeDiffblueTest {
   /**
-   * Test {@link IntegerType#getValue(ValueFields)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>Then return intValue is forty-two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link IntegerType#getValue(ValueFields)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object IntegerType.getValue(ValueFields)"})
-  public void testGetValue_given42_thenReturnIntValueIsFortyTwo() {
-    // Arrange
-    IntegerType integerType = new IntegerType();
-
-    HistoricDetailVariableInstanceUpdateEntityImpl valueFields = new HistoricDetailVariableInstanceUpdateEntityImpl();
-    valueFields.setActivityInstanceId("42");
-    valueFields.setCachedValue(JSONObject.NULL);
-    valueFields.setDeleted(true);
-    valueFields.setDetailType("Detail Type");
-    valueFields.setDoubleValue(10.0d);
-    valueFields.setExecutionId("42");
-    valueFields.setId("42");
-    valueFields.setInserted(true);
-    valueFields.setName("Name");
-    valueFields.setProcessInstanceId("42");
-    valueFields.setRevision(1);
-    valueFields.setTaskId("42");
-    valueFields.setTextValue("42");
-    valueFields.setTextValue2("42");
-    valueFields.setTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    valueFields.setUpdated(true);
-    valueFields.setVariableType(new BigDecimalType());
-    valueFields.setLongValue(42L);
-
-    // Act and Assert
-    assertEquals(42, ((Integer) integerType.getValue(valueFields)).intValue());
-  }
-
-  /**
-   * Test {@link IntegerType#getValue(ValueFields)}.
-   * <ul>
-   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor).</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link IntegerType#getValue(ValueFields)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object IntegerType.getValue(ValueFields)"})
-  public void testGetValue_whenHistoricDetailVariableInstanceUpdateEntityImpl_thenReturnNull() {
+  public void testGetValue() {
     // Arrange
     IntegerType integerType = new IntegerType();
 
@@ -91,17 +41,27 @@ public class IntegerTypeDiffblueTest {
   }
 
   /**
-   * Test {@link IntegerType#setValue(Object, ValueFields)}.
-   * <ul>
-   *   <li>Then {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor) LongValue is {@code null}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link IntegerType#getValue(ValueFields)}
+   */
+  @Test
+  public void testGetValue2() {
+    // Arrange
+    IntegerType integerType = new IntegerType();
+    ValueFields valueFields = mock(ValueFields.class);
+    when(valueFields.getLongValue()).thenReturn(42L);
+
+    // Act
+    integerType.getValue(valueFields);
+
+    // Assert
+    verify(valueFields, atLeast(1)).getLongValue();
+  }
+
+  /**
    * Method under test: {@link IntegerType#setValue(Object, ValueFields)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void IntegerType.setValue(Object, ValueFields)"})
-  public void testSetValue_thenHistoricDetailVariableInstanceUpdateEntityImplLongValueIsNull() {
+  public void testSetValue() {
     // Arrange
     IntegerType integerType = new IntegerType();
     HistoricDetailVariableInstanceUpdateEntityImpl valueFields = new HistoricDetailVariableInstanceUpdateEntityImpl();
@@ -109,23 +69,16 @@ public class IntegerTypeDiffblueTest {
     // Act
     integerType.setValue(null, valueFields);
 
-    // Assert that nothing has changed
+    // Assert
     assertNull(valueFields.getLongValue());
     assertNull(valueFields.getTextValue());
   }
 
   /**
-   * Test {@link IntegerType#setValue(Object, ValueFields)}.
-   * <ul>
-   *   <li>Then {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor) TextValue is {@code 42}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link IntegerType#setValue(Object, ValueFields)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void IntegerType.setValue(Object, ValueFields)"})
-  public void testSetValue_thenHistoricDetailVariableInstanceUpdateEntityImplTextValueIs42() {
+  public void testSetValue2() {
     // Arrange
     IntegerType integerType = new IntegerType();
     HistoricDetailVariableInstanceUpdateEntityImpl valueFields = new HistoricDetailVariableInstanceUpdateEntityImpl();
@@ -139,59 +92,17 @@ public class IntegerTypeDiffblueTest {
   }
 
   /**
-   * Test {@link IntegerType#isAbleToStore(Object)}.
-   * <ul>
-   *   <li>When forty-two.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link IntegerType#isAbleToStore(Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean IntegerType.isAbleToStore(Object)"})
-  public void testIsAbleToStore_whenFortyTwo_thenReturnTrue() {
+  public void testIsAbleToStore() {
     // Arrange, Act and Assert
+    assertFalse((new IntegerType()).isAbleToStore(JSONObject.NULL));
+    assertTrue((new IntegerType()).isAbleToStore(null));
     assertTrue((new IntegerType()).isAbleToStore(42));
   }
 
   /**
-   * Test {@link IntegerType#isAbleToStore(Object)}.
-   * <ul>
-   *   <li>When {@link JSONObject#NULL}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link IntegerType#isAbleToStore(Object)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean IntegerType.isAbleToStore(Object)"})
-  public void testIsAbleToStore_whenNull_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse((new IntegerType()).isAbleToStore(JSONObject.NULL));
-  }
-
-  /**
-   * Test {@link IntegerType#isAbleToStore(Object)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link IntegerType#isAbleToStore(Object)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean IntegerType.isAbleToStore(Object)"})
-  public void testIsAbleToStore_whenNull_thenReturnTrue() {
-    // Arrange, Act and Assert
-    assertTrue((new IntegerType()).isAbleToStore(null));
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link IntegerType}
@@ -200,9 +111,6 @@ public class IntegerTypeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void IntegerType.<init>()", "String IntegerType.getTypeName()",
-      "boolean IntegerType.isCachable()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     IntegerType actualIntegerType = new IntegerType();

@@ -19,25 +19,21 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.function.BiFunction;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class IntermediateCatchEventDiffblueTest {
   /**
-   * Test {@link IntermediateCatchEvent#clone()}.
-   * <ul>
-   *   <li>Given {@link IntermediateCatchEvent} (default constructor).</li>
-   *   <li>Then return Behavior is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link IntermediateCatchEvent#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"IntermediateCatchEvent IntermediateCatchEvent.clone()"})
-  public void testClone_givenIntermediateCatchEvent_thenReturnBehaviorIsNull() {
+  public void testClone() {
     // Arrange and Act
     IntermediateCatchEvent actualCloneResult = (new IntermediateCatchEvent()).clone();
 
@@ -62,13 +58,70 @@ public class IntermediateCatchEventDiffblueTest {
   }
 
   /**
-   * Test new {@link IntermediateCatchEvent} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link IntermediateCatchEvent}
+   * Method under test: {@link IntermediateCatchEvent#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void IntermediateCatchEvent.<init>()"})
+  public void testClone2() {
+    // Arrange
+    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
+    attributes.computeIfPresent("foo", mock(BiFunction.class));
+
+    IntermediateCatchEvent intermediateCatchEvent = new IntermediateCatchEvent();
+    intermediateCatchEvent.setExtensionElements(null);
+    intermediateCatchEvent.setAttributes(attributes);
+
+    // Act
+    IntermediateCatchEvent actualCloneResult = intermediateCatchEvent.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertTrue(actualCloneResult.getEventDefinitions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+  }
+
+  /**
+   * Method under test:
+   * {@link IntermediateCatchEvent#setValues(IntermediateCatchEvent)}
+   */
+  @Test
+  public void testSetValues() {
+    // Arrange
+    IntermediateCatchEvent intermediateCatchEvent = new IntermediateCatchEvent();
+    CancelEventDefinition cancelEventDefinition = mock(CancelEventDefinition.class);
+    when(cancelEventDefinition.clone()).thenReturn(new CancelEventDefinition());
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(cancelEventDefinition);
+
+    IntermediateCatchEvent otherEvent = new IntermediateCatchEvent();
+    otherEvent.setEventDefinitions(eventDefinitions);
+
+    // Act
+    intermediateCatchEvent.setValues(otherEvent);
+
+    // Assert
+    verify(cancelEventDefinition).clone();
+  }
+
+  /**
+   * Method under test: default or parameterless constructor of
+   * {@link IntermediateCatchEvent}
+   */
+  @Test
   public void testNewIntermediateCatchEvent() {
     // Arrange and Act
     IntermediateCatchEvent actualIntermediateCatchEvent = new IntermediateCatchEvent();

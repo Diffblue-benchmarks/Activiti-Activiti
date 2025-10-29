@@ -19,25 +19,32 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class XMLTokenerDiffblueTest {
   /**
-   * Test {@link XMLTokener#nextContent()}.
-   * <ul>
-   *   <li>Given {@link XMLTokener#XMLTokener(String)} with s is empty string.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link XMLTokener#XMLTokener(String)}
+   */
+  @Test
+  public void testNewXMLTokener() {
+    // Arrange, Act and Assert
+    assertFalse((new XMLTokener("foo")).end());
+  }
+
+  /**
    * Method under test: {@link XMLTokener#nextContent()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.lang.Object XMLTokener.nextContent()"})
-  public void testNextContent_givenXMLTokenerWithSIsEmptyString_thenReturnNull() throws JSONException {
+  public void testNextContent() throws JSONException {
+    // Arrange, Act and Assert
+    assertEquals("foo", (new XMLTokener("foo")).nextContent());
+  }
+
+  /**
+   * Method under test: {@link XMLTokener#nextContent()}
+   */
+  @Test
+  public void testNextContent2() throws JSONException {
     // Arrange
     XMLTokener xmlTokener = new XMLTokener("");
 
@@ -47,61 +54,28 @@ public class XMLTokenerDiffblueTest {
   }
 
   /**
-   * Test {@link XMLTokener#nextContent()}.
-   * <ul>
-   *   <li>Given {@link XMLTokener#XMLTokener(String)} with s is {@code foo}.</li>
-   *   <li>Then return {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link XMLTokener#nextContent()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.lang.Object XMLTokener.nextContent()"})
-  public void testNextContent_givenXMLTokenerWithSIsFoo_thenReturnFoo() throws JSONException {
-    // Arrange
-    XMLTokener xmlTokener = new XMLTokener("foo");
-
-    // Act and Assert
-    assertEquals("foo", xmlTokener.nextContent());
-    assertFalse(xmlTokener.end());
-  }
-
-  /**
-   * Test {@link XMLTokener#nextMeta()}.
-   * <ul>
-   *   <li>Given {@link XMLTokener#XMLTokener(String)} with s is {@code foo}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link XMLTokener#nextMeta()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.lang.Object XMLTokener.nextMeta()"})
-  public void testNextMeta_givenXMLTokenerWithSIsFoo_thenReturnTrue() throws JSONException {
-    // Arrange, Act and Assert
-    assertTrue((Boolean) (new XMLTokener("foo")).nextMeta());
-  }
-
-  /**
-   * Test {@link XMLTokener#nextToken()}.
-   * <ul>
-   *   <li>Given {@link XMLTokener#XMLTokener(String)} with s is {@code foo}.</li>
-   *   <li>Then return {@code foo}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link XMLTokener#nextToken()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.lang.Object XMLTokener.nextToken()"})
-  public void testNextToken_givenXMLTokenerWithSIsFoo_thenReturnFoo() throws JSONException {
+  public void testNextToken() throws JSONException {
     // Arrange
     XMLTokener xmlTokener = new XMLTokener("foo");
 
     // Act and Assert
     assertEquals("foo", xmlTokener.nextToken());
     assertTrue(xmlTokener.end());
+  }
+
+  /**
+   * Method under test: {@link XMLTokener#skipPast(String)}
+   */
+  @Test
+  public void testSkipPast() throws JSONException {
+    // Arrange, Act and Assert
+    assertFalse((new XMLTokener("foo")).skipPast("alice.liddell@example.org"));
+    assertFalse((new XMLTokener("foo")).skipPast("To"));
+    assertTrue((new XMLTokener("foo")).skipPast(""));
+    assertFalse((new XMLTokener("quot")).skipPast("To"));
+    assertTrue((new XMLTokener("quot")).skipPast("quot"));
   }
 }

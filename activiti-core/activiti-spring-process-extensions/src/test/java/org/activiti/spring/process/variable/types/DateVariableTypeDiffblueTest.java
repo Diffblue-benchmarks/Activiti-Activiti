@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
@@ -28,104 +28,14 @@ import java.util.Date;
 import java.util.List;
 import org.activiti.common.util.DateFormatterProvider;
 import org.activiti.engine.ActivitiException;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class DateVariableTypeDiffblueTest {
   /**
-   * Test {@link DateVariableType#DateVariableType(Class, DateFormatterProvider)}.
-   * <p>
-   * Method under test: {@link DateVariableType#DateVariableType(Class, DateFormatterProvider)}
-   */
-  @Test
-  @DisplayName("Test new DateVariableType(Class, DateFormatterProvider)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DateVariableType.<init>(Class, DateFormatterProvider)"})
-  void testNewDateVariableType() {
-    // Arrange
-    Class<Object> clazz = Object.class;
-
-    // Act
-    DateVariableType actualDateVariableType = new DateVariableType(clazz, new DateFormatterProvider("2020-03-01"));
-
-    // Assert
-    assertNull(actualDateVariableType.getName());
-    Class<Object> expectedClazz = Object.class;
-    Class clazz2 = actualDateVariableType.getClazz();
-    assertEquals(expectedClazz, clazz2);
-    assertSame(clazz, clazz2);
-  }
-
-  /**
-   * Test {@link DateVariableType#validate(Object, List)}.
-   * <ul>
-   *   <li>Given {@code Object}.</li>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DateVariableType#validate(Object, List)}
    */
   @Test
-  @DisplayName("Test validate(Object, List); given 'java.lang.Object'; when 'null'; then ArrayList() Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DateVariableType.validate(Object, List)"})
-  void testValidate_givenJavaLangObject_whenNull_thenArrayListEmpty() {
-    // Arrange
-    Class<Object> clazz = Object.class;
-    DateVariableType dateVariableType = new DateVariableType(clazz, new DateFormatterProvider("2020-03-01"));
-    ArrayList<ActivitiException> errors = new ArrayList<>();
-
-    // Act
-    dateVariableType.validate(null, errors);
-
-    // Assert that nothing has changed
-    assertTrue(errors.isEmpty());
-  }
-
-  /**
-   * Test {@link DateVariableType#validate(Object, List)}.
-   * <ul>
-   *   <li>Given {@code Object}.</li>
-   *   <li>When {@code ${UU}}.</li>
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DateVariableType#validate(Object, List)}
-   */
-  @Test
-  @DisplayName("Test validate(Object, List); given 'java.lang.Object'; when '${UU}'; then ArrayList() Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DateVariableType.validate(Object, List)"})
-  void testValidate_givenJavaLangObject_whenUu_thenArrayListEmpty() {
-    // Arrange
-    Class<Object> clazz = Object.class;
-    DateVariableType dateVariableType = new DateVariableType(clazz, new DateFormatterProvider("2020-03-01"));
-    ArrayList<ActivitiException> errors = new ArrayList<>();
-
-    // Act
-    dateVariableType.validate("${UU}", errors);
-
-    // Assert that nothing has changed
-    assertTrue(errors.isEmpty());
-  }
-
-  /**
-   * Test {@link DateVariableType#validate(Object, List)}.
-   * <ul>
-   *   <li>Given {@code Object}.</li>
-   *   <li>When {@code Var}.</li>
-   *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DateVariableType#validate(Object, List)}
-   */
-  @Test
-  @DisplayName("Test validate(Object, List); given 'java.lang.Object'; when 'Var'; then ArrayList() size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DateVariableType.validate(Object, List)"})
-  void testValidate_givenJavaLangObject_whenVar_thenArrayListSizeIsOne() {
+  void testValidate() {
     // Arrange
     Class<Object> clazz = Object.class;
     DateVariableType dateVariableType = new DateVariableType(clazz, new DateFormatterProvider("2020-03-01"));
@@ -145,24 +55,51 @@ class DateVariableTypeDiffblueTest {
   }
 
   /**
-   * Test {@link DateVariableType#validate(Object, List)}.
-   * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DateVariableType#validate(Object, List)}
    */
   @Test
-  @DisplayName("Test validate(Object, List); then ArrayList() size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DateVariableType.validate(Object, List)"})
-  void testValidate_thenArrayListSizeIsTwo() {
+  void testValidate2() {
+    // Arrange
+    Class<Object> clazz = Object.class;
+    DateVariableType dateVariableType = new DateVariableType(clazz, new DateFormatterProvider("2020-03-01"));
+    ArrayList<ActivitiException> errors = new ArrayList<>();
+
+    // Act
+    dateVariableType.validate(null, errors);
+
+    // Assert that nothing has changed
+    assertTrue(errors.isEmpty());
+  }
+
+  /**
+   * Method under test: {@link DateVariableType#validate(Object, List)}
+   */
+  @Test
+  void testValidate3() {
+    // Arrange
+    Class<Object> clazz = Object.class;
+    DateVariableType dateVariableType = new DateVariableType(clazz, new DateFormatterProvider("2020-03-01"));
+    ArrayList<ActivitiException> errors = new ArrayList<>();
+
+    // Act
+    dateVariableType.validate("${UU}", errors);
+
+    // Assert that nothing has changed
+    assertTrue(errors.isEmpty());
+  }
+
+  /**
+   * Method under test: {@link DateVariableType#validate(Object, List)}
+   */
+  @Test
+  void testValidate4() {
     // Arrange
     Class<Object> clazz = Object.class;
     DateVariableType dateVariableType = new DateVariableType(clazz, new DateFormatterProvider("2020-03-01"));
 
     ArrayList<ActivitiException> errors = new ArrayList<>();
-    errors.add(new ActivitiException("An error occurred"));
+    ActivitiException activitiException = new ActivitiException("An error occurred");
+    errors.add(activitiException);
 
     // Act
     dateVariableType.validate("Var", errors);
@@ -174,18 +111,47 @@ class DateVariableTypeDiffblueTest {
         getResult.getLocalizedMessage());
     assertEquals("class java.lang.String is not assignable from class java.lang.Object", getResult.getMessage());
     assertNull(getResult.getCause());
+    assertSame(activitiException, errors.get(0));
   }
 
   /**
-   * Test {@link DateVariableType#parseFromValue(Object)}.
-   * <p>
+   * Method under test:
+   * {@link DateVariableType#DateVariableType(Class, DateFormatterProvider)}
+   */
+  @Test
+  void testNewDateVariableType() {
+    // Arrange
+    Class<Object> clazz = Object.class;
+
+    // Act
+    DateVariableType actualDateVariableType = new DateVariableType(clazz, new DateFormatterProvider("2020-03-01"));
+
+    // Assert
+    assertNull(actualDateVariableType.getName());
+    Class<Object> expectedClazz = Object.class;
+    Class clazz2 = actualDateVariableType.getClazz();
+    assertEquals(expectedClazz, clazz2);
+    assertSame(clazz, clazz2);
+  }
+
+  /**
    * Method under test: {@link DateVariableType#parseFromValue(Object)}
    */
   @Test
-  @DisplayName("Test parseFromValue(Object)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object DateVariableType.parseFromValue(Object)"})
   void testParseFromValue() throws ActivitiException {
+    // Arrange
+    Class<Object> clazz = Object.class;
+
+    // Act and Assert
+    assertThrows(ActivitiException.class,
+        () -> (new DateVariableType(clazz, new DateFormatterProvider("2020-03-01"))).parseFromValue("Value"));
+  }
+
+  /**
+   * Method under test: {@link DateVariableType#parseFromValue(Object)}
+   */
+  @Test
+  void testParseFromValue2() throws ActivitiException {
     // Arrange
     Class<Object> clazz = Object.class;
     DateVariableType dateVariableType = new DateVariableType(clazz, new DateFormatterProvider("2020-03-01"));
@@ -196,18 +162,10 @@ class DateVariableTypeDiffblueTest {
   }
 
   /**
-   * Test {@link DateVariableType#parseFromValue(Object)}.
-   * <ul>
-   *   <li>Given {@link DateFormatterProvider#DateFormatterProvider(String)} with dateFormatPattern is {@code ${UU}}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DateVariableType#parseFromValue(Object)}
    */
   @Test
-  @DisplayName("Test parseFromValue(Object); given DateFormatterProvider(String) with dateFormatPattern is '${UU}'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object DateVariableType.parseFromValue(Object)"})
-  void testParseFromValue_givenDateFormatterProviderWithDateFormatPatternIsUu() throws ActivitiException {
+  void testParseFromValue3() throws ActivitiException {
     // Arrange
     Class<Object> clazz = Object.class;
 
@@ -217,41 +175,10 @@ class DateVariableTypeDiffblueTest {
   }
 
   /**
-   * Test {@link DateVariableType#parseFromValue(Object)}.
-   * <ul>
-   *   <li>When forty-two.</li>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DateVariableType#parseFromValue(Object)}
    */
   @Test
-  @DisplayName("Test parseFromValue(Object); when forty-two; then throw ActivitiException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object DateVariableType.parseFromValue(Object)"})
-  void testParseFromValue_whenFortyTwo_thenThrowActivitiException() throws ActivitiException {
-    // Arrange
-    Class<Object> clazz = Object.class;
-
-    // Act and Assert
-    assertThrows(ActivitiException.class,
-        () -> (new DateVariableType(clazz, new DateFormatterProvider("2020-03-01"))).parseFromValue(42));
-  }
-
-  /**
-   * Test {@link DateVariableType#parseFromValue(Object)}.
-   * <ul>
-   *   <li>When {@code ${UU}}.</li>
-   *   <li>Then return {@code ${UU}}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DateVariableType#parseFromValue(Object)}
-   */
-  @Test
-  @DisplayName("Test parseFromValue(Object); when '${UU}'; then return '${UU}'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object DateVariableType.parseFromValue(Object)"})
-  void testParseFromValue_whenUu_thenReturnUu() throws ActivitiException {
+  void testParseFromValue4() throws ActivitiException {
     // Arrange
     Class<Object> clazz = Object.class;
 
@@ -261,24 +188,28 @@ class DateVariableTypeDiffblueTest {
   }
 
   /**
-   * Test {@link DateVariableType#parseFromValue(Object)}.
-   * <ul>
-   *   <li>When {@code Value}.</li>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DateVariableType#parseFromValue(Object)}
    */
   @Test
-  @DisplayName("Test parseFromValue(Object); when 'Value'; then throw ActivitiException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object DateVariableType.parseFromValue(Object)"})
-  void testParseFromValue_whenValue_thenThrowActivitiException() throws ActivitiException {
+  void testParseFromValue5() throws ActivitiException {
     // Arrange
     Class<Object> clazz = Object.class;
 
     // Act and Assert
     assertThrows(ActivitiException.class,
-        () -> (new DateVariableType(clazz, new DateFormatterProvider("2020-03-01"))).parseFromValue("Value"));
+        () -> (new DateVariableType(clazz, new DateFormatterProvider("2020-03-01"))).parseFromValue(42));
+  }
+
+  /**
+   * Method under test: {@link DateVariableType#parseFromValue(Object)}
+   */
+  @Test
+  void testParseFromValue6() throws ActivitiException {
+    // Arrange
+    Class<Object> clazz = Object.class;
+    java.sql.Date date = mock(java.sql.Date.class);
+
+    // Act and Assert
+    assertSame(date, (new DateVariableType(clazz, new DateFormatterProvider("2020-03-01"))).parseFromValue(date));
   }
 }

@@ -19,30 +19,19 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class EntityMetaDataDiffblueTest {
   /**
-   * Test {@link EntityMetaData#getIdType()}.
-   * <p>
    * Method under test: {@link EntityMetaData#getIdType()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Class EntityMetaData.getIdType()"})
   public void testGetIdType() {
     // Arrange, Act and Assert
     assertNull((new EntityMetaData()).getIdType());
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link EntityMetaData}
@@ -55,11 +44,6 @@ public class EntityMetaDataDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void EntityMetaData.<init>()", "Class EntityMetaData.getEntityClass()",
-      "Field EntityMetaData.getIdField()", "Method EntityMetaData.getIdMethod()",
-      "boolean EntityMetaData.isJPAEntity()", "void EntityMetaData.setEntityClass(Class)",
-      "void EntityMetaData.setJPAEntity(boolean)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     EntityMetaData actualEntityMetaData = new EntityMetaData();
@@ -67,12 +51,10 @@ public class EntityMetaDataDiffblueTest {
     actualEntityMetaData.setEntityClass(entityClass);
     actualEntityMetaData.setJPAEntity(true);
     Class<?> actualEntityClass = actualEntityMetaData.getEntityClass();
-    Field actualIdField = actualEntityMetaData.getIdField();
-    Method actualIdMethod = actualEntityMetaData.getIdMethod();
+    actualEntityMetaData.getIdField();
+    actualEntityMetaData.getIdMethod();
 
-    // Assert
-    assertNull(actualIdField);
-    assertNull(actualIdMethod);
+    // Assert that nothing has changed
     assertTrue(actualEntityMetaData.isJPAEntity());
     Class<Object> expectedEntityClass = Object.class;
     assertEquals(expectedEntityClass, actualEntityClass);

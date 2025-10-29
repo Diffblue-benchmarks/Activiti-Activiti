@@ -21,25 +21,18 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.persistence.entity.HistoricVariableInstanceEntity;
 import org.activiti.engine.impl.persistence.entity.HistoricVariableInstanceEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class HistoricVariableInstanceByTaskIdMatcherDiffblueTest {
   /**
-   * Test {@link HistoricVariableInstanceByTaskIdMatcher#isRetained(HistoricVariableInstanceEntity, Object)} with {@code HistoricVariableInstanceEntity}, {@code Object}.
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceByTaskIdMatcher#isRetained(HistoricVariableInstanceEntity, Object)}
+   * Method under test:
+   * {@link HistoricVariableInstanceByTaskIdMatcher#isRetained(HistoricVariableInstanceEntity, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "boolean HistoricVariableInstanceByTaskIdMatcher.isRetained(HistoricVariableInstanceEntity, Object)"})
-  public void testIsRetainedWithHistoricVariableInstanceEntityObject() {
+  public void testIsRetained() {
     // Arrange
     HistoricVariableInstanceByTaskIdMatcher historicVariableInstanceByTaskIdMatcher = new HistoricVariableInstanceByTaskIdMatcher();
 
@@ -49,46 +42,11 @@ public class HistoricVariableInstanceByTaskIdMatcherDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricVariableInstanceByTaskIdMatcher#isRetained(HistoricVariableInstanceEntity, Object)} with {@code HistoricVariableInstanceEntity}, {@code Object}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceByTaskIdMatcher#isRetained(HistoricVariableInstanceEntity, Object)}
+   * Method under test:
+   * {@link HistoricVariableInstanceByTaskIdMatcher#isRetained(HistoricVariableInstanceEntity, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "boolean HistoricVariableInstanceByTaskIdMatcher.isRetained(HistoricVariableInstanceEntity, Object)"})
-  public void testIsRetainedWithHistoricVariableInstanceEntityObject_when42_thenReturnTrue() {
-    // Arrange
-    HistoricVariableInstanceByTaskIdMatcher historicVariableInstanceByTaskIdMatcher = new HistoricVariableInstanceByTaskIdMatcher();
-    HistoricVariableInstanceEntity historicVariableInstanceEntity = mock(HistoricVariableInstanceEntity.class);
-    when(historicVariableInstanceEntity.getTaskId()).thenReturn("42");
-
-    // Act
-    boolean actualIsRetainedResult = historicVariableInstanceByTaskIdMatcher.isRetained(historicVariableInstanceEntity,
-        "42");
-
-    // Assert
-    verify(historicVariableInstanceEntity, atLeast(1)).getTaskId();
-    assertTrue(actualIsRetainedResult);
-  }
-
-  /**
-   * Test {@link HistoricVariableInstanceByTaskIdMatcher#isRetained(HistoricVariableInstanceEntity, Object)} with {@code HistoricVariableInstanceEntity}, {@code Object}.
-   * <ul>
-   *   <li>When {@code Parameter}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricVariableInstanceByTaskIdMatcher#isRetained(HistoricVariableInstanceEntity, Object)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "boolean HistoricVariableInstanceByTaskIdMatcher.isRetained(HistoricVariableInstanceEntity, Object)"})
-  public void testIsRetainedWithHistoricVariableInstanceEntityObject_whenParameter() {
+  public void testIsRetained2() {
     // Arrange
     HistoricVariableInstanceByTaskIdMatcher historicVariableInstanceByTaskIdMatcher = new HistoricVariableInstanceByTaskIdMatcher();
     HistoricVariableInstanceEntity historicVariableInstanceEntity = mock(HistoricVariableInstanceEntity.class);
@@ -101,5 +59,25 @@ public class HistoricVariableInstanceByTaskIdMatcherDiffblueTest {
     // Assert
     verify(historicVariableInstanceEntity, atLeast(1)).getTaskId();
     assertFalse(actualIsRetainedResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricVariableInstanceByTaskIdMatcher#isRetained(HistoricVariableInstanceEntity, Object)}
+   */
+  @Test
+  public void testIsRetained3() {
+    // Arrange
+    HistoricVariableInstanceByTaskIdMatcher historicVariableInstanceByTaskIdMatcher = new HistoricVariableInstanceByTaskIdMatcher();
+    HistoricVariableInstanceEntity historicVariableInstanceEntity = mock(HistoricVariableInstanceEntity.class);
+    when(historicVariableInstanceEntity.getTaskId()).thenReturn("42");
+
+    // Act
+    boolean actualIsRetainedResult = historicVariableInstanceByTaskIdMatcher.isRetained(historicVariableInstanceEntity,
+        "42");
+
+    // Assert
+    verify(historicVariableInstanceEntity, atLeast(1)).getTaskId();
+    assertTrue(actualIsRetainedResult);
   }
 }

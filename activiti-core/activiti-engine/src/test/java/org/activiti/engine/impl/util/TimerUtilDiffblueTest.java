@@ -16,43 +16,23 @@
 package org.activiti.engine.impl.util;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class TimerUtilDiffblueTest {
+  @InjectMocks
+  private TimerUtil timerUtil;
+
   /**
-   * Test {@link TimerUtil#prepareRepeat(String)}.
-   * <ul>
-   *   <li>When {@code 2020-03-01}.</li>
-   *   <li>Then return {@code 2020-03-01}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TimerUtil#prepareRepeat(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String TimerUtil.prepareRepeat(String)"})
-  public void testPrepareRepeat_when20200301_thenReturn20200301() {
+  public void testPrepareRepeat() {
     // Arrange, Act and Assert
     assertEquals("2020-03-01", TimerUtil.prepareRepeat("2020-03-01"));
-  }
-
-  /**
-   * Test {@link TimerUtil#prepareRepeat(String)}.
-   * <ul>
-   *   <li>When {@code R}.</li>
-   *   <li>Then return {@code R}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TimerUtil#prepareRepeat(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String TimerUtil.prepareRepeat(String)"})
-  public void testPrepareRepeat_whenR_thenReturnR() {
-    // Arrange, Act and Assert
     assertEquals("R", TimerUtil.prepareRepeat("R"));
   }
 }

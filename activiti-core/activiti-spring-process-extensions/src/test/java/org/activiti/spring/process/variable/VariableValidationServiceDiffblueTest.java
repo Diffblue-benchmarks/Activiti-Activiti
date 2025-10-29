@@ -18,14 +18,11 @@ package org.activiti.spring.process.variable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import java.util.Map;
 import org.activiti.engine.ActivitiException;
 import org.activiti.spring.process.model.VariableDefinition;
 import org.activiti.spring.process.variable.types.VariableType;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,37 +45,21 @@ class VariableValidationServiceDiffblueTest {
   private VariableValidationService variableValidationService;
 
   /**
-   * Test {@link VariableValidationService#validate(Object, VariableDefinition)}.
-   * <ul>
-   *   <li>When {@link VariableDefinition#VariableDefinition()}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableValidationService#validate(Object, VariableDefinition)}
+   * Method under test:
+   * {@link VariableValidationService#validate(Object, VariableDefinition)}
    */
   @Test
-  @DisplayName("Test validate(Object, VariableDefinition); when VariableDefinition(); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean VariableValidationService.validate(Object, VariableDefinition)"})
-  void testValidate_whenVariableDefinition_thenReturnFalse() {
+  void testValidate() {
     // Arrange, Act and Assert
     assertFalse(variableValidationService.validate("Var", new VariableDefinition()));
   }
 
   /**
-   * Test {@link VariableValidationService#validateWithErrors(Object, VariableDefinition)}.
-   * <ul>
-   *   <li>When {@link VariableDefinition#VariableDefinition()}.</li>
-   *   <li>Then return size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableValidationService#validateWithErrors(Object, VariableDefinition)}
+   * Method under test:
+   * {@link VariableValidationService#validateWithErrors(Object, VariableDefinition)}
    */
   @Test
-  @DisplayName("Test validateWithErrors(Object, VariableDefinition); when VariableDefinition(); then return size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List VariableValidationService.validateWithErrors(Object, VariableDefinition)"})
-  void testValidateWithErrors_whenVariableDefinition_thenReturnSizeIsOne() {
+  void testValidateWithErrors() {
     // Arrange and Act
     List<ActivitiException> actualValidateWithErrorsResult = variableValidationService.validateWithErrors("Var",
         new VariableDefinition());

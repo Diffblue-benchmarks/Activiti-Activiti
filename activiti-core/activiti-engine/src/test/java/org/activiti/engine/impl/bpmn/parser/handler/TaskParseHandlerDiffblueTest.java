@@ -18,8 +18,6 @@ package org.activiti.engine.impl.bpmn.parser.handler;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.Task;
 import org.activiti.engine.impl.bpmn.behavior.TaskActivityBehavior;
@@ -27,21 +25,13 @@ import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class TaskParseHandlerDiffblueTest {
   /**
-   * Test {@link TaskParseHandler#executeParse(BpmnParse, Task)} with {@code BpmnParse}, {@code Task}.
-   * <ul>
-   *   <li>Then {@link Task} (default constructor) Behavior {@link TaskActivityBehavior}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TaskParseHandler#executeParse(BpmnParse, Task)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void TaskParseHandler.executeParse(BpmnParse, Task)"})
-  public void testExecuteParseWithBpmnParseTask_thenTaskBehaviorTaskActivityBehavior() {
+  public void testExecuteParse() {
     // Arrange
     TaskParseHandler taskParseHandler = new TaskParseHandler();
 
@@ -60,8 +50,6 @@ public class TaskParseHandlerDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link TaskParseHandler}
@@ -69,8 +57,6 @@ public class TaskParseHandlerDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void TaskParseHandler.<init>()", "Class TaskParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends BaseElement> actualHandledType = (new TaskParseHandler()).getHandledType();

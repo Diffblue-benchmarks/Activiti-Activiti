@@ -17,56 +17,10 @@ package org.activiti.api.process.model.payloads;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class UpdateProcessPayloadDiffblueTest {
   /**
-   * Test {@link UpdateProcessPayload#UpdateProcessPayload()}.
-   * <p>
-   * Method under test: {@link UpdateProcessPayload#UpdateProcessPayload()}
-   */
-  @Test
-  @DisplayName("Test new UpdateProcessPayload()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void UpdateProcessPayload.<init>()"})
-  void testNewUpdateProcessPayload() {
-    // Arrange and Act
-    UpdateProcessPayload actualUpdateProcessPayload = new UpdateProcessPayload();
-
-    // Assert
-    assertNull(actualUpdateProcessPayload.getBusinessKey());
-    assertNull(actualUpdateProcessPayload.getDescription());
-    assertNull(actualUpdateProcessPayload.getName());
-    assertNull(actualUpdateProcessPayload.getProcessInstanceId());
-  }
-
-  /**
-   * Test {@link UpdateProcessPayload#UpdateProcessPayload(String, String, String, String)}.
-   * <p>
-   * Method under test: {@link UpdateProcessPayload#UpdateProcessPayload(String, String, String, String)}
-   */
-  @Test
-  @DisplayName("Test new UpdateProcessPayload(String, String, String, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void UpdateProcessPayload.<init>(String, String, String, String)"})
-  void testNewUpdateProcessPayload2() {
-    // Arrange and Act
-    UpdateProcessPayload actualUpdateProcessPayload = new UpdateProcessPayload("42", "Name",
-        "The characteristics of someone or something", "Business Key");
-
-    // Assert
-    assertEquals("42", actualUpdateProcessPayload.getProcessInstanceId());
-    assertEquals("Business Key", actualUpdateProcessPayload.getBusinessKey());
-    assertEquals("Name", actualUpdateProcessPayload.getName());
-    assertEquals("The characteristics of someone or something", actualUpdateProcessPayload.getDescription());
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link UpdateProcessPayload#setBusinessKey(String)}
@@ -81,13 +35,6 @@ class UpdateProcessPayloadDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String UpdateProcessPayload.getBusinessKey()", "String UpdateProcessPayload.getDescription()",
-      "String UpdateProcessPayload.getId()", "String UpdateProcessPayload.getName()",
-      "String UpdateProcessPayload.getProcessInstanceId()", "void UpdateProcessPayload.setBusinessKey(String)",
-      "void UpdateProcessPayload.setDescription(String)", "void UpdateProcessPayload.setName(String)",
-      "void UpdateProcessPayload.setProcessInstanceId(String)"})
   void testGettersAndSetters() {
     // Arrange
     UpdateProcessPayload updateProcessPayload = new UpdateProcessPayload();
@@ -102,10 +49,42 @@ class UpdateProcessPayloadDiffblueTest {
     updateProcessPayload.getId();
     String actualName = updateProcessPayload.getName();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("42", updateProcessPayload.getProcessInstanceId());
     assertEquals("Business Key", actualBusinessKey);
     assertEquals("Name", actualName);
     assertEquals("The characteristics of someone or something", actualDescription);
+  }
+
+  /**
+   * Method under test: {@link UpdateProcessPayload#UpdateProcessPayload()}
+   */
+  @Test
+  void testNewUpdateProcessPayload() {
+    // Arrange and Act
+    UpdateProcessPayload actualUpdateProcessPayload = new UpdateProcessPayload();
+
+    // Assert
+    assertNull(actualUpdateProcessPayload.getBusinessKey());
+    assertNull(actualUpdateProcessPayload.getDescription());
+    assertNull(actualUpdateProcessPayload.getName());
+    assertNull(actualUpdateProcessPayload.getProcessInstanceId());
+  }
+
+  /**
+   * Method under test:
+   * {@link UpdateProcessPayload#UpdateProcessPayload(String, String, String, String)}
+   */
+  @Test
+  void testNewUpdateProcessPayload2() {
+    // Arrange and Act
+    UpdateProcessPayload actualUpdateProcessPayload = new UpdateProcessPayload("42", "Name",
+        "The characteristics of someone or something", "Business Key");
+
+    // Assert
+    assertEquals("42", actualUpdateProcessPayload.getProcessInstanceId());
+    assertEquals("Business Key", actualUpdateProcessPayload.getBusinessKey());
+    assertEquals("Name", actualUpdateProcessPayload.getName());
+    assertEquals("The characteristics of someone or something", actualUpdateProcessPayload.getDescription());
   }
 }

@@ -18,27 +18,18 @@ package org.activiti.engine.impl.bpmn.helper;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class SubProcessVariableSnapshotterDiffblueTest {
   /**
-   * Test {@link SubProcessVariableSnapshotter#setVariablesSnapshots(ExecutionEntity, ExecutionEntity)}.
-   * <ul>
-   *   <li>Then calls {@link ExecutionEntityImpl#getParent()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SubProcessVariableSnapshotter#setVariablesSnapshots(ExecutionEntity, ExecutionEntity)}
+   * Method under test:
+   * {@link SubProcessVariableSnapshotter#setVariablesSnapshots(ExecutionEntity, ExecutionEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SubProcessVariableSnapshotter.setVariablesSnapshots(ExecutionEntity, ExecutionEntity)"})
-  public void testSetVariablesSnapshots_thenCallsGetParent() {
+  public void testSetVariablesSnapshots() {
     // Arrange
     SubProcessVariableSnapshotter subProcessVariableSnapshotter = new SubProcessVariableSnapshotter();
     ExecutionEntityImpl sourceExecution = mock(ExecutionEntityImpl.class);
@@ -49,23 +40,17 @@ public class SubProcessVariableSnapshotterDiffblueTest {
     subProcessVariableSnapshotter.setVariablesSnapshots(sourceExecution,
         ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
-    // Assert
+    // Assert that nothing has changed
     verify(sourceExecution).getParent();
     verify(sourceExecution).getVariablesLocal();
   }
 
   /**
-   * Test {@link SubProcessVariableSnapshotter#setVariablesSnapshots(ExecutionEntity, ExecutionEntity)}.
-   * <ul>
-   *   <li>Then calls {@link ExecutionEntityImpl#isMultiInstanceRoot()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SubProcessVariableSnapshotter#setVariablesSnapshots(ExecutionEntity, ExecutionEntity)}
+   * Method under test:
+   * {@link SubProcessVariableSnapshotter#setVariablesSnapshots(ExecutionEntity, ExecutionEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SubProcessVariableSnapshotter.setVariablesSnapshots(ExecutionEntity, ExecutionEntity)"})
-  public void testSetVariablesSnapshots_thenCallsIsMultiInstanceRoot() {
+  public void testSetVariablesSnapshots2() {
     // Arrange
     SubProcessVariableSnapshotter subProcessVariableSnapshotter = new SubProcessVariableSnapshotter();
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
@@ -79,7 +64,7 @@ public class SubProcessVariableSnapshotterDiffblueTest {
     subProcessVariableSnapshotter.setVariablesSnapshots(sourceExecution,
         ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
-    // Assert
+    // Assert that nothing has changed
     verify(sourceExecution).getParent();
     verify(executionEntityImpl).isMultiInstanceRoot();
     verify(sourceExecution).getVariablesLocal();

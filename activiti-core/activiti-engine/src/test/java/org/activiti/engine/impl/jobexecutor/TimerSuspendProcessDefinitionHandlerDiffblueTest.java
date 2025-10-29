@@ -16,25 +16,18 @@
 package org.activiti.engine.impl.jobexecutor;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class TimerSuspendProcessDefinitionHandlerDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of {@link TimerSuspendProcessDefinitionHandler}
+   *   <li>default or parameterless constructor of
+   * {@link TimerSuspendProcessDefinitionHandler}
    *   <li>{@link TimerSuspendProcessDefinitionHandler#getType()}
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void TimerSuspendProcessDefinitionHandler.<init>()",
-      "java.lang.String TimerSuspendProcessDefinitionHandler.getType()"})
   public void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals(TimerSuspendProcessDefinitionHandler.TYPE, (new TimerSuspendProcessDefinitionHandler()).getType());

@@ -16,15 +16,10 @@
 package org.activiti.image.impl.icon;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ScriptTaskIconTypeDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ScriptTaskIconType}
@@ -33,9 +28,6 @@ public class ScriptTaskIconTypeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ScriptTaskIconType.<init>()", "String ScriptTaskIconType.getDValue()",
-      "String ScriptTaskIconType.getStyleValue()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ScriptTaskIconType actualScriptTaskIconType = new ScriptTaskIconType();

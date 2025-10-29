@@ -26,53 +26,99 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.activiti.bpmn.model.alfresco.AlfrescoStartEvent;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class StartEventDiffblueTest {
   /**
-   * Test {@link StartEvent#clone()}.
-   * <ul>
-   *   <li>Given {@link AlfrescoStartEvent} (default constructor).</li>
-   *   <li>Then return {@link AlfrescoStartEvent}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link StartEvent#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"StartEvent StartEvent.clone()"})
-  public void testClone_givenAlfrescoStartEvent_thenReturnAlfrescoStartEvent() {
+  public void testClone() {
     // Arrange and Act
-    AlfrescoStartEvent actualCloneResult = (new AlfrescoStartEvent()).clone();
+    StartEvent actualCloneResult = (new StartEvent()).clone();
 
     // Assert
-    assertTrue(actualCloneResult instanceof AlfrescoStartEvent);
-    assertNull(((AlfrescoStartEvent) actualCloneResult).getRunAs());
-    assertNull(((AlfrescoStartEvent) actualCloneResult).getScriptProcessor());
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getFormKey());
+    assertNull(actualCloneResult.getInitiator());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertFalse(actualCloneResult.isInterrupting());
+    assertTrue(actualCloneResult.getEventDefinitions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
     assertTrue(actualCloneResult.getFormProperties().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
   }
 
   /**
-   * Test {@link StartEvent#clone()}.
-   * <ul>
-   *   <li>Given {@link FormProperty} (default constructor) ExtensionElements is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link StartEvent#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"StartEvent StartEvent.clone()"})
-  public void testClone_givenFormPropertyExtensionElementsIsNull() {
+  public void testClone2() {
+    // Arrange
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(new CancelEventDefinition());
+
+    StartEvent startEvent = new StartEvent();
+    startEvent.setEventDefinitions(eventDefinitions);
+
+    // Act
+    StartEvent actualCloneResult = startEvent.clone();
+
+    // Assert
+    List<EventDefinition> eventDefinitions2 = actualCloneResult.getEventDefinitions();
+    assertEquals(1, eventDefinitions2.size());
+    EventDefinition getResult = eventDefinitions2.get(0);
+    assertTrue(getResult instanceof CancelEventDefinition);
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(getResult.getId());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getFormKey());
+    assertNull(actualCloneResult.getInitiator());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlRowNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertFalse(actualCloneResult.isInterrupting());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getFormProperties().isEmpty());
+    assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(getResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+  }
+
+  /**
+   * Method under test: {@link StartEvent#clone()}
+   */
+  @Test
+  public void testClone3() {
     // Arrange
     FormProperty formProperty = new FormProperty();
     formProperty.setExtensionElements(null);
@@ -84,39 +130,55 @@ public class StartEventDiffblueTest {
     StartEvent startEvent = new StartEvent();
     startEvent.setFormProperties(formProperties);
 
-    // Act and Assert
-    List<FormProperty> formProperties2 = startEvent.clone().getFormProperties();
+    // Act
+    StartEvent actualCloneResult = startEvent.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getBehavior());
+    List<FormProperty> formProperties2 = actualCloneResult.getFormProperties();
     assertEquals(1, formProperties2.size());
     FormProperty getResult = formProperties2.get(0);
     assertNull(getResult.getId());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
     assertNull(getResult.getDatePattern());
     assertNull(getResult.getDefaultExpression());
     assertNull(getResult.getExpression());
     assertNull(getResult.getName());
     assertNull(getResult.getType());
     assertNull(getResult.getVariable());
+    assertNull(actualCloneResult.getFormKey());
+    assertNull(actualCloneResult.getInitiator());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getSubProcess());
     assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
     assertEquals(0, getResult.getXmlRowNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
     assertFalse(getResult.isRequired());
+    assertFalse(actualCloneResult.isInterrupting());
+    assertTrue(actualCloneResult.getEventDefinitions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
     assertTrue(getResult.getFormValues().isEmpty());
     assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
     assertTrue(getResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
     assertTrue(getResult.isReadable());
     assertTrue(getResult.isWriteable());
   }
 
   /**
-   * Test {@link StartEvent#clone()}.
-   * <ul>
-   *   <li>Given {@link FormProperty} (default constructor) FormValues is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link StartEvent#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"StartEvent StartEvent.clone()"})
-  public void testClone_givenFormPropertyFormValuesIsNull() {
+  public void testClone4() {
     // Arrange
     FormProperty formProperty = new FormProperty();
     formProperty.setFormValues(null);
@@ -127,40 +189,125 @@ public class StartEventDiffblueTest {
     StartEvent startEvent = new StartEvent();
     startEvent.setFormProperties(formProperties);
 
-    // Act and Assert
-    List<FormProperty> formProperties2 = startEvent.clone().getFormProperties();
+    // Act
+    StartEvent actualCloneResult = startEvent.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getBehavior());
+    List<FormProperty> formProperties2 = actualCloneResult.getFormProperties();
     assertEquals(1, formProperties2.size());
     FormProperty getResult = formProperties2.get(0);
     assertNull(getResult.getId());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
     assertNull(getResult.getDatePattern());
     assertNull(getResult.getDefaultExpression());
     assertNull(getResult.getExpression());
     assertNull(getResult.getName());
     assertNull(getResult.getType());
     assertNull(getResult.getVariable());
+    assertNull(actualCloneResult.getFormKey());
+    assertNull(actualCloneResult.getInitiator());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getSubProcess());
     assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
     assertEquals(0, getResult.getXmlRowNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
     assertFalse(getResult.isRequired());
+    assertFalse(actualCloneResult.isInterrupting());
+    assertTrue(actualCloneResult.getEventDefinitions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
     assertTrue(getResult.getFormValues().isEmpty());
     assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
     assertTrue(getResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
     assertTrue(getResult.isReadable());
     assertTrue(getResult.isWriteable());
   }
 
   /**
-   * Test {@link StartEvent#clone()}.
-   * <ul>
-   *   <li>Given {@link StartEvent} (default constructor) FormProperties is {@code null}.</li>
-   *   <li>Then return Behavior is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link StartEvent#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"StartEvent StartEvent.clone()"})
-  public void testClone_givenStartEventFormPropertiesIsNull_thenReturnBehaviorIsNull() {
+  public void testClone5() {
+    // Arrange
+    ArrayList<FormValue> formValues = new ArrayList<>();
+    formValues.add(new FormValue());
+
+    FormProperty formProperty = new FormProperty();
+    formProperty.setFormValues(formValues);
+
+    ArrayList<FormProperty> formProperties = new ArrayList<>();
+    formProperties.add(formProperty);
+
+    StartEvent startEvent = new StartEvent();
+    startEvent.setFormProperties(formProperties);
+
+    // Act
+    StartEvent actualCloneResult = startEvent.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getBehavior());
+    List<FormProperty> formProperties2 = actualCloneResult.getFormProperties();
+    assertEquals(1, formProperties2.size());
+    FormProperty getResult = formProperties2.get(0);
+    assertNull(getResult.getId());
+    List<FormValue> formValues2 = getResult.getFormValues();
+    assertEquals(1, formValues2.size());
+    FormValue getResult2 = formValues2.get(0);
+    assertNull(getResult2.getId());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(getResult.getDatePattern());
+    assertNull(getResult.getDefaultExpression());
+    assertNull(getResult.getExpression());
+    assertNull(getResult.getName());
+    assertNull(getResult.getType());
+    assertNull(getResult.getVariable());
+    assertNull(getResult2.getName());
+    assertNull(actualCloneResult.getFormKey());
+    assertNull(actualCloneResult.getInitiator());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult2.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlRowNumber());
+    assertEquals(0, getResult2.getXmlRowNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertFalse(getResult.isRequired());
+    assertFalse(actualCloneResult.isInterrupting());
+    assertTrue(actualCloneResult.getEventDefinitions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(getResult2.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(getResult.getExtensionElements().isEmpty());
+    assertTrue(getResult2.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+    assertTrue(getResult.isReadable());
+    assertTrue(getResult.isWriteable());
+  }
+
+  /**
+   * Method under test: {@link StartEvent#clone()}
+   */
+  @Test
+  public void testClone6() {
     // Arrange
     StartEvent startEvent = new StartEvent();
     startEvent.setFormProperties(null);
@@ -186,26 +333,59 @@ public class StartEventDiffblueTest {
     assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
     assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
     assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getFormProperties().isEmpty());
     assertTrue(actualCloneResult.getAttributes().isEmpty());
     assertTrue(actualCloneResult.getExtensionElements().isEmpty());
     assertTrue(actualCloneResult.isExclusive());
   }
 
   /**
-   * Test {@link StartEvent#clone()}.
-   * <ul>
-   *   <li>Given {@link StartEvent} (default constructor).</li>
-   *   <li>Then return Behavior is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link StartEvent#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"StartEvent StartEvent.clone()"})
-  public void testClone_givenStartEvent_thenReturnBehaviorIsNull() {
+  public void testClone7() {
     // Arrange and Act
-    StartEvent actualCloneResult = (new StartEvent()).clone();
+    AlfrescoStartEvent actualCloneResult = (new AlfrescoStartEvent()).clone();
+
+    // Assert
+    assertTrue(actualCloneResult instanceof AlfrescoStartEvent);
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getFormKey());
+    assertNull(actualCloneResult.getInitiator());
+    assertNull(((AlfrescoStartEvent) actualCloneResult).getRunAs());
+    assertNull(((AlfrescoStartEvent) actualCloneResult).getScriptProcessor());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertFalse(actualCloneResult.isInterrupting());
+    assertTrue(actualCloneResult.getEventDefinitions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getFormProperties().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+  }
+
+  /**
+   * Method under test: {@link StartEvent#clone()}
+   */
+  @Test
+  public void testClone8() {
+    // Arrange
+    StartEvent startEvent = new StartEvent();
+    ExtensionAttribute attribute = new ExtensionAttribute("Name");
+    startEvent.addAttribute(attribute);
+
+    // Act
+    StartEvent actualCloneResult = startEvent.clone();
 
     // Assert
     assertNull(actualCloneResult.getBehavior());
@@ -218,6 +398,10 @@ public class StartEventDiffblueTest {
     assertNull(actualCloneResult.getSubProcess());
     assertEquals(0, actualCloneResult.getXmlColumnNumber());
     assertEquals(0, actualCloneResult.getXmlRowNumber());
+    Map<String, List<ExtensionAttribute>> attributes = actualCloneResult.getAttributes();
+    assertEquals(1, attributes.size());
+    List<ExtensionAttribute> getResult = attributes.get("Name");
+    assertEquals(1, getResult.size());
     assertFalse(actualCloneResult.isAsynchronous());
     assertFalse(actualCloneResult.isNotExclusive());
     assertFalse(actualCloneResult.isInterrupting());
@@ -225,175 +409,87 @@ public class StartEventDiffblueTest {
     assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
     assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
     assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
-    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getFormProperties().isEmpty());
     assertTrue(actualCloneResult.getExtensionElements().isEmpty());
     assertTrue(actualCloneResult.isExclusive());
-  }
-
-  /**
-   * Test {@link StartEvent#clone()}.
-   * <ul>
-   *   <li>Then return Attributes size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StartEvent#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"StartEvent StartEvent.clone()"})
-  public void testClone_thenReturnAttributesSizeIsOne() {
-    // Arrange
-    StartEvent startEvent = new StartEvent();
-    ExtensionAttribute attribute = new ExtensionAttribute("Name");
-    startEvent.addAttribute(attribute);
-
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = startEvent.clone().getAttributes();
-    assertEquals(1, attributes.size());
-    List<ExtensionAttribute> getResult = attributes.get("Name");
-    assertEquals(1, getResult.size());
     assertSame(attribute, getResult.get(0));
   }
 
   /**
-   * Test {@link StartEvent#clone()}.
-   * <ul>
-   *   <li>Then return Attributes size is two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link StartEvent#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"StartEvent StartEvent.clone()"})
-  public void testClone_thenReturnAttributesSizeIsTwo() {
+  public void testClone9() {
     // Arrange
     StartEvent startEvent = new StartEvent();
     ExtensionAttribute attribute = new ExtensionAttribute("42");
     startEvent.addAttribute(attribute);
-    startEvent.addAttribute(new ExtensionAttribute("Name"));
+    ExtensionAttribute attribute2 = new ExtensionAttribute("Name");
+    startEvent.addAttribute(attribute2);
 
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = startEvent.clone().getAttributes();
+    // Act
+    StartEvent actualCloneResult = startEvent.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getFormKey());
+    assertNull(actualCloneResult.getInitiator());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    Map<String, List<ExtensionAttribute>> attributes = actualCloneResult.getAttributes();
     assertEquals(2, attributes.size());
     List<ExtensionAttribute> getResult = attributes.get("42");
     assertEquals(1, getResult.size());
-    assertTrue(attributes.containsKey("Name"));
+    List<ExtensionAttribute> getResult2 = attributes.get("Name");
+    assertEquals(1, getResult2.size());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertFalse(actualCloneResult.isInterrupting());
+    assertTrue(actualCloneResult.getEventDefinitions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getFormProperties().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
     assertSame(attribute, getResult.get(0));
+    assertSame(attribute2, getResult2.get(0));
   }
 
   /**
-   * Test {@link StartEvent#clone()}.
-   * <ul>
-   *   <li>Then return EventDefinitions size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StartEvent#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"StartEvent StartEvent.clone()"})
-  public void testClone_thenReturnEventDefinitionsSizeIsOne() {
-    // Arrange
-    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
-    eventDefinitions.add(new CancelEventDefinition());
-
-    StartEvent startEvent = new StartEvent();
-    startEvent.setEventDefinitions(eventDefinitions);
-
-    // Act and Assert
-    List<EventDefinition> eventDefinitions2 = startEvent.clone().getEventDefinitions();
-    assertEquals(1, eventDefinitions2.size());
-    EventDefinition getResult = eventDefinitions2.get(0);
-    assertTrue(getResult instanceof CancelEventDefinition);
-    assertNull(getResult.getId());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link StartEvent#clone()}.
-   * <ul>
-   *   <li>Then return FormProperties first FormValues size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StartEvent#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"StartEvent StartEvent.clone()"})
-  public void testClone_thenReturnFormPropertiesFirstFormValuesSizeIsOne() {
-    // Arrange
-    ArrayList<FormValue> formValues = new ArrayList<>();
-    formValues.add(new FormValue());
-
-    FormProperty formProperty = new FormProperty();
-    formProperty.setFormValues(formValues);
-
-    ArrayList<FormProperty> formProperties = new ArrayList<>();
-    formProperties.add(formProperty);
-
-    StartEvent startEvent = new StartEvent();
-    startEvent.setFormProperties(formProperties);
-
-    // Act and Assert
-    List<FormProperty> formProperties2 = startEvent.clone().getFormProperties();
-    assertEquals(1, formProperties2.size());
-    List<FormValue> formValues2 = formProperties2.get(0).getFormValues();
-    assertEquals(1, formValues2.size());
-    FormValue getResult = formValues2.get(0);
-    assertNull(getResult.getId());
-    assertNull(getResult.getName());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link StartEvent#setValues(StartEvent)} with {@code StartEvent}.
-   * <p>
    * Method under test: {@link StartEvent#setValues(StartEvent)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void StartEvent.setValues(StartEvent)"})
-  public void testSetValuesWithStartEvent() {
+  public void testSetValues() {
     // Arrange
     StartEvent startEvent = new StartEvent();
-
-    CancelEventDefinition cancelEventDefinition = new CancelEventDefinition();
-    cancelEventDefinition.addAttribute(new ExtensionAttribute("Name"));
-
-    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
-    eventDefinitions.add(cancelEventDefinition);
-
     StartEvent otherEvent = new StartEvent();
-    otherEvent.setEventDefinitions(eventDefinitions);
 
     // Act
     startEvent.setValues(otherEvent);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(otherEvent.getId());
+    assertNull(otherEvent.getDocumentation());
+    assertNull(otherEvent.getName());
+    assertNull(otherEvent.getFormKey());
+    assertNull(otherEvent.getInitiator());
     assertFalse(otherEvent.isAsynchronous());
     assertFalse(otherEvent.isNotExclusive());
+    assertTrue(otherEvent.getFormProperties().isEmpty());
     assertTrue(otherEvent.isExclusive());
   }
 
   /**
-   * Test {@link StartEvent#setValues(StartEvent)} with {@code StartEvent}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link CancelEventDefinition} (default constructor).</li>
-   * </ul>
-   * <p>
    * Method under test: {@link StartEvent#setValues(StartEvent)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void StartEvent.setValues(StartEvent)"})
-  public void testSetValuesWithStartEvent_givenArrayListAddCancelEventDefinition() {
+  public void testSetValues2() {
     // Arrange
     StartEvent startEvent = new StartEvent();
 
@@ -406,60 +502,75 @@ public class StartEventDiffblueTest {
     // Act
     startEvent.setValues(otherEvent);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(otherEvent.getId());
+    assertNull(otherEvent.getDocumentation());
+    assertNull(otherEvent.getName());
+    assertNull(otherEvent.getFormKey());
+    assertNull(otherEvent.getInitiator());
     assertFalse(otherEvent.isAsynchronous());
     assertFalse(otherEvent.isNotExclusive());
+    assertTrue(otherEvent.getFormProperties().isEmpty());
     assertTrue(otherEvent.isExclusive());
   }
 
   /**
-   * Test {@link StartEvent#setValues(StartEvent)} with {@code StartEvent}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FormValue} (default constructor).</li>
-   * </ul>
-   * <p>
    * Method under test: {@link StartEvent#setValues(StartEvent)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void StartEvent.setValues(StartEvent)"})
-  public void testSetValuesWithStartEvent_givenArrayListAddFormValue() {
+  public void testSetValues3() {
     // Arrange
     StartEvent startEvent = new StartEvent();
 
-    ArrayList<FormValue> formValues = new ArrayList<>();
-    formValues.add(new FormValue());
-
-    FormProperty formProperty = new FormProperty();
-    formProperty.setFormValues(formValues);
-
-    ArrayList<FormProperty> formProperties = new ArrayList<>();
-    formProperties.add(formProperty);
-
     StartEvent otherEvent = new StartEvent();
-    otherEvent.setFormProperties(formProperties);
+    otherEvent.setExtensionElements(null);
 
     // Act
     startEvent.setValues(otherEvent);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(otherEvent.getId());
+    assertNull(otherEvent.getDocumentation());
+    assertNull(otherEvent.getName());
+    assertNull(otherEvent.getFormKey());
+    assertNull(otherEvent.getInitiator());
+    assertFalse(otherEvent.isAsynchronous());
+    assertFalse(otherEvent.isNotExclusive());
+    assertTrue(otherEvent.getFormProperties().isEmpty());
+    assertTrue(otherEvent.isExclusive());
+  }
+
+  /**
+   * Method under test: {@link StartEvent#setValues(StartEvent)}
+   */
+  @Test
+  public void testSetValues4() {
+    // Arrange
+    StartEvent startEvent = new StartEvent();
+
+    StartEvent otherEvent = new StartEvent();
+    otherEvent.setFormProperties(null);
+
+    // Act
+    startEvent.setValues(otherEvent);
+
+    // Assert
+    assertNull(otherEvent.getId());
+    assertNull(otherEvent.getDocumentation());
+    assertNull(otherEvent.getName());
+    assertNull(otherEvent.getFormKey());
+    assertNull(otherEvent.getInitiator());
+    assertNull(otherEvent.getFormProperties());
     assertFalse(otherEvent.isAsynchronous());
     assertFalse(otherEvent.isNotExclusive());
     assertTrue(otherEvent.isExclusive());
   }
 
   /**
-   * Test {@link StartEvent#setValues(StartEvent)} with {@code StartEvent}.
-   * <ul>
-   *   <li>Given {@link FormProperty} (default constructor) ExtensionElements is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link StartEvent#setValues(StartEvent)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void StartEvent.setValues(StartEvent)"})
-  public void testSetValuesWithStartEvent_givenFormPropertyExtensionElementsIsNull() {
+  public void testSetValues5() {
     // Arrange
     StartEvent startEvent = new StartEvent();
 
@@ -476,24 +587,23 @@ public class StartEventDiffblueTest {
     // Act
     startEvent.setValues(otherEvent);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(otherEvent.getId());
+    assertNull(otherEvent.getDocumentation());
+    assertNull(otherEvent.getName());
+    assertNull(otherEvent.getFormKey());
+    assertNull(otherEvent.getInitiator());
     assertFalse(otherEvent.isAsynchronous());
     assertFalse(otherEvent.isNotExclusive());
     assertTrue(otherEvent.isExclusive());
+    assertSame(formProperties, otherEvent.getFormProperties());
   }
 
   /**
-   * Test {@link StartEvent#setValues(StartEvent)} with {@code StartEvent}.
-   * <ul>
-   *   <li>Given {@link FormProperty} (default constructor) FormValues is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link StartEvent#setValues(StartEvent)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void StartEvent.setValues(StartEvent)"})
-  public void testSetValuesWithStartEvent_givenFormPropertyFormValuesIsNull() {
+  public void testSetValues6() {
     // Arrange
     StartEvent startEvent = new StartEvent();
 
@@ -509,32 +619,28 @@ public class StartEventDiffblueTest {
     // Act
     startEvent.setValues(otherEvent);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(otherEvent.getId());
+    assertNull(otherEvent.getDocumentation());
+    assertNull(otherEvent.getName());
+    assertNull(otherEvent.getFormKey());
+    assertNull(otherEvent.getInitiator());
     assertFalse(otherEvent.isAsynchronous());
     assertFalse(otherEvent.isNotExclusive());
     assertTrue(otherEvent.isExclusive());
+    assertSame(formProperties, otherEvent.getFormProperties());
   }
 
   /**
-   * Test {@link StartEvent#setValues(StartEvent)} with {@code StartEvent}.
-   * <ul>
-   *   <li>Given {@link FormValue} {@link FormValue#clone()} return {@link FormValue} (default constructor).</li>
-   *   <li>Then calls {@link FormValue#clone()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link StartEvent#setValues(StartEvent)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void StartEvent.setValues(StartEvent)"})
-  public void testSetValuesWithStartEvent_givenFormValueCloneReturnFormValue_thenCallsClone() {
+  public void testSetValues7() {
     // Arrange
     StartEvent startEvent = new StartEvent();
-    FormValue formValue = mock(FormValue.class);
-    when(formValue.clone()).thenReturn(new FormValue());
 
     ArrayList<FormValue> formValues = new ArrayList<>();
-    formValues.add(formValue);
+    formValues.add(new FormValue());
 
     FormProperty formProperty = new FormProperty();
     formProperty.setFormValues(formValues);
@@ -548,316 +654,23 @@ public class StartEventDiffblueTest {
     // Act
     startEvent.setValues(otherEvent);
 
-    // Assert that nothing has changed
-    verify(formValue).clone();
+    // Assert
+    assertNull(otherEvent.getId());
+    assertNull(otherEvent.getDocumentation());
+    assertNull(otherEvent.getName());
+    assertNull(otherEvent.getFormKey());
+    assertNull(otherEvent.getInitiator());
     assertFalse(otherEvent.isAsynchronous());
     assertFalse(otherEvent.isNotExclusive());
     assertTrue(otherEvent.isExclusive());
+    assertSame(formProperties, otherEvent.getFormProperties());
   }
 
   /**
-   * Test {@link StartEvent#setValues(StartEvent)} with {@code StartEvent}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code 42} is {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then {@link StartEvent} (default constructor) Id is {@code 42}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link StartEvent#setValues(StartEvent)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void StartEvent.setValues(StartEvent)"})
-  public void testSetValuesWithStartEvent_givenHashMap42IsArrayList_thenStartEventIdIs42() {
-    // Arrange
-    StartEvent startEvent = new StartEvent();
-
-    HashMap<String, List<ExtensionAttribute>> stringListMap = new HashMap<>();
-    stringListMap.put("42", new ArrayList<>());
-    stringListMap.put("foo", new ArrayList<>());
-    AlfrescoStartEvent otherEvent = mock(AlfrescoStartEvent.class);
-    when(otherEvent.isAsynchronous()).thenReturn(true);
-    when(otherEvent.isNotExclusive()).thenReturn(true);
-    when(otherEvent.getId()).thenReturn("42");
-    when(otherEvent.getDocumentation()).thenReturn("Documentation");
-    when(otherEvent.getName()).thenReturn("Name");
-    when(otherEvent.getFormKey()).thenReturn("Form Key");
-    when(otherEvent.getInitiator()).thenReturn("Initiator");
-    when(otherEvent.getEventDefinitions()).thenReturn(new ArrayList<>());
-    when(otherEvent.getExecutionListeners()).thenReturn(new ArrayList<>());
-    when(otherEvent.getFormProperties()).thenReturn(new ArrayList<>());
-    when(otherEvent.getAttributes()).thenReturn(stringListMap);
-    when(otherEvent.getExtensionElements()).thenReturn(new HashMap<>());
-
-    // Act
-    startEvent.setValues(otherEvent);
-
-    // Assert
-    verify(otherEvent, atLeast(1)).getAttributes();
-    verify(otherEvent, atLeast(1)).getExtensionElements();
-    verify(otherEvent).getId();
-    verify(otherEvent, atLeast(1)).getEventDefinitions();
-    verify(otherEvent).getDocumentation();
-    verify(otherEvent, atLeast(1)).getExecutionListeners();
-    verify(otherEvent).getName();
-    verify(otherEvent).isAsynchronous();
-    verify(otherEvent).isNotExclusive();
-    verify(otherEvent).getFormKey();
-    verify(otherEvent, atLeast(1)).getFormProperties();
-    verify(otherEvent).getInitiator();
-    assertEquals("42", startEvent.getId());
-    assertEquals("Documentation", startEvent.getDocumentation());
-    assertEquals("Form Key", startEvent.getFormKey());
-    assertEquals("Initiator", startEvent.getInitiator());
-    assertEquals("Name", startEvent.getName());
-    assertFalse(startEvent.isExclusive());
-    assertTrue(startEvent.isAsynchronous());
-    assertTrue(startEvent.isNotExclusive());
-  }
-
-  /**
-   * Test {@link StartEvent#setValues(StartEvent)} with {@code StartEvent}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code 42} is {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then {@link StartEvent} (default constructor) Id is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StartEvent#setValues(StartEvent)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void StartEvent.setValues(StartEvent)"})
-  public void testSetValuesWithStartEvent_givenHashMap42IsArrayList_thenStartEventIdIs422() {
-    // Arrange
-    StartEvent startEvent = new StartEvent();
-
-    HashMap<String, List<ExtensionElement>> stringListMap = new HashMap<>();
-    stringListMap.put("42", new ArrayList<>());
-    stringListMap.put("foo", new ArrayList<>());
-    AlfrescoStartEvent otherEvent = mock(AlfrescoStartEvent.class);
-    when(otherEvent.isAsynchronous()).thenReturn(true);
-    when(otherEvent.isNotExclusive()).thenReturn(true);
-    when(otherEvent.getId()).thenReturn("42");
-    when(otherEvent.getDocumentation()).thenReturn("Documentation");
-    when(otherEvent.getName()).thenReturn("Name");
-    when(otherEvent.getFormKey()).thenReturn("Form Key");
-    when(otherEvent.getInitiator()).thenReturn("Initiator");
-    when(otherEvent.getEventDefinitions()).thenReturn(new ArrayList<>());
-    when(otherEvent.getExecutionListeners()).thenReturn(new ArrayList<>());
-    when(otherEvent.getFormProperties()).thenReturn(new ArrayList<>());
-    when(otherEvent.getAttributes()).thenReturn(new HashMap<>());
-    when(otherEvent.getExtensionElements()).thenReturn(stringListMap);
-
-    // Act
-    startEvent.setValues(otherEvent);
-
-    // Assert
-    verify(otherEvent, atLeast(1)).getAttributes();
-    verify(otherEvent, atLeast(1)).getExtensionElements();
-    verify(otherEvent).getId();
-    verify(otherEvent, atLeast(1)).getEventDefinitions();
-    verify(otherEvent).getDocumentation();
-    verify(otherEvent, atLeast(1)).getExecutionListeners();
-    verify(otherEvent).getName();
-    verify(otherEvent).isAsynchronous();
-    verify(otherEvent).isNotExclusive();
-    verify(otherEvent).getFormKey();
-    verify(otherEvent, atLeast(1)).getFormProperties();
-    verify(otherEvent).getInitiator();
-    assertEquals("42", startEvent.getId());
-    assertEquals("Documentation", startEvent.getDocumentation());
-    assertEquals("Form Key", startEvent.getFormKey());
-    assertEquals("Initiator", startEvent.getInitiator());
-    assertEquals("Name", startEvent.getName());
-    assertFalse(startEvent.isExclusive());
-    assertTrue(startEvent.isAsynchronous());
-    assertTrue(startEvent.isNotExclusive());
-  }
-
-  /**
-   * Test {@link StartEvent#setValues(StartEvent)} with {@code StartEvent}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then {@link StartEvent} (default constructor) Id is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StartEvent#setValues(StartEvent)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void StartEvent.setValues(StartEvent)"})
-  public void testSetValuesWithStartEvent_givenHashMapFooIsArrayList_thenStartEventIdIs42() {
-    // Arrange
-    StartEvent startEvent = new StartEvent();
-
-    HashMap<String, List<ExtensionAttribute>> stringListMap = new HashMap<>();
-    stringListMap.put("foo", new ArrayList<>());
-    AlfrescoStartEvent otherEvent = mock(AlfrescoStartEvent.class);
-    when(otherEvent.isAsynchronous()).thenReturn(true);
-    when(otherEvent.isNotExclusive()).thenReturn(true);
-    when(otherEvent.getId()).thenReturn("42");
-    when(otherEvent.getDocumentation()).thenReturn("Documentation");
-    when(otherEvent.getName()).thenReturn("Name");
-    when(otherEvent.getFormKey()).thenReturn("Form Key");
-    when(otherEvent.getInitiator()).thenReturn("Initiator");
-    when(otherEvent.getEventDefinitions()).thenReturn(new ArrayList<>());
-    when(otherEvent.getExecutionListeners()).thenReturn(new ArrayList<>());
-    when(otherEvent.getFormProperties()).thenReturn(new ArrayList<>());
-    when(otherEvent.getAttributes()).thenReturn(stringListMap);
-    when(otherEvent.getExtensionElements()).thenReturn(new HashMap<>());
-
-    // Act
-    startEvent.setValues(otherEvent);
-
-    // Assert
-    verify(otherEvent, atLeast(1)).getAttributes();
-    verify(otherEvent, atLeast(1)).getExtensionElements();
-    verify(otherEvent).getId();
-    verify(otherEvent, atLeast(1)).getEventDefinitions();
-    verify(otherEvent).getDocumentation();
-    verify(otherEvent, atLeast(1)).getExecutionListeners();
-    verify(otherEvent).getName();
-    verify(otherEvent).isAsynchronous();
-    verify(otherEvent).isNotExclusive();
-    verify(otherEvent).getFormKey();
-    verify(otherEvent, atLeast(1)).getFormProperties();
-    verify(otherEvent).getInitiator();
-    assertEquals("42", startEvent.getId());
-    assertEquals("Documentation", startEvent.getDocumentation());
-    assertEquals("Form Key", startEvent.getFormKey());
-    assertEquals("Initiator", startEvent.getInitiator());
-    assertEquals("Name", startEvent.getName());
-    assertFalse(startEvent.isExclusive());
-    assertTrue(startEvent.isAsynchronous());
-    assertTrue(startEvent.isNotExclusive());
-  }
-
-  /**
-   * Test {@link StartEvent#setValues(StartEvent)} with {@code StartEvent}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then {@link StartEvent} (default constructor) Id is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StartEvent#setValues(StartEvent)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void StartEvent.setValues(StartEvent)"})
-  public void testSetValuesWithStartEvent_givenHashMapFooIsArrayList_thenStartEventIdIs422() {
-    // Arrange
-    StartEvent startEvent = new StartEvent();
-
-    HashMap<String, List<ExtensionElement>> stringListMap = new HashMap<>();
-    stringListMap.put("foo", new ArrayList<>());
-    AlfrescoStartEvent otherEvent = mock(AlfrescoStartEvent.class);
-    when(otherEvent.isAsynchronous()).thenReturn(true);
-    when(otherEvent.isNotExclusive()).thenReturn(true);
-    when(otherEvent.getId()).thenReturn("42");
-    when(otherEvent.getDocumentation()).thenReturn("Documentation");
-    when(otherEvent.getName()).thenReturn("Name");
-    when(otherEvent.getFormKey()).thenReturn("Form Key");
-    when(otherEvent.getInitiator()).thenReturn("Initiator");
-    when(otherEvent.getEventDefinitions()).thenReturn(new ArrayList<>());
-    when(otherEvent.getExecutionListeners()).thenReturn(new ArrayList<>());
-    when(otherEvent.getFormProperties()).thenReturn(new ArrayList<>());
-    when(otherEvent.getAttributes()).thenReturn(new HashMap<>());
-    when(otherEvent.getExtensionElements()).thenReturn(stringListMap);
-
-    // Act
-    startEvent.setValues(otherEvent);
-
-    // Assert
-    verify(otherEvent, atLeast(1)).getAttributes();
-    verify(otherEvent, atLeast(1)).getExtensionElements();
-    verify(otherEvent).getId();
-    verify(otherEvent, atLeast(1)).getEventDefinitions();
-    verify(otherEvent).getDocumentation();
-    verify(otherEvent, atLeast(1)).getExecutionListeners();
-    verify(otherEvent).getName();
-    verify(otherEvent).isAsynchronous();
-    verify(otherEvent).isNotExclusive();
-    verify(otherEvent).getFormKey();
-    verify(otherEvent, atLeast(1)).getFormProperties();
-    verify(otherEvent).getInitiator();
-    assertEquals("42", startEvent.getId());
-    assertEquals("Documentation", startEvent.getDocumentation());
-    assertEquals("Form Key", startEvent.getFormKey());
-    assertEquals("Initiator", startEvent.getInitiator());
-    assertEquals("Name", startEvent.getName());
-    assertFalse(startEvent.isExclusive());
-    assertTrue(startEvent.isAsynchronous());
-    assertTrue(startEvent.isNotExclusive());
-  }
-
-  /**
-   * Test {@link StartEvent#setValues(StartEvent)} with {@code StartEvent}.
-   * <ul>
-   *   <li>Given {@code null}.</li>
-   *   <li>When {@link StartEvent} (default constructor) ExtensionElements is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StartEvent#setValues(StartEvent)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void StartEvent.setValues(StartEvent)"})
-  public void testSetValuesWithStartEvent_givenNull_whenStartEventExtensionElementsIsNull() {
-    // Arrange
-    StartEvent startEvent = new StartEvent();
-
-    StartEvent otherEvent = new StartEvent();
-    otherEvent.setExtensionElements(null);
-
-    // Act
-    startEvent.setValues(otherEvent);
-
-    // Assert that nothing has changed
-    assertFalse(otherEvent.isAsynchronous());
-    assertFalse(otherEvent.isNotExclusive());
-    assertTrue(otherEvent.isExclusive());
-  }
-
-  /**
-   * Test {@link StartEvent#setValues(StartEvent)} with {@code StartEvent}.
-   * <ul>
-   *   <li>Given {@code null}.</li>
-   *   <li>When {@link StartEvent} (default constructor) FormProperties is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StartEvent#setValues(StartEvent)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void StartEvent.setValues(StartEvent)"})
-  public void testSetValuesWithStartEvent_givenNull_whenStartEventFormPropertiesIsNull() {
-    // Arrange
-    StartEvent startEvent = new StartEvent();
-
-    StartEvent otherEvent = new StartEvent();
-    otherEvent.setFormProperties(null);
-
-    // Act
-    startEvent.setValues(otherEvent);
-
-    // Assert that nothing has changed
-    assertFalse(otherEvent.isAsynchronous());
-    assertFalse(otherEvent.isNotExclusive());
-    assertTrue(otherEvent.isExclusive());
-  }
-
-  /**
-   * Test {@link StartEvent#setValues(StartEvent)} with {@code StartEvent}.
-   * <ul>
-   *   <li>Given {@code true}.</li>
-   *   <li>Then {@link StartEvent} (default constructor) Id is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StartEvent#setValues(StartEvent)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void StartEvent.setValues(StartEvent)"})
-  public void testSetValuesWithStartEvent_givenTrue_thenStartEventIdIs42() {
+  public void testSetValues8() {
     // Arrange
     StartEvent startEvent = new StartEvent();
     AlfrescoStartEvent otherEvent = mock(AlfrescoStartEvent.class);
@@ -896,22 +709,16 @@ public class StartEventDiffblueTest {
     assertEquals("Initiator", startEvent.getInitiator());
     assertEquals("Name", startEvent.getName());
     assertFalse(startEvent.isExclusive());
+    assertTrue(startEvent.getFormProperties().isEmpty());
     assertTrue(startEvent.isAsynchronous());
     assertTrue(startEvent.isNotExclusive());
   }
 
   /**
-   * Test {@link StartEvent#setValues(StartEvent)} with {@code StartEvent}.
-   * <ul>
-   *   <li>Then {@link StartEvent} (default constructor) FormProperties first Id is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link StartEvent#setValues(StartEvent)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void StartEvent.setValues(StartEvent)"})
-  public void testSetValuesWithStartEvent_thenStartEventFormPropertiesFirstIdIsNull() {
+  public void testSetValues9() {
     // Arrange
     StartEvent startEvent = new StartEvent();
 
@@ -947,6 +754,11 @@ public class StartEventDiffblueTest {
     verify(otherEvent).getFormKey();
     verify(otherEvent, atLeast(1)).getFormProperties();
     verify(otherEvent).getInitiator();
+    assertEquals("42", startEvent.getId());
+    assertEquals("Documentation", startEvent.getDocumentation());
+    assertEquals("Form Key", startEvent.getFormKey());
+    assertEquals("Initiator", startEvent.getInitiator());
+    assertEquals("Name", startEvent.getName());
     List<FormProperty> formProperties = startEvent.getFormProperties();
     assertEquals(1, formProperties.size());
     FormProperty getResult = formProperties.get(0);
@@ -959,26 +771,228 @@ public class StartEventDiffblueTest {
     assertNull(getResult.getVariable());
     assertEquals(0, getResult.getXmlColumnNumber());
     assertEquals(0, getResult.getXmlRowNumber());
+    assertFalse(startEvent.isExclusive());
     assertFalse(getResult.isRequired());
     assertTrue(getResult.getFormValues().isEmpty());
     assertTrue(getResult.getAttributes().isEmpty());
     assertTrue(getResult.getExtensionElements().isEmpty());
+    assertTrue(startEvent.isAsynchronous());
+    assertTrue(startEvent.isNotExclusive());
     assertTrue(getResult.isReadable());
     assertTrue(getResult.isWriteable());
   }
 
   /**
-   * Test {@link StartEvent#setValues(StartEvent)} with {@code StartEvent}.
-   * <ul>
-   *   <li>Then {@link StartEvent} (default constructor) FormProperties first is {@link FormProperty} (default constructor).</li>
-   * </ul>
-   * <p>
    * Method under test: {@link StartEvent#setValues(StartEvent)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void StartEvent.setValues(StartEvent)"})
-  public void testSetValuesWithStartEvent_thenStartEventFormPropertiesFirstIsFormProperty() {
+  public void testSetValues10() {
+    // Arrange
+    StartEvent startEvent = new StartEvent();
+
+    HashMap<String, List<ExtensionAttribute>> stringListMap = new HashMap<>();
+    stringListMap.put("foo", new ArrayList<>());
+    AlfrescoStartEvent otherEvent = mock(AlfrescoStartEvent.class);
+    when(otherEvent.isAsynchronous()).thenReturn(true);
+    when(otherEvent.isNotExclusive()).thenReturn(true);
+    when(otherEvent.getId()).thenReturn("42");
+    when(otherEvent.getDocumentation()).thenReturn("Documentation");
+    when(otherEvent.getName()).thenReturn("Name");
+    when(otherEvent.getFormKey()).thenReturn("Form Key");
+    when(otherEvent.getInitiator()).thenReturn("Initiator");
+    when(otherEvent.getEventDefinitions()).thenReturn(new ArrayList<>());
+    when(otherEvent.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(otherEvent.getFormProperties()).thenReturn(new ArrayList<>());
+    when(otherEvent.getAttributes()).thenReturn(stringListMap);
+    when(otherEvent.getExtensionElements()).thenReturn(new HashMap<>());
+
+    // Act
+    startEvent.setValues(otherEvent);
+
+    // Assert
+    verify(otherEvent, atLeast(1)).getAttributes();
+    verify(otherEvent, atLeast(1)).getExtensionElements();
+    verify(otherEvent).getId();
+    verify(otherEvent, atLeast(1)).getEventDefinitions();
+    verify(otherEvent).getDocumentation();
+    verify(otherEvent, atLeast(1)).getExecutionListeners();
+    verify(otherEvent).getName();
+    verify(otherEvent).isAsynchronous();
+    verify(otherEvent).isNotExclusive();
+    verify(otherEvent).getFormKey();
+    verify(otherEvent, atLeast(1)).getFormProperties();
+    verify(otherEvent).getInitiator();
+    assertEquals("42", startEvent.getId());
+    assertEquals("Documentation", startEvent.getDocumentation());
+    assertEquals("Form Key", startEvent.getFormKey());
+    assertEquals("Initiator", startEvent.getInitiator());
+    assertEquals("Name", startEvent.getName());
+    assertFalse(startEvent.isExclusive());
+    assertTrue(startEvent.getFormProperties().isEmpty());
+    assertTrue(startEvent.isAsynchronous());
+    assertTrue(startEvent.isNotExclusive());
+  }
+
+  /**
+   * Method under test: {@link StartEvent#setValues(StartEvent)}
+   */
+  @Test
+  public void testSetValues11() {
+    // Arrange
+    StartEvent startEvent = new StartEvent();
+
+    HashMap<String, List<ExtensionAttribute>> stringListMap = new HashMap<>();
+    stringListMap.put("42", new ArrayList<>());
+    stringListMap.put("foo", new ArrayList<>());
+    AlfrescoStartEvent otherEvent = mock(AlfrescoStartEvent.class);
+    when(otherEvent.isAsynchronous()).thenReturn(true);
+    when(otherEvent.isNotExclusive()).thenReturn(true);
+    when(otherEvent.getId()).thenReturn("42");
+    when(otherEvent.getDocumentation()).thenReturn("Documentation");
+    when(otherEvent.getName()).thenReturn("Name");
+    when(otherEvent.getFormKey()).thenReturn("Form Key");
+    when(otherEvent.getInitiator()).thenReturn("Initiator");
+    when(otherEvent.getEventDefinitions()).thenReturn(new ArrayList<>());
+    when(otherEvent.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(otherEvent.getFormProperties()).thenReturn(new ArrayList<>());
+    when(otherEvent.getAttributes()).thenReturn(stringListMap);
+    when(otherEvent.getExtensionElements()).thenReturn(new HashMap<>());
+
+    // Act
+    startEvent.setValues(otherEvent);
+
+    // Assert
+    verify(otherEvent, atLeast(1)).getAttributes();
+    verify(otherEvent, atLeast(1)).getExtensionElements();
+    verify(otherEvent).getId();
+    verify(otherEvent, atLeast(1)).getEventDefinitions();
+    verify(otherEvent).getDocumentation();
+    verify(otherEvent, atLeast(1)).getExecutionListeners();
+    verify(otherEvent).getName();
+    verify(otherEvent).isAsynchronous();
+    verify(otherEvent).isNotExclusive();
+    verify(otherEvent).getFormKey();
+    verify(otherEvent, atLeast(1)).getFormProperties();
+    verify(otherEvent).getInitiator();
+    assertEquals("42", startEvent.getId());
+    assertEquals("Documentation", startEvent.getDocumentation());
+    assertEquals("Form Key", startEvent.getFormKey());
+    assertEquals("Initiator", startEvent.getInitiator());
+    assertEquals("Name", startEvent.getName());
+    assertFalse(startEvent.isExclusive());
+    assertTrue(startEvent.getFormProperties().isEmpty());
+    assertTrue(startEvent.isAsynchronous());
+    assertTrue(startEvent.isNotExclusive());
+  }
+
+  /**
+   * Method under test: {@link StartEvent#setValues(StartEvent)}
+   */
+  @Test
+  public void testSetValues12() {
+    // Arrange
+    StartEvent startEvent = new StartEvent();
+
+    HashMap<String, List<ExtensionElement>> stringListMap = new HashMap<>();
+    stringListMap.put("foo", new ArrayList<>());
+    AlfrescoStartEvent otherEvent = mock(AlfrescoStartEvent.class);
+    when(otherEvent.isAsynchronous()).thenReturn(true);
+    when(otherEvent.isNotExclusive()).thenReturn(true);
+    when(otherEvent.getId()).thenReturn("42");
+    when(otherEvent.getDocumentation()).thenReturn("Documentation");
+    when(otherEvent.getName()).thenReturn("Name");
+    when(otherEvent.getFormKey()).thenReturn("Form Key");
+    when(otherEvent.getInitiator()).thenReturn("Initiator");
+    when(otherEvent.getEventDefinitions()).thenReturn(new ArrayList<>());
+    when(otherEvent.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(otherEvent.getFormProperties()).thenReturn(new ArrayList<>());
+    when(otherEvent.getAttributes()).thenReturn(new HashMap<>());
+    when(otherEvent.getExtensionElements()).thenReturn(stringListMap);
+
+    // Act
+    startEvent.setValues(otherEvent);
+
+    // Assert
+    verify(otherEvent, atLeast(1)).getAttributes();
+    verify(otherEvent, atLeast(1)).getExtensionElements();
+    verify(otherEvent).getId();
+    verify(otherEvent, atLeast(1)).getEventDefinitions();
+    verify(otherEvent).getDocumentation();
+    verify(otherEvent, atLeast(1)).getExecutionListeners();
+    verify(otherEvent).getName();
+    verify(otherEvent).isAsynchronous();
+    verify(otherEvent).isNotExclusive();
+    verify(otherEvent).getFormKey();
+    verify(otherEvent, atLeast(1)).getFormProperties();
+    verify(otherEvent).getInitiator();
+    assertEquals("42", startEvent.getId());
+    assertEquals("Documentation", startEvent.getDocumentation());
+    assertEquals("Form Key", startEvent.getFormKey());
+    assertEquals("Initiator", startEvent.getInitiator());
+    assertEquals("Name", startEvent.getName());
+    assertFalse(startEvent.isExclusive());
+    assertTrue(startEvent.getFormProperties().isEmpty());
+    assertTrue(startEvent.isAsynchronous());
+    assertTrue(startEvent.isNotExclusive());
+  }
+
+  /**
+   * Method under test: {@link StartEvent#setValues(StartEvent)}
+   */
+  @Test
+  public void testSetValues13() {
+    // Arrange
+    StartEvent startEvent = new StartEvent();
+
+    HashMap<String, List<ExtensionElement>> stringListMap = new HashMap<>();
+    stringListMap.put("42", new ArrayList<>());
+    stringListMap.put("foo", new ArrayList<>());
+    AlfrescoStartEvent otherEvent = mock(AlfrescoStartEvent.class);
+    when(otherEvent.isAsynchronous()).thenReturn(true);
+    when(otherEvent.isNotExclusive()).thenReturn(true);
+    when(otherEvent.getId()).thenReturn("42");
+    when(otherEvent.getDocumentation()).thenReturn("Documentation");
+    when(otherEvent.getName()).thenReturn("Name");
+    when(otherEvent.getFormKey()).thenReturn("Form Key");
+    when(otherEvent.getInitiator()).thenReturn("Initiator");
+    when(otherEvent.getEventDefinitions()).thenReturn(new ArrayList<>());
+    when(otherEvent.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(otherEvent.getFormProperties()).thenReturn(new ArrayList<>());
+    when(otherEvent.getAttributes()).thenReturn(new HashMap<>());
+    when(otherEvent.getExtensionElements()).thenReturn(stringListMap);
+
+    // Act
+    startEvent.setValues(otherEvent);
+
+    // Assert
+    verify(otherEvent, atLeast(1)).getAttributes();
+    verify(otherEvent, atLeast(1)).getExtensionElements();
+    verify(otherEvent).getId();
+    verify(otherEvent, atLeast(1)).getEventDefinitions();
+    verify(otherEvent).getDocumentation();
+    verify(otherEvent, atLeast(1)).getExecutionListeners();
+    verify(otherEvent).getName();
+    verify(otherEvent).isAsynchronous();
+    verify(otherEvent).isNotExclusive();
+    verify(otherEvent).getFormKey();
+    verify(otherEvent, atLeast(1)).getFormProperties();
+    verify(otherEvent).getInitiator();
+    assertEquals("42", startEvent.getId());
+    assertEquals("Documentation", startEvent.getDocumentation());
+    assertEquals("Form Key", startEvent.getFormKey());
+    assertEquals("Initiator", startEvent.getInitiator());
+    assertEquals("Name", startEvent.getName());
+    assertFalse(startEvent.isExclusive());
+    assertTrue(startEvent.getFormProperties().isEmpty());
+    assertTrue(startEvent.isAsynchronous());
+    assertTrue(startEvent.isNotExclusive());
+  }
+
+  /**
+   * Method under test: {@link StartEvent#setValues(StartEvent)}
+   */
+  @Test
+  public void testSetValues14() {
     // Arrange
     StartEvent startEvent = new StartEvent();
     FormProperty formProperty = mock(FormProperty.class);
@@ -1018,45 +1032,93 @@ public class StartEventDiffblueTest {
     verify(otherEvent).getFormKey();
     verify(otherEvent, atLeast(1)).getFormProperties();
     verify(otherEvent).getInitiator();
+    assertEquals("42", startEvent.getId());
+    assertEquals("Documentation", startEvent.getDocumentation());
+    assertEquals("Form Key", startEvent.getFormKey());
+    assertEquals("Initiator", startEvent.getInitiator());
+    assertEquals("Name", startEvent.getName());
     List<FormProperty> formProperties = startEvent.getFormProperties();
     assertEquals(1, formProperties.size());
+    assertFalse(startEvent.isExclusive());
+    assertTrue(startEvent.isAsynchronous());
+    assertTrue(startEvent.isNotExclusive());
     assertSame(formProperty2, formProperties.get(0));
   }
 
   /**
-   * Test {@link StartEvent#setValues(StartEvent)} with {@code StartEvent}.
-   * <ul>
-   *   <li>When {@link StartEvent} (default constructor).</li>
-   *   <li>Then not {@link StartEvent} (default constructor) Asynchronous.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link StartEvent#setValues(StartEvent)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void StartEvent.setValues(StartEvent)"})
-  public void testSetValuesWithStartEvent_whenStartEvent_thenNotStartEventAsynchronous() {
+  public void testSetValues15() {
     // Arrange
     StartEvent startEvent = new StartEvent();
+
+    CancelEventDefinition cancelEventDefinition = new CancelEventDefinition();
+    cancelEventDefinition.addAttribute(new ExtensionAttribute("Name"));
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(cancelEventDefinition);
+
     StartEvent otherEvent = new StartEvent();
+    otherEvent.setEventDefinitions(eventDefinitions);
 
     // Act
     startEvent.setValues(otherEvent);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(otherEvent.getId());
+    assertNull(otherEvent.getDocumentation());
+    assertNull(otherEvent.getName());
+    assertNull(otherEvent.getFormKey());
+    assertNull(otherEvent.getInitiator());
     assertFalse(otherEvent.isAsynchronous());
     assertFalse(otherEvent.isNotExclusive());
+    assertTrue(otherEvent.getFormProperties().isEmpty());
     assertTrue(otherEvent.isExclusive());
   }
 
   /**
-   * Test {@link StartEvent#accept(ReferenceOverrider)}.
-   * <p>
+   * Method under test: {@link StartEvent#setValues(StartEvent)}
+   */
+  @Test
+  public void testSetValues16() {
+    // Arrange
+    StartEvent startEvent = new StartEvent();
+    FormValue formValue = mock(FormValue.class);
+    when(formValue.clone()).thenReturn(new FormValue());
+
+    ArrayList<FormValue> formValues = new ArrayList<>();
+    formValues.add(formValue);
+
+    FormProperty formProperty = new FormProperty();
+    formProperty.setFormValues(formValues);
+
+    ArrayList<FormProperty> formProperties = new ArrayList<>();
+    formProperties.add(formProperty);
+
+    StartEvent otherEvent = new StartEvent();
+    otherEvent.setFormProperties(formProperties);
+
+    // Act
+    startEvent.setValues(otherEvent);
+
+    // Assert
+    verify(formValue).clone();
+    assertNull(otherEvent.getId());
+    assertNull(otherEvent.getDocumentation());
+    assertNull(otherEvent.getName());
+    assertNull(otherEvent.getFormKey());
+    assertNull(otherEvent.getInitiator());
+    assertFalse(otherEvent.isAsynchronous());
+    assertFalse(otherEvent.isNotExclusive());
+    assertTrue(otherEvent.isExclusive());
+    assertSame(formProperties, otherEvent.getFormProperties());
+  }
+
+  /**
    * Method under test: {@link StartEvent#accept(ReferenceOverrider)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void StartEvent.accept(ReferenceOverrider)"})
   public void testAccept() {
     // Arrange
     StartEvent startEvent = new StartEvent();
@@ -1071,8 +1133,6 @@ public class StartEventDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link StartEvent}
@@ -1087,11 +1147,6 @@ public class StartEventDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void StartEvent.<init>()", "String StartEvent.getFormKey()",
-      "List StartEvent.getFormProperties()", "String StartEvent.getInitiator()", "boolean StartEvent.isInterrupting()",
-      "void StartEvent.setFormKey(String)", "void StartEvent.setFormProperties(List)",
-      "void StartEvent.setInitiator(String)", "void StartEvent.setInterrupting(boolean)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     StartEvent actualStartEvent = new StartEvent();
@@ -1105,14 +1160,9 @@ public class StartEventDiffblueTest {
     String actualInitiator = actualStartEvent.getInitiator();
     boolean actualIsInterruptingResult = actualStartEvent.isInterrupting();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("Form Key", actualFormKey);
     assertEquals("Initiator", actualInitiator);
-    assertNull(actualStartEvent.getBehavior());
-    assertNull(actualStartEvent.getId());
-    assertNull(actualStartEvent.getDocumentation());
-    assertNull(actualStartEvent.getName());
-    assertNull(actualStartEvent.getParentContainer());
     assertEquals(0, actualStartEvent.getXmlColumnNumber());
     assertEquals(0, actualStartEvent.getXmlRowNumber());
     assertFalse(actualStartEvent.isAsynchronous());

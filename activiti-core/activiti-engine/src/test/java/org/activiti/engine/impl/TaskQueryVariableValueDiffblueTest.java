@@ -17,21 +17,15 @@ package org.activiti.engine.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class TaskQueryVariableValueDiffblueTest {
   /**
-   * Test {@link TaskQueryVariableValue#TaskQueryVariableValue(String, Object, QueryOperator, boolean)}.
-   * <p>
-   * Method under test: {@link TaskQueryVariableValue#TaskQueryVariableValue(String, Object, QueryOperator, boolean)}
+   * Method under test:
+   * {@link TaskQueryVariableValue#TaskQueryVariableValue(String, Object, QueryOperator, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void TaskQueryVariableValue.<init>(String, Object, QueryOperator, boolean)"})
   public void testNewTaskQueryVariableValue() {
     // Arrange and Act
     TaskQueryVariableValue actualTaskQueryVariableValue = new TaskQueryVariableValue("Name", JSONObject.NULL,

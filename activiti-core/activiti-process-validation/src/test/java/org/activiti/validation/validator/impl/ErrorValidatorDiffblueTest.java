@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -27,21 +26,41 @@ import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.Resource;
 import org.activiti.bpmn.model.Signal;
 import org.activiti.validation.ValidationError;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ErrorValidatorDiffblueTest {
   /**
-   * Test {@link ErrorValidator#validate(BpmnModel, List)}.
-   * <p>
    * Method under test: {@link ErrorValidator#validate(BpmnModel, List)}
    */
   @Test
-  @DisplayName("Test validate(BpmnModel, List)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ErrorValidator.validate(BpmnModel, List)"})
   void testValidate() {
+    // Arrange
+    ErrorValidator errorValidator = new ErrorValidator();
+    BpmnModel bpmnModel = new BpmnModel();
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    errorValidator.validate(bpmnModel, errors);
+
+    // Assert
+    Collection<Resource> resources = bpmnModel.getResources();
+    assertTrue(resources instanceof List);
+    Collection<Signal> signals = bpmnModel.getSignals();
+    assertTrue(signals instanceof List);
+    assertTrue(errors.isEmpty());
+    assertTrue(resources.isEmpty());
+    assertTrue(signals.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link ErrorValidator#validate(BpmnModel, List)}
+   */
+  @Test
+  void testValidate2() {
     // Arrange
     ErrorValidator errorValidator = new ErrorValidator();
 
@@ -52,7 +71,7 @@ class ErrorValidatorDiffblueTest {
     // Act
     errorValidator.validate(bpmnModel, errors);
 
-    // Assert that nothing has changed
+    // Assert
     Collection<Resource> resources = bpmnModel.getResources();
     assertTrue(resources instanceof List);
     Collection<Signal> signals = bpmnModel.getSignals();
@@ -60,22 +79,47 @@ class ErrorValidatorDiffblueTest {
     assertTrue(errors.isEmpty());
     assertTrue(resources.isEmpty());
     assertTrue(signals.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
   }
 
   /**
-   * Test {@link ErrorValidator#validate(BpmnModel, List)}.
-   * <ul>
-   *   <li>Given empty string.</li>
-   *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ErrorValidator#validate(BpmnModel, List)}
    */
   @Test
-  @DisplayName("Test validate(BpmnModel, List); given empty string; then ArrayList() size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ErrorValidator.validate(BpmnModel, List)"})
-  void testValidate_givenEmptyString_thenArrayListSizeIsOne() {
+  void testValidate3() {
+    // Arrange
+    ErrorValidator errorValidator = new ErrorValidator();
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addError("Error Ref", "Error Name", "Error Code");
+    bpmnModel.addError("An error occurred", "An error occurred", "An error occurred");
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    errorValidator.validate(bpmnModel, errors);
+
+    // Assert
+    Collection<Resource> resources = bpmnModel.getResources();
+    assertTrue(resources instanceof List);
+    Collection<Signal> signals = bpmnModel.getSignals();
+    assertTrue(signals instanceof List);
+    assertTrue(errors.isEmpty());
+    assertTrue(resources.isEmpty());
+    assertTrue(signals.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link ErrorValidator#validate(BpmnModel, List)}
+   */
+  @Test
+  void testValidate4() {
     // Arrange
     ErrorValidator errorValidator = new ErrorValidator();
 
@@ -106,73 +150,10 @@ class ErrorValidatorDiffblueTest {
     assertFalse(getResult.isWarning());
     assertTrue(resources.isEmpty());
     assertTrue(signals.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
     assertTrue(getResult.getParams().isEmpty());
-  }
-
-  /**
-   * Test {@link ErrorValidator#validate(BpmnModel, List)}.
-   * <ul>
-   *   <li>Given {@code Error Ref}.</li>
-   *   <li>When {@link BpmnModel#addError(String, String, String)} with {@code Error Ref} and {@code Error Name} and {@code Error Code}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ErrorValidator#validate(BpmnModel, List)}
-   */
-  @Test
-  @DisplayName("Test validate(BpmnModel, List); given 'Error Ref'; when addError(String, String, String) with 'Error Ref' and 'Error Name' and 'Error Code'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ErrorValidator.validate(BpmnModel, List)"})
-  void testValidate_givenErrorRef_whenAddErrorWithErrorRefAndErrorNameAndErrorCode() {
-    // Arrange
-    ErrorValidator errorValidator = new ErrorValidator();
-
-    BpmnModel bpmnModel = new BpmnModel();
-    bpmnModel.addError("Error Ref", "Error Name", "Error Code");
-    bpmnModel.addError("An error occurred", "An error occurred", "An error occurred");
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    errorValidator.validate(bpmnModel, errors);
-
-    // Assert that nothing has changed
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
-    assertTrue(errors.isEmpty());
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
-  }
-
-  /**
-   * Test {@link ErrorValidator#validate(BpmnModel, List)}.
-   * <ul>
-   *   <li>When {@link BpmnModel} (default constructor).</li>
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ErrorValidator#validate(BpmnModel, List)}
-   */
-  @Test
-  @DisplayName("Test validate(BpmnModel, List); when BpmnModel (default constructor); then ArrayList() Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ErrorValidator.validate(BpmnModel, List)"})
-  void testValidate_whenBpmnModel_thenArrayListEmpty() {
-    // Arrange
-    ErrorValidator errorValidator = new ErrorValidator();
-    BpmnModel bpmnModel = new BpmnModel();
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    errorValidator.validate(bpmnModel, errors);
-
-    // Assert that nothing has changed
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
-    assertTrue(errors.isEmpty());
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
   }
 }

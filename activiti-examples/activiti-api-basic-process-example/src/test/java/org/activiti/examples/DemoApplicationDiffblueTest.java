@@ -16,23 +16,23 @@
 package org.activiti.examples;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.activiti.api.process.runtime.connector.Connector;
+import org.activiti.api.process.runtime.events.ProcessCompletedEvent;
+import org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener;
 import org.activiti.api.runtime.model.impl.IntegrationContextImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import org.activiti.api.runtime.model.impl.ProcessInstanceImpl;
+import org.activiti.runtime.api.event.impl.ProcessCompletedImpl;
 import org.junit.jupiter.api.Test;
 
 class DemoApplicationDiffblueTest {
   /**
-   * Test {@link DemoApplication#processTextConnector()}.
-   * <p>
    * Method under test: {@link DemoApplication#processTextConnector()}
    */
   @Test
-  @DisplayName("Test processTextConnector()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Connector DemoApplication.processTextConnector()"})
   void testProcessTextConnector() {
     // Arrange and Act
     Connector actualProcessTextConnectorResult = (new DemoApplication()).processTextConnector();
@@ -44,14 +44,9 @@ class DemoApplicationDiffblueTest {
   }
 
   /**
-   * Test {@link DemoApplication#tagTextConnector()}.
-   * <p>
    * Method under test: {@link DemoApplication#tagTextConnector()}
    */
   @Test
-  @DisplayName("Test tagTextConnector()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Connector DemoApplication.tagTextConnector()"})
   void testTagTextConnector() {
     // Arrange and Act
     Connector actualTagTextConnectorResult = (new DemoApplication()).tagTextConnector();
@@ -62,14 +57,9 @@ class DemoApplicationDiffblueTest {
   }
 
   /**
-   * Test {@link DemoApplication#discardTextConnector()}.
-   * <p>
    * Method under test: {@link DemoApplication#discardTextConnector()}
    */
   @Test
-  @DisplayName("Test discardTextConnector()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Connector DemoApplication.discardTextConnector()"})
   void testDiscardTextConnector() {
     // Arrange and Act
     Connector actualDiscardTextConnectorResult = (new DemoApplication()).discardTextConnector();
@@ -77,5 +67,21 @@ class DemoApplicationDiffblueTest {
 
     // Assert
     assertSame(integrationContextImpl, actualDiscardTextConnectorResult.apply(integrationContextImpl));
+  }
+
+  /**
+   * Method under test: {@link DemoApplication#processCompletedListener()}
+   */
+  @Test
+  void testProcessCompletedListener() {
+    // Arrange and Act
+    ProcessRuntimeEventListener<ProcessCompletedEvent> actualProcessCompletedListenerResult = (new DemoApplication())
+        .processCompletedListener();
+    ProcessCompletedImpl processCompletedImpl = mock(ProcessCompletedImpl.class);
+    when(processCompletedImpl.getEntity()).thenReturn(new ProcessInstanceImpl());
+    actualProcessCompletedListenerResult.onEvent(processCompletedImpl);
+
+    // Assert that nothing has changed
+    verify(processCompletedImpl, atLeast(1)).getEntity();
   }
 }

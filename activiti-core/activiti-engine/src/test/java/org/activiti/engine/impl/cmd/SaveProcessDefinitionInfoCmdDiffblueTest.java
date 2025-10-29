@@ -18,24 +18,18 @@ package org.activiti.engine.impl.cmd;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.JsonNodeType;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TreeTraversingParser;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class SaveProcessDefinitionInfoCmdDiffblueTest {
   /**
-   * Test {@link SaveProcessDefinitionInfoCmd#SaveProcessDefinitionInfoCmd(String, ObjectNode)}.
-   * <p>
-   * Method under test: {@link SaveProcessDefinitionInfoCmd#SaveProcessDefinitionInfoCmd(String, ObjectNode)}
+   * Method under test:
+   * {@link SaveProcessDefinitionInfoCmd#SaveProcessDefinitionInfoCmd(String, ObjectNode)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SaveProcessDefinitionInfoCmd.<init>(String, ObjectNode)"})
   public void testNewSaveProcessDefinitionInfoCmd() {
     // Arrange, Act and Assert
     ObjectNode objectNode = (new SaveProcessDefinitionInfoCmd("42",

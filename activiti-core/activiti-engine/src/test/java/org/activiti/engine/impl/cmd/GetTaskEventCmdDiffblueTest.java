@@ -17,44 +17,17 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class GetTaskEventCmdDiffblueTest {
   /**
-   * Test {@link GetTaskEventCmd#GetTaskEventCmd(String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then return {@link GetTaskEventCmd#eventId} is {@code 42}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link GetTaskEventCmd#GetTaskEventCmd(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void GetTaskEventCmd.<init>(String)"})
-  public void testNewGetTaskEventCmd_when42_thenReturnEventIdIs42() {
+  public void testNewGetTaskEventCmd() {
     // Arrange, Act and Assert
     assertEquals("42", (new GetTaskEventCmd("42")).eventId);
-  }
-
-  /**
-   * Test {@link GetTaskEventCmd#GetTaskEventCmd(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GetTaskEventCmd#GetTaskEventCmd(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void GetTaskEventCmd.<init>(String)"})
-  public void testNewGetTaskEventCmd_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> new GetTaskEventCmd(null));
   }
 }

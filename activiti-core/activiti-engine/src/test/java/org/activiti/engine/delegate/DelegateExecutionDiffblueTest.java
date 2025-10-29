@@ -16,23 +16,32 @@
 package org.activiti.engine.delegate;
 
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import java.sql.Date;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class DelegateExecutionDiffblueTest {
   /**
-   * Test {@link DelegateExecution#getEngineServices()}.
-   * <p>
    * Method under test: {@link DelegateExecution#getEngineServices()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"org.activiti.engine.ProcessEngineConfiguration DelegateExecution.getEngineServices()"})
   public void testGetEngineServices() {
     // Arrange, Act and Assert
     assertNull(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getEngineServices());
+  }
+
+  /**
+   * Method under test: {@link DelegateExecution#getEngineServices()}
+   */
+  @Test
+  public void testGetEngineServices2() {
+    // Arrange
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
+    createWithEmptyRelationshipCollectionsResult.setLockTime(mock(Date.class));
+
+    // Act and Assert
+    assertNull(createWithEmptyRelationshipCollectionsResult.getEngineServices());
   }
 }

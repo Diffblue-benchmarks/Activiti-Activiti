@@ -16,22 +16,16 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.event.ActivitiEventListener;
 import org.activiti.engine.delegate.event.BaseEntityEventListener;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class RemoveEventListenerCommandDiffblueTest {
   /**
-   * Test {@link RemoveEventListenerCommand#RemoveEventListenerCommand(ActivitiEventListener)}.
-   * <p>
-   * Method under test: {@link RemoveEventListenerCommand#RemoveEventListenerCommand(ActivitiEventListener)}
+   * Method under test:
+   * {@link RemoveEventListenerCommand#RemoveEventListenerCommand(ActivitiEventListener)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void RemoveEventListenerCommand.<init>(ActivitiEventListener)"})
   public void testNewRemoveEventListenerCommand() {
     // Arrange, Act and Assert
     ActivitiEventListener activitiEventListener = (new RemoveEventListenerCommand(

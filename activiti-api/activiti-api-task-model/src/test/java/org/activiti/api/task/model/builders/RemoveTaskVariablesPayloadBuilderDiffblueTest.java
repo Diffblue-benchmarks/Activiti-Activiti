@@ -16,23 +16,19 @@
 package org.activiti.api.task.model.builders;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
 import org.activiti.api.task.model.payloads.UpdateTaskPayload;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class RemoveTaskVariablesPayloadBuilderDiffblueTest {
   /**
-   * Test {@link RemoveTaskVariablesPayloadBuilder#build()}.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link RemoveTaskVariablesPayloadBuilder#build()}
-   *   <li>default or parameterless constructor of {@link RemoveTaskVariablesPayloadBuilder}
+   *   <li>default or parameterless constructor of
+   * {@link RemoveTaskVariablesPayloadBuilder}
    *   <li>{@link RemoveTaskVariablesPayloadBuilder#withAssignee(String)}
    *   <li>{@link RemoveTaskVariablesPayloadBuilder#withDescription(String)}
    *   <li>{@link RemoveTaskVariablesPayloadBuilder#withDueDate(Date)}
@@ -42,16 +38,6 @@ class RemoveTaskVariablesPayloadBuilderDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test build()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void RemoveTaskVariablesPayloadBuilder.<init>()",
-      "UpdateTaskPayload RemoveTaskVariablesPayloadBuilder.build()",
-      "RemoveTaskVariablesPayloadBuilder RemoveTaskVariablesPayloadBuilder.withAssignee(String)",
-      "RemoveTaskVariablesPayloadBuilder RemoveTaskVariablesPayloadBuilder.withDescription(String)",
-      "RemoveTaskVariablesPayloadBuilder RemoveTaskVariablesPayloadBuilder.withDueDate(Date)",
-      "RemoveTaskVariablesPayloadBuilder RemoveTaskVariablesPayloadBuilder.withName(String)",
-      "RemoveTaskVariablesPayloadBuilder RemoveTaskVariablesPayloadBuilder.withPriority(int)",
-      "RemoveTaskVariablesPayloadBuilder RemoveTaskVariablesPayloadBuilder.withTaskId(String)"})
   void testBuild() {
     // Arrange
     RemoveTaskVariablesPayloadBuilder withDescriptionResult = (new RemoveTaskVariablesPayloadBuilder())

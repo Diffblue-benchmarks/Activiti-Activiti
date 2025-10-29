@@ -23,7 +23,6 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.api.model.shared.event.RuntimeEvent;
@@ -32,21 +31,15 @@ import org.activiti.test.EventSource;
 import org.activiti.test.TaskSource;
 import org.activiti.test.matchers.ProcessResultMatcher;
 import org.activiti.test.matchers.ProcessTaskMatcher;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class ProcessInstanceAssertionsImplDiffblueTest {
   /**
-   * Test {@link ProcessInstanceAssertionsImpl#expectFields(ProcessResultMatcher[])}.
-   * <p>
-   * Method under test: {@link ProcessInstanceAssertionsImpl#expectFields(ProcessResultMatcher[])}
+   * Method under test:
+   * {@link ProcessInstanceAssertionsImpl#expectFields(ProcessResultMatcher[])}
    */
   @Test
-  @DisplayName("Test expectFields(ProcessResultMatcher[])")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ProcessInstanceAssertions ProcessInstanceAssertionsImpl.expectFields(ProcessResultMatcher[])"})
   void testExpectFields() {
     // Arrange
     EventSource eventSource = mock(EventSource.class);
@@ -68,14 +61,10 @@ class ProcessInstanceAssertionsImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessInstanceAssertionsImpl#expect(ProcessTaskMatcher[])}.
-   * <p>
-   * Method under test: {@link ProcessInstanceAssertionsImpl#expect(ProcessTaskMatcher[])}
+   * Method under test:
+   * {@link ProcessInstanceAssertionsImpl#expect(ProcessTaskMatcher[])}
    */
   @Test
-  @DisplayName("Test expect(ProcessTaskMatcher[])")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ProcessInstanceAssertions ProcessInstanceAssertionsImpl.expect(ProcessTaskMatcher[])"})
   void testExpect() {
     // Arrange
     ProcessInstance processInstance = mock(ProcessInstance.class);

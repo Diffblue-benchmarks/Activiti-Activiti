@@ -20,8 +20,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.impl.cfg.CommandExecutorImpl;
 import org.activiti.engine.impl.interceptor.CommandConfig;
@@ -30,19 +28,13 @@ import org.activiti.engine.impl.interceptor.CommandExecutor;
 import org.activiti.engine.impl.persistence.entity.DeadLetterJobEntityImpl;
 import org.activiti.engine.runtime.Job;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class FailedJobListenerDiffblueTest {
   /**
-   * Test {@link FailedJobListener#FailedJobListener(CommandExecutor, Job)}.
-   * <p>
-   * Method under test: {@link FailedJobListener#FailedJobListener(CommandExecutor, Job)}
+   * Method under test:
+   * {@link FailedJobListener#FailedJobListener(CommandExecutor, Job)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void FailedJobListener.<init>(CommandExecutor, Job)",
-      "void FailedJobListener.afterSessionsFlush(org.activiti.engine.impl.interceptor.CommandContext)",
-      "void FailedJobListener.closing(org.activiti.engine.impl.interceptor.CommandContext)"})
   public void testNewFailedJobListener() {
     // Arrange
     CommandConfig defaultConfig = new CommandConfig();

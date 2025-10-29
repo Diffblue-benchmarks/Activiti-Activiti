@@ -21,7 +21,6 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,27 +33,19 @@ import org.activiti.engine.delegate.event.impl.ActivitiEntityEventImpl;
 import org.activiti.runtime.api.event.impl.TaskCandidateGroupRemovedImpl;
 import org.activiti.runtime.api.event.impl.ToTaskCandidateGroupRemovedConverter;
 import org.activiti.runtime.api.model.impl.APITaskCandidateGroupConverter;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class TaskCandidateGroupRemovedListenerDelegateDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>{@link TaskCandidateGroupRemovedListenerDelegate#TaskCandidateGroupRemovedListenerDelegate(List, ToTaskCandidateGroupRemovedConverter)}
+   *   <li>
+   * {@link TaskCandidateGroupRemovedListenerDelegate#TaskCandidateGroupRemovedListenerDelegate(List, ToTaskCandidateGroupRemovedConverter)}
    *   <li>{@link TaskCandidateGroupRemovedListenerDelegate#isFailOnException()}
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void TaskCandidateGroupRemovedListenerDelegate.<init>(List, ToTaskCandidateGroupRemovedConverter)",
-      "boolean TaskCandidateGroupRemovedListenerDelegate.isFailOnException()"})
   void testGettersAndSetters() {
     // Arrange
     ArrayList<TaskRuntimeEventListener<TaskCandidateGroupRemovedEvent>> listeners = new ArrayList<>();
@@ -65,19 +56,32 @@ class TaskCandidateGroupRemovedListenerDelegateDiffblueTest {
   }
 
   /**
-   * Test {@link TaskCandidateGroupRemovedListenerDelegate#onEvent(ActivitiEvent)}.
-   * <ul>
-   *   <li>Given {@link TaskRuntimeEventListener} {@link TaskRuntimeEventListener#onEvent(RuntimeEvent)} does nothing.</li>
-   *   <li>Then calls {@link TaskRuntimeEventListener#onEvent(RuntimeEvent)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TaskCandidateGroupRemovedListenerDelegate#onEvent(ActivitiEvent)}
+   * Method under test:
+   * {@link TaskCandidateGroupRemovedListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
-  @DisplayName("Test onEvent(ActivitiEvent); given TaskRuntimeEventListener onEvent(RuntimeEvent) does nothing; then calls onEvent(RuntimeEvent)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void TaskCandidateGroupRemovedListenerDelegate.onEvent(ActivitiEvent)"})
-  void testOnEvent_givenTaskRuntimeEventListenerOnEventDoesNothing_thenCallsOnEvent() {
+  void testOnEvent() {
+    // Arrange
+    ToTaskCandidateGroupRemovedConverter converter = mock(ToTaskCandidateGroupRemovedConverter.class);
+    Optional<TaskCandidateGroupRemovedEvent> ofResult = Optional.of(new TaskCandidateGroupRemovedImpl());
+    when(converter.from(Mockito.<ActivitiEntityEvent>any())).thenReturn(ofResult);
+    TaskCandidateGroupRemovedListenerDelegate taskCandidateGroupRemovedListenerDelegate = new TaskCandidateGroupRemovedListenerDelegate(
+        new ArrayList<>(), converter);
+
+    // Act
+    taskCandidateGroupRemovedListenerDelegate
+        .onEvent(new ActivitiEntityEventImpl("Entity", ActivitiEventType.ENTITY_CREATED));
+
+    // Assert that nothing has changed
+    verify(converter).from(isA(ActivitiEntityEvent.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link TaskCandidateGroupRemovedListenerDelegate#onEvent(ActivitiEvent)}
+   */
+  @Test
+  void testOnEvent2() {
     // Arrange
     TaskRuntimeEventListener<TaskCandidateGroupRemovedEvent> taskRuntimeEventListener = mock(
         TaskRuntimeEventListener.class);
@@ -97,34 +101,6 @@ class TaskCandidateGroupRemovedListenerDelegateDiffblueTest {
 
     // Assert
     verify(taskRuntimeEventListener).onEvent(isA(TaskCandidateGroupRemovedEvent.class));
-    verify(converter).from(isA(ActivitiEntityEvent.class));
-  }
-
-  /**
-   * Test {@link TaskCandidateGroupRemovedListenerDelegate#onEvent(ActivitiEvent)}.
-   * <ul>
-   *   <li>Then calls {@link ToTaskCandidateGroupRemovedConverter#from(ActivitiEntityEvent)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TaskCandidateGroupRemovedListenerDelegate#onEvent(ActivitiEvent)}
-   */
-  @Test
-  @DisplayName("Test onEvent(ActivitiEvent); then calls from(ActivitiEntityEvent)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void TaskCandidateGroupRemovedListenerDelegate.onEvent(ActivitiEvent)"})
-  void testOnEvent_thenCallsFrom() {
-    // Arrange
-    ToTaskCandidateGroupRemovedConverter converter = mock(ToTaskCandidateGroupRemovedConverter.class);
-    Optional<TaskCandidateGroupRemovedEvent> ofResult = Optional.of(new TaskCandidateGroupRemovedImpl());
-    when(converter.from(Mockito.<ActivitiEntityEvent>any())).thenReturn(ofResult);
-    TaskCandidateGroupRemovedListenerDelegate taskCandidateGroupRemovedListenerDelegate = new TaskCandidateGroupRemovedListenerDelegate(
-        new ArrayList<>(), converter);
-
-    // Act
-    taskCandidateGroupRemovedListenerDelegate
-        .onEvent(new ActivitiEntityEventImpl("Entity", ActivitiEventType.ENTITY_CREATED));
-
-    // Assert
     verify(converter).from(isA(ActivitiEntityEvent.class));
   }
 }

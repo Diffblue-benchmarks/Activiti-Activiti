@@ -20,77 +20,37 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import org.activiti.engine.impl.persistence.entity.EventSubscriptionEntity;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class MessageEventSubscriptionsByProcInstAndEventNameMatcherDiffblueTest {
   /**
-   * Test {@link MessageEventSubscriptionsByProcInstAndEventNameMatcher#isRetained(EventSubscriptionEntity, Object)} with {@code EventSubscriptionEntity}, {@code Object}.
-   * <p>
-   * Method under test: {@link MessageEventSubscriptionsByProcInstAndEventNameMatcher#isRetained(EventSubscriptionEntity, Object)}
+   * Method under test:
+   * {@link MessageEventSubscriptionsByProcInstAndEventNameMatcher#isRetained(EventSubscriptionEntity, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "boolean MessageEventSubscriptionsByProcInstAndEventNameMatcher.isRetained(EventSubscriptionEntity, Object)"})
-  public void testIsRetainedWithEventSubscriptionEntityObject() {
+  public void testIsRetained() {
     // Arrange
     MessageEventSubscriptionsByProcInstAndEventNameMatcher messageEventSubscriptionsByProcInstAndEventNameMatcher = new MessageEventSubscriptionsByProcInstAndEventNameMatcher();
     EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
-    when(eventSubscriptionEntity.getEventName()).thenReturn(null);
-    when(eventSubscriptionEntity.getEventType()).thenReturn("message");
+    when(eventSubscriptionEntity.getEventType()).thenReturn("Event Type");
 
     // Act
     boolean actualIsRetainedResult = messageEventSubscriptionsByProcInstAndEventNameMatcher
         .isRetained(eventSubscriptionEntity, new HashMap<>());
 
     // Assert
-    verify(eventSubscriptionEntity).getEventName();
     verify(eventSubscriptionEntity, atLeast(1)).getEventType();
     assertFalse(actualIsRetainedResult);
   }
 
   /**
-   * Test {@link MessageEventSubscriptionsByProcInstAndEventNameMatcher#isRetained(EventSubscriptionEntity, Object)} with {@code EventSubscriptionEntity}, {@code Object}.
-   * <p>
-   * Method under test: {@link MessageEventSubscriptionsByProcInstAndEventNameMatcher#isRetained(EventSubscriptionEntity, Object)}
+   * Method under test:
+   * {@link MessageEventSubscriptionsByProcInstAndEventNameMatcher#isRetained(EventSubscriptionEntity, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "boolean MessageEventSubscriptionsByProcInstAndEventNameMatcher.isRetained(EventSubscriptionEntity, Object)"})
-  public void testIsRetainedWithEventSubscriptionEntityObject2() {
-    // Arrange
-    MessageEventSubscriptionsByProcInstAndEventNameMatcher messageEventSubscriptionsByProcInstAndEventNameMatcher = new MessageEventSubscriptionsByProcInstAndEventNameMatcher();
-    EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
-    when(eventSubscriptionEntity.getEventType()).thenReturn(null);
-
-    // Act
-    boolean actualIsRetainedResult = messageEventSubscriptionsByProcInstAndEventNameMatcher
-        .isRetained(eventSubscriptionEntity, new HashMap<>());
-
-    // Assert
-    verify(eventSubscriptionEntity).getEventType();
-    assertFalse(actualIsRetainedResult);
-  }
-
-  /**
-   * Test {@link MessageEventSubscriptionsByProcInstAndEventNameMatcher#isRetained(EventSubscriptionEntity, Object)} with {@code EventSubscriptionEntity}, {@code Object}.
-   * <ul>
-   *   <li>Given {@code Event Name}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link MessageEventSubscriptionsByProcInstAndEventNameMatcher#isRetained(EventSubscriptionEntity, Object)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "boolean MessageEventSubscriptionsByProcInstAndEventNameMatcher.isRetained(EventSubscriptionEntity, Object)"})
-  public void testIsRetainedWithEventSubscriptionEntityObject_givenEventName() {
+  public void testIsRetained2() {
     // Arrange
     MessageEventSubscriptionsByProcInstAndEventNameMatcher messageEventSubscriptionsByProcInstAndEventNameMatcher = new MessageEventSubscriptionsByProcInstAndEventNameMatcher();
     EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
@@ -108,29 +68,44 @@ public class MessageEventSubscriptionsByProcInstAndEventNameMatcherDiffblueTest 
   }
 
   /**
-   * Test {@link MessageEventSubscriptionsByProcInstAndEventNameMatcher#isRetained(EventSubscriptionEntity, Object)} with {@code EventSubscriptionEntity}, {@code Object}.
-   * <ul>
-   *   <li>Given {@code Event Type}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link MessageEventSubscriptionsByProcInstAndEventNameMatcher#isRetained(EventSubscriptionEntity, Object)}
+   * Method under test:
+   * {@link MessageEventSubscriptionsByProcInstAndEventNameMatcher#isRetained(EventSubscriptionEntity, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "boolean MessageEventSubscriptionsByProcInstAndEventNameMatcher.isRetained(EventSubscriptionEntity, Object)"})
-  public void testIsRetainedWithEventSubscriptionEntityObject_givenEventType() {
+  public void testIsRetained3() {
     // Arrange
     MessageEventSubscriptionsByProcInstAndEventNameMatcher messageEventSubscriptionsByProcInstAndEventNameMatcher = new MessageEventSubscriptionsByProcInstAndEventNameMatcher();
     EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
-    when(eventSubscriptionEntity.getEventType()).thenReturn("Event Type");
+    when(eventSubscriptionEntity.getEventName()).thenReturn(null);
+    when(eventSubscriptionEntity.getEventType()).thenReturn("message");
 
     // Act
     boolean actualIsRetainedResult = messageEventSubscriptionsByProcInstAndEventNameMatcher
         .isRetained(eventSubscriptionEntity, new HashMap<>());
 
     // Assert
+    verify(eventSubscriptionEntity).getEventName();
     verify(eventSubscriptionEntity, atLeast(1)).getEventType();
+    assertFalse(actualIsRetainedResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link MessageEventSubscriptionsByProcInstAndEventNameMatcher#isRetained(EventSubscriptionEntity, Object)}
+   */
+  @Test
+  public void testIsRetained4() {
+    // Arrange
+    MessageEventSubscriptionsByProcInstAndEventNameMatcher messageEventSubscriptionsByProcInstAndEventNameMatcher = new MessageEventSubscriptionsByProcInstAndEventNameMatcher();
+    EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
+    when(eventSubscriptionEntity.getEventType()).thenReturn(null);
+
+    // Act
+    boolean actualIsRetainedResult = messageEventSubscriptionsByProcInstAndEventNameMatcher
+        .isRetained(eventSubscriptionEntity, new HashMap<>());
+
+    // Assert
+    verify(eventSubscriptionEntity).getEventType();
     assertFalse(actualIsRetainedResult);
   }
 }

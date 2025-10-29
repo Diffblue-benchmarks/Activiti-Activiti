@@ -16,21 +16,14 @@
 package org.activiti.api.runtime.model.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ProcessCandidateStarterImplDiffblueTest {
   /**
-   * Test {@link ProcessCandidateStarterImpl#getProcessDefinitionId()}.
-   * <p>
-   * Method under test: {@link ProcessCandidateStarterImpl#getProcessDefinitionId()}
+   * Method under test:
+   * {@link ProcessCandidateStarterImpl#getProcessDefinitionId()}
    */
   @Test
-  @DisplayName("Test getProcessDefinitionId()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.String ProcessCandidateStarterImpl.getProcessDefinitionId()"})
   void testGetProcessDefinitionId() {
     // Arrange, Act and Assert
     assertEquals("42", (new ProcessCandidateStarterGroupImpl("42", "42")).getProcessDefinitionId());

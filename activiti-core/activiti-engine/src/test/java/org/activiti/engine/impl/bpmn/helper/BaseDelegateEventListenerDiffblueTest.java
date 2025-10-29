@@ -18,25 +18,18 @@ package org.activiti.engine.impl.bpmn.helper;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.delegate.event.impl.ActivitiActivityCancelledEventImpl;
 import org.activiti.engine.delegate.event.impl.ActivitiEntityEventImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class BaseDelegateEventListenerDiffblueTest {
   /**
-   * Test {@link BaseDelegateEventListener#setEntityClass(Class)}.
-   * <p>
    * Method under test: {@link BaseDelegateEventListener#setEntityClass(Class)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void BaseDelegateEventListener.setEntityClass(Class)"})
   public void testSetEntityClass() {
     // Arrange
     ErrorThrowingEventListener errorThrowingEventListener = new ErrorThrowingEventListener();
@@ -51,37 +44,11 @@ public class BaseDelegateEventListenerDiffblueTest {
   }
 
   /**
-   * Test {@link BaseDelegateEventListener#isValidEvent(ActivitiEvent)}.
-   * <p>
-   * Method under test: {@link BaseDelegateEventListener#isValidEvent(ActivitiEvent)}
+   * Method under test:
+   * {@link BaseDelegateEventListener#isValidEvent(ActivitiEvent)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean BaseDelegateEventListener.isValidEvent(ActivitiEvent)"})
   public void testIsValidEvent() {
-    // Arrange
-    ErrorThrowingEventListener errorThrowingEventListener = new ErrorThrowingEventListener();
-    Class<Object> entityClass = Object.class;
-    errorThrowingEventListener.setEntityClass(entityClass);
-
-    // Act and Assert
-    assertTrue(errorThrowingEventListener
-        .isValidEvent(new ActivitiEntityEventImpl(JSONObject.NULL, ActivitiEventType.ENTITY_CREATED)));
-  }
-
-  /**
-   * Test {@link BaseDelegateEventListener#isValidEvent(ActivitiEvent)}.
-   * <ul>
-   *   <li>Given {@link ErrorThrowingEventListener} (default constructor).</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BaseDelegateEventListener#isValidEvent(ActivitiEvent)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean BaseDelegateEventListener.isValidEvent(ActivitiEvent)"})
-  public void testIsValidEvent_givenErrorThrowingEventListener_thenReturnTrue() {
     // Arrange
     ErrorThrowingEventListener errorThrowingEventListener = new ErrorThrowingEventListener();
 
@@ -90,18 +57,11 @@ public class BaseDelegateEventListenerDiffblueTest {
   }
 
   /**
-   * Test {@link BaseDelegateEventListener#isValidEvent(ActivitiEvent)}.
-   * <ul>
-   *   <li>Given {@code Object}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BaseDelegateEventListener#isValidEvent(ActivitiEvent)}
+   * Method under test:
+   * {@link BaseDelegateEventListener#isValidEvent(ActivitiEvent)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean BaseDelegateEventListener.isValidEvent(ActivitiEvent)"})
-  public void testIsValidEvent_givenJavaLangObject_thenReturnFalse() {
+  public void testIsValidEvent2() {
     // Arrange
     ErrorThrowingEventListener errorThrowingEventListener = new ErrorThrowingEventListener();
     Class<Object> entityClass = Object.class;
@@ -109,5 +69,21 @@ public class BaseDelegateEventListenerDiffblueTest {
 
     // Act and Assert
     assertFalse(errorThrowingEventListener.isValidEvent(new ActivitiActivityCancelledEventImpl()));
+  }
+
+  /**
+   * Method under test:
+   * {@link BaseDelegateEventListener#isValidEvent(ActivitiEvent)}
+   */
+  @Test
+  public void testIsValidEvent3() {
+    // Arrange
+    ErrorThrowingEventListener errorThrowingEventListener = new ErrorThrowingEventListener();
+    Class<Object> entityClass = Object.class;
+    errorThrowingEventListener.setEntityClass(entityClass);
+
+    // Act and Assert
+    assertTrue(errorThrowingEventListener
+        .isValidEvent(new ActivitiEntityEventImpl(JSONObject.NULL, ActivitiEventType.ENTITY_CREATED)));
   }
 }

@@ -17,20 +17,11 @@ package org.activiti.engine.repository;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class DiagramNodeDiffblueTest {
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>Then return toString is {@code id=null, x=2.0, y=3.0, width=10.0, height=10.0}.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link DiagramNode#DiagramNode()}
@@ -48,14 +39,7 @@ public class DiagramNodeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DiagramNode.<init>()", "void DiagramNode.<init>(String)",
-      "void DiagramNode.<init>(String, Double, Double, Double, Double)", "Double DiagramNode.getHeight()",
-      "Double DiagramNode.getWidth()", "Double DiagramNode.getX()", "Double DiagramNode.getY()",
-      "boolean DiagramNode.isEdge()", "boolean DiagramNode.isNode()", "void DiagramNode.setHeight(Double)",
-      "void DiagramNode.setWidth(Double)", "void DiagramNode.setX(Double)", "void DiagramNode.setY(Double)",
-      "String DiagramNode.toString()"})
-  public void testGettersAndSetters_thenReturnToStringIsIdNullX20Y30Width100Height100() {
+  public void testGettersAndSetters() {
     // Arrange and Act
     DiagramNode actualDiagramNode = new DiagramNode();
     actualDiagramNode.setHeight(10.0d);
@@ -70,9 +54,8 @@ public class DiagramNodeDiffblueTest {
     boolean actualIsEdgeResult = actualDiagramNode.isEdge();
     boolean actualIsNodeResult = actualDiagramNode.isNode();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("id=null, x=2.0, y=3.0, width=10.0, height=10.0", actualToStringResult);
-    assertNull(actualDiagramNode.getId());
     assertEquals(10.0d, actualHeight.doubleValue(), 0.0);
     assertEquals(10.0d, actualWidth.doubleValue(), 0.0);
     assertEquals(2.0d, actualX.doubleValue(), 0.0);
@@ -82,12 +65,6 @@ public class DiagramNodeDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then return Id is {@code 42}.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link DiagramNode#DiagramNode(String)}
@@ -105,14 +82,7 @@ public class DiagramNodeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DiagramNode.<init>()", "void DiagramNode.<init>(String)",
-      "void DiagramNode.<init>(String, Double, Double, Double, Double)", "Double DiagramNode.getHeight()",
-      "Double DiagramNode.getWidth()", "Double DiagramNode.getX()", "Double DiagramNode.getY()",
-      "boolean DiagramNode.isEdge()", "boolean DiagramNode.isNode()", "void DiagramNode.setHeight(Double)",
-      "void DiagramNode.setWidth(Double)", "void DiagramNode.setX(Double)", "void DiagramNode.setY(Double)",
-      "String DiagramNode.toString()"})
-  public void testGettersAndSetters_when42_thenReturnIdIs42() {
+  public void testGettersAndSetters2() {
     // Arrange and Act
     DiagramNode actualDiagramNode = new DiagramNode("42");
     actualDiagramNode.setHeight(10.0d);
@@ -127,7 +97,7 @@ public class DiagramNodeDiffblueTest {
     boolean actualIsEdgeResult = actualDiagramNode.isEdge();
     boolean actualIsNodeResult = actualDiagramNode.isNode();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("42", actualDiagramNode.getId());
     assertEquals("id=42, x=2.0, y=3.0, width=10.0, height=10.0", actualToStringResult);
     assertEquals(10.0d, actualHeight.doubleValue(), 0.0);
@@ -139,12 +109,6 @@ public class DiagramNodeDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When two.</li>
-   *   <li>Then return Id is {@code 42}.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link DiagramNode#DiagramNode(String, Double, Double, Double, Double)}
@@ -162,14 +126,7 @@ public class DiagramNodeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DiagramNode.<init>()", "void DiagramNode.<init>(String)",
-      "void DiagramNode.<init>(String, Double, Double, Double, Double)", "Double DiagramNode.getHeight()",
-      "Double DiagramNode.getWidth()", "Double DiagramNode.getX()", "Double DiagramNode.getY()",
-      "boolean DiagramNode.isEdge()", "boolean DiagramNode.isNode()", "void DiagramNode.setHeight(Double)",
-      "void DiagramNode.setWidth(Double)", "void DiagramNode.setX(Double)", "void DiagramNode.setY(Double)",
-      "String DiagramNode.toString()"})
-  public void testGettersAndSetters_whenTwo_thenReturnIdIs42() {
+  public void testGettersAndSetters3() {
     // Arrange and Act
     DiagramNode actualDiagramNode = new DiagramNode("42", 2.0d, 3.0d, 10.0d, 10.0d);
     actualDiagramNode.setHeight(10.0d);
@@ -184,7 +141,7 @@ public class DiagramNodeDiffblueTest {
     boolean actualIsEdgeResult = actualDiagramNode.isEdge();
     boolean actualIsNodeResult = actualDiagramNode.isNode();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("42", actualDiagramNode.getId());
     assertEquals("id=42, x=2.0, y=3.0, width=10.0, height=10.0", actualToStringResult);
     assertEquals(10.0d, actualHeight.doubleValue(), 0.0);

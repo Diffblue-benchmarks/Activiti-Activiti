@@ -15,6 +15,7 @@
  */
 package org.activiti.api.runtime.model.impl;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
@@ -22,7 +23,6 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,8 +30,6 @@ import com.fasterxml.jackson.databind.type.PlaceholderForType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -52,22 +50,28 @@ class StringToListConverterDiffblueTest {
   private StringToListConverter stringToListConverter;
 
   /**
-   * Test {@link StringToListConverter#convert(String)} with {@code String}.
-   * <ul>
-   *   <li>Given {@link ObjectMapper} {@link ObjectMapper#readValue(String, JavaType)} return {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link StringToListConverter#convert(String)}
    */
   @Test
-  @DisplayName("Test convert(String) with 'String'; given ObjectMapper readValue(String, JavaType) return ArrayList(); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List StringToListConverter.convert(String)"})
-  void testConvertWithString_givenObjectMapperReadValueReturnArrayList_thenReturnEmpty()
-      throws JsonProcessingException {
+  void testConvert() throws JsonProcessingException {
     // Arrange
-    when(objectMapper.readValue(Mockito.<String>any(), Mockito.<JavaType>any())).thenReturn(new ArrayList<>());
+    when(objectMapper.readValue(Mockito.<String>any(), Mockito.<JavaType>any())).thenThrow(new RuntimeException("foo"));
+    when(objectMapper.getTypeFactory()).thenReturn(TypeFactory.defaultInstance());
+
+    // Act and Assert
+    assertThrows(RuntimeException.class, () -> stringToListConverter.convert("Source"));
+    verify(objectMapper).getTypeFactory();
+    verify(objectMapper).readValue(eq("Source"), isA(JavaType.class));
+  }
+
+  /**
+   * Method under test: {@link StringToListConverter#convert(String)}
+   */
+  @Test
+  void testConvert2() throws JsonProcessingException {
+    // Arrange
+    ArrayList<Object> objectList = new ArrayList<>();
+    when(objectMapper.readValue(Mockito.<String>any(), Mockito.<JavaType>any())).thenReturn(objectList);
     when(objectMapper.getTypeFactory()).thenReturn(TypeFactory.defaultInstance());
 
     // Act
@@ -77,26 +81,20 @@ class StringToListConverterDiffblueTest {
     verify(objectMapper).getTypeFactory();
     verify(objectMapper).readValue(eq("Source"), isA(JavaType.class));
     assertTrue(actualConvertResult.isEmpty());
+    assertSame(objectList, actualConvertResult);
   }
 
   /**
-   * Test {@link StringToListConverter#convert(String)} with {@code String}.
-   * <ul>
-   *   <li>Then calls {@link TypeFactory#constructParametricType(Class, Class[])}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link StringToListConverter#convert(String)}
    */
   @Test
-  @DisplayName("Test convert(String) with 'String'; then calls constructParametricType(Class, Class[])")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List StringToListConverter.convert(String)"})
-  void testConvertWithString_thenCallsConstructParametricType() throws JsonProcessingException {
+  void testConvert3() throws JsonProcessingException {
     // Arrange
     TypeFactory typeFactory = mock(TypeFactory.class);
     when(typeFactory.constructParametricType(Mockito.<Class<Object>>any(), isA(Class[].class)))
         .thenReturn(new PlaceholderForType(1));
-    when(objectMapper.readValue(Mockito.<String>any(), Mockito.<JavaType>any())).thenReturn(new ArrayList<>());
+    ArrayList<Object> objectList = new ArrayList<>();
+    when(objectMapper.readValue(Mockito.<String>any(), Mockito.<JavaType>any())).thenReturn(objectList);
     when(objectMapper.getTypeFactory()).thenReturn(typeFactory);
 
     // Act
@@ -107,28 +105,6 @@ class StringToListConverterDiffblueTest {
     verify(objectMapper).readValue(eq("Source"), isA(JavaType.class));
     verify(typeFactory).constructParametricType(isA(Class.class), isA(Class[].class));
     assertTrue(actualConvertResult.isEmpty());
-  }
-
-  /**
-   * Test {@link StringToListConverter#convert(String)} with {@code String}.
-   * <ul>
-   *   <li>Then throw {@link RuntimeException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StringToListConverter#convert(String)}
-   */
-  @Test
-  @DisplayName("Test convert(String) with 'String'; then throw RuntimeException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List StringToListConverter.convert(String)"})
-  void testConvertWithString_thenThrowRuntimeException() throws JsonProcessingException {
-    // Arrange
-    when(objectMapper.readValue(Mockito.<String>any(), Mockito.<JavaType>any())).thenThrow(new RuntimeException("foo"));
-    when(objectMapper.getTypeFactory()).thenReturn(TypeFactory.defaultInstance());
-
-    // Act and Assert
-    assertThrows(RuntimeException.class, () -> stringToListConverter.convert("Source"));
-    verify(objectMapper).getTypeFactory();
-    verify(objectMapper).readValue(eq("Source"), isA(JavaType.class));
+    assertSame(objectList, actualConvertResult);
   }
 }

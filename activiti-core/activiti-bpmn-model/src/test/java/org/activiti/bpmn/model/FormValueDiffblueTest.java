@@ -19,29 +19,40 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiFunction;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class FormValueDiffblueTest {
   /**
-   * Test {@link FormValue#clone()}.
-   * <ul>
-   *   <li>Given {@link FormValue} (default constructor) ExtensionElements is {@code null}.</li>
-   *   <li>Then return Id is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link FormValue#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"FormValue FormValue.clone()"})
-  public void testClone_givenFormValueExtensionElementsIsNull_thenReturnIdIsNull() {
+  public void testClone() {
+    // Arrange and Act
+    FormValue actualCloneResult = (new FormValue()).clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getName());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link FormValue#clone()}
+   */
+  @Test
+  public void testClone2() {
     // Arrange
     FormValue formValue = new FormValue();
     formValue.setExtensionElements(null);
@@ -60,43 +71,97 @@ public class FormValueDiffblueTest {
   }
 
   /**
-   * Test {@link FormValue#clone()}.
-   * <ul>
-   *   <li>Given {@link FormValue} (default constructor).</li>
-   *   <li>Then return Id is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link FormValue#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"FormValue FormValue.clone()"})
-  public void testClone_givenFormValue_thenReturnIdIsNull() {
-    // Arrange and Act
-    FormValue actualCloneResult = (new FormValue()).clone();
+  public void testClone3() {
+    // Arrange
+    FormValue formValue = new FormValue();
+    ExtensionAttribute attribute = new ExtensionAttribute("Name");
+    formValue.addAttribute(attribute);
+
+    // Act
+    FormValue actualCloneResult = formValue.clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
     assertNull(actualCloneResult.getName());
     assertEquals(0, actualCloneResult.getXmlColumnNumber());
     assertEquals(0, actualCloneResult.getXmlRowNumber());
-    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    Map<String, List<ExtensionAttribute>> attributes = actualCloneResult.getAttributes();
+    assertEquals(1, attributes.size());
+    List<ExtensionAttribute> getResult = attributes.get("Name");
+    assertEquals(1, getResult.size());
     assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertSame(attribute, getResult.get(0));
   }
 
   /**
-   * Test {@link FormValue#clone()}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code 42} is {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return Attributes size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link FormValue#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"FormValue FormValue.clone()"})
-  public void testClone_givenHashMap42IsArrayList_thenReturnAttributesSizeIsOne() {
+  public void testClone4() {
+    // Arrange
+    FormValue formValue = new FormValue();
+    ExtensionAttribute attribute = new ExtensionAttribute("42");
+    formValue.addAttribute(attribute);
+    ExtensionAttribute attribute2 = new ExtensionAttribute("Name");
+    formValue.addAttribute(attribute2);
+
+    // Act
+    FormValue actualCloneResult = formValue.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getName());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    Map<String, List<ExtensionAttribute>> attributes = actualCloneResult.getAttributes();
+    assertEquals(2, attributes.size());
+    List<ExtensionAttribute> getResult = attributes.get("42");
+    assertEquals(1, getResult.size());
+    List<ExtensionAttribute> getResult2 = attributes.get("Name");
+    assertEquals(1, getResult2.size());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertSame(attribute, getResult.get(0));
+    assertSame(attribute2, getResult2.get(0));
+  }
+
+  /**
+   * Method under test: {@link FormValue#clone()}
+   */
+  @Test
+  public void testClone5() {
+    // Arrange
+    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
+    extensionElements.put("foo", new ArrayList<>());
+
+    FormValue formValue = new FormValue();
+    formValue.setExtensionElements(extensionElements);
+    ExtensionAttribute attribute = new ExtensionAttribute("Name");
+    formValue.addAttribute(attribute);
+
+    // Act
+    FormValue actualCloneResult = formValue.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getName());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    Map<String, List<ExtensionAttribute>> attributes = actualCloneResult.getAttributes();
+    assertEquals(1, attributes.size());
+    List<ExtensionAttribute> getResult = attributes.get("Name");
+    assertEquals(1, getResult.size());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertSame(attribute, getResult.get(0));
+  }
+
+  /**
+   * Method under test: {@link FormValue#clone()}
+   */
+  @Test
+  public void testClone6() {
     // Arrange
     HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
     extensionElements.put("42", new ArrayList<>());
@@ -107,29 +172,30 @@ public class FormValueDiffblueTest {
     ExtensionAttribute attribute = new ExtensionAttribute("Name");
     formValue.addAttribute(attribute);
 
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = formValue.clone().getAttributes();
+    // Act
+    FormValue actualCloneResult = formValue.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getName());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    Map<String, List<ExtensionAttribute>> attributes = actualCloneResult.getAttributes();
     assertEquals(1, attributes.size());
     List<ExtensionAttribute> getResult = attributes.get("Name");
     assertEquals(1, getResult.size());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
     assertSame(attribute, getResult.get(0));
   }
 
   /**
-   * Test {@link FormValue#clone()}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return Attributes size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link FormValue#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"FormValue FormValue.clone()"})
-  public void testClone_givenHashMapFooIsArrayList_thenReturnAttributesSizeIsOne() {
+  public void testClone7() {
     // Arrange
     HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
+    extensionElements.computeIfPresent("foo", mock(BiFunction.class));
     extensionElements.put("foo", new ArrayList<>());
 
     FormValue formValue = new FormValue();
@@ -137,69 +203,92 @@ public class FormValueDiffblueTest {
     ExtensionAttribute attribute = new ExtensionAttribute("Name");
     formValue.addAttribute(attribute);
 
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = formValue.clone().getAttributes();
+    // Act
+    FormValue actualCloneResult = formValue.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getName());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    Map<String, List<ExtensionAttribute>> attributes = actualCloneResult.getAttributes();
     assertEquals(1, attributes.size());
     List<ExtensionAttribute> getResult = attributes.get("Name");
     assertEquals(1, getResult.size());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
     assertSame(attribute, getResult.get(0));
   }
 
   /**
-   * Test {@link FormValue#clone()}.
-   * <ul>
-   *   <li>Then return Attributes size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FormValue#clone()}
+   * Method under test: {@link FormValue#setValues(FormValue)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"FormValue FormValue.clone()"})
-  public void testClone_thenReturnAttributesSizeIsOne() {
+  public void testSetValues() {
     // Arrange
     FormValue formValue = new FormValue();
-    ExtensionAttribute attribute = new ExtensionAttribute("Name");
-    formValue.addAttribute(attribute);
+    ExtensionAttribute attribute = mock(ExtensionAttribute.class);
+    when(attribute.getName()).thenReturn("Name");
 
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = formValue.clone().getAttributes();
-    assertEquals(1, attributes.size());
-    List<ExtensionAttribute> getResult = attributes.get("Name");
-    assertEquals(1, getResult.size());
-    assertSame(attribute, getResult.get(0));
+    FormValue otherValue = new FormValue();
+    otherValue.addAttribute(attribute);
+
+    // Act
+    formValue.setValues(otherValue);
+
+    // Assert
+    verify(attribute, atLeast(1)).getName();
   }
 
   /**
-   * Test {@link FormValue#clone()}.
-   * <ul>
-   *   <li>Then return Attributes size is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FormValue#clone()}
+   * Method under test: {@link FormValue#setValues(FormValue)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"FormValue FormValue.clone()"})
-  public void testClone_thenReturnAttributesSizeIsTwo() {
+  public void testSetValues2() {
     // Arrange
     FormValue formValue = new FormValue();
-    ExtensionAttribute attribute = new ExtensionAttribute("42");
-    formValue.addAttribute(attribute);
-    formValue.addAttribute(new ExtensionAttribute("Name"));
+    ExtensionAttribute attribute = mock(ExtensionAttribute.class);
+    when(attribute.getName()).thenReturn("Name");
 
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = formValue.clone().getAttributes();
-    assertEquals(2, attributes.size());
-    List<ExtensionAttribute> getResult = attributes.get("42");
-    assertEquals(1, getResult.size());
-    assertTrue(attributes.containsKey("Name"));
-    assertSame(attribute, getResult.get(0));
+    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
+    extensionElements.put("foo", new ArrayList<>());
+
+    FormValue otherValue = new FormValue();
+    otherValue.setExtensionElements(extensionElements);
+    otherValue.addAttribute(attribute);
+
+    // Act
+    formValue.setValues(otherValue);
+
+    // Assert
+    verify(attribute, atLeast(1)).getName();
   }
 
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link FormValue#setValues(FormValue)}
+   */
+  @Test
+  public void testSetValues3() {
+    // Arrange
+    FormValue formValue = new FormValue();
+    ExtensionAttribute attribute = mock(ExtensionAttribute.class);
+    when(attribute.getName()).thenReturn("Name");
+
+    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
+    extensionElements.put("42", new ArrayList<>());
+    extensionElements.put("foo", new ArrayList<>());
+
+    FormValue otherValue = new FormValue();
+    otherValue.setExtensionElements(extensionElements);
+    otherValue.addAttribute(attribute);
+
+    // Act
+    formValue.setValues(otherValue);
+
+    // Assert
+    verify(attribute, atLeast(1)).getName();
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link FormValue}
@@ -208,16 +297,13 @@ public class FormValueDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void FormValue.<init>()", "String FormValue.getName()", "void FormValue.setName(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     FormValue actualFormValue = new FormValue();
     actualFormValue.setName("Name");
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("Name", actualFormValue.getName());
-    assertNull(actualFormValue.getId());
     assertEquals(0, actualFormValue.getXmlColumnNumber());
     assertEquals(0, actualFormValue.getXmlRowNumber());
     assertTrue(actualFormValue.getAttributes().isEmpty());

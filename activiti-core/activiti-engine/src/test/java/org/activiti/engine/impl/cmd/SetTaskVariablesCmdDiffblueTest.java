@@ -17,17 +17,12 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class SetTaskVariablesCmdDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link SetTaskVariablesCmd#SetTaskVariablesCmd(String, Map, boolean)}
@@ -35,9 +30,6 @@ public class SetTaskVariablesCmdDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SetTaskVariablesCmd.<init>(String, Map, boolean)",
-      "String SetTaskVariablesCmd.getSuspendedTaskException()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     SetTaskVariablesCmd actualSetTaskVariablesCmd = new SetTaskVariablesCmd("42", new HashMap<>(), true);

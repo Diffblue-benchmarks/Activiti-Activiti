@@ -21,65 +21,30 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import org.activiti.bpmn.model.Activity;
 import org.activiti.bpmn.model.AdhocSubProcess;
+import org.activiti.bpmn.model.Artifact;
+import org.activiti.bpmn.model.FlowElement;
+import org.activiti.bpmn.model.MessageEventDefinition;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.delegate.DelegateExecution;
+import org.activiti.engine.impl.bpmn.parser.factory.DefaultMessageExecutionContext;
+import org.activiti.engine.impl.delegate.MessagePayloadMappingProvider;
+import org.activiti.engine.impl.el.ExpressionManager;
 import org.activiti.engine.impl.el.FixedValue;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class SequentialMultiInstanceBehaviorDiffblueTest {
   /**
-   * Test {@link SequentialMultiInstanceBehavior#SequentialMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}.
-   * <ul>
-   *   <li>Then {@link MultiInstanceActivityBehavior#activity} return {@link AdhocSubProcess}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SequentialMultiInstanceBehavior#SequentialMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}
+   * Method under test:
+   * {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SequentialMultiInstanceBehavior.<init>(Activity, AbstractBpmnActivityBehavior)"})
-  public void testNewSequentialMultiInstanceBehavior_thenActivityReturnAdhocSubProcess() {
-    // Arrange
-    AdhocSubProcess activity = new AdhocSubProcess();
-    AbstractBpmnActivityBehavior innerActivityBehavior = new AbstractBpmnActivityBehavior();
-
-    // Act
-    SequentialMultiInstanceBehavior actualSequentialMultiInstanceBehavior = new SequentialMultiInstanceBehavior(
-        activity, innerActivityBehavior);
-
-    // Assert
-    assertTrue(actualSequentialMultiInstanceBehavior.activity instanceof AdhocSubProcess);
-    assertEquals("loopCounter", actualSequentialMultiInstanceBehavior.getCollectionElementIndexVariable());
-    assertNull(actualSequentialMultiInstanceBehavior.getCollectionElementVariable());
-    assertNull(actualSequentialMultiInstanceBehavior.getCollectionVariable());
-    assertNull(actualSequentialMultiInstanceBehavior.getLoopDataOutputRef());
-    assertNull(actualSequentialMultiInstanceBehavior.getOutputDataItem());
-    assertNull(actualSequentialMultiInstanceBehavior.getCollectionExpression());
-    assertNull(actualSequentialMultiInstanceBehavior.getCompletionConditionExpression());
-    assertNull(actualSequentialMultiInstanceBehavior.getLoopCardinalityExpression());
-    assertNull(actualSequentialMultiInstanceBehavior.getCommandContext());
-    assertFalse(actualSequentialMultiInstanceBehavior.hasLoopDataOutputRef());
-    assertFalse(actualSequentialMultiInstanceBehavior.hasOutputDataItem());
-    assertTrue(innerActivityBehavior.hasLoopCharacteristics());
-    assertTrue(innerActivityBehavior.hasMultiInstanceCharacteristics());
-    assertSame(innerActivityBehavior, actualSequentialMultiInstanceBehavior.getInnerActivityBehavior());
-  }
-
-  /**
-   * Test {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}.
-   * <p>
-   * Method under test: {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"int SequentialMultiInstanceBehavior.createInstances(DelegateExecution)"})
   public void testCreateInstances() {
     // Arrange
     AdhocSubProcess activity = new AdhocSubProcess();
@@ -94,14 +59,29 @@ public class SequentialMultiInstanceBehaviorDiffblueTest {
   }
 
   /**
-   * Test {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}.
-   * <p>
-   * Method under test: {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}
+   * Method under test:
+   * {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"int SequentialMultiInstanceBehavior.createInstances(DelegateExecution)"})
   public void testCreateInstances2() {
+    // Arrange
+    AdhocSubProcess activity = new AdhocSubProcess();
+
+    SequentialMultiInstanceBehavior sequentialMultiInstanceBehavior = new SequentialMultiInstanceBehavior(activity,
+        new AbstractBpmnActivityBehavior());
+    sequentialMultiInstanceBehavior.setLoopCardinalityExpression(new FixedValue(-1));
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> sequentialMultiInstanceBehavior
+        .createInstances(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+  }
+
+  /**
+   * Method under test:
+   * {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}
+   */
+  @Test
+  public void testCreateInstances3() {
     // Arrange
     AdhocSubProcess activity = new AdhocSubProcess();
 
@@ -115,26 +95,150 @@ public class SequentialMultiInstanceBehaviorDiffblueTest {
   }
 
   /**
-   * Test {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}
+   * Method under test:
+   * {@link SequentialMultiInstanceBehavior#SequentialMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"int SequentialMultiInstanceBehavior.createInstances(DelegateExecution)"})
-  public void testCreateInstances_thenThrowActivitiIllegalArgumentException() {
+  public void testNewSequentialMultiInstanceBehavior() {
     // Arrange
     AdhocSubProcess activity = new AdhocSubProcess();
+    AbstractBpmnActivityBehavior innerActivityBehavior = new AbstractBpmnActivityBehavior();
 
-    SequentialMultiInstanceBehavior sequentialMultiInstanceBehavior = new SequentialMultiInstanceBehavior(activity,
-        new AbstractBpmnActivityBehavior());
-    sequentialMultiInstanceBehavior.setLoopCardinalityExpression(new FixedValue(-1));
+    // Act
+    SequentialMultiInstanceBehavior actualSequentialMultiInstanceBehavior = new SequentialMultiInstanceBehavior(
+        activity, innerActivityBehavior);
 
-    // Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> sequentialMultiInstanceBehavior
-        .createInstances(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    // Assert
+    Activity activity2 = actualSequentialMultiInstanceBehavior.activity;
+    Collection<Artifact> artifacts = ((AdhocSubProcess) activity2).getArtifacts();
+    assertTrue(artifacts instanceof List);
+    Collection<FlowElement> flowElements = ((AdhocSubProcess) activity2).getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertTrue(activity2 instanceof AdhocSubProcess);
+    assertEquals("Parallel", ((AdhocSubProcess) activity2).getOrdering());
+    assertEquals("loopCounter", actualSequentialMultiInstanceBehavior.getCollectionElementIndexVariable());
+    assertNull(activity2.getBehavior());
+    assertNull(activity2.getDefaultFlow());
+    assertNull(activity2.getFailedJobRetryTimeCycleValue());
+    assertNull(((AdhocSubProcess) activity2).getCompletionCondition());
+    assertNull(activity2.getId());
+    assertNull(activity2.getDocumentation());
+    assertNull(activity2.getName());
+    assertNull(actualSequentialMultiInstanceBehavior.getCollectionElementVariable());
+    assertNull(actualSequentialMultiInstanceBehavior.getCollectionVariable());
+    assertNull(actualSequentialMultiInstanceBehavior.getLoopDataOutputRef());
+    assertNull(actualSequentialMultiInstanceBehavior.getOutputDataItem());
+    assertNull(activity2.getParentContainer());
+    assertNull(activity2.getIoSpecification());
+    assertNull(activity2.getLoopCharacteristics());
+    assertNull(activity2.getSubProcess());
+    assertNull(actualSequentialMultiInstanceBehavior.getCollectionExpression());
+    assertNull(actualSequentialMultiInstanceBehavior.getCompletionConditionExpression());
+    assertNull(actualSequentialMultiInstanceBehavior.getLoopCardinalityExpression());
+    assertNull(actualSequentialMultiInstanceBehavior.getCommandContext());
+    assertEquals(0, activity2.getXmlColumnNumber());
+    assertEquals(0, activity2.getXmlRowNumber());
+    assertFalse(activity2.hasMultiInstanceLoopCharacteristics());
+    assertFalse(activity2.isForCompensation());
+    assertFalse(((AdhocSubProcess) activity2).hasSequentialOrdering());
+    assertFalse(activity2.isAsynchronous());
+    assertFalse(activity2.isNotExclusive());
+    assertFalse(actualSequentialMultiInstanceBehavior.hasLoopDataOutputRef());
+    assertFalse(actualSequentialMultiInstanceBehavior.hasOutputDataItem());
+    assertTrue(artifacts.isEmpty());
+    assertTrue(flowElements.isEmpty());
+    assertTrue(activity2.getBoundaryEvents().isEmpty());
+    assertTrue(activity2.getDataInputAssociations().isEmpty());
+    assertTrue(activity2.getDataOutputAssociations().isEmpty());
+    assertTrue(activity2.getMapExceptions().isEmpty());
+    assertTrue(activity2.getExecutionListeners().isEmpty());
+    assertTrue(activity2.getIncomingFlows().isEmpty());
+    assertTrue(activity2.getOutgoingFlows().isEmpty());
+    assertTrue(((AdhocSubProcess) activity2).getDataObjects().isEmpty());
+    assertTrue(activity2.getAttributes().isEmpty());
+    assertTrue(activity2.getExtensionElements().isEmpty());
+    assertTrue(((AdhocSubProcess) activity2).getFlowElementMap().isEmpty());
+    assertTrue(((AdhocSubProcess) activity2).hasParallelOrdering());
+    assertTrue(((AdhocSubProcess) activity2).isCancelRemainingInstances());
+    assertTrue(activity2.isExclusive());
+    assertTrue(innerActivityBehavior.hasLoopCharacteristics());
+    assertTrue(innerActivityBehavior.hasMultiInstanceCharacteristics());
+    assertSame(innerActivityBehavior, actualSequentialMultiInstanceBehavior.getInnerActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link SequentialMultiInstanceBehavior#SequentialMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}
+   */
+  @Test
+  public void testNewSequentialMultiInstanceBehavior2() {
+    // Arrange
+    AdhocSubProcess activity = new AdhocSubProcess();
+    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
+    MessageEventDefinition messageEventDefinition2 = new MessageEventDefinition();
+    EventSubProcessMessageStartEventActivityBehavior innerActivityBehavior = new EventSubProcessMessageStartEventActivityBehavior(
+        messageEventDefinition, new DefaultMessageExecutionContext(messageEventDefinition2, new ExpressionManager(),
+            mock(MessagePayloadMappingProvider.class)));
+
+    // Act
+    SequentialMultiInstanceBehavior actualSequentialMultiInstanceBehavior = new SequentialMultiInstanceBehavior(
+        activity, innerActivityBehavior);
+
+    // Assert
+    Activity activity2 = actualSequentialMultiInstanceBehavior.activity;
+    Collection<Artifact> artifacts = ((AdhocSubProcess) activity2).getArtifacts();
+    assertTrue(artifacts instanceof List);
+    Collection<FlowElement> flowElements = ((AdhocSubProcess) activity2).getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertTrue(activity2 instanceof AdhocSubProcess);
+    assertEquals("Parallel", ((AdhocSubProcess) activity2).getOrdering());
+    assertEquals("loopCounter", actualSequentialMultiInstanceBehavior.getCollectionElementIndexVariable());
+    assertNull(activity2.getBehavior());
+    assertNull(activity2.getDefaultFlow());
+    assertNull(activity2.getFailedJobRetryTimeCycleValue());
+    assertNull(((AdhocSubProcess) activity2).getCompletionCondition());
+    assertNull(activity2.getId());
+    assertNull(activity2.getDocumentation());
+    assertNull(activity2.getName());
+    assertNull(actualSequentialMultiInstanceBehavior.getCollectionElementVariable());
+    assertNull(actualSequentialMultiInstanceBehavior.getCollectionVariable());
+    assertNull(actualSequentialMultiInstanceBehavior.getLoopDataOutputRef());
+    assertNull(actualSequentialMultiInstanceBehavior.getOutputDataItem());
+    assertNull(activity2.getParentContainer());
+    assertNull(activity2.getIoSpecification());
+    assertNull(activity2.getLoopCharacteristics());
+    assertNull(activity2.getSubProcess());
+    assertNull(actualSequentialMultiInstanceBehavior.getCollectionExpression());
+    assertNull(actualSequentialMultiInstanceBehavior.getCompletionConditionExpression());
+    assertNull(actualSequentialMultiInstanceBehavior.getLoopCardinalityExpression());
+    assertNull(actualSequentialMultiInstanceBehavior.getCommandContext());
+    assertEquals(0, activity2.getXmlColumnNumber());
+    assertEquals(0, activity2.getXmlRowNumber());
+    assertFalse(activity2.hasMultiInstanceLoopCharacteristics());
+    assertFalse(activity2.isForCompensation());
+    assertFalse(((AdhocSubProcess) activity2).hasSequentialOrdering());
+    assertFalse(activity2.isAsynchronous());
+    assertFalse(activity2.isNotExclusive());
+    assertFalse(actualSequentialMultiInstanceBehavior.hasLoopDataOutputRef());
+    assertFalse(actualSequentialMultiInstanceBehavior.hasOutputDataItem());
+    assertTrue(artifacts.isEmpty());
+    assertTrue(flowElements.isEmpty());
+    assertTrue(activity2.getBoundaryEvents().isEmpty());
+    assertTrue(activity2.getDataInputAssociations().isEmpty());
+    assertTrue(activity2.getDataOutputAssociations().isEmpty());
+    assertTrue(activity2.getMapExceptions().isEmpty());
+    assertTrue(activity2.getExecutionListeners().isEmpty());
+    assertTrue(activity2.getIncomingFlows().isEmpty());
+    assertTrue(activity2.getOutgoingFlows().isEmpty());
+    assertTrue(((AdhocSubProcess) activity2).getDataObjects().isEmpty());
+    assertTrue(activity2.getAttributes().isEmpty());
+    assertTrue(activity2.getExtensionElements().isEmpty());
+    assertTrue(((AdhocSubProcess) activity2).getFlowElementMap().isEmpty());
+    assertTrue(((AdhocSubProcess) activity2).hasParallelOrdering());
+    assertTrue(((AdhocSubProcess) activity2).isCancelRemainingInstances());
+    assertTrue(activity2.isExclusive());
+    assertTrue(innerActivityBehavior.hasLoopCharacteristics());
+    assertTrue(innerActivityBehavior.hasMultiInstanceCharacteristics());
+    assertSame(innerActivityBehavior, actualSequentialMultiInstanceBehavior.getInnerActivityBehavior());
   }
 }

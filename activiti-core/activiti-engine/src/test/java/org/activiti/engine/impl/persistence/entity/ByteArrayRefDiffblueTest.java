@@ -18,18 +18,56 @@ package org.activiti.engine.impl.persistence.entity;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ByteArrayRefDiffblueTest {
+  @InjectMocks
+  private ByteArrayRef byteArrayRef;
+
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>Then return Id is {@code null}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link ByteArrayRef#getBytes()}
+   */
+  @Test
+  public void testGetBytes() {
+    // Arrange, Act and Assert
+    assertNull((new ByteArrayRef()).getBytes());
+  }
+
+  /**
+   * Method under test: {@link ByteArrayRef#setValue(String, byte[])}
+   */
+  @Test
+  public void testSetValue() {
+    // Arrange and Act
+    byteArrayRef.setValue("Name", null);
+
+    // Assert
+    assertEquals("Name", byteArrayRef.getName());
+  }
+
+  /**
+   * Method under test: {@link ByteArrayRef#getEntity()}
+   */
+  @Test
+  public void testGetEntity() {
+    // Arrange, Act and Assert
+    assertNull((new ByteArrayRef()).getEntity());
+  }
+
+  /**
+   * Method under test: {@link ByteArrayRef#toString()}
+   */
+  @Test
+  public void testToString() {
+    // Arrange, Act and Assert
+    assertEquals("ByteArrayRef[id=42, name=null, entity=null]", (new ByteArrayRef("42")).toString());
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>{@link ByteArrayRef#ByteArrayRef()}
@@ -39,10 +77,7 @@ public class ByteArrayRefDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ByteArrayRef.<init>()", "void ByteArrayRef.<init>(String)", "String ByteArrayRef.getId()",
-      "String ByteArrayRef.getName()", "boolean ByteArrayRef.isDeleted()"})
-  public void testGettersAndSetters_thenReturnIdIsNull() {
+  public void testGettersAndSetters() {
     // Arrange and Act
     ByteArrayRef actualByteArrayRef = new ByteArrayRef();
     String actualId = actualByteArrayRef.getId();
@@ -55,12 +90,6 @@ public class ByteArrayRefDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then return Id is {@code 42}.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link ByteArrayRef#ByteArrayRef(String)}
@@ -70,10 +99,7 @@ public class ByteArrayRefDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ByteArrayRef.<init>()", "void ByteArrayRef.<init>(String)", "String ByteArrayRef.getId()",
-      "String ByteArrayRef.getName()", "boolean ByteArrayRef.isDeleted()"})
-  public void testGettersAndSetters_when42_thenReturnIdIs42() {
+  public void testGettersAndSetters2() {
     // Arrange and Act
     ByteArrayRef actualByteArrayRef = new ByteArrayRef("42");
     String actualId = actualByteArrayRef.getId();
@@ -83,76 +109,5 @@ public class ByteArrayRefDiffblueTest {
     assertEquals("42", actualId);
     assertNull(actualName);
     assertFalse(actualByteArrayRef.isDeleted());
-  }
-
-  /**
-   * Test {@link ByteArrayRef#getBytes()}.
-   * <ul>
-   *   <li>Given {@link ByteArrayRef#ByteArrayRef()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ByteArrayRef#getBytes()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"byte[] ByteArrayRef.getBytes()"})
-  public void testGetBytes_givenByteArrayRef_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new ByteArrayRef()).getBytes());
-  }
-
-  /**
-   * Test {@link ByteArrayRef#setValue(String, byte[])}.
-   * <ul>
-   *   <li>Given {@link ByteArrayRef#ByteArrayRef()}.</li>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link ByteArrayRef#ByteArrayRef()} Name is {@code Name}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ByteArrayRef#setValue(String, byte[])}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ByteArrayRef.setValue(String, byte[])"})
-  public void testSetValue_givenByteArrayRef_whenNull_thenByteArrayRefNameIsName() {
-    // Arrange
-    ByteArrayRef byteArrayRef = new ByteArrayRef();
-
-    // Act
-    byteArrayRef.setValue("Name", null);
-
-    // Assert
-    assertEquals("Name", byteArrayRef.getName());
-  }
-
-  /**
-   * Test {@link ByteArrayRef#getEntity()}.
-   * <ul>
-   *   <li>Given {@link ByteArrayRef#ByteArrayRef()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ByteArrayRef#getEntity()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"org.activiti.engine.impl.persistence.entity.ByteArrayEntity ByteArrayRef.getEntity()"})
-  public void testGetEntity_givenByteArrayRef_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new ByteArrayRef()).getEntity());
-  }
-
-  /**
-   * Test {@link ByteArrayRef#toString()}.
-   * <p>
-   * Method under test: {@link ByteArrayRef#toString()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String ByteArrayRef.toString()"})
-  public void testToString() {
-    // Arrange, Act and Assert
-    assertEquals("ByteArrayRef[id=42, name=null, entity=null]", (new ByteArrayRef("42")).toString());
   }
 }

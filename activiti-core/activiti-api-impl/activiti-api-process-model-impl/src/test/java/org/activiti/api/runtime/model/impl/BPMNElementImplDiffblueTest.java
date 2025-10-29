@@ -17,19 +17,13 @@ package org.activiti.api.runtime.model.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 class BPMNElementImplDiffblueTest {
   /**
-   * Test {@link BPMNElementImpl#equals(Object)}, and {@link BPMNElementImpl#hashCode()}.
-   * <ul>
-   *   <li>When other is equal.</li>
-   *   <li>Then return equal.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link BPMNElementImpl#equals(Object)}
@@ -37,9 +31,6 @@ class BPMNElementImplDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test equals(Object), and hashCode(); when other is equal; then return equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean BPMNElementImpl.equals(Object)", "int BPMNElementImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {
     // Arrange
     BPMNElementImpl bpmnElementImpl = new BPMNElementImpl();
@@ -59,12 +50,6 @@ class BPMNElementImplDiffblueTest {
   }
 
   /**
-   * Test {@link BPMNElementImpl#equals(Object)}, and {@link BPMNElementImpl#hashCode()}.
-   * <ul>
-   *   <li>When other is same.</li>
-   *   <li>Then return equal.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link BPMNElementImpl#equals(Object)}
@@ -72,9 +57,6 @@ class BPMNElementImplDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean BPMNElementImpl.equals(Object)", "int BPMNElementImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
     BPMNElementImpl bpmnElementImpl = new BPMNElementImpl();
@@ -89,18 +71,9 @@ class BPMNElementImplDiffblueTest {
   }
 
   /**
-   * Test {@link BPMNElementImpl#equals(Object)}.
-   * <ul>
-   *   <li>When other is different.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BPMNElementImpl#equals(Object)}
    */
   @Test
-  @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean BPMNElementImpl.equals(Object)", "int BPMNElementImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange
     BPMNActivityImpl bpmnActivityImpl = new BPMNActivityImpl("42", "Activity Name", "Activity Type");
@@ -118,18 +91,9 @@ class BPMNElementImplDiffblueTest {
   }
 
   /**
-   * Test {@link BPMNElementImpl#equals(Object)}.
-   * <ul>
-   *   <li>When other is different.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BPMNElementImpl#equals(Object)}
    */
   @Test
-  @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean BPMNElementImpl.equals(Object)", "int BPMNElementImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
     // Arrange
     BPMNElementImpl bpmnElementImpl = new BPMNElementImpl();
@@ -147,18 +111,9 @@ class BPMNElementImplDiffblueTest {
   }
 
   /**
-   * Test {@link BPMNElementImpl#equals(Object)}.
-   * <ul>
-   *   <li>When other is different.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BPMNElementImpl#equals(Object)}
    */
   @Test
-  @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean BPMNElementImpl.equals(Object)", "int BPMNElementImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual3() {
     // Arrange
     BPMNElementImpl bpmnElementImpl = new BPMNElementImpl();
@@ -176,18 +131,9 @@ class BPMNElementImplDiffblueTest {
   }
 
   /**
-   * Test {@link BPMNElementImpl#equals(Object)}.
-   * <ul>
-   *   <li>When other is different.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BPMNElementImpl#equals(Object)}
    */
   @Test
-  @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean BPMNElementImpl.equals(Object)", "int BPMNElementImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual4() {
     // Arrange
     BPMNElementImpl bpmnElementImpl = new BPMNElementImpl();
@@ -205,18 +151,31 @@ class BPMNElementImplDiffblueTest {
   }
 
   /**
-   * Test {@link BPMNElementImpl#equals(Object)}.
-   * <ul>
-   *   <li>When other is {@code null}.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BPMNElementImpl#equals(Object)}
    */
   @Test
-  @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean BPMNElementImpl.equals(Object)", "int BPMNElementImpl.hashCode()"})
+  void testEquals_whenOtherIsDifferent_thenReturnNotEqual5() {
+    // Arrange
+    BPMNElementImpl bpmnElementImpl = new BPMNElementImpl();
+    bpmnElementImpl.setElementId("42");
+    bpmnElementImpl.setProcessDefinitionId("42");
+    bpmnElementImpl.setProcessInstanceId("42");
+    BPMNActivityImpl bpmnActivityImpl = mock(BPMNActivityImpl.class);
+    doNothing().when(bpmnActivityImpl).setElementId(Mockito.<String>any());
+    doNothing().when(bpmnActivityImpl).setProcessDefinitionId(Mockito.<String>any());
+    doNothing().when(bpmnActivityImpl).setProcessInstanceId(Mockito.<String>any());
+    bpmnActivityImpl.setElementId("42");
+    bpmnActivityImpl.setProcessDefinitionId("42");
+    bpmnActivityImpl.setProcessInstanceId("42");
+
+    // Act and Assert
+    assertNotEquals(bpmnElementImpl, bpmnActivityImpl);
+  }
+
+  /**
+   * Method under test: {@link BPMNElementImpl#equals(Object)}
+   */
+  @Test
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange
     BPMNElementImpl bpmnElementImpl = new BPMNElementImpl();
@@ -229,18 +188,9 @@ class BPMNElementImplDiffblueTest {
   }
 
   /**
-   * Test {@link BPMNElementImpl#equals(Object)}.
-   * <ul>
-   *   <li>When other is wrong type.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BPMNElementImpl#equals(Object)}
    */
   @Test
-  @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean BPMNElementImpl.equals(Object)", "int BPMNElementImpl.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange
     BPMNElementImpl bpmnElementImpl = new BPMNElementImpl();
@@ -253,8 +203,6 @@ class BPMNElementImplDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link BPMNElementImpl}
@@ -267,12 +215,6 @@ class BPMNElementImplDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BPMNElementImpl.<init>()", "String BPMNElementImpl.getElementId()",
-      "String BPMNElementImpl.getProcessDefinitionId()", "String BPMNElementImpl.getProcessInstanceId()",
-      "void BPMNElementImpl.setElementId(String)", "void BPMNElementImpl.setProcessDefinitionId(String)",
-      "void BPMNElementImpl.setProcessInstanceId(String)"})
   void testGettersAndSetters() {
     // Arrange and Act
     BPMNElementImpl actualBpmnElementImpl = new BPMNElementImpl();
@@ -282,7 +224,7 @@ class BPMNElementImplDiffblueTest {
     String actualElementId = actualBpmnElementImpl.getElementId();
     String actualProcessDefinitionId = actualBpmnElementImpl.getProcessDefinitionId();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("42", actualElementId);
     assertEquals("42", actualProcessDefinitionId);
     assertEquals("42", actualBpmnElementImpl.getProcessInstanceId());

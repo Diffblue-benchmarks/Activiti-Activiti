@@ -19,25 +19,46 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import java.util.HashMap;
+import java.util.List;
+import java.util.function.BiFunction;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class InclusiveGatewayDiffblueTest {
   /**
-   * Test {@link InclusiveGateway#clone()}.
-   * <ul>
-   *   <li>Given {@link InclusiveGateway} (default constructor) Asynchronous is {@code true}.</li>
-   *   <li>Then return Asynchronous.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link InclusiveGateway#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"InclusiveGateway InclusiveGateway.clone()"})
-  public void testClone_givenInclusiveGatewayAsynchronousIsTrue_thenReturnAsynchronous() {
+  public void testClone() {
+    // Arrange and Act
+    InclusiveGateway actualCloneResult = (new InclusiveGateway()).clone();
+
+    // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+  }
+
+  /**
+   * Method under test: {@link InclusiveGateway#clone()}
+   */
+  @Test
+  public void testClone2() {
     // Arrange
     InclusiveGateway inclusiveGateway = new InclusiveGateway();
     inclusiveGateway.setAsynchronous(true);
@@ -66,20 +87,20 @@ public class InclusiveGatewayDiffblueTest {
   }
 
   /**
-   * Test {@link InclusiveGateway#clone()}.
-   * <ul>
-   *   <li>Given {@link InclusiveGateway} (default constructor).</li>
-   *   <li>Then return not Asynchronous.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link InclusiveGateway#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"InclusiveGateway InclusiveGateway.clone()"})
-  public void testClone_givenInclusiveGateway_thenReturnNotAsynchronous() {
-    // Arrange and Act
-    InclusiveGateway actualCloneResult = (new InclusiveGateway()).clone();
+  public void testClone3() {
+    // Arrange
+    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
+    attributes.computeIfPresent("foo", mock(BiFunction.class));
+
+    InclusiveGateway inclusiveGateway = new InclusiveGateway();
+    inclusiveGateway.setExtensionElements(null);
+    inclusiveGateway.setAttributes(attributes);
+
+    // Act
+    InclusiveGateway actualCloneResult = inclusiveGateway.clone();
 
     // Assert
     assertNull(actualCloneResult.getBehavior());
@@ -102,13 +123,10 @@ public class InclusiveGatewayDiffblueTest {
   }
 
   /**
-   * Test new {@link InclusiveGateway} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link InclusiveGateway}
+   * Method under test: default or parameterless constructor of
+   * {@link InclusiveGateway}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void InclusiveGateway.<init>()"})
   public void testNewInclusiveGateway() {
     // Arrange and Act
     InclusiveGateway actualInclusiveGateway = new InclusiveGateway();

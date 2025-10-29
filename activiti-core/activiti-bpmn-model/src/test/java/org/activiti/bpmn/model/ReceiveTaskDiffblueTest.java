@@ -18,29 +18,54 @@ package org.activiti.bpmn.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ReceiveTaskDiffblueTest {
   /**
-   * Test {@link ReceiveTask#clone()}.
-   * <ul>
-   *   <li>Given {@link ReceiveTask} (default constructor) ForCompensation is {@code true}.</li>
-   *   <li>Then return ForCompensation.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ReceiveTask#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ReceiveTask ReceiveTask.clone()"})
-  public void testClone_givenReceiveTaskForCompensationIsTrue_thenReturnForCompensation() {
+  public void testClone() {
+    // Arrange and Act
+    ReceiveTask actualCloneResult = (new ReceiveTask()).clone();
+
+    // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getIoSpecification());
+    assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+  }
+
+  /**
+   * Method under test: {@link ReceiveTask#clone()}
+   */
+  @Test
+  public void testClone2() {
     // Arrange
     ReceiveTask receiveTask = new ReceiveTask();
     receiveTask.setForCompensation(true);
@@ -49,76 +74,39 @@ public class ReceiveTaskDiffblueTest {
     ReceiveTask actualCloneResult = receiveTask.clone();
 
     // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getParentContainer());
     assertNull(actualCloneResult.getIoSpecification());
     assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
     assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
     assertTrue(actualCloneResult.isForCompensation());
+    assertTrue(actualCloneResult.isExclusive());
   }
 
   /**
-   * Test {@link ReceiveTask#clone()}.
-   * <ul>
-   *   <li>Given {@link ReceiveTask} (default constructor).</li>
-   *   <li>Then return not ForCompensation.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ReceiveTask#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ReceiveTask ReceiveTask.clone()"})
-  public void testClone_givenReceiveTask_thenReturnNotForCompensation() {
-    // Arrange and Act
-    ReceiveTask actualCloneResult = (new ReceiveTask()).clone();
-
-    // Assert
-    assertNull(actualCloneResult.getIoSpecification());
-    assertNull(actualCloneResult.getLoopCharacteristics());
-    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
-    assertFalse(actualCloneResult.isForCompensation());
-  }
-
-  /**
-   * Test {@link ReceiveTask#clone()}.
-   * <ul>
-   *   <li>Then return IoSpecification Id is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ReceiveTask#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ReceiveTask ReceiveTask.clone()"})
-  public void testClone_thenReturnIoSpecificationIdIsNull() {
-    // Arrange
-    ReceiveTask receiveTask = new ReceiveTask();
-    receiveTask.setIoSpecification(new IOSpecification());
-
-    // Act and Assert
-    IOSpecification ioSpecification = receiveTask.clone().getIoSpecification();
-    assertNull(ioSpecification.getId());
-    assertEquals(0, ioSpecification.getXmlColumnNumber());
-    assertEquals(0, ioSpecification.getXmlRowNumber());
-    assertTrue(ioSpecification.getDataInputRefs().isEmpty());
-    assertTrue(ioSpecification.getDataInputs().isEmpty());
-    assertTrue(ioSpecification.getDataOutputRefs().isEmpty());
-    assertTrue(ioSpecification.getDataOutputs().isEmpty());
-    assertTrue(ioSpecification.getAttributes().isEmpty());
-    assertTrue(ioSpecification.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link ReceiveTask#clone()}.
-   * <ul>
-   *   <li>Then return LoopCharacteristics Id is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ReceiveTask#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ReceiveTask ReceiveTask.clone()"})
-  public void testClone_thenReturnLoopCharacteristicsIdIsNull() {
+  public void testClone3() {
     // Arrange
     ReceiveTask receiveTask = new ReceiveTask();
     receiveTask.setLoopCharacteristics(new MultiInstanceLoopCharacteristics());
@@ -127,8 +115,14 @@ public class ReceiveTaskDiffblueTest {
     ReceiveTask actualCloneResult = receiveTask.clone();
 
     // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
     MultiInstanceLoopCharacteristics loopCharacteristics = actualCloneResult.getLoopCharacteristics();
     assertNull(loopCharacteristics.getId());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
     assertNull(loopCharacteristics.getCompletionCondition());
     assertNull(loopCharacteristics.getElementIndexVariable());
     assertNull(loopCharacteristics.getElementVariable());
@@ -136,56 +130,108 @@ public class ReceiveTaskDiffblueTest {
     assertNull(loopCharacteristics.getLoopCardinality());
     assertNull(loopCharacteristics.getLoopDataOutputRef());
     assertNull(loopCharacteristics.getOutputDataItem());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getIoSpecification());
+    assertNull(actualCloneResult.getSubProcess());
     assertEquals(0, loopCharacteristics.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
     assertEquals(0, loopCharacteristics.getXmlRowNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
     assertFalse(loopCharacteristics.isSequential());
+    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
     assertTrue(loopCharacteristics.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
     assertTrue(loopCharacteristics.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
     assertTrue(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertTrue(actualCloneResult.isExclusive());
   }
 
   /**
-   * Test {@link ReceiveTask#setValues(ManualTask)} with {@code ManualTask}.
-   * <ul>
-   *   <li>Given {@code true}.</li>
-   *   <li>Then {@link ReceiveTask} (default constructor) ForCompensation.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link ReceiveTask#clone()}
+   */
+  @Test
+  public void testClone4() {
+    // Arrange
+    ReceiveTask receiveTask = new ReceiveTask();
+    receiveTask.setIoSpecification(new IOSpecification());
+
+    // Act
+    ReceiveTask actualCloneResult = receiveTask.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getFailedJobRetryTimeCycleValue());
+    IOSpecification ioSpecification = actualCloneResult.getIoSpecification();
+    assertNull(ioSpecification.getId());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getLoopCharacteristics());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, ioSpecification.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, ioSpecification.getXmlRowNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
+    assertFalse(actualCloneResult.isForCompensation());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
+    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
+    assertTrue(actualCloneResult.getMapExceptions().isEmpty());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(ioSpecification.getDataInputRefs().isEmpty());
+    assertTrue(ioSpecification.getDataInputs().isEmpty());
+    assertTrue(ioSpecification.getDataOutputRefs().isEmpty());
+    assertTrue(ioSpecification.getDataOutputs().isEmpty());
+    assertTrue(ioSpecification.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(ioSpecification.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+  }
+
+  /**
    * Method under test: {@link ReceiveTask#setValues(ManualTask)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ReceiveTask.setValues(ManualTask)"})
-  public void testSetValuesWithManualTask_givenTrue_thenReceiveTaskForCompensation() {
+  public void testSetValues() {
     // Arrange
     ReceiveTask receiveTask = new ReceiveTask();
 
-    ManualTask otherElement = new ManualTask();
-    otherElement.setForCompensation(true);
-
     // Act
-    receiveTask.setValues(otherElement);
+    receiveTask.setValues(new ManualTask());
 
     // Assert
+    assertNull(receiveTask.getIoSpecification());
+    assertNull(receiveTask.getLoopCharacteristics());
     assertFalse(receiveTask.hasMultiInstanceLoopCharacteristics());
+    assertFalse(receiveTask.isForCompensation());
     assertTrue(receiveTask.getBoundaryEvents().isEmpty());
     assertTrue(receiveTask.getDataInputAssociations().isEmpty());
     assertTrue(receiveTask.getDataOutputAssociations().isEmpty());
-    assertTrue(receiveTask.isForCompensation());
   }
 
   /**
-   * Test {@link ReceiveTask#setValues(ManualTask)} with {@code ManualTask}.
-   * <ul>
-   *   <li>Then {@link ReceiveTask} (default constructor) DataInputAssociations size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ReceiveTask#setValues(ManualTask)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ReceiveTask.setValues(ManualTask)"})
-  public void testSetValuesWithManualTask_thenReceiveTaskDataInputAssociationsSizeIsOne() {
+  public void testSetValues2() {
     // Arrange
     ReceiveTask receiveTask = new ReceiveTask();
 
@@ -193,16 +239,13 @@ public class ReceiveTaskDiffblueTest {
     ioSpecification.setDataInputs(null);
     ioSpecification.setDataOutputs(null);
 
-    ArrayList<DataAssociation> dataInputAssociations = new ArrayList<>();
-    dataInputAssociations.add(new DataAssociation());
-
     ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
     boundaryEvents.add(new BoundaryEvent());
 
     ManualTask otherElement = new ManualTask();
     otherElement.setIoSpecification(ioSpecification);
     otherElement.setLoopCharacteristics(null);
-    otherElement.setDataInputAssociations(dataInputAssociations);
+    otherElement.setDataInputAssociations(null);
     otherElement.setDataOutputAssociations(null);
     otherElement.setBoundaryEvents(boundaryEvents);
 
@@ -210,32 +253,29 @@ public class ReceiveTaskDiffblueTest {
     receiveTask.setValues(otherElement);
 
     // Assert
-    List<DataAssociation> dataInputAssociations2 = receiveTask.getDataInputAssociations();
-    assertEquals(1, dataInputAssociations2.size());
-    DataAssociation getResult = dataInputAssociations2.get(0);
-    assertNull(getResult.getId());
-    assertNull(getResult.getSourceRef());
-    assertNull(getResult.getTargetRef());
-    assertNull(getResult.getTransformation());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(getResult.getAssignments().isEmpty());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
+    IOSpecification ioSpecification2 = receiveTask.getIoSpecification();
+    assertNull(ioSpecification2.getId());
+    assertNull(receiveTask.getLoopCharacteristics());
+    assertEquals(0, ioSpecification2.getXmlColumnNumber());
+    assertEquals(0, ioSpecification2.getXmlRowNumber());
+    assertFalse(receiveTask.hasMultiInstanceLoopCharacteristics());
+    assertFalse(receiveTask.isForCompensation());
+    assertTrue(receiveTask.getDataInputAssociations().isEmpty());
+    assertTrue(receiveTask.getDataOutputAssociations().isEmpty());
+    assertTrue(ioSpecification2.getDataInputRefs().isEmpty());
+    assertTrue(ioSpecification2.getDataInputs().isEmpty());
+    assertTrue(ioSpecification2.getDataOutputRefs().isEmpty());
+    assertTrue(ioSpecification2.getDataOutputs().isEmpty());
+    assertTrue(ioSpecification2.getAttributes().isEmpty());
+    assertTrue(ioSpecification2.getExtensionElements().isEmpty());
+    assertEquals(boundaryEvents, receiveTask.getBoundaryEvents());
   }
 
   /**
-   * Test {@link ReceiveTask#setValues(ManualTask)} with {@code ManualTask}.
-   * <ul>
-   *   <li>Then {@link ReceiveTask} (default constructor) DataOutputAssociations size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ReceiveTask#setValues(ManualTask)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ReceiveTask.setValues(ManualTask)"})
-  public void testSetValuesWithManualTask_thenReceiveTaskDataOutputAssociationsSizeIsOne() {
+  public void testSetValues3() {
     // Arrange
     ReceiveTask receiveTask = new ReceiveTask();
 
@@ -264,28 +304,36 @@ public class ReceiveTaskDiffblueTest {
     assertEquals(1, dataOutputAssociations2.size());
     DataAssociation getResult = dataOutputAssociations2.get(0);
     assertNull(getResult.getId());
+    IOSpecification ioSpecification2 = receiveTask.getIoSpecification();
+    assertNull(ioSpecification2.getId());
     assertNull(getResult.getSourceRef());
     assertNull(getResult.getTargetRef());
     assertNull(getResult.getTransformation());
+    assertNull(receiveTask.getLoopCharacteristics());
     assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, ioSpecification2.getXmlColumnNumber());
     assertEquals(0, getResult.getXmlRowNumber());
+    assertEquals(0, ioSpecification2.getXmlRowNumber());
+    assertFalse(receiveTask.hasMultiInstanceLoopCharacteristics());
+    assertFalse(receiveTask.isForCompensation());
+    assertTrue(receiveTask.getDataInputAssociations().isEmpty());
     assertTrue(getResult.getAssignments().isEmpty());
+    assertTrue(ioSpecification2.getDataInputRefs().isEmpty());
+    assertTrue(ioSpecification2.getDataInputs().isEmpty());
+    assertTrue(ioSpecification2.getDataOutputRefs().isEmpty());
+    assertTrue(ioSpecification2.getDataOutputs().isEmpty());
     assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(ioSpecification2.getAttributes().isEmpty());
     assertTrue(getResult.getExtensionElements().isEmpty());
+    assertTrue(ioSpecification2.getExtensionElements().isEmpty());
+    assertEquals(boundaryEvents, receiveTask.getBoundaryEvents());
   }
 
   /**
-   * Test {@link ReceiveTask#setValues(ManualTask)} with {@code ManualTask}.
-   * <ul>
-   *   <li>Then {@link ReceiveTask} (default constructor) IoSpecification Id is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ReceiveTask#setValues(ManualTask)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ReceiveTask.setValues(ManualTask)"})
-  public void testSetValuesWithManualTask_thenReceiveTaskIoSpecificationIdIsNull() {
+  public void testSetValues4() {
     // Arrange
     ReceiveTask receiveTask = new ReceiveTask();
 
@@ -293,14 +341,16 @@ public class ReceiveTaskDiffblueTest {
     ioSpecification.setDataInputs(null);
     ioSpecification.setDataOutputs(null);
 
+    ArrayList<DataAssociation> dataInputAssociations = new ArrayList<>();
+    dataInputAssociations.add(new DataAssociation());
+
     ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
-    BoundaryEvent boundaryEvent = new BoundaryEvent();
-    boundaryEvents.add(boundaryEvent);
+    boundaryEvents.add(new BoundaryEvent());
 
     ManualTask otherElement = new ManualTask();
     otherElement.setIoSpecification(ioSpecification);
     otherElement.setLoopCharacteristics(null);
-    otherElement.setDataInputAssociations(null);
+    otherElement.setDataInputAssociations(dataInputAssociations);
     otherElement.setDataOutputAssociations(null);
     otherElement.setBoundaryEvents(boundaryEvents);
 
@@ -308,33 +358,40 @@ public class ReceiveTaskDiffblueTest {
     receiveTask.setValues(otherElement);
 
     // Assert
+    List<DataAssociation> dataInputAssociations2 = receiveTask.getDataInputAssociations();
+    assertEquals(1, dataInputAssociations2.size());
+    DataAssociation getResult = dataInputAssociations2.get(0);
+    assertNull(getResult.getId());
     IOSpecification ioSpecification2 = receiveTask.getIoSpecification();
     assertNull(ioSpecification2.getId());
+    assertNull(getResult.getSourceRef());
+    assertNull(getResult.getTargetRef());
+    assertNull(getResult.getTransformation());
+    assertNull(receiveTask.getLoopCharacteristics());
+    assertEquals(0, getResult.getXmlColumnNumber());
     assertEquals(0, ioSpecification2.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlRowNumber());
     assertEquals(0, ioSpecification2.getXmlRowNumber());
-    List<BoundaryEvent> boundaryEvents2 = receiveTask.getBoundaryEvents();
-    assertEquals(1, boundaryEvents2.size());
+    assertFalse(receiveTask.hasMultiInstanceLoopCharacteristics());
+    assertFalse(receiveTask.isForCompensation());
+    assertTrue(receiveTask.getDataOutputAssociations().isEmpty());
+    assertTrue(getResult.getAssignments().isEmpty());
     assertTrue(ioSpecification2.getDataInputRefs().isEmpty());
     assertTrue(ioSpecification2.getDataInputs().isEmpty());
     assertTrue(ioSpecification2.getDataOutputRefs().isEmpty());
     assertTrue(ioSpecification2.getDataOutputs().isEmpty());
+    assertTrue(getResult.getAttributes().isEmpty());
     assertTrue(ioSpecification2.getAttributes().isEmpty());
+    assertTrue(getResult.getExtensionElements().isEmpty());
     assertTrue(ioSpecification2.getExtensionElements().isEmpty());
-    assertSame(boundaryEvent, boundaryEvents2.get(0));
+    assertEquals(boundaryEvents, receiveTask.getBoundaryEvents());
   }
 
   /**
-   * Test {@link ReceiveTask#setValues(ManualTask)} with {@code ManualTask}.
-   * <ul>
-   *   <li>Then {@link ReceiveTask} (default constructor) LoopCharacteristics Id is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ReceiveTask#setValues(ManualTask)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ReceiveTask.setValues(ManualTask)"})
-  public void testSetValuesWithManualTask_thenReceiveTaskLoopCharacteristicsIdIsNull() {
+  public void testSetValues5() {
     // Arrange
     ReceiveTask receiveTask = new ReceiveTask();
 
@@ -356,6 +413,8 @@ public class ReceiveTaskDiffblueTest {
     receiveTask.setValues(otherElement);
 
     // Assert
+    IOSpecification ioSpecification2 = receiveTask.getIoSpecification();
+    assertNull(ioSpecification2.getId());
     MultiInstanceLoopCharacteristics loopCharacteristics = receiveTask.getLoopCharacteristics();
     assertNull(loopCharacteristics.getId());
     assertNull(loopCharacteristics.getCompletionCondition());
@@ -365,49 +424,55 @@ public class ReceiveTaskDiffblueTest {
     assertNull(loopCharacteristics.getLoopCardinality());
     assertNull(loopCharacteristics.getLoopDataOutputRef());
     assertNull(loopCharacteristics.getOutputDataItem());
+    assertEquals(0, ioSpecification2.getXmlColumnNumber());
     assertEquals(0, loopCharacteristics.getXmlColumnNumber());
+    assertEquals(0, ioSpecification2.getXmlRowNumber());
     assertEquals(0, loopCharacteristics.getXmlRowNumber());
+    assertFalse(receiveTask.isForCompensation());
     assertFalse(loopCharacteristics.isSequential());
+    assertTrue(receiveTask.getDataInputAssociations().isEmpty());
+    assertTrue(receiveTask.getDataOutputAssociations().isEmpty());
+    assertTrue(ioSpecification2.getDataInputRefs().isEmpty());
+    assertTrue(ioSpecification2.getDataInputs().isEmpty());
+    assertTrue(ioSpecification2.getDataOutputRefs().isEmpty());
+    assertTrue(ioSpecification2.getDataOutputs().isEmpty());
+    assertTrue(ioSpecification2.getAttributes().isEmpty());
     assertTrue(loopCharacteristics.getAttributes().isEmpty());
+    assertTrue(ioSpecification2.getExtensionElements().isEmpty());
     assertTrue(loopCharacteristics.getExtensionElements().isEmpty());
     assertTrue(receiveTask.hasMultiInstanceLoopCharacteristics());
+    assertEquals(boundaryEvents, receiveTask.getBoundaryEvents());
   }
 
   /**
-   * Test {@link ReceiveTask#setValues(ManualTask)} with {@code ManualTask}.
-   * <ul>
-   *   <li>When {@link ManualTask} (default constructor).</li>
-   *   <li>Then not {@link ReceiveTask} (default constructor) ForCompensation.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ReceiveTask#setValues(ManualTask)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ReceiveTask.setValues(ManualTask)"})
-  public void testSetValuesWithManualTask_whenManualTask_thenNotReceiveTaskForCompensation() {
+  public void testSetValues6() {
     // Arrange
     ReceiveTask receiveTask = new ReceiveTask();
 
-    // Act
-    receiveTask.setValues(new ManualTask());
+    ManualTask otherElement = new ManualTask();
+    otherElement.setForCompensation(true);
 
-    // Assert that nothing has changed
+    // Act
+    receiveTask.setValues(otherElement);
+
+    // Assert
+    assertNull(receiveTask.getIoSpecification());
+    assertNull(receiveTask.getLoopCharacteristics());
     assertFalse(receiveTask.hasMultiInstanceLoopCharacteristics());
-    assertFalse(receiveTask.isForCompensation());
     assertTrue(receiveTask.getBoundaryEvents().isEmpty());
     assertTrue(receiveTask.getDataInputAssociations().isEmpty());
     assertTrue(receiveTask.getDataOutputAssociations().isEmpty());
+    assertTrue(receiveTask.isForCompensation());
   }
 
   /**
-   * Test new {@link ReceiveTask} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link ReceiveTask}
+   * Method under test: default or parameterless constructor of
+   * {@link ReceiveTask}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ReceiveTask.<init>()"})
   public void testNewReceiveTask() {
     // Arrange and Act
     ReceiveTask actualReceiveTask = new ReceiveTask();

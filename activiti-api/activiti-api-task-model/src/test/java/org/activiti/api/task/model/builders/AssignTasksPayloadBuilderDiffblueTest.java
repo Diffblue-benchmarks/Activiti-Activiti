@@ -18,29 +18,53 @@ package org.activiti.api.task.model.builders;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.api.task.model.payloads.AssignTasksPayload;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class AssignTasksPayloadBuilderDiffblueTest {
   /**
-   * Test {@link AssignTasksPayloadBuilder#withTaskIds(List)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AssignTasksPayloadBuilder#withTaskIds(List)}
    */
   @Test
-  @DisplayName("Test withTaskIds(List); given '42'; when ArrayList() add '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"AssignTasksPayloadBuilder AssignTasksPayloadBuilder.withTaskIds(List)"})
-  void testWithTaskIds_given42_whenArrayListAdd42() {
+  void testWithTaskIds() {
+    // Arrange
+    AssignTasksPayloadBuilder assignMultipleResult = TaskPayloadBuilder.assignMultiple();
+    ArrayList<String> taskIds = new ArrayList<>();
+
+    // Act
+    AssignTasksPayloadBuilder actualWithTaskIdsResult = assignMultipleResult.withTaskIds(taskIds);
+
+    // Assert
+    assertSame(taskIds, assignMultipleResult.build().getTaskIds());
+    assertSame(assignMultipleResult, actualWithTaskIdsResult);
+  }
+
+  /**
+   * Method under test: {@link AssignTasksPayloadBuilder#withTaskIds(List)}
+   */
+  @Test
+  void testWithTaskIds2() {
+    // Arrange
+    AssignTasksPayloadBuilder assignMultipleResult = TaskPayloadBuilder.assignMultiple();
+
+    ArrayList<String> taskIds = new ArrayList<>();
+    taskIds.add("foo");
+
+    // Act
+    AssignTasksPayloadBuilder actualWithTaskIdsResult = assignMultipleResult.withTaskIds(taskIds);
+
+    // Assert
+    assertSame(taskIds, assignMultipleResult.build().getTaskIds());
+    assertSame(assignMultipleResult, actualWithTaskIdsResult);
+  }
+
+  /**
+   * Method under test: {@link AssignTasksPayloadBuilder#withTaskIds(List)}
+   */
+  @Test
+  void testWithTaskIds3() {
     // Arrange
     AssignTasksPayloadBuilder assignMultipleResult = TaskPayloadBuilder.assignMultiple();
 
@@ -57,67 +81,9 @@ class AssignTasksPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link AssignTasksPayloadBuilder#withTaskIds(List)}.
-   * <ul>
-   *   <li>Given {@code foo}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AssignTasksPayloadBuilder#withTaskIds(List)}
-   */
-  @Test
-  @DisplayName("Test withTaskIds(List); given 'foo'; when ArrayList() add 'foo'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"AssignTasksPayloadBuilder AssignTasksPayloadBuilder.withTaskIds(List)"})
-  void testWithTaskIds_givenFoo_whenArrayListAddFoo() {
-    // Arrange
-    AssignTasksPayloadBuilder assignMultipleResult = TaskPayloadBuilder.assignMultiple();
-
-    ArrayList<String> taskIds = new ArrayList<>();
-    taskIds.add("foo");
-
-    // Act
-    AssignTasksPayloadBuilder actualWithTaskIdsResult = assignMultipleResult.withTaskIds(taskIds);
-
-    // Assert
-    assertSame(taskIds, assignMultipleResult.build().getTaskIds());
-    assertSame(assignMultipleResult, actualWithTaskIdsResult);
-  }
-
-  /**
-   * Test {@link AssignTasksPayloadBuilder#withTaskIds(List)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AssignTasksPayloadBuilder#withTaskIds(List)}
-   */
-  @Test
-  @DisplayName("Test withTaskIds(List); when ArrayList()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"AssignTasksPayloadBuilder AssignTasksPayloadBuilder.withTaskIds(List)"})
-  void testWithTaskIds_whenArrayList() {
-    // Arrange
-    AssignTasksPayloadBuilder assignMultipleResult = TaskPayloadBuilder.assignMultiple();
-    ArrayList<String> taskIds = new ArrayList<>();
-
-    // Act
-    AssignTasksPayloadBuilder actualWithTaskIdsResult = assignMultipleResult.withTaskIds(taskIds);
-
-    // Assert
-    assertSame(taskIds, assignMultipleResult.build().getTaskIds());
-    assertSame(assignMultipleResult, actualWithTaskIdsResult);
-  }
-
-  /**
-   * Test {@link AssignTasksPayloadBuilder#withTaskId(String)}.
-   * <p>
    * Method under test: {@link AssignTasksPayloadBuilder#withTaskId(String)}
    */
   @Test
-  @DisplayName("Test withTaskId(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"AssignTasksPayloadBuilder AssignTasksPayloadBuilder.withTaskId(String)"})
   void testWithTaskId() {
     // Arrange
     AssignTasksPayloadBuilder assignMultipleResult = TaskPayloadBuilder.assignMultiple();
@@ -127,8 +93,6 @@ class AssignTasksPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link AssignTasksPayloadBuilder#build()}.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link AssignTasksPayloadBuilder#build()}
@@ -137,10 +101,6 @@ class AssignTasksPayloadBuilderDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test build()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AssignTasksPayloadBuilder.<init>()", "AssignTasksPayload AssignTasksPayloadBuilder.build()",
-      "AssignTasksPayloadBuilder AssignTasksPayloadBuilder.withAssignee(String)"})
   void testBuild() {
     // Arrange
     AssignTasksPayloadBuilder withAssigneeResult = (new AssignTasksPayloadBuilder()).withAssignee("Assignee");

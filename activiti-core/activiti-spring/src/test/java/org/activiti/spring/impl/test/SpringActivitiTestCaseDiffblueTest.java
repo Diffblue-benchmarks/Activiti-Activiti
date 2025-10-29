@@ -15,10 +15,10 @@
  */
 package org.activiti.spring.impl.test;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.atLeast;
@@ -26,8 +26,6 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
 import org.activiti.engine.ProcessEngine;
@@ -50,7 +48,6 @@ import org.activiti.spring.SpringProcessEngineConfiguration;
 import org.activiti.spring.SpringTransactionInterceptor;
 import org.activiti.spring.test.autodeployment.FailOnNoProcessAutoDeploymentStrategyTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -60,11 +57,9 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.util.ReflectionTestUtils;
 
 @RunWith(MockitoJUnitRunner.class)
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class SpringActivitiTestCaseDiffblueTest {
   @Mock
   private ApplicationContext applicationContext;
@@ -73,13 +68,9 @@ public class SpringActivitiTestCaseDiffblueTest {
   private FailOnNoProcessAutoDeploymentStrategyTest failOnNoProcessAutoDeploymentStrategyTest;
 
   /**
-   * Test {@link SpringActivitiTestCase#initializeProcessEngine()}.
-   * <p>
    * Method under test: {@link SpringActivitiTestCase#initializeProcessEngine()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SpringActivitiTestCase.initializeProcessEngine()"})
   public void testInitializeProcessEngine() throws BeansException {
     // Arrange
     ProcessEngineLifecycleListener processEngineLifecycleListener = mock(ProcessEngineLifecycleListener.class);
@@ -128,23 +119,19 @@ public class SpringActivitiTestCaseDiffblueTest {
     verify(processEngineConfiguration).getTransactionContextFactory();
     verify(processEngineConfiguration).isUsingRelationalDatabase();
     verify(applicationContext).getBean(isA(Class.class));
-    Map<Object, ProcessEngine> objectProcessEngineMap = failOnNoProcessAutoDeploymentStrategyTest.cachedProcessEngines;
-    assertEquals(1, objectProcessEngineMap.size());
-    assertSame(processEngineImpl, objectProcessEngineMap
-        .get("classpath:org/activiti/spring/test/autodeployment/errorHandling/spring-context.xml"));
+    assertEquals(1, failOnNoProcessAutoDeploymentStrategyTest.cachedProcessEngines.size());
   }
 
   /**
-   * Test {@link SpringActivitiTestCase#setApplicationContext(ApplicationContext)}.
-   * <p>
-   * Method under test: {@link SpringActivitiTestCase#setApplicationContext(ApplicationContext)}
+   * Method under test:
+   * {@link SpringActivitiTestCase#setApplicationContext(ApplicationContext)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SpringActivitiTestCase.setApplicationContext(ApplicationContext)"})
   public void testSetApplicationContext() {
     // Arrange
     FailOnNoProcessAutoDeploymentStrategyTest failOnNoProcessAutoDeploymentStrategyTest = new FailOnNoProcessAutoDeploymentStrategyTest();
+    ReflectionTestUtils.setField(failOnNoProcessAutoDeploymentStrategyTest, "applicationContext",
+        mock(ApplicationContext.class));
 
     // Act
     failOnNoProcessAutoDeploymentStrategyTest.setApplicationContext(new AnnotationConfigApplicationContext());
@@ -157,8 +144,14 @@ public class SpringActivitiTestCaseDiffblueTest {
     assertNull(applicationContext.getParent());
     assertEquals(0L, applicationContext.getStartupDate());
     assertEquals(5, applicationContext.getBeanDefinitionCount());
-    assertEquals(5, applicationContext.getBeanDefinitionNames().length);
     assertFalse(((AnnotationConfigApplicationContext) applicationContext).isActive());
     assertFalse(((AnnotationConfigApplicationContext) applicationContext).isRunning());
+    assertArrayEquals(
+        new String[]{"org.springframework.context.annotation.internalConfigurationAnnotationProcessor",
+            "org.springframework.context.annotation.internalAutowiredAnnotationProcessor",
+            "org.springframework.context.annotation.internalPersistenceAnnotationProcessor",
+            "org.springframework.context.event.internalEventListenerProcessor",
+            "org.springframework.context.event.internalEventListenerFactory"},
+        applicationContext.getBeanDefinitionNames());
   }
 }

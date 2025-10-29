@@ -21,24 +21,18 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.event.impl.ActivitiEventDispatcherImpl;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.interceptor.CommandInterceptor;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ProcessExecutionLoggerConfiguratorDiffblueTest {
   /**
-   * Test {@link ProcessExecutionLoggerConfigurator#beforeInit(ProcessEngineConfigurationImpl)}.
-   * <p>
-   * Method under test: {@link ProcessExecutionLoggerConfigurator#beforeInit(ProcessEngineConfigurationImpl)}
+   * Method under test:
+   * {@link ProcessExecutionLoggerConfigurator#beforeInit(ProcessEngineConfigurationImpl)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ProcessExecutionLoggerConfigurator.beforeInit(ProcessEngineConfigurationImpl)"})
   public void testBeforeInit() {
     // Arrange
     ProcessExecutionLoggerConfigurator processExecutionLoggerConfigurator = new ProcessExecutionLoggerConfigurator();
@@ -59,18 +53,11 @@ public class ProcessExecutionLoggerConfiguratorDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessExecutionLoggerConfigurator#configure(ProcessEngineConfigurationImpl)}.
-   * <ul>
-   *   <li>Given {@link ActivitiEventDispatcherImpl} (default constructor).</li>
-   *   <li>Then calls {@link ProcessEngineConfigurationImpl#getEventDispatcher()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessExecutionLoggerConfigurator#configure(ProcessEngineConfigurationImpl)}
+   * Method under test:
+   * {@link ProcessExecutionLoggerConfigurator#configure(ProcessEngineConfigurationImpl)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ProcessExecutionLoggerConfigurator.configure(ProcessEngineConfigurationImpl)"})
-  public void testConfigure_givenActivitiEventDispatcherImpl_thenCallsGetEventDispatcher() {
+  public void testConfigure() {
     // Arrange
     ProcessExecutionLoggerConfigurator processExecutionLoggerConfigurator = new ProcessExecutionLoggerConfigurator();
     JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
@@ -84,27 +71,23 @@ public class ProcessExecutionLoggerConfiguratorDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of {@link ProcessExecutionLoggerConfigurator}
-   *   <li>{@link ProcessExecutionLoggerConfigurator#setProcessExecutionLogger(ProcessExecutionLogger)}
+   *   <li>default or parameterless constructor of
+   * {@link ProcessExecutionLoggerConfigurator}
+   *   <li>
+   * {@link ProcessExecutionLoggerConfigurator#setProcessExecutionLogger(ProcessExecutionLogger)}
    *   <li>{@link ProcessExecutionLoggerConfigurator#getProcessExecutionLogger()}
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ProcessExecutionLoggerConfigurator.<init>()",
-      "ProcessExecutionLogger ProcessExecutionLoggerConfigurator.getProcessExecutionLogger()",
-      "void ProcessExecutionLoggerConfigurator.setProcessExecutionLogger(ProcessExecutionLogger)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ProcessExecutionLoggerConfigurator actualProcessExecutionLoggerConfigurator = new ProcessExecutionLoggerConfigurator();
     ProcessExecutionLogger processExecutionLogger = new ProcessExecutionLogger();
     actualProcessExecutionLoggerConfigurator.setProcessExecutionLogger(processExecutionLogger);
 
-    // Assert
+    // Assert that nothing has changed
     assertSame(processExecutionLogger, actualProcessExecutionLoggerConfigurator.getProcessExecutionLogger());
   }
 }

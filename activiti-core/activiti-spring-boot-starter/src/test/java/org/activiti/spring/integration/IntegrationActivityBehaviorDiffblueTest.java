@@ -21,11 +21,8 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -46,33 +43,11 @@ class IntegrationActivityBehaviorDiffblueTest {
   private IntegrationActivityBehavior integrationActivityBehavior;
 
   /**
-   * Test {@link IntegrationActivityBehavior#IntegrationActivityBehavior(ActivitiInboundGateway)}.
-   * <p>
-   * Method under test: {@link IntegrationActivityBehavior#IntegrationActivityBehavior(ActivitiInboundGateway)}
+   * Method under test:
+   * {@link IntegrationActivityBehavior#execute(DelegateExecution)}
    */
   @Test
-  @DisplayName("Test new IntegrationActivityBehavior(ActivitiInboundGateway)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void IntegrationActivityBehavior.<init>(ActivitiInboundGateway)"})
-  void testNewIntegrationActivityBehavior() {
-    // Arrange, Act and Assert
-    assertNull((new IntegrationActivityBehavior(activitiInboundGateway)).getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link IntegrationActivityBehavior#execute(DelegateExecution)}.
-   * <ul>
-   *   <li>Given {@link ActivitiInboundGateway} {@link ActivitiInboundGateway#execute(IntegrationActivityBehavior, DelegateExecution)} does nothing.</li>
-   *   <li>Then calls {@link ActivitiInboundGateway#execute(IntegrationActivityBehavior, DelegateExecution)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link IntegrationActivityBehavior#execute(DelegateExecution)}
-   */
-  @Test
-  @DisplayName("Test execute(DelegateExecution); given ActivitiInboundGateway execute(IntegrationActivityBehavior, DelegateExecution) does nothing; then calls execute(IntegrationActivityBehavior, DelegateExecution)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void IntegrationActivityBehavior.execute(DelegateExecution)"})
-  void testExecute_givenActivitiInboundGatewayExecuteDoesNothing_thenCallsExecute() {
+  void testExecute() {
     // Arrange
     ActivitiInboundGateway gateway = mock(ActivitiInboundGateway.class);
     doNothing().when(gateway).execute(Mockito.<IntegrationActivityBehavior>any(), Mockito.<DelegateExecution>any());
@@ -81,24 +56,26 @@ class IntegrationActivityBehaviorDiffblueTest {
     // Act
     inboundGatewayActivityBehaviorResult.execute(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
-    // Assert
+    // Assert that nothing has changed
     verify(gateway).execute(isA(IntegrationActivityBehavior.class), isA(DelegateExecution.class));
   }
 
   /**
-   * Test {@link IntegrationActivityBehavior#trigger(DelegateExecution, String, Object)}.
-   * <ul>
-   *   <li>Given {@link ActivitiInboundGateway} {@link ActivitiInboundGateway#signal(IntegrationActivityBehavior, DelegateExecution, String, Object)} does nothing.</li>
-   *   <li>Then calls {@link ActivitiInboundGateway#signal(IntegrationActivityBehavior, DelegateExecution, String, Object)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link IntegrationActivityBehavior#trigger(DelegateExecution, String, Object)}
+   * Method under test:
+   * {@link IntegrationActivityBehavior#IntegrationActivityBehavior(ActivitiInboundGateway)}
    */
   @Test
-  @DisplayName("Test trigger(DelegateExecution, String, Object); given ActivitiInboundGateway signal(IntegrationActivityBehavior, DelegateExecution, String, Object) does nothing; then calls signal(IntegrationActivityBehavior, DelegateExecution, String, Object)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void IntegrationActivityBehavior.trigger(DelegateExecution, String, Object)"})
-  void testTrigger_givenActivitiInboundGatewaySignalDoesNothing_thenCallsSignal() {
+  void testNewIntegrationActivityBehavior() {
+    // Arrange, Act and Assert
+    assertNull((new IntegrationActivityBehavior(activitiInboundGateway)).getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link IntegrationActivityBehavior#trigger(DelegateExecution, String, Object)}
+   */
+  @Test
+  void testTrigger() {
     // Arrange
     ActivitiInboundGateway gateway = mock(ActivitiInboundGateway.class);
     doNothing().when(gateway)
@@ -110,7 +87,7 @@ class IntegrationActivityBehaviorDiffblueTest {
     inboundGatewayActivityBehaviorResult.trigger(ExecutionEntityImpl.createWithEmptyRelationshipCollections(),
         "Signal Name", "Data");
 
-    // Assert
+    // Assert that nothing has changed
     verify(gateway).signal(isA(IntegrationActivityBehavior.class), isA(DelegateExecution.class), eq("Signal Name"),
         isA(Object.class));
   }

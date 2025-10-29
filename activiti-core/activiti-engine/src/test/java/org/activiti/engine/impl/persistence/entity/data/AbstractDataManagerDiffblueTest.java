@@ -16,48 +16,53 @@
 package org.activiti.engine.impl.persistence.entity.data;
 
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import org.activiti.core.el.CustomFunctionProvider;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.persistence.entity.data.impl.MybatisAttachmentDataManager;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AbstractDataManagerDiffblueTest {
+  @InjectMocks
+  private MybatisAttachmentDataManager mybatisAttachmentDataManager;
+
   @Mock
   private ProcessEngineConfigurationImpl processEngineConfigurationImpl;
 
   /**
-   * Test {@link AbstractDataManager#getManagedEntitySubClasses()}.
-   * <p>
    * Method under test: {@link AbstractDataManager#getManagedEntitySubClasses()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.util.List AbstractDataManager.getManagedEntitySubClasses()"})
   public void testGetManagedEntitySubClasses() {
     // Arrange, Act and Assert
     assertNull((new MybatisAttachmentDataManager(new JtaProcessEngineConfiguration())).getManagedEntitySubClasses());
   }
 
   /**
-   * Test {@link AbstractDataManager#findById(String)}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link AbstractDataManager#getManagedEntitySubClasses()}
+   */
+  @Test
+  public void testGetManagedEntitySubClasses2() {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
+
+    // Act and Assert
+    assertNull((new MybatisAttachmentDataManager(processEngineConfiguration)).getManagedEntitySubClasses());
+  }
+
+  /**
    * Method under test: {@link AbstractDataManager#findById(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"org.activiti.engine.impl.persistence.entity.Entity AbstractDataManager.findById(String)"})
-  public void testFindById_thenReturnNull() {
+  public void testFindById() {
     // Arrange, Act and Assert
-    assertNull((new MybatisAttachmentDataManager(processEngineConfigurationImpl)).findById(null));
+    assertNull(mybatisAttachmentDataManager.findById(null));
   }
 }

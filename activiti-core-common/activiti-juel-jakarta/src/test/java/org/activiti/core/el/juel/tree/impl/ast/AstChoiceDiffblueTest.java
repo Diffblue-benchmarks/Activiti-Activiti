@@ -18,14 +18,12 @@ package org.activiti.core.el.juel.tree.impl.ast;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
 import jakarta.el.ELException;
 import jakarta.el.ValueExpression;
@@ -35,54 +33,33 @@ import org.activiti.core.el.juel.ObjectValueExpression;
 import org.activiti.core.el.juel.misc.TypeConverter;
 import org.activiti.core.el.juel.tree.Bindings;
 import org.activiti.core.el.juel.util.SimpleContext;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class AstChoiceDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link AstChoice#AstChoice(AstNode, AstNode, AstNode)}
-   *   <li>{@link AstChoice#toString()}
-   *   <li>{@link AstChoice#getCardinality()}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AstChoice.<init>(AstNode, AstNode, AstNode)", "int AstChoice.getCardinality()",
-      "String AstChoice.toString()"})
-  void testGettersAndSetters() {
-    // Arrange
-    AstNull question = new AstNull();
-    AstNull yes = new AstNull();
-
-    // Act
-    AstChoice actualAstChoice = new AstChoice(question, yes, new AstNull());
-    String actualToStringResult = actualAstChoice.toString();
-
-    // Assert
-    assertEquals("?", actualToStringResult);
-    assertEquals(3, actualAstChoice.getCardinality());
-  }
-
-  /**
-   * Test {@link AstChoice#eval(Bindings, ELContext)}.
-   * <ul>
-   *   <li>Given {@link AstChoice#AstChoice(AstNode, AstNode, AstNode)} with question is {@link AstBoolean#AstBoolean(boolean)} and yes is {@link AstNull} (default constructor) and no is {@link AstNull} (default constructor).</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstChoice#eval(Bindings, ELContext)}
    */
   @Test
-  @DisplayName("Test eval(Bindings, ELContext); given AstChoice(AstNode, AstNode, AstNode) with question is AstBoolean(boolean) and yes is AstNull (default constructor) and no is AstNull (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object AstChoice.eval(Bindings, ELContext)"})
-  void testEval_givenAstChoiceWithQuestionIsAstBooleanAndYesIsAstNullAndNoIsAstNull() throws ELException {
+  void testEval() throws ELException {
+    // Arrange
+    AstNull question = new AstNull();
+    AstNull yes = new AstNull();
+    AstChoice astChoice = new AstChoice(question, yes, new AstNull());
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    Bindings bindings = new Bindings(new Method[]{null},
+        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
+
+    // Act and Assert
+    assertNull(astChoice.eval(bindings, new SimpleContext()));
+  }
+
+  /**
+   * Method under test: {@link AstChoice#eval(Bindings, ELContext)}
+   */
+  @Test
+  void testEval2() throws ELException {
     // Arrange
     AstBoolean question = new AstBoolean(true);
     AstNull yes = new AstNull();
@@ -97,18 +74,10 @@ class AstChoiceDiffblueTest {
   }
 
   /**
-   * Test {@link AstChoice#eval(Bindings, ELContext)}.
-   * <ul>
-   *   <li>Given {@link AstChoice#AstChoice(AstNode, AstNode, AstNode)} with question is {@link AstChoice#AstChoice(AstNode, AstNode, AstNode)} and yes is {@link AstNull} (default constructor) and no is {@link AstNull} (default constructor).</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstChoice#eval(Bindings, ELContext)}
    */
   @Test
-  @DisplayName("Test eval(Bindings, ELContext); given AstChoice(AstNode, AstNode, AstNode) with question is AstChoice(AstNode, AstNode, AstNode) and yes is AstNull (default constructor) and no is AstNull (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object AstChoice.eval(Bindings, ELContext)"})
-  void testEval_givenAstChoiceWithQuestionIsAstChoiceAndYesIsAstNullAndNoIsAstNull() throws ELException {
+  void testEval3() throws ELException {
     // Arrange
     AstNull question = new AstNull();
     AstNull yes = new AstNull();
@@ -132,18 +101,10 @@ class AstChoiceDiffblueTest {
   }
 
   /**
-   * Test {@link AstChoice#eval(Bindings, ELContext)}.
-   * <ul>
-   *   <li>Given {@link AstChoice#AstChoice(AstNode, AstNode, AstNode)} with question is {@link AstNull} (default constructor) and yes is {@link AstChoice#AstChoice(AstNode, AstNode, AstNode)} and no is {@link AstNull} (default constructor).</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstChoice#eval(Bindings, ELContext)}
    */
   @Test
-  @DisplayName("Test eval(Bindings, ELContext); given AstChoice(AstNode, AstNode, AstNode) with question is AstNull (default constructor) and yes is AstChoice(AstNode, AstNode, AstNode) and no is AstNull (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object AstChoice.eval(Bindings, ELContext)"})
-  void testEval_givenAstChoiceWithQuestionIsAstNullAndYesIsAstChoiceAndNoIsAstNull() throws ELException {
+  void testEval4() throws ELException {
     // Arrange
     AstNull question = new AstNull();
     AstNull question2 = new AstNull();
@@ -167,67 +128,31 @@ class AstChoiceDiffblueTest {
   }
 
   /**
-   * Test {@link AstChoice#eval(Bindings, ELContext)}.
-   * <ul>
-   *   <li>Given {@link AstChoice#AstChoice(AstNode, AstNode, AstNode)} with question is {@link AstNull} (default constructor) and yes is {@link AstNull} (default constructor) and no is {@link AstNull} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstChoice#eval(Bindings, ELContext)}
+   * Method under test: {@link AstChoice#appendStructure(StringBuilder, Bindings)}
    */
   @Test
-  @DisplayName("Test eval(Bindings, ELContext); given AstChoice(AstNode, AstNode, AstNode) with question is AstNull (default constructor) and yes is AstNull (default constructor) and no is AstNull (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object AstChoice.eval(Bindings, ELContext)"})
-  void testEval_givenAstChoiceWithQuestionIsAstNullAndYesIsAstNullAndNoIsAstNull() throws ELException {
+  void testAppendStructure() {
     // Arrange
     AstNull question = new AstNull();
     AstNull yes = new AstNull();
     AstChoice astChoice = new AstChoice(question, yes, new AstNull());
+    StringBuilder b = new StringBuilder("foo");
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
-    Bindings bindings = new Bindings(new Method[]{null},
-        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
 
-    // Act and Assert
-    assertNull(astChoice.eval(bindings, new SimpleContext()));
+    // Act
+    astChoice.appendStructure(b,
+        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
+
+    // Assert
+    assertEquals("foonull ? null : null", b.toString());
   }
 
   /**
-   * Test {@link AstChoice#eval(Bindings, ELContext)}.
-   * <ul>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstChoice#eval(Bindings, ELContext)}
-   */
-  @Test
-  @DisplayName("Test eval(Bindings, ELContext); then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object AstChoice.eval(Bindings, ELContext)"})
-  void testEval_thenReturnTrue() throws ELException {
-    // Arrange
-    AstNull question = new AstNull();
-    AstNull yes = new AstNull();
-    AstChoice astChoice = new AstChoice(question, yes, new AstBoolean(true));
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-    Bindings bindings = new Bindings(new Method[]{null},
-        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
-
-    // Act and Assert
-    assertTrue((Boolean) astChoice.eval(bindings, new SimpleContext()));
-  }
-
-  /**
-   * Test {@link AstChoice#appendStructure(StringBuilder, Bindings)}.
-   * <p>
    * Method under test: {@link AstChoice#appendStructure(StringBuilder, Bindings)}
    */
   @Test
-  @DisplayName("Test appendStructure(StringBuilder, Bindings)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AstChoice.appendStructure(StringBuilder, Bindings)"})
-  void testAppendStructure() {
+  void testAppendStructure2() {
     // Arrange
     AstNull question = new AstNull();
     AstNull yes = new AstNull();
@@ -248,105 +173,10 @@ class AstChoiceDiffblueTest {
   }
 
   /**
-   * Test {@link AstChoice#appendStructure(StringBuilder, Bindings)}.
-   * <p>
    * Method under test: {@link AstChoice#appendStructure(StringBuilder, Bindings)}
    */
   @Test
-  @DisplayName("Test appendStructure(StringBuilder, Bindings)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AstChoice.appendStructure(StringBuilder, Bindings)"})
-  void testAppendStructure2() {
-    // Arrange
-    AstNull question = new AstNull();
-    AstNull yes = new AstNull();
-    AstNull question2 = new AstNull();
-    AstNull yes2 = new AstNull();
-    AstChoice astChoice = new AstChoice(question, yes, new AstChoice(question2, yes2, new AstNull()));
-    StringBuilder b = new StringBuilder("foo");
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-
-    // Act
-    astChoice.appendStructure(b,
-        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
-
-    // Assert
-    assertEquals("foonull ? null : null ? null : null", b.toString());
-  }
-
-  /**
-   * Test {@link AstChoice#appendStructure(StringBuilder, Bindings)}.
-   * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foonull ? null : null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstChoice#appendStructure(StringBuilder, Bindings)}
-   */
-  @Test
-  @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foonull ? null : null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AstChoice.appendStructure(StringBuilder, Bindings)"})
-  void testAppendStructure_thenStringBuilderWithFooToStringIsFoonullNullNull() {
-    // Arrange
-    AstNull question = new AstNull();
-    AstNull yes = new AstNull();
-    AstChoice astChoice = new AstChoice(question, yes, new AstNull());
-    StringBuilder b = new StringBuilder("foo");
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-
-    // Act
-    astChoice.appendStructure(b,
-        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
-
-    // Assert
-    assertEquals("foonull ? null : null", b.toString());
-  }
-
-  /**
-   * Test {@link AstChoice#appendStructure(StringBuilder, Bindings)}.
-   * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foonull() ? null : null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstChoice#appendStructure(StringBuilder, Bindings)}
-   */
-  @Test
-  @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foonull() ? null : null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AstChoice.appendStructure(StringBuilder, Bindings)"})
-  void testAppendStructure_thenStringBuilderWithFooToStringIsFoonullNullNull2() {
-    // Arrange
-    AstFunction question = new AstFunction("null", 1, new AstParameters(new ArrayList<>()));
-
-    AstNull yes = new AstNull();
-    AstChoice astChoice = new AstChoice(question, yes, new AstNull());
-    StringBuilder b = new StringBuilder("foo");
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-
-    // Act
-    astChoice.appendStructure(b,
-        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
-
-    // Assert
-    assertEquals("foonull() ? null : null", b.toString());
-  }
-
-  /**
-   * Test {@link AstChoice#appendStructure(StringBuilder, Bindings)}.
-   * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foonull ? null ? null : null : null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstChoice#appendStructure(StringBuilder, Bindings)}
-   */
-  @Test
-  @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foonull ? null ? null : null : null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AstChoice.appendStructure(StringBuilder, Bindings)"})
-  void testAppendStructure_thenStringBuilderWithFooToStringIsFoonullNullNullNullNull() {
+  void testAppendStructure3() {
     // Arrange
     AstNull question = new AstNull();
     AstNull question2 = new AstNull();
@@ -367,41 +197,55 @@ class AstChoiceDiffblueTest {
   }
 
   /**
-   * Test {@link AstChoice#getChild(int)}.
-   * <ul>
-   *   <li>When minus one.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstChoice#getChild(int)}
+   * Method under test: {@link AstChoice#appendStructure(StringBuilder, Bindings)}
    */
   @Test
-  @DisplayName("Test getChild(int); when minus one; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"AstNode AstChoice.getChild(int)"})
-  void testGetChild_whenMinusOne_thenReturnNull() {
+  void testAppendStructure4() {
     // Arrange
     AstNull question = new AstNull();
     AstNull yes = new AstNull();
+    AstNull question2 = new AstNull();
+    AstNull yes2 = new AstNull();
+    AstChoice astChoice = new AstChoice(question, yes, new AstChoice(question2, yes2, new AstNull()));
+    StringBuilder b = new StringBuilder("foo");
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
 
-    // Act and Assert
-    assertNull((new AstChoice(question, yes, new AstNull())).getChild(-1));
+    // Act
+    astChoice.appendStructure(b,
+        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
+
+    // Assert
+    assertEquals("foonull ? null : null ? null : null", b.toString());
   }
 
   /**
-   * Test {@link AstChoice#getChild(int)}.
-   * <ul>
-   *   <li>When one.</li>
-   *   <li>Then return {@link AstNull} (default constructor).</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link AstChoice#appendStructure(StringBuilder, Bindings)}
+   */
+  @Test
+  void testAppendStructure5() {
+    // Arrange
+    AstFunction question = new AstFunction("null", 1, new AstParameters(new ArrayList<>()));
+
+    AstNull yes = new AstNull();
+    AstChoice astChoice = new AstChoice(question, yes, new AstNull());
+    StringBuilder b = new StringBuilder("foo");
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+
+    // Act
+    astChoice.appendStructure(b,
+        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
+
+    // Assert
+    assertEquals("foonull() ? null : null", b.toString());
+  }
+
+  /**
    * Method under test: {@link AstChoice#getChild(int)}
    */
   @Test
-  @DisplayName("Test getChild(int); when one; then return AstNull (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"AstNode AstChoice.getChild(int)"})
-  void testGetChild_whenOne_thenReturnAstNull() {
+  void testGetChild() {
     // Arrange
     AstNull question = new AstNull();
     AstNull yes = new AstNull();
@@ -411,19 +255,23 @@ class AstChoiceDiffblueTest {
   }
 
   /**
-   * Test {@link AstChoice#getChild(int)}.
-   * <ul>
-   *   <li>When two.</li>
-   *   <li>Then return {@link AstNull} (default constructor).</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstChoice#getChild(int)}
    */
   @Test
-  @DisplayName("Test getChild(int); when two; then return AstNull (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"AstNode AstChoice.getChild(int)"})
-  void testGetChild_whenTwo_thenReturnAstNull() {
+  void testGetChild2() {
+    // Arrange
+    AstNull question = new AstNull();
+    AstNull yes = new AstNull();
+
+    // Act and Assert
+    assertSame(question, (new AstChoice(question, yes, new AstNull())).getChild(0));
+  }
+
+  /**
+   * Method under test: {@link AstChoice#getChild(int)}
+   */
+  @Test
+  void testGetChild3() {
     // Arrange
     AstNull question = new AstNull();
     AstNull yes = new AstNull();
@@ -434,24 +282,53 @@ class AstChoiceDiffblueTest {
   }
 
   /**
-   * Test {@link AstChoice#getChild(int)}.
-   * <ul>
-   *   <li>When zero.</li>
-   *   <li>Then return {@link AstNull} (default constructor).</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstChoice#getChild(int)}
    */
   @Test
-  @DisplayName("Test getChild(int); when zero; then return AstNull (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"AstNode AstChoice.getChild(int)"})
-  void testGetChild_whenZero_thenReturnAstNull() {
+  void testGetChild4() {
+    // Arrange
+    AstNull left = new AstNull();
+    AstBinary question = new AstBinary(left, new AstNull(), mock(AstBinary.Operator.class));
+
+    AstNull yes = new AstNull();
+
+    // Act and Assert
+    assertSame(yes, (new AstChoice(question, yes, new AstNull())).getChild(1));
+  }
+
+  /**
+   * Method under test: {@link AstChoice#getChild(int)}
+   */
+  @Test
+  void testGetChild5() {
     // Arrange
     AstNull question = new AstNull();
     AstNull yes = new AstNull();
 
     // Act and Assert
-    assertSame(question, (new AstChoice(question, yes, new AstNull())).getChild(0));
+    assertNull((new AstChoice(question, yes, new AstNull())).getChild(-1));
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>{@link AstChoice#AstChoice(AstNode, AstNode, AstNode)}
+   *   <li>{@link AstChoice#toString()}
+   *   <li>{@link AstChoice#getCardinality()}
+   * </ul>
+   */
+  @Test
+  void testGettersAndSetters() {
+    // Arrange
+    AstNull question = new AstNull();
+    AstNull yes = new AstNull();
+
+    // Act
+    AstChoice actualAstChoice = new AstChoice(question, yes, new AstNull());
+    String actualToStringResult = actualAstChoice.toString();
+
+    // Assert
+    assertEquals("?", actualToStringResult);
+    assertEquals(3, actualAstChoice.getCardinality());
   }
 }

@@ -20,13 +20,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.MissingNode;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -47,20 +44,10 @@ class JsonNodeToStringConverterDiffblueTest {
   private ObjectMapper objectMapper;
 
   /**
-   * Test {@link JsonNodeToStringConverter#convert(JsonNode)} with {@code JsonNode}.
-   * <ul>
-   *   <li>Given {@link ObjectMapper} {@link ObjectMapper#writeValueAsString(Object)} return {@code 42}.</li>
-   *   <li>Then return {@code 42}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link JsonNodeToStringConverter#convert(JsonNode)}
    */
   @Test
-  @DisplayName("Test convert(JsonNode) with 'JsonNode'; given ObjectMapper writeValueAsString(Object) return '42'; then return '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String JsonNodeToStringConverter.convert(JsonNode)"})
-  void testConvertWithJsonNode_givenObjectMapperWriteValueAsStringReturn42_thenReturn42()
-      throws JsonProcessingException {
+  void testConvert() throws JsonProcessingException {
     // Arrange
     when(objectMapper.writeValueAsString(Mockito.<Object>any())).thenReturn("42");
 
@@ -73,18 +60,10 @@ class JsonNodeToStringConverterDiffblueTest {
   }
 
   /**
-   * Test {@link JsonNodeToStringConverter#convert(JsonNode)} with {@code JsonNode}.
-   * <ul>
-   *   <li>Then throw {@link RuntimeException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link JsonNodeToStringConverter#convert(JsonNode)}
    */
   @Test
-  @DisplayName("Test convert(JsonNode) with 'JsonNode'; then throw RuntimeException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String JsonNodeToStringConverter.convert(JsonNode)"})
-  void testConvertWithJsonNode_thenThrowRuntimeException() throws JsonProcessingException {
+  void testConvert2() throws JsonProcessingException {
     // Arrange
     when(objectMapper.writeValueAsString(Mockito.<Object>any())).thenThrow(new RuntimeException("foo"));
 

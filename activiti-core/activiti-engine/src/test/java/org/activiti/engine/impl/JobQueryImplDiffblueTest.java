@@ -21,25 +21,349 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.runtime.JobQuery;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class JobQueryImplDiffblueTest {
+  @InjectMocks
+  private JobQueryImpl jobQueryImpl;
+
   /**
-   * Test {@link JobQueryImpl#JobQueryImpl()}.
-   * <p>
+   * Method under test: {@link JobQueryImpl#jobId(String)}
+   */
+  @Test
+  public void testJobId() {
+    // Arrange and Act
+    JobQuery actualJobIdResult = jobQueryImpl.jobId("42");
+
+    // Assert
+    assertEquals("42", jobQueryImpl.getId());
+    assertSame(jobQueryImpl, actualJobIdResult);
+  }
+
+  /**
+   * Method under test: {@link JobQueryImpl#jobId(String)}
+   */
+  @Test
+  public void testJobId2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> jobQueryImpl.jobId(null));
+  }
+
+  /**
+   * Method under test: {@link JobQueryImpl#processInstanceId(String)}
+   */
+  @Test
+  public void testProcessInstanceId() {
+    // Arrange and Act
+    JobQueryImpl actualProcessInstanceIdResult = jobQueryImpl.processInstanceId("42");
+
+    // Assert
+    assertEquals("42", jobQueryImpl.getProcessInstanceId());
+    assertSame(jobQueryImpl, actualProcessInstanceIdResult);
+  }
+
+  /**
+   * Method under test: {@link JobQueryImpl#processInstanceId(String)}
+   */
+  @Test
+  public void testProcessInstanceId2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> jobQueryImpl.processInstanceId(null));
+  }
+
+  /**
+   * Method under test: {@link JobQueryImpl#processDefinitionId(String)}
+   */
+  @Test
+  public void testProcessDefinitionId() {
+    // Arrange and Act
+    JobQueryImpl actualProcessDefinitionIdResult = jobQueryImpl.processDefinitionId("42");
+
+    // Assert
+    assertEquals("42", jobQueryImpl.getProcessDefinitionId());
+    assertSame(jobQueryImpl, actualProcessDefinitionIdResult);
+  }
+
+  /**
+   * Method under test: {@link JobQueryImpl#processDefinitionId(String)}
+   */
+  @Test
+  public void testProcessDefinitionId2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> jobQueryImpl.processDefinitionId(null));
+  }
+
+  /**
+   * Method under test: {@link JobQueryImpl#executionId(String)}
+   */
+  @Test
+  public void testExecutionId() {
+    // Arrange and Act
+    JobQueryImpl actualExecutionIdResult = jobQueryImpl.executionId("42");
+
+    // Assert
+    assertEquals("42", jobQueryImpl.getExecutionId());
+    assertSame(jobQueryImpl, actualExecutionIdResult);
+  }
+
+  /**
+   * Method under test: {@link JobQueryImpl#executionId(String)}
+   */
+  @Test
+  public void testExecutionId2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> jobQueryImpl.executionId(null));
+  }
+
+  /**
+   * Method under test: {@link JobQueryImpl#timers()}
+   */
+  @Test
+  public void testTimers() {
+    // Arrange
+    JobQueryImpl jobQueryImpl = new JobQueryImpl();
+
+    // Act
+    JobQuery actualTimersResult = jobQueryImpl.timers();
+
+    // Assert
+    assertTrue(jobQueryImpl.isOnlyTimers());
+    assertSame(jobQueryImpl, actualTimersResult);
+  }
+
+  /**
+   * Method under test: {@link JobQueryImpl#messages()}
+   */
+  @Test
+  public void testMessages() {
+    // Arrange
+    JobQueryImpl jobQueryImpl = new JobQueryImpl();
+
+    // Act
+    JobQuery actualMessagesResult = jobQueryImpl.messages();
+
+    // Assert
+    assertTrue(jobQueryImpl.isOnlyMessages());
+    assertSame(jobQueryImpl, actualMessagesResult);
+  }
+
+  /**
+   * Method under test: {@link JobQueryImpl#duedateHigherThan(Date)}
+   */
+  @Test
+  public void testDuedateHigherThan() {
+    // Arrange
+    JobQueryImpl jobQueryImpl = new JobQueryImpl();
+    Date date = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+
+    // Act and Assert
+    assertSame(jobQueryImpl, jobQueryImpl.duedateHigherThan(date));
+    assertSame(date, jobQueryImpl.getDuedateHigherThan());
+  }
+
+  /**
+   * Method under test: {@link JobQueryImpl#duedateHigherThan(Date)}
+   */
+  @Test
+  public void testDuedateHigherThan2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new JobQueryImpl()).duedateHigherThan(null));
+  }
+
+  /**
+   * Method under test: {@link JobQueryImpl#duedateLowerThan(Date)}
+   */
+  @Test
+  public void testDuedateLowerThan() {
+    // Arrange
+    JobQueryImpl jobQueryImpl = new JobQueryImpl();
+    Date date = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+
+    // Act and Assert
+    assertSame(jobQueryImpl, jobQueryImpl.duedateLowerThan(date));
+    assertSame(date, jobQueryImpl.getDuedateLowerThan());
+  }
+
+  /**
+   * Method under test: {@link JobQueryImpl#duedateLowerThan(Date)}
+   */
+  @Test
+  public void testDuedateLowerThan2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new JobQueryImpl()).duedateLowerThan(null));
+  }
+
+  /**
+   * Method under test: {@link JobQueryImpl#duedateHigherThen(Date)}
+   */
+  @Test
+  public void testDuedateHigherThen() {
+    // Arrange
+    JobQueryImpl jobQueryImpl = new JobQueryImpl();
+    Date date = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+
+    // Act and Assert
+    assertSame(jobQueryImpl, jobQueryImpl.duedateHigherThen(date));
+    assertSame(date, jobQueryImpl.getDuedateHigherThan());
+  }
+
+  /**
+   * Method under test: {@link JobQueryImpl#duedateHigherThen(Date)}
+   */
+  @Test
+  public void testDuedateHigherThen2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new JobQueryImpl()).duedateHigherThen(null));
+  }
+
+  /**
+   * Method under test: {@link JobQueryImpl#duedateHigherThenOrEquals(Date)}
+   */
+  @Test
+  public void testDuedateHigherThenOrEquals() {
+    // Arrange
+    JobQueryImpl jobQueryImpl = new JobQueryImpl();
+    Date date = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+
+    // Act and Assert
+    assertSame(jobQueryImpl, jobQueryImpl.duedateHigherThenOrEquals(date));
+    assertSame(date, jobQueryImpl.getDuedateHigherThanOrEqual());
+  }
+
+  /**
+   * Method under test: {@link JobQueryImpl#duedateHigherThenOrEquals(Date)}
+   */
+  @Test
+  public void testDuedateHigherThenOrEquals2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new JobQueryImpl()).duedateHigherThenOrEquals(null));
+  }
+
+  /**
+   * Method under test: {@link JobQueryImpl#duedateLowerThen(Date)}
+   */
+  @Test
+  public void testDuedateLowerThen() {
+    // Arrange
+    JobQueryImpl jobQueryImpl = new JobQueryImpl();
+    Date date = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+
+    // Act and Assert
+    assertSame(jobQueryImpl, jobQueryImpl.duedateLowerThen(date));
+    assertSame(date, jobQueryImpl.getDuedateLowerThan());
+  }
+
+  /**
+   * Method under test: {@link JobQueryImpl#duedateLowerThen(Date)}
+   */
+  @Test
+  public void testDuedateLowerThen2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new JobQueryImpl()).duedateLowerThen(null));
+  }
+
+  /**
+   * Method under test: {@link JobQueryImpl#duedateLowerThenOrEquals(Date)}
+   */
+  @Test
+  public void testDuedateLowerThenOrEquals() {
+    // Arrange
+    JobQueryImpl jobQueryImpl = new JobQueryImpl();
+    Date date = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+
+    // Act and Assert
+    assertSame(jobQueryImpl, jobQueryImpl.duedateLowerThenOrEquals(date));
+    assertSame(date, jobQueryImpl.getDuedateLowerThanOrEqual());
+  }
+
+  /**
+   * Method under test: {@link JobQueryImpl#duedateLowerThenOrEquals(Date)}
+   */
+  @Test
+  public void testDuedateLowerThenOrEquals2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new JobQueryImpl()).duedateLowerThenOrEquals(null));
+  }
+
+  /**
+   * Method under test: {@link JobQueryImpl#exceptionMessage(String)}
+   */
+  @Test
+  public void testExceptionMessage() {
+    // Arrange and Act
+    JobQuery actualExceptionMessageResult = jobQueryImpl.exceptionMessage("Exception Message");
+
+    // Assert
+    assertEquals("Exception Message", jobQueryImpl.getExceptionMessage());
+    assertSame(jobQueryImpl, actualExceptionMessageResult);
+  }
+
+  /**
+   * Method under test: {@link JobQueryImpl#exceptionMessage(String)}
+   */
+  @Test
+  public void testExceptionMessage2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> jobQueryImpl.exceptionMessage(null));
+  }
+
+  /**
+   * Method under test: {@link JobQueryImpl#jobTenantId(String)}
+   */
+  @Test
+  public void testJobTenantId() {
+    // Arrange and Act
+    JobQuery actualJobTenantIdResult = jobQueryImpl.jobTenantId("42");
+
+    // Assert
+    assertEquals("42", jobQueryImpl.getTenantId());
+    assertSame(jobQueryImpl, actualJobTenantIdResult);
+  }
+
+  /**
+   * Method under test: {@link JobQueryImpl#jobTenantId(String)}
+   */
+  @Test
+  public void testJobTenantId2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> jobQueryImpl.jobTenantId(null));
+  }
+
+  /**
+   * Method under test: {@link JobQueryImpl#jobTenantIdLike(String)}
+   */
+  @Test
+  public void testJobTenantIdLike() {
+    // Arrange and Act
+    JobQuery actualJobTenantIdLikeResult = jobQueryImpl.jobTenantIdLike("Tenant Id Like");
+
+    // Assert
+    assertEquals("Tenant Id Like", jobQueryImpl.getTenantIdLike());
+    assertSame(jobQueryImpl, actualJobTenantIdLikeResult);
+  }
+
+  /**
+   * Method under test: {@link JobQueryImpl#jobTenantIdLike(String)}
+   */
+  @Test
+  public void testJobTenantIdLike2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> jobQueryImpl.jobTenantIdLike(null));
+  }
+
+  /**
    * Method under test: {@link JobQueryImpl#JobQueryImpl()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void JobQueryImpl.<init>()"})
   public void testNewJobQueryImpl() {
     // Arrange and Act
     JobQueryImpl actualJobQueryImpl = new JobQueryImpl();
@@ -79,559 +403,5 @@ public class JobQueryImplDiffblueTest {
     assertEquals(Integer.MAX_VALUE, actualJobQueryImpl.getLastRow());
     assertEquals(Integer.MAX_VALUE, actualJobQueryImpl.getMaxResults());
     assertSame(actualJobQueryImpl, actualJobQueryImpl.getParameter());
-  }
-
-  /**
-   * Test {@link JobQueryImpl#jobId(String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then {@link JobQueryImpl#JobQueryImpl()} Id is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JobQueryImpl#jobId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"JobQuery JobQueryImpl.jobId(String)"})
-  public void testJobId_when42_thenJobQueryImplIdIs42() {
-    // Arrange
-    JobQueryImpl jobQueryImpl = new JobQueryImpl();
-
-    // Act
-    JobQuery actualJobIdResult = jobQueryImpl.jobId("42");
-
-    // Assert
-    assertEquals("42", jobQueryImpl.getId());
-    assertSame(jobQueryImpl, actualJobIdResult);
-  }
-
-  /**
-   * Test {@link JobQueryImpl#jobId(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JobQueryImpl#jobId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"JobQuery JobQueryImpl.jobId(String)"})
-  public void testJobId_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> (new JobQueryImpl()).jobId(null));
-  }
-
-  /**
-   * Test {@link JobQueryImpl#processInstanceId(String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then {@link JobQueryImpl#JobQueryImpl()} ProcessInstanceId is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JobQueryImpl#processInstanceId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"JobQueryImpl JobQueryImpl.processInstanceId(String)"})
-  public void testProcessInstanceId_when42_thenJobQueryImplProcessInstanceIdIs42() {
-    // Arrange
-    JobQueryImpl jobQueryImpl = new JobQueryImpl();
-
-    // Act
-    JobQueryImpl actualProcessInstanceIdResult = jobQueryImpl.processInstanceId("42");
-
-    // Assert
-    assertEquals("42", jobQueryImpl.getProcessInstanceId());
-    assertSame(jobQueryImpl, actualProcessInstanceIdResult);
-  }
-
-  /**
-   * Test {@link JobQueryImpl#processInstanceId(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JobQueryImpl#processInstanceId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"JobQueryImpl JobQueryImpl.processInstanceId(String)"})
-  public void testProcessInstanceId_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> (new JobQueryImpl()).processInstanceId(null));
-  }
-
-  /**
-   * Test {@link JobQueryImpl#processDefinitionId(String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then {@link JobQueryImpl#JobQueryImpl()} ProcessDefinitionId is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JobQueryImpl#processDefinitionId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"JobQueryImpl JobQueryImpl.processDefinitionId(String)"})
-  public void testProcessDefinitionId_when42_thenJobQueryImplProcessDefinitionIdIs42() {
-    // Arrange
-    JobQueryImpl jobQueryImpl = new JobQueryImpl();
-
-    // Act
-    JobQueryImpl actualProcessDefinitionIdResult = jobQueryImpl.processDefinitionId("42");
-
-    // Assert
-    assertEquals("42", jobQueryImpl.getProcessDefinitionId());
-    assertSame(jobQueryImpl, actualProcessDefinitionIdResult);
-  }
-
-  /**
-   * Test {@link JobQueryImpl#processDefinitionId(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JobQueryImpl#processDefinitionId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"JobQueryImpl JobQueryImpl.processDefinitionId(String)"})
-  public void testProcessDefinitionId_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> (new JobQueryImpl()).processDefinitionId(null));
-  }
-
-  /**
-   * Test {@link JobQueryImpl#executionId(String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then {@link JobQueryImpl#JobQueryImpl()} ExecutionId is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JobQueryImpl#executionId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"JobQueryImpl JobQueryImpl.executionId(String)"})
-  public void testExecutionId_when42_thenJobQueryImplExecutionIdIs42() {
-    // Arrange
-    JobQueryImpl jobQueryImpl = new JobQueryImpl();
-
-    // Act
-    JobQueryImpl actualExecutionIdResult = jobQueryImpl.executionId("42");
-
-    // Assert
-    assertEquals("42", jobQueryImpl.getExecutionId());
-    assertSame(jobQueryImpl, actualExecutionIdResult);
-  }
-
-  /**
-   * Test {@link JobQueryImpl#executionId(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JobQueryImpl#executionId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"JobQueryImpl JobQueryImpl.executionId(String)"})
-  public void testExecutionId_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> (new JobQueryImpl()).executionId(null));
-  }
-
-  /**
-   * Test {@link JobQueryImpl#timers()}.
-   * <p>
-   * Method under test: {@link JobQueryImpl#timers()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"JobQuery JobQueryImpl.timers()"})
-  public void testTimers() {
-    // Arrange
-    JobQueryImpl jobQueryImpl = new JobQueryImpl();
-
-    // Act
-    JobQuery actualTimersResult = jobQueryImpl.timers();
-
-    // Assert
-    assertTrue(jobQueryImpl.isOnlyTimers());
-    assertSame(jobQueryImpl, actualTimersResult);
-  }
-
-  /**
-   * Test {@link JobQueryImpl#messages()}.
-   * <p>
-   * Method under test: {@link JobQueryImpl#messages()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"JobQuery JobQueryImpl.messages()"})
-  public void testMessages() {
-    // Arrange
-    JobQueryImpl jobQueryImpl = new JobQueryImpl();
-
-    // Act
-    JobQuery actualMessagesResult = jobQueryImpl.messages();
-
-    // Assert
-    assertTrue(jobQueryImpl.isOnlyMessages());
-    assertSame(jobQueryImpl, actualMessagesResult);
-  }
-
-  /**
-   * Test {@link JobQueryImpl#duedateHigherThan(Date)}.
-   * <ul>
-   *   <li>Then return {@link JobQueryImpl#JobQueryImpl()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JobQueryImpl#duedateHigherThan(Date)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"JobQuery JobQueryImpl.duedateHigherThan(Date)"})
-  public void testDuedateHigherThan_thenReturnJobQueryImpl() {
-    // Arrange
-    JobQueryImpl jobQueryImpl = new JobQueryImpl();
-    Date date = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
-
-    // Act and Assert
-    assertSame(jobQueryImpl, jobQueryImpl.duedateHigherThan(date));
-    assertSame(date, jobQueryImpl.getDuedateHigherThan());
-  }
-
-  /**
-   * Test {@link JobQueryImpl#duedateHigherThan(Date)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JobQueryImpl#duedateHigherThan(Date)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"JobQuery JobQueryImpl.duedateHigherThan(Date)"})
-  public void testDuedateHigherThan_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> (new JobQueryImpl()).duedateHigherThan(null));
-  }
-
-  /**
-   * Test {@link JobQueryImpl#duedateLowerThan(Date)}.
-   * <ul>
-   *   <li>Then return {@link JobQueryImpl#JobQueryImpl()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JobQueryImpl#duedateLowerThan(Date)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"JobQuery JobQueryImpl.duedateLowerThan(Date)"})
-  public void testDuedateLowerThan_thenReturnJobQueryImpl() {
-    // Arrange
-    JobQueryImpl jobQueryImpl = new JobQueryImpl();
-    Date date = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
-
-    // Act and Assert
-    assertSame(jobQueryImpl, jobQueryImpl.duedateLowerThan(date));
-    assertSame(date, jobQueryImpl.getDuedateLowerThan());
-  }
-
-  /**
-   * Test {@link JobQueryImpl#duedateLowerThan(Date)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JobQueryImpl#duedateLowerThan(Date)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"JobQuery JobQueryImpl.duedateLowerThan(Date)"})
-  public void testDuedateLowerThan_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> (new JobQueryImpl()).duedateLowerThan(null));
-  }
-
-  /**
-   * Test {@link JobQueryImpl#duedateHigherThen(Date)}.
-   * <ul>
-   *   <li>Then return {@link JobQueryImpl#JobQueryImpl()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JobQueryImpl#duedateHigherThen(Date)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"JobQuery JobQueryImpl.duedateHigherThen(Date)"})
-  public void testDuedateHigherThen_thenReturnJobQueryImpl() {
-    // Arrange
-    JobQueryImpl jobQueryImpl = new JobQueryImpl();
-    Date date = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
-
-    // Act and Assert
-    assertSame(jobQueryImpl, jobQueryImpl.duedateHigherThen(date));
-    assertSame(date, jobQueryImpl.getDuedateHigherThan());
-  }
-
-  /**
-   * Test {@link JobQueryImpl#duedateHigherThen(Date)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JobQueryImpl#duedateHigherThen(Date)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"JobQuery JobQueryImpl.duedateHigherThen(Date)"})
-  public void testDuedateHigherThen_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> (new JobQueryImpl()).duedateHigherThen(null));
-  }
-
-  /**
-   * Test {@link JobQueryImpl#duedateHigherThenOrEquals(Date)}.
-   * <ul>
-   *   <li>Then return {@link JobQueryImpl#JobQueryImpl()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JobQueryImpl#duedateHigherThenOrEquals(Date)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"JobQuery JobQueryImpl.duedateHigherThenOrEquals(Date)"})
-  public void testDuedateHigherThenOrEquals_thenReturnJobQueryImpl() {
-    // Arrange
-    JobQueryImpl jobQueryImpl = new JobQueryImpl();
-    Date date = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
-
-    // Act and Assert
-    assertSame(jobQueryImpl, jobQueryImpl.duedateHigherThenOrEquals(date));
-    assertSame(date, jobQueryImpl.getDuedateHigherThanOrEqual());
-  }
-
-  /**
-   * Test {@link JobQueryImpl#duedateHigherThenOrEquals(Date)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JobQueryImpl#duedateHigherThenOrEquals(Date)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"JobQuery JobQueryImpl.duedateHigherThenOrEquals(Date)"})
-  public void testDuedateHigherThenOrEquals_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> (new JobQueryImpl()).duedateHigherThenOrEquals(null));
-  }
-
-  /**
-   * Test {@link JobQueryImpl#duedateLowerThen(Date)}.
-   * <ul>
-   *   <li>Then return {@link JobQueryImpl#JobQueryImpl()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JobQueryImpl#duedateLowerThen(Date)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"JobQuery JobQueryImpl.duedateLowerThen(Date)"})
-  public void testDuedateLowerThen_thenReturnJobQueryImpl() {
-    // Arrange
-    JobQueryImpl jobQueryImpl = new JobQueryImpl();
-    Date date = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
-
-    // Act and Assert
-    assertSame(jobQueryImpl, jobQueryImpl.duedateLowerThen(date));
-    assertSame(date, jobQueryImpl.getDuedateLowerThan());
-  }
-
-  /**
-   * Test {@link JobQueryImpl#duedateLowerThen(Date)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JobQueryImpl#duedateLowerThen(Date)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"JobQuery JobQueryImpl.duedateLowerThen(Date)"})
-  public void testDuedateLowerThen_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> (new JobQueryImpl()).duedateLowerThen(null));
-  }
-
-  /**
-   * Test {@link JobQueryImpl#duedateLowerThenOrEquals(Date)}.
-   * <ul>
-   *   <li>Then return {@link JobQueryImpl#JobQueryImpl()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JobQueryImpl#duedateLowerThenOrEquals(Date)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"JobQuery JobQueryImpl.duedateLowerThenOrEquals(Date)"})
-  public void testDuedateLowerThenOrEquals_thenReturnJobQueryImpl() {
-    // Arrange
-    JobQueryImpl jobQueryImpl = new JobQueryImpl();
-    Date date = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
-
-    // Act and Assert
-    assertSame(jobQueryImpl, jobQueryImpl.duedateLowerThenOrEquals(date));
-    assertSame(date, jobQueryImpl.getDuedateLowerThanOrEqual());
-  }
-
-  /**
-   * Test {@link JobQueryImpl#duedateLowerThenOrEquals(Date)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JobQueryImpl#duedateLowerThenOrEquals(Date)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"JobQuery JobQueryImpl.duedateLowerThenOrEquals(Date)"})
-  public void testDuedateLowerThenOrEquals_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> (new JobQueryImpl()).duedateLowerThenOrEquals(null));
-  }
-
-  /**
-   * Test {@link JobQueryImpl#exceptionMessage(String)}.
-   * <ul>
-   *   <li>Then {@link JobQueryImpl#JobQueryImpl()} ExceptionMessage is {@code Exception Message}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JobQueryImpl#exceptionMessage(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"JobQuery JobQueryImpl.exceptionMessage(String)"})
-  public void testExceptionMessage_thenJobQueryImplExceptionMessageIsExceptionMessage() {
-    // Arrange
-    JobQueryImpl jobQueryImpl = new JobQueryImpl();
-
-    // Act
-    JobQuery actualExceptionMessageResult = jobQueryImpl.exceptionMessage("Exception Message");
-
-    // Assert
-    assertEquals("Exception Message", jobQueryImpl.getExceptionMessage());
-    assertSame(jobQueryImpl, actualExceptionMessageResult);
-  }
-
-  /**
-   * Test {@link JobQueryImpl#exceptionMessage(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JobQueryImpl#exceptionMessage(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"JobQuery JobQueryImpl.exceptionMessage(String)"})
-  public void testExceptionMessage_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> (new JobQueryImpl()).exceptionMessage(null));
-  }
-
-  /**
-   * Test {@link JobQueryImpl#jobTenantId(String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then {@link JobQueryImpl#JobQueryImpl()} TenantId is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JobQueryImpl#jobTenantId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"JobQuery JobQueryImpl.jobTenantId(String)"})
-  public void testJobTenantId_when42_thenJobQueryImplTenantIdIs42() {
-    // Arrange
-    JobQueryImpl jobQueryImpl = new JobQueryImpl();
-
-    // Act
-    JobQuery actualJobTenantIdResult = jobQueryImpl.jobTenantId("42");
-
-    // Assert
-    assertEquals("42", jobQueryImpl.getTenantId());
-    assertSame(jobQueryImpl, actualJobTenantIdResult);
-  }
-
-  /**
-   * Test {@link JobQueryImpl#jobTenantId(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JobQueryImpl#jobTenantId(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"JobQuery JobQueryImpl.jobTenantId(String)"})
-  public void testJobTenantId_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> (new JobQueryImpl()).jobTenantId(null));
-  }
-
-  /**
-   * Test {@link JobQueryImpl#jobTenantIdLike(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JobQueryImpl#jobTenantIdLike(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"JobQuery JobQueryImpl.jobTenantIdLike(String)"})
-  public void testJobTenantIdLike_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> (new JobQueryImpl()).jobTenantIdLike(null));
-  }
-
-  /**
-   * Test {@link JobQueryImpl#jobTenantIdLike(String)}.
-   * <ul>
-   *   <li>When {@code Tenant Id Like}.</li>
-   *   <li>Then {@link JobQueryImpl#JobQueryImpl()} TenantIdLike is {@code Tenant Id Like}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JobQueryImpl#jobTenantIdLike(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"JobQuery JobQueryImpl.jobTenantIdLike(String)"})
-  public void testJobTenantIdLike_whenTenantIdLike_thenJobQueryImplTenantIdLikeIsTenantIdLike() {
-    // Arrange
-    JobQueryImpl jobQueryImpl = new JobQueryImpl();
-
-    // Act
-    JobQuery actualJobTenantIdLikeResult = jobQueryImpl.jobTenantIdLike("Tenant Id Like");
-
-    // Assert
-    assertEquals("Tenant Id Like", jobQueryImpl.getTenantIdLike());
-    assertSame(jobQueryImpl, actualJobTenantIdLikeResult);
   }
 }

@@ -19,29 +19,31 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashSet;
 import java.util.Set;
 import org.activiti.api.process.model.payloads.GetProcessInstancesPayload;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class GetProcessInstancesPayloadBuilderDiffblueTest {
   /**
-   * Test {@link GetProcessInstancesPayloadBuilder#withProcessDefinitionKey(String)}.
-   * <ul>
-   *   <li>Given processInstances withProcessDefinitionKeys {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GetProcessInstancesPayloadBuilder#withProcessDefinitionKey(String)}
+   * Method under test:
+   * {@link GetProcessInstancesPayloadBuilder#withProcessDefinitionKey(String)}
    */
   @Test
-  @DisplayName("Test withProcessDefinitionKey(String); given processInstances withProcessDefinitionKeys 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "GetProcessInstancesPayloadBuilder GetProcessInstancesPayloadBuilder.withProcessDefinitionKey(String)"})
-  void testWithProcessDefinitionKey_givenProcessInstancesWithProcessDefinitionKeysNull() {
+  void testWithProcessDefinitionKey() {
+    // Arrange
+    GetProcessInstancesPayloadBuilder processInstancesResult = ProcessPayloadBuilder.processInstances();
+
+    // Act and Assert
+    assertSame(processInstancesResult, processInstancesResult.withProcessDefinitionKey("Process Definition Key"));
+  }
+
+  /**
+   * Method under test:
+   * {@link GetProcessInstancesPayloadBuilder#withProcessDefinitionKey(String)}
+   */
+  @Test
+  void testWithProcessDefinitionKey2() {
     // Arrange
     GetProcessInstancesPayloadBuilder processInstancesResult = ProcessPayloadBuilder.processInstances();
     processInstancesResult.withProcessDefinitionKeys(null);
@@ -51,49 +53,18 @@ class GetProcessInstancesPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link GetProcessInstancesPayloadBuilder#withProcessDefinitionKey(String)}.
-   * <ul>
-   *   <li>Given processInstances.</li>
-   *   <li>Then return processInstances.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GetProcessInstancesPayloadBuilder#withProcessDefinitionKey(String)}
-   */
-  @Test
-  @DisplayName("Test withProcessDefinitionKey(String); given processInstances; then return processInstances")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "GetProcessInstancesPayloadBuilder GetProcessInstancesPayloadBuilder.withProcessDefinitionKey(String)"})
-  void testWithProcessDefinitionKey_givenProcessInstances_thenReturnProcessInstances() {
-    // Arrange
-    GetProcessInstancesPayloadBuilder processInstancesResult = ProcessPayloadBuilder.processInstances();
-
-    // Act and Assert
-    assertSame(processInstancesResult, processInstancesResult.withProcessDefinitionKey("Process Definition Key"));
-  }
-
-  /**
-   * Test {@link GetProcessInstancesPayloadBuilder#build()}.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link GetProcessInstancesPayloadBuilder#build()}
-   *   <li>default or parameterless constructor of {@link GetProcessInstancesPayloadBuilder}
+   *   <li>default or parameterless constructor of
+   * {@link GetProcessInstancesPayloadBuilder}
    *   <li>{@link GetProcessInstancesPayloadBuilder#withBusinessKey(String)}
-   *   <li>{@link GetProcessInstancesPayloadBuilder#withParentProcessInstanceId(String)}
+   *   <li>
+   * {@link GetProcessInstancesPayloadBuilder#withParentProcessInstanceId(String)}
    *   <li>{@link GetProcessInstancesPayloadBuilder#withProcessDefinitionKeys(Set)}
    * </ul>
    */
   @Test
-  @DisplayName("Test build()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void GetProcessInstancesPayloadBuilder.<init>()",
-      "GetProcessInstancesPayloadBuilder GetProcessInstancesPayloadBuilder.active()",
-      "GetProcessInstancesPayload GetProcessInstancesPayloadBuilder.build()",
-      "GetProcessInstancesPayloadBuilder GetProcessInstancesPayloadBuilder.suspended()",
-      "GetProcessInstancesPayloadBuilder GetProcessInstancesPayloadBuilder.withBusinessKey(String)",
-      "GetProcessInstancesPayloadBuilder GetProcessInstancesPayloadBuilder.withParentProcessInstanceId(String)",
-      "GetProcessInstancesPayloadBuilder GetProcessInstancesPayloadBuilder.withProcessDefinitionKeys(Set)"})
   void testBuild() {
     // Arrange
     GetProcessInstancesPayloadBuilder withProcessDefinitionKeyResult = (new GetProcessInstancesPayloadBuilder())

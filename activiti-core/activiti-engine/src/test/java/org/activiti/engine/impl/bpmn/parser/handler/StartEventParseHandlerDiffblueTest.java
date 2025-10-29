@@ -19,8 +19,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.CancelEventDefinition;
@@ -33,23 +31,47 @@ import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class StartEventParseHandlerDiffblueTest {
   /**
-   * Test {@link StartEventParseHandler#executeParse(BpmnParse, StartEvent)} with {@code BpmnParse}, {@code StartEvent}.
-   * <p>
-   * Method under test: {@link StartEventParseHandler#executeParse(BpmnParse, StartEvent)}
+   * Method under test:
+   * {@link StartEventParseHandler#executeParse(BpmnParse, StartEvent)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void StartEventParseHandler.executeParse(BpmnParse, StartEvent)"})
-  public void testExecuteParseWithBpmnParseStartEvent() {
+  public void testExecuteParse() {
+    // Arrange
+    StartEventParseHandler startEventParseHandler = new StartEventParseHandler();
+    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
+
+    StartEvent element = new StartEvent();
+    element.setParentContainer(new AdhocSubProcess());
+    element.addEventDefinition(new CancelEventDefinition());
+
+    // Act
+    startEventParseHandler.executeParse(bpmnParse, element);
+
+    // Assert that nothing has changed
+    assertEquals(1, element.getEventDefinitions().size());
+    assertTrue(element.getExecutionListeners().isEmpty());
+    assertTrue(element.getIncomingFlows().isEmpty());
+    assertTrue(element.getOutgoingFlows().isEmpty());
+    assertTrue(element.getFormProperties().isEmpty());
+    assertTrue(element.getAttributes().isEmpty());
+    assertTrue(element.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link StartEventParseHandler#executeParse(BpmnParse, StartEvent)}
+   */
+  @Test
+  public void testExecuteParse2() {
     // Arrange
     StartEventParseHandler startEventParseHandler = new StartEventParseHandler();
 
     BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setCurrentProcess(new Process());
+    Process currentProcess = new Process();
+    bpmnParse.setCurrentProcess(currentProcess);
 
     StartEvent element = new StartEvent();
     element.addEventDefinition(new CancelEventDefinition());
@@ -58,24 +80,48 @@ public class StartEventParseHandlerDiffblueTest {
     startEventParseHandler.executeParse(bpmnParse, element);
 
     // Assert
-    assertSame(element, bpmnParse.getCurrentProcess().getInitialFlowElement());
+    assertNull(element.getBehavior());
+    assertSame(currentProcess, bpmnParse.getCurrentProcess());
   }
 
   /**
-   * Test {@link StartEventParseHandler#executeParse(BpmnParse, StartEvent)} with {@code BpmnParse}, {@code StartEvent}.
-   * <p>
-   * Method under test: {@link StartEventParseHandler#executeParse(BpmnParse, StartEvent)}
+   * Method under test:
+   * {@link StartEventParseHandler#executeParse(BpmnParse, StartEvent)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void StartEventParseHandler.executeParse(BpmnParse, StartEvent)"})
-  public void testExecuteParseWithBpmnParseStartEvent2() {
+  public void testExecuteParse3() {
+    // Arrange
+    StartEventParseHandler startEventParseHandler = new StartEventParseHandler();
+    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
+
+    StartEvent element = new StartEvent();
+    element.setParentContainer(new EventSubProcess());
+    element.addEventDefinition(new CancelEventDefinition());
+
+    // Act
+    startEventParseHandler.executeParse(bpmnParse, element);
+
+    // Assert that nothing has changed
+    assertEquals(1, element.getEventDefinitions().size());
+    assertTrue(element.getExecutionListeners().isEmpty());
+    assertTrue(element.getIncomingFlows().isEmpty());
+    assertTrue(element.getOutgoingFlows().isEmpty());
+    assertTrue(element.getFormProperties().isEmpty());
+    assertTrue(element.getAttributes().isEmpty());
+    assertTrue(element.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link StartEventParseHandler#executeParse(BpmnParse, StartEvent)}
+   */
+  @Test
+  public void testExecuteParse4() {
     // Arrange
     StartEventParseHandler startEventParseHandler = new StartEventParseHandler();
 
     Process currentProcess = new Process();
-    AdhocSubProcess initialFlowElement = new AdhocSubProcess();
-    currentProcess.setInitialFlowElement(initialFlowElement);
+    currentProcess.setInitialFlowElement(new AdhocSubProcess());
 
     BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
     bpmnParse.setCurrentProcess(currentProcess);
@@ -87,18 +133,22 @@ public class StartEventParseHandlerDiffblueTest {
     startEventParseHandler.executeParse(bpmnParse, element);
 
     // Assert that nothing has changed
-    assertSame(initialFlowElement, bpmnParse.getCurrentProcess().getInitialFlowElement());
+    assertEquals(1, element.getEventDefinitions().size());
+    assertTrue(element.getExecutionListeners().isEmpty());
+    assertTrue(element.getIncomingFlows().isEmpty());
+    assertTrue(element.getOutgoingFlows().isEmpty());
+    assertTrue(element.getFormProperties().isEmpty());
+    assertTrue(element.getAttributes().isEmpty());
+    assertTrue(element.getExtensionElements().isEmpty());
+    assertSame(currentProcess, bpmnParse.getCurrentProcess());
   }
 
   /**
-   * Test {@link StartEventParseHandler#executeParse(BpmnParse, StartEvent)} with {@code BpmnParse}, {@code StartEvent}.
-   * <p>
-   * Method under test: {@link StartEventParseHandler#executeParse(BpmnParse, StartEvent)}
+   * Method under test:
+   * {@link StartEventParseHandler#executeParse(BpmnParse, StartEvent)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void StartEventParseHandler.executeParse(BpmnParse, StartEvent)"})
-  public void testExecuteParseWithBpmnParseStartEvent3() {
+  public void testExecuteParse5() {
     // Arrange
     StartEventParseHandler startEventParseHandler = new StartEventParseHandler();
 
@@ -116,66 +166,18 @@ public class StartEventParseHandlerDiffblueTest {
     // Assert
     Object behavior = element.getBehavior();
     assertTrue(behavior instanceof EventSubProcessErrorStartEventActivityBehavior);
+    assertNull(bpmnParse.getCurrentProcess());
     assertNull(((EventSubProcessErrorStartEventActivityBehavior) behavior).getMultiInstanceActivityBehavior());
+    assertEquals(1, element.getEventDefinitions().size());
+    assertTrue(element.getExecutionListeners().isEmpty());
+    assertTrue(element.getIncomingFlows().isEmpty());
+    assertTrue(element.getOutgoingFlows().isEmpty());
+    assertTrue(element.getFormProperties().isEmpty());
+    assertTrue(element.getAttributes().isEmpty());
+    assertTrue(element.getExtensionElements().isEmpty());
   }
 
   /**
-   * Test {@link StartEventParseHandler#executeParse(BpmnParse, StartEvent)} with {@code BpmnParse}, {@code StartEvent}.
-   * <ul>
-   *   <li>Then {@link StartEvent} (default constructor) Behavior is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StartEventParseHandler#executeParse(BpmnParse, StartEvent)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void StartEventParseHandler.executeParse(BpmnParse, StartEvent)"})
-  public void testExecuteParseWithBpmnParseStartEvent_thenStartEventBehaviorIsNull() {
-    // Arrange
-    StartEventParseHandler startEventParseHandler = new StartEventParseHandler();
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-
-    StartEvent element = new StartEvent();
-    element.setParentContainer(new AdhocSubProcess());
-    element.addEventDefinition(new CancelEventDefinition());
-
-    // Act
-    startEventParseHandler.executeParse(bpmnParse, element);
-
-    // Assert that nothing has changed
-    assertNull(element.getBehavior());
-  }
-
-  /**
-   * Test {@link StartEventParseHandler#executeParse(BpmnParse, StartEvent)} with {@code BpmnParse}, {@code StartEvent}.
-   * <ul>
-   *   <li>Then {@link StartEvent} (default constructor) Behavior is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StartEventParseHandler#executeParse(BpmnParse, StartEvent)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void StartEventParseHandler.executeParse(BpmnParse, StartEvent)"})
-  public void testExecuteParseWithBpmnParseStartEvent_thenStartEventBehaviorIsNull2() {
-    // Arrange
-    StartEventParseHandler startEventParseHandler = new StartEventParseHandler();
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-
-    StartEvent element = new StartEvent();
-    element.setParentContainer(new EventSubProcess());
-    element.addEventDefinition(new CancelEventDefinition());
-
-    // Act
-    startEventParseHandler.executeParse(bpmnParse, element);
-
-    // Assert that nothing has changed
-    assertNull(element.getBehavior());
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link StartEventParseHandler}
@@ -183,8 +185,6 @@ public class StartEventParseHandlerDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void StartEventParseHandler.<init>()", "Class StartEventParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends BaseElement> actualHandledType = (new StartEventParseHandler()).getHandledType();

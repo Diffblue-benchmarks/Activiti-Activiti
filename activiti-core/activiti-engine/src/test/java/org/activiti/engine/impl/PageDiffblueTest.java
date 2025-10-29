@@ -16,15 +16,10 @@
 package org.activiti.engine.impl;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class PageDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link Page#Page(int, int)}
@@ -33,8 +28,6 @@ public class PageDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Page.<init>(int, int)", "int Page.getFirstResult()", "int Page.getMaxResults()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Page actualPage = new Page(1, 3);

@@ -19,54 +19,22 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.activiti.engine.impl.persistence.entity.HistoricDetailVariableInstanceUpdateEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.mockito.Mockito;
 
 public class CustomObjectTypeDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link CustomObjectType#CustomObjectType(String, Class)}
-   *   <li>{@link CustomObjectType#getTypeName()}
-   *   <li>{@link CustomObjectType#isCachable()}
-   * </ul>
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CustomObjectType.<init>(String, Class)", "String CustomObjectType.getTypeName()",
-      "boolean CustomObjectType.isCachable()"})
-  public void testGettersAndSetters() {
-    // Arrange
-    Class<Object> theClass = Object.class;
-
-    // Act
-    CustomObjectType actualCustomObjectType = new CustomObjectType("Type Name", theClass);
-    String actualTypeName = actualCustomObjectType.getTypeName();
-
-    // Assert
-    assertEquals("Type Name", actualTypeName);
-    assertTrue(actualCustomObjectType.isCachable());
-  }
-
-  /**
-   * Test {@link CustomObjectType#getValue(ValueFields)}.
-   * <ul>
-   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor).</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link CustomObjectType#getValue(ValueFields)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object CustomObjectType.getValue(ValueFields)"})
-  public void testGetValue_whenHistoricDetailVariableInstanceUpdateEntityImpl_thenReturnNull() {
+  public void testGetValue() {
     // Arrange
     Class<Object> theClass = Object.class;
     CustomObjectType customObjectType = new CustomObjectType("Type Name", theClass);
@@ -76,19 +44,28 @@ public class CustomObjectTypeDiffblueTest {
   }
 
   /**
-   * Test {@link CustomObjectType#isAbleToStore(Object)}.
-   * <ul>
-   *   <li>Given {@code Object}.</li>
-   *   <li>When {@link JSONObject#NULL}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link CustomObjectType#getValue(ValueFields)}
+   */
+  @Test
+  public void testGetValue2() {
+    // Arrange
+    Class<Object> theClass = Object.class;
+    CustomObjectType customObjectType = new CustomObjectType("Type Name", theClass);
+    ValueFields valueFields = mock(ValueFields.class);
+    when(valueFields.getCachedValue()).thenReturn(JSONObject.NULL);
+
+    // Act
+    customObjectType.getValue(valueFields);
+
+    // Assert
+    verify(valueFields).getCachedValue();
+  }
+
+  /**
    * Method under test: {@link CustomObjectType#isAbleToStore(Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean CustomObjectType.isAbleToStore(Object)"})
-  public void testIsAbleToStore_givenJavaLangObject_whenNull_thenReturnTrue() {
+  public void testIsAbleToStore() {
     // Arrange
     Class<Object> theClass = Object.class;
 
@@ -97,19 +74,10 @@ public class CustomObjectTypeDiffblueTest {
   }
 
   /**
-   * Test {@link CustomObjectType#isAbleToStore(Object)}.
-   * <ul>
-   *   <li>Given {@code Object}.</li>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link CustomObjectType#isAbleToStore(Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean CustomObjectType.isAbleToStore(Object)"})
-  public void testIsAbleToStore_givenJavaLangObject_whenNull_thenReturnTrue2() {
+  public void testIsAbleToStore2() {
     // Arrange
     Class<Object> theClass = Object.class;
 
@@ -118,17 +86,10 @@ public class CustomObjectTypeDiffblueTest {
   }
 
   /**
-   * Test {@link CustomObjectType#setValue(Object, ValueFields)}.
-   * <ul>
-   *   <li>Then {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor) CachedValue is {@link JSONObject#NULL}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link CustomObjectType#setValue(Object, ValueFields)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void CustomObjectType.setValue(Object, ValueFields)"})
-  public void testSetValue_thenHistoricDetailVariableInstanceUpdateEntityImplCachedValueIsNull() {
+  public void testSetValue() {
     // Arrange
     Class<Object> theClass = Object.class;
     CustomObjectType customObjectType = new CustomObjectType("Type Name", theClass);
@@ -140,5 +101,45 @@ public class CustomObjectTypeDiffblueTest {
 
     // Assert
     assertSame(object, valueFields.getCachedValue());
+  }
+
+  /**
+   * Method under test: {@link CustomObjectType#setValue(Object, ValueFields)}
+   */
+  @Test
+  public void testSetValue2() {
+    // Arrange
+    Class<Object> theClass = Object.class;
+    CustomObjectType customObjectType = new CustomObjectType("Type Name", theClass);
+    ValueFields valueFields = mock(ValueFields.class);
+    doNothing().when(valueFields).setCachedValue(Mockito.<Object>any());
+
+    // Act
+    customObjectType.setValue(JSONObject.NULL, valueFields);
+
+    // Assert
+    verify(valueFields).setCachedValue(isA(Object.class));
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>{@link CustomObjectType#CustomObjectType(String, Class)}
+   *   <li>{@link CustomObjectType#getTypeName()}
+   *   <li>{@link CustomObjectType#isCachable()}
+   * </ul>
+   */
+  @Test
+  public void testGettersAndSetters() {
+    // Arrange
+    Class<Object> theClass = Object.class;
+
+    // Act
+    CustomObjectType actualCustomObjectType = new CustomObjectType("Type Name", theClass);
+    String actualTypeName = actualCustomObjectType.getTypeName();
+
+    // Assert
+    assertEquals("Type Name", actualTypeName);
+    assertTrue(actualCustomObjectType.isCachable());
   }
 }

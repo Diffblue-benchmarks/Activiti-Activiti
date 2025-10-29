@@ -18,25 +18,53 @@ package org.activiti.engine.impl.scripting;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.FileDescriptor;
 import java.io.FileReader;
 import java.io.Reader;
 import javax.script.ScriptEngineFactory;
 import javax.script.ScriptException;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class JuelScriptEngineDiffblueTest {
   /**
-   * Test {@link JuelScriptEngine#JuelScriptEngine(ScriptEngineFactory)}.
-   * <p>
-   * Method under test: {@link JuelScriptEngine#JuelScriptEngine(ScriptEngineFactory)}
+   * Method under test: {@link JuelScriptEngine#compile(Reader)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void JuelScriptEngine.<init>(ScriptEngineFactory)"})
+  public void testCompile() throws ScriptException {
+    // Arrange
+    JuelScriptEngine juelScriptEngine = new JuelScriptEngine(new JuelScriptEngineFactory());
+
+    // Act and Assert
+    assertThrows(ScriptException.class, () -> juelScriptEngine.compile(new FileReader(new FileDescriptor())));
+  }
+
+  /**
+   * Method under test: {@link JuelScriptEngine#compile(Reader)}
+   */
+  @Test
+  public void testCompile2() throws ScriptException {
+    // Arrange
+    JuelScriptEngine juelScriptEngine = new JuelScriptEngine(new JuelScriptEngineFactory());
+
+    // Act and Assert
+    assertThrows(ScriptException.class, () -> juelScriptEngine.compile(new FileReader(new FileDescriptor())));
+  }
+
+  /**
+   * Method under test: {@link JuelScriptEngine#createBindings()}
+   */
+  @Test
+  public void testCreateBindings() {
+    // Arrange, Act and Assert
+    assertTrue((new JuelScriptEngine()).createBindings().isEmpty());
+    assertTrue((new JuelScriptEngine()).createBindings().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link JuelScriptEngine#JuelScriptEngine(ScriptEngineFactory)}
+   */
+  @Test
   public void testNewJuelScriptEngine() {
     // Arrange
     JuelScriptEngineFactory scriptEngineFactory = new JuelScriptEngineFactory();
@@ -46,82 +74,15 @@ public class JuelScriptEngineDiffblueTest {
   }
 
   /**
-   * Test {@link JuelScriptEngine#JuelScriptEngine(ScriptEngineFactory)}.
-   * <p>
-   * Method under test: {@link JuelScriptEngine#JuelScriptEngine(ScriptEngineFactory)}
+   * Method under test:
+   * {@link JuelScriptEngine#JuelScriptEngine(ScriptEngineFactory)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void JuelScriptEngine.<init>(ScriptEngineFactory)"})
   public void testNewJuelScriptEngine2() {
     // Arrange
     JuelScriptEngineFactory scriptEngineFactory = new JuelScriptEngineFactory();
 
     // Act and Assert
     assertSame(scriptEngineFactory, (new JuelScriptEngine(scriptEngineFactory)).getFactory());
-  }
-
-  /**
-   * Test {@link JuelScriptEngine#compile(Reader)} with {@code reader}.
-   * <ul>
-   *   <li>Then throw {@link ScriptException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JuelScriptEngine#compile(Reader)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"javax.script.CompiledScript JuelScriptEngine.compile(Reader)"})
-  public void testCompileWithReader_thenThrowScriptException() throws ScriptException {
-    // Arrange
-    JuelScriptEngine juelScriptEngine = new JuelScriptEngine(new JuelScriptEngineFactory());
-
-    // Act and Assert
-    assertThrows(ScriptException.class, () -> juelScriptEngine.compile(new FileReader(new FileDescriptor())));
-  }
-
-  /**
-   * Test {@link JuelScriptEngine#compile(Reader)} with {@code reader}.
-   * <ul>
-   *   <li>Then throw {@link ScriptException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JuelScriptEngine#compile(Reader)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"javax.script.CompiledScript JuelScriptEngine.compile(Reader)"})
-  public void testCompileWithReader_thenThrowScriptException2() throws ScriptException {
-    // Arrange
-    JuelScriptEngine juelScriptEngine = new JuelScriptEngine(new JuelScriptEngineFactory());
-
-    // Act and Assert
-    assertThrows(ScriptException.class, () -> juelScriptEngine.compile(new FileReader(new FileDescriptor())));
-  }
-
-  /**
-   * Test {@link JuelScriptEngine#createBindings()}.
-   * <p>
-   * Method under test: {@link JuelScriptEngine#createBindings()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"javax.script.Bindings JuelScriptEngine.createBindings()"})
-  public void testCreateBindings() {
-    // Arrange, Act and Assert
-    assertTrue((new JuelScriptEngine()).createBindings().isEmpty());
-  }
-
-  /**
-   * Test {@link JuelScriptEngine#createBindings()}.
-   * <p>
-   * Method under test: {@link JuelScriptEngine#createBindings()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"javax.script.Bindings JuelScriptEngine.createBindings()"})
-  public void testCreateBindings2() {
-    // Arrange, Act and Assert
-    assertTrue((new JuelScriptEngine()).createBindings().isEmpty());
   }
 }

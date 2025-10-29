@@ -17,41 +17,28 @@ package org.activiti.image.impl.icon;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ErrorIconTypeDiffblueTest {
   /**
-   * Test {@link ErrorIconType#getWidth()}.
-   * <p>
    * Method under test: {@link ErrorIconType#getWidth()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.lang.Integer ErrorIconType.getWidth()"})
   public void testGetWidth() {
     // Arrange, Act and Assert
     assertEquals(17, (new ErrorIconType()).getWidth().intValue());
   }
 
   /**
-   * Test {@link ErrorIconType#getHeight()}.
-   * <p>
    * Method under test: {@link ErrorIconType#getHeight()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.lang.Integer ErrorIconType.getHeight()"})
   public void testGetHeight() {
     // Arrange, Act and Assert
     assertEquals(22, (new ErrorIconType()).getHeight().intValue());
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ErrorIconType}
@@ -64,11 +51,6 @@ public class ErrorIconTypeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ErrorIconType.<init>()", "String ErrorIconType.getAnchorValue()",
-      "String ErrorIconType.getDValue()", "String ErrorIconType.getFillValue()",
-      "String ErrorIconType.getStrokeValue()", "String ErrorIconType.getStrokeWidth()",
-      "String ErrorIconType.getStyleValue()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ErrorIconType actualErrorIconType = new ErrorIconType();

@@ -16,13 +16,12 @@
 package org.activiti.runtime.api.event.impl;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import org.activiti.engine.delegate.event.ActivitiEntityEvent;
 import org.activiti.engine.delegate.event.impl.ActivitiProcessCancelledEventImpl;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.runtime.api.model.impl.APITaskConverter;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,21 +41,16 @@ class ToAPITaskUpdatedEventConverterDiffblueTest {
   private ToAPITaskUpdatedEventConverter toAPITaskUpdatedEventConverter;
 
   /**
-   * Test {@link ToAPITaskUpdatedEventConverter#from(ActivitiEntityEvent)} with {@code ActivitiEntityEvent}.
-   * <ul>
-   *   <li>Then return not Present.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ToAPITaskUpdatedEventConverter#from(ActivitiEntityEvent)}
+   * Method under test:
+   * {@link ToAPITaskUpdatedEventConverter#from(ActivitiEntityEvent)}
    */
   @Test
-  @DisplayName("Test from(ActivitiEntityEvent) with 'ActivitiEntityEvent'; then return not Present")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.util.Optional ToAPITaskUpdatedEventConverter.from(ActivitiEntityEvent)"})
-  void testFromWithActivitiEntityEvent_thenReturnNotPresent() {
+  void testFrom() {
     // Arrange, Act and Assert
     assertFalse(toAPITaskUpdatedEventConverter
         .from(new ActivitiProcessCancelledEventImpl(ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
+        .isPresent());
+    assertFalse(toAPITaskUpdatedEventConverter.from(new ActivitiProcessCancelledEventImpl(mock(ProcessInstance.class)))
         .isPresent());
   }
 }

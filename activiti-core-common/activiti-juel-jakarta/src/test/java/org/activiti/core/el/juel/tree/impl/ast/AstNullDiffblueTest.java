@@ -18,7 +18,6 @@ package org.activiti.core.el.juel.tree.impl.ast;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
 import jakarta.el.ValueExpression;
 import java.lang.reflect.Method;
@@ -26,20 +25,13 @@ import org.activiti.core.el.juel.ObjectValueExpression;
 import org.activiti.core.el.juel.misc.TypeConverter;
 import org.activiti.core.el.juel.tree.Bindings;
 import org.activiti.core.el.juel.util.SimpleContext;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class AstNullDiffblueTest {
   /**
-   * Test {@link AstNull#eval(Bindings, ELContext)}.
-   * <p>
    * Method under test: {@link AstNull#eval(Bindings, ELContext)}
    */
   @Test
-  @DisplayName("Test eval(Bindings, ELContext)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object AstNull.eval(Bindings, ELContext)"})
   void testEval() {
     // Arrange
     AstNull astNull = new AstNull();
@@ -53,18 +45,10 @@ class AstNullDiffblueTest {
   }
 
   /**
-   * Test {@link AstNull#appendStructure(StringBuilder, Bindings)}.
-   * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foonull}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstNull#appendStructure(StringBuilder, Bindings)}
    */
   @Test
-  @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foonull'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AstNull.appendStructure(StringBuilder, Bindings)"})
-  void testAppendStructure_thenStringBuilderWithFooToStringIsFoonull() {
+  void testAppendStructure() {
     // Arrange
     AstNull astNull = new AstNull();
     StringBuilder b = new StringBuilder("foo");
@@ -80,8 +64,6 @@ class AstNullDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link AstNull}
@@ -89,9 +71,6 @@ class AstNullDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AstNull.<init>()", "java.lang.String AstNull.toString()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals("null", (new AstNull()).toString());

@@ -17,14 +17,11 @@ package org.activiti.runtime.api.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.VariableScope;
 import org.activiti.engine.impl.el.ExpressionManager;
 import org.activiti.engine.impl.el.FixedValue;
 import org.activiti.engine.impl.interceptor.DelegateInterceptor;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,20 +41,11 @@ class VariableScopeExpressionEvaluatorDiffblueTest {
   private VariableScopeExpressionEvaluator variableScopeExpressionEvaluator;
 
   /**
-   * Test {@link VariableScopeExpressionEvaluator#evaluate(Expression, ExpressionManager, DelegateInterceptor)}.
-   * <ul>
-   *   <li>When {@link FixedValue#FixedValue(Object)} with {@code Value}.</li>
-   *   <li>Then return {@code Value}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableScopeExpressionEvaluator#evaluate(Expression, ExpressionManager, DelegateInterceptor)}
+   * Method under test:
+   * {@link VariableScopeExpressionEvaluator#evaluate(Expression, ExpressionManager, DelegateInterceptor)}
    */
   @Test
-  @DisplayName("Test evaluate(Expression, ExpressionManager, DelegateInterceptor); when FixedValue(Object) with 'Value'; then return 'Value'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "java.lang.Object VariableScopeExpressionEvaluator.evaluate(Expression, ExpressionManager, DelegateInterceptor)"})
-  void testEvaluate_whenFixedValueWithValue_thenReturnValue() {
+  void testEvaluate() {
     // Arrange
     FixedValue expression = new FixedValue("Value");
 

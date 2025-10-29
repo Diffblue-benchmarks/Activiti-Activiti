@@ -19,49 +19,21 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import java.util.Map;
+import org.activiti.core.el.CustomFunctionProvider;
 import org.activiti.engine.impl.HistoricTaskInstanceQueryImpl;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.persistence.entity.HistoricTaskInstanceEntity;
 import org.activiti.engine.impl.persistence.entity.HistoricTaskInstanceEntityImpl;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class MybatisHistoricTaskInstanceDataManagerDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link MybatisHistoricTaskInstanceDataManager#MybatisHistoricTaskInstanceDataManager(ProcessEngineConfigurationImpl)}
-   *   <li>{@link MybatisHistoricTaskInstanceDataManager#getManagedEntityClass()}
-   * </ul>
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void MybatisHistoricTaskInstanceDataManager.<init>(ProcessEngineConfigurationImpl)",
-      "Class MybatisHistoricTaskInstanceDataManager.getManagedEntityClass()"})
-  public void testGettersAndSetters() {
-    // Arrange and Act
-    Class<? extends HistoricTaskInstanceEntity> actualManagedEntityClass = (new MybatisHistoricTaskInstanceDataManager(
-        new JtaProcessEngineConfiguration())).getManagedEntityClass();
-
-    // Assert
-    Class<HistoricTaskInstanceEntityImpl> expectedManagedEntityClass = HistoricTaskInstanceEntityImpl.class;
-    assertEquals(expectedManagedEntityClass, actualManagedEntityClass);
-  }
-
-  /**
-   * Test {@link MybatisHistoricTaskInstanceDataManager#create()}.
-   * <p>
    * Method under test: {@link MybatisHistoricTaskInstanceDataManager#create()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricTaskInstanceEntity MybatisHistoricTaskInstanceDataManager.create()"})
   public void testCreate() {
     // Arrange and Act
     HistoricTaskInstanceEntity actualCreateResult = (new MybatisHistoricTaskInstanceDataManager(
@@ -72,6 +44,13 @@ public class MybatisHistoricTaskInstanceDataManagerDiffblueTest {
     assertTrue(persistentState instanceof Map);
     assertTrue(actualCreateResult instanceof HistoricTaskInstanceEntityImpl);
     assertEquals("", actualCreateResult.getTenantId());
+    assertEquals(12, ((Map<String, Integer>) persistentState).size());
+    assertNull(((Map<String, Integer>) persistentState).get("durationInMillis"));
+    assertNull(((Map<String, Integer>) persistentState).get("formKey"));
+    assertNull(((Map<String, Integer>) persistentState).get("name"));
+    assertNull(((Map<String, Integer>) persistentState).get("owner"));
+    assertNull(((Map<String, Integer>) persistentState).get("processDefinitionId"));
+    assertNull(((Map<String, Integer>) persistentState).get("taskDefinitionKey"));
     assertNull(actualCreateResult.getDurationInMillis());
     assertNull(actualCreateResult.getWorkTimeInMillis());
     assertNull(actualCreateResult.getDeleteReason());
@@ -96,33 +75,96 @@ public class MybatisHistoricTaskInstanceDataManagerDiffblueTest {
     assertNull(actualCreateResult.getDueDate());
     assertNull(actualCreateResult.getQueryVariables());
     assertEquals(0, actualCreateResult.getPriority());
-    assertEquals(12, ((Map<String, Integer>) persistentState).size());
     assertFalse(actualCreateResult.isDeleted());
     assertFalse(actualCreateResult.isInserted());
     assertFalse(actualCreateResult.isUpdated());
-    assertTrue(((Map<String, Integer>) persistentState).containsKey("durationInMillis"));
-    assertTrue(((Map<String, Integer>) persistentState).containsKey("formKey"));
-    assertTrue(((Map<String, Integer>) persistentState).containsKey("name"));
-    assertTrue(((Map<String, Integer>) persistentState).containsKey("owner"));
-    assertTrue(((Map<String, Integer>) persistentState).containsKey("processDefinitionId"));
-    assertTrue(((Map<String, Integer>) persistentState).containsKey("taskDefinitionKey"));
     assertTrue(actualCreateResult.getProcessVariables().isEmpty());
     assertTrue(actualCreateResult.getTaskLocalVariables().isEmpty());
   }
 
   /**
-   * Test {@link MybatisHistoricTaskInstanceDataManager#findHistoricTaskInstancesAndVariablesByQueryCriteria(HistoricTaskInstanceQueryImpl)}.
-   * <ul>
-   *   <li>Given minus one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link MybatisHistoricTaskInstanceDataManager#findHistoricTaskInstancesAndVariablesByQueryCriteria(HistoricTaskInstanceQueryImpl)}
+   * Method under test: {@link MybatisHistoricTaskInstanceDataManager#create()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "java.util.List MybatisHistoricTaskInstanceDataManager.findHistoricTaskInstancesAndVariablesByQueryCriteria(HistoricTaskInstanceQueryImpl)"})
-  public void testFindHistoricTaskInstancesAndVariablesByQueryCriteria_givenMinusOne() {
+  public void testCreate2() {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
+
+    // Act
+    HistoricTaskInstanceEntity actualCreateResult = (new MybatisHistoricTaskInstanceDataManager(
+        processEngineConfiguration)).create();
+
+    // Assert
+    Object persistentState = actualCreateResult.getPersistentState();
+    assertTrue(persistentState instanceof Map);
+    assertTrue(actualCreateResult instanceof HistoricTaskInstanceEntityImpl);
+    assertEquals("", actualCreateResult.getTenantId());
+    assertEquals(12, ((Map<String, Integer>) persistentState).size());
+    assertNull(((Map<String, Integer>) persistentState).get("durationInMillis"));
+    assertNull(((Map<String, Integer>) persistentState).get("formKey"));
+    assertNull(((Map<String, Integer>) persistentState).get("name"));
+    assertNull(((Map<String, Integer>) persistentState).get("owner"));
+    assertNull(((Map<String, Integer>) persistentState).get("processDefinitionId"));
+    assertNull(((Map<String, Integer>) persistentState).get("taskDefinitionKey"));
+    assertNull(actualCreateResult.getDurationInMillis());
+    assertNull(actualCreateResult.getWorkTimeInMillis());
+    assertNull(actualCreateResult.getDeleteReason());
+    assertNull(actualCreateResult.getAssignee());
+    assertNull(actualCreateResult.getBusinessKey());
+    assertNull(actualCreateResult.getCategory());
+    assertNull(actualCreateResult.getDescription());
+    assertNull(actualCreateResult.getExecutionId());
+    assertNull(actualCreateResult.getFormKey());
+    assertNull(actualCreateResult.getId());
+    assertNull(actualCreateResult.getName());
+    assertNull(actualCreateResult.getOwner());
+    assertNull(actualCreateResult.getParentTaskId());
+    assertNull(actualCreateResult.getProcessDefinitionId());
+    assertNull(actualCreateResult.getProcessInstanceId());
+    assertNull(actualCreateResult.getTaskDefinitionKey());
+    assertNull(actualCreateResult.getTime());
+    assertNull(actualCreateResult.getClaimTime());
+    assertNull(actualCreateResult.getEndTime());
+    assertNull(actualCreateResult.getStartTime());
+    assertNull(actualCreateResult.getCreateTime());
+    assertNull(actualCreateResult.getDueDate());
+    assertNull(actualCreateResult.getQueryVariables());
+    assertEquals(0, actualCreateResult.getPriority());
+    assertFalse(actualCreateResult.isDeleted());
+    assertFalse(actualCreateResult.isInserted());
+    assertFalse(actualCreateResult.isUpdated());
+    assertTrue(actualCreateResult.getProcessVariables().isEmpty());
+    assertTrue(actualCreateResult.getTaskLocalVariables().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link MybatisHistoricTaskInstanceDataManager#findHistoricTaskInstancesAndVariablesByQueryCriteria(HistoricTaskInstanceQueryImpl)}
+   */
+  @Test
+  public void testFindHistoricTaskInstancesAndVariablesByQueryCriteria() {
+    // Arrange
+    MybatisHistoricTaskInstanceDataManager mybatisHistoricTaskInstanceDataManager = new MybatisHistoricTaskInstanceDataManager(
+        new JtaProcessEngineConfiguration());
+
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQuery = new HistoricTaskInstanceQueryImpl();
+    historicTaskInstanceQuery.setFirstResult(0);
+    historicTaskInstanceQuery.setMaxResults(0);
+    historicTaskInstanceQuery.limitTaskVariables(null);
+
+    // Act and Assert
+    assertTrue(mybatisHistoricTaskInstanceDataManager
+        .findHistoricTaskInstancesAndVariablesByQueryCriteria(historicTaskInstanceQuery)
+        .isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link MybatisHistoricTaskInstanceDataManager#findHistoricTaskInstancesAndVariablesByQueryCriteria(HistoricTaskInstanceQueryImpl)}
+   */
+  @Test
+  public void testFindHistoricTaskInstancesAndVariablesByQueryCriteria2() {
     // Arrange
     MybatisHistoricTaskInstanceDataManager mybatisHistoricTaskInstanceDataManager = new MybatisHistoricTaskInstanceDataManager(
         new JtaProcessEngineConfiguration());
@@ -139,30 +181,21 @@ public class MybatisHistoricTaskInstanceDataManagerDiffblueTest {
   }
 
   /**
-   * Test {@link MybatisHistoricTaskInstanceDataManager#findHistoricTaskInstancesAndVariablesByQueryCriteria(HistoricTaskInstanceQueryImpl)}.
+   * Methods under test:
    * <ul>
-   *   <li>Then return Empty.</li>
+   *   <li>
+   * {@link MybatisHistoricTaskInstanceDataManager#MybatisHistoricTaskInstanceDataManager(ProcessEngineConfigurationImpl)}
+   *   <li>{@link MybatisHistoricTaskInstanceDataManager#getManagedEntityClass()}
    * </ul>
-   * <p>
-   * Method under test: {@link MybatisHistoricTaskInstanceDataManager#findHistoricTaskInstancesAndVariablesByQueryCriteria(HistoricTaskInstanceQueryImpl)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "java.util.List MybatisHistoricTaskInstanceDataManager.findHistoricTaskInstancesAndVariablesByQueryCriteria(HistoricTaskInstanceQueryImpl)"})
-  public void testFindHistoricTaskInstancesAndVariablesByQueryCriteria_thenReturnEmpty() {
-    // Arrange
-    MybatisHistoricTaskInstanceDataManager mybatisHistoricTaskInstanceDataManager = new MybatisHistoricTaskInstanceDataManager(
-        new JtaProcessEngineConfiguration());
+  public void testGettersAndSetters() {
+    // Arrange and Act
+    Class<? extends HistoricTaskInstanceEntity> actualManagedEntityClass = (new MybatisHistoricTaskInstanceDataManager(
+        new JtaProcessEngineConfiguration())).getManagedEntityClass();
 
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQuery = new HistoricTaskInstanceQueryImpl();
-    historicTaskInstanceQuery.setFirstResult(0);
-    historicTaskInstanceQuery.setMaxResults(0);
-    historicTaskInstanceQuery.limitTaskVariables(null);
-
-    // Act and Assert
-    assertTrue(mybatisHistoricTaskInstanceDataManager
-        .findHistoricTaskInstancesAndVariablesByQueryCriteria(historicTaskInstanceQuery)
-        .isEmpty());
+    // Assert
+    Class<HistoricTaskInstanceEntityImpl> expectedManagedEntityClass = HistoricTaskInstanceEntityImpl.class;
+    assertEquals(expectedManagedEntityClass, actualManagedEntityClass);
   }
 }

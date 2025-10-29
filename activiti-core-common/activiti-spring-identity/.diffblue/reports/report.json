@@ -3,19 +3,19 @@
     "reportVersion" : "2.6"
   },
   "run" : {
-    "version" : "2025.02.02-08b2a5a-licensed",
-    "creationTimestamp" : "2025-10-21T18:36:58.703503864Z",
+    "version" : "2024.10.01-2ee2e3d-licensed",
+    "creationTimestamp" : "2025-10-28T11:31:52.893683331Z",
     "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
-    "totalTime" : 131.48,
-    "environmentDetectionTime" : 0.284,
-    "indexingTime" : 0.329,
-    "entryPointsTime" : 0.213,
-    "generationTime" : 168.495,
-    "timeToFirstTest" : 629.437,
-    "timeToLastTest" : 532.301,
-    "indexQueryTime" : 4.503,
-    "verificationTime" : 19.575,
-    "validationTime" : 14.103
+    "totalTime" : 679.721,
+    "environmentDetectionTime" : 0.375,
+    "indexingTime" : 0.299,
+    "entryPointsTime" : 0.25,
+    "generationTime" : 171.565,
+    "timeToFirstTest" : 87.907,
+    "timeToLastTest" : 90.172,
+    "indexQueryTime" : 4.837,
+    "verificationTime" : 23.342,
+    "validationTime" : 14.094
   },
   "codes" : {
     "R000" : "Success",
@@ -29,9 +29,9 @@
   "summary" : {
     "classesCount" : 3,
     "methodsCount" : 17,
-    "cumulativeDiffblueTestCount" : 13,
+    "cumulativeDiffblueTestCount" : 16,
     "cumulativeManualTestCount" : 0,
-    "completeTestCount" : 13,
+    "completeTestCount" : 16,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 74,
@@ -47,16 +47,16 @@
       "T012" : 6
     },
     "perTestOutcome" : {
-      "R000" : 13
+      "R000" : 16
     },
     "perTestValidation" : {
-      "V000" : 13
+      "V000" : 16
     }
   },
   "classes" : {
     "org.activiti.core.common.spring.identity.ActivitiUserGroupManagerImpl" : {
       "methodsCount" : 9,
-      "completeTestCount" : 9,
+      "completeTestCount" : 11,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 4,
@@ -68,7 +68,7 @@
         "T012" : 4
       },
       "perTestOutcome" : {
-        "R000" : 9
+        "R000" : 11
       }
     },
     "org.activiti.core.common.spring.identity.ExtendedInMemoryUserDetailsManager" : {
@@ -90,7 +90,7 @@
     },
     "org.activiti.core.common.spring.identity.config.ActivitiSpringIdentityAutoConfiguration" : {
       "methodsCount" : 2,
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
@@ -101,7 +101,7 @@
         "R002" : 1
       },
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       }
     }
   },
@@ -121,12 +121,12 @@
       ]
     },
     "org.activiti.core.common.spring.identity.ActivitiUserGroupManagerImpl.getGroups:()Ljava/util/List;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         52
@@ -165,12 +165,12 @@
       ]
     },
     "org.activiti.core.common.spring.identity.ActivitiUserGroupManagerImpl.getUsers:()Ljava/util/List;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         57
@@ -296,12 +296,12 @@
       ]
     },
     "org.activiti.core.common.spring.identity.config.ActivitiSpringIdentityAutoConfiguration.userGroupManager:(Lorg/springframework/security/core/userdetails/UserDetailsService;)Lorg/activiti/api/runtime/shared/identity/UserGroupManager;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         31

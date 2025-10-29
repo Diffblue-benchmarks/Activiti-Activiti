@@ -19,22 +19,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.Signal;
 import org.activiti.bpmn.model.SignalEventDefinition;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class BoundarySignalEventActivityBehaviorDiffblueTest {
   /**
-   * Test {@link BoundarySignalEventActivityBehavior#BoundarySignalEventActivityBehavior(SignalEventDefinition, Signal, boolean)}.
-   * <p>
-   * Method under test: {@link BoundarySignalEventActivityBehavior#BoundarySignalEventActivityBehavior(SignalEventDefinition, Signal, boolean)}
+   * Method under test:
+   * {@link BoundarySignalEventActivityBehavior#BoundarySignalEventActivityBehavior(SignalEventDefinition, Signal, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void BoundarySignalEventActivityBehavior.<init>(SignalEventDefinition, Signal, boolean)"})
   public void testNewBoundarySignalEventActivityBehavior() {
     // Arrange
     SignalEventDefinition signalEventDefinition = new SignalEventDefinition();

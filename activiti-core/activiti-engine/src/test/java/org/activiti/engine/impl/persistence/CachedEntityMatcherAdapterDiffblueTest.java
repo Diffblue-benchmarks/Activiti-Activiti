@@ -16,8 +16,11 @@
 package org.activiti.engine.impl.persistence;
 
 import static org.junit.Assert.assertFalse;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.activiti.engine.impl.persistence.cache.CachedEntity;
@@ -28,18 +31,30 @@ import org.activiti.engine.impl.persistence.entity.Entity;
 import org.activiti.engine.impl.persistence.entity.data.impl.cachematcher.DeadLetterJobsByExecutionIdMatcher;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class CachedEntityMatcherAdapterDiffblueTest {
   /**
-   * Test {@link CachedEntityMatcherAdapter#isRetained(Collection, Collection, Entity, Object)} with {@code databaseEntities}, {@code cachedEntities}, {@code entity}, {@code param}.
-   * <p>
-   * Method under test: {@link CachedEntityMatcherAdapter#isRetained(Collection, Collection, Entity, Object)}
+   * Method under test:
+   * {@link CachedEntityMatcherAdapter#isRetained(Collection, Collection, Entity, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean CachedEntityMatcherAdapter.isRetained(Collection, Collection, Entity, Object)"})
-  public void testIsRetainedWithDatabaseEntitiesCachedEntitiesEntityParam() {
+  public void testIsRetained() {
+    // Arrange
+    DeadLetterJobsByExecutionIdMatcher deadLetterJobsByExecutionIdMatcher = new DeadLetterJobsByExecutionIdMatcher();
+    ArrayList<DeadLetterJobEntity> databaseEntities = new ArrayList<>();
+    ArrayList<CachedEntity> cachedEntities = new ArrayList<>();
+
+    // Act and Assert
+    assertFalse(deadLetterJobsByExecutionIdMatcher.isRetained(databaseEntities, cachedEntities,
+        new DeadLetterJobEntityImpl(), JSONObject.NULL));
+  }
+
+  /**
+   * Method under test:
+   * {@link CachedEntityMatcherAdapter#isRetained(Collection, Collection, Entity, Object)}
+   */
+  @Test
+  public void testIsRetained2() {
     // Arrange
     DeadLetterJobsByExecutionIdMatcher deadLetterJobsByExecutionIdMatcher = new DeadLetterJobsByExecutionIdMatcher();
 
@@ -53,14 +68,11 @@ public class CachedEntityMatcherAdapterDiffblueTest {
   }
 
   /**
-   * Test {@link CachedEntityMatcherAdapter#isRetained(Collection, Collection, Entity, Object)} with {@code databaseEntities}, {@code cachedEntities}, {@code entity}, {@code param}.
-   * <p>
-   * Method under test: {@link CachedEntityMatcherAdapter#isRetained(Collection, Collection, Entity, Object)}
+   * Method under test:
+   * {@link CachedEntityMatcherAdapter#isRetained(Collection, Collection, Entity, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean CachedEntityMatcherAdapter.isRetained(Collection, Collection, Entity, Object)"})
-  public void testIsRetainedWithDatabaseEntitiesCachedEntitiesEntityParam2() {
+  public void testIsRetained3() {
     // Arrange
     DeadLetterJobsByExecutionIdMatcher deadLetterJobsByExecutionIdMatcher = new DeadLetterJobsByExecutionIdMatcher();
 
@@ -75,14 +87,11 @@ public class CachedEntityMatcherAdapterDiffblueTest {
   }
 
   /**
-   * Test {@link CachedEntityMatcherAdapter#isRetained(Collection, Collection, Entity, Object)} with {@code databaseEntities}, {@code cachedEntities}, {@code entity}, {@code param}.
-   * <p>
-   * Method under test: {@link CachedEntityMatcherAdapter#isRetained(Collection, Collection, Entity, Object)}
+   * Method under test:
+   * {@link CachedEntityMatcherAdapter#isRetained(Collection, Collection, Entity, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean CachedEntityMatcherAdapter.isRetained(Collection, Collection, Entity, Object)"})
-  public void testIsRetainedWithDatabaseEntitiesCachedEntitiesEntityParam3() {
+  public void testIsRetained4() {
     // Arrange
     DeadLetterJobsByExecutionIdMatcher deadLetterJobsByExecutionIdMatcher = new DeadLetterJobsByExecutionIdMatcher();
     ArrayList<DeadLetterJobEntity> databaseEntities = new ArrayList<>();
@@ -96,14 +105,11 @@ public class CachedEntityMatcherAdapterDiffblueTest {
   }
 
   /**
-   * Test {@link CachedEntityMatcherAdapter#isRetained(Collection, Collection, Entity, Object)} with {@code databaseEntities}, {@code cachedEntities}, {@code entity}, {@code param}.
-   * <p>
-   * Method under test: {@link CachedEntityMatcherAdapter#isRetained(Collection, Collection, Entity, Object)}
+   * Method under test:
+   * {@link CachedEntityMatcherAdapter#isRetained(Collection, Collection, Entity, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean CachedEntityMatcherAdapter.isRetained(Collection, Collection, Entity, Object)"})
-  public void testIsRetainedWithDatabaseEntitiesCachedEntitiesEntityParam4() {
+  public void testIsRetained5() {
     // Arrange
     DeadLetterJobsByExecutionIdMatcher deadLetterJobsByExecutionIdMatcher = new DeadLetterJobsByExecutionIdMatcher();
     ArrayList<DeadLetterJobEntity> databaseEntities = new ArrayList<>();
@@ -118,24 +124,46 @@ public class CachedEntityMatcherAdapterDiffblueTest {
   }
 
   /**
-   * Test {@link CachedEntityMatcherAdapter#isRetained(Collection, Collection, Entity, Object)} with {@code databaseEntities}, {@code cachedEntities}, {@code entity}, {@code param}.
-   * <ul>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CachedEntityMatcherAdapter#isRetained(Collection, Collection, Entity, Object)}
+   * Method under test:
+   * {@link CachedEntityMatcherAdapter#isRetained(Collection, Collection, Entity, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean CachedEntityMatcherAdapter.isRetained(Collection, Collection, Entity, Object)"})
-  public void testIsRetainedWithDatabaseEntitiesCachedEntitiesEntityParam_thenReturnFalse() {
+  public void testIsRetained6() {
     // Arrange
     DeadLetterJobsByExecutionIdMatcher deadLetterJobsByExecutionIdMatcher = new DeadLetterJobsByExecutionIdMatcher();
     ArrayList<DeadLetterJobEntity> databaseEntities = new ArrayList<>();
     ArrayList<CachedEntity> cachedEntities = new ArrayList<>();
+    DeadLetterJobEntity deadLetterJobEntity = mock(DeadLetterJobEntity.class);
+    when(deadLetterJobEntity.getExecutionId()).thenReturn("42");
 
-    // Act and Assert
-    assertFalse(deadLetterJobsByExecutionIdMatcher.isRetained(databaseEntities, cachedEntities,
-        new DeadLetterJobEntityImpl(), JSONObject.NULL));
+    // Act
+    boolean actualIsRetainedResult = deadLetterJobsByExecutionIdMatcher.isRetained(databaseEntities, cachedEntities,
+        deadLetterJobEntity, JSONObject.NULL);
+
+    // Assert
+    verify(deadLetterJobEntity, atLeast(1)).getExecutionId();
+    assertFalse(actualIsRetainedResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link CachedEntityMatcherAdapter#isRetained(Collection, Collection, Entity, Object)}
+   */
+  @Test
+  public void testIsRetained7() {
+    // Arrange
+    DeadLetterJobsByExecutionIdMatcher deadLetterJobsByExecutionIdMatcher = new DeadLetterJobsByExecutionIdMatcher();
+    ArrayList<DeadLetterJobEntity> databaseEntities = new ArrayList<>();
+    ArrayList<CachedEntity> cachedEntities = new ArrayList<>();
+    DeadLetterJobEntity deadLetterJobEntity = mock(DeadLetterJobEntity.class);
+    when(deadLetterJobEntity.getExecutionId()).thenReturn("42");
+
+    // Act
+    boolean actualIsRetainedResult = deadLetterJobsByExecutionIdMatcher.isRetained(databaseEntities, cachedEntities,
+        deadLetterJobEntity, "42");
+
+    // Assert
+    verify(deadLetterJobEntity, atLeast(1)).getExecutionId();
+    assertTrue(actualIsRetainedResult);
   }
 }

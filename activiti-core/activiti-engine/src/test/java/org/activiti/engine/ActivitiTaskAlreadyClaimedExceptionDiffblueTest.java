@@ -17,20 +17,45 @@ package org.activiti.engine;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ActivitiTaskAlreadyClaimedExceptionDiffblueTest {
+  @InjectMocks
+  private ActivitiTaskAlreadyClaimedException activitiTaskAlreadyClaimedException;
+
+  @InjectMocks
+  private String string;
+
   /**
-   * Test {@link ActivitiTaskAlreadyClaimedException#ActivitiTaskAlreadyClaimedException(String, String)}.
-   * <p>
-   * Method under test: {@link ActivitiTaskAlreadyClaimedException#ActivitiTaskAlreadyClaimedException(String, String)}
+   * Methods under test:
+   * <ul>
+   *   <li>{@link ActivitiTaskAlreadyClaimedException#getTaskAssignee()}
+   *   <li>{@link ActivitiTaskAlreadyClaimedException#getTaskId()}
+   * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiTaskAlreadyClaimedException.<init>(String, String)"})
+  public void testGettersAndSetters() {
+    // Arrange
+    ActivitiTaskAlreadyClaimedException activitiTaskAlreadyClaimedException = new ActivitiTaskAlreadyClaimedException(
+        "42", "Task Assignee");
+
+    // Act
+    String actualTaskAssignee = activitiTaskAlreadyClaimedException.getTaskAssignee();
+
+    // Assert
+    assertEquals("42", activitiTaskAlreadyClaimedException.getTaskId());
+    assertEquals("Task Assignee", actualTaskAssignee);
+  }
+
+  /**
+   * Method under test:
+   * {@link ActivitiTaskAlreadyClaimedException#ActivitiTaskAlreadyClaimedException(String, String)}
+   */
+  @Test
   public void testNewActivitiTaskAlreadyClaimedException() {
     // Arrange and Act
     ActivitiTaskAlreadyClaimedException actualActivitiTaskAlreadyClaimedException = new ActivitiTaskAlreadyClaimedException(
@@ -45,31 +70,5 @@ public class ActivitiTaskAlreadyClaimedExceptionDiffblueTest {
     assertEquals("Task Assignee", actualActivitiTaskAlreadyClaimedException.getTaskAssignee());
     assertNull(actualActivitiTaskAlreadyClaimedException.getCause());
     assertEquals(0, actualActivitiTaskAlreadyClaimedException.getSuppressed().length);
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link ActivitiTaskAlreadyClaimedException#getTaskAssignee()}
-   *   <li>{@link ActivitiTaskAlreadyClaimedException#getTaskId()}
-   * </ul>
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String ActivitiTaskAlreadyClaimedException.getTaskAssignee()",
-      "String ActivitiTaskAlreadyClaimedException.getTaskId()"})
-  public void testGettersAndSetters() {
-    // Arrange
-    ActivitiTaskAlreadyClaimedException activitiTaskAlreadyClaimedException = new ActivitiTaskAlreadyClaimedException(
-        "42", "Task Assignee");
-
-    // Act
-    String actualTaskAssignee = activitiTaskAlreadyClaimedException.getTaskAssignee();
-
-    // Assert
-    assertEquals("42", activitiTaskAlreadyClaimedException.getTaskId());
-    assertEquals("Task Assignee", actualTaskAssignee);
   }
 }

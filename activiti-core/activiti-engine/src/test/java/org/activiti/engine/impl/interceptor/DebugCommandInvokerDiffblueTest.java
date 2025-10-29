@@ -21,29 +21,36 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiEngineAgendaFactory;
 import org.activiti.engine.impl.agenda.DefaultActivitiEngineAgenda;
 import org.activiti.engine.impl.agenda.ExecuteInactiveBehaviorsOperation;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class DebugCommandInvokerDiffblueTest {
   /**
-   * Test {@link DebugCommandInvoker#executeOperation(Runnable)}.
-   * <ul>
-   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DebugCommandInvoker#executeOperation(Runnable)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DebugCommandInvoker.executeOperation(Runnable)"})
-  public void testExecuteOperation_thenCallsCreateAgenda() {
+  public void testExecuteOperation() {
+    // Arrange
+    DebugCommandInvoker debugCommandInvoker = new DebugCommandInvoker();
+    Runnable runnable = mock(Runnable.class);
+    doNothing().when(runnable).run();
+
+    // Act
+    debugCommandInvoker.executeOperation(runnable);
+
+    // Assert that nothing has changed
+    verify(runnable).run();
+  }
+
+  /**
+   * Method under test: {@link DebugCommandInvoker#executeOperation(Runnable)}
+   */
+  @Test
+  public void testExecuteOperation2() {
     // Arrange
     DebugCommandInvoker debugCommandInvoker = new DebugCommandInvoker();
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
@@ -60,43 +67,15 @@ public class DebugCommandInvokerDiffblueTest {
     // Act
     debugCommandInvoker.executeOperation(runnable);
 
-    // Assert
+    // Assert that nothing has changed
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
   }
 
   /**
-   * Test {@link DebugCommandInvoker#executeOperation(Runnable)}.
-   * <ul>
-   *   <li>When {@link Runnable} {@link Runnable#run()} does nothing.</li>
-   *   <li>Then calls {@link Runnable#run()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DebugCommandInvoker#executeOperation(Runnable)}
+   * Method under test: default or parameterless constructor of
+   * {@link DebugCommandInvoker}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DebugCommandInvoker.executeOperation(Runnable)"})
-  public void testExecuteOperation_whenRunnableRunDoesNothing_thenCallsRun() {
-    // Arrange
-    DebugCommandInvoker debugCommandInvoker = new DebugCommandInvoker();
-    Runnable runnable = mock(Runnable.class);
-    doNothing().when(runnable).run();
-
-    // Act
-    debugCommandInvoker.executeOperation(runnable);
-
-    // Assert
-    verify(runnable).run();
-  }
-
-  /**
-   * Test new {@link DebugCommandInvoker} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link DebugCommandInvoker}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DebugCommandInvoker.<init>()"})
   public void testNewDebugCommandInvoker() {
     // Arrange, Act and Assert
     assertNull((new DebugCommandInvoker()).getNext());

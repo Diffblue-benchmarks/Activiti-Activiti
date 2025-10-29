@@ -19,90 +19,41 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiFunction;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ItemDefinitionDiffblueTest {
   /**
-   * Test {@link ItemDefinition#clone()}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code 42} is {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return Attributes size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ItemDefinition#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ItemDefinition ItemDefinition.clone()"})
-  public void testClone_givenHashMap42IsArrayList_thenReturnAttributesSizeIsOne() {
-    // Arrange
-    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
-    extensionElements.put("42", new ArrayList<>());
-    extensionElements.put("foo", new ArrayList<>());
+  public void testClone() {
+    // Arrange and Act
+    ItemDefinition actualCloneResult = (new ItemDefinition()).clone();
 
-    ItemDefinition itemDefinition = new ItemDefinition();
-    itemDefinition.setExtensionElements(extensionElements);
-    ExtensionAttribute attribute = new ExtensionAttribute("Name");
-    itemDefinition.addAttribute(attribute);
-
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = itemDefinition.clone().getAttributes();
-    assertEquals(1, attributes.size());
-    List<ExtensionAttribute> getResult = attributes.get("Name");
-    assertEquals(1, getResult.size());
-    assertSame(attribute, getResult.get(0));
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getItemKind());
+    assertNull(actualCloneResult.getStructureRef());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
   }
 
   /**
-   * Test {@link ItemDefinition#clone()}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return Attributes size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ItemDefinition#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ItemDefinition ItemDefinition.clone()"})
-  public void testClone_givenHashMapFooIsArrayList_thenReturnAttributesSizeIsOne() {
-    // Arrange
-    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
-    extensionElements.put("foo", new ArrayList<>());
-
-    ItemDefinition itemDefinition = new ItemDefinition();
-    itemDefinition.setExtensionElements(extensionElements);
-    ExtensionAttribute attribute = new ExtensionAttribute("Name");
-    itemDefinition.addAttribute(attribute);
-
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = itemDefinition.clone().getAttributes();
-    assertEquals(1, attributes.size());
-    List<ExtensionAttribute> getResult = attributes.get("Name");
-    assertEquals(1, getResult.size());
-    assertSame(attribute, getResult.get(0));
-  }
-
-  /**
-   * Test {@link ItemDefinition#clone()}.
-   * <ul>
-   *   <li>Given {@link ItemDefinition} (default constructor) ExtensionElements is {@code null}.</li>
-   *   <li>Then return Id is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ItemDefinition#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ItemDefinition ItemDefinition.clone()"})
-  public void testClone_givenItemDefinitionExtensionElementsIsNull_thenReturnIdIsNull() {
+  public void testClone2() {
     // Arrange
     ItemDefinition itemDefinition = new ItemDefinition();
     itemDefinition.setExtensionElements(null);
@@ -122,20 +73,17 @@ public class ItemDefinitionDiffblueTest {
   }
 
   /**
-   * Test {@link ItemDefinition#clone()}.
-   * <ul>
-   *   <li>Given {@link ItemDefinition} (default constructor).</li>
-   *   <li>Then return Id is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ItemDefinition#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ItemDefinition ItemDefinition.clone()"})
-  public void testClone_givenItemDefinition_thenReturnIdIsNull() {
-    // Arrange and Act
-    ItemDefinition actualCloneResult = (new ItemDefinition()).clone();
+  public void testClone3() {
+    // Arrange
+    ItemDefinition itemDefinition = new ItemDefinition();
+    ExtensionAttribute attribute = new ExtensionAttribute("Name");
+    itemDefinition.addAttribute(attribute);
+
+    // Act
+    ItemDefinition actualCloneResult = itemDefinition.clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
@@ -143,65 +91,162 @@ public class ItemDefinitionDiffblueTest {
     assertNull(actualCloneResult.getStructureRef());
     assertEquals(0, actualCloneResult.getXmlColumnNumber());
     assertEquals(0, actualCloneResult.getXmlRowNumber());
-    assertTrue(actualCloneResult.getAttributes().isEmpty());
-    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link ItemDefinition#clone()}.
-   * <ul>
-   *   <li>Then return Attributes size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ItemDefinition#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ItemDefinition ItemDefinition.clone()"})
-  public void testClone_thenReturnAttributesSizeIsOne() {
-    // Arrange
-    ItemDefinition itemDefinition = new ItemDefinition();
-    ExtensionAttribute attribute = new ExtensionAttribute("Name");
-    itemDefinition.addAttribute(attribute);
-
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = itemDefinition.clone().getAttributes();
+    Map<String, List<ExtensionAttribute>> attributes = actualCloneResult.getAttributes();
     assertEquals(1, attributes.size());
     List<ExtensionAttribute> getResult = attributes.get("Name");
     assertEquals(1, getResult.size());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
     assertSame(attribute, getResult.get(0));
   }
 
   /**
-   * Test {@link ItemDefinition#clone()}.
-   * <ul>
-   *   <li>Then return Attributes size is two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ItemDefinition#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ItemDefinition ItemDefinition.clone()"})
-  public void testClone_thenReturnAttributesSizeIsTwo() {
+  public void testClone4() {
     // Arrange
     ItemDefinition itemDefinition = new ItemDefinition();
     ExtensionAttribute attribute = new ExtensionAttribute("42");
     itemDefinition.addAttribute(attribute);
-    itemDefinition.addAttribute(new ExtensionAttribute("Name"));
+    ExtensionAttribute attribute2 = new ExtensionAttribute("Name");
+    itemDefinition.addAttribute(attribute2);
 
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = itemDefinition.clone().getAttributes();
+    // Act
+    ItemDefinition actualCloneResult = itemDefinition.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getItemKind());
+    assertNull(actualCloneResult.getStructureRef());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    Map<String, List<ExtensionAttribute>> attributes = actualCloneResult.getAttributes();
     assertEquals(2, attributes.size());
     List<ExtensionAttribute> getResult = attributes.get("42");
     assertEquals(1, getResult.size());
-    assertTrue(attributes.containsKey("Name"));
+    List<ExtensionAttribute> getResult2 = attributes.get("Name");
+    assertEquals(1, getResult2.size());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertSame(attribute, getResult.get(0));
+    assertSame(attribute2, getResult2.get(0));
+  }
+
+  /**
+   * Method under test: {@link ItemDefinition#clone()}
+   */
+  @Test
+  public void testClone5() {
+    // Arrange
+    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
+    extensionElements.put("foo", new ArrayList<>());
+
+    ItemDefinition itemDefinition = new ItemDefinition();
+    itemDefinition.setExtensionElements(extensionElements);
+    ExtensionAttribute attribute = new ExtensionAttribute("Name");
+    itemDefinition.addAttribute(attribute);
+
+    // Act
+    ItemDefinition actualCloneResult = itemDefinition.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getItemKind());
+    assertNull(actualCloneResult.getStructureRef());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    Map<String, List<ExtensionAttribute>> attributes = actualCloneResult.getAttributes();
+    assertEquals(1, attributes.size());
+    List<ExtensionAttribute> getResult = attributes.get("Name");
+    assertEquals(1, getResult.size());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
     assertSame(attribute, getResult.get(0));
   }
 
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link ItemDefinition#clone()}
+   */
+  @Test
+  public void testClone6() {
+    // Arrange
+    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
+    extensionElements.put("42", new ArrayList<>());
+    extensionElements.put("foo", new ArrayList<>());
+
+    ItemDefinition itemDefinition = new ItemDefinition();
+    itemDefinition.setExtensionElements(extensionElements);
+    ExtensionAttribute attribute = new ExtensionAttribute("Name");
+    itemDefinition.addAttribute(attribute);
+
+    // Act
+    ItemDefinition actualCloneResult = itemDefinition.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getItemKind());
+    assertNull(actualCloneResult.getStructureRef());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    Map<String, List<ExtensionAttribute>> attributes = actualCloneResult.getAttributes();
+    assertEquals(1, attributes.size());
+    List<ExtensionAttribute> getResult = attributes.get("Name");
+    assertEquals(1, getResult.size());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertSame(attribute, getResult.get(0));
+  }
+
+  /**
+   * Method under test: {@link ItemDefinition#clone()}
+   */
+  @Test
+  public void testClone7() {
+    // Arrange
+    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
+    extensionElements.computeIfPresent("foo", mock(BiFunction.class));
+    extensionElements.put("foo", new ArrayList<>());
+
+    ItemDefinition itemDefinition = new ItemDefinition();
+    itemDefinition.setExtensionElements(extensionElements);
+    ExtensionAttribute attribute = new ExtensionAttribute("Name");
+    itemDefinition.addAttribute(attribute);
+
+    // Act
+    ItemDefinition actualCloneResult = itemDefinition.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getItemKind());
+    assertNull(actualCloneResult.getStructureRef());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    Map<String, List<ExtensionAttribute>> attributes = actualCloneResult.getAttributes();
+    assertEquals(1, attributes.size());
+    List<ExtensionAttribute> getResult = attributes.get("Name");
+    assertEquals(1, getResult.size());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertSame(attribute, getResult.get(0));
+  }
+
+  /**
+   * Method under test: {@link ItemDefinition#setValues(ItemDefinition)}
+   */
+  @Test
+  public void testSetValues() {
+    // Arrange
+    ItemDefinition itemDefinition = new ItemDefinition();
+    ExtensionAttribute attribute = mock(ExtensionAttribute.class);
+    when(attribute.getName()).thenReturn("Name");
+
+    ItemDefinition otherElement = new ItemDefinition();
+    otherElement.addAttribute(attribute);
+
+    // Act
+    itemDefinition.setValues(otherElement);
+
+    // Assert
+    verify(attribute, atLeast(1)).getName();
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ItemDefinition}
@@ -212,10 +257,6 @@ public class ItemDefinitionDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ItemDefinition.<init>()", "String ItemDefinition.getItemKind()",
-      "String ItemDefinition.getStructureRef()", "void ItemDefinition.setItemKind(String)",
-      "void ItemDefinition.setStructureRef(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ItemDefinition actualItemDefinition = new ItemDefinition();
@@ -223,10 +264,9 @@ public class ItemDefinitionDiffblueTest {
     actualItemDefinition.setStructureRef("Structure Ref");
     String actualItemKind = actualItemDefinition.getItemKind();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("Item Kind", actualItemKind);
     assertEquals("Structure Ref", actualItemDefinition.getStructureRef());
-    assertNull(actualItemDefinition.getId());
     assertEquals(0, actualItemDefinition.getXmlColumnNumber());
     assertEquals(0, actualItemDefinition.getXmlRowNumber());
     assertTrue(actualItemDefinition.getAttributes().isEmpty());

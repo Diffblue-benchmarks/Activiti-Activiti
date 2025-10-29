@@ -19,57 +19,85 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import java.sql.Date;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class AbstractEntityNoRevisionDiffblueTest {
+  @InjectMocks
+  private CommentEntityImpl commentEntityImpl;
+
   /**
-   * Test {@link AbstractEntityNoRevision#getId()}.
-   * <p>
    * Method under test: {@link AbstractEntityNoRevision#getId()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String AbstractEntityNoRevision.getId()"})
   public void testGetId() {
     // Arrange, Act and Assert
     assertNull((new CommentEntityImpl()).getId());
   }
 
   /**
-   * Test {@link AbstractEntityNoRevision#setId(String)}.
-   * <p>
-   * Method under test: {@link AbstractEntityNoRevision#setId(String)}
+   * Method under test: {@link AbstractEntityNoRevision#getId()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AbstractEntityNoRevision.setId(String)"})
-  public void testSetId() {
+  public void testGetId2() {
     // Arrange
     CommentEntityImpl commentEntityImpl = new CommentEntityImpl();
+    commentEntityImpl.setTime(mock(Date.class));
 
-    // Act
-    commentEntityImpl.setId("42");
-
-    // Assert
-    assertEquals("42", commentEntityImpl.getId());
+    // Act and Assert
+    assertNull(commentEntityImpl.getId());
   }
 
   /**
-   * Test {@link AbstractEntityNoRevision#isInserted()}.
-   * <ul>
-   *   <li>Given {@link CommentEntityImpl} (default constructor) Inserted is {@code true}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link AbstractEntityNoRevision#setId(String)}
+   */
+  @Test
+  public void testSetId() {
+    // Arrange
+    CommentEntityImpl commentEntityImpl2 = new CommentEntityImpl();
+
+    // Act
+    commentEntityImpl2.setId("42");
+
+    // Assert
+    assertEquals("42", commentEntityImpl2.getId());
+  }
+
+  /**
+   * Method under test: {@link AbstractEntityNoRevision#setId(String)}
+   */
+  @Test
+  public void testSetId2() {
+    // Arrange
+    CommentEntityImpl commentEntityImpl2 = new CommentEntityImpl();
+    commentEntityImpl2.setTime(mock(Date.class));
+
+    // Act
+    commentEntityImpl2.setId("42");
+
+    // Assert
+    assertEquals("42", commentEntityImpl2.getId());
+  }
+
+  /**
    * Method under test: {@link AbstractEntityNoRevision#isInserted()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean AbstractEntityNoRevision.isInserted()"})
-  public void testIsInserted_givenCommentEntityImplInsertedIsTrue_thenReturnTrue() {
+  public void testIsInserted() {
+    // Arrange, Act and Assert
+    assertFalse((new CommentEntityImpl()).isInserted());
+  }
+
+  /**
+   * Method under test: {@link AbstractEntityNoRevision#isInserted()}
+   */
+  @Test
+  public void testIsInserted2() {
     // Arrange
     CommentEntityImpl commentEntityImpl = new CommentEntityImpl();
     commentEntityImpl.setInserted(true);
@@ -79,30 +107,22 @@ public class AbstractEntityNoRevisionDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractEntityNoRevision#isInserted()}.
-   * <ul>
-   *   <li>Given {@link CommentEntityImpl} (default constructor).</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AbstractEntityNoRevision#isInserted()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean AbstractEntityNoRevision.isInserted()"})
-  public void testIsInserted_givenCommentEntityImpl_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse((new CommentEntityImpl()).isInserted());
+  public void testIsInserted3() {
+    // Arrange
+    CommentEntityImpl commentEntityImpl = new CommentEntityImpl();
+    commentEntityImpl.setTime(mock(Date.class));
+
+    // Act and Assert
+    assertFalse(commentEntityImpl.isInserted());
   }
 
   /**
-   * Test {@link AbstractEntityNoRevision#setInserted(boolean)}.
-   * <p>
    * Method under test: {@link AbstractEntityNoRevision#setInserted(boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AbstractEntityNoRevision.setInserted(boolean)"})
   public void testSetInserted() {
     // Arrange
     CommentEntityImpl commentEntityImpl = new CommentEntityImpl();
@@ -115,18 +135,35 @@ public class AbstractEntityNoRevisionDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractEntityNoRevision#isUpdated()}.
-   * <ul>
-   *   <li>Given {@link CommentEntityImpl} (default constructor) Updated is {@code true}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link AbstractEntityNoRevision#setInserted(boolean)}
+   */
+  @Test
+  public void testSetInserted2() {
+    // Arrange
+    CommentEntityImpl commentEntityImpl = new CommentEntityImpl();
+    commentEntityImpl.setTime(mock(Date.class));
+
+    // Act
+    commentEntityImpl.setInserted(true);
+
+    // Assert
+    assertTrue(commentEntityImpl.isInserted());
+  }
+
+  /**
    * Method under test: {@link AbstractEntityNoRevision#isUpdated()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean AbstractEntityNoRevision.isUpdated()"})
-  public void testIsUpdated_givenCommentEntityImplUpdatedIsTrue_thenReturnTrue() {
+  public void testIsUpdated() {
+    // Arrange, Act and Assert
+    assertFalse((new CommentEntityImpl()).isUpdated());
+  }
+
+  /**
+   * Method under test: {@link AbstractEntityNoRevision#isUpdated()}
+   */
+  @Test
+  public void testIsUpdated2() {
     // Arrange
     CommentEntityImpl commentEntityImpl = new CommentEntityImpl();
     commentEntityImpl.setUpdated(true);
@@ -136,30 +173,22 @@ public class AbstractEntityNoRevisionDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractEntityNoRevision#isUpdated()}.
-   * <ul>
-   *   <li>Given {@link CommentEntityImpl} (default constructor).</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AbstractEntityNoRevision#isUpdated()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean AbstractEntityNoRevision.isUpdated()"})
-  public void testIsUpdated_givenCommentEntityImpl_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse((new CommentEntityImpl()).isUpdated());
+  public void testIsUpdated3() {
+    // Arrange
+    CommentEntityImpl commentEntityImpl = new CommentEntityImpl();
+    commentEntityImpl.setTime(mock(Date.class));
+
+    // Act and Assert
+    assertFalse(commentEntityImpl.isUpdated());
   }
 
   /**
-   * Test {@link AbstractEntityNoRevision#setUpdated(boolean)}.
-   * <p>
    * Method under test: {@link AbstractEntityNoRevision#setUpdated(boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AbstractEntityNoRevision.setUpdated(boolean)"})
   public void testSetUpdated() {
     // Arrange
     CommentEntityImpl commentEntityImpl = new CommentEntityImpl();
@@ -172,18 +201,35 @@ public class AbstractEntityNoRevisionDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractEntityNoRevision#isDeleted()}.
-   * <ul>
-   *   <li>Given {@link CommentEntityImpl} (default constructor) Deleted is {@code true}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link AbstractEntityNoRevision#setUpdated(boolean)}
+   */
+  @Test
+  public void testSetUpdated2() {
+    // Arrange
+    CommentEntityImpl commentEntityImpl = new CommentEntityImpl();
+    commentEntityImpl.setTime(mock(Date.class));
+
+    // Act
+    commentEntityImpl.setUpdated(true);
+
+    // Assert
+    assertTrue(commentEntityImpl.isUpdated());
+  }
+
+  /**
    * Method under test: {@link AbstractEntityNoRevision#isDeleted()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean AbstractEntityNoRevision.isDeleted()"})
-  public void testIsDeleted_givenCommentEntityImplDeletedIsTrue_thenReturnTrue() {
+  public void testIsDeleted() {
+    // Arrange, Act and Assert
+    assertFalse((new CommentEntityImpl()).isDeleted());
+  }
+
+  /**
+   * Method under test: {@link AbstractEntityNoRevision#isDeleted()}
+   */
+  @Test
+  public void testIsDeleted2() {
     // Arrange
     CommentEntityImpl commentEntityImpl = new CommentEntityImpl();
     commentEntityImpl.setDeleted(true);
@@ -193,33 +239,41 @@ public class AbstractEntityNoRevisionDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractEntityNoRevision#isDeleted()}.
-   * <ul>
-   *   <li>Given {@link CommentEntityImpl} (default constructor).</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AbstractEntityNoRevision#isDeleted()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean AbstractEntityNoRevision.isDeleted()"})
-  public void testIsDeleted_givenCommentEntityImpl_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse((new CommentEntityImpl()).isDeleted());
+  public void testIsDeleted3() {
+    // Arrange
+    CommentEntityImpl commentEntityImpl = new CommentEntityImpl();
+    commentEntityImpl.setTime(mock(Date.class));
+
+    // Act and Assert
+    assertFalse(commentEntityImpl.isDeleted());
   }
 
   /**
-   * Test {@link AbstractEntityNoRevision#setDeleted(boolean)}.
-   * <p>
    * Method under test: {@link AbstractEntityNoRevision#setDeleted(boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AbstractEntityNoRevision.setDeleted(boolean)"})
   public void testSetDeleted() {
     // Arrange
     CommentEntityImpl commentEntityImpl = new CommentEntityImpl();
+
+    // Act
+    commentEntityImpl.setDeleted(true);
+
+    // Assert
+    assertTrue(commentEntityImpl.isDeleted());
+  }
+
+  /**
+   * Method under test: {@link AbstractEntityNoRevision#setDeleted(boolean)}
+   */
+  @Test
+  public void testSetDeleted2() {
+    // Arrange
+    CommentEntityImpl commentEntityImpl = new CommentEntityImpl();
+    commentEntityImpl.setTime(mock(Date.class));
 
     // Act
     commentEntityImpl.setDeleted(true);

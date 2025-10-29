@@ -16,96 +16,76 @@
 package org.activiti.core.common.model.connector;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ActionDefinitionDiffblueTest {
   /**
-   * Test {@link ActionDefinition#getInputs()}.
-   * <p>
    * Method under test: {@link ActionDefinition#getInputs()}
    */
   @Test
-  @DisplayName("Test getInputs()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List ActionDefinition.getInputs()"})
   void testGetInputs() {
-    // Arrange
-    ActionDefinition actionDefinition = new ActionDefinition();
-    actionDefinition.setDescription("The characteristics of someone or something");
-    actionDefinition.setId("42");
-    actionDefinition.setName("Name");
-    actionDefinition.setOutputs(new ArrayList<>());
-    actionDefinition.setInputs(new ArrayList<>());
-
-    // Act and Assert
-    assertTrue(actionDefinition.getInputs().isEmpty());
-  }
-
-  /**
-   * Test {@link ActionDefinition#getInputs()}.
-   * <ul>
-   *   <li>Given {@link ActionDefinition} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ActionDefinition#getInputs()}
-   */
-  @Test
-  @DisplayName("Test getInputs(); given ActionDefinition (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List ActionDefinition.getInputs()"})
-  void testGetInputs_givenActionDefinition() {
     // Arrange, Act and Assert
     assertTrue((new ActionDefinition()).getInputs().isEmpty());
   }
 
   /**
-   * Test {@link ActionDefinition#getOutputs()}.
-   * <p>
+   * Method under test: {@link ActionDefinition#getInputs()}
+   */
+  @Test
+  void testGetInputs2() {
+    // Arrange
+    ActionDefinition actionDefinition = new ActionDefinition();
+    actionDefinition.setDescription("The characteristics of someone or something");
+    actionDefinition.setId("42");
+    actionDefinition.setName("Name");
+    actionDefinition.setOutputs(new ArrayList<>());
+    ArrayList<VariableDefinition> inputs = new ArrayList<>();
+    actionDefinition.setInputs(inputs);
+
+    // Act
+    List<VariableDefinition> actualInputs = actionDefinition.getInputs();
+
+    // Assert
+    assertTrue(actualInputs.isEmpty());
+    assertSame(inputs, actualInputs);
+  }
+
+  /**
    * Method under test: {@link ActionDefinition#getOutputs()}
    */
   @Test
-  @DisplayName("Test getOutputs()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List ActionDefinition.getOutputs()"})
   void testGetOutputs() {
+    // Arrange, Act and Assert
+    assertTrue((new ActionDefinition()).getOutputs().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link ActionDefinition#getOutputs()}
+   */
+  @Test
+  void testGetOutputs2() {
     // Arrange
     ActionDefinition actionDefinition = new ActionDefinition();
     actionDefinition.setDescription("The characteristics of someone or something");
     actionDefinition.setId("42");
     actionDefinition.setInputs(new ArrayList<>());
     actionDefinition.setName("Name");
-    actionDefinition.setOutputs(new ArrayList<>());
+    ArrayList<VariableDefinition> outputs = new ArrayList<>();
+    actionDefinition.setOutputs(outputs);
 
-    // Act and Assert
-    assertTrue(actionDefinition.getOutputs().isEmpty());
+    // Act
+    List<VariableDefinition> actualOutputs = actionDefinition.getOutputs();
+
+    // Assert
+    assertTrue(actualOutputs.isEmpty());
+    assertSame(outputs, actualOutputs);
   }
 
   /**
-   * Test {@link ActionDefinition#getOutputs()}.
-   * <ul>
-   *   <li>Given {@link ActionDefinition} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ActionDefinition#getOutputs()}
-   */
-  @Test
-  @DisplayName("Test getOutputs(); given ActionDefinition (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List ActionDefinition.getOutputs()"})
-  void testGetOutputs_givenActionDefinition() {
-    // Arrange, Act and Assert
-    assertTrue((new ActionDefinition()).getOutputs().isEmpty());
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ActionDefinition}
@@ -120,13 +100,6 @@ class ActionDefinitionDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ActionDefinition.<init>()", "String ActionDefinition.getDescription()",
-      "String ActionDefinition.getId()", "String ActionDefinition.getName()",
-      "void ActionDefinition.setDescription(String)", "void ActionDefinition.setId(String)",
-      "void ActionDefinition.setInputs(List)", "void ActionDefinition.setName(String)",
-      "void ActionDefinition.setOutputs(List)"})
   void testGettersAndSetters() {
     // Arrange and Act
     ActionDefinition actualActionDefinition = new ActionDefinition();
@@ -138,7 +111,7 @@ class ActionDefinitionDiffblueTest {
     String actualDescription = actualActionDefinition.getDescription();
     String actualId = actualActionDefinition.getId();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("42", actualId);
     assertEquals("Name", actualActionDefinition.getName());
     assertEquals("The characteristics of someone or something", actualDescription);

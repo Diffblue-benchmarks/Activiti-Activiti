@@ -20,60 +20,32 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import java.util.Optional;
-import org.activiti.engine.impl.delegate.ThrowMessage.IBuildStage;
-import org.activiti.engine.impl.delegate.ThrowMessage.INameStage;
-import org.activiti.engine.impl.delegate.ThrowMessage.ThrowMessagBuilder;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ThrowMessageDiffblueTest {
   /**
-   * Test {@link ThrowMessage#ThrowMessage()}.
-   * <p>
-   * Method under test: {@link ThrowMessage#ThrowMessage()}
+   * Method under test: {@link ThrowMessage#builder()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ThrowMessage.<init>()"})
-  public void testNewThrowMessage() {
+  public void testBuilder() {
     // Arrange and Act
-    ThrowMessage actualThrowMessage = new ThrowMessage();
+    ThrowMessage.INameStage actualBuilderResult = ThrowMessage.builder();
+    ThrowMessage.IBuildStage actualNameResult = actualBuilderResult.name("Name");
 
     // Assert
-    assertNull(actualThrowMessage.getName());
-    Optional<String> businessKey = actualThrowMessage.getBusinessKey();
+    assertTrue(actualBuilderResult instanceof ThrowMessage.ThrowMessagBuilder);
+    ThrowMessage buildResult = ((ThrowMessage.ThrowMessagBuilder) actualBuilderResult).build();
+    assertEquals("Name", buildResult.getName());
+    Optional<String> businessKey = buildResult.getBusinessKey();
     assertFalse(businessKey.isPresent());
-    assertSame(businessKey, actualThrowMessage.getCorrelationKey());
-    assertSame(businessKey, actualThrowMessage.getPayload());
+    assertSame(businessKey, buildResult.getCorrelationKey());
+    assertSame(businessKey, buildResult.getPayload());
+    assertSame(actualBuilderResult, actualNameResult);
   }
 
   /**
-   * Test {@link ThrowMessage#ThrowMessage(String)}.
-   * <p>
-   * Method under test: {@link ThrowMessage#ThrowMessage(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ThrowMessage.<init>(String)"})
-  public void testNewThrowMessage2() {
-    // Arrange and Act
-    ThrowMessage actualThrowMessage = new ThrowMessage("Name");
-
-    // Assert
-    assertEquals("Name", actualThrowMessage.getName());
-    Optional<String> businessKey = actualThrowMessage.getBusinessKey();
-    assertFalse(businessKey.isPresent());
-    assertSame(businessKey, actualThrowMessage.getCorrelationKey());
-    assertSame(businessKey, actualThrowMessage.getPayload());
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link ThrowMessage#getBusinessKey()}
@@ -83,9 +55,6 @@ public class ThrowMessageDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Optional ThrowMessage.getBusinessKey()", "Optional ThrowMessage.getCorrelationKey()",
-      "String ThrowMessage.getName()", "Optional ThrowMessage.getPayload()"})
   public void testGettersAndSetters() {
     // Arrange
     ThrowMessage throwMessage = new ThrowMessage();
@@ -104,26 +73,34 @@ public class ThrowMessageDiffblueTest {
   }
 
   /**
-   * Test {@link ThrowMessage#builder()}.
-   * <p>
-   * Method under test: {@link ThrowMessage#builder()}
+   * Method under test: {@link ThrowMessage#ThrowMessage()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"INameStage ThrowMessage.builder()"})
-  public void testBuilder() {
+  public void testNewThrowMessage() {
     // Arrange and Act
-    INameStage actualBuilderResult = ThrowMessage.builder();
-    IBuildStage actualNameResult = actualBuilderResult.name("Name");
+    ThrowMessage actualThrowMessage = new ThrowMessage();
 
     // Assert
-    assertTrue(actualBuilderResult instanceof ThrowMessagBuilder);
-    ThrowMessage buildResult = ((ThrowMessagBuilder) actualBuilderResult).build();
-    assertEquals("Name", buildResult.getName());
-    Optional<String> businessKey = buildResult.getBusinessKey();
+    assertNull(actualThrowMessage.getName());
+    Optional<String> businessKey = actualThrowMessage.getBusinessKey();
     assertFalse(businessKey.isPresent());
-    assertSame(businessKey, buildResult.getCorrelationKey());
-    assertSame(businessKey, buildResult.getPayload());
-    assertSame(actualBuilderResult, actualNameResult);
+    assertSame(businessKey, actualThrowMessage.getCorrelationKey());
+    assertSame(businessKey, actualThrowMessage.getPayload());
+  }
+
+  /**
+   * Method under test: {@link ThrowMessage#ThrowMessage(String)}
+   */
+  @Test
+  public void testNewThrowMessage2() {
+    // Arrange and Act
+    ThrowMessage actualThrowMessage = new ThrowMessage("Name");
+
+    // Assert
+    assertEquals("Name", actualThrowMessage.getName());
+    Optional<String> businessKey = actualThrowMessage.getBusinessKey();
+    assertFalse(businessKey.isPresent());
+    assertSame(businessKey, actualThrowMessage.getCorrelationKey());
+    assertSame(businessKey, actualThrowMessage.getPayload());
   }
 }

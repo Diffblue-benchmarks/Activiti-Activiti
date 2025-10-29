@@ -20,8 +20,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.activiti.engine.impl.variable.BigDecimalType;
@@ -33,15 +31,487 @@ import org.activiti.engine.impl.variable.IntegerType;
 import org.activiti.engine.impl.variable.JPAEntityListVariableType;
 import org.activiti.engine.impl.variable.VariableType;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class VariableInstanceEntityImplDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#getPersistentState()}
+   */
+  @Test
+  public void testGetPersistentState() {
+    // Arrange and Act
+    Object actualPersistentState = (new VariableInstanceEntityImpl()).getPersistentState();
+
+    // Assert
+    assertTrue(actualPersistentState instanceof Map);
+    assertTrue(((Map<Object, Object>) actualPersistentState).isEmpty());
+  }
+
+  /**
+   * Method under test: {@link VariableInstanceEntityImpl#getPersistentState()}
+   */
+  @Test
+  public void testGetPersistentState2() {
+    // Arrange
+    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
+    variableInstanceEntityImpl.forceUpdate();
+
+    // Act
+    Object actualPersistentState = variableInstanceEntityImpl.getPersistentState();
+
+    // Assert
+    assertTrue(actualPersistentState instanceof Map);
+    assertEquals(1, ((Map<String, Boolean>) actualPersistentState).size());
+    assertTrue(((Map<String, Boolean>) actualPersistentState).get("forcedUpdate"));
+  }
+
+  /**
+   * Method under test: {@link VariableInstanceEntityImpl#getPersistentState()}
+   */
+  @Test
+  public void testGetPersistentState3() {
+    // Arrange
+    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
+    variableInstanceEntityImpl.setLongValue(42L);
+
+    // Act
+    Object actualPersistentState = variableInstanceEntityImpl.getPersistentState();
+
+    // Assert
+    assertTrue(actualPersistentState instanceof Map);
+    assertEquals(1, ((Map<String, Long>) actualPersistentState).size());
+    assertEquals(42L, ((Map<String, Long>) actualPersistentState).get("longValue").longValue());
+  }
+
+  /**
+   * Method under test: {@link VariableInstanceEntityImpl#getPersistentState()}
+   */
+  @Test
+  public void testGetPersistentState4() {
+    // Arrange
+    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
+    variableInstanceEntityImpl.setDoubleValue(10.0d);
+
+    // Act
+    Object actualPersistentState = variableInstanceEntityImpl.getPersistentState();
+
+    // Assert
+    assertTrue(actualPersistentState instanceof Map);
+    assertEquals(1, ((Map<String, Double>) actualPersistentState).size());
+    assertEquals(10.0d, ((Map<String, Double>) actualPersistentState).get("doubleValue").doubleValue(), 0.0);
+  }
+
+  /**
+   * Method under test: {@link VariableInstanceEntityImpl#getPersistentState()}
+   */
+  @Test
+  public void testGetPersistentState5() {
+    // Arrange
+    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
+    variableInstanceEntityImpl.setTextValue("42");
+
+    // Act
+    Object actualPersistentState = variableInstanceEntityImpl.getPersistentState();
+
+    // Assert
+    assertTrue(actualPersistentState instanceof Map);
+    assertEquals(1, ((Map<String, String>) actualPersistentState).size());
+    assertEquals("42", ((Map<String, String>) actualPersistentState).get("textValue"));
+  }
+
+  /**
+   * Method under test: {@link VariableInstanceEntityImpl#getPersistentState()}
+   */
+  @Test
+  public void testGetPersistentState6() {
+    // Arrange
+    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
+    variableInstanceEntityImpl.setTextValue2("42");
+
+    // Act
+    Object actualPersistentState = variableInstanceEntityImpl.getPersistentState();
+
+    // Assert
+    assertTrue(actualPersistentState instanceof Map);
+    assertEquals(1, ((Map<String, String>) actualPersistentState).size());
+    assertEquals("42", ((Map<String, String>) actualPersistentState).get("textValue2"));
+  }
+
+  /**
+   * Method under test:
+   * {@link VariableInstanceEntityImpl#setExecution(ExecutionEntity)}
+   */
+  @Test
+  public void testSetExecution() {
+    // Arrange
+    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
+
+    // Act
+    variableInstanceEntityImpl.setExecution(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+
+    // Assert
+    Object persistentState = variableInstanceEntityImpl.getPersistentState();
+    assertTrue(persistentState instanceof Map);
+    assertEquals(1, ((Map<String, Boolean>) persistentState).size());
+    assertTrue(((Map<String, Boolean>) persistentState).get("forcedUpdate"));
+    assertTrue(variableInstanceEntityImpl.forcedUpdate);
+  }
+
+  /**
+   * Method under test: {@link VariableInstanceEntityImpl#getBytes()}
+   */
+  @Test
+  public void testGetBytes() {
+    // Arrange, Act and Assert
+    assertNull((new VariableInstanceEntityImpl()).getBytes());
+  }
+
+  /**
+   * Method under test: {@link VariableInstanceEntityImpl#getBytes()}
+   */
+  @Test
+  public void testGetBytes2() {
+    // Arrange
+    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
+    variableInstanceEntityImpl.setBytes(null);
+
+    // Act and Assert
+    assertNull(variableInstanceEntityImpl.getBytes());
+  }
+
+  /**
+   * Method under test: {@link VariableInstanceEntityImpl#getValue()}
+   */
+  @Test
+  public void testGetValue() {
+    // Arrange
+    HistoricJPAEntityListVariableType type = new HistoricJPAEntityListVariableType();
+    type.setForceCacheable(false);
+
+    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
+    variableInstanceEntityImpl.setType(type);
+    variableInstanceEntityImpl.setCachedValue(null);
+
+    // Act and Assert
+    assertNull(variableInstanceEntityImpl.getValue());
+  }
+
+  /**
+   * Method under test: {@link VariableInstanceEntityImpl#getValue()}
+   */
+  @Test
+  public void testGetValue2() {
+    // Arrange
+    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
+    variableInstanceEntityImpl.setType(new BigDecimalType());
+
+    // Act and Assert
+    assertNull(variableInstanceEntityImpl.getValue());
+  }
+
+  /**
+   * Method under test: {@link VariableInstanceEntityImpl#getValue()}
+   */
+  @Test
+  public void testGetValue3() {
+    // Arrange
+    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
+    variableInstanceEntityImpl.setType(new BooleanType());
+
+    // Act and Assert
+    assertNull(variableInstanceEntityImpl.getValue());
+  }
+
+  /**
+   * Method under test: {@link VariableInstanceEntityImpl#getValue()}
+   */
+  @Test
+  public void testGetValue4() {
+    // Arrange
+    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
+    variableInstanceEntityImpl.setType(new DoubleType());
+
+    // Act and Assert
+    assertNull(variableInstanceEntityImpl.getValue());
+  }
+
+  /**
+   * Method under test: {@link VariableInstanceEntityImpl#getValue()}
+   */
+  @Test
+  public void testGetValue5() {
+    // Arrange
+    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
+    Class<Object> theClass = Object.class;
+    variableInstanceEntityImpl.setType(new CustomObjectType("Type Name", theClass));
+
+    // Act and Assert
+    assertNull(variableInstanceEntityImpl.getValue());
+  }
+
+  /**
+   * Method under test: {@link VariableInstanceEntityImpl#getValue()}
+   */
+  @Test
+  public void testGetValue6() {
+    // Arrange
+    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
+    variableInstanceEntityImpl.setType(new JPAEntityListVariableType());
+
+    // Act and Assert
+    assertNull(variableInstanceEntityImpl.getValue());
+  }
+
+  /**
+   * Method under test: {@link VariableInstanceEntityImpl#setValue(Object)}
+   */
+  @Test
+  public void testSetValue() {
+    // Arrange
+    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
+    variableInstanceEntityImpl.setType(new BigDecimalType());
+    Object object = JSONObject.NULL;
+
+    // Act
+    variableInstanceEntityImpl.setValue(object);
+
+    // Assert
+    Object persistentState = variableInstanceEntityImpl.getPersistentState();
+    assertTrue(persistentState instanceof Map);
+    assertEquals("bigdecimal", variableInstanceEntityImpl.typeName);
+    assertEquals(1, ((Map<String, String>) persistentState).size());
+    assertEquals("null", ((Map<String, String>) persistentState).get("textValue"));
+    assertEquals("null", variableInstanceEntityImpl.getTextValue());
+    assertNull(variableInstanceEntityImpl.getLongValue());
+    assertSame(object, variableInstanceEntityImpl.getCachedValue());
+    assertSame(object, variableInstanceEntityImpl.getValue());
+  }
+
+  /**
+   * Method under test: {@link VariableInstanceEntityImpl#setValue(Object)}
+   */
+  @Test
+  public void testSetValue2() {
+    // Arrange
+    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
+    Class<Object> theClass = Object.class;
+    variableInstanceEntityImpl.setType(new CustomObjectType("Type Name", theClass));
+    Object object = JSONObject.NULL;
+
+    // Act
+    variableInstanceEntityImpl.setValue(object);
+
+    // Assert
+    Object persistentState = variableInstanceEntityImpl.getPersistentState();
+    assertTrue(persistentState instanceof Map);
+    assertEquals("Type Name", variableInstanceEntityImpl.typeName);
+    assertNull(variableInstanceEntityImpl.getLongValue());
+    assertNull(variableInstanceEntityImpl.getTextValue());
+    assertTrue(((Map<Object, Object>) persistentState).isEmpty());
+    assertSame(object, variableInstanceEntityImpl.getCachedValue());
+    assertSame(object, variableInstanceEntityImpl.getValue());
+  }
+
+  /**
+   * Method under test: {@link VariableInstanceEntityImpl#setValue(Object)}
+   */
+  @Test
+  public void testSetValue3() {
+    // Arrange
+    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
+    variableInstanceEntityImpl.setType(new IntegerType());
+
+    // Act
+    variableInstanceEntityImpl.setValue(42);
+
+    // Assert
+    Object persistentState = variableInstanceEntityImpl.getPersistentState();
+    assertTrue(persistentState instanceof Map);
+    assertEquals("42", variableInstanceEntityImpl.getTextValue());
+    assertEquals(2, ((Map<String, Object>) persistentState).size());
+    assertEquals("42", ((Map<String, Object>) persistentState).get("textValue"));
+    assertEquals("integer", variableInstanceEntityImpl.typeName);
+    assertEquals(42L, variableInstanceEntityImpl.getLongValue().longValue());
+    assertTrue(((Map<String, Object>) persistentState).containsKey("longValue"));
+  }
+
+  /**
+   * Method under test: {@link VariableInstanceEntityImpl#getTypeName()}
+   */
+  @Test
+  public void testGetTypeName() {
+    // Arrange, Act and Assert
+    assertNull((new VariableInstanceEntityImpl()).getTypeName());
+  }
+
+  /**
+   * Method under test: {@link VariableInstanceEntityImpl#getTypeName()}
+   */
+  @Test
+  public void testGetTypeName2() {
+    // Arrange
+    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
+    variableInstanceEntityImpl.setTypeName(null);
+    variableInstanceEntityImpl.setType(new BigDecimalType());
+
+    // Act and Assert
+    assertEquals("bigdecimal", variableInstanceEntityImpl.getTypeName());
+  }
+
+  /**
+   * Method under test: {@link VariableInstanceEntityImpl#getTypeName()}
+   */
+  @Test
+  public void testGetTypeName3() {
+    // Arrange
+    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
+    variableInstanceEntityImpl.setTypeName("foo");
+    variableInstanceEntityImpl.setType(null);
+
+    // Act and Assert
+    assertEquals("foo", variableInstanceEntityImpl.getTypeName());
+  }
+
+  /**
+   * Method under test: {@link VariableInstanceEntityImpl#toString()}
+   */
+  @Test
+  public void testToString() {
+    // Arrange, Act and Assert
+    assertEquals("VariableInstanceEntity[id=null, name=null, type=null]",
+        (new VariableInstanceEntityImpl()).toString());
+  }
+
+  /**
+   * Method under test: {@link VariableInstanceEntityImpl#toString()}
+   */
+  @Test
+  public void testToString2() {
+    // Arrange
+    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
+    variableInstanceEntityImpl.setType(null);
+    variableInstanceEntityImpl.setLongValue(null);
+    variableInstanceEntityImpl.setDoubleValue(null);
+    variableInstanceEntityImpl.setTextValue(null);
+    variableInstanceEntityImpl.setTextValue2(null);
+    variableInstanceEntityImpl.setBytes(null);
+
+    // Act and Assert
+    assertEquals("VariableInstanceEntity[id=null, name=null, type=null]", variableInstanceEntityImpl.toString());
+  }
+
+  /**
+   * Method under test: {@link VariableInstanceEntityImpl#toString()}
+   */
+  @Test
+  public void testToString3() {
+    // Arrange
+    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
+    variableInstanceEntityImpl.setType(null);
+    variableInstanceEntityImpl.setLongValue(null);
+    variableInstanceEntityImpl.setDoubleValue(null);
+    variableInstanceEntityImpl.setTextValue(null);
+    variableInstanceEntityImpl.setTextValue2("foo");
+    variableInstanceEntityImpl.setBytes(null);
+
+    // Act and Assert
+    assertEquals("VariableInstanceEntity[id=null, name=null, type=null, textValue2=foo]",
+        variableInstanceEntityImpl.toString());
+  }
+
+  /**
+   * Method under test: {@link VariableInstanceEntityImpl#toString()}
+   */
+  @Test
+  public void testToString4() {
+    // Arrange
+    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
+    variableInstanceEntityImpl.setType(null);
+    variableInstanceEntityImpl.setLongValue(null);
+    variableInstanceEntityImpl.setDoubleValue(null);
+    variableInstanceEntityImpl.setTextValue("foo");
+    variableInstanceEntityImpl.setTextValue2(null);
+    variableInstanceEntityImpl.setBytes(null);
+
+    // Act and Assert
+    assertEquals("VariableInstanceEntity[id=null, name=null, type=null, textValue=foo]",
+        variableInstanceEntityImpl.toString());
+  }
+
+  /**
+   * Method under test: {@link VariableInstanceEntityImpl#toString()}
+   */
+  @Test
+  public void testToString5() {
+    // Arrange
+    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
+    variableInstanceEntityImpl.setType(null);
+    variableInstanceEntityImpl.setLongValue(null);
+    variableInstanceEntityImpl.setDoubleValue(10.0d);
+    variableInstanceEntityImpl.setTextValue(null);
+    variableInstanceEntityImpl.setTextValue2(null);
+    variableInstanceEntityImpl.setBytes(null);
+
+    // Act and Assert
+    assertEquals("VariableInstanceEntity[id=null, name=null, type=null, doubleValue=10.0]",
+        variableInstanceEntityImpl.toString());
+  }
+
+  /**
+   * Method under test: {@link VariableInstanceEntityImpl#toString()}
+   */
+  @Test
+  public void testToString6() {
+    // Arrange
+    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
+    variableInstanceEntityImpl.setType(null);
+    variableInstanceEntityImpl.setLongValue(1L);
+    variableInstanceEntityImpl.setDoubleValue(null);
+    variableInstanceEntityImpl.setTextValue(null);
+    variableInstanceEntityImpl.setTextValue2(null);
+    variableInstanceEntityImpl.setBytes(null);
+
+    // Act and Assert
+    assertEquals("VariableInstanceEntity[id=null, name=null, type=null, longValue=1]",
+        variableInstanceEntityImpl.toString());
+  }
+
+  /**
+   * Method under test: {@link VariableInstanceEntityImpl#toString()}
+   */
+  @Test
+  public void testToString7() {
+    // Arrange
+    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
+    variableInstanceEntityImpl.setType(new BigDecimalType());
+
+    // Act and Assert
+    assertEquals("VariableInstanceEntity[id=null, name=null, type=bigdecimal]", variableInstanceEntityImpl.toString());
+  }
+
+  /**
+   * Method under test: {@link VariableInstanceEntityImpl#toString()}
+   */
+  @Test
+  public void testToString8() {
+    // Arrange
+    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
+    variableInstanceEntityImpl.setType(null);
+    variableInstanceEntityImpl.setLongValue(null);
+    variableInstanceEntityImpl.setDoubleValue(null);
+    variableInstanceEntityImpl.setTextValue("");
+    variableInstanceEntityImpl.setTextValue2(null);
+    variableInstanceEntityImpl.setBytes(null);
+
+    // Act and Assert
+    assertEquals("VariableInstanceEntity[id=null, name=null, type=null, textValue=]",
+        variableInstanceEntityImpl.toString());
+  }
+
+  /**
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of {@link VariableInstanceEntityImpl}
+   *   <li>default or parameterless constructor of
+   * {@link VariableInstanceEntityImpl}
    *   <li>{@link VariableInstanceEntityImpl#forceUpdate()}
    *   <li>{@link VariableInstanceEntityImpl#setCachedValue(Object)}
    *   <li>{@link VariableInstanceEntityImpl#setDoubleValue(Double)}
@@ -68,20 +538,6 @@ public class VariableInstanceEntityImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void VariableInstanceEntityImpl.<init>()", "void VariableInstanceEntityImpl.forceUpdate()",
-      "ByteArrayRef VariableInstanceEntityImpl.getByteArrayRef()", "Object VariableInstanceEntityImpl.getCachedValue()",
-      "Double VariableInstanceEntityImpl.getDoubleValue()", "String VariableInstanceEntityImpl.getExecutionId()",
-      "Long VariableInstanceEntityImpl.getLongValue()", "String VariableInstanceEntityImpl.getName()",
-      "String VariableInstanceEntityImpl.getProcessInstanceId()", "String VariableInstanceEntityImpl.getTaskId()",
-      "String VariableInstanceEntityImpl.getTextValue()", "String VariableInstanceEntityImpl.getTextValue2()",
-      "VariableType VariableInstanceEntityImpl.getType()", "void VariableInstanceEntityImpl.setCachedValue(Object)",
-      "void VariableInstanceEntityImpl.setDoubleValue(Double)",
-      "void VariableInstanceEntityImpl.setExecutionId(String)", "void VariableInstanceEntityImpl.setLongValue(Long)",
-      "void VariableInstanceEntityImpl.setName(String)", "void VariableInstanceEntityImpl.setProcessInstanceId(String)",
-      "void VariableInstanceEntityImpl.setTaskId(String)", "void VariableInstanceEntityImpl.setTextValue(String)",
-      "void VariableInstanceEntityImpl.setTextValue2(String)", "void VariableInstanceEntityImpl.setType(VariableType)",
-      "void VariableInstanceEntityImpl.setTypeName(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     VariableInstanceEntityImpl actualVariableInstanceEntityImpl = new VariableInstanceEntityImpl();
@@ -99,7 +555,7 @@ public class VariableInstanceEntityImplDiffblueTest {
     BigDecimalType type = new BigDecimalType();
     actualVariableInstanceEntityImpl.setType(type);
     actualVariableInstanceEntityImpl.setTypeName("Type Name");
-    ByteArrayRef actualByteArrayRef = actualVariableInstanceEntityImpl.getByteArrayRef();
+    actualVariableInstanceEntityImpl.getByteArrayRef();
     Object actualCachedValue = actualVariableInstanceEntityImpl.getCachedValue();
     Double actualDoubleValue = actualVariableInstanceEntityImpl.getDoubleValue();
     String actualExecutionId = actualVariableInstanceEntityImpl.getExecutionId();
@@ -111,15 +567,13 @@ public class VariableInstanceEntityImplDiffblueTest {
     String actualTextValue2 = actualVariableInstanceEntityImpl.getTextValue2();
     VariableType actualType = actualVariableInstanceEntityImpl.getType();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("42", actualExecutionId);
     assertEquals("42", actualProcessInstanceId);
     assertEquals("42", actualTaskId);
     assertEquals("42", actualTextValue);
     assertEquals("42", actualTextValue2);
     assertEquals("Name", actualName);
-    assertNull(actualVariableInstanceEntityImpl.getId());
-    assertNull(actualByteArrayRef);
     assertEquals(1, actualVariableInstanceEntityImpl.getRevision());
     assertEquals(10.0d, actualDoubleValue.doubleValue(), 0.0);
     assertEquals(42L, actualLongValue.longValue());
@@ -128,724 +582,5 @@ public class VariableInstanceEntityImplDiffblueTest {
     assertFalse(actualVariableInstanceEntityImpl.isUpdated());
     assertSame(type, actualType);
     assertSame(object, actualCachedValue);
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#getPersistentState()}.
-   * <ul>
-   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor).</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableInstanceEntityImpl#getPersistentState()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object VariableInstanceEntityImpl.getPersistentState()"})
-  public void testGetPersistentState_givenVariableInstanceEntityImpl_thenReturnEmpty() {
-    // Arrange and Act
-    Object actualPersistentState = (new VariableInstanceEntityImpl()).getPersistentState();
-
-    // Assert
-    assertTrue(actualPersistentState instanceof Map);
-    assertTrue(((Map<Object, Object>) actualPersistentState).isEmpty());
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#getPersistentState()}.
-   * <ul>
-   *   <li>Then return {@code doubleValue} doubleValue is ten.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableInstanceEntityImpl#getPersistentState()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object VariableInstanceEntityImpl.getPersistentState()"})
-  public void testGetPersistentState_thenReturnDoubleValueDoubleValueIsTen() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-    variableInstanceEntityImpl.setDoubleValue(10.0d);
-
-    // Act
-    Object actualPersistentState = variableInstanceEntityImpl.getPersistentState();
-
-    // Assert
-    assertTrue(actualPersistentState instanceof Map);
-    assertEquals(1, ((Map<String, Double>) actualPersistentState).size());
-    assertEquals(10.0d, ((Map<String, Double>) actualPersistentState).get("doubleValue").doubleValue(), 0.0);
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#getPersistentState()}.
-   * <ul>
-   *   <li>Then return {@code forcedUpdate}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableInstanceEntityImpl#getPersistentState()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object VariableInstanceEntityImpl.getPersistentState()"})
-  public void testGetPersistentState_thenReturnForcedUpdate() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-    variableInstanceEntityImpl.forceUpdate();
-
-    // Act
-    Object actualPersistentState = variableInstanceEntityImpl.getPersistentState();
-
-    // Assert
-    assertTrue(actualPersistentState instanceof Map);
-    assertEquals(1, ((Map<String, Boolean>) actualPersistentState).size());
-    assertTrue(((Map<String, Boolean>) actualPersistentState).get("forcedUpdate"));
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#getPersistentState()}.
-   * <ul>
-   *   <li>Then return {@code longValue} longValue is forty-two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableInstanceEntityImpl#getPersistentState()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object VariableInstanceEntityImpl.getPersistentState()"})
-  public void testGetPersistentState_thenReturnLongValueLongValueIsFortyTwo() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-    variableInstanceEntityImpl.setLongValue(42L);
-
-    // Act
-    Object actualPersistentState = variableInstanceEntityImpl.getPersistentState();
-
-    // Assert
-    assertTrue(actualPersistentState instanceof Map);
-    assertEquals(1, ((Map<String, Long>) actualPersistentState).size());
-    assertEquals(42L, ((Map<String, Long>) actualPersistentState).get("longValue").longValue());
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#getPersistentState()}.
-   * <ul>
-   *   <li>Then return {@code textValue2} is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableInstanceEntityImpl#getPersistentState()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object VariableInstanceEntityImpl.getPersistentState()"})
-  public void testGetPersistentState_thenReturnTextValue2Is42() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-    variableInstanceEntityImpl.setTextValue2("42");
-
-    // Act
-    Object actualPersistentState = variableInstanceEntityImpl.getPersistentState();
-
-    // Assert
-    assertTrue(actualPersistentState instanceof Map);
-    assertEquals(1, ((Map<String, String>) actualPersistentState).size());
-    assertEquals("42", ((Map<String, String>) actualPersistentState).get("textValue2"));
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#getPersistentState()}.
-   * <ul>
-   *   <li>Then return {@code textValue} is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableInstanceEntityImpl#getPersistentState()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object VariableInstanceEntityImpl.getPersistentState()"})
-  public void testGetPersistentState_thenReturnTextValueIs42() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-    variableInstanceEntityImpl.setTextValue("42");
-
-    // Act
-    Object actualPersistentState = variableInstanceEntityImpl.getPersistentState();
-
-    // Assert
-    assertTrue(actualPersistentState instanceof Map);
-    assertEquals(1, ((Map<String, String>) actualPersistentState).size());
-    assertEquals("42", ((Map<String, String>) actualPersistentState).get("textValue"));
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#setExecution(ExecutionEntity)}.
-   * <ul>
-   *   <li>Then {@link VariableInstanceEntityImpl} (default constructor) PersistentState {@link Map}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableInstanceEntityImpl#setExecution(ExecutionEntity)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void VariableInstanceEntityImpl.setExecution(ExecutionEntity)"})
-  public void testSetExecution_thenVariableInstanceEntityImplPersistentStateMap() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-
-    // Act
-    variableInstanceEntityImpl.setExecution(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-
-    // Assert
-    Object persistentState = variableInstanceEntityImpl.getPersistentState();
-    assertTrue(persistentState instanceof Map);
-    assertEquals(1, ((Map<String, Boolean>) persistentState).size());
-    assertTrue(((Map<String, Boolean>) persistentState).get("forcedUpdate"));
-    assertTrue(variableInstanceEntityImpl.forcedUpdate);
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#getBytes()}.
-   * <ul>
-   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableInstanceEntityImpl#getBytes()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"byte[] VariableInstanceEntityImpl.getBytes()"})
-  public void testGetBytes_givenVariableInstanceEntityImpl() {
-    // Arrange, Act and Assert
-    assertNull((new VariableInstanceEntityImpl()).getBytes());
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#getBytes()}.
-   * <ul>
-   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) Bytes is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableInstanceEntityImpl#getBytes()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"byte[] VariableInstanceEntityImpl.getBytes()"})
-  public void testGetBytes_givenVariableInstanceEntityImplBytesIsNull() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-    variableInstanceEntityImpl.setBytes(null);
-
-    // Act and Assert
-    assertNull(variableInstanceEntityImpl.getBytes());
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#getValue()}.
-   * <ul>
-   *   <li>Given {@code Object}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableInstanceEntityImpl#getValue()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object VariableInstanceEntityImpl.getValue()"})
-  public void testGetValue_givenJavaLangObject_thenReturnNull() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-    Class<Object> theClass = Object.class;
-    variableInstanceEntityImpl.setType(new CustomObjectType("Type Name", theClass));
-
-    // Act and Assert
-    assertNull(variableInstanceEntityImpl.getValue());
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#getValue()}.
-   * <ul>
-   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) CachedValue is {@code null}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableInstanceEntityImpl#getValue()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object VariableInstanceEntityImpl.getValue()"})
-  public void testGetValue_givenVariableInstanceEntityImplCachedValueIsNull_thenReturnNull() {
-    // Arrange
-    HistoricJPAEntityListVariableType type = new HistoricJPAEntityListVariableType();
-    type.setForceCacheable(false);
-
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-    variableInstanceEntityImpl.setType(type);
-    variableInstanceEntityImpl.setCachedValue(null);
-
-    // Act and Assert
-    assertNull(variableInstanceEntityImpl.getValue());
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#getValue()}.
-   * <ul>
-   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) LongValue is forty-two.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableInstanceEntityImpl#getValue()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object VariableInstanceEntityImpl.getValue()"})
-  public void testGetValue_givenVariableInstanceEntityImplLongValueIsFortyTwo_thenReturnFalse() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-    variableInstanceEntityImpl.setLongValue(42L);
-    variableInstanceEntityImpl.setType(new BooleanType());
-
-    // Act and Assert
-    assertFalse((Boolean) variableInstanceEntityImpl.getValue());
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#getValue()}.
-   * <ul>
-   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) LongValue is one.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableInstanceEntityImpl#getValue()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object VariableInstanceEntityImpl.getValue()"})
-  public void testGetValue_givenVariableInstanceEntityImplLongValueIsOne_thenReturnTrue() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-    variableInstanceEntityImpl.setLongValue(1L);
-    variableInstanceEntityImpl.setType(new BooleanType());
-
-    // Act and Assert
-    assertTrue((Boolean) variableInstanceEntityImpl.getValue());
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#getValue()}.
-   * <ul>
-   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) Type is {@link BigDecimalType} (default constructor).</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableInstanceEntityImpl#getValue()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object VariableInstanceEntityImpl.getValue()"})
-  public void testGetValue_givenVariableInstanceEntityImplTypeIsBigDecimalType_thenReturnNull() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-    variableInstanceEntityImpl.setType(new BigDecimalType());
-
-    // Act and Assert
-    assertNull(variableInstanceEntityImpl.getValue());
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#getValue()}.
-   * <ul>
-   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) Type is {@link BooleanType} (default constructor).</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableInstanceEntityImpl#getValue()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object VariableInstanceEntityImpl.getValue()"})
-  public void testGetValue_givenVariableInstanceEntityImplTypeIsBooleanType_thenReturnNull() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-    variableInstanceEntityImpl.setType(new BooleanType());
-
-    // Act and Assert
-    assertNull(variableInstanceEntityImpl.getValue());
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#getValue()}.
-   * <ul>
-   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) Type is {@link DoubleType} (default constructor).</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableInstanceEntityImpl#getValue()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object VariableInstanceEntityImpl.getValue()"})
-  public void testGetValue_givenVariableInstanceEntityImplTypeIsDoubleType_thenReturnNull() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-    variableInstanceEntityImpl.setType(new DoubleType());
-
-    // Act and Assert
-    assertNull(variableInstanceEntityImpl.getValue());
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#getValue()}.
-   * <ul>
-   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) Type is {@link JPAEntityListVariableType} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableInstanceEntityImpl#getValue()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object VariableInstanceEntityImpl.getValue()"})
-  public void testGetValue_givenVariableInstanceEntityImplTypeIsJPAEntityListVariableType() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-    variableInstanceEntityImpl.setType(new JPAEntityListVariableType());
-
-    // Act and Assert
-    assertNull(variableInstanceEntityImpl.getValue());
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#setValue(Object)}.
-   * <ul>
-   *   <li>Then {@link VariableInstanceEntityImpl} (default constructor) TextValue is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableInstanceEntityImpl#setValue(Object)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void VariableInstanceEntityImpl.setValue(Object)"})
-  public void testSetValue_thenVariableInstanceEntityImplTextValueIs42() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-    variableInstanceEntityImpl.setType(new IntegerType());
-
-    // Act
-    variableInstanceEntityImpl.setValue(42);
-
-    // Assert
-    Object persistentState = variableInstanceEntityImpl.getPersistentState();
-    assertTrue(persistentState instanceof Map);
-    assertEquals("42", variableInstanceEntityImpl.getTextValue());
-    assertEquals(2, ((Map<String, Object>) persistentState).size());
-    assertEquals("42", ((Map<String, Object>) persistentState).get("textValue"));
-    assertEquals("integer", variableInstanceEntityImpl.typeName);
-    assertEquals(42, ((Integer) variableInstanceEntityImpl.getCachedValue()).intValue());
-    assertEquals(42, ((Integer) variableInstanceEntityImpl.getValue()).intValue());
-    assertEquals(42L, variableInstanceEntityImpl.getLongValue().longValue());
-    assertEquals(42L, ((Long) ((Map<String, Object>) persistentState).get("longValue")).longValue());
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#setValue(Object)}.
-   * <ul>
-   *   <li>Then {@link VariableInstanceEntityImpl} (default constructor) {@link VariableInstanceEntityImpl#typeName} is {@code bigdecimal}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableInstanceEntityImpl#setValue(Object)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void VariableInstanceEntityImpl.setValue(Object)"})
-  public void testSetValue_thenVariableInstanceEntityImplTypeNameIsBigdecimal() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-    variableInstanceEntityImpl.setType(new BigDecimalType());
-
-    // Act
-    variableInstanceEntityImpl.setValue(JSONObject.NULL);
-
-    // Assert
-    Object persistentState = variableInstanceEntityImpl.getPersistentState();
-    assertTrue(persistentState instanceof Map);
-    assertEquals("bigdecimal", variableInstanceEntityImpl.typeName);
-    assertEquals(1, ((Map<String, String>) persistentState).size());
-    assertEquals("null", ((Map<String, String>) persistentState).get("textValue"));
-    assertEquals("null", variableInstanceEntityImpl.getTextValue());
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#setValue(Object)}.
-   * <ul>
-   *   <li>Then {@link VariableInstanceEntityImpl} (default constructor) {@link VariableInstanceEntityImpl#typeName} is {@code Type Name}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableInstanceEntityImpl#setValue(Object)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void VariableInstanceEntityImpl.setValue(Object)"})
-  public void testSetValue_thenVariableInstanceEntityImplTypeNameIsTypeName() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-    Class<Object> theClass = Object.class;
-    variableInstanceEntityImpl.setType(new CustomObjectType("Type Name", theClass));
-
-    // Act
-    variableInstanceEntityImpl.setValue(JSONObject.NULL);
-
-    // Assert
-    Object persistentState = variableInstanceEntityImpl.getPersistentState();
-    assertTrue(persistentState instanceof Map);
-    assertEquals("Type Name", variableInstanceEntityImpl.typeName);
-    assertNull(variableInstanceEntityImpl.getTextValue());
-    assertTrue(((Map<Object, Object>) persistentState).isEmpty());
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#getTypeName()}.
-   * <ul>
-   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) TypeName is {@code foo}.</li>
-   *   <li>Then return {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableInstanceEntityImpl#getTypeName()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String VariableInstanceEntityImpl.getTypeName()"})
-  public void testGetTypeName_givenVariableInstanceEntityImplTypeNameIsFoo_thenReturnFoo() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-    variableInstanceEntityImpl.setTypeName("foo");
-    variableInstanceEntityImpl.setType(null);
-
-    // Act and Assert
-    assertEquals("foo", variableInstanceEntityImpl.getTypeName());
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#getTypeName()}.
-   * <ul>
-   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor).</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableInstanceEntityImpl#getTypeName()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String VariableInstanceEntityImpl.getTypeName()"})
-  public void testGetTypeName_givenVariableInstanceEntityImpl_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new VariableInstanceEntityImpl()).getTypeName());
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#getTypeName()}.
-   * <ul>
-   *   <li>Then return {@code bigdecimal}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableInstanceEntityImpl#getTypeName()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String VariableInstanceEntityImpl.getTypeName()"})
-  public void testGetTypeName_thenReturnBigdecimal() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-    variableInstanceEntityImpl.setTypeName(null);
-    variableInstanceEntityImpl.setType(new BigDecimalType());
-
-    // Act and Assert
-    assertEquals("bigdecimal", variableInstanceEntityImpl.getTypeName());
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#toString()}.
-   * <p>
-   * Method under test: {@link VariableInstanceEntityImpl#toString()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String VariableInstanceEntityImpl.toString()"})
-  public void testToString() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-    variableInstanceEntityImpl.setType(null);
-    variableInstanceEntityImpl.setLongValue(null);
-    variableInstanceEntityImpl.setDoubleValue(10.0d);
-    variableInstanceEntityImpl.setTextValue(null);
-    variableInstanceEntityImpl.setTextValue2(null);
-    variableInstanceEntityImpl.setBytes(null);
-
-    // Act and Assert
-    assertEquals("VariableInstanceEntity[id=null, name=null, type=null, doubleValue=10.0]",
-        variableInstanceEntityImpl.toString());
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#toString()}.
-   * <ul>
-   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableInstanceEntityImpl#toString()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String VariableInstanceEntityImpl.toString()"})
-  public void testToString_givenVariableInstanceEntityImpl() {
-    // Arrange, Act and Assert
-    assertEquals("VariableInstanceEntity[id=null, name=null, type=null]",
-        (new VariableInstanceEntityImpl()).toString());
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#toString()}.
-   * <ul>
-   *   <li>Then return {@code VariableInstanceEntity[id=null, name=null, type=bigdecimal]}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableInstanceEntityImpl#toString()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String VariableInstanceEntityImpl.toString()"})
-  public void testToString_thenReturnVariableInstanceEntityIdNullNameNullTypeBigdecimal() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-    variableInstanceEntityImpl.setType(new BigDecimalType());
-
-    // Act and Assert
-    assertEquals("VariableInstanceEntity[id=null, name=null, type=bigdecimal]", variableInstanceEntityImpl.toString());
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#toString()}.
-   * <ul>
-   *   <li>Then return {@code VariableInstanceEntity[id=null, name=null, type=null]}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableInstanceEntityImpl#toString()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String VariableInstanceEntityImpl.toString()"})
-  public void testToString_thenReturnVariableInstanceEntityIdNullNameNullTypeNull() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-    variableInstanceEntityImpl.setType(null);
-    variableInstanceEntityImpl.setLongValue(null);
-    variableInstanceEntityImpl.setDoubleValue(null);
-    variableInstanceEntityImpl.setTextValue(null);
-    variableInstanceEntityImpl.setTextValue2(null);
-    variableInstanceEntityImpl.setBytes(null);
-
-    // Act and Assert
-    assertEquals("VariableInstanceEntity[id=null, name=null, type=null]", variableInstanceEntityImpl.toString());
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#toString()}.
-   * <ul>
-   *   <li>Then return {@code VariableInstanceEntity[id=null, name=null, type=null, longValue=1]}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableInstanceEntityImpl#toString()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String VariableInstanceEntityImpl.toString()"})
-  public void testToString_thenReturnVariableInstanceEntityIdNullNameNullTypeNullLongValue1() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-    variableInstanceEntityImpl.setType(null);
-    variableInstanceEntityImpl.setLongValue(1L);
-    variableInstanceEntityImpl.setDoubleValue(null);
-    variableInstanceEntityImpl.setTextValue(null);
-    variableInstanceEntityImpl.setTextValue2(null);
-    variableInstanceEntityImpl.setBytes(null);
-
-    // Act and Assert
-    assertEquals("VariableInstanceEntity[id=null, name=null, type=null, longValue=1]",
-        variableInstanceEntityImpl.toString());
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#toString()}.
-   * <ul>
-   *   <li>Then return {@code VariableInstanceEntity[id=null, name=null, type=null, textValue=]}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableInstanceEntityImpl#toString()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String VariableInstanceEntityImpl.toString()"})
-  public void testToString_thenReturnVariableInstanceEntityIdNullNameNullTypeNullTextValue() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-    variableInstanceEntityImpl.setType(null);
-    variableInstanceEntityImpl.setLongValue(null);
-    variableInstanceEntityImpl.setDoubleValue(null);
-    variableInstanceEntityImpl.setTextValue("");
-    variableInstanceEntityImpl.setTextValue2(null);
-    variableInstanceEntityImpl.setBytes(null);
-
-    // Act and Assert
-    assertEquals("VariableInstanceEntity[id=null, name=null, type=null, textValue=]",
-        variableInstanceEntityImpl.toString());
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#toString()}.
-   * <ul>
-   *   <li>Then return {@code VariableInstanceEntity[id=null, name=null, type=null, textValue2=foo]}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableInstanceEntityImpl#toString()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String VariableInstanceEntityImpl.toString()"})
-  public void testToString_thenReturnVariableInstanceEntityIdNullNameNullTypeNullTextValue2Foo() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-    variableInstanceEntityImpl.setType(null);
-    variableInstanceEntityImpl.setLongValue(null);
-    variableInstanceEntityImpl.setDoubleValue(null);
-    variableInstanceEntityImpl.setTextValue(null);
-    variableInstanceEntityImpl.setTextValue2("foo");
-    variableInstanceEntityImpl.setBytes(null);
-
-    // Act and Assert
-    assertEquals("VariableInstanceEntity[id=null, name=null, type=null, textValue2=foo]",
-        variableInstanceEntityImpl.toString());
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#toString()}.
-   * <ul>
-   *   <li>Then return {@code VariableInstanceEntity[id=null, name=null, type=null, textValue=foo]}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableInstanceEntityImpl#toString()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String VariableInstanceEntityImpl.toString()"})
-  public void testToString_thenReturnVariableInstanceEntityIdNullNameNullTypeNullTextValueFoo() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-    variableInstanceEntityImpl.setType(null);
-    variableInstanceEntityImpl.setLongValue(null);
-    variableInstanceEntityImpl.setDoubleValue(null);
-    variableInstanceEntityImpl.setTextValue("foo");
-    variableInstanceEntityImpl.setTextValue2(null);
-    variableInstanceEntityImpl.setBytes(null);
-
-    // Act and Assert
-    assertEquals("VariableInstanceEntity[id=null, name=null, type=null, textValue=foo]",
-        variableInstanceEntityImpl.toString());
   }
 }

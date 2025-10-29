@@ -17,16 +17,11 @@ package org.activiti.engine.impl.bpmn.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class FieldDeclarationDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link FieldDeclaration#FieldDeclaration()}
@@ -39,11 +34,6 @@ public class FieldDeclarationDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void FieldDeclaration.<init>()", "void FieldDeclaration.<init>(String, String, Object)",
-      "String FieldDeclaration.getName()", "String FieldDeclaration.getType()", "Object FieldDeclaration.getValue()",
-      "void FieldDeclaration.setName(String)", "void FieldDeclaration.setType(String)",
-      "void FieldDeclaration.setValue(Object)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     FieldDeclaration actualFieldDeclaration = new FieldDeclaration();
@@ -54,18 +44,13 @@ public class FieldDeclarationDiffblueTest {
     String actualName = actualFieldDeclaration.getName();
     String actualType = actualFieldDeclaration.getType();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("Name", actualName);
     assertEquals("Type", actualType);
     assertSame(object, actualFieldDeclaration.getValue());
   }
 
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@code Name}.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link FieldDeclaration#FieldDeclaration(String, String, Object)}
@@ -78,12 +63,7 @@ public class FieldDeclarationDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void FieldDeclaration.<init>()", "void FieldDeclaration.<init>(String, String, Object)",
-      "String FieldDeclaration.getName()", "String FieldDeclaration.getType()", "Object FieldDeclaration.getValue()",
-      "void FieldDeclaration.setName(String)", "void FieldDeclaration.setType(String)",
-      "void FieldDeclaration.setValue(Object)"})
-  public void testGettersAndSetters_whenName() {
+  public void testGettersAndSetters2() {
     // Arrange and Act
     FieldDeclaration actualFieldDeclaration = new FieldDeclaration("Name", "Type", JSONObject.NULL);
     actualFieldDeclaration.setName("Name");
@@ -93,7 +73,7 @@ public class FieldDeclarationDiffblueTest {
     String actualName = actualFieldDeclaration.getName();
     String actualType = actualFieldDeclaration.getType();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("Name", actualName);
     assertEquals("Type", actualType);
     assertSame(object, actualFieldDeclaration.getValue());

@@ -18,33 +18,22 @@ package org.activiti.runtime.api.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Optional;
+import org.activiti.api.process.model.BPMNError;
 import org.activiti.api.process.model.events.BPMNErrorReceivedEvent;
-import org.activiti.api.process.model.events.BPMNErrorReceivedEvent.ErrorEvents;
 import org.activiti.api.runtime.event.impl.BPMNErrorReceivedEventImpl;
 import org.activiti.api.runtime.model.impl.BPMNErrorImpl;
 import org.activiti.engine.delegate.event.ActivitiErrorEvent;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.delegate.event.impl.ActivitiErrorEventImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ToErrorReceivedConverterDiffblueTest {
   /**
-   * Test {@link ToErrorReceivedConverter#from(ActivitiErrorEvent)} with {@code ActivitiErrorEvent}.
-   * <ul>
-   *   <li>Then {@link Optional#get()} return {@link BPMNErrorReceivedEventImpl}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ToErrorReceivedConverter#from(ActivitiErrorEvent)}
    */
   @Test
-  @DisplayName("Test from(ActivitiErrorEvent) with 'ActivitiErrorEvent'; then get() return BPMNErrorReceivedEventImpl")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Optional ToErrorReceivedConverter.from(ActivitiErrorEvent)"})
-  void testFromWithActivitiErrorEvent_thenGetReturnBPMNErrorReceivedEventImpl() {
+  void testFrom() {
     // Arrange
     ToErrorReceivedConverter toErrorReceivedConverter = new ToErrorReceivedConverter(new BPMNErrorConverter());
 
@@ -55,14 +44,23 @@ class ToErrorReceivedConverterDiffblueTest {
     // Assert
     BPMNErrorReceivedEvent getResult = actualFromResult.get();
     assertTrue(getResult instanceof BPMNErrorReceivedEventImpl);
-    assertTrue(getResult.getEntity() instanceof BPMNErrorImpl);
+    BPMNError entity = getResult.getEntity();
+    assertTrue(entity instanceof BPMNErrorImpl);
     assertNull(getResult.getProcessDefinitionVersion());
     assertNull(getResult.getBusinessKey());
     assertNull(getResult.getParentProcessInstanceId());
     assertNull(getResult.getProcessDefinitionId());
     assertNull(getResult.getProcessDefinitionKey());
     assertNull(getResult.getProcessInstanceId());
-    assertEquals(ErrorEvents.ERROR_RECEIVED, getResult.getEventType());
+    assertNull(entity.getActivityName());
+    assertNull(entity.getActivityType());
+    assertNull(entity.getExecutionId());
+    assertNull(entity.getElementId());
+    assertNull(entity.getProcessDefinitionId());
+    assertNull(entity.getProcessInstanceId());
+    assertNull(entity.getErrorCode());
+    assertNull(entity.getErrorId());
+    assertEquals(BPMNErrorReceivedEvent.ErrorEvents.ERROR_RECEIVED, getResult.getEventType());
     assertTrue(actualFromResult.isPresent());
   }
 }

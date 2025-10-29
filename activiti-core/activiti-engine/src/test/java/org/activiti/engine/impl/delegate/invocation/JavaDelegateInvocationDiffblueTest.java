@@ -21,29 +21,22 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.JavaDelegate;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class JavaDelegateInvocationDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>{@link JavaDelegateInvocation#JavaDelegateInvocation(JavaDelegate, DelegateExecution)}
+   *   <li>
+   * {@link JavaDelegateInvocation#JavaDelegateInvocation(JavaDelegate, DelegateExecution)}
    *   <li>{@link JavaDelegateInvocation#getTarget()}
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void JavaDelegateInvocation.<init>(JavaDelegate, DelegateExecution)",
-      "Object JavaDelegateInvocation.getTarget()"})
   public void testGettersAndSetters() {
     // Arrange
     JavaDelegate delegateInstance = mock(JavaDelegate.class);
@@ -60,13 +53,9 @@ public class JavaDelegateInvocationDiffblueTest {
   }
 
   /**
-   * Test {@link JavaDelegateInvocation#invoke()}.
-   * <p>
    * Method under test: {@link JavaDelegateInvocation#invoke()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void JavaDelegateInvocation.invoke()"})
   public void testInvoke() {
     // Arrange
     JavaDelegate delegateInstance = mock(JavaDelegate.class);

@@ -18,8 +18,6 @@ package org.activiti.engine.impl.bpmn.helper;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,18 +25,13 @@ import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.impl.bpmn.parser.FieldDeclaration;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ClassDelegateUtilDiffblueTest {
   /**
-   * Test {@link ClassDelegateUtil#instantiateDelegate(Class, List)} with {@code clazz}, {@code fieldDeclarations}.
-   * <p>
    * Method under test: {@link ClassDelegateUtil#instantiateDelegate(Class, List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object ClassDelegateUtil.instantiateDelegate(Class, List)"})
-  public void testInstantiateDelegateWithClazzFieldDeclarations() {
+  public void testInstantiateDelegate() {
     // Arrange
     Class<Object> clazz = Object.class;
 
@@ -56,32 +49,11 @@ public class ClassDelegateUtilDiffblueTest {
   }
 
   /**
-   * Test {@link ClassDelegateUtil#applyFieldDeclaration(FieldDeclaration, Object)} with {@code declaration}, {@code target}.
-   * <p>
-   * Method under test: {@link ClassDelegateUtil#applyFieldDeclaration(FieldDeclaration, Object)}
+   * Method under test:
+   * {@link ClassDelegateUtil#applyFieldDeclaration(List, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ClassDelegateUtil.applyFieldDeclaration(FieldDeclaration, Object)"})
-  public void testApplyFieldDeclarationWithDeclarationTarget() {
-    // Arrange
-    FieldDeclaration declaration = new FieldDeclaration("Name", "Type", JSONObject.NULL);
-    declaration.setValue(42);
-
-    // Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> ClassDelegateUtil.applyFieldDeclaration(declaration, JSONObject.NULL));
-  }
-
-  /**
-   * Test {@link ClassDelegateUtil#applyFieldDeclaration(List, Object)} with {@code fieldDeclarations}, {@code target}.
-   * <p>
-   * Method under test: {@link ClassDelegateUtil#applyFieldDeclaration(List, Object)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ClassDelegateUtil.applyFieldDeclaration(List, Object)"})
-  public void testApplyFieldDeclarationWithFieldDeclarationsTarget() {
+  public void testApplyFieldDeclaration() {
     // Arrange
     FieldDeclaration fieldDeclaration = new FieldDeclaration("Name", "Type", JSONObject.NULL);
     fieldDeclaration.setValue(42);
@@ -95,14 +67,11 @@ public class ClassDelegateUtilDiffblueTest {
   }
 
   /**
-   * Test {@link ClassDelegateUtil#applyFieldDeclaration(List, Object)} with {@code fieldDeclarations}, {@code target}.
-   * <p>
-   * Method under test: {@link ClassDelegateUtil#applyFieldDeclaration(List, Object)}
+   * Method under test:
+   * {@link ClassDelegateUtil#applyFieldDeclaration(List, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ClassDelegateUtil.applyFieldDeclaration(List, Object)"})
-  public void testApplyFieldDeclarationWithFieldDeclarationsTarget2() {
+  public void testApplyFieldDeclaration2() {
     // Arrange
     FieldDeclaration fieldDeclaration = new FieldDeclaration("Name", "Type", JSONObject.NULL);
     fieldDeclaration.setValue(42);
@@ -116,14 +85,11 @@ public class ClassDelegateUtilDiffblueTest {
   }
 
   /**
-   * Test {@link ClassDelegateUtil#applyFieldDeclaration(List, Object)} with {@code fieldDeclarations}, {@code target}.
-   * <p>
-   * Method under test: {@link ClassDelegateUtil#applyFieldDeclaration(List, Object)}
+   * Method under test:
+   * {@link ClassDelegateUtil#applyFieldDeclaration(List, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ClassDelegateUtil.applyFieldDeclaration(List, Object)"})
-  public void testApplyFieldDeclarationWithFieldDeclarationsTarget3() {
+  public void testApplyFieldDeclaration3() {
     // Arrange
     FieldDeclaration fieldDeclaration = new FieldDeclaration("Name", "Type", JSONObject.NULL);
     fieldDeclaration.setValue("42");
@@ -140,18 +106,26 @@ public class ClassDelegateUtilDiffblueTest {
   }
 
   /**
-   * Test {@link ClassDelegateUtil#fieldTypeCompatible(FieldDeclaration, Field)}.
-   * <ul>
-   *   <li>When {@link FieldDeclaration#FieldDeclaration()}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ClassDelegateUtil#fieldTypeCompatible(FieldDeclaration, Field)}
+   * Method under test:
+   * {@link ClassDelegateUtil#applyFieldDeclaration(FieldDeclaration, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean ClassDelegateUtil.fieldTypeCompatible(FieldDeclaration, Field)"})
-  public void testFieldTypeCompatible_whenFieldDeclaration_thenReturnTrue() {
+  public void testApplyFieldDeclaration4() {
+    // Arrange
+    FieldDeclaration declaration = new FieldDeclaration("Name", "Type", JSONObject.NULL);
+    declaration.setValue(42);
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> ClassDelegateUtil.applyFieldDeclaration(declaration, JSONObject.NULL));
+  }
+
+  /**
+   * Method under test:
+   * {@link ClassDelegateUtil#fieldTypeCompatible(FieldDeclaration, Field)}
+   */
+  @Test
+  public void testFieldTypeCompatible() {
     // Arrange, Act and Assert
     assertTrue(ClassDelegateUtil.fieldTypeCompatible(new FieldDeclaration(), null));
   }

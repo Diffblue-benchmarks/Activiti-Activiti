@@ -18,26 +18,41 @@ package org.activiti.api.runtime.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.model.shared.event.VariableEvent;
-import org.activiti.api.model.shared.event.VariableEvent.VariableEvents;
 import org.activiti.api.model.shared.model.VariableInstance;
 import org.activiti.api.runtime.model.impl.VariableInstanceImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class VariableUpdatedEventImplDiffblueTest {
   /**
-   * Test {@link VariableUpdatedEventImpl#VariableUpdatedEventImpl()}.
-   * <p>
-   * Method under test: {@link VariableUpdatedEventImpl#VariableUpdatedEventImpl()}
+   * Method under test: {@link VariableUpdatedEventImpl#getEventType()}
    */
   @Test
-  @DisplayName("Test new VariableUpdatedEventImpl()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void VariableUpdatedEventImpl.<init>()"})
+  void testGetEventType() {
+    // Arrange
+    VariableUpdatedEventImpl<Object> variableUpdatedEventImpl = new VariableUpdatedEventImpl<>();
+
+    // Act and Assert
+    assertEquals(VariableEvent.VariableEvents.VARIABLE_UPDATED, variableUpdatedEventImpl.getEventType());
+  }
+
+  /**
+   * Method under test: {@link VariableUpdatedEventImpl#getPreviousValue()}
+   */
+  @Test
+  void testGetPreviousValue() {
+    // Arrange
+    VariableUpdatedEventImpl<Object> variableUpdatedEventImpl = new VariableUpdatedEventImpl<>();
+
+    // Act and Assert
+    assertNull(variableUpdatedEventImpl.getPreviousValue());
+  }
+
+  /**
+   * Method under test:
+   * {@link VariableUpdatedEventImpl#VariableUpdatedEventImpl()}
+   */
+  @Test
   void testNewVariableUpdatedEventImpl() {
     // Arrange and Act
     VariableUpdatedEventImpl<Object> actualVariableUpdatedEventImpl = new VariableUpdatedEventImpl<>();
@@ -51,18 +66,14 @@ class VariableUpdatedEventImplDiffblueTest {
     assertNull(actualVariableUpdatedEventImpl.getProcessDefinitionKey());
     assertNull(actualVariableUpdatedEventImpl.getProcessInstanceId());
     assertNull(actualVariableUpdatedEventImpl.getEntity());
-    assertEquals(VariableEvents.VARIABLE_UPDATED, actualVariableUpdatedEventImpl.getEventType());
+    assertEquals(VariableEvent.VariableEvents.VARIABLE_UPDATED, actualVariableUpdatedEventImpl.getEventType());
   }
 
   /**
-   * Test {@link VariableUpdatedEventImpl#VariableUpdatedEventImpl(VariableInstance, Object)}.
-   * <p>
-   * Method under test: {@link VariableUpdatedEventImpl#VariableUpdatedEventImpl(VariableInstance, Object)}
+   * Method under test:
+   * {@link VariableUpdatedEventImpl#VariableUpdatedEventImpl(VariableInstance, Object)}
    */
   @Test
-  @DisplayName("Test new VariableUpdatedEventImpl(VariableInstance, Object)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void VariableUpdatedEventImpl.<init>(VariableInstance, Object)"})
   void testNewVariableUpdatedEventImpl2() {
     // Arrange
     VariableInstanceImpl<Object> entity = new VariableInstanceImpl<>();
@@ -72,8 +83,6 @@ class VariableUpdatedEventImplDiffblueTest {
         "Previous Value");
 
     // Assert
-    VariableInstance entity2 = actualVariableUpdatedEventImpl.getEntity();
-    assertTrue(entity2 instanceof VariableInstanceImpl);
     assertEquals("Previous Value", actualVariableUpdatedEventImpl.getPreviousValue());
     assertNull(actualVariableUpdatedEventImpl.getProcessDefinitionVersion());
     assertNull(actualVariableUpdatedEventImpl.getBusinessKey());
@@ -81,41 +90,7 @@ class VariableUpdatedEventImplDiffblueTest {
     assertNull(actualVariableUpdatedEventImpl.getProcessDefinitionId());
     assertNull(actualVariableUpdatedEventImpl.getProcessDefinitionKey());
     assertNull(actualVariableUpdatedEventImpl.getProcessInstanceId());
-    assertEquals(VariableEvents.VARIABLE_UPDATED, actualVariableUpdatedEventImpl.getEventType());
-    assertSame(entity, entity2);
-  }
-
-  /**
-   * Test {@link VariableUpdatedEventImpl#getEventType()}.
-   * <p>
-   * Method under test: {@link VariableUpdatedEventImpl#getEventType()}
-   */
-  @Test
-  @DisplayName("Test getEventType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"VariableEvents VariableUpdatedEventImpl.getEventType()"})
-  void testGetEventType() {
-    // Arrange
-    VariableUpdatedEventImpl<Object> variableUpdatedEventImpl = new VariableUpdatedEventImpl<>();
-
-    // Act and Assert
-    assertEquals(VariableEvents.VARIABLE_UPDATED, variableUpdatedEventImpl.getEventType());
-  }
-
-  /**
-   * Test {@link VariableUpdatedEventImpl#getPreviousValue()}.
-   * <p>
-   * Method under test: {@link VariableUpdatedEventImpl#getPreviousValue()}
-   */
-  @Test
-  @DisplayName("Test getPreviousValue()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object VariableUpdatedEventImpl.getPreviousValue()"})
-  void testGetPreviousValue() {
-    // Arrange
-    VariableUpdatedEventImpl<Object> variableUpdatedEventImpl = new VariableUpdatedEventImpl<>();
-
-    // Act and Assert
-    assertNull(variableUpdatedEventImpl.getPreviousValue());
+    assertEquals(VariableEvent.VariableEvents.VARIABLE_UPDATED, actualVariableUpdatedEventImpl.getEventType());
+    assertSame(entity, actualVariableUpdatedEventImpl.getEntity());
   }
 }

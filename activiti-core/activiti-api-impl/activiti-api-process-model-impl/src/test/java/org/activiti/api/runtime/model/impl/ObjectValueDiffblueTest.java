@@ -17,18 +17,10 @@ package org.activiti.api.runtime.model.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ObjectValueDiffblueTest {
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>Then return Object is {@code null}.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link ObjectValue#ObjectValue()}
@@ -36,33 +28,9 @@ class ObjectValueDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters; then return Object is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ObjectValue.<init>()", "void ObjectValue.<init>(Object)", "Object ObjectValue.getObject()"})
-  void testGettersAndSetters_thenReturnObjectIsNull() {
+  void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertNull((new ObjectValue()).getObject());
-  }
-
-  /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@code Object}.</li>
-   *   <li>Then return {@code Object}.</li>
-   * </ul>
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link ObjectValue#ObjectValue(Object)}
-   *   <li>{@link ObjectValue#getObject()}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test getters and setters; when 'Object'; then return 'Object'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ObjectValue.<init>()", "void ObjectValue.<init>(Object)", "Object ObjectValue.getObject()"})
-  void testGettersAndSetters_whenObject_thenReturnObject() {
-    // Arrange, Act and Assert
     assertEquals("Object", (new ObjectValue("Object")).getObject());
   }
 }

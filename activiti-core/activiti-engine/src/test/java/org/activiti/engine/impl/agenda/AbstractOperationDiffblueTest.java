@@ -24,8 +24,6 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.HasExecutionListeners;
@@ -39,7 +37,6 @@ import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -55,17 +52,11 @@ public class AbstractOperationDiffblueTest {
   private ExecuteInactiveBehaviorsOperation executeInactiveBehaviorsOperation;
 
   /**
-   * Test {@link AbstractOperation#getCurrentFlowElement(ExecutionEntity)}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AbstractOperation#getCurrentFlowElement(ExecutionEntity)}
+   * Method under test:
+   * {@link AbstractOperation#getCurrentFlowElement(ExecutionEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"FlowElement AbstractOperation.getCurrentFlowElement(ExecutionEntity)"})
-  public void testGetCurrentFlowElement_thenReturnNull() {
+  public void testGetCurrentFlowElement() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
     when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
@@ -86,14 +77,11 @@ public class AbstractOperationDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractOperation#executeExecutionListeners(HasExecutionListeners, String)} with {@code elementWithExecutionListeners}, {@code eventType}.
-   * <p>
-   * Method under test: {@link AbstractOperation#executeExecutionListeners(HasExecutionListeners, String)}
+   * Method under test:
+   * {@link AbstractOperation#executeExecutionListeners(HasExecutionListeners, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AbstractOperation.executeExecutionListeners(HasExecutionListeners, String)"})
-  public void testExecuteExecutionListenersWithElementWithExecutionListenersEventType() {
+  public void testExecuteExecutionListeners() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
     when(jtaProcessEngineConfiguration.getListenerNotificationHelper()).thenReturn(new ListenerNotificationHelper());
@@ -102,20 +90,17 @@ public class AbstractOperationDiffblueTest {
     // Act
     executeInactiveBehaviorsOperation.executeExecutionListeners(new AdhocSubProcess(), "Event Type");
 
-    // Assert
+    // Assert that nothing has changed
     verify(jtaProcessEngineConfiguration).getListenerNotificationHelper();
     verify(commandContext).getProcessEngineConfiguration();
   }
 
   /**
-   * Test {@link AbstractOperation#executeExecutionListeners(HasExecutionListeners, String)} with {@code elementWithExecutionListeners}, {@code eventType}.
-   * <p>
-   * Method under test: {@link AbstractOperation#executeExecutionListeners(HasExecutionListeners, String)}
+   * Method under test:
+   * {@link AbstractOperation#executeExecutionListeners(HasExecutionListeners, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AbstractOperation.executeExecutionListeners(HasExecutionListeners, String)"})
-  public void testExecuteExecutionListenersWithElementWithExecutionListenersEventType2() {
+  public void testExecuteExecutionListeners2() {
     // Arrange
     ListenerNotificationHelper listenerNotificationHelper = mock(ListenerNotificationHelper.class);
     doNothing().when(listenerNotificationHelper)
@@ -128,7 +113,7 @@ public class AbstractOperationDiffblueTest {
     // Act
     executeInactiveBehaviorsOperation.executeExecutionListeners(new AdhocSubProcess(), "Event Type");
 
-    // Assert
+    // Assert that nothing has changed
     verify(listenerNotificationHelper).executeExecutionListeners(isA(HasExecutionListeners.class), isNull(),
         eq("Event Type"));
     verify(jtaProcessEngineConfiguration).getListenerNotificationHelper();
@@ -136,15 +121,11 @@ public class AbstractOperationDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractOperation#executeExecutionListeners(HasExecutionListeners, ExecutionEntity, String)} with {@code elementWithExecutionListeners}, {@code executionEntity}, {@code eventType}.
-   * <p>
-   * Method under test: {@link AbstractOperation#executeExecutionListeners(HasExecutionListeners, ExecutionEntity, String)}
+   * Method under test:
+   * {@link AbstractOperation#executeExecutionListeners(HasExecutionListeners, ExecutionEntity, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void AbstractOperation.executeExecutionListeners(HasExecutionListeners, ExecutionEntity, String)"})
-  public void testExecuteExecutionListenersWithElementWithExecutionListenersExecutionEntityEventType() {
+  public void testExecuteExecutionListeners3() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
     when(jtaProcessEngineConfiguration.getListenerNotificationHelper()).thenReturn(new ListenerNotificationHelper());
@@ -155,21 +136,17 @@ public class AbstractOperationDiffblueTest {
     executeInactiveBehaviorsOperation.executeExecutionListeners(elementWithExecutionListeners,
         ExecutionEntityImpl.createWithEmptyRelationshipCollections(), "Event Type");
 
-    // Assert
+    // Assert that nothing has changed
     verify(jtaProcessEngineConfiguration).getListenerNotificationHelper();
     verify(commandContext).getProcessEngineConfiguration();
   }
 
   /**
-   * Test {@link AbstractOperation#executeExecutionListeners(HasExecutionListeners, ExecutionEntity, String)} with {@code elementWithExecutionListeners}, {@code executionEntity}, {@code eventType}.
-   * <p>
-   * Method under test: {@link AbstractOperation#executeExecutionListeners(HasExecutionListeners, ExecutionEntity, String)}
+   * Method under test:
+   * {@link AbstractOperation#executeExecutionListeners(HasExecutionListeners, ExecutionEntity, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void AbstractOperation.executeExecutionListeners(HasExecutionListeners, ExecutionEntity, String)"})
-  public void testExecuteExecutionListenersWithElementWithExecutionListenersExecutionEntityEventType2() {
+  public void testExecuteExecutionListeners4() {
     // Arrange
     ListenerNotificationHelper listenerNotificationHelper = mock(ListenerNotificationHelper.class);
     doNothing().when(listenerNotificationHelper)
@@ -184,7 +161,7 @@ public class AbstractOperationDiffblueTest {
     executeInactiveBehaviorsOperation.executeExecutionListeners(elementWithExecutionListeners,
         ExecutionEntityImpl.createWithEmptyRelationshipCollections(), "Event Type");
 
-    // Assert
+    // Assert that nothing has changed
     verify(listenerNotificationHelper).executeExecutionListeners(isA(HasExecutionListeners.class),
         isA(DelegateExecution.class), eq("Event Type"));
     verify(jtaProcessEngineConfiguration).getListenerNotificationHelper();
@@ -192,13 +169,9 @@ public class AbstractOperationDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractOperation#getCommandContext()}.
-   * <p>
    * Method under test: {@link AbstractOperation#getCommandContext()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"CommandContext AbstractOperation.getCommandContext()"})
   public void testGetCommandContext() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
@@ -219,13 +192,9 @@ public class AbstractOperationDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractOperation#getAgenda()}.
-   * <p>
    * Method under test: {@link AbstractOperation#getAgenda()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Agenda AbstractOperation.getAgenda()"})
   public void testGetAgenda() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
@@ -246,17 +215,10 @@ public class AbstractOperationDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractOperation#getExecution()}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AbstractOperation#getExecution()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionEntity AbstractOperation.getExecution()"})
-  public void testGetExecution_thenReturnNull() {
+  public void testGetExecution() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
     when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
@@ -275,13 +237,9 @@ public class AbstractOperationDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractOperation#setExecution(ExecutionEntity)}.
-   * <p>
    * Method under test: {@link AbstractOperation#setExecution(ExecutionEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AbstractOperation.setExecution(ExecutionEntity)"})
   public void testSetExecution() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);

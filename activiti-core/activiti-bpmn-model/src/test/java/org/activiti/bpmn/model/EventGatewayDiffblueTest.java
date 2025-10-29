@@ -19,25 +19,46 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import java.util.HashMap;
+import java.util.List;
+import java.util.function.BiFunction;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class EventGatewayDiffblueTest {
   /**
-   * Test {@link EventGateway#clone()}.
-   * <ul>
-   *   <li>Given {@link EventGateway} (default constructor) Asynchronous is {@code true}.</li>
-   *   <li>Then return Asynchronous.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link EventGateway#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"EventGateway EventGateway.clone()"})
-  public void testClone_givenEventGatewayAsynchronousIsTrue_thenReturnAsynchronous() {
+  public void testClone() {
+    // Arrange and Act
+    EventGateway actualCloneResult = (new EventGateway()).clone();
+
+    // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+  }
+
+  /**
+   * Method under test: {@link EventGateway#clone()}
+   */
+  @Test
+  public void testClone2() {
     // Arrange
     EventGateway eventGateway = new EventGateway();
     eventGateway.setAsynchronous(true);
@@ -66,20 +87,20 @@ public class EventGatewayDiffblueTest {
   }
 
   /**
-   * Test {@link EventGateway#clone()}.
-   * <ul>
-   *   <li>Given {@link EventGateway} (default constructor).</li>
-   *   <li>Then return not Asynchronous.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link EventGateway#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"EventGateway EventGateway.clone()"})
-  public void testClone_givenEventGateway_thenReturnNotAsynchronous() {
-    // Arrange and Act
-    EventGateway actualCloneResult = (new EventGateway()).clone();
+  public void testClone3() {
+    // Arrange
+    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
+    attributes.computeIfPresent("foo", mock(BiFunction.class));
+
+    EventGateway eventGateway = new EventGateway();
+    eventGateway.setExtensionElements(null);
+    eventGateway.setAttributes(attributes);
+
+    // Act
+    EventGateway actualCloneResult = eventGateway.clone();
 
     // Assert
     assertNull(actualCloneResult.getBehavior());
@@ -102,13 +123,10 @@ public class EventGatewayDiffblueTest {
   }
 
   /**
-   * Test new {@link EventGateway} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link EventGateway}
+   * Method under test: default or parameterless constructor of
+   * {@link EventGateway}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void EventGateway.<init>()"})
   public void testNewEventGateway() {
     // Arrange and Act
     EventGateway actualEventGateway = new EventGateway();

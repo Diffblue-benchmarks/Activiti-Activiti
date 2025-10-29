@@ -25,8 +25,6 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.engine.ActivitiException;
@@ -38,7 +36,6 @@ import org.activiti.engine.impl.el.FixedValue;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -56,97 +53,34 @@ public class ServiceTaskDelegateExpressionActivityBehaviorDiffblueTest {
   @InjectMocks
   private ServiceTaskDelegateExpressionActivityBehavior serviceTaskDelegateExpressionActivityBehavior;
 
+  @InjectMocks
+  private String string;
+
   /**
-   * Test {@link ServiceTaskDelegateExpressionActivityBehavior#ServiceTaskDelegateExpressionActivityBehavior(String, Expression, Expression, List)}.
-   * <ul>
-   *   <li>Given {@link FieldDeclaration#FieldDeclaration()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ServiceTaskDelegateExpressionActivityBehavior#ServiceTaskDelegateExpressionActivityBehavior(String, Expression, Expression, List)}
+   * Method under test:
+   * {@link ServiceTaskDelegateExpressionActivityBehavior#trigger(DelegateExecution, String, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ServiceTaskDelegateExpressionActivityBehavior.<init>(String, Expression, Expression, List)"})
-  public void testNewServiceTaskDelegateExpressionActivityBehavior_givenFieldDeclaration() {
+  public void testTrigger() {
     // Arrange
-    ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
-    fieldDeclarations.add(new FieldDeclaration());
+    when(expression.getValue(Mockito.<VariableScope>any())).thenReturn(JSONObject.NULL);
+    when(list.size()).thenReturn(0);
 
     // Act
-    ServiceTaskDelegateExpressionActivityBehavior actualServiceTaskDelegateExpressionActivityBehavior = new ServiceTaskDelegateExpressionActivityBehavior(
-        "42", expression, expression, fieldDeclarations);
+    serviceTaskDelegateExpressionActivityBehavior.trigger(ExecutionEntityImpl.createWithEmptyRelationshipCollections(),
+        "Signal Name", JSONObject.NULL);
 
     // Assert
-    assertEquals("42", actualServiceTaskDelegateExpressionActivityBehavior.serviceTaskId);
-    assertNull(actualServiceTaskDelegateExpressionActivityBehavior.getMultiInstanceActivityBehavior());
-    assertFalse(actualServiceTaskDelegateExpressionActivityBehavior.hasLoopCharacteristics());
-    assertFalse(actualServiceTaskDelegateExpressionActivityBehavior.hasMultiInstanceCharacteristics());
+    verify(list).size();
+    verify(expression).getValue(isA(VariableScope.class));
   }
 
   /**
-   * Test {@link ServiceTaskDelegateExpressionActivityBehavior#ServiceTaskDelegateExpressionActivityBehavior(String, Expression, Expression, List)}.
-   * <ul>
-   *   <li>Given {@link FieldDeclaration#FieldDeclaration()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ServiceTaskDelegateExpressionActivityBehavior#ServiceTaskDelegateExpressionActivityBehavior(String, Expression, Expression, List)}
+   * Method under test:
+   * {@link ServiceTaskDelegateExpressionActivityBehavior#trigger(DelegateExecution, String, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ServiceTaskDelegateExpressionActivityBehavior.<init>(String, Expression, Expression, List)"})
-  public void testNewServiceTaskDelegateExpressionActivityBehavior_givenFieldDeclaration2() {
-    // Arrange
-    ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
-    fieldDeclarations.add(new FieldDeclaration());
-    fieldDeclarations.add(new FieldDeclaration());
-
-    // Act
-    ServiceTaskDelegateExpressionActivityBehavior actualServiceTaskDelegateExpressionActivityBehavior = new ServiceTaskDelegateExpressionActivityBehavior(
-        "42", expression, expression, fieldDeclarations);
-
-    // Assert
-    assertEquals("42", actualServiceTaskDelegateExpressionActivityBehavior.serviceTaskId);
-    assertNull(actualServiceTaskDelegateExpressionActivityBehavior.getMultiInstanceActivityBehavior());
-    assertFalse(actualServiceTaskDelegateExpressionActivityBehavior.hasLoopCharacteristics());
-    assertFalse(actualServiceTaskDelegateExpressionActivityBehavior.hasMultiInstanceCharacteristics());
-  }
-
-  /**
-   * Test {@link ServiceTaskDelegateExpressionActivityBehavior#ServiceTaskDelegateExpressionActivityBehavior(String, Expression, Expression, List)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ServiceTaskDelegateExpressionActivityBehavior#ServiceTaskDelegateExpressionActivityBehavior(String, Expression, Expression, List)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ServiceTaskDelegateExpressionActivityBehavior.<init>(String, Expression, Expression, List)"})
-  public void testNewServiceTaskDelegateExpressionActivityBehavior_whenArrayList() {
-    // Arrange and Act
-    ServiceTaskDelegateExpressionActivityBehavior actualServiceTaskDelegateExpressionActivityBehavior = new ServiceTaskDelegateExpressionActivityBehavior(
-        "42", expression, expression, new ArrayList<>());
-
-    // Assert
-    assertEquals("42", actualServiceTaskDelegateExpressionActivityBehavior.serviceTaskId);
-    assertNull(actualServiceTaskDelegateExpressionActivityBehavior.getMultiInstanceActivityBehavior());
-    assertFalse(actualServiceTaskDelegateExpressionActivityBehavior.hasLoopCharacteristics());
-    assertFalse(actualServiceTaskDelegateExpressionActivityBehavior.hasMultiInstanceCharacteristics());
-  }
-
-  /**
-   * Test {@link ServiceTaskDelegateExpressionActivityBehavior#trigger(DelegateExecution, String, Object)}.
-   * <ul>
-   *   <li>Given {@link AbstractBpmnActivityBehavior} {@link FlowNodeActivityBehavior#trigger(DelegateExecution, String, Object)} does nothing.</li>
-   *   <li>Then calls {@link FlowNodeActivityBehavior#trigger(DelegateExecution, String, Object)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ServiceTaskDelegateExpressionActivityBehavior#trigger(DelegateExecution, String, Object)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ServiceTaskDelegateExpressionActivityBehavior.trigger(DelegateExecution, String, Object)"})
-  public void testTrigger_givenAbstractBpmnActivityBehaviorTriggerDoesNothing_thenCallsTrigger() {
+  public void testTrigger2() {
     // Arrange
     AbstractBpmnActivityBehavior abstractBpmnActivityBehavior = mock(AbstractBpmnActivityBehavior.class);
     doNothing().when(abstractBpmnActivityBehavior)
@@ -165,43 +99,82 @@ public class ServiceTaskDelegateExpressionActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test {@link ServiceTaskDelegateExpressionActivityBehavior#trigger(DelegateExecution, String, Object)}.
-   * <ul>
-   *   <li>Given {@link Expression} {@link Expression#getValue(VariableScope)} return {@link JSONObject#NULL}.</li>
-   *   <li>Then calls {@link List#size()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ServiceTaskDelegateExpressionActivityBehavior#trigger(DelegateExecution, String, Object)}
+   * Method under test:
+   * {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ServiceTaskDelegateExpressionActivityBehavior.trigger(DelegateExecution, String, Object)"})
-  public void testTrigger_givenExpressionGetValueReturnNull_thenCallsSize() {
+  public void testExecute() {
     // Arrange
-    when(expression.getValue(Mockito.<VariableScope>any())).thenReturn(JSONObject.NULL);
-    when(list.size()).thenReturn(0);
+    FixedValue expression = new FixedValue(JSONObject.NULL);
+    FixedValue skipExpression = new FixedValue(JSONObject.NULL);
+    ServiceTaskDelegateExpressionActivityBehavior serviceTaskDelegateExpressionActivityBehavior = new ServiceTaskDelegateExpressionActivityBehavior(
+        "42", expression, skipExpression, new ArrayList<>());
 
-    // Act
-    serviceTaskDelegateExpressionActivityBehavior.trigger(ExecutionEntityImpl.createWithEmptyRelationshipCollections(),
-        "Signal Name", JSONObject.NULL);
-
-    // Assert
-    verify(list).size();
-    verify(expression).getValue(isA(VariableScope.class));
+    // Act and Assert
+    assertThrows(ActivitiException.class,
+        () -> serviceTaskDelegateExpressionActivityBehavior.execute(new ExecutionEntityImpl()));
   }
 
   /**
-   * Test {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}
+   * Method under test:
+   * {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ServiceTaskDelegateExpressionActivityBehavior.execute(DelegateExecution)"})
-  public void testExecute_given42() {
+  public void testExecute2() {
+    // Arrange
+    FixedValue expression = new FixedValue(JSONObject.NULL);
+    FixedValue skipExpression = new FixedValue(JSONObject.NULL);
+    ServiceTaskDelegateExpressionActivityBehavior serviceTaskDelegateExpressionActivityBehavior = new ServiceTaskDelegateExpressionActivityBehavior(
+        "42", expression, skipExpression, new ArrayList<>());
+    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+    execution.setTransientVariableLocal("_ACTIVITI_SKIP_EXPRESSION_ENABLED", JSONObject.NULL);
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> serviceTaskDelegateExpressionActivityBehavior.execute(execution));
+  }
+
+  /**
+   * Method under test:
+   * {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}
+   */
+  @Test
+  public void testExecute3() {
+    // Arrange
+    FixedValue expression = new FixedValue(JSONObject.NULL);
+    FixedValue skipExpression = new FixedValue(JSONObject.NULL);
+    ServiceTaskDelegateExpressionActivityBehavior serviceTaskDelegateExpressionActivityBehavior = new ServiceTaskDelegateExpressionActivityBehavior(
+        "42", expression, skipExpression, new ArrayList<>());
+    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+    execution.setTransientVariableLocal("_ACTIVITI_SKIP_EXPRESSION_ENABLED", true);
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> serviceTaskDelegateExpressionActivityBehavior.execute(execution));
+  }
+
+  /**
+   * Method under test:
+   * {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}
+   */
+  @Test
+  public void testExecute4() {
+    // Arrange
+    FixedValue expression = new FixedValue(JSONObject.NULL);
+    FixedValue skipExpression = new FixedValue(true);
+    ServiceTaskDelegateExpressionActivityBehavior serviceTaskDelegateExpressionActivityBehavior = new ServiceTaskDelegateExpressionActivityBehavior(
+        "42", expression, skipExpression, new ArrayList<>());
+    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+    execution.setTransientVariableLocal("_ACTIVITI_SKIP_EXPRESSION_ENABLED", true);
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> serviceTaskDelegateExpressionActivityBehavior.execute(execution));
+  }
+
+  /**
+   * Method under test:
+   * {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}
+   */
+  @Test
+  public void testExecute5() {
     // Arrange
     FixedValue expression = new FixedValue(JSONObject.NULL);
     FixedValue skipExpression = new FixedValue(true);
@@ -216,100 +189,83 @@ public class ServiceTaskDelegateExpressionActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}.
-   * <ul>
-   *   <li>Given {@link FixedValue#FixedValue(Object)} with value is {@code true}.</li>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}
+   * Method under test:
+   * {@link ServiceTaskDelegateExpressionActivityBehavior#ServiceTaskDelegateExpressionActivityBehavior(String, Expression, Expression, List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ServiceTaskDelegateExpressionActivityBehavior.execute(DelegateExecution)"})
-  public void testExecute_givenFixedValueWithValueIsTrue_thenThrowActivitiException() {
-    // Arrange
-    FixedValue expression = new FixedValue(JSONObject.NULL);
-    FixedValue skipExpression = new FixedValue(true);
-    ServiceTaskDelegateExpressionActivityBehavior serviceTaskDelegateExpressionActivityBehavior = new ServiceTaskDelegateExpressionActivityBehavior(
-        "42", expression, skipExpression, new ArrayList<>());
-    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-    execution.setTransientVariableLocal("_ACTIVITI_SKIP_EXPRESSION_ENABLED", true);
+  public void testNewServiceTaskDelegateExpressionActivityBehavior() {
+    // Arrange and Act
+    ServiceTaskDelegateExpressionActivityBehavior actualServiceTaskDelegateExpressionActivityBehavior = new ServiceTaskDelegateExpressionActivityBehavior(
+        "42", expression, expression, new ArrayList<>());
 
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> serviceTaskDelegateExpressionActivityBehavior.execute(execution));
+    // Assert
+    assertEquals("42", actualServiceTaskDelegateExpressionActivityBehavior.serviceTaskId);
+    assertNull(actualServiceTaskDelegateExpressionActivityBehavior.getMultiInstanceActivityBehavior());
+    assertFalse(actualServiceTaskDelegateExpressionActivityBehavior.hasLoopCharacteristics());
+    assertFalse(actualServiceTaskDelegateExpressionActivityBehavior.hasMultiInstanceCharacteristics());
   }
 
   /**
-   * Test {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}.
-   * <ul>
-   *   <li>Given {@link JSONObject#NULL}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}
+   * Method under test:
+   * {@link ServiceTaskDelegateExpressionActivityBehavior#ServiceTaskDelegateExpressionActivityBehavior(String, Expression, Expression, List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ServiceTaskDelegateExpressionActivityBehavior.execute(DelegateExecution)"})
-  public void testExecute_givenNull() {
+  public void testNewServiceTaskDelegateExpressionActivityBehavior2() {
     // Arrange
-    FixedValue expression = new FixedValue(JSONObject.NULL);
-    FixedValue skipExpression = new FixedValue(JSONObject.NULL);
-    ServiceTaskDelegateExpressionActivityBehavior serviceTaskDelegateExpressionActivityBehavior = new ServiceTaskDelegateExpressionActivityBehavior(
-        "42", expression, skipExpression, new ArrayList<>());
-    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-    execution.setTransientVariableLocal("_ACTIVITI_SKIP_EXPRESSION_ENABLED", JSONObject.NULL);
+    ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
+    fieldDeclarations.add(new FieldDeclaration());
 
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> serviceTaskDelegateExpressionActivityBehavior.execute(execution));
+    // Act
+    ServiceTaskDelegateExpressionActivityBehavior actualServiceTaskDelegateExpressionActivityBehavior = new ServiceTaskDelegateExpressionActivityBehavior(
+        "42", expression, expression, fieldDeclarations);
+
+    // Assert
+    assertEquals("42", actualServiceTaskDelegateExpressionActivityBehavior.serviceTaskId);
+    assertNull(actualServiceTaskDelegateExpressionActivityBehavior.getMultiInstanceActivityBehavior());
+    assertFalse(actualServiceTaskDelegateExpressionActivityBehavior.hasLoopCharacteristics());
+    assertFalse(actualServiceTaskDelegateExpressionActivityBehavior.hasMultiInstanceCharacteristics());
   }
 
   /**
-   * Test {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}.
-   * <ul>
-   *   <li>Given {@code true}.</li>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}
+   * Method under test:
+   * {@link ServiceTaskDelegateExpressionActivityBehavior#ServiceTaskDelegateExpressionActivityBehavior(String, Expression, Expression, List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ServiceTaskDelegateExpressionActivityBehavior.execute(DelegateExecution)"})
-  public void testExecute_givenTrue_thenThrowActivitiException() {
+  public void testNewServiceTaskDelegateExpressionActivityBehavior3() {
     // Arrange
-    FixedValue expression = new FixedValue(JSONObject.NULL);
-    FixedValue skipExpression = new FixedValue(JSONObject.NULL);
-    ServiceTaskDelegateExpressionActivityBehavior serviceTaskDelegateExpressionActivityBehavior = new ServiceTaskDelegateExpressionActivityBehavior(
-        "42", expression, skipExpression, new ArrayList<>());
-    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-    execution.setTransientVariableLocal("_ACTIVITI_SKIP_EXPRESSION_ENABLED", true);
+    ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
+    fieldDeclarations.add(new FieldDeclaration());
+    fieldDeclarations.add(new FieldDeclaration());
 
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> serviceTaskDelegateExpressionActivityBehavior.execute(execution));
+    // Act
+    ServiceTaskDelegateExpressionActivityBehavior actualServiceTaskDelegateExpressionActivityBehavior = new ServiceTaskDelegateExpressionActivityBehavior(
+        "42", expression, expression, fieldDeclarations);
+
+    // Assert
+    assertEquals("42", actualServiceTaskDelegateExpressionActivityBehavior.serviceTaskId);
+    assertNull(actualServiceTaskDelegateExpressionActivityBehavior.getMultiInstanceActivityBehavior());
+    assertFalse(actualServiceTaskDelegateExpressionActivityBehavior.hasLoopCharacteristics());
+    assertFalse(actualServiceTaskDelegateExpressionActivityBehavior.hasMultiInstanceCharacteristics());
   }
 
   /**
-   * Test {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}.
-   * <ul>
-   *   <li>When {@link ExecutionEntityImpl} (default constructor).</li>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}
+   * Method under test:
+   * {@link ServiceTaskDelegateExpressionActivityBehavior#ServiceTaskDelegateExpressionActivityBehavior(String, Expression, Expression, List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ServiceTaskDelegateExpressionActivityBehavior.execute(DelegateExecution)"})
-  public void testExecute_whenExecutionEntityImpl_thenThrowActivitiException() {
+  public void testNewServiceTaskDelegateExpressionActivityBehavior4() {
     // Arrange
-    FixedValue expression = new FixedValue(JSONObject.NULL);
-    FixedValue skipExpression = new FixedValue(JSONObject.NULL);
-    ServiceTaskDelegateExpressionActivityBehavior serviceTaskDelegateExpressionActivityBehavior = new ServiceTaskDelegateExpressionActivityBehavior(
-        "42", expression, skipExpression, new ArrayList<>());
+    ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
+    fieldDeclarations.add(mock(FieldDeclaration.class));
 
-    // Act and Assert
-    assertThrows(ActivitiException.class,
-        () -> serviceTaskDelegateExpressionActivityBehavior.execute(new ExecutionEntityImpl()));
+    // Act
+    ServiceTaskDelegateExpressionActivityBehavior actualServiceTaskDelegateExpressionActivityBehavior = new ServiceTaskDelegateExpressionActivityBehavior(
+        "42", expression, expression, fieldDeclarations);
+
+    // Assert
+    assertEquals("42", actualServiceTaskDelegateExpressionActivityBehavior.serviceTaskId);
+    assertNull(actualServiceTaskDelegateExpressionActivityBehavior.getMultiInstanceActivityBehavior());
+    assertFalse(actualServiceTaskDelegateExpressionActivityBehavior.hasLoopCharacteristics());
+    assertFalse(actualServiceTaskDelegateExpressionActivityBehavior.hasMultiInstanceCharacteristics());
   }
 }

@@ -25,47 +25,49 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityManager;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class TerminateEndEventActivityBehaviorDiffblueTest {
+  @InjectMocks
+  private TerminateEndEventActivityBehavior terminateEndEventActivityBehavior;
+
   /**
-   * Test new {@link TerminateEndEventActivityBehavior} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link TerminateEndEventActivityBehavior}
+   * Method under test:
+   * {@link TerminateEndEventActivityBehavior#deleteExecutionEntities(ExecutionEntityManager, ExecutionEntity, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void TerminateEndEventActivityBehavior.<init>()"})
-  public void testNewTerminateEndEventActivityBehavior() {
-    // Arrange and Act
-    TerminateEndEventActivityBehavior actualTerminateEndEventActivityBehavior = new TerminateEndEventActivityBehavior();
+  public void testDeleteExecutionEntities() {
+    // Arrange
+    ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
+    when(executionEntityManager.collectChildren(Mockito.<ExecutionEntity>any())).thenReturn(new ArrayList<>());
+    doNothing().when(executionEntityManager)
+        .cancelExecutionAndRelatedData(Mockito.<ExecutionEntity>any(), Mockito.<String>any());
+
+    // Act
+    terminateEndEventActivityBehavior.deleteExecutionEntities(executionEntityManager,
+        ExecutionEntityImpl.createWithEmptyRelationshipCollections(), "Just cause");
 
     // Assert
-    assertFalse(actualTerminateEndEventActivityBehavior.isTerminateAll());
-    assertFalse(actualTerminateEndEventActivityBehavior.isTerminateMultiInstance());
+    verify(executionEntityManager).cancelExecutionAndRelatedData(isA(ExecutionEntity.class), eq("Just cause"));
+    verify(executionEntityManager).collectChildren(isA(ExecutionEntity.class));
   }
 
   /**
-   * Test {@link TerminateEndEventActivityBehavior#deleteExecutionEntities(ExecutionEntityManager, ExecutionEntity, String)}.
-   * <p>
-   * Method under test: {@link TerminateEndEventActivityBehavior#deleteExecutionEntities(ExecutionEntityManager, ExecutionEntity, String)}
+   * Method under test:
+   * {@link TerminateEndEventActivityBehavior#deleteExecutionEntities(ExecutionEntityManager, ExecutionEntity, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void TerminateEndEventActivityBehavior.deleteExecutionEntities(ExecutionEntityManager, ExecutionEntity, String)"})
-  public void testDeleteExecutionEntities() {
+  public void testDeleteExecutionEntities2() {
     // Arrange
-    TerminateEndEventActivityBehavior terminateEndEventActivityBehavior = new TerminateEndEventActivityBehavior();
-
     ArrayList<ExecutionEntity> executionEntityList = new ArrayList<>();
     executionEntityList.add(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
     ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
@@ -84,85 +86,27 @@ public class TerminateEndEventActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test {@link TerminateEndEventActivityBehavior#deleteExecutionEntities(ExecutionEntityManager, ExecutionEntity, String)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TerminateEndEventActivityBehavior#deleteExecutionEntities(ExecutionEntityManager, ExecutionEntity, String)}
+   * Method under test:
+   * {@link TerminateEndEventActivityBehavior#createDeleteReason(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void TerminateEndEventActivityBehavior.deleteExecutionEntities(ExecutionEntityManager, ExecutionEntity, String)"})
-  public void testDeleteExecutionEntities_givenArrayList() {
-    // Arrange
-    TerminateEndEventActivityBehavior terminateEndEventActivityBehavior = new TerminateEndEventActivityBehavior();
-    ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
-    when(executionEntityManager.collectChildren(Mockito.<ExecutionEntity>any())).thenReturn(new ArrayList<>());
-    doNothing().when(executionEntityManager)
-        .cancelExecutionAndRelatedData(Mockito.<ExecutionEntity>any(), Mockito.<String>any());
-
-    // Act
-    terminateEndEventActivityBehavior.deleteExecutionEntities(executionEntityManager,
-        ExecutionEntityImpl.createWithEmptyRelationshipCollections(), "Just cause");
-
-    // Assert
-    verify(executionEntityManager).cancelExecutionAndRelatedData(isA(ExecutionEntity.class), eq("Just cause"));
-    verify(executionEntityManager).collectChildren(isA(ExecutionEntity.class));
-  }
-
-  /**
-   * Test {@link TerminateEndEventActivityBehavior#createDeleteReason(String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then return {@code Terminated by end event: 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TerminateEndEventActivityBehavior#createDeleteReason(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String TerminateEndEventActivityBehavior.createDeleteReason(String)"})
-  public void testCreateDeleteReason_when42_thenReturnTerminatedByEndEvent42() {
+  public void testCreateDeleteReason() {
     // Arrange, Act and Assert
     assertEquals("Terminated by end event: 42", TerminateEndEventActivityBehavior.createDeleteReason("42"));
-  }
-
-  /**
-   * Test {@link TerminateEndEventActivityBehavior#createDeleteReason(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return {@code Terminated by end event}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TerminateEndEventActivityBehavior#createDeleteReason(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String TerminateEndEventActivityBehavior.createDeleteReason(String)"})
-  public void testCreateDeleteReason_whenNull_thenReturnTerminatedByEndEvent() {
-    // Arrange, Act and Assert
     assertEquals("Terminated by end event", TerminateEndEventActivityBehavior.createDeleteReason(null));
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link TerminateEndEventActivityBehavior#setTerminateAll(boolean)}
-   *   <li>{@link TerminateEndEventActivityBehavior#setTerminateMultiInstance(boolean)}
+   *   <li>
+   * {@link TerminateEndEventActivityBehavior#setTerminateMultiInstance(boolean)}
    *   <li>{@link TerminateEndEventActivityBehavior#isTerminateAll()}
    *   <li>{@link TerminateEndEventActivityBehavior#isTerminateMultiInstance()}
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean TerminateEndEventActivityBehavior.isTerminateAll()",
-      "boolean TerminateEndEventActivityBehavior.isTerminateMultiInstance()",
-      "void TerminateEndEventActivityBehavior.setTerminateAll(boolean)",
-      "void TerminateEndEventActivityBehavior.setTerminateMultiInstance(boolean)"})
   public void testGettersAndSetters() {
     // Arrange
     TerminateEndEventActivityBehavior terminateEndEventActivityBehavior = new TerminateEndEventActivityBehavior();
@@ -172,8 +116,22 @@ public class TerminateEndEventActivityBehaviorDiffblueTest {
     terminateEndEventActivityBehavior.setTerminateMultiInstance(true);
     boolean actualIsTerminateAllResult = terminateEndEventActivityBehavior.isTerminateAll();
 
-    // Assert
+    // Assert that nothing has changed
     assertTrue(actualIsTerminateAllResult);
     assertTrue(terminateEndEventActivityBehavior.isTerminateMultiInstance());
+  }
+
+  /**
+   * Method under test: default or parameterless constructor of
+   * {@link TerminateEndEventActivityBehavior}
+   */
+  @Test
+  public void testNewTerminateEndEventActivityBehavior() {
+    // Arrange and Act
+    TerminateEndEventActivityBehavior actualTerminateEndEventActivityBehavior = new TerminateEndEventActivityBehavior();
+
+    // Assert
+    assertFalse(actualTerminateEndEventActivityBehavior.isTerminateAll());
+    assertFalse(actualTerminateEndEventActivityBehavior.isTerminateMultiInstance());
   }
 }

@@ -17,9 +17,9 @@ package org.activiti.engine.impl.bpmn.parser.handler;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BoundaryEvent;
 import org.activiti.bpmn.model.FlowElement;
@@ -30,19 +30,53 @@ import org.activiti.engine.impl.bpmn.behavior.IntermediateCatchTimerEventActivit
 import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
+import org.activiti.engine.impl.cfg.BpmnParseFactory;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class TimerEventDefinitionParseHandlerDiffblueTest {
   /**
-   * Test {@link TimerEventDefinitionParseHandler#executeParse(BpmnParse, TimerEventDefinition)} with {@code BpmnParse}, {@code TimerEventDefinition}.
-   * <p>
-   * Method under test: {@link TimerEventDefinitionParseHandler#executeParse(BpmnParse, TimerEventDefinition)}
+   * Method under test:
+   * {@link TimerEventDefinitionParseHandler#executeParse(BpmnParse, TimerEventDefinition)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void TimerEventDefinitionParseHandler.executeParse(BpmnParse, TimerEventDefinition)"})
-  public void testExecuteParseWithBpmnParseTimerEventDefinition() {
+  public void testExecuteParse() {
+    // Arrange
+    TimerEventDefinitionParseHandler timerEventDefinitionParseHandler = new TimerEventDefinitionParseHandler();
+    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
+
+    // Act
+    timerEventDefinitionParseHandler.executeParse(bpmnParse, new TimerEventDefinition());
+
+    // Assert that nothing has changed
+    assertNull(bpmnParse.getCurrentFlowElement());
+  }
+
+  /**
+   * Method under test:
+   * {@link TimerEventDefinitionParseHandler#executeParse(BpmnParse, TimerEventDefinition)}
+   */
+  @Test
+  public void testExecuteParse2() {
+    // Arrange
+    TimerEventDefinitionParseHandler timerEventDefinitionParseHandler = new TimerEventDefinitionParseHandler();
+
+    BpmnParser parser = new BpmnParser();
+    parser.setBpmnParseFactory(mock(BpmnParseFactory.class));
+    BpmnParse bpmnParse = new BpmnParse(parser);
+
+    // Act
+    timerEventDefinitionParseHandler.executeParse(bpmnParse, new TimerEventDefinition());
+
+    // Assert that nothing has changed
+    assertNull(bpmnParse.getCurrentFlowElement());
+  }
+
+  /**
+   * Method under test:
+   * {@link TimerEventDefinitionParseHandler#executeParse(BpmnParse, TimerEventDefinition)}
+   */
+  @Test
+  public void testExecuteParse3() {
     // Arrange
     TimerEventDefinitionParseHandler timerEventDefinitionParseHandler = new TimerEventDefinitionParseHandler();
 
@@ -50,28 +84,27 @@ public class TimerEventDefinitionParseHandlerDiffblueTest {
     parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
 
     BpmnParse bpmnParse = new BpmnParse(parser);
-    bpmnParse.setCurrentFlowElement(new IntermediateCatchEvent());
+    IntermediateCatchEvent currentFlowElement = new IntermediateCatchEvent();
+    bpmnParse.setCurrentFlowElement(currentFlowElement);
 
     // Act
     timerEventDefinitionParseHandler.executeParse(bpmnParse, new TimerEventDefinition());
 
     // Assert
-    FlowElement currentFlowElement = bpmnParse.getCurrentFlowElement();
-    assertTrue(currentFlowElement instanceof IntermediateCatchEvent);
-    Object behavior = ((IntermediateCatchEvent) currentFlowElement).getBehavior();
+    FlowElement currentFlowElement2 = bpmnParse.getCurrentFlowElement();
+    assertTrue(currentFlowElement2 instanceof IntermediateCatchEvent);
+    Object behavior = ((IntermediateCatchEvent) currentFlowElement2).getBehavior();
     assertTrue(behavior instanceof IntermediateCatchTimerEventActivityBehavior);
     assertNull(((IntermediateCatchTimerEventActivityBehavior) behavior).getMultiInstanceActivityBehavior());
+    assertSame(currentFlowElement, currentFlowElement2);
   }
 
   /**
-   * Test {@link TimerEventDefinitionParseHandler#executeParse(BpmnParse, TimerEventDefinition)} with {@code BpmnParse}, {@code TimerEventDefinition}.
-   * <p>
-   * Method under test: {@link TimerEventDefinitionParseHandler#executeParse(BpmnParse, TimerEventDefinition)}
+   * Method under test:
+   * {@link TimerEventDefinitionParseHandler#executeParse(BpmnParse, TimerEventDefinition)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void TimerEventDefinitionParseHandler.executeParse(BpmnParse, TimerEventDefinition)"})
-  public void testExecuteParseWithBpmnParseTimerEventDefinition2() {
+  public void testExecuteParse4() {
     // Arrange
     TimerEventDefinitionParseHandler timerEventDefinitionParseHandler = new TimerEventDefinitionParseHandler();
 
@@ -79,32 +112,30 @@ public class TimerEventDefinitionParseHandlerDiffblueTest {
     parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
 
     BpmnParse bpmnParse = new BpmnParse(parser);
-    bpmnParse.setCurrentFlowElement(new BoundaryEvent());
+    BoundaryEvent currentFlowElement = new BoundaryEvent();
+    bpmnParse.setCurrentFlowElement(currentFlowElement);
 
     // Act
     timerEventDefinitionParseHandler.executeParse(bpmnParse, new TimerEventDefinition());
 
     // Assert
-    FlowElement currentFlowElement = bpmnParse.getCurrentFlowElement();
-    assertTrue(currentFlowElement instanceof BoundaryEvent);
-    Object behavior = ((BoundaryEvent) currentFlowElement).getBehavior();
+    FlowElement currentFlowElement2 = bpmnParse.getCurrentFlowElement();
+    assertTrue(currentFlowElement2 instanceof BoundaryEvent);
+    Object behavior = ((BoundaryEvent) currentFlowElement2).getBehavior();
     assertTrue(behavior instanceof BoundaryTimerEventActivityBehavior);
     assertTrue(((BoundaryTimerEventActivityBehavior) behavior).isInterrupting());
+    assertSame(currentFlowElement, currentFlowElement2);
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of {@link TimerEventDefinitionParseHandler}
+   *   <li>default or parameterless constructor of
+   * {@link TimerEventDefinitionParseHandler}
    *   <li>{@link TimerEventDefinitionParseHandler#getHandledType()}
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void TimerEventDefinitionParseHandler.<init>()",
-      "Class TimerEventDefinitionParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends BaseElement> actualHandledType = (new TimerEventDefinitionParseHandler()).getHandledType();

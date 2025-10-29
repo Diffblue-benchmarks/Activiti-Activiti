@@ -16,35 +16,22 @@
 package org.activiti.test.matchers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class BPMNStartEventMatchersDiffblueTest {
   /**
-   * Test {@link BPMNStartEventMatchers#getActivityType()}.
-   * <p>
    * Method under test: {@link BPMNStartEventMatchers#getActivityType()}
    */
   @Test
-  @DisplayName("Test getActivityType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String BPMNStartEventMatchers.getActivityType()"})
   void testGetActivityType() {
     // Arrange, Act and Assert
     assertEquals("startEvent", BPMNStartEventMatchers.startEvent("Definition Key").getActivityType());
   }
 
   /**
-   * Test {@link BPMNStartEventMatchers#startEvent(String)}.
-   * <p>
    * Method under test: {@link BPMNStartEventMatchers#startEvent(String)}
    */
   @Test
-  @DisplayName("Test startEvent(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BPMNStartEventMatchers BPMNStartEventMatchers.startEvent(String)"})
   void testStartEvent() {
     // Arrange, Act and Assert
     assertEquals("startEvent", BPMNStartEventMatchers.startEvent("Definition Key").getActivityType());

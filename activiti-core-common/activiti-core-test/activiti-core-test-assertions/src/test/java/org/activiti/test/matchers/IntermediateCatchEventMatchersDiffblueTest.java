@@ -16,21 +16,13 @@
 package org.activiti.test.matchers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class IntermediateCatchEventMatchersDiffblueTest {
   /**
-   * Test {@link IntermediateCatchEventMatchers#getActivityType()}.
-   * <p>
    * Method under test: {@link IntermediateCatchEventMatchers#getActivityType()}
    */
   @Test
-  @DisplayName("Test getActivityType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String IntermediateCatchEventMatchers.getActivityType()"})
   void testGetActivityType() {
     // Arrange, Act and Assert
     assertEquals("intermediateCatchEvent",
@@ -38,14 +30,10 @@ class IntermediateCatchEventMatchersDiffblueTest {
   }
 
   /**
-   * Test {@link IntermediateCatchEventMatchers#intermediateCatchEvent(String)}.
-   * <p>
-   * Method under test: {@link IntermediateCatchEventMatchers#intermediateCatchEvent(String)}
+   * Method under test:
+   * {@link IntermediateCatchEventMatchers#intermediateCatchEvent(String)}
    */
   @Test
-  @DisplayName("Test intermediateCatchEvent(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"IntermediateCatchEventMatchers IntermediateCatchEventMatchers.intermediateCatchEvent(String)"})
   void testIntermediateCatchEvent() {
     // Arrange, Act and Assert
     assertEquals("intermediateCatchEvent",

@@ -16,23 +16,35 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import java.util.HashMap;
+import java.util.function.BiFunction;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class NeedsActiveExecutionCmdDiffblueTest {
   /**
-   * Test {@link NeedsActiveExecutionCmd#getSuspendedExceptionMessage()}.
-   * <p>
-   * Method under test: {@link NeedsActiveExecutionCmd#getSuspendedExceptionMessage()}
+   * Method under test:
+   * {@link NeedsActiveExecutionCmd#getSuspendedExceptionMessage()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.lang.String NeedsActiveExecutionCmd.getSuspendedExceptionMessage()"})
   public void testGetSuspendedExceptionMessage() {
     // Arrange, Act and Assert
     assertEquals("Cannot execution operation because execution '42' is suspended",
         (new MessageEventReceivedCmd("Message Name", "42", true)).getSuspendedExceptionMessage());
+  }
+
+  /**
+   * Method under test:
+   * {@link NeedsActiveExecutionCmd#getSuspendedExceptionMessage()}
+   */
+  @Test
+  public void testGetSuspendedExceptionMessage2() {
+    // Arrange
+    HashMap<String, Object> processVariables = new HashMap<>();
+    processVariables.computeIfPresent("foo", mock(BiFunction.class));
+
+    // Act and Assert
+    assertEquals("Cannot execution operation because execution '42' is suspended",
+        (new MessageEventReceivedCmd("Message Name", "42", processVariables)).getSuspendedExceptionMessage());
   }
 }

@@ -25,7 +25,6 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
 import jakarta.el.ValueExpression;
 import java.lang.reflect.Method;
@@ -34,86 +33,37 @@ import org.activiti.core.el.juel.ObjectValueExpression;
 import org.activiti.core.el.juel.misc.TypeConverter;
 import org.activiti.core.el.juel.tree.Bindings;
 import org.activiti.core.el.juel.util.SimpleContext;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class AstEvalDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link AstEval#AstEval(AstNode, boolean)}
-   *   <li>{@link AstEval#getCardinality()}
-   *   <li>{@link AstEval#isDeferred()}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AstEval.<init>(AstNode, boolean)", "int AstEval.getCardinality()",
-      "boolean AstEval.isDeferred()"})
-  void testGettersAndSetters() {
-    // Arrange and Act
-    AstEval actualAstEval = new AstEval(new AstNull(), true);
-    int actualCardinality = actualAstEval.getCardinality();
-
-    // Assert
-    assertEquals(1, actualCardinality);
-    assertTrue(actualAstEval.isDeferred());
-  }
-
-  /**
-   * Test {@link AstEval#isLeftValue()}.
-   * <ul>
-   *   <li>Given {@link AstEval#AstEval(AstNode, boolean)} with child is {@link AstEval#AstEval(AstNode, boolean)} and deferred is {@code true}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstEval#isLeftValue()}
    */
   @Test
-  @DisplayName("Test isLeftValue(); given AstEval(AstNode, boolean) with child is AstEval(AstNode, boolean) and deferred is 'true'; then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean AstEval.isLeftValue()"})
-  void testIsLeftValue_givenAstEvalWithChildIsAstEvalAndDeferredIsTrue_thenReturnFalse() {
+  void testIsLeftValue() {
     // Arrange, Act and Assert
+    assertFalse((new AstEval(new AstNull(), true)).isLeftValue());
     assertFalse((new AstEval(new AstEval(new AstNull(), true), true)).isLeftValue());
   }
 
   /**
-   * Test {@link AstEval#isLeftValue()}.
-   * <ul>
-   *   <li>Given {@link AstEval#AstEval(AstNode, boolean)} with child is {@link AstNull} (default constructor) and deferred is {@code true}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstEval#isLeftValue()}
    */
   @Test
-  @DisplayName("Test isLeftValue(); given AstEval(AstNode, boolean) with child is AstNull (default constructor) and deferred is 'true'; then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean AstEval.isLeftValue()"})
-  void testIsLeftValue_givenAstEvalWithChildIsAstNullAndDeferredIsTrue_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse((new AstEval(new AstNull(), true)).isLeftValue());
+  void testIsLeftValue2() {
+    // Arrange
+    AstNull left = new AstNull();
+
+    // Act and Assert
+    assertFalse((new AstEval(new AstBinary(left, new AstNull(), mock(AstBinary.Operator.class)), true)).isLeftValue());
   }
 
   /**
-   * Test {@link AstEval#isLeftValue()}.
-   * <ul>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstEval#isLeftValue()}
    */
   @Test
-  @DisplayName("Test isLeftValue(); then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean AstEval.isLeftValue()"})
-  void testIsLeftValue_thenReturnTrue() {
+  void testIsLeftValue3() {
     // Arrange
     AstNull base = new AstNull();
 
@@ -122,76 +72,33 @@ class AstEvalDiffblueTest {
   }
 
   /**
-   * Test {@link AstEval#isMethodInvocation()}.
-   * <ul>
-   *   <li>Given {@link AstEval#AstEval(AstNode, boolean)} with child is {@link AstEval#AstEval(AstNode, boolean)} and deferred is {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstEval#isMethodInvocation()}
    */
   @Test
-  @DisplayName("Test isMethodInvocation(); given AstEval(AstNode, boolean) with child is AstEval(AstNode, boolean) and deferred is 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean AstEval.isMethodInvocation()"})
-  void testIsMethodInvocation_givenAstEvalWithChildIsAstEvalAndDeferredIsTrue() {
+  void testIsMethodInvocation() {
     // Arrange, Act and Assert
+    assertFalse((new AstEval(new AstNull(), true)).isMethodInvocation());
     assertFalse((new AstEval(new AstEval(new AstNull(), true), true)).isMethodInvocation());
   }
 
   /**
-   * Test {@link AstEval#isMethodInvocation()}.
-   * <ul>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstEval#isMethodInvocation()}
    */
   @Test
-  @DisplayName("Test isMethodInvocation(); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean AstEval.isMethodInvocation()"})
-  void testIsMethodInvocation_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse((new AstEval(new AstNull(), true)).isMethodInvocation());
-  }
-
-  /**
-   * Test {@link AstEval#getValueReference(Bindings, ELContext)}.
-   * <ul>
-   *   <li>Given {@link AstEval#AstEval(AstNode, boolean)} with child is {@link AstEval#AstEval(AstNode, boolean)} and deferred is {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstEval#getValueReference(Bindings, ELContext)}
-   */
-  @Test
-  @DisplayName("Test getValueReference(Bindings, ELContext); given AstEval(AstNode, boolean) with child is AstEval(AstNode, boolean) and deferred is 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"jakarta.el.ValueReference AstEval.getValueReference(Bindings, ELContext)"})
-  void testGetValueReference_givenAstEvalWithChildIsAstEvalAndDeferredIsTrue() {
+  void testIsMethodInvocation2() {
     // Arrange
-    AstEval astEval = new AstEval(new AstEval(new AstNull(), true), true);
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-    Bindings bindings = new Bindings(new Method[]{null},
-        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
+    AstNull left = new AstNull();
 
     // Act and Assert
-    assertNull(astEval.getValueReference(bindings, new SimpleContext()));
+    assertFalse(
+        (new AstEval(new AstBinary(left, new AstNull(), mock(AstBinary.Operator.class)), true)).isMethodInvocation());
   }
 
   /**
-   * Test {@link AstEval#getValueReference(Bindings, ELContext)}.
-   * <ul>
-   *   <li>Given {@link AstEval#AstEval(AstNode, boolean)} with child is {@link AstNull} (default constructor) and deferred is {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstEval#getValueReference(Bindings, ELContext)}
    */
   @Test
-  @DisplayName("Test getValueReference(Bindings, ELContext); given AstEval(AstNode, boolean) with child is AstNull (default constructor) and deferred is 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"jakarta.el.ValueReference AstEval.getValueReference(Bindings, ELContext)"})
-  void testGetValueReference_givenAstEvalWithChildIsAstNullAndDeferredIsTrue() {
+  void testGetValueReference() {
     // Arrange
     AstEval astEval = new AstEval(new AstNull(), true);
     TypeConverter converter = mock(TypeConverter.class);
@@ -204,19 +111,26 @@ class AstEvalDiffblueTest {
   }
 
   /**
-   * Test {@link AstEval#getValueReference(Bindings, ELContext)}.
-   * <ul>
-   *   <li>Given {@link AstIdentifier#AstIdentifier(String, int)} with {@code Name} and index is zero.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstEval#getValueReference(Bindings, ELContext)}
    */
   @Test
-  @DisplayName("Test getValueReference(Bindings, ELContext); given AstIdentifier(String, int) with 'Name' and index is zero; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"jakarta.el.ValueReference AstEval.getValueReference(Bindings, ELContext)"})
-  void testGetValueReference_givenAstIdentifierWithNameAndIndexIsZero_thenReturnNull() {
+  void testGetValueReference2() {
+    // Arrange
+    AstEval astEval = new AstEval(new AstEval(new AstNull(), true), true);
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    Bindings bindings = new Bindings(new Method[]{null},
+        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
+
+    // Act and Assert
+    assertNull(astEval.getValueReference(bindings, new SimpleContext()));
+  }
+
+  /**
+   * Method under test: {@link AstEval#getValueReference(Bindings, ELContext)}
+   */
+  @Test
+  void testGetValueReference3() {
     // Arrange
     AstEval astEval = new AstEval(new AstIdentifier("Name", 0), true);
     TypeConverter converter = mock(TypeConverter.class);
@@ -229,68 +143,26 @@ class AstEvalDiffblueTest {
   }
 
   /**
-   * Test {@link AstEval#eval(Bindings, ELContext)}.
-   * <ul>
-   *   <li>Given {@link AstBoolean#AstBoolean(boolean)} with value is {@code false}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstEval#eval(Bindings, ELContext)}
    */
   @Test
-  @DisplayName("Test eval(Bindings, ELContext); given AstBoolean(boolean) with value is 'false'; then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object AstEval.eval(Bindings, ELContext)"})
-  void testEval_givenAstBooleanWithValueIsFalse_thenReturnFalse() {
+  void testEval() {
     // Arrange
-    AstEval astEval = new AstEval(new AstBoolean(false), true);
+    AstEval astEval = new AstEval(new AstNull(), true);
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
     Bindings bindings = new Bindings(new Method[]{null},
         new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
 
     // Act and Assert
-    assertFalse((Boolean) astEval.eval(bindings, new SimpleContext()));
+    assertNull(astEval.eval(bindings, new SimpleContext()));
   }
 
   /**
-   * Test {@link AstEval#eval(Bindings, ELContext)}.
-   * <ul>
-   *   <li>Given {@link AstBoolean#AstBoolean(boolean)} with value is {@code true}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstEval#eval(Bindings, ELContext)}
    */
   @Test
-  @DisplayName("Test eval(Bindings, ELContext); given AstBoolean(boolean) with value is 'true'; then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object AstEval.eval(Bindings, ELContext)"})
-  void testEval_givenAstBooleanWithValueIsTrue_thenReturnTrue() {
-    // Arrange
-    AstEval astEval = new AstEval(new AstBoolean(true), true);
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-    Bindings bindings = new Bindings(new Method[]{null},
-        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
-
-    // Act and Assert
-    assertTrue((Boolean) astEval.eval(bindings, new SimpleContext()));
-  }
-
-  /**
-   * Test {@link AstEval#eval(Bindings, ELContext)}.
-   * <ul>
-   *   <li>Given {@link AstChoice#AstChoice(AstNode, AstNode, AstNode)} with question is {@link AstNull} (default constructor) and yes is {@link AstNull} (default constructor) and no is {@link AstNull} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstEval#eval(Bindings, ELContext)}
-   */
-  @Test
-  @DisplayName("Test eval(Bindings, ELContext); given AstChoice(AstNode, AstNode, AstNode) with question is AstNull (default constructor) and yes is AstNull (default constructor) and no is AstNull (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object AstEval.eval(Bindings, ELContext)"})
-  void testEval_givenAstChoiceWithQuestionIsAstNullAndYesIsAstNullAndNoIsAstNull() {
+  void testEval2() {
     // Arrange
     AstNull question = new AstNull();
     AstNull yes = new AstNull();
@@ -305,19 +177,10 @@ class AstEvalDiffblueTest {
   }
 
   /**
-   * Test {@link AstEval#eval(Bindings, ELContext)}.
-   * <ul>
-   *   <li>Given {@link AstEval#AstEval(AstNode, boolean)} with child is {@link AstEval#AstEval(AstNode, boolean)} and deferred is {@code true}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstEval#eval(Bindings, ELContext)}
    */
   @Test
-  @DisplayName("Test eval(Bindings, ELContext); given AstEval(AstNode, boolean) with child is AstEval(AstNode, boolean) and deferred is 'true'; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object AstEval.eval(Bindings, ELContext)"})
-  void testEval_givenAstEvalWithChildIsAstEvalAndDeferredIsTrue_thenReturnNull() {
+  void testEval3() {
     // Arrange
     AstEval astEval = new AstEval(new AstEval(new AstNull(), true), true);
     TypeConverter converter = mock(TypeConverter.class);
@@ -330,104 +193,33 @@ class AstEvalDiffblueTest {
   }
 
   /**
-   * Test {@link AstEval#eval(Bindings, ELContext)}.
-   * <ul>
-   *   <li>Given {@link AstEval#AstEval(AstNode, boolean)} with child is {@link AstNull} (default constructor) and deferred is {@code true}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstEval#eval(Bindings, ELContext)}
-   */
-  @Test
-  @DisplayName("Test eval(Bindings, ELContext); given AstEval(AstNode, boolean) with child is AstNull (default constructor) and deferred is 'true'; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object AstEval.eval(Bindings, ELContext)"})
-  void testEval_givenAstEvalWithChildIsAstNullAndDeferredIsTrue_thenReturnNull() {
-    // Arrange
-    AstEval astEval = new AstEval(new AstNull(), true);
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-    Bindings bindings = new Bindings(new Method[]{null},
-        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
-
-    // Act and Assert
-    assertNull(astEval.eval(bindings, new SimpleContext()));
-  }
-
-  /**
-   * Test {@link AstEval#toString()}.
-   * <ul>
-   *   <li>Then return {@code ${...}}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstEval#toString()}
    */
   @Test
-  @DisplayName("Test toString(); then return '${...}'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.String AstEval.toString()"})
-  void testToString_thenReturnDollarSignLeftCurlyBracketDotDotDotRightCurlyBracket() {
+  void testToString() {
     // Arrange, Act and Assert
+    assertEquals("#{...}", (new AstEval(new AstNull(), true)).toString());
     assertEquals("${...}", (new AstEval(new AstNull(), false)).toString());
   }
 
   /**
-   * Test {@link AstEval#toString()}.
-   * <ul>
-   *   <li>Then return {@code #{...}}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstEval#toString()}
    */
   @Test
-  @DisplayName("Test toString(); then return '#{...}'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.String AstEval.toString()"})
-  void testToString_thenReturnNumberSignLeftCurlyBracketDotDotDotRightCurlyBracket() {
-    // Arrange, Act and Assert
-    assertEquals("#{...}", (new AstEval(new AstNull(), true)).toString());
-  }
-
-  /**
-   * Test {@link AstEval#appendStructure(StringBuilder, Bindings)}.
-   * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foo#{#{()}}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstEval#appendStructure(StringBuilder, Bindings)}
-   */
-  @Test
-  @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foo#{#{()}'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AstEval.appendStructure(StringBuilder, Bindings)"})
-  void testAppendStructure_thenStringBuilderWithFooToStringIsFoo() {
+  void testToString2() {
     // Arrange
-    AstEval astEval = new AstEval(new AstFunction("#{", 1, new AstParameters(new ArrayList<>())), true);
-    StringBuilder b = new StringBuilder("foo");
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
+    AstNull left = new AstNull();
 
-    // Act
-    astEval.appendStructure(b,
-        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
-
-    // Assert
-    assertEquals("foo#{#{()}", b.toString());
+    // Act and Assert
+    assertEquals("#{...}",
+        (new AstEval(new AstBinary(left, new AstNull(), mock(AstBinary.Operator.class)), true)).toString());
   }
 
   /**
-   * Test {@link AstEval#appendStructure(StringBuilder, Bindings)}.
-   * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foo#{null}}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstEval#appendStructure(StringBuilder, Bindings)}
    */
   @Test
-  @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foo#{null}'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AstEval.appendStructure(StringBuilder, Bindings)"})
-  void testAppendStructure_thenStringBuilderWithFooToStringIsFooNull() {
+  void testAppendStructure() {
     // Arrange
     AstEval astEval = new AstEval(new AstNull(), true);
     StringBuilder b = new StringBuilder("foo");
@@ -443,18 +235,10 @@ class AstEvalDiffblueTest {
   }
 
   /**
-   * Test {@link AstEval#appendStructure(StringBuilder, Bindings)}.
-   * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foo#{#{null}}}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstEval#appendStructure(StringBuilder, Bindings)}
    */
   @Test
-  @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foo#{#{null}}'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AstEval.appendStructure(StringBuilder, Bindings)"})
-  void testAppendStructure_thenStringBuilderWithFooToStringIsFooNull2() {
+  void testAppendStructure2() {
     // Arrange
     AstEval astEval = new AstEval(new AstEval(new AstNull(), true), true);
     StringBuilder b = new StringBuilder("foo");
@@ -470,18 +254,10 @@ class AstEvalDiffblueTest {
   }
 
   /**
-   * Test {@link AstEval#appendStructure(StringBuilder, Bindings)}.
-   * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foo${null}}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstEval#appendStructure(StringBuilder, Bindings)}
    */
   @Test
-  @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foo${null}'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AstEval.appendStructure(StringBuilder, Bindings)"})
-  void testAppendStructure_thenStringBuilderWithFooToStringIsFooNull3() {
+  void testAppendStructure3() {
     // Arrange
     AstEval astEval = new AstEval(new AstNull(), false);
     StringBuilder b = new StringBuilder("foo");
@@ -497,52 +273,30 @@ class AstEvalDiffblueTest {
   }
 
   /**
-   * Test {@link AstEval#getMethodInfo(Bindings, ELContext, Class, Class[])}.
-   * <ul>
-   *   <li>Given {@link AstEval#AstEval(AstNode, boolean)} with child is {@link AstEval#AstEval(AstNode, boolean)} and deferred is {@code true}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstEval#getMethodInfo(Bindings, ELContext, Class, Class[])}
+   * Method under test: {@link AstEval#appendStructure(StringBuilder, Bindings)}
    */
   @Test
-  @DisplayName("Test getMethodInfo(Bindings, ELContext, Class, Class[]); given AstEval(AstNode, boolean) with child is AstEval(AstNode, boolean) and deferred is 'true'; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"jakarta.el.MethodInfo AstEval.getMethodInfo(Bindings, ELContext, Class, Class[])"})
-  void testGetMethodInfo_givenAstEvalWithChildIsAstEvalAndDeferredIsTrue_thenReturnNull() {
+  void testAppendStructure4() {
     // Arrange
-    AstEval astEval = new AstEval(new AstEval(new AstNull(), true), true);
+    AstEval astEval = new AstEval(new AstFunction("#{", 1, new AstParameters(new ArrayList<>())), true);
+    StringBuilder b = new StringBuilder("foo");
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
-    Bindings bindings = new Bindings(new Method[]{null},
-        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
 
-    SimpleContext context = new SimpleContext();
-    Class<Object> returnType = Object.class;
-    Class<Object> forNameResult = Object.class;
-    Class<?>[] paramTypes = new Class[]{forNameResult};
+    // Act
+    astEval.appendStructure(b,
+        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
 
-    // Act and Assert
-    assertNull(astEval.getMethodInfo(bindings, context, returnType, paramTypes));
-    assertEquals(1, paramTypes.length);
-    Class<Object> expectedResultClass = Object.class;
-    assertEquals(expectedResultClass, paramTypes[0]);
+    // Assert
+    assertEquals("foo#{#{()}", b.toString());
   }
 
   /**
-   * Test {@link AstEval#getMethodInfo(Bindings, ELContext, Class, Class[])}.
-   * <ul>
-   *   <li>Given {@link AstEval#AstEval(AstNode, boolean)} with child is {@link AstNull} (default constructor) and deferred is {@code true}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstEval#getMethodInfo(Bindings, ELContext, Class, Class[])}
+   * Method under test:
+   * {@link AstEval#getMethodInfo(Bindings, ELContext, Class, Class[])}
    */
   @Test
-  @DisplayName("Test getMethodInfo(Bindings, ELContext, Class, Class[]); given AstEval(AstNode, boolean) with child is AstNull (default constructor) and deferred is 'true'; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"jakarta.el.MethodInfo AstEval.getMethodInfo(Bindings, ELContext, Class, Class[])"})
-  void testGetMethodInfo_givenAstEvalWithChildIsAstNullAndDeferredIsTrue_thenReturnNull() {
+  void testGetMethodInfo() {
     // Arrange
     AstEval astEval = new AstEval(new AstNull(), true);
     TypeConverter converter = mock(TypeConverter.class);
@@ -559,23 +313,44 @@ class AstEvalDiffblueTest {
     assertNull(astEval.getMethodInfo(bindings, context, returnType, paramTypes));
     assertEquals(1, paramTypes.length);
     Class<Object> expectedResultClass = Object.class;
-    assertEquals(expectedResultClass, paramTypes[0]);
+    Class<?> resultClass = paramTypes[0];
+    assertEquals(expectedResultClass, resultClass);
+    assertSame(forNameResult, resultClass);
   }
 
   /**
-   * Test {@link AstEval#invoke(Bindings, ELContext, Class, Class[], Object[])}.
-   * <ul>
-   *   <li>Given {@link AstBinary} {@link AstRightValue#invoke(Bindings, ELContext, Class, Class[], Object[])} return {@code Invoke}.</li>
-   *   <li>Then return {@code Invoke}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstEval#invoke(Bindings, ELContext, Class, Class[], Object[])}
+   * Method under test:
+   * {@link AstEval#getMethodInfo(Bindings, ELContext, Class, Class[])}
    */
   @Test
-  @DisplayName("Test invoke(Bindings, ELContext, Class, Class[], Object[]); given AstBinary invoke(Bindings, ELContext, Class, Class[], Object[]) return 'Invoke'; then return 'Invoke'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object AstEval.invoke(Bindings, ELContext, Class, Class[], Object[])"})
-  void testInvoke_givenAstBinaryInvokeReturnInvoke_thenReturnInvoke() {
+  void testGetMethodInfo2() {
+    // Arrange
+    AstEval astEval = new AstEval(new AstEval(new AstNull(), true), true);
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    Bindings bindings = new Bindings(new Method[]{null},
+        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
+
+    SimpleContext context = new SimpleContext();
+    Class<Object> returnType = Object.class;
+    Class<Object> forNameResult = Object.class;
+    Class<?>[] paramTypes = new Class[]{forNameResult};
+
+    // Act and Assert
+    assertNull(astEval.getMethodInfo(bindings, context, returnType, paramTypes));
+    assertEquals(1, paramTypes.length);
+    Class<Object> expectedResultClass = Object.class;
+    Class<?> resultClass = paramTypes[0];
+    assertEquals(expectedResultClass, resultClass);
+    assertSame(forNameResult, resultClass);
+  }
+
+  /**
+   * Method under test:
+   * {@link AstEval#invoke(Bindings, ELContext, Class, Class[], Object[])}
+   */
+  @Test
+  void testInvoke() {
     // Arrange
     AstBinary child = mock(AstBinary.class);
     when(child.invoke(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<Class<Object>>any(),
@@ -600,48 +375,16 @@ class AstEvalDiffblueTest {
     assertEquals("Invoke", actualInvokeResult);
     assertEquals(1, paramTypes.length);
     Class<Object> expectedResultClass = Object.class;
-    assertEquals(expectedResultClass, paramTypes[0]);
+    Class<?> resultClass = paramTypes[0];
+    assertEquals(expectedResultClass, resultClass);
+    assertSame(forNameResult, resultClass);
   }
 
   /**
-   * Test {@link AstEval#getType(Bindings, ELContext)}.
-   * <ul>
-   *   <li>Given {@link AstEval#AstEval(AstNode, boolean)} with child is {@link AstEval#AstEval(AstNode, boolean)} and deferred is {@code true}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstEval#getType(Bindings, ELContext)}
    */
   @Test
-  @DisplayName("Test getType(Bindings, ELContext); given AstEval(AstNode, boolean) with child is AstEval(AstNode, boolean) and deferred is 'true'; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Class AstEval.getType(Bindings, ELContext)"})
-  void testGetType_givenAstEvalWithChildIsAstEvalAndDeferredIsTrue_thenReturnNull() {
-    // Arrange
-    AstEval astEval = new AstEval(new AstEval(new AstNull(), true), true);
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-    Bindings bindings = new Bindings(new Method[]{null},
-        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
-
-    // Act and Assert
-    assertNull(astEval.getType(bindings, new SimpleContext()));
-  }
-
-  /**
-   * Test {@link AstEval#getType(Bindings, ELContext)}.
-   * <ul>
-   *   <li>Given {@link AstEval#AstEval(AstNode, boolean)} with child is {@link AstNull} (default constructor) and deferred is {@code true}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstEval#getType(Bindings, ELContext)}
-   */
-  @Test
-  @DisplayName("Test getType(Bindings, ELContext); given AstEval(AstNode, boolean) with child is AstNull (default constructor) and deferred is 'true'; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Class AstEval.getType(Bindings, ELContext)"})
-  void testGetType_givenAstEvalWithChildIsAstNullAndDeferredIsTrue_thenReturnNull() {
+  void testGetType() {
     // Arrange
     AstEval astEval = new AstEval(new AstNull(), true);
     TypeConverter converter = mock(TypeConverter.class);
@@ -654,19 +397,26 @@ class AstEvalDiffblueTest {
   }
 
   /**
-   * Test {@link AstEval#getType(Bindings, ELContext)}.
-   * <ul>
-   *   <li>Given {@link AstIdentifier#AstIdentifier(String, int)} with {@code Name} and index is zero.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstEval#getType(Bindings, ELContext)}
    */
   @Test
-  @DisplayName("Test getType(Bindings, ELContext); given AstIdentifier(String, int) with 'Name' and index is zero; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Class AstEval.getType(Bindings, ELContext)"})
-  void testGetType_givenAstIdentifierWithNameAndIndexIsZero_thenReturnNull() {
+  void testGetType2() {
+    // Arrange
+    AstEval astEval = new AstEval(new AstEval(new AstNull(), true), true);
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    Bindings bindings = new Bindings(new Method[]{null},
+        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
+
+    // Act and Assert
+    assertNull(astEval.getType(bindings, new SimpleContext()));
+  }
+
+  /**
+   * Method under test: {@link AstEval#getType(Bindings, ELContext)}
+   */
+  @Test
+  void testGetType3() {
     // Arrange
     AstEval astEval = new AstEval(new AstIdentifier("Name", 0), true);
     TypeConverter converter = mock(TypeConverter.class);
@@ -679,82 +429,33 @@ class AstEvalDiffblueTest {
   }
 
   /**
-   * Test {@link AstEval#isLiteralText()}.
-   * <ul>
-   *   <li>Given {@link AstEval#AstEval(AstNode, boolean)} with child is {@link AstEval#AstEval(AstNode, boolean)} and deferred is {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstEval#isLiteralText()}
    */
   @Test
-  @DisplayName("Test isLiteralText(); given AstEval(AstNode, boolean) with child is AstEval(AstNode, boolean) and deferred is 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean AstEval.isLiteralText()"})
-  void testIsLiteralText_givenAstEvalWithChildIsAstEvalAndDeferredIsTrue() {
+  void testIsLiteralText() {
     // Arrange, Act and Assert
+    assertFalse((new AstEval(new AstNull(), true)).isLiteralText());
     assertFalse((new AstEval(new AstEval(new AstNull(), true), true)).isLiteralText());
   }
 
   /**
-   * Test {@link AstEval#isLiteralText()}.
-   * <ul>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstEval#isLiteralText()}
    */
   @Test
-  @DisplayName("Test isLiteralText(); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean AstEval.isLiteralText()"})
-  void testIsLiteralText_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse((new AstEval(new AstNull(), true)).isLiteralText());
-  }
-
-  /**
-   * Test {@link AstEval#isReadOnly(Bindings, ELContext)}.
-   * <ul>
-   *   <li>Given {@link AstEval#AstEval(AstNode, boolean)} with child is {@link AstEval#AstEval(AstNode, boolean)} and deferred is {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstEval#isReadOnly(Bindings, ELContext)}
-   */
-  @Test
-  @DisplayName("Test isReadOnly(Bindings, ELContext); given AstEval(AstNode, boolean) with child is AstEval(AstNode, boolean) and deferred is 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean AstEval.isReadOnly(Bindings, ELContext)"})
-  void testIsReadOnly_givenAstEvalWithChildIsAstEvalAndDeferredIsTrue() {
+  void testIsLiteralText2() {
     // Arrange
-    AstEval astEval = new AstEval(new AstEval(new AstNull(), true), true);
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-    Bindings bindings = new Bindings(new Method[]{null},
-        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
+    AstNull left = new AstNull();
 
-    SimpleContext context = new SimpleContext();
-
-    // Act
-    boolean actualIsReadOnlyResult = astEval.isReadOnly(bindings, context);
-
-    // Assert
-    assertFalse(context.isPropertyResolved());
-    assertTrue(actualIsReadOnlyResult);
+    // Act and Assert
+    assertFalse(
+        (new AstEval(new AstBinary(left, new AstNull(), mock(AstBinary.Operator.class)), true)).isLiteralText());
   }
 
   /**
-   * Test {@link AstEval#isReadOnly(Bindings, ELContext)}.
-   * <ul>
-   *   <li>Given {@link AstEval#AstEval(AstNode, boolean)} with child is {@link AstNull} (default constructor) and deferred is {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstEval#isReadOnly(Bindings, ELContext)}
    */
   @Test
-  @DisplayName("Test isReadOnly(Bindings, ELContext); given AstEval(AstNode, boolean) with child is AstNull (default constructor) and deferred is 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean AstEval.isReadOnly(Bindings, ELContext)"})
-  void testIsReadOnly_givenAstEvalWithChildIsAstNullAndDeferredIsTrue() {
+  void testIsReadOnly() {
     // Arrange
     AstEval astEval = new AstEval(new AstNull(), true);
     TypeConverter converter = mock(TypeConverter.class);
@@ -773,18 +474,32 @@ class AstEvalDiffblueTest {
   }
 
   /**
-   * Test {@link AstEval#isReadOnly(Bindings, ELContext)}.
-   * <ul>
-   *   <li>Given {@link AstIdentifier#AstIdentifier(String, int)} with {@code Name} and index is zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstEval#isReadOnly(Bindings, ELContext)}
    */
   @Test
-  @DisplayName("Test isReadOnly(Bindings, ELContext); given AstIdentifier(String, int) with 'Name' and index is zero")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean AstEval.isReadOnly(Bindings, ELContext)"})
-  void testIsReadOnly_givenAstIdentifierWithNameAndIndexIsZero() {
+  void testIsReadOnly2() {
+    // Arrange
+    AstEval astEval = new AstEval(new AstEval(new AstNull(), true), true);
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    Bindings bindings = new Bindings(new Method[]{null},
+        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
+
+    SimpleContext context = new SimpleContext();
+
+    // Act
+    boolean actualIsReadOnlyResult = astEval.isReadOnly(bindings, context);
+
+    // Assert
+    assertFalse(context.isPropertyResolved());
+    assertTrue(actualIsReadOnlyResult);
+  }
+
+  /**
+   * Method under test: {@link AstEval#isReadOnly(Bindings, ELContext)}
+   */
+  @Test
+  void testIsReadOnly3() {
     // Arrange
     AstEval astEval = new AstEval(new AstIdentifier("Name", 0), true);
     TypeConverter converter = mock(TypeConverter.class);
@@ -803,18 +518,10 @@ class AstEvalDiffblueTest {
   }
 
   /**
-   * Test {@link AstEval#isReadOnly(Bindings, ELContext)}.
-   * <ul>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstEval#isReadOnly(Bindings, ELContext)}
    */
   @Test
-  @DisplayName("Test isReadOnly(Bindings, ELContext); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean AstEval.isReadOnly(Bindings, ELContext)"})
-  void testIsReadOnly_thenReturnFalse() {
+  void testIsReadOnly4() {
     // Arrange
     AstEval astEval = new AstEval(new AstIdentifier("Name", 0), true);
     Bindings bindings = new Bindings(new Method[]{null}, new ValueExpression[]{null});
@@ -827,19 +534,10 @@ class AstEvalDiffblueTest {
   }
 
   /**
-   * Test {@link AstEval#setValue(Bindings, ELContext, Object)}.
-   * <ul>
-   *   <li>Given {@link AstBinary} {@link AstRightValue#setValue(Bindings, ELContext, Object)} does nothing.</li>
-   *   <li>Then calls {@link AstRightValue#setValue(Bindings, ELContext, Object)}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstEval#setValue(Bindings, ELContext, Object)}
    */
   @Test
-  @DisplayName("Test setValue(Bindings, ELContext, Object); given AstBinary setValue(Bindings, ELContext, Object) does nothing; then calls setValue(Bindings, ELContext, Object)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AstEval.setValue(Bindings, ELContext, Object)"})
-  void testSetValue_givenAstBinarySetValueDoesNothing_thenCallsSetValue() {
+  void testSetValue() {
     // Arrange
     AstBinary child = mock(AstBinary.class);
     doNothing().when(child).setValue(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<Object>any());
@@ -852,46 +550,59 @@ class AstEvalDiffblueTest {
     // Act
     astEval.setValue(bindings, new SimpleContext(), "Value");
 
-    // Assert
+    // Assert that nothing has changed
     verify(child).setValue(isA(Bindings.class), isA(ELContext.class), isA(Object.class));
   }
 
   /**
-   * Test {@link AstEval#getChild(int)}.
-   * <ul>
-   *   <li>When one.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstEval#getChild(int)}
    */
   @Test
-  @DisplayName("Test getChild(int); when one; then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"AstNode AstEval.getChild(int)"})
-  void testGetChild_whenOne_thenReturnNull() {
+  void testGetChild() {
     // Arrange, Act and Assert
     assertNull((new AstEval(new AstNull(), true)).getChild(1));
   }
 
   /**
-   * Test {@link AstEval#getChild(int)}.
-   * <ul>
-   *   <li>When zero.</li>
-   *   <li>Then return {@link AstNull} (default constructor).</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstEval#getChild(int)}
    */
   @Test
-  @DisplayName("Test getChild(int); when zero; then return AstNull (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"AstNode AstEval.getChild(int)"})
-  void testGetChild_whenZero_thenReturnAstNull() {
+  void testGetChild2() {
     // Arrange
     AstNull child = new AstNull();
 
     // Act and Assert
     assertSame(child, (new AstEval(child, true)).getChild(0));
+  }
+
+  /**
+   * Method under test: {@link AstEval#getChild(int)}
+   */
+  @Test
+  void testGetChild3() {
+    // Arrange
+    AstNull left = new AstNull();
+
+    // Act and Assert
+    assertNull((new AstEval(new AstBinary(left, new AstNull(), mock(AstBinary.Operator.class)), true)).getChild(1));
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>{@link AstEval#AstEval(AstNode, boolean)}
+   *   <li>{@link AstEval#getCardinality()}
+   *   <li>{@link AstEval#isDeferred()}
+   * </ul>
+   */
+  @Test
+  void testGettersAndSetters() {
+    // Arrange and Act
+    AstEval actualAstEval = new AstEval(new AstNull(), true);
+    int actualCardinality = actualAstEval.getCardinality();
+
+    // Assert
+    assertEquals(1, actualCardinality);
+    assertTrue(actualAstEval.isDeferred());
   }
 }

@@ -17,62 +17,41 @@ package org.activiti.engine.impl;
 
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
 @RunWith(MockitoJUnitRunner.class)
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class AbstractNativeQueryDiffblueTest {
   @InjectMocks
   private NativeDeploymentQueryImpl nativeDeploymentQueryImpl;
 
   /**
-   * Test {@link AbstractNativeQuery#sql(String)}.
-   * <p>
    * Method under test: {@link AbstractNativeQuery#sql(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"org.activiti.engine.query.NativeQuery AbstractNativeQuery.sql(String)"})
   public void testSql() {
     // Arrange, Act and Assert
     assertSame(nativeDeploymentQueryImpl, nativeDeploymentQueryImpl.sql("Sql Statement"));
   }
 
   /**
-   * Test {@link AbstractNativeQuery#parameter(String, Object)}.
-   * <p>
    * Method under test: {@link AbstractNativeQuery#parameter(String, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"org.activiti.engine.query.NativeQuery AbstractNativeQuery.parameter(String, Object)"})
   public void testParameter() {
     // Arrange, Act and Assert
     assertSame(nativeDeploymentQueryImpl, nativeDeploymentQueryImpl.parameter("Name", JSONObject.NULL));
   }
 
   /**
-   * Test {@link AbstractNativeQuery#getParameters()}.
-   * <ul>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AbstractNativeQuery#getParameters()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.util.Map AbstractNativeQuery.getParameters()"})
-  public void testGetParameters_thenReturnEmpty() {
+  public void testGetParameters() {
     // Arrange, Act and Assert
     assertTrue((new NativeDeploymentQueryImpl((CommandContext) null)).getParameters().isEmpty());
   }

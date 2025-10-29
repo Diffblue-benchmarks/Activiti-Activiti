@@ -15,9 +15,13 @@
  */
 package org.activiti.runtime.api.model.impl;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.util.HashMap;
 import org.activiti.api.process.model.BPMNSignal;
 import org.activiti.api.process.model.payloads.SignalPayload;
@@ -25,8 +29,6 @@ import org.activiti.api.runtime.model.impl.BPMNSignalImpl;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.delegate.event.ActivitiSignalEvent;
 import org.activiti.engine.delegate.event.impl.ActivitiSignalEventImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,49 +42,10 @@ class ToSignalConverterDiffblueTest {
   private ToSignalConverter toSignalConverter;
 
   /**
-   * Test {@link ToSignalConverter#from(ActivitiSignalEvent)}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()}.</li>
-   *   <li>Then return SignalPayload Variables Empty.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ToSignalConverter#from(ActivitiSignalEvent)}
    */
   @Test
-  @DisplayName("Test from(ActivitiSignalEvent); given HashMap(); then return SignalPayload Variables Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BPMNSignal ToSignalConverter.from(ActivitiSignalEvent)"})
-  void testFrom_givenHashMap_thenReturnSignalPayloadVariablesEmpty() {
-    // Arrange
-    ActivitiSignalEventImpl internalEvent = new ActivitiSignalEventImpl(ActivitiEventType.ENTITY_CREATED);
-    internalEvent.setSignalData(new HashMap<>());
-
-    // Act
-    BPMNSignal actualFromResult = toSignalConverter.from(internalEvent);
-
-    // Assert
-    assertTrue(actualFromResult instanceof BPMNSignalImpl);
-    assertNull(actualFromResult.getElementId());
-    assertNull(actualFromResult.getProcessDefinitionId());
-    assertNull(actualFromResult.getProcessInstanceId());
-    SignalPayload signalPayload = actualFromResult.getSignalPayload();
-    assertNull(signalPayload.getName());
-    assertTrue(signalPayload.getVariables().isEmpty());
-  }
-
-  /**
-   * Test {@link ToSignalConverter#from(ActivitiSignalEvent)}.
-   * <ul>
-   *   <li>Then return SignalPayload Variables is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ToSignalConverter#from(ActivitiSignalEvent)}
-   */
-  @Test
-  @DisplayName("Test from(ActivitiSignalEvent); then return SignalPayload Variables is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"BPMNSignal ToSignalConverter.from(ActivitiSignalEvent)"})
-  void testFrom_thenReturnSignalPayloadVariablesIsNull() {
+  void testFrom() {
     // Arrange and Act
     BPMNSignal actualFromResult = toSignalConverter.from(new ActivitiSignalEventImpl(ActivitiEventType.ENTITY_CREATED));
 
@@ -94,5 +57,36 @@ class ToSignalConverterDiffblueTest {
     SignalPayload signalPayload = actualFromResult.getSignalPayload();
     assertNull(signalPayload.getName());
     assertNull(signalPayload.getVariables());
+  }
+
+  /**
+   * Method under test: {@link ToSignalConverter#from(ActivitiSignalEvent)}
+   */
+  @Test
+  void testFrom2() {
+    // Arrange
+    ActivitiSignalEventImpl internalEvent = mock(ActivitiSignalEventImpl.class);
+    when(internalEvent.getSignalData()).thenReturn(new HashMap<>());
+    when(internalEvent.getActivityId()).thenReturn("42");
+    when(internalEvent.getProcessDefinitionId()).thenReturn("42");
+    when(internalEvent.getProcessInstanceId()).thenReturn("42");
+    when(internalEvent.getSignalName()).thenReturn("Signal Name");
+
+    // Act
+    BPMNSignal actualFromResult = toSignalConverter.from(internalEvent);
+
+    // Assert
+    verify(internalEvent).getActivityId();
+    verify(internalEvent).getProcessDefinitionId();
+    verify(internalEvent).getProcessInstanceId();
+    verify(internalEvent, atLeast(1)).getSignalData();
+    verify(internalEvent).getSignalName();
+    assertTrue(actualFromResult instanceof BPMNSignalImpl);
+    assertEquals("42", actualFromResult.getElementId());
+    assertEquals("42", actualFromResult.getProcessDefinitionId());
+    assertEquals("42", actualFromResult.getProcessInstanceId());
+    SignalPayload signalPayload = actualFromResult.getSignalPayload();
+    assertEquals("Signal Name", signalPayload.getName());
+    assertTrue(signalPayload.getVariables().isEmpty());
   }
 }

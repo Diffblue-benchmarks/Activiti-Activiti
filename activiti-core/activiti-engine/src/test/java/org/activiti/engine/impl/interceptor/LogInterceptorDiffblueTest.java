@@ -16,20 +16,14 @@
 package org.activiti.engine.impl.interceptor;
 
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class LogInterceptorDiffblueTest {
   /**
-   * Test new {@link LogInterceptor} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link LogInterceptor}
+   * Method under test: default or parameterless constructor of
+   * {@link LogInterceptor}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void LogInterceptor.<init>()"})
   public void testNewLogInterceptor() {
     // Arrange, Act and Assert
     assertNull((new LogInterceptor()).getNext());

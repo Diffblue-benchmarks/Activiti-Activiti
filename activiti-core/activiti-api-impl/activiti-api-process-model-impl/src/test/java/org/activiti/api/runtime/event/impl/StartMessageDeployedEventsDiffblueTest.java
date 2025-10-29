@@ -15,83 +15,67 @@
  */
 package org.activiti.api.runtime.event.impl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
+import org.activiti.api.process.model.StartMessageDeploymentDefinition;
 import org.activiti.api.process.model.events.StartMessageDeployedEvent;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import org.activiti.api.runtime.model.impl.ProcessDefinitionImpl;
 import org.junit.jupiter.api.Test;
 
 class StartMessageDeployedEventsDiffblueTest {
   /**
-   * Test {@link StartMessageDeployedEvents#StartMessageDeployedEvents(List)}.
-   * <ul>
-   *   <li>Then return Source size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StartMessageDeployedEvents#StartMessageDeployedEvents(List)}
+   * Method under test:
+   * {@link StartMessageDeployedEvents#getStartMessageDeployedEvents()}
    */
   @Test
-  @DisplayName("Test new StartMessageDeployedEvents(List); then return Source size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void StartMessageDeployedEvents.<init>(List)"})
-  void testNewStartMessageDeployedEvents_thenReturnSourceSizeIsOne() {
+  void testGetStartMessageDeployedEvents() {
     // Arrange
     ArrayList<StartMessageDeployedEvent> processDeployedEvents = new ArrayList<>();
-    StartMessageDeployedEventImpl startMessageDeployedEventImpl = new StartMessageDeployedEventImpl();
-    processDeployedEvents.add(startMessageDeployedEventImpl);
 
-    // Act and Assert
-    Object source = (new StartMessageDeployedEvents(processDeployedEvents)).getSource();
-    assertTrue(source instanceof List);
-    assertEquals(1, ((List<StartMessageDeployedEventImpl>) source).size());
-    assertSame(startMessageDeployedEventImpl, ((List<StartMessageDeployedEventImpl>) source).get(0));
+    // Act
+    List<StartMessageDeployedEvent> actualStartMessageDeployedEvents = (new StartMessageDeployedEvents(
+        processDeployedEvents)).getStartMessageDeployedEvents();
+
+    // Assert
+    assertTrue(actualStartMessageDeployedEvents.isEmpty());
+    assertSame(processDeployedEvents, actualStartMessageDeployedEvents);
   }
 
   /**
-   * Test {@link StartMessageDeployedEvents#StartMessageDeployedEvents(List)}.
-   * <ul>
-   *   <li>Then return Source size is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StartMessageDeployedEvents#StartMessageDeployedEvents(List)}
+   * Method under test:
+   * {@link StartMessageDeployedEvents#getStartMessageDeployedEvents()}
    */
   @Test
-  @DisplayName("Test new StartMessageDeployedEvents(List); then return Source size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void StartMessageDeployedEvents.<init>(List)"})
-  void testNewStartMessageDeployedEvents_thenReturnSourceSizeIsTwo() {
+  void testGetStartMessageDeployedEvents2() {
     // Arrange
+    StartMessageDeploymentDefinition startMessageEventSubscription = mock(StartMessageDeploymentDefinition.class);
+    when(startMessageEventSubscription.getProcessDefinition()).thenReturn(new ProcessDefinitionImpl());
+    StartMessageDeployedEventImpl startMessageDeployedEventImpl = new StartMessageDeployedEventImpl(
+        startMessageEventSubscription);
+
     ArrayList<StartMessageDeployedEvent> processDeployedEvents = new ArrayList<>();
-    processDeployedEvents.add(new StartMessageDeployedEventImpl());
-    StartMessageDeployedEventImpl startMessageDeployedEventImpl = new StartMessageDeployedEventImpl();
     processDeployedEvents.add(startMessageDeployedEventImpl);
 
-    // Act and Assert
-    Object source = (new StartMessageDeployedEvents(processDeployedEvents)).getSource();
-    assertTrue(source instanceof List);
-    assertEquals(2, ((List<StartMessageDeployedEventImpl>) source).size());
-    assertSame(startMessageDeployedEventImpl, ((List<StartMessageDeployedEventImpl>) source).get(1));
+    // Act
+    List<StartMessageDeployedEvent> actualStartMessageDeployedEvents = (new StartMessageDeployedEvents(
+        processDeployedEvents)).getStartMessageDeployedEvents();
+
+    // Assert
+    verify(startMessageEventSubscription).getProcessDefinition();
+    assertSame(processDeployedEvents, actualStartMessageDeployedEvents);
   }
 
   /**
-   * Test {@link StartMessageDeployedEvents#StartMessageDeployedEvents(List)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return Source Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StartMessageDeployedEvents#StartMessageDeployedEvents(List)}
+   * Method under test:
+   * {@link StartMessageDeployedEvents#StartMessageDeployedEvents(List)}
    */
   @Test
-  @DisplayName("Test new StartMessageDeployedEvents(List); when ArrayList(); then return Source Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void StartMessageDeployedEvents.<init>(List)"})
-  void testNewStartMessageDeployedEvents_whenArrayList_thenReturnSourceEmpty() {
+  void testNewStartMessageDeployedEvents() {
     // Arrange
     ArrayList<StartMessageDeployedEvent> processDeployedEvents = new ArrayList<>();
 
@@ -107,16 +91,63 @@ class StartMessageDeployedEventsDiffblueTest {
   }
 
   /**
-   * Test {@link StartMessageDeployedEvents#getStartMessageDeployedEvents()}.
-   * <p>
-   * Method under test: {@link StartMessageDeployedEvents#getStartMessageDeployedEvents()}
+   * Method under test:
+   * {@link StartMessageDeployedEvents#StartMessageDeployedEvents(List)}
    */
   @Test
-  @DisplayName("Test getStartMessageDeployedEvents()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List StartMessageDeployedEvents.getStartMessageDeployedEvents()"})
-  void testGetStartMessageDeployedEvents() {
-    // Arrange, Act and Assert
-    assertTrue((new StartMessageDeployedEvents(new ArrayList<>())).getStartMessageDeployedEvents().isEmpty());
+  void testNewStartMessageDeployedEvents2() {
+    // Arrange
+    ArrayList<StartMessageDeployedEvent> processDeployedEvents = new ArrayList<>();
+    processDeployedEvents.add(new StartMessageDeployedEventImpl());
+
+    // Act
+    StartMessageDeployedEvents actualStartMessageDeployedEvents = new StartMessageDeployedEvents(processDeployedEvents);
+
+    // Assert
+    assertSame(processDeployedEvents, actualStartMessageDeployedEvents.getSource());
+    assertSame(processDeployedEvents, actualStartMessageDeployedEvents.getStartMessageDeployedEvents());
+  }
+
+  /**
+   * Method under test:
+   * {@link StartMessageDeployedEvents#StartMessageDeployedEvents(List)}
+   */
+  @Test
+  void testNewStartMessageDeployedEvents3() {
+    // Arrange
+    ArrayList<StartMessageDeployedEvent> processDeployedEvents = new ArrayList<>();
+    processDeployedEvents.add(new StartMessageDeployedEventImpl());
+    processDeployedEvents.add(new StartMessageDeployedEventImpl());
+
+    // Act
+    StartMessageDeployedEvents actualStartMessageDeployedEvents = new StartMessageDeployedEvents(processDeployedEvents);
+
+    // Assert
+    assertSame(processDeployedEvents, actualStartMessageDeployedEvents.getSource());
+    assertSame(processDeployedEvents, actualStartMessageDeployedEvents.getStartMessageDeployedEvents());
+  }
+
+  /**
+   * Method under test:
+   * {@link StartMessageDeployedEvents#StartMessageDeployedEvents(List)}
+   */
+  @Test
+  void testNewStartMessageDeployedEvents4() {
+    // Arrange
+    StartMessageDeploymentDefinition startMessageEventSubscription = mock(StartMessageDeploymentDefinition.class);
+    when(startMessageEventSubscription.getProcessDefinition()).thenReturn(new ProcessDefinitionImpl());
+    StartMessageDeployedEventImpl startMessageDeployedEventImpl = new StartMessageDeployedEventImpl(
+        startMessageEventSubscription);
+
+    ArrayList<StartMessageDeployedEvent> processDeployedEvents = new ArrayList<>();
+    processDeployedEvents.add(startMessageDeployedEventImpl);
+
+    // Act
+    StartMessageDeployedEvents actualStartMessageDeployedEvents = new StartMessageDeployedEvents(processDeployedEvents);
+
+    // Assert
+    verify(startMessageEventSubscription).getProcessDefinition();
+    assertSame(processDeployedEvents, actualStartMessageDeployedEvents.getSource());
+    assertSame(processDeployedEvents, actualStartMessageDeployedEvents.getStartMessageDeployedEvents());
   }
 }

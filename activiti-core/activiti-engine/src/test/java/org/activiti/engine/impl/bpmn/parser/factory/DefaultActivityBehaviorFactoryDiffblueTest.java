@@ -23,20 +23,16 @@ import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import ch.qos.logback.core.util.COWArrayList;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiFunction;
 import org.activiti.bpmn.model.Activity;
 import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.BoundaryEvent;
@@ -54,7 +50,6 @@ import org.activiti.bpmn.model.IntermediateCatchEvent;
 import org.activiti.bpmn.model.ManualTask;
 import org.activiti.bpmn.model.MapExceptionEntry;
 import org.activiti.bpmn.model.Message;
-import org.activiti.bpmn.model.Message.Builder;
 import org.activiti.bpmn.model.MessageEventDefinition;
 import org.activiti.bpmn.model.ReceiveTask;
 import org.activiti.bpmn.model.ScriptTask;
@@ -71,8 +66,8 @@ import org.activiti.bpmn.model.ThrowEvent;
 import org.activiti.bpmn.model.TimerEventDefinition;
 import org.activiti.bpmn.model.Transaction;
 import org.activiti.bpmn.model.UserTask;
-import org.activiti.core.el.ActivitiElContext;
-import org.activiti.core.el.CustomFunctionProvider;
+import org.activiti.core.el.juel.ObjectValueExpression;
+import org.activiti.core.el.juel.misc.TypeConverter;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.impl.bpmn.behavior.AbstractBpmnActivityBehavior;
@@ -80,8 +75,10 @@ import org.activiti.engine.impl.bpmn.behavior.BoundaryMessageEventActivityBehavi
 import org.activiti.engine.impl.bpmn.behavior.CallActivityBehavior;
 import org.activiti.engine.impl.bpmn.behavior.IntermediateCatchMessageEventActivityBehavior;
 import org.activiti.engine.impl.bpmn.behavior.IntermediateThrowMessageEventActivityBehavior;
+import org.activiti.engine.impl.bpmn.behavior.MailActivityBehavior;
 import org.activiti.engine.impl.bpmn.behavior.MultiInstanceActivityBehavior;
 import org.activiti.engine.impl.bpmn.behavior.ParallelMultiInstanceBehavior;
+import org.activiti.engine.impl.bpmn.behavior.ScriptTaskActivityBehavior;
 import org.activiti.engine.impl.bpmn.behavior.SequentialMultiInstanceBehavior;
 import org.activiti.engine.impl.bpmn.behavior.ServiceTaskDelegateExpressionActivityBehavior;
 import org.activiti.engine.impl.bpmn.behavior.ServiceTaskExpressionActivityBehavior;
@@ -96,8 +93,6 @@ import org.activiti.engine.impl.delegate.ActivityBehavior;
 import org.activiti.engine.impl.delegate.BpmnMessagePayloadMappingProvider;
 import org.activiti.engine.impl.delegate.BpmnMessagePayloadMappingProviderFactory;
 import org.activiti.engine.impl.delegate.DefaultThrowMessageJavaDelegate;
-import org.activiti.engine.impl.delegate.MessagePayloadMappingProvider;
-import org.activiti.engine.impl.delegate.MessagePayloadMappingProviderFactory;
 import org.activiti.engine.impl.delegate.ThrowMessageDelegate;
 import org.activiti.engine.impl.delegate.ThrowMessageDelegateExpression;
 import org.activiti.engine.impl.delegate.ThrowMessageJavaDelegate;
@@ -105,11 +100,7 @@ import org.activiti.engine.impl.el.ExpressionManager;
 import org.activiti.engine.impl.el.FixedValue;
 import org.activiti.engine.impl.el.JuelExpression;
 import org.activiti.engine.impl.util.json.JSONObject;
-import org.activiti.engine.test.bpmn.event.message.MessageThrowCatchEventTest;
-import org.activiti.engine.test.bpmn.event.message.MessageThrowCatchEventTest.TestThrowMessageDelegate;
-import org.activiti.engine.test.bpmn.event.message.MessageThrowCatchEventTest.TestThrowMessageDelegateFactory;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
@@ -121,254 +112,75 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   private DefaultActivityBehaviorFactory defaultActivityBehaviorFactory;
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#DefaultActivityBehaviorFactory()}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#DefaultActivityBehaviorFactory()}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createTaskActivityBehavior(Task)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultActivityBehaviorFactory.<init>()"})
-  public void testNewDefaultActivityBehaviorFactory() {
-    // Arrange and Act
-    DefaultActivityBehaviorFactory actualDefaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    // Assert
-    assertTrue(actualDefaultActivityBehaviorFactory
-        .getMessageExecutionContextFactory() instanceof DefaultMessageExecutionContextFactory);
-    assertTrue(actualDefaultActivityBehaviorFactory
-        .getMessagePayloadMappingProviderFactory() instanceof BpmnMessagePayloadMappingProviderFactory);
-    assertNull(actualDefaultActivityBehaviorFactory.getExpressionManager());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#DefaultActivityBehaviorFactory(ClassDelegateFactory)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#DefaultActivityBehaviorFactory(ClassDelegateFactory)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultActivityBehaviorFactory.<init>(ClassDelegateFactory)"})
-  public void testNewDefaultActivityBehaviorFactory2() {
-    // Arrange and Act
-    DefaultActivityBehaviorFactory actualDefaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory(
-        new DefaultClassDelegateFactory());
-
-    // Assert
-    assertTrue(actualDefaultActivityBehaviorFactory
-        .getMessageExecutionContextFactory() instanceof DefaultMessageExecutionContextFactory);
-    assertTrue(actualDefaultActivityBehaviorFactory
-        .getMessagePayloadMappingProviderFactory() instanceof BpmnMessagePayloadMappingProviderFactory);
-    assertNull(actualDefaultActivityBehaviorFactory.getExpressionManager());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createTaskActivityBehavior(Task)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createTaskActivityBehavior(Task)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.TaskActivityBehavior DefaultActivityBehaviorFactory.createTaskActivityBehavior(Task)"})
   public void testCreateTaskActivityBehavior() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    // Act and Assert
+    // Arrange, Act and Assert
     assertNull(
         defaultActivityBehaviorFactory.createTaskActivityBehavior(new Task()).getMultiInstanceActivityBehavior());
+    assertNull(defaultActivityBehaviorFactory.createTaskActivityBehavior(mock(BusinessRuleTask.class))
+        .getMultiInstanceActivityBehavior());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createManualTaskActivityBehavior(ManualTask)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createManualTaskActivityBehavior(ManualTask)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createManualTaskActivityBehavior(ManualTask)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.ManualTaskActivityBehavior DefaultActivityBehaviorFactory.createManualTaskActivityBehavior(ManualTask)"})
   public void testCreateManualTaskActivityBehavior() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    // Act and Assert
+    // Arrange, Act and Assert
     assertNull(defaultActivityBehaviorFactory.createManualTaskActivityBehavior(new ManualTask())
         .getMultiInstanceActivityBehavior());
+    assertNull(defaultActivityBehaviorFactory.createManualTaskActivityBehavior(mock(ManualTask.class))
+        .getMultiInstanceActivityBehavior());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createReceiveTaskActivityBehavior(ReceiveTask)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createReceiveTaskActivityBehavior(ReceiveTask)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createReceiveTaskActivityBehavior(ReceiveTask)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.ReceiveTaskActivityBehavior DefaultActivityBehaviorFactory.createReceiveTaskActivityBehavior(ReceiveTask)"})
   public void testCreateReceiveTaskActivityBehavior() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    // Act and Assert
+    // Arrange, Act and Assert
     assertNull(defaultActivityBehaviorFactory.createReceiveTaskActivityBehavior(new ReceiveTask())
         .getMultiInstanceActivityBehavior());
+    assertNull(defaultActivityBehaviorFactory.createReceiveTaskActivityBehavior(mock(ReceiveTask.class))
+        .getMultiInstanceActivityBehavior());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createUserTaskActivityBehavior(UserTask)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createUserTaskActivityBehavior(UserTask)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createUserTaskActivityBehavior(UserTask)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.UserTaskActivityBehavior DefaultActivityBehaviorFactory.createUserTaskActivityBehavior(UserTask)"})
   public void testCreateUserTaskActivityBehavior() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory(
-        new DefaultClassDelegateFactory());
-
-    // Act and Assert
+    // Arrange, Act and Assert
     assertNull(defaultActivityBehaviorFactory.createUserTaskActivityBehavior(new UserTask())
+        .getMultiInstanceActivityBehavior());
+    assertNull(defaultActivityBehaviorFactory.createUserTaskActivityBehavior(null).getMultiInstanceActivityBehavior());
+    assertNull(defaultActivityBehaviorFactory.createUserTaskActivityBehavior(mock(UserTask.class))
         .getMultiInstanceActivityBehavior());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createUserTaskActivityBehavior(UserTask)}.
-   * <ul>
-   *   <li>Given {@link DefaultActivityBehaviorFactory#DefaultActivityBehaviorFactory()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createUserTaskActivityBehavior(UserTask)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#getSkipExpressionFromServiceTask(ServiceTask)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.UserTaskActivityBehavior DefaultActivityBehaviorFactory.createUserTaskActivityBehavior(UserTask)"})
-  public void testCreateUserTaskActivityBehavior_givenDefaultActivityBehaviorFactory() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    // Act and Assert
-    assertNull(defaultActivityBehaviorFactory.createUserTaskActivityBehavior(new UserTask())
-        .getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#getSkipExpressionFromServiceTask(ServiceTask)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#getSkipExpressionFromServiceTask(ServiceTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Expression DefaultActivityBehaviorFactory.getSkipExpressionFromServiceTask(ServiceTask)"})
   public void testGetSkipExpressionFromServiceTask() {
-    // Arrange
-    ExpressionManager expressionManager = new ExpressionManager();
-    expressionManager.setCustomFunctionProviders(null);
-
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
-
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setSkipExpression("Service Task");
-
-    // Act
-    Expression actualSkipExpressionFromServiceTask = defaultActivityBehaviorFactory
-        .getSkipExpressionFromServiceTask(serviceTask);
-
-    // Assert
-    assertTrue(actualSkipExpressionFromServiceTask instanceof JuelExpression);
-    assertEquals("Service Task", actualSkipExpressionFromServiceTask.getExpressionText());
+    // Arrange, Act and Assert
+    assertNull(defaultActivityBehaviorFactory.getSkipExpressionFromServiceTask(new ServiceTask()));
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#getSkipExpressionFromServiceTask(ServiceTask)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#getSkipExpressionFromServiceTask(ServiceTask)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#getSkipExpressionFromServiceTask(ServiceTask)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Expression DefaultActivityBehaviorFactory.getSkipExpressionFromServiceTask(ServiceTask)"})
   public void testGetSkipExpressionFromServiceTask2() {
     // Arrange
-    ExpressionManager expressionManager = new ExpressionManager();
-    expressionManager.setCustomFunctionProviders(new ArrayList<>());
-
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
-
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setSkipExpression("Service Task");
-
-    // Act
-    Expression actualSkipExpressionFromServiceTask = defaultActivityBehaviorFactory
-        .getSkipExpressionFromServiceTask(serviceTask);
-
-    // Assert
-    assertTrue(actualSkipExpressionFromServiceTask instanceof JuelExpression);
-    assertEquals("Service Task", actualSkipExpressionFromServiceTask.getExpressionText());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#getSkipExpressionFromServiceTask(ServiceTask)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#getSkipExpressionFromServiceTask(ServiceTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Expression DefaultActivityBehaviorFactory.getSkipExpressionFromServiceTask(ServiceTask)"})
-  public void testGetSkipExpressionFromServiceTask3() {
-    // Arrange
-    CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
-    doNothing().when(customFunctionProvider).addCustomFunctions(Mockito.<ActivitiElContext>any());
-    CustomFunctionProvider customFunctionProvider2 = mock(CustomFunctionProvider.class);
-    doNothing().when(customFunctionProvider2).addCustomFunctions(Mockito.<ActivitiElContext>any());
-    CustomFunctionProvider customFunctionProvider3 = mock(CustomFunctionProvider.class);
-    doThrow(new ActivitiException("An error occurred")).when(customFunctionProvider3)
-        .addCustomFunctions(Mockito.<ActivitiElContext>any());
-
-    ArrayList<CustomFunctionProvider> customFunctionProviders = new ArrayList<>();
-    customFunctionProviders.add(customFunctionProvider3);
-    customFunctionProviders.add(customFunctionProvider2);
-    customFunctionProviders.add(customFunctionProvider);
-
-    ExpressionManager expressionManager = new ExpressionManager();
-    expressionManager.setCustomFunctionProviders(customFunctionProviders);
-
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
-
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setSkipExpression("Service Task");
-
-    // Act
-    Expression actualSkipExpressionFromServiceTask = defaultActivityBehaviorFactory
-        .getSkipExpressionFromServiceTask(serviceTask);
-
-    // Assert
-    verify(customFunctionProvider3).addCustomFunctions(isA(ActivitiElContext.class));
-    verify(customFunctionProvider2).addCustomFunctions(isA(ActivitiElContext.class));
-    verify(customFunctionProvider).addCustomFunctions(isA(ActivitiElContext.class));
-    assertTrue(actualSkipExpressionFromServiceTask instanceof JuelExpression);
-    assertEquals("Service Task", actualSkipExpressionFromServiceTask.getExpressionText());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#getSkipExpressionFromServiceTask(ServiceTask)}.
-   * <ul>
-   *   <li>Given empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#getSkipExpressionFromServiceTask(ServiceTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Expression DefaultActivityBehaviorFactory.getSkipExpressionFromServiceTask(ServiceTask)"})
-  public void testGetSkipExpressionFromServiceTask_givenEmptyString() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
     ServiceTask serviceTask = mock(ServiceTask.class);
     when(serviceTask.getSkipExpression()).thenReturn("");
 
@@ -382,161 +194,17 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#getSkipExpressionFromServiceTask(ServiceTask)}.
-   * <ul>
-   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#getSkipExpressionFromServiceTask(ServiceTask)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Expression DefaultActivityBehaviorFactory.getSkipExpressionFromServiceTask(ServiceTask)"})
-  public void testGetSkipExpressionFromServiceTask_thenCallsAddCustomFunctions() {
-    // Arrange
-    CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
-    doNothing().when(customFunctionProvider).addCustomFunctions(Mockito.<ActivitiElContext>any());
-
-    ArrayList<CustomFunctionProvider> customFunctionProviders = new ArrayList<>();
-    customFunctionProviders.add(customFunctionProvider);
-
-    ExpressionManager expressionManager = new ExpressionManager();
-    expressionManager.setCustomFunctionProviders(customFunctionProviders);
-
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
-
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setSkipExpression("Service Task");
-
-    // Act
-    Expression actualSkipExpressionFromServiceTask = defaultActivityBehaviorFactory
-        .getSkipExpressionFromServiceTask(serviceTask);
-
-    // Assert
-    verify(customFunctionProvider).addCustomFunctions(isA(ActivitiElContext.class));
-    assertTrue(actualSkipExpressionFromServiceTask instanceof JuelExpression);
-    assertEquals("Service Task", actualSkipExpressionFromServiceTask.getExpressionText());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#getSkipExpressionFromServiceTask(ServiceTask)}.
-   * <ul>
-   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#getSkipExpressionFromServiceTask(ServiceTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Expression DefaultActivityBehaviorFactory.getSkipExpressionFromServiceTask(ServiceTask)"})
-  public void testGetSkipExpressionFromServiceTask_thenCallsAddCustomFunctions2() {
-    // Arrange
-    CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
-    doNothing().when(customFunctionProvider).addCustomFunctions(Mockito.<ActivitiElContext>any());
-    CustomFunctionProvider customFunctionProvider2 = mock(CustomFunctionProvider.class);
-    doNothing().when(customFunctionProvider2).addCustomFunctions(Mockito.<ActivitiElContext>any());
-
-    ArrayList<CustomFunctionProvider> customFunctionProviders = new ArrayList<>();
-    customFunctionProviders.add(customFunctionProvider2);
-    customFunctionProviders.add(customFunctionProvider);
-
-    ExpressionManager expressionManager = new ExpressionManager();
-    expressionManager.setCustomFunctionProviders(customFunctionProviders);
-
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
-
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setSkipExpression("Service Task");
-
-    // Act
-    Expression actualSkipExpressionFromServiceTask = defaultActivityBehaviorFactory
-        .getSkipExpressionFromServiceTask(serviceTask);
-
-    // Assert
-    verify(customFunctionProvider2).addCustomFunctions(isA(ActivitiElContext.class));
-    verify(customFunctionProvider).addCustomFunctions(isA(ActivitiElContext.class));
-    assertTrue(actualSkipExpressionFromServiceTask instanceof JuelExpression);
-    assertEquals("Service Task", actualSkipExpressionFromServiceTask.getExpressionText());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#getSkipExpressionFromServiceTask(ServiceTask)}.
-   * <ul>
-   *   <li>Then return {@link FixedValue}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#getSkipExpressionFromServiceTask(ServiceTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Expression DefaultActivityBehaviorFactory.getSkipExpressionFromServiceTask(ServiceTask)"})
-  public void testGetSkipExpressionFromServiceTask_thenReturnFixedValue() {
-    // Arrange
-    ExpressionManager expressionManager = mock(ExpressionManager.class);
-    FixedValue fixedValue = new FixedValue(JSONObject.NULL);
-    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(fixedValue);
-
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
-    ServiceTask serviceTask = mock(ServiceTask.class);
-    when(serviceTask.getSkipExpression()).thenReturn("Skip Expression");
-
-    // Act
-    Expression actualSkipExpressionFromServiceTask = defaultActivityBehaviorFactory
-        .getSkipExpressionFromServiceTask(serviceTask);
-
-    // Assert
-    verify(serviceTask, atLeast(1)).getSkipExpression();
-    verify(expressionManager).createExpression(eq("Skip Expression"));
-    assertTrue(actualSkipExpressionFromServiceTask instanceof FixedValue);
-    assertEquals("null", actualSkipExpressionFromServiceTask.getExpressionText());
-    assertSame(fixedValue, actualSkipExpressionFromServiceTask);
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#getSkipExpressionFromServiceTask(ServiceTask)}.
-   * <ul>
-   *   <li>When {@link ServiceTask} (default constructor).</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#getSkipExpressionFromServiceTask(ServiceTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Expression DefaultActivityBehaviorFactory.getSkipExpressionFromServiceTask(ServiceTask)"})
-  public void testGetSkipExpressionFromServiceTask_whenServiceTask_thenReturnNull() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    // Act and Assert
-    assertNull(defaultActivityBehaviorFactory.getSkipExpressionFromServiceTask(new ServiceTask()));
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ClassDelegate DefaultActivityBehaviorFactory.createClassDelegateServiceTask(ServiceTask)"})
   public void testCreateClassDelegateServiceTask() {
     // Arrange
-    ExpressionManager expressionManager = new ExpressionManager();
-    expressionManager.setCustomFunctionProviders(null);
-
     DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
-
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setSkipExpression("Service Task");
 
     // Act
     ClassDelegate actualCreateClassDelegateServiceTaskResult = defaultActivityBehaviorFactory
-        .createClassDelegateServiceTask(serviceTask);
+        .createClassDelegateServiceTask(new ServiceTask());
 
     // Assert
     assertNull(actualCreateClassDelegateServiceTaskResult.getClassName());
@@ -544,42 +212,120 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ClassDelegate DefaultActivityBehaviorFactory.createClassDelegateServiceTask(ServiceTask)"})
   public void testCreateClassDelegateServiceTask2() {
+    // Arrange
+    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
+    defaultActivityBehaviorFactory.setExpressionManager(new ExpressionManager());
+    ServiceTask serviceTask = mock(ServiceTask.class);
+    when(serviceTask.getId()).thenReturn("42");
+    when(serviceTask.getImplementation()).thenReturn("Implementation");
+    when(serviceTask.getSkipExpression()).thenReturn("Skip Expression");
+    when(serviceTask.getMapExceptions()).thenReturn(new ArrayList<>());
+    when(serviceTask.getFieldExtensions()).thenReturn(new ArrayList<>());
+
+    // Act
+    ClassDelegate actualCreateClassDelegateServiceTaskResult = defaultActivityBehaviorFactory
+        .createClassDelegateServiceTask(serviceTask);
+
+    // Assert
+    verify(serviceTask).getMapExceptions();
+    verify(serviceTask).getId();
+    verify(serviceTask).getImplementation();
+    verify(serviceTask, atLeast(1)).getSkipExpression();
+    verify(serviceTask).getFieldExtensions();
+    assertEquals("Implementation", actualCreateClassDelegateServiceTaskResult.getClassName());
+    assertNull(actualCreateClassDelegateServiceTaskResult.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}
+   */
+  @Test
+  public void testCreateClassDelegateServiceTask3() {
+    // Arrange
+    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
+    defaultActivityBehaviorFactory.setExpressionManager(new ExpressionManager());
+    FieldExtension fieldExtension = mock(FieldExtension.class);
+    when(fieldExtension.getExpression()).thenReturn("Expression");
+    when(fieldExtension.getFieldName()).thenReturn("Field Name");
+
+    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
+    fieldExtensionList.add(fieldExtension);
+    ServiceTask serviceTask = mock(ServiceTask.class);
+    when(serviceTask.getId()).thenReturn("42");
+    when(serviceTask.getImplementation()).thenReturn("Implementation");
+    when(serviceTask.getSkipExpression()).thenReturn("Skip Expression");
+    when(serviceTask.getMapExceptions()).thenReturn(new ArrayList<>());
+    when(serviceTask.getFieldExtensions()).thenReturn(fieldExtensionList);
+
+    // Act
+    ClassDelegate actualCreateClassDelegateServiceTaskResult = defaultActivityBehaviorFactory
+        .createClassDelegateServiceTask(serviceTask);
+
+    // Assert
+    verify(serviceTask).getMapExceptions();
+    verify(serviceTask).getId();
+    verify(fieldExtension, atLeast(1)).getExpression();
+    verify(fieldExtension).getFieldName();
+    verify(serviceTask).getImplementation();
+    verify(serviceTask, atLeast(1)).getSkipExpression();
+    verify(serviceTask).getFieldExtensions();
+    assertEquals("Implementation", actualCreateClassDelegateServiceTaskResult.getClassName());
+    assertNull(actualCreateClassDelegateServiceTaskResult.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}
+   */
+  @Test
+  public void testCreateClassDelegateServiceTask4() {
     // Arrange
     ExpressionManager expressionManager = new ExpressionManager();
     expressionManager.setCustomFunctionProviders(new ArrayList<>());
 
     DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
     defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
+    FieldExtension fieldExtension = mock(FieldExtension.class);
+    when(fieldExtension.getExpression()).thenReturn("Expression");
+    when(fieldExtension.getFieldName()).thenReturn("Field Name");
 
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setSkipExpression("Service Task");
+    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
+    fieldExtensionList.add(fieldExtension);
+    ServiceTask serviceTask = mock(ServiceTask.class);
+    when(serviceTask.getId()).thenReturn("42");
+    when(serviceTask.getImplementation()).thenReturn("Implementation");
+    when(serviceTask.getSkipExpression()).thenReturn("Skip Expression");
+    when(serviceTask.getMapExceptions()).thenReturn(new ArrayList<>());
+    when(serviceTask.getFieldExtensions()).thenReturn(fieldExtensionList);
 
     // Act
     ClassDelegate actualCreateClassDelegateServiceTaskResult = defaultActivityBehaviorFactory
         .createClassDelegateServiceTask(serviceTask);
 
     // Assert
-    assertNull(actualCreateClassDelegateServiceTaskResult.getClassName());
+    verify(serviceTask).getMapExceptions();
+    verify(serviceTask).getId();
+    verify(fieldExtension, atLeast(1)).getExpression();
+    verify(fieldExtension).getFieldName();
+    verify(serviceTask).getImplementation();
+    verify(serviceTask, atLeast(1)).getSkipExpression();
+    verify(serviceTask).getFieldExtensions();
+    assertEquals("Implementation", actualCreateClassDelegateServiceTaskResult.getClassName());
     assertNull(actualCreateClassDelegateServiceTaskResult.getMultiInstanceActivityBehavior());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ClassDelegate DefaultActivityBehaviorFactory.createClassDelegateServiceTask(ServiceTask)"})
-  public void testCreateClassDelegateServiceTask3() {
+  public void testCreateClassDelegateServiceTask5() {
     // Arrange
     ExpressionManager expressionManager = mock(ExpressionManager.class);
     when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
@@ -617,14 +363,53 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ClassDelegate DefaultActivityBehaviorFactory.createClassDelegateServiceTask(ServiceTask)"})
-  public void testCreateClassDelegateServiceTask4() {
+  public void testCreateClassDelegateServiceTask6() {
+    // Arrange
+    ExpressionManager expressionManager = mock(ExpressionManager.class);
+    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
+
+    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
+    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
+    FieldExtension fieldExtension = mock(FieldExtension.class);
+    when(fieldExtension.getExpression()).thenReturn("Expression");
+    when(fieldExtension.getFieldName()).thenReturn("Field Name");
+
+    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
+    fieldExtensionList.add(fieldExtension);
+    ServiceTask serviceTask = mock(ServiceTask.class);
+    when(serviceTask.getId()).thenReturn("42");
+    when(serviceTask.getImplementation()).thenReturn("Implementation");
+    when(serviceTask.getSkipExpression()).thenReturn("");
+    when(serviceTask.getMapExceptions()).thenReturn(new ArrayList<>());
+    when(serviceTask.getFieldExtensions()).thenReturn(fieldExtensionList);
+
+    // Act
+    ClassDelegate actualCreateClassDelegateServiceTaskResult = defaultActivityBehaviorFactory
+        .createClassDelegateServiceTask(serviceTask);
+
+    // Assert
+    verify(serviceTask).getMapExceptions();
+    verify(serviceTask).getId();
+    verify(fieldExtension, atLeast(1)).getExpression();
+    verify(fieldExtension).getFieldName();
+    verify(serviceTask).getImplementation();
+    verify(serviceTask).getSkipExpression();
+    verify(serviceTask).getFieldExtensions();
+    verify(expressionManager).createExpression(eq("Expression"));
+    assertEquals("Implementation", actualCreateClassDelegateServiceTaskResult.getClassName());
+    assertNull(actualCreateClassDelegateServiceTaskResult.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}
+   */
+  @Test
+  public void testCreateClassDelegateServiceTask7() {
     // Arrange
     ExpressionManager expressionManager = mock(ExpressionManager.class);
     when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
@@ -671,61 +456,164 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createServiceTaskDelegateExpressionActivityBehavior(ServiceTask)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ClassDelegate DefaultActivityBehaviorFactory.createClassDelegateServiceTask(ServiceTask)"})
-  public void testCreateClassDelegateServiceTask5() {
+  public void testCreateServiceTaskDelegateExpressionActivityBehavior() {
     // Arrange
-    CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
-    doNothing().when(customFunctionProvider).addCustomFunctions(Mockito.<ActivitiElContext>any());
-    CustomFunctionProvider customFunctionProvider2 = mock(CustomFunctionProvider.class);
-    doNothing().when(customFunctionProvider2).addCustomFunctions(Mockito.<ActivitiElContext>any());
-    CustomFunctionProvider customFunctionProvider3 = mock(CustomFunctionProvider.class);
-    doThrow(new ActivitiException("An error occurred")).when(customFunctionProvider3)
-        .addCustomFunctions(Mockito.<ActivitiElContext>any());
+    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
+    defaultActivityBehaviorFactory.setExpressionManager(new ExpressionManager());
+    ServiceTask serviceTask = mock(ServiceTask.class);
+    when(serviceTask.getId()).thenReturn("42");
+    when(serviceTask.getSkipExpression()).thenReturn("Skip Expression");
+    when(serviceTask.getFieldExtensions()).thenReturn(new ArrayList<>());
+    when(serviceTask.getImplementation()).thenReturn("Implementation");
 
-    ArrayList<CustomFunctionProvider> customFunctionProviders = new ArrayList<>();
-    customFunctionProviders.add(customFunctionProvider3);
-    customFunctionProviders.add(customFunctionProvider2);
-    customFunctionProviders.add(customFunctionProvider);
+    // Act
+    ServiceTaskDelegateExpressionActivityBehavior actualCreateServiceTaskDelegateExpressionActivityBehaviorResult = defaultActivityBehaviorFactory
+        .createServiceTaskDelegateExpressionActivityBehavior(serviceTask);
 
+    // Assert
+    verify(serviceTask).getId();
+    verify(serviceTask).getImplementation();
+    verify(serviceTask, atLeast(1)).getSkipExpression();
+    verify(serviceTask).getFieldExtensions();
+    assertNull(actualCreateServiceTaskDelegateExpressionActivityBehaviorResult.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createServiceTaskDelegateExpressionActivityBehavior(ServiceTask)}
+   */
+  @Test
+  public void testCreateServiceTaskDelegateExpressionActivityBehavior2() {
+    // Arrange
     ExpressionManager expressionManager = new ExpressionManager();
-    expressionManager.setCustomFunctionProviders(customFunctionProviders);
+    expressionManager.setCustomFunctionProviders(new ArrayList<>());
+
+    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
+    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
+    ServiceTask serviceTask = mock(ServiceTask.class);
+    when(serviceTask.getId()).thenReturn("42");
+    when(serviceTask.getSkipExpression()).thenReturn("Skip Expression");
+    when(serviceTask.getFieldExtensions()).thenReturn(new ArrayList<>());
+    when(serviceTask.getImplementation()).thenReturn("Implementation");
+
+    // Act
+    ServiceTaskDelegateExpressionActivityBehavior actualCreateServiceTaskDelegateExpressionActivityBehaviorResult = defaultActivityBehaviorFactory
+        .createServiceTaskDelegateExpressionActivityBehavior(serviceTask);
+
+    // Assert
+    verify(serviceTask).getId();
+    verify(serviceTask).getImplementation();
+    verify(serviceTask, atLeast(1)).getSkipExpression();
+    verify(serviceTask).getFieldExtensions();
+    assertNull(actualCreateServiceTaskDelegateExpressionActivityBehaviorResult.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createServiceTaskDelegateExpressionActivityBehavior(ServiceTask)}
+   */
+  @Test
+  public void testCreateServiceTaskDelegateExpressionActivityBehavior3() {
+    // Arrange
+    ExpressionManager expressionManager = mock(ExpressionManager.class);
+    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
+
+    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
+    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
+    ServiceTask serviceTask = mock(ServiceTask.class);
+    when(serviceTask.getId()).thenReturn("42");
+    when(serviceTask.getSkipExpression()).thenReturn("Skip Expression");
+    when(serviceTask.getFieldExtensions()).thenReturn(new ArrayList<>());
+    when(serviceTask.getImplementation()).thenReturn("Implementation");
+
+    // Act
+    ServiceTaskDelegateExpressionActivityBehavior actualCreateServiceTaskDelegateExpressionActivityBehaviorResult = defaultActivityBehaviorFactory
+        .createServiceTaskDelegateExpressionActivityBehavior(serviceTask);
+
+    // Assert
+    verify(serviceTask).getId();
+    verify(serviceTask).getImplementation();
+    verify(serviceTask, atLeast(1)).getSkipExpression();
+    verify(serviceTask).getFieldExtensions();
+    verify(expressionManager, atLeast(1)).createExpression(Mockito.<String>any());
+    assertNull(actualCreateServiceTaskDelegateExpressionActivityBehaviorResult.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createServiceTaskDelegateExpressionActivityBehavior(ServiceTask)}
+   */
+  @Test
+  public void testCreateServiceTaskDelegateExpressionActivityBehavior4() {
+    // Arrange
+    ExpressionManager expressionManager = mock(ExpressionManager.class);
+    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
+
+    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
+    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
+    ServiceTask serviceTask = mock(ServiceTask.class);
+    when(serviceTask.getId()).thenReturn("42");
+    when(serviceTask.getSkipExpression()).thenReturn("");
+    when(serviceTask.getFieldExtensions()).thenReturn(new ArrayList<>());
+    when(serviceTask.getImplementation()).thenReturn("Implementation");
+
+    // Act
+    ServiceTaskDelegateExpressionActivityBehavior actualCreateServiceTaskDelegateExpressionActivityBehaviorResult = defaultActivityBehaviorFactory
+        .createServiceTaskDelegateExpressionActivityBehavior(serviceTask);
+
+    // Assert
+    verify(serviceTask).getId();
+    verify(serviceTask).getImplementation();
+    verify(serviceTask).getSkipExpression();
+    verify(serviceTask).getFieldExtensions();
+    verify(expressionManager).createExpression(eq("Implementation"));
+    assertNull(actualCreateServiceTaskDelegateExpressionActivityBehaviorResult.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createServiceTaskDelegateExpressionActivityBehavior(ServiceTask)}
+   */
+  @Test
+  public void testCreateServiceTaskDelegateExpressionActivityBehavior5() {
+    // Arrange
+    ExpressionManager expressionManager = mock(ExpressionManager.class);
+    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
 
     DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
     defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
 
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setSkipExpression("Service Task");
+    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
+    fieldExtensionList.add(new FieldExtension());
+    ServiceTask serviceTask = mock(ServiceTask.class);
+    when(serviceTask.getId()).thenReturn("42");
+    when(serviceTask.getSkipExpression()).thenReturn("Skip Expression");
+    when(serviceTask.getFieldExtensions()).thenReturn(fieldExtensionList);
+    when(serviceTask.getImplementation()).thenReturn("Implementation");
 
     // Act
-    ClassDelegate actualCreateClassDelegateServiceTaskResult = defaultActivityBehaviorFactory
-        .createClassDelegateServiceTask(serviceTask);
+    ServiceTaskDelegateExpressionActivityBehavior actualCreateServiceTaskDelegateExpressionActivityBehaviorResult = defaultActivityBehaviorFactory
+        .createServiceTaskDelegateExpressionActivityBehavior(serviceTask);
 
     // Assert
-    verify(customFunctionProvider3).addCustomFunctions(isA(ActivitiElContext.class));
-    verify(customFunctionProvider2).addCustomFunctions(isA(ActivitiElContext.class));
-    verify(customFunctionProvider).addCustomFunctions(isA(ActivitiElContext.class));
-    assertNull(actualCreateClassDelegateServiceTaskResult.getClassName());
-    assertNull(actualCreateClassDelegateServiceTaskResult.getMultiInstanceActivityBehavior());
+    verify(serviceTask).getId();
+    verify(serviceTask).getImplementation();
+    verify(serviceTask, atLeast(1)).getSkipExpression();
+    verify(serviceTask).getFieldExtensions();
+    verify(expressionManager, atLeast(1)).createExpression(Mockito.<String>any());
+    assertNull(actualCreateServiceTaskDelegateExpressionActivityBehaviorResult.getMultiInstanceActivityBehavior());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}.
-   * <ul>
-   *   <li>Given empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createServiceTaskDelegateExpressionActivityBehavior(ServiceTask)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ClassDelegate DefaultActivityBehaviorFactory.createClassDelegateServiceTask(ServiceTask)"})
-  public void testCreateClassDelegateServiceTask_givenEmptyString() {
+  public void testCreateServiceTaskDelegateExpressionActivityBehavior6() {
     // Arrange
     ExpressionManager expressionManager = mock(ExpressionManager.class);
     when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
@@ -740,301 +628,38 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
     fieldExtensionList.add(fieldExtension);
     ServiceTask serviceTask = mock(ServiceTask.class);
     when(serviceTask.getId()).thenReturn("42");
-    when(serviceTask.getImplementation()).thenReturn("Implementation");
-    when(serviceTask.getSkipExpression()).thenReturn("");
-    when(serviceTask.getMapExceptions()).thenReturn(new ArrayList<>());
-    when(serviceTask.getFieldExtensions()).thenReturn(fieldExtensionList);
-
-    // Act
-    ClassDelegate actualCreateClassDelegateServiceTaskResult = defaultActivityBehaviorFactory
-        .createClassDelegateServiceTask(serviceTask);
-
-    // Assert
-    verify(serviceTask).getMapExceptions();
-    verify(serviceTask).getId();
-    verify(fieldExtension, atLeast(1)).getExpression();
-    verify(fieldExtension).getFieldName();
-    verify(serviceTask).getImplementation();
-    verify(serviceTask).getSkipExpression();
-    verify(serviceTask).getFieldExtensions();
-    verify(expressionManager).createExpression(eq("Expression"));
-    assertEquals("Implementation", actualCreateClassDelegateServiceTaskResult.getClassName());
-    assertNull(actualCreateClassDelegateServiceTaskResult.getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}.
-   * <ul>
-   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ClassDelegate DefaultActivityBehaviorFactory.createClassDelegateServiceTask(ServiceTask)"})
-  public void testCreateClassDelegateServiceTask_thenCallsAddCustomFunctions() {
-    // Arrange
-    CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
-    doNothing().when(customFunctionProvider).addCustomFunctions(Mockito.<ActivitiElContext>any());
-
-    ArrayList<CustomFunctionProvider> customFunctionProviders = new ArrayList<>();
-    customFunctionProviders.add(customFunctionProvider);
-
-    ExpressionManager expressionManager = new ExpressionManager();
-    expressionManager.setCustomFunctionProviders(customFunctionProviders);
-
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
-
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setSkipExpression("Service Task");
-
-    // Act
-    ClassDelegate actualCreateClassDelegateServiceTaskResult = defaultActivityBehaviorFactory
-        .createClassDelegateServiceTask(serviceTask);
-
-    // Assert
-    verify(customFunctionProvider).addCustomFunctions(isA(ActivitiElContext.class));
-    assertNull(actualCreateClassDelegateServiceTaskResult.getClassName());
-    assertNull(actualCreateClassDelegateServiceTaskResult.getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}.
-   * <ul>
-   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ClassDelegate DefaultActivityBehaviorFactory.createClassDelegateServiceTask(ServiceTask)"})
-  public void testCreateClassDelegateServiceTask_thenCallsAddCustomFunctions2() {
-    // Arrange
-    CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
-    doNothing().when(customFunctionProvider).addCustomFunctions(Mockito.<ActivitiElContext>any());
-    CustomFunctionProvider customFunctionProvider2 = mock(CustomFunctionProvider.class);
-    doNothing().when(customFunctionProvider2).addCustomFunctions(Mockito.<ActivitiElContext>any());
-
-    ArrayList<CustomFunctionProvider> customFunctionProviders = new ArrayList<>();
-    customFunctionProviders.add(customFunctionProvider2);
-    customFunctionProviders.add(customFunctionProvider);
-
-    ExpressionManager expressionManager = new ExpressionManager();
-    expressionManager.setCustomFunctionProviders(customFunctionProviders);
-
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
-
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setSkipExpression("Service Task");
-
-    // Act
-    ClassDelegate actualCreateClassDelegateServiceTaskResult = defaultActivityBehaviorFactory
-        .createClassDelegateServiceTask(serviceTask);
-
-    // Assert
-    verify(customFunctionProvider2).addCustomFunctions(isA(ActivitiElContext.class));
-    verify(customFunctionProvider).addCustomFunctions(isA(ActivitiElContext.class));
-    assertNull(actualCreateClassDelegateServiceTaskResult.getClassName());
-    assertNull(actualCreateClassDelegateServiceTaskResult.getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}.
-   * <ul>
-   *   <li>Then return ClassName is {@code Implementation}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ClassDelegate DefaultActivityBehaviorFactory.createClassDelegateServiceTask(ServiceTask)"})
-  public void testCreateClassDelegateServiceTask_thenReturnClassNameIsImplementation() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(new ExpressionManager());
-    FieldExtension fieldExtension = mock(FieldExtension.class);
-    when(fieldExtension.getExpression()).thenReturn("Expression");
-    when(fieldExtension.getFieldName()).thenReturn("Field Name");
-
-    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
-    fieldExtensionList.add(fieldExtension);
-    ServiceTask serviceTask = mock(ServiceTask.class);
-    when(serviceTask.getId()).thenReturn("42");
-    when(serviceTask.getImplementation()).thenReturn("Implementation");
     when(serviceTask.getSkipExpression()).thenReturn("Skip Expression");
-    when(serviceTask.getMapExceptions()).thenReturn(new ArrayList<>());
     when(serviceTask.getFieldExtensions()).thenReturn(fieldExtensionList);
+    when(serviceTask.getImplementation()).thenReturn("Implementation");
 
     // Act
-    ClassDelegate actualCreateClassDelegateServiceTaskResult = defaultActivityBehaviorFactory
-        .createClassDelegateServiceTask(serviceTask);
+    ServiceTaskDelegateExpressionActivityBehavior actualCreateServiceTaskDelegateExpressionActivityBehaviorResult = defaultActivityBehaviorFactory
+        .createServiceTaskDelegateExpressionActivityBehavior(serviceTask);
 
     // Assert
-    verify(serviceTask).getMapExceptions();
     verify(serviceTask).getId();
     verify(fieldExtension, atLeast(1)).getExpression();
     verify(fieldExtension).getFieldName();
     verify(serviceTask).getImplementation();
     verify(serviceTask, atLeast(1)).getSkipExpression();
     verify(serviceTask).getFieldExtensions();
-    assertEquals("Implementation", actualCreateClassDelegateServiceTaskResult.getClassName());
-    assertNull(actualCreateClassDelegateServiceTaskResult.getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}.
-   * <ul>
-   *   <li>When {@link ServiceTask} (default constructor).</li>
-   *   <li>Then return ClassName is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ClassDelegate DefaultActivityBehaviorFactory.createClassDelegateServiceTask(ServiceTask)"})
-  public void testCreateClassDelegateServiceTask_whenServiceTask_thenReturnClassNameIsNull() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    // Act
-    ClassDelegate actualCreateClassDelegateServiceTaskResult = defaultActivityBehaviorFactory
-        .createClassDelegateServiceTask(new ServiceTask());
-
-    // Assert
-    assertNull(actualCreateClassDelegateServiceTaskResult.getClassName());
-    assertNull(actualCreateClassDelegateServiceTaskResult.getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createServiceTaskDelegateExpressionActivityBehavior(ServiceTask)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createServiceTaskDelegateExpressionActivityBehavior(ServiceTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ServiceTaskDelegateExpressionActivityBehavior DefaultActivityBehaviorFactory.createServiceTaskDelegateExpressionActivityBehavior(ServiceTask)"})
-  public void testCreateServiceTaskDelegateExpressionActivityBehavior() {
-    // Arrange
-    ExpressionManager expressionManager = mock(ExpressionManager.class);
-    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
-    doNothing().when(expressionManager).setCustomFunctionProviders(Mockito.<List<CustomFunctionProvider>>any());
-    expressionManager.setCustomFunctionProviders(null);
-
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
-
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setSkipExpression(null);
-
-    // Act
-    ServiceTaskDelegateExpressionActivityBehavior actualCreateServiceTaskDelegateExpressionActivityBehaviorResult = defaultActivityBehaviorFactory
-        .createServiceTaskDelegateExpressionActivityBehavior(serviceTask);
-
-    // Assert
-    verify(expressionManager).createExpression(isNull());
-    verify(expressionManager).setCustomFunctionProviders(isNull());
-    assertNull(actualCreateServiceTaskDelegateExpressionActivityBehaviorResult.getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createServiceTaskDelegateExpressionActivityBehavior(ServiceTask)}.
-   * <ul>
-   *   <li>Given empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createServiceTaskDelegateExpressionActivityBehavior(ServiceTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ServiceTaskDelegateExpressionActivityBehavior DefaultActivityBehaviorFactory.createServiceTaskDelegateExpressionActivityBehavior(ServiceTask)"})
-  public void testCreateServiceTaskDelegateExpressionActivityBehavior_givenEmptyString() {
-    // Arrange
-    ExpressionManager expressionManager = mock(ExpressionManager.class);
-    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
-    doNothing().when(expressionManager).setCustomFunctionProviders(Mockito.<List<CustomFunctionProvider>>any());
-    expressionManager.setCustomFunctionProviders(null);
-
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
-
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setSkipExpression("");
-
-    // Act
-    ServiceTaskDelegateExpressionActivityBehavior actualCreateServiceTaskDelegateExpressionActivityBehaviorResult = defaultActivityBehaviorFactory
-        .createServiceTaskDelegateExpressionActivityBehavior(serviceTask);
-
-    // Assert
-    verify(expressionManager).createExpression(isNull());
-    verify(expressionManager).setCustomFunctionProviders(isNull());
-    assertNull(actualCreateServiceTaskDelegateExpressionActivityBehaviorResult.getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createServiceTaskDelegateExpressionActivityBehavior(ServiceTask)}.
-   * <ul>
-   *   <li>Given {@code Skip Expression}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createServiceTaskDelegateExpressionActivityBehavior(ServiceTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ServiceTaskDelegateExpressionActivityBehavior DefaultActivityBehaviorFactory.createServiceTaskDelegateExpressionActivityBehavior(ServiceTask)"})
-  public void testCreateServiceTaskDelegateExpressionActivityBehavior_givenSkipExpression() {
-    // Arrange
-    ExpressionManager expressionManager = mock(ExpressionManager.class);
-    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
-    doNothing().when(expressionManager).setCustomFunctionProviders(Mockito.<List<CustomFunctionProvider>>any());
-    expressionManager.setCustomFunctionProviders(null);
-
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
-
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setSkipExpression("Skip Expression");
-
-    // Act
-    ServiceTaskDelegateExpressionActivityBehavior actualCreateServiceTaskDelegateExpressionActivityBehaviorResult = defaultActivityBehaviorFactory
-        .createServiceTaskDelegateExpressionActivityBehavior(serviceTask);
-
-    // Assert
     verify(expressionManager, atLeast(1)).createExpression(Mockito.<String>any());
-    verify(expressionManager).setCustomFunctionProviders(isNull());
     assertNull(actualCreateServiceTaskDelegateExpressionActivityBehaviorResult.getMultiInstanceActivityBehavior());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createDefaultServiceTaskBehavior(ServiceTask)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createDefaultServiceTaskBehavior(ServiceTask)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createDefaultServiceTaskBehavior(ServiceTask)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ActivityBehavior DefaultActivityBehaviorFactory.createDefaultServiceTaskBehavior(ServiceTask)"})
   public void testCreateDefaultServiceTaskBehavior() {
     // Arrange
-    ExpressionManager expressionManager = new ExpressionManager();
-    expressionManager.setCustomFunctionProviders(null);
-
     DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
-
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setSkipExpression(null);
+    defaultActivityBehaviorFactory.setExpressionManager(new ExpressionManager());
 
     // Act
     ActivityBehavior actualCreateDefaultServiceTaskBehaviorResult = defaultActivityBehaviorFactory
-        .createDefaultServiceTaskBehavior(serviceTask);
+        .createDefaultServiceTaskBehavior(new ServiceTask());
 
     // Assert
     assertTrue(actualCreateDefaultServiceTaskBehaviorResult instanceof ServiceTaskDelegateExpressionActivityBehavior);
@@ -1043,13 +668,10 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createDefaultServiceTaskBehavior(ServiceTask)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createDefaultServiceTaskBehavior(ServiceTask)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createDefaultServiceTaskBehavior(ServiceTask)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ActivityBehavior DefaultActivityBehaviorFactory.createDefaultServiceTaskBehavior(ServiceTask)"})
   public void testCreateDefaultServiceTaskBehavior2() {
     // Arrange
     ExpressionManager expressionManager = new ExpressionManager();
@@ -1058,12 +680,9 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
     DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
     defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
 
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setSkipExpression(null);
-
     // Act
     ActivityBehavior actualCreateDefaultServiceTaskBehaviorResult = defaultActivityBehaviorFactory
-        .createDefaultServiceTaskBehavior(serviceTask);
+        .createDefaultServiceTaskBehavior(new ServiceTask());
 
     // Assert
     assertTrue(actualCreateDefaultServiceTaskBehaviorResult instanceof ServiceTaskDelegateExpressionActivityBehavior);
@@ -1072,855 +691,131 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createDefaultServiceTaskBehavior(ServiceTask)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createDefaultServiceTaskBehavior(ServiceTask)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createDefaultServiceTaskBehavior(ServiceTask)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ActivityBehavior DefaultActivityBehaviorFactory.createDefaultServiceTaskBehavior(ServiceTask)"})
   public void testCreateDefaultServiceTaskBehavior3() {
     // Arrange
-    CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
-    doNothing().when(customFunctionProvider).addCustomFunctions(Mockito.<ActivitiElContext>any());
-    CustomFunctionProvider customFunctionProvider2 = mock(CustomFunctionProvider.class);
-    doNothing().when(customFunctionProvider2).addCustomFunctions(Mockito.<ActivitiElContext>any());
-    CustomFunctionProvider customFunctionProvider3 = mock(CustomFunctionProvider.class);
-    doThrow(new ActivitiException("An error occurred")).when(customFunctionProvider3)
-        .addCustomFunctions(Mockito.<ActivitiElContext>any());
-
-    ArrayList<CustomFunctionProvider> customFunctionProviders = new ArrayList<>();
-    customFunctionProviders.add(customFunctionProvider3);
-    customFunctionProviders.add(customFunctionProvider2);
-    customFunctionProviders.add(customFunctionProvider);
-
-    ExpressionManager expressionManager = new ExpressionManager();
-    expressionManager.setCustomFunctionProviders(customFunctionProviders);
-
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
-
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setSkipExpression(null);
-
-    // Act
-    ActivityBehavior actualCreateDefaultServiceTaskBehaviorResult = defaultActivityBehaviorFactory
-        .createDefaultServiceTaskBehavior(serviceTask);
-
-    // Assert
-    verify(customFunctionProvider3).addCustomFunctions(isA(ActivitiElContext.class));
-    verify(customFunctionProvider2).addCustomFunctions(isA(ActivitiElContext.class));
-    verify(customFunctionProvider).addCustomFunctions(isA(ActivitiElContext.class));
-    assertTrue(actualCreateDefaultServiceTaskBehaviorResult instanceof ServiceTaskDelegateExpressionActivityBehavior);
-    assertNull(((ServiceTaskDelegateExpressionActivityBehavior) actualCreateDefaultServiceTaskBehaviorResult)
-        .getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createDefaultServiceTaskBehavior(ServiceTask)}.
-   * <ul>
-   *   <li>Given {@code ${defaultServiceTaskBehavior}}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createDefaultServiceTaskBehavior(ServiceTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ActivityBehavior DefaultActivityBehaviorFactory.createDefaultServiceTaskBehavior(ServiceTask)"})
-  public void testCreateDefaultServiceTaskBehavior_givenDefaultServiceTaskBehavior() {
-    // Arrange
     ExpressionManager expressionManager = mock(ExpressionManager.class);
     when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
-    doNothing().when(expressionManager).setCustomFunctionProviders(Mockito.<List<CustomFunctionProvider>>any());
-    expressionManager.setCustomFunctionProviders(null);
 
     DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
     defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
 
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setSkipExpression("${defaultServiceTaskBehavior}");
-
     // Act
     ActivityBehavior actualCreateDefaultServiceTaskBehaviorResult = defaultActivityBehaviorFactory
-        .createDefaultServiceTaskBehavior(serviceTask);
-
-    // Assert
-    verify(expressionManager, atLeast(1)).createExpression(eq("${defaultServiceTaskBehavior}"));
-    verify(expressionManager).setCustomFunctionProviders(isNull());
-    assertTrue(actualCreateDefaultServiceTaskBehaviorResult instanceof ServiceTaskDelegateExpressionActivityBehavior);
-    assertNull(((ServiceTaskDelegateExpressionActivityBehavior) actualCreateDefaultServiceTaskBehaviorResult)
-        .getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createDefaultServiceTaskBehavior(ServiceTask)}.
-   * <ul>
-   *   <li>Given empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createDefaultServiceTaskBehavior(ServiceTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ActivityBehavior DefaultActivityBehaviorFactory.createDefaultServiceTaskBehavior(ServiceTask)"})
-  public void testCreateDefaultServiceTaskBehavior_givenEmptyString() {
-    // Arrange
-    ExpressionManager expressionManager = mock(ExpressionManager.class);
-    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
-    doNothing().when(expressionManager).setCustomFunctionProviders(Mockito.<List<CustomFunctionProvider>>any());
-    expressionManager.setCustomFunctionProviders(null);
-
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
-
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setSkipExpression("");
-
-    // Act
-    ActivityBehavior actualCreateDefaultServiceTaskBehaviorResult = defaultActivityBehaviorFactory
-        .createDefaultServiceTaskBehavior(serviceTask);
+        .createDefaultServiceTaskBehavior(new ServiceTask());
 
     // Assert
     verify(expressionManager).createExpression(eq("${defaultServiceTaskBehavior}"));
-    verify(expressionManager).setCustomFunctionProviders(isNull());
     assertTrue(actualCreateDefaultServiceTaskBehaviorResult instanceof ServiceTaskDelegateExpressionActivityBehavior);
     assertNull(((ServiceTaskDelegateExpressionActivityBehavior) actualCreateDefaultServiceTaskBehaviorResult)
         .getMultiInstanceActivityBehavior());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createDefaultServiceTaskBehavior(ServiceTask)}.
-   * <ul>
-   *   <li>Given {@code Service Task}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createDefaultServiceTaskBehavior(ServiceTask)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createDefaultServiceTaskBehavior(ServiceTask)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ActivityBehavior DefaultActivityBehaviorFactory.createDefaultServiceTaskBehavior(ServiceTask)"})
-  public void testCreateDefaultServiceTaskBehavior_givenServiceTask() {
+  public void testCreateDefaultServiceTaskBehavior4() {
     // Arrange
-    ExpressionManager expressionManager = new ExpressionManager();
-    expressionManager.setCustomFunctionProviders(null);
+    ExpressionManager expressionManager = mock(ExpressionManager.class);
+    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
 
     DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
     defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
-
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setSkipExpression("Service Task");
+    ServiceTask serviceTask = mock(ServiceTask.class);
+    when(serviceTask.getId()).thenReturn("42");
+    when(serviceTask.getSkipExpression()).thenReturn("Skip Expression");
+    when(serviceTask.getFieldExtensions()).thenReturn(new ArrayList<>());
 
     // Act
     ActivityBehavior actualCreateDefaultServiceTaskBehaviorResult = defaultActivityBehaviorFactory
         .createDefaultServiceTaskBehavior(serviceTask);
 
     // Assert
-    assertTrue(actualCreateDefaultServiceTaskBehaviorResult instanceof ServiceTaskDelegateExpressionActivityBehavior);
-    assertNull(((ServiceTaskDelegateExpressionActivityBehavior) actualCreateDefaultServiceTaskBehaviorResult)
-        .getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createDefaultServiceTaskBehavior(ServiceTask)}.
-   * <ul>
-   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createDefaultServiceTaskBehavior(ServiceTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ActivityBehavior DefaultActivityBehaviorFactory.createDefaultServiceTaskBehavior(ServiceTask)"})
-  public void testCreateDefaultServiceTaskBehavior_thenCallsAddCustomFunctions() {
-    // Arrange
-    CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
-    doNothing().when(customFunctionProvider).addCustomFunctions(Mockito.<ActivitiElContext>any());
-
-    ArrayList<CustomFunctionProvider> customFunctionProviders = new ArrayList<>();
-    customFunctionProviders.add(customFunctionProvider);
-
-    ExpressionManager expressionManager = new ExpressionManager();
-    expressionManager.setCustomFunctionProviders(customFunctionProviders);
-
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
-
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setSkipExpression(null);
-
-    // Act
-    ActivityBehavior actualCreateDefaultServiceTaskBehaviorResult = defaultActivityBehaviorFactory
-        .createDefaultServiceTaskBehavior(serviceTask);
-
-    // Assert
-    verify(customFunctionProvider).addCustomFunctions(isA(ActivitiElContext.class));
-    assertTrue(actualCreateDefaultServiceTaskBehaviorResult instanceof ServiceTaskDelegateExpressionActivityBehavior);
-    assertNull(((ServiceTaskDelegateExpressionActivityBehavior) actualCreateDefaultServiceTaskBehaviorResult)
-        .getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createDefaultServiceTaskBehavior(ServiceTask)}.
-   * <ul>
-   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createDefaultServiceTaskBehavior(ServiceTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ActivityBehavior DefaultActivityBehaviorFactory.createDefaultServiceTaskBehavior(ServiceTask)"})
-  public void testCreateDefaultServiceTaskBehavior_thenCallsAddCustomFunctions2() {
-    // Arrange
-    CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
-    doNothing().when(customFunctionProvider).addCustomFunctions(Mockito.<ActivitiElContext>any());
-    CustomFunctionProvider customFunctionProvider2 = mock(CustomFunctionProvider.class);
-    doNothing().when(customFunctionProvider2).addCustomFunctions(Mockito.<ActivitiElContext>any());
-
-    ArrayList<CustomFunctionProvider> customFunctionProviders = new ArrayList<>();
-    customFunctionProviders.add(customFunctionProvider2);
-    customFunctionProviders.add(customFunctionProvider);
-
-    ExpressionManager expressionManager = new ExpressionManager();
-    expressionManager.setCustomFunctionProviders(customFunctionProviders);
-
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
-
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setSkipExpression(null);
-
-    // Act
-    ActivityBehavior actualCreateDefaultServiceTaskBehaviorResult = defaultActivityBehaviorFactory
-        .createDefaultServiceTaskBehavior(serviceTask);
-
-    // Assert
-    verify(customFunctionProvider2).addCustomFunctions(isA(ActivitiElContext.class));
-    verify(customFunctionProvider).addCustomFunctions(isA(ActivitiElContext.class));
-    assertTrue(actualCreateDefaultServiceTaskBehaviorResult instanceof ServiceTaskDelegateExpressionActivityBehavior);
-    assertNull(((ServiceTaskDelegateExpressionActivityBehavior) actualCreateDefaultServiceTaskBehaviorResult)
-        .getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createDefaultServiceTaskBehavior(ServiceTask)}.
-   * <ul>
-   *   <li>Then calls {@link ExpressionManager#createExpression(String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createDefaultServiceTaskBehavior(ServiceTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ActivityBehavior DefaultActivityBehaviorFactory.createDefaultServiceTaskBehavior(ServiceTask)"})
-  public void testCreateDefaultServiceTaskBehavior_thenCallsCreateExpression() {
-    // Arrange
-    ExpressionManager expressionManager = mock(ExpressionManager.class);
-    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
-    doNothing().when(expressionManager).setCustomFunctionProviders(Mockito.<List<CustomFunctionProvider>>any());
-    expressionManager.setCustomFunctionProviders(null);
-
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
-
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setSkipExpression(null);
-
-    // Act
-    ActivityBehavior actualCreateDefaultServiceTaskBehaviorResult = defaultActivityBehaviorFactory
-        .createDefaultServiceTaskBehavior(serviceTask);
-
-    // Assert
-    verify(expressionManager).createExpression(eq("${defaultServiceTaskBehavior}"));
-    verify(expressionManager).setCustomFunctionProviders(isNull());
-    assertTrue(actualCreateDefaultServiceTaskBehaviorResult instanceof ServiceTaskDelegateExpressionActivityBehavior);
-    assertNull(((ServiceTaskDelegateExpressionActivityBehavior) actualCreateDefaultServiceTaskBehaviorResult)
-        .getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createServiceTaskExpressionActivityBehavior(ServiceTask)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createServiceTaskExpressionActivityBehavior(ServiceTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ServiceTaskExpressionActivityBehavior DefaultActivityBehaviorFactory.createServiceTaskExpressionActivityBehavior(ServiceTask)"})
-  public void testCreateServiceTaskExpressionActivityBehavior() {
-    // Arrange
-    ExpressionManager expressionManager = mock(ExpressionManager.class);
-    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
-    doNothing().when(expressionManager).setCustomFunctionProviders(Mockito.<List<CustomFunctionProvider>>any());
-    expressionManager.setCustomFunctionProviders(null);
-
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
-
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setSkipExpression(null);
-
-    // Act
-    ServiceTaskExpressionActivityBehavior actualCreateServiceTaskExpressionActivityBehaviorResult = defaultActivityBehaviorFactory
-        .createServiceTaskExpressionActivityBehavior(serviceTask);
-
-    // Assert
-    verify(expressionManager).createExpression(isNull());
-    verify(expressionManager).setCustomFunctionProviders(isNull());
-    assertNull(actualCreateServiceTaskExpressionActivityBehaviorResult.getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createServiceTaskExpressionActivityBehavior(ServiceTask)}.
-   * <ul>
-   *   <li>Given empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createServiceTaskExpressionActivityBehavior(ServiceTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ServiceTaskExpressionActivityBehavior DefaultActivityBehaviorFactory.createServiceTaskExpressionActivityBehavior(ServiceTask)"})
-  public void testCreateServiceTaskExpressionActivityBehavior_givenEmptyString() {
-    // Arrange
-    ExpressionManager expressionManager = mock(ExpressionManager.class);
-    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
-    doNothing().when(expressionManager).setCustomFunctionProviders(Mockito.<List<CustomFunctionProvider>>any());
-    expressionManager.setCustomFunctionProviders(null);
-
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
-
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setSkipExpression("");
-
-    // Act
-    ServiceTaskExpressionActivityBehavior actualCreateServiceTaskExpressionActivityBehaviorResult = defaultActivityBehaviorFactory
-        .createServiceTaskExpressionActivityBehavior(serviceTask);
-
-    // Assert
-    verify(expressionManager).createExpression(isNull());
-    verify(expressionManager).setCustomFunctionProviders(isNull());
-    assertNull(actualCreateServiceTaskExpressionActivityBehaviorResult.getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createServiceTaskExpressionActivityBehavior(ServiceTask)}.
-   * <ul>
-   *   <li>Given {@code Skip Expression}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createServiceTaskExpressionActivityBehavior(ServiceTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ServiceTaskExpressionActivityBehavior DefaultActivityBehaviorFactory.createServiceTaskExpressionActivityBehavior(ServiceTask)"})
-  public void testCreateServiceTaskExpressionActivityBehavior_givenSkipExpression() {
-    // Arrange
-    ExpressionManager expressionManager = mock(ExpressionManager.class);
-    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
-    doNothing().when(expressionManager).setCustomFunctionProviders(Mockito.<List<CustomFunctionProvider>>any());
-    expressionManager.setCustomFunctionProviders(null);
-
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
-
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setSkipExpression("Skip Expression");
-
-    // Act
-    ServiceTaskExpressionActivityBehavior actualCreateServiceTaskExpressionActivityBehaviorResult = defaultActivityBehaviorFactory
-        .createServiceTaskExpressionActivityBehavior(serviceTask);
-
-    // Assert
+    verify(serviceTask).getId();
+    verify(serviceTask, atLeast(1)).getSkipExpression();
+    verify(serviceTask).getFieldExtensions();
     verify(expressionManager, atLeast(1)).createExpression(Mockito.<String>any());
-    verify(expressionManager).setCustomFunctionProviders(isNull());
-    assertNull(actualCreateServiceTaskExpressionActivityBehaviorResult.getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createWebServiceActivityBehavior(SendTask)} with {@code sendTask}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createWebServiceActivityBehavior(SendTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.WebServiceActivityBehavior DefaultActivityBehaviorFactory.createWebServiceActivityBehavior(SendTask)"})
-  public void testCreateWebServiceActivityBehaviorWithSendTask() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    // Act and Assert
-    assertNull(defaultActivityBehaviorFactory.createWebServiceActivityBehavior(new SendTask())
+    assertTrue(actualCreateDefaultServiceTaskBehaviorResult instanceof ServiceTaskDelegateExpressionActivityBehavior);
+    assertNull(((ServiceTaskDelegateExpressionActivityBehavior) actualCreateDefaultServiceTaskBehaviorResult)
         .getMultiInstanceActivityBehavior());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createWebServiceActivityBehavior(ServiceTask)} with {@code serviceTask}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createWebServiceActivityBehavior(ServiceTask)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createDefaultServiceTaskBehavior(ServiceTask)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.WebServiceActivityBehavior DefaultActivityBehaviorFactory.createWebServiceActivityBehavior(ServiceTask)"})
-  public void testCreateWebServiceActivityBehaviorWithServiceTask() {
+  public void testCreateDefaultServiceTaskBehavior5() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
+    ExpressionManager expressionManager = mock(ExpressionManager.class);
+    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
 
-    // Act and Assert
-    assertNull(defaultActivityBehaviorFactory.createWebServiceActivityBehavior(new ServiceTask())
+    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
+    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
+    ServiceTask serviceTask = mock(ServiceTask.class);
+    when(serviceTask.getId()).thenReturn("42");
+    when(serviceTask.getSkipExpression()).thenReturn("");
+    when(serviceTask.getFieldExtensions()).thenReturn(new ArrayList<>());
+
+    // Act
+    ActivityBehavior actualCreateDefaultServiceTaskBehaviorResult = defaultActivityBehaviorFactory
+        .createDefaultServiceTaskBehavior(serviceTask);
+
+    // Assert
+    verify(serviceTask).getId();
+    verify(serviceTask).getSkipExpression();
+    verify(serviceTask).getFieldExtensions();
+    verify(expressionManager).createExpression(eq("${defaultServiceTaskBehavior}"));
+    assertTrue(actualCreateDefaultServiceTaskBehaviorResult instanceof ServiceTaskDelegateExpressionActivityBehavior);
+    assertNull(((ServiceTaskDelegateExpressionActivityBehavior) actualCreateDefaultServiceTaskBehaviorResult)
         .getMultiInstanceActivityBehavior());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createMailActivityBehavior(SendTask)} with {@code sendTask}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createMailActivityBehavior(SendTask)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createDefaultServiceTaskBehavior(ServiceTask)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.MailActivityBehavior DefaultActivityBehaviorFactory.createMailActivityBehavior(SendTask)"})
-  public void testCreateMailActivityBehaviorWithSendTask() {
+  public void testCreateDefaultServiceTaskBehavior6() {
     // Arrange
+    ExpressionManager expressionManager = mock(ExpressionManager.class);
+    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
+
     DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
+    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
 
-    // Act and Assert
-    assertNull(
-        defaultActivityBehaviorFactory.createMailActivityBehavior(new SendTask()).getMultiInstanceActivityBehavior());
-  }
+    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
+    fieldExtensionList.add(new FieldExtension());
+    ServiceTask serviceTask = mock(ServiceTask.class);
+    when(serviceTask.getId()).thenReturn("42");
+    when(serviceTask.getSkipExpression()).thenReturn("Skip Expression");
+    when(serviceTask.getFieldExtensions()).thenReturn(fieldExtensionList);
 
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createMailActivityBehavior(ServiceTask)} with {@code serviceTask}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createMailActivityBehavior(ServiceTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.MailActivityBehavior DefaultActivityBehaviorFactory.createMailActivityBehavior(ServiceTask)"})
-  public void testCreateMailActivityBehaviorWithServiceTask() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
+    // Act
+    ActivityBehavior actualCreateDefaultServiceTaskBehaviorResult = defaultActivityBehaviorFactory
+        .createDefaultServiceTaskBehavior(serviceTask);
 
-    // Act and Assert
-    assertNull(defaultActivityBehaviorFactory.createMailActivityBehavior(new ServiceTask())
+    // Assert
+    verify(serviceTask).getId();
+    verify(serviceTask, atLeast(1)).getSkipExpression();
+    verify(serviceTask).getFieldExtensions();
+    verify(expressionManager, atLeast(1)).createExpression(Mockito.<String>any());
+    assertTrue(actualCreateDefaultServiceTaskBehaviorResult instanceof ServiceTaskDelegateExpressionActivityBehavior);
+    assertNull(((ServiceTaskDelegateExpressionActivityBehavior) actualCreateDefaultServiceTaskBehaviorResult)
         .getMultiInstanceActivityBehavior());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createMailActivityBehavior(String, List)} with {@code taskId}, {@code fields}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createMailActivityBehavior(String, List)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createDefaultServiceTaskBehavior(ServiceTask)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.MailActivityBehavior DefaultActivityBehaviorFactory.createMailActivityBehavior(String, List)"})
-  public void testCreateMailActivityBehaviorWithTaskIdFields() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    // Act and Assert
-    assertNull(defaultActivityBehaviorFactory.createMailActivityBehavior("42", new ArrayList<>())
-        .getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createMailActivityBehavior(String, List)} with {@code taskId}, {@code fields}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createMailActivityBehavior(String, List)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.MailActivityBehavior DefaultActivityBehaviorFactory.createMailActivityBehavior(String, List)"})
-  public void testCreateMailActivityBehaviorWithTaskIdFields2() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory(
-        new DefaultClassDelegateFactory());
-
-    // Act and Assert
-    assertNull(defaultActivityBehaviorFactory.createMailActivityBehavior("42", new ArrayList<>())
-        .getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createMuleActivityBehavior(SendTask)} with {@code sendTask}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createMuleActivityBehavior(SendTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ActivityBehavior DefaultActivityBehaviorFactory.createMuleActivityBehavior(SendTask)"})
-  public void testCreateMuleActivityBehaviorWithSendTask_thenThrowActivitiException() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    // Act and Assert
-    assertThrows(ActivitiException.class,
-        () -> defaultActivityBehaviorFactory.createMuleActivityBehavior(new SendTask()));
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createMuleActivityBehavior(ServiceTask)} with {@code serviceTask}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createMuleActivityBehavior(ServiceTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ActivityBehavior DefaultActivityBehaviorFactory.createMuleActivityBehavior(ServiceTask)"})
-  public void testCreateMuleActivityBehaviorWithServiceTask_thenThrowActivitiException() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    // Act and Assert
-    assertThrows(ActivitiException.class,
-        () -> defaultActivityBehaviorFactory.createMuleActivityBehavior(new ServiceTask()));
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createMuleActivityBehavior(TaskWithFieldExtensions, List)} with {@code task}, {@code fieldExtensions}.
-   * <ul>
-   *   <li>Given {@link FieldExtension} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createMuleActivityBehavior(TaskWithFieldExtensions, List)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ActivityBehavior DefaultActivityBehaviorFactory.createMuleActivityBehavior(TaskWithFieldExtensions, List)"})
-  public void testCreateMuleActivityBehaviorWithTaskFieldExtensions_givenFieldExtension() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    SendTask task = new SendTask();
-
-    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
-    fieldExtensions.add(new FieldExtension());
-
-    // Act and Assert
-    assertThrows(ActivitiException.class,
-        () -> defaultActivityBehaviorFactory.createMuleActivityBehavior(task, fieldExtensions));
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createMuleActivityBehavior(TaskWithFieldExtensions, List)} with {@code task}, {@code fieldExtensions}.
-   * <ul>
-   *   <li>Given {@link FieldExtension} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createMuleActivityBehavior(TaskWithFieldExtensions, List)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ActivityBehavior DefaultActivityBehaviorFactory.createMuleActivityBehavior(TaskWithFieldExtensions, List)"})
-  public void testCreateMuleActivityBehaviorWithTaskFieldExtensions_givenFieldExtension2() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    SendTask task = new SendTask();
-
-    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
-    fieldExtensions.add(new FieldExtension());
-    fieldExtensions.add(new FieldExtension());
-
-    // Act and Assert
-    assertThrows(ActivitiException.class,
-        () -> defaultActivityBehaviorFactory.createMuleActivityBehavior(task, fieldExtensions));
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createMuleActivityBehavior(TaskWithFieldExtensions, List)} with {@code task}, {@code fieldExtensions}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createMuleActivityBehavior(TaskWithFieldExtensions, List)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ActivityBehavior DefaultActivityBehaviorFactory.createMuleActivityBehavior(TaskWithFieldExtensions, List)"})
-  public void testCreateMuleActivityBehaviorWithTaskFieldExtensions_whenArrayList() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    SendTask task = new SendTask();
-
-    // Act and Assert
-    assertThrows(ActivitiException.class,
-        () -> defaultActivityBehaviorFactory.createMuleActivityBehavior(task, new ArrayList<>()));
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(SendTask)} with {@code sendTask}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(SendTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ActivityBehavior DefaultActivityBehaviorFactory.createCamelActivityBehavior(SendTask)"})
-  public void testCreateCamelActivityBehaviorWithSendTask() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    FieldExtension fieldExtension = new FieldExtension();
-    fieldExtension.setFieldName("camelBehaviorClass");
-
-    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
-    fieldExtensions.add(fieldExtension);
-
-    SendTask sendTask = new SendTask();
-    sendTask.setFieldExtensions(fieldExtensions);
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> defaultActivityBehaviorFactory.createCamelActivityBehavior(sendTask));
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(SendTask)} with {@code sendTask}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(SendTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ActivityBehavior DefaultActivityBehaviorFactory.createCamelActivityBehavior(SendTask)"})
-  public void testCreateCamelActivityBehaviorWithSendTask2() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    FieldExtension fieldExtension = new FieldExtension();
-    fieldExtension.setStringValue("");
-    fieldExtension.setFieldName("camelBehaviorClass");
-
-    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
-    fieldExtensions.add(fieldExtension);
-
-    SendTask sendTask = new SendTask();
-    sendTask.setFieldExtensions(fieldExtensions);
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> defaultActivityBehaviorFactory.createCamelActivityBehavior(sendTask));
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(SendTask)} with {@code sendTask}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(SendTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ActivityBehavior DefaultActivityBehaviorFactory.createCamelActivityBehavior(SendTask)"})
-  public void testCreateCamelActivityBehaviorWithSendTask_givenArrayListAddFieldExtension() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
-    fieldExtensions.add(new FieldExtension());
-
-    SendTask sendTask = new SendTask();
-    sendTask.setFieldExtensions(fieldExtensions);
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> defaultActivityBehaviorFactory.createCamelActivityBehavior(sendTask));
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(SendTask)} with {@code sendTask}.
-   * <ul>
-   *   <li>Given {@link FieldExtension} (default constructor) StringValue is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(SendTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ActivityBehavior DefaultActivityBehaviorFactory.createCamelActivityBehavior(SendTask)"})
-  public void testCreateCamelActivityBehaviorWithSendTask_givenFieldExtensionStringValueIs42() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    FieldExtension fieldExtension = new FieldExtension();
-    fieldExtension.setStringValue("42");
-    fieldExtension.setFieldName("camelBehaviorClass");
-
-    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
-    fieldExtensions.add(fieldExtension);
-
-    SendTask sendTask = new SendTask();
-    sendTask.setFieldExtensions(fieldExtensions);
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> defaultActivityBehaviorFactory.createCamelActivityBehavior(sendTask));
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(SendTask)} with {@code sendTask}.
-   * <ul>
-   *   <li>When {@link SendTask} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(SendTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ActivityBehavior DefaultActivityBehaviorFactory.createCamelActivityBehavior(SendTask)"})
-  public void testCreateCamelActivityBehaviorWithSendTask_whenSendTask() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    // Act and Assert
-    assertThrows(ActivitiException.class,
-        () -> defaultActivityBehaviorFactory.createCamelActivityBehavior(new SendTask()));
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(ServiceTask)} with {@code serviceTask}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(ServiceTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ActivityBehavior DefaultActivityBehaviorFactory.createCamelActivityBehavior(ServiceTask)"})
-  public void testCreateCamelActivityBehaviorWithServiceTask() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    FieldExtension fieldExtension = new FieldExtension();
-    fieldExtension.setStringValue("Service Task");
-    fieldExtension.setFieldName("camelBehaviorClass");
-
-    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
-    fieldExtensions.add(fieldExtension);
-    fieldExtensions.add(null);
-
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setFieldExtensions(fieldExtensions);
-
-    // Act and Assert
-    assertThrows(ActivitiException.class,
-        () -> defaultActivityBehaviorFactory.createCamelActivityBehavior(serviceTask));
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(ServiceTask)} with {@code serviceTask}.
-   * <ul>
-   *   <li>When {@link ServiceTask} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(ServiceTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ActivityBehavior DefaultActivityBehaviorFactory.createCamelActivityBehavior(ServiceTask)"})
-  public void testCreateCamelActivityBehaviorWithServiceTask_whenServiceTask() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    // Act and Assert
-    assertThrows(ActivitiException.class,
-        () -> defaultActivityBehaviorFactory.createCamelActivityBehavior(new ServiceTask()));
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(TaskWithFieldExtensions, List)} with {@code task}, {@code fieldExtensions}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(TaskWithFieldExtensions, List)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ActivityBehavior DefaultActivityBehaviorFactory.createCamelActivityBehavior(TaskWithFieldExtensions, List)"})
-  public void testCreateCamelActivityBehaviorWithTaskFieldExtensions() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    SendTask task = new SendTask();
-
-    FieldExtension fieldExtension = new FieldExtension();
-    fieldExtension.setFieldName("camelBehaviorClass");
-    fieldExtension.setStringValue("Field Extensions");
-
-    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
-    fieldExtensions.add(fieldExtension);
-    fieldExtensions.add(null);
-
-    // Act and Assert
-    assertThrows(ActivitiException.class,
-        () -> defaultActivityBehaviorFactory.createCamelActivityBehavior(task, fieldExtensions));
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(TaskWithFieldExtensions, List)} with {@code task}, {@code fieldExtensions}.
-   * <ul>
-   *   <li>Given {@link FieldExtension} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(TaskWithFieldExtensions, List)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ActivityBehavior DefaultActivityBehaviorFactory.createCamelActivityBehavior(TaskWithFieldExtensions, List)"})
-  public void testCreateCamelActivityBehaviorWithTaskFieldExtensions_givenFieldExtension() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    SendTask task = new SendTask();
-
-    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
-    fieldExtensions.add(new FieldExtension());
-
-    // Act and Assert
-    assertThrows(ActivitiException.class,
-        () -> defaultActivityBehaviorFactory.createCamelActivityBehavior(task, fieldExtensions));
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(TaskWithFieldExtensions, List)} with {@code task}, {@code fieldExtensions}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(TaskWithFieldExtensions, List)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ActivityBehavior DefaultActivityBehaviorFactory.createCamelActivityBehavior(TaskWithFieldExtensions, List)"})
-  public void testCreateCamelActivityBehaviorWithTaskFieldExtensions_whenArrayList() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    SendTask task = new SendTask();
-
-    // Act and Assert
-    assertThrows(ActivitiException.class,
-        () -> defaultActivityBehaviorFactory.createCamelActivityBehavior(task, new ArrayList<>()));
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createShellActivityBehavior(ServiceTask)}.
-   * <ul>
-   *   <li>Then calls {@link FieldExtension#getExpression()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createShellActivityBehavior(ServiceTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ShellActivityBehavior DefaultActivityBehaviorFactory.createShellActivityBehavior(ServiceTask)"})
-  public void testCreateShellActivityBehavior_thenCallsGetExpression() {
+  public void testCreateDefaultServiceTaskBehavior7() {
     // Arrange
     ExpressionManager expressionManager = mock(ExpressionManager.class);
     when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
@@ -1929,164 +824,698 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
     defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
     FieldExtension fieldExtension = mock(FieldExtension.class);
     when(fieldExtension.getExpression()).thenReturn("Expression");
-    when(fieldExtension.getFieldName()).thenReturn("wait");
+    when(fieldExtension.getFieldName()).thenReturn("Field Name");
+
+    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
+    fieldExtensionList.add(fieldExtension);
+    ServiceTask serviceTask = mock(ServiceTask.class);
+    when(serviceTask.getId()).thenReturn("42");
+    when(serviceTask.getSkipExpression()).thenReturn("Skip Expression");
+    when(serviceTask.getFieldExtensions()).thenReturn(fieldExtensionList);
+
+    // Act
+    ActivityBehavior actualCreateDefaultServiceTaskBehaviorResult = defaultActivityBehaviorFactory
+        .createDefaultServiceTaskBehavior(serviceTask);
+
+    // Assert
+    verify(serviceTask).getId();
+    verify(fieldExtension, atLeast(1)).getExpression();
+    verify(fieldExtension).getFieldName();
+    verify(serviceTask, atLeast(1)).getSkipExpression();
+    verify(serviceTask).getFieldExtensions();
+    verify(expressionManager, atLeast(1)).createExpression(Mockito.<String>any());
+    assertTrue(actualCreateDefaultServiceTaskBehaviorResult instanceof ServiceTaskDelegateExpressionActivityBehavior);
+    assertNull(((ServiceTaskDelegateExpressionActivityBehavior) actualCreateDefaultServiceTaskBehaviorResult)
+        .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createServiceTaskExpressionActivityBehavior(ServiceTask)}
+   */
+  @Test
+  public void testCreateServiceTaskExpressionActivityBehavior() {
+    // Arrange
+    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
+    defaultActivityBehaviorFactory.setExpressionManager(new ExpressionManager());
+    ServiceTask serviceTask = mock(ServiceTask.class);
+    when(serviceTask.getId()).thenReturn("42");
+    when(serviceTask.getResultVariableName()).thenReturn("Result Variable Name");
+    when(serviceTask.getSkipExpression()).thenReturn("Skip Expression");
+    when(serviceTask.getImplementation()).thenReturn("Implementation");
+
+    // Act
+    ServiceTaskExpressionActivityBehavior actualCreateServiceTaskExpressionActivityBehaviorResult = defaultActivityBehaviorFactory
+        .createServiceTaskExpressionActivityBehavior(serviceTask);
+
+    // Assert
+    verify(serviceTask).getId();
+    verify(serviceTask).getImplementation();
+    verify(serviceTask).getResultVariableName();
+    verify(serviceTask, atLeast(1)).getSkipExpression();
+    assertNull(actualCreateServiceTaskExpressionActivityBehaviorResult.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createServiceTaskExpressionActivityBehavior(ServiceTask)}
+   */
+  @Test
+  public void testCreateServiceTaskExpressionActivityBehavior2() {
+    // Arrange
+    ExpressionManager expressionManager = new ExpressionManager();
+    expressionManager.setCustomFunctionProviders(new ArrayList<>());
+
+    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
+    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
+    ServiceTask serviceTask = mock(ServiceTask.class);
+    when(serviceTask.getId()).thenReturn("42");
+    when(serviceTask.getResultVariableName()).thenReturn("Result Variable Name");
+    when(serviceTask.getSkipExpression()).thenReturn("Skip Expression");
+    when(serviceTask.getImplementation()).thenReturn("Implementation");
+
+    // Act
+    ServiceTaskExpressionActivityBehavior actualCreateServiceTaskExpressionActivityBehaviorResult = defaultActivityBehaviorFactory
+        .createServiceTaskExpressionActivityBehavior(serviceTask);
+
+    // Assert
+    verify(serviceTask).getId();
+    verify(serviceTask).getImplementation();
+    verify(serviceTask).getResultVariableName();
+    verify(serviceTask, atLeast(1)).getSkipExpression();
+    assertNull(actualCreateServiceTaskExpressionActivityBehaviorResult.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createServiceTaskExpressionActivityBehavior(ServiceTask)}
+   */
+  @Test
+  public void testCreateServiceTaskExpressionActivityBehavior3() {
+    // Arrange
+    ExpressionManager expressionManager = mock(ExpressionManager.class);
+    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
+
+    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
+    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
+    ServiceTask serviceTask = mock(ServiceTask.class);
+    when(serviceTask.getId()).thenReturn("42");
+    when(serviceTask.getResultVariableName()).thenReturn("Result Variable Name");
+    when(serviceTask.getSkipExpression()).thenReturn("Skip Expression");
+    when(serviceTask.getImplementation()).thenReturn("Implementation");
+
+    // Act
+    ServiceTaskExpressionActivityBehavior actualCreateServiceTaskExpressionActivityBehaviorResult = defaultActivityBehaviorFactory
+        .createServiceTaskExpressionActivityBehavior(serviceTask);
+
+    // Assert
+    verify(serviceTask).getId();
+    verify(serviceTask).getImplementation();
+    verify(serviceTask).getResultVariableName();
+    verify(serviceTask, atLeast(1)).getSkipExpression();
+    verify(expressionManager, atLeast(1)).createExpression(Mockito.<String>any());
+    assertNull(actualCreateServiceTaskExpressionActivityBehaviorResult.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createServiceTaskExpressionActivityBehavior(ServiceTask)}
+   */
+  @Test
+  public void testCreateServiceTaskExpressionActivityBehavior4() {
+    // Arrange
+    ExpressionManager expressionManager = mock(ExpressionManager.class);
+    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
+
+    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
+    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
+    ServiceTask serviceTask = mock(ServiceTask.class);
+    when(serviceTask.getId()).thenReturn("42");
+    when(serviceTask.getResultVariableName()).thenReturn("Result Variable Name");
+    when(serviceTask.getSkipExpression()).thenReturn("");
+    when(serviceTask.getImplementation()).thenReturn("Implementation");
+
+    // Act
+    ServiceTaskExpressionActivityBehavior actualCreateServiceTaskExpressionActivityBehaviorResult = defaultActivityBehaviorFactory
+        .createServiceTaskExpressionActivityBehavior(serviceTask);
+
+    // Assert
+    verify(serviceTask).getId();
+    verify(serviceTask).getImplementation();
+    verify(serviceTask).getResultVariableName();
+    verify(serviceTask).getSkipExpression();
+    verify(expressionManager).createExpression(eq("Implementation"));
+    assertNull(actualCreateServiceTaskExpressionActivityBehaviorResult.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createWebServiceActivityBehavior(SendTask)}
+   */
+  @Test
+  public void testCreateWebServiceActivityBehavior() {
+    // Arrange, Act and Assert
+    assertNull(defaultActivityBehaviorFactory.createWebServiceActivityBehavior(new SendTask())
+        .getMultiInstanceActivityBehavior());
+    assertNull(defaultActivityBehaviorFactory.createWebServiceActivityBehavior(mock(SendTask.class))
+        .getMultiInstanceActivityBehavior());
+    assertNull(defaultActivityBehaviorFactory.createWebServiceActivityBehavior(new ServiceTask())
+        .getMultiInstanceActivityBehavior());
+    assertNull(defaultActivityBehaviorFactory.createWebServiceActivityBehavior(mock(ServiceTask.class))
+        .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createMailActivityBehavior(String, List)}
+   */
+  @Test
+  public void testCreateMailActivityBehavior() {
+    // Arrange, Act and Assert
+    assertNull(defaultActivityBehaviorFactory.createMailActivityBehavior("42", new ArrayList<>())
+        .getMultiInstanceActivityBehavior());
+    assertNull(defaultActivityBehaviorFactory
+        .createMailActivityBehavior("Trying to load class with current thread context classloader: {}",
+            new ArrayList<>())
+        .getMultiInstanceActivityBehavior());
+    assertNull(
+        defaultActivityBehaviorFactory.createMailActivityBehavior(new SendTask()).getMultiInstanceActivityBehavior());
+    assertNull(defaultActivityBehaviorFactory.createMailActivityBehavior(new ServiceTask())
+        .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createMailActivityBehavior(SendTask)}
+   */
+  @Test
+  public void testCreateMailActivityBehavior2() {
+    // Arrange
+    SendTask sendTask = mock(SendTask.class);
+    when(sendTask.getId()).thenReturn("42");
+    when(sendTask.getFieldExtensions()).thenReturn(new ArrayList<>());
+
+    // Act
+    MailActivityBehavior actualCreateMailActivityBehaviorResult = defaultActivityBehaviorFactory
+        .createMailActivityBehavior(sendTask);
+
+    // Assert
+    verify(sendTask).getId();
+    verify(sendTask).getFieldExtensions();
+    assertNull(actualCreateMailActivityBehaviorResult.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createMailActivityBehavior(ServiceTask)}
+   */
+  @Test
+  public void testCreateMailActivityBehavior3() {
+    // Arrange
+    ServiceTask serviceTask = mock(ServiceTask.class);
+    when(serviceTask.getId()).thenReturn("42");
+    when(serviceTask.getFieldExtensions()).thenReturn(new ArrayList<>());
+
+    // Act
+    MailActivityBehavior actualCreateMailActivityBehaviorResult = defaultActivityBehaviorFactory
+        .createMailActivityBehavior(serviceTask);
+
+    // Assert
+    verify(serviceTask).getId();
+    verify(serviceTask).getFieldExtensions();
+    assertNull(actualCreateMailActivityBehaviorResult.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createMuleActivityBehavior(SendTask)}
+   */
+  @Test
+  public void testCreateMuleActivityBehavior() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiException.class,
+        () -> defaultActivityBehaviorFactory.createMuleActivityBehavior(new SendTask()));
+    assertThrows(ActivitiException.class,
+        () -> defaultActivityBehaviorFactory.createMuleActivityBehavior(new ServiceTask()));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createMuleActivityBehavior(TaskWithFieldExtensions, List)}
+   */
+  @Test
+  public void testCreateMuleActivityBehavior2() {
+    // Arrange
+    SendTask task = new SendTask();
+
+    // Act and Assert
+    assertThrows(ActivitiException.class,
+        () -> defaultActivityBehaviorFactory.createMuleActivityBehavior(task, new ArrayList<>()));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createMuleActivityBehavior(TaskWithFieldExtensions, List)}
+   */
+  @Test
+  public void testCreateMuleActivityBehavior3() {
+    // Arrange
+    SendTask task = mock(SendTask.class);
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(new FieldExtension());
+
+    // Act and Assert
+    assertThrows(ActivitiException.class,
+        () -> defaultActivityBehaviorFactory.createMuleActivityBehavior(task, fieldExtensions));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createMuleActivityBehavior(TaskWithFieldExtensions, List)}
+   */
+  @Test
+  public void testCreateMuleActivityBehavior4() {
+    // Arrange
+    SendTask task = mock(SendTask.class);
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(new FieldExtension());
+    fieldExtensions.add(new FieldExtension());
+
+    // Act and Assert
+    assertThrows(ActivitiException.class,
+        () -> defaultActivityBehaviorFactory.createMuleActivityBehavior(task, fieldExtensions));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(SendTask)}
+   */
+  @Test
+  public void testCreateCamelActivityBehavior() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiException.class,
+        () -> defaultActivityBehaviorFactory.createCamelActivityBehavior(new SendTask()));
+    assertThrows(ActivitiException.class,
+        () -> defaultActivityBehaviorFactory.createCamelActivityBehavior(new ServiceTask()));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(SendTask)}
+   */
+  @Test
+  public void testCreateCamelActivityBehavior2() {
+    // Arrange
+    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
+    fieldExtensionList.add(new FieldExtension());
+    SendTask sendTask = mock(SendTask.class);
+    when(sendTask.getFieldExtensions()).thenReturn(fieldExtensionList);
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> defaultActivityBehaviorFactory.createCamelActivityBehavior(sendTask));
+    verify(sendTask).getFieldExtensions();
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(SendTask)}
+   */
+  @Test
+  public void testCreateCamelActivityBehavior3() {
+    // Arrange
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setFieldName("camelBehaviorClass");
+
+    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
+    fieldExtensionList.add(fieldExtension);
+    SendTask sendTask = mock(SendTask.class);
+    when(sendTask.getFieldExtensions()).thenReturn(fieldExtensionList);
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> defaultActivityBehaviorFactory.createCamelActivityBehavior(sendTask));
+    verify(sendTask).getFieldExtensions();
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(SendTask)}
+   */
+  @Test
+  public void testCreateCamelActivityBehavior4() {
+    // Arrange
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setStringValue("42");
+    fieldExtension.setFieldName("camelBehaviorClass");
+
+    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
+    fieldExtensionList.add(fieldExtension);
+    SendTask sendTask = mock(SendTask.class);
+    when(sendTask.getFieldExtensions()).thenReturn(fieldExtensionList);
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> defaultActivityBehaviorFactory.createCamelActivityBehavior(sendTask));
+    verify(sendTask).getFieldExtensions();
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(SendTask)}
+   */
+  @Test
+  public void testCreateCamelActivityBehavior5() {
+    // Arrange
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setStringValue("");
+    fieldExtension.setFieldName("camelBehaviorClass");
+
+    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
+    fieldExtensionList.add(fieldExtension);
+    SendTask sendTask = mock(SendTask.class);
+    when(sendTask.getFieldExtensions()).thenReturn(fieldExtensionList);
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> defaultActivityBehaviorFactory.createCamelActivityBehavior(sendTask));
+    verify(sendTask).getFieldExtensions();
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(ServiceTask)}
+   */
+  @Test
+  public void testCreateCamelActivityBehavior6() {
+    // Arrange
+    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
+    fieldExtensionList.add(new FieldExtension());
+    ServiceTask serviceTask = mock(ServiceTask.class);
+    when(serviceTask.getFieldExtensions()).thenReturn(fieldExtensionList);
+
+    // Act and Assert
+    assertThrows(ActivitiException.class,
+        () -> defaultActivityBehaviorFactory.createCamelActivityBehavior(serviceTask));
+    verify(serviceTask).getFieldExtensions();
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(ServiceTask)}
+   */
+  @Test
+  public void testCreateCamelActivityBehavior7() {
+    // Arrange
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setFieldName("camelBehaviorClass");
+
+    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
+    fieldExtensionList.add(fieldExtension);
+    ServiceTask serviceTask = mock(ServiceTask.class);
+    when(serviceTask.getFieldExtensions()).thenReturn(fieldExtensionList);
+
+    // Act and Assert
+    assertThrows(ActivitiException.class,
+        () -> defaultActivityBehaviorFactory.createCamelActivityBehavior(serviceTask));
+    verify(serviceTask).getFieldExtensions();
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(ServiceTask)}
+   */
+  @Test
+  public void testCreateCamelActivityBehavior8() {
+    // Arrange
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setStringValue("42");
+    fieldExtension.setFieldName("camelBehaviorClass");
+
+    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
+    fieldExtensionList.add(fieldExtension);
+    ServiceTask serviceTask = mock(ServiceTask.class);
+    when(serviceTask.getFieldExtensions()).thenReturn(fieldExtensionList);
+
+    // Act and Assert
+    assertThrows(ActivitiException.class,
+        () -> defaultActivityBehaviorFactory.createCamelActivityBehavior(serviceTask));
+    verify(serviceTask).getFieldExtensions();
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(ServiceTask)}
+   */
+  @Test
+  public void testCreateCamelActivityBehavior9() {
+    // Arrange
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setStringValue("");
+    fieldExtension.setFieldName("camelBehaviorClass");
+
+    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
+    fieldExtensionList.add(fieldExtension);
+    ServiceTask serviceTask = mock(ServiceTask.class);
+    when(serviceTask.getFieldExtensions()).thenReturn(fieldExtensionList);
+
+    // Act and Assert
+    assertThrows(ActivitiException.class,
+        () -> defaultActivityBehaviorFactory.createCamelActivityBehavior(serviceTask));
+    verify(serviceTask).getFieldExtensions();
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(TaskWithFieldExtensions, List)}
+   */
+  @Test
+  public void testCreateCamelActivityBehavior10() {
+    // Arrange
+    SendTask task = new SendTask();
+
+    // Act and Assert
+    assertThrows(ActivitiException.class,
+        () -> defaultActivityBehaviorFactory.createCamelActivityBehavior(task, new ArrayList<>()));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(TaskWithFieldExtensions, List)}
+   */
+  @Test
+  public void testCreateCamelActivityBehavior11() {
+    // Arrange
+    SendTask task = mock(SendTask.class);
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(new FieldExtension());
+
+    // Act and Assert
+    assertThrows(ActivitiException.class,
+        () -> defaultActivityBehaviorFactory.createCamelActivityBehavior(task, fieldExtensions));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(TaskWithFieldExtensions, List)}
+   */
+  @Test
+  public void testCreateCamelActivityBehavior12() {
+    // Arrange
+    SendTask task = mock(SendTask.class);
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(new FieldExtension());
+    fieldExtensions.add(new FieldExtension());
+
+    // Act and Assert
+    assertThrows(ActivitiException.class,
+        () -> defaultActivityBehaviorFactory.createCamelActivityBehavior(task, fieldExtensions));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(TaskWithFieldExtensions, List)}
+   */
+  @Test
+  public void testCreateCamelActivityBehavior13() {
+    // Arrange
+    SendTask task = mock(SendTask.class);
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setFieldName("camelBehaviorClass");
 
     ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
     fieldExtensions.add(fieldExtension);
 
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setFieldExtensions(fieldExtensions);
+    // Act and Assert
+    assertThrows(ActivitiException.class,
+        () -> defaultActivityBehaviorFactory.createCamelActivityBehavior(task, fieldExtensions));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(TaskWithFieldExtensions, List)}
+   */
+  @Test
+  public void testCreateCamelActivityBehavior14() {
+    // Arrange
+    SendTask task = mock(SendTask.class);
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setStringValue("42");
+    fieldExtension.setFieldName("camelBehaviorClass");
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(fieldExtension);
+
+    // Act and Assert
+    assertThrows(ActivitiException.class,
+        () -> defaultActivityBehaviorFactory.createCamelActivityBehavior(task, fieldExtensions));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(TaskWithFieldExtensions, List)}
+   */
+  @Test
+  public void testCreateCamelActivityBehavior15() {
+    // Arrange
+    SendTask task = mock(SendTask.class);
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setStringValue("");
+    fieldExtension.setFieldName("camelBehaviorClass");
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(fieldExtension);
+
+    // Act and Assert
+    assertThrows(ActivitiException.class,
+        () -> defaultActivityBehaviorFactory.createCamelActivityBehavior(task, fieldExtensions));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createShellActivityBehavior(ServiceTask)}
+   */
+  @Test
+  public void testCreateShellActivityBehavior() {
+    // Arrange, Act and Assert
+    assertNull(defaultActivityBehaviorFactory.createShellActivityBehavior(new ServiceTask())
+        .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createShellActivityBehavior(ServiceTask)}
+   */
+  @Test
+  public void testCreateShellActivityBehavior2() {
+    // Arrange
+    ServiceTask serviceTask = mock(ServiceTask.class);
+    when(serviceTask.getFieldExtensions()).thenReturn(new ArrayList<>());
 
     // Act
     ShellActivityBehavior actualCreateShellActivityBehaviorResult = defaultActivityBehaviorFactory
         .createShellActivityBehavior(serviceTask);
 
     // Assert
-    verify(fieldExtension, atLeast(1)).getExpression();
-    verify(fieldExtension).getFieldName();
-    verify(expressionManager).createExpression(eq("Expression"));
+    verify(serviceTask).getFieldExtensions();
     assertNull(actualCreateShellActivityBehaviorResult.getMultiInstanceActivityBehavior());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createShellActivityBehavior(ServiceTask)}.
-   * <ul>
-   *   <li>When {@link ServiceTask} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createShellActivityBehavior(ServiceTask)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createShellActivityBehavior(ServiceTask)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ShellActivityBehavior DefaultActivityBehaviorFactory.createShellActivityBehavior(ServiceTask)"})
-  public void testCreateShellActivityBehavior_whenServiceTask() {
+  public void testCreateShellActivityBehavior3() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
+    FieldExtension fieldExtension = mock(FieldExtension.class);
+    when(fieldExtension.getExpression()).thenReturn("");
+    when(fieldExtension.getFieldName()).thenReturn("wait");
+    when(fieldExtension.getStringValue()).thenReturn("42");
 
-    // Act and Assert
-    assertNull(defaultActivityBehaviorFactory.createShellActivityBehavior(new ServiceTask())
-        .getMultiInstanceActivityBehavior());
+    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
+    fieldExtensionList.add(fieldExtension);
+    ServiceTask serviceTask = mock(ServiceTask.class);
+    when(serviceTask.getFieldExtensions()).thenReturn(fieldExtensionList);
+
+    // Act
+    ShellActivityBehavior actualCreateShellActivityBehaviorResult = defaultActivityBehaviorFactory
+        .createShellActivityBehavior(serviceTask);
+
+    // Assert
+    verify(fieldExtension).getExpression();
+    verify(fieldExtension).getFieldName();
+    verify(fieldExtension).getStringValue();
+    verify(serviceTask).getFieldExtensions();
+    assertNull(actualCreateShellActivityBehaviorResult.getMultiInstanceActivityBehavior());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createBusinessRuleTaskActivityBehavior(BusinessRuleTask)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createBusinessRuleTaskActivityBehavior(BusinessRuleTask)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createBusinessRuleTaskActivityBehavior(BusinessRuleTask)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ActivityBehavior DefaultActivityBehaviorFactory.createBusinessRuleTaskActivityBehavior(BusinessRuleTask)"})
-  public void testCreateBusinessRuleTaskActivityBehavior_thenThrowActivitiException() {
+  public void testCreateBusinessRuleTaskActivityBehavior() {
     // Arrange
-    ExpressionManager expressionManager = new ExpressionManager();
-    expressionManager.setCustomFunctionProviders(null);
-
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
-
-    ArrayList<String> inputVariables = new ArrayList<>();
-    inputVariables.add("Business Rule Task");
-
-    ArrayList<String> ruleNames = new ArrayList<>();
-    ruleNames.add("Business Rule Task");
-
-    BusinessRuleTask businessRuleTask = new BusinessRuleTask();
-    businessRuleTask.setInputVariables(inputVariables);
-    businessRuleTask.setRuleNames(ruleNames);
-    businessRuleTask.setResultVariableName(null);
-    businessRuleTask.setClassName("Business Rule Task");
+    BusinessRuleTask businessRuleTask = mock(BusinessRuleTask.class);
+    when(businessRuleTask.getId()).thenReturn("42");
+    when(businessRuleTask.getClassName()).thenReturn("Class Name");
 
     // Act and Assert
     assertThrows(ActivitiException.class,
         () -> defaultActivityBehaviorFactory.createBusinessRuleTaskActivityBehavior(businessRuleTask));
+    verify(businessRuleTask).getId();
+    verify(businessRuleTask, atLeast(1)).getClassName();
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createScriptTaskActivityBehavior(ScriptTask)}.
-   * <ul>
-   *   <li>Given {@code null}.</li>
-   *   <li>When {@link ScriptTask} (default constructor) ScriptFormat is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createScriptTaskActivityBehavior(ScriptTask)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createScriptTaskActivityBehavior(ScriptTask)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.ScriptTaskActivityBehavior DefaultActivityBehaviorFactory.createScriptTaskActivityBehavior(ScriptTask)"})
-  public void testCreateScriptTaskActivityBehavior_givenNull_whenScriptTaskScriptFormatIsNull() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    ScriptTask scriptTask = new ScriptTask();
-    scriptTask.setScriptFormat(null);
-
-    // Act and Assert
-    assertNull(
-        defaultActivityBehaviorFactory.createScriptTaskActivityBehavior(scriptTask).getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createScriptTaskActivityBehavior(ScriptTask)}.
-   * <ul>
-   *   <li>Given {@code Script Task}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createScriptTaskActivityBehavior(ScriptTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.ScriptTaskActivityBehavior DefaultActivityBehaviorFactory.createScriptTaskActivityBehavior(ScriptTask)"})
-  public void testCreateScriptTaskActivityBehavior_givenScriptTask() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    ScriptTask scriptTask = new ScriptTask();
-    scriptTask.setScriptFormat("Script Task");
-
-    // Act and Assert
-    assertNull(
-        defaultActivityBehaviorFactory.createScriptTaskActivityBehavior(scriptTask).getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createScriptTaskActivityBehavior(ScriptTask)}.
-   * <ul>
-   *   <li>When {@link ScriptTask} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createScriptTaskActivityBehavior(ScriptTask)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.ScriptTaskActivityBehavior DefaultActivityBehaviorFactory.createScriptTaskActivityBehavior(ScriptTask)"})
-  public void testCreateScriptTaskActivityBehavior_whenScriptTask() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    // Act and Assert
+  public void testCreateScriptTaskActivityBehavior() {
+    // Arrange, Act and Assert
     assertNull(defaultActivityBehaviorFactory.createScriptTaskActivityBehavior(new ScriptTask())
         .getMultiInstanceActivityBehavior());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createSequentialMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createSequentialMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createScriptTaskActivityBehavior(ScriptTask)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "SequentialMultiInstanceBehavior DefaultActivityBehaviorFactory.createSequentialMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)"})
+  public void testCreateScriptTaskActivityBehavior2() {
+    // Arrange
+    ScriptTask scriptTask = mock(ScriptTask.class);
+    when(scriptTask.isAutoStoreVariables()).thenReturn(true);
+    when(scriptTask.getId()).thenReturn("42");
+    when(scriptTask.getResultVariable()).thenReturn("Result Variable");
+    when(scriptTask.getScript()).thenReturn("Script");
+    when(scriptTask.getScriptFormat()).thenReturn("Script Format");
+
+    // Act
+    ScriptTaskActivityBehavior actualCreateScriptTaskActivityBehaviorResult = defaultActivityBehaviorFactory
+        .createScriptTaskActivityBehavior(scriptTask);
+
+    // Assert
+    verify(scriptTask).getId();
+    verify(scriptTask).getResultVariable();
+    verify(scriptTask).getScript();
+    verify(scriptTask).getScriptFormat();
+    verify(scriptTask).isAutoStoreVariables();
+    assertNull(actualCreateScriptTaskActivityBehaviorResult.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createSequentialMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}
+   */
+  @Test
   public void testCreateSequentialMultiInstanceBehavior() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
     AdhocSubProcess activity = new AdhocSubProcess();
     AbstractBpmnActivityBehavior innerActivityBehavior = new AbstractBpmnActivityBehavior();
 
@@ -2113,17 +1542,44 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createSequentialMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createSequentialMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createSequentialMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "SequentialMultiInstanceBehavior DefaultActivityBehaviorFactory.createSequentialMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)"})
   public void testCreateSequentialMultiInstanceBehavior2() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
+    AdhocSubProcess activity = mock(AdhocSubProcess.class);
+    AbstractBpmnActivityBehavior innerActivityBehavior = new AbstractBpmnActivityBehavior();
+
+    // Act
+    SequentialMultiInstanceBehavior actualCreateSequentialMultiInstanceBehaviorResult = defaultActivityBehaviorFactory
+        .createSequentialMultiInstanceBehavior(activity, innerActivityBehavior);
+
+    // Assert
+    assertEquals("loopCounter", actualCreateSequentialMultiInstanceBehaviorResult.getCollectionElementIndexVariable());
+    assertNull(actualCreateSequentialMultiInstanceBehaviorResult.getCollectionElementVariable());
+    assertNull(actualCreateSequentialMultiInstanceBehaviorResult.getCollectionVariable());
+    assertNull(actualCreateSequentialMultiInstanceBehaviorResult.getLoopDataOutputRef());
+    assertNull(actualCreateSequentialMultiInstanceBehaviorResult.getOutputDataItem());
+    assertNull(actualCreateSequentialMultiInstanceBehaviorResult.getCollectionExpression());
+    assertNull(actualCreateSequentialMultiInstanceBehaviorResult.getCompletionConditionExpression());
+    assertNull(actualCreateSequentialMultiInstanceBehaviorResult.getLoopCardinalityExpression());
+    assertFalse(actualCreateSequentialMultiInstanceBehaviorResult.hasLoopDataOutputRef());
+    assertFalse(actualCreateSequentialMultiInstanceBehaviorResult.hasOutputDataItem());
+    AbstractBpmnActivityBehavior innerActivityBehavior2 = actualCreateSequentialMultiInstanceBehaviorResult
+        .getInnerActivityBehavior();
+    assertSame(innerActivityBehavior, innerActivityBehavior2);
+    assertSame(actualCreateSequentialMultiInstanceBehaviorResult,
+        innerActivityBehavior2.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createSequentialMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}
+   */
+  @Test
+  public void testCreateSequentialMultiInstanceBehavior3() {
+    // Arrange
     AdhocSubProcess activity = new AdhocSubProcess();
     AbstractBpmnActivityBehavior innerActivityBehavior = mock(AbstractBpmnActivityBehavior.class);
     doNothing().when(innerActivityBehavior)
@@ -2149,17 +1605,12 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createParallelMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createParallelMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createParallelMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ParallelMultiInstanceBehavior DefaultActivityBehaviorFactory.createParallelMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)"})
   public void testCreateParallelMultiInstanceBehavior() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
     AdhocSubProcess activity = new AdhocSubProcess();
     AbstractBpmnActivityBehavior innerActivityBehavior = new AbstractBpmnActivityBehavior();
 
@@ -2186,17 +1637,44 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createParallelMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createParallelMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createParallelMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ParallelMultiInstanceBehavior DefaultActivityBehaviorFactory.createParallelMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)"})
   public void testCreateParallelMultiInstanceBehavior2() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
+    AdhocSubProcess activity = mock(AdhocSubProcess.class);
+    AbstractBpmnActivityBehavior innerActivityBehavior = new AbstractBpmnActivityBehavior();
+
+    // Act
+    ParallelMultiInstanceBehavior actualCreateParallelMultiInstanceBehaviorResult = defaultActivityBehaviorFactory
+        .createParallelMultiInstanceBehavior(activity, innerActivityBehavior);
+
+    // Assert
+    assertEquals("loopCounter", actualCreateParallelMultiInstanceBehaviorResult.getCollectionElementIndexVariable());
+    assertNull(actualCreateParallelMultiInstanceBehaviorResult.getCollectionElementVariable());
+    assertNull(actualCreateParallelMultiInstanceBehaviorResult.getCollectionVariable());
+    assertNull(actualCreateParallelMultiInstanceBehaviorResult.getLoopDataOutputRef());
+    assertNull(actualCreateParallelMultiInstanceBehaviorResult.getOutputDataItem());
+    assertNull(actualCreateParallelMultiInstanceBehaviorResult.getCollectionExpression());
+    assertNull(actualCreateParallelMultiInstanceBehaviorResult.getCompletionConditionExpression());
+    assertNull(actualCreateParallelMultiInstanceBehaviorResult.getLoopCardinalityExpression());
+    assertFalse(actualCreateParallelMultiInstanceBehaviorResult.hasLoopDataOutputRef());
+    assertFalse(actualCreateParallelMultiInstanceBehaviorResult.hasOutputDataItem());
+    AbstractBpmnActivityBehavior innerActivityBehavior2 = actualCreateParallelMultiInstanceBehaviorResult
+        .getInnerActivityBehavior();
+    assertSame(innerActivityBehavior, innerActivityBehavior2);
+    assertSame(actualCreateParallelMultiInstanceBehaviorResult,
+        innerActivityBehavior2.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createParallelMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}
+   */
+  @Test
+  public void testCreateParallelMultiInstanceBehavior3() {
+    // Arrange
     AdhocSubProcess activity = new AdhocSubProcess();
     AbstractBpmnActivityBehavior innerActivityBehavior = mock(AbstractBpmnActivityBehavior.class);
     doNothing().when(innerActivityBehavior)
@@ -2222,53 +1700,39 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createSubprocessActivityBehavior(SubProcess)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createSubprocessActivityBehavior(SubProcess)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createSubprocessActivityBehavior(SubProcess)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.SubProcessActivityBehavior DefaultActivityBehaviorFactory.createSubprocessActivityBehavior(SubProcess)"})
   public void testCreateSubprocessActivityBehavior() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    // Act and Assert
+    // Arrange, Act and Assert
     assertNull(defaultActivityBehaviorFactory.createSubprocessActivityBehavior(new SubProcess())
         .getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createEventSubProcessErrorStartEventActivityBehavior(StartEvent)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createEventSubProcessErrorStartEventActivityBehavior(StartEvent)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.EventSubProcessErrorStartEventActivityBehavior DefaultActivityBehaviorFactory.createEventSubProcessErrorStartEventActivityBehavior(StartEvent)"})
-  public void testCreateEventSubProcessErrorStartEventActivityBehavior() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    // Act and Assert
-    assertNull(defaultActivityBehaviorFactory.createEventSubProcessErrorStartEventActivityBehavior(new StartEvent())
+    assertNull(defaultActivityBehaviorFactory.createSubprocessActivityBehavior(mock(AdhocSubProcess.class))
         .getMultiInstanceActivityBehavior());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createEventSubProcessMessageStartEventActivityBehavior(StartEvent, MessageEventDefinition)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createEventSubProcessMessageStartEventActivityBehavior(StartEvent, MessageEventDefinition)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createEventSubProcessErrorStartEventActivityBehavior(StartEvent)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.EventSubProcessMessageStartEventActivityBehavior DefaultActivityBehaviorFactory.createEventSubProcessMessageStartEventActivityBehavior(StartEvent, MessageEventDefinition)"})
+  public void testCreateEventSubProcessErrorStartEventActivityBehavior() {
+    // Arrange, Act and Assert
+    assertNull(defaultActivityBehaviorFactory.createEventSubProcessErrorStartEventActivityBehavior(new StartEvent())
+        .getMultiInstanceActivityBehavior());
+    assertNull(
+        defaultActivityBehaviorFactory.createEventSubProcessErrorStartEventActivityBehavior(mock(StartEvent.class))
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createEventSubProcessMessageStartEventActivityBehavior(StartEvent, MessageEventDefinition)}
+   */
+  @Test
   public void testCreateEventSubProcessMessageStartEventActivityBehavior() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
     StartEvent startEvent = new StartEvent();
 
     // Act and Assert
@@ -2278,331 +1742,83 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createEventSubProcessMessageStartEventActivityBehavior(StartEvent, MessageEventDefinition)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createEventSubProcessMessageStartEventActivityBehavior(StartEvent, MessageEventDefinition)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createEventSubProcessMessageStartEventActivityBehavior(StartEvent, MessageEventDefinition)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.EventSubProcessMessageStartEventActivityBehavior DefaultActivityBehaviorFactory.createEventSubProcessMessageStartEventActivityBehavior(StartEvent, MessageEventDefinition)"})
   public void testCreateEventSubProcessMessageStartEventActivityBehavior2() {
     // Arrange
-    MessageExecutionContextFactory messageExecutionContextFactory = mock(MessageExecutionContextFactory.class);
-    when(messageExecutionContextFactory.create(Mockito.<MessageEventDefinition>any(),
-        Mockito.<MessagePayloadMappingProvider>any(), Mockito.<ExpressionManager>any()))
-        .thenThrow(new ActivitiException("An error occurred"));
-
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setMessageExecutionContextFactory(messageExecutionContextFactory);
-    StartEvent startEvent = new StartEvent();
+    StartEvent startEvent = mock(StartEvent.class);
 
     // Act and Assert
-    assertThrows(ActivitiException.class, () -> defaultActivityBehaviorFactory
-        .createEventSubProcessMessageStartEventActivityBehavior(startEvent, new MessageEventDefinition()));
-    verify(messageExecutionContextFactory).create(isA(MessageEventDefinition.class),
-        isA(MessagePayloadMappingProvider.class), isNull());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createAdhocSubprocessActivityBehavior(SubProcess)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createAdhocSubprocessActivityBehavior(SubProcess)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.AdhocSubProcessActivityBehavior DefaultActivityBehaviorFactory.createAdhocSubprocessActivityBehavior(SubProcess)"})
-  public void testCreateAdhocSubprocessActivityBehavior() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    // Act and Assert
-    assertNull(defaultActivityBehaviorFactory.createAdhocSubprocessActivityBehavior(new SubProcess())
+    assertNull(defaultActivityBehaviorFactory
+        .createEventSubProcessMessageStartEventActivityBehavior(startEvent, new MessageEventDefinition())
         .getMultiInstanceActivityBehavior());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(CallActivity)} with {@code callActivity}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(CallActivity)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createEventSubProcessMessageStartEventActivityBehavior(StartEvent, MessageEventDefinition)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"CallActivityBehavior DefaultActivityBehaviorFactory.createCallActivityBehavior(CallActivity)"})
-  public void testCreateCallActivityBehaviorWithCallActivity() {
+  public void testCreateEventSubProcessMessageStartEventActivityBehavior3() {
     // Arrange
-    ExpressionManager expressionManager = new ExpressionManager();
-    expressionManager.setCustomFunctionProviders(null);
+    StartEvent startEvent = new StartEvent();
 
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(new FieldExtension());
 
-    CallActivity callActivity = new CallActivity();
-    callActivity.setCalledElement("Call Activity");
+    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
+    messageEventDefinition.setFieldExtensions(fieldExtensions);
 
-    // Act
-    CallActivityBehavior actualCreateCallActivityBehaviorResult = defaultActivityBehaviorFactory
-        .createCallActivityBehavior(callActivity);
-
-    // Assert
-    assertEquals("Call Activity", actualCreateCallActivityBehaviorResult.getProcessDefinitionKey());
-    assertNull(actualCreateCallActivityBehaviorResult.getMultiInstanceActivityBehavior());
+    // Act and Assert
+    assertNull(defaultActivityBehaviorFactory
+        .createEventSubProcessMessageStartEventActivityBehavior(startEvent, messageEventDefinition)
+        .getMultiInstanceActivityBehavior());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(CallActivity)} with {@code callActivity}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(CallActivity)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createEventSubProcessMessageStartEventActivityBehavior(StartEvent, MessageEventDefinition)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"CallActivityBehavior DefaultActivityBehaviorFactory.createCallActivityBehavior(CallActivity)"})
-  public void testCreateCallActivityBehaviorWithCallActivity2() {
+  public void testCreateEventSubProcessMessageStartEventActivityBehavior4() {
     // Arrange
-    ExpressionManager expressionManager = new ExpressionManager();
-    expressionManager.setCustomFunctionProviders(null);
+    StartEvent startEvent = new StartEvent();
 
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(new FieldExtension());
+    fieldExtensions.add(new FieldExtension());
 
-    CallActivity callActivity = new CallActivity();
-    callActivity.setCalledElement("");
+    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
+    messageEventDefinition.setFieldExtensions(fieldExtensions);
 
-    // Act
-    CallActivityBehavior actualCreateCallActivityBehaviorResult = defaultActivityBehaviorFactory
-        .createCallActivityBehavior(callActivity);
-
-    // Assert
-    assertEquals("", actualCreateCallActivityBehaviorResult.getProcessDefinitionKey());
-    assertNull(actualCreateCallActivityBehaviorResult.getMultiInstanceActivityBehavior());
+    // Act and Assert
+    assertNull(defaultActivityBehaviorFactory
+        .createEventSubProcessMessageStartEventActivityBehavior(startEvent, messageEventDefinition)
+        .getMultiInstanceActivityBehavior());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(CallActivity)} with {@code callActivity}.
-   * <ul>
-   *   <li>Given {@code ${U}}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(CallActivity)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createAdhocSubprocessActivityBehavior(SubProcess)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"CallActivityBehavior DefaultActivityBehaviorFactory.createCallActivityBehavior(CallActivity)"})
-  public void testCreateCallActivityBehaviorWithCallActivity_givenU() {
-    // Arrange
-    ExpressionManager expressionManager = new ExpressionManager();
-    expressionManager.setCustomFunctionProviders(null);
-
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
-
-    CallActivity callActivity = new CallActivity();
-    callActivity.setCalledElement("${U}");
-
-    // Act
-    CallActivityBehavior actualCreateCallActivityBehaviorResult = defaultActivityBehaviorFactory
-        .createCallActivityBehavior(callActivity);
-
-    // Assert
-    assertNull(actualCreateCallActivityBehaviorResult.getProcessDefinitionKey());
-    assertNull(actualCreateCallActivityBehaviorResult.getMultiInstanceActivityBehavior());
+  public void testCreateAdhocSubprocessActivityBehavior() {
+    // Arrange, Act and Assert
+    assertNull(defaultActivityBehaviorFactory.createAdhocSubprocessActivityBehavior(new SubProcess())
+        .getMultiInstanceActivityBehavior());
+    assertNull(defaultActivityBehaviorFactory.createAdhocSubprocessActivityBehavior(mock(AdhocSubProcess.class))
+        .getMultiInstanceActivityBehavior());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(CallActivity)} with {@code callActivity}.
-   * <ul>
-   *   <li>Given {@code ${U}}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(CallActivity)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(String, List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"CallActivityBehavior DefaultActivityBehaviorFactory.createCallActivityBehavior(CallActivity)"})
-  public void testCreateCallActivityBehaviorWithCallActivity_givenU2() {
-    // Arrange
-    ExpressionManager expressionManager = mock(ExpressionManager.class);
-    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
-    doNothing().when(expressionManager).setCustomFunctionProviders(Mockito.<List<CustomFunctionProvider>>any());
-    expressionManager.setCustomFunctionProviders(null);
-
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
-
-    CallActivity callActivity = new CallActivity();
-    callActivity.setCalledElement("${U}");
-
-    // Act
-    CallActivityBehavior actualCreateCallActivityBehaviorResult = defaultActivityBehaviorFactory
-        .createCallActivityBehavior(callActivity);
-
-    // Assert
-    verify(expressionManager).createExpression(eq("${U}"));
-    verify(expressionManager).setCustomFunctionProviders(isNull());
-    assertNull(actualCreateCallActivityBehaviorResult.getProcessDefinitionKey());
-    assertNull(actualCreateCallActivityBehaviorResult.getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(CallActivity)} with {@code callActivity}.
-   * <ul>
-   *   <li>Given {@code ${U}\$+\{+.+\}}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(CallActivity)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"CallActivityBehavior DefaultActivityBehaviorFactory.createCallActivityBehavior(CallActivity)"})
-  public void testCreateCallActivityBehaviorWithCallActivity_givenU3() {
-    // Arrange
-    ExpressionManager expressionManager = mock(ExpressionManager.class);
-    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
-    doNothing().when(expressionManager).setCustomFunctionProviders(Mockito.<List<CustomFunctionProvider>>any());
-    expressionManager.setCustomFunctionProviders(null);
-
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
-
-    CallActivity callActivity = new CallActivity();
-    callActivity.setCalledElement("${U}\\$+\\{+.+\\}");
-
-    // Act
-    CallActivityBehavior actualCreateCallActivityBehaviorResult = defaultActivityBehaviorFactory
-        .createCallActivityBehavior(callActivity);
-
-    // Assert
-    verify(expressionManager).createExpression(eq("${U}\\$+\\{+.+\\}"));
-    verify(expressionManager).setCustomFunctionProviders(isNull());
-    assertNull(actualCreateCallActivityBehaviorResult.getProcessDefinitionKey());
-    assertNull(actualCreateCallActivityBehaviorResult.getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(CallActivity)} with {@code callActivity}.
-   * <ul>
-   *   <li>Given {@code ${U}${U}}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(CallActivity)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"CallActivityBehavior DefaultActivityBehaviorFactory.createCallActivityBehavior(CallActivity)"})
-  public void testCreateCallActivityBehaviorWithCallActivity_givenUU() {
-    // Arrange
-    ExpressionManager expressionManager = mock(ExpressionManager.class);
-    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
-    doNothing().when(expressionManager).setCustomFunctionProviders(Mockito.<List<CustomFunctionProvider>>any());
-    expressionManager.setCustomFunctionProviders(null);
-
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
-
-    CallActivity callActivity = new CallActivity();
-    callActivity.setCalledElement("${U}${U}");
-
-    // Act
-    CallActivityBehavior actualCreateCallActivityBehaviorResult = defaultActivityBehaviorFactory
-        .createCallActivityBehavior(callActivity);
-
-    // Assert
-    verify(expressionManager).createExpression(eq("${U}${U}"));
-    verify(expressionManager).setCustomFunctionProviders(isNull());
-    assertNull(actualCreateCallActivityBehaviorResult.getProcessDefinitionKey());
-    assertNull(actualCreateCallActivityBehaviorResult.getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(CallActivity)} with {@code callActivity}.
-   * <ul>
-   *   <li>When {@link CallActivity} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(CallActivity)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"CallActivityBehavior DefaultActivityBehaviorFactory.createCallActivityBehavior(CallActivity)"})
-  public void testCreateCallActivityBehaviorWithCallActivity_whenCallActivity() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    // Act
-    CallActivityBehavior actualCreateCallActivityBehaviorResult = defaultActivityBehaviorFactory
-        .createCallActivityBehavior(new CallActivity());
-
-    // Assert
-    assertNull(actualCreateCallActivityBehaviorResult.getProcessDefinitionKey());
-    assertNull(actualCreateCallActivityBehaviorResult.getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(String, List)} with {@code calledElement}, {@code mapExceptions}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(String, List)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"CallActivityBehavior DefaultActivityBehaviorFactory.createCallActivityBehavior(String, List)"})
-  public void testCreateCallActivityBehaviorWithCalledElementMapExceptions() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    ArrayList<MapExceptionEntry> mapExceptions = new ArrayList<>();
-    mapExceptions.add(new MapExceptionEntry("An error occurred", "Class Name", true));
-
-    // Act
-    CallActivityBehavior actualCreateCallActivityBehaviorResult = defaultActivityBehaviorFactory
-        .createCallActivityBehavior("Called Element", mapExceptions);
-
-    // Assert
-    assertEquals("Called Element", actualCreateCallActivityBehaviorResult.getProcessDefinitionKey());
-    assertNull(actualCreateCallActivityBehaviorResult.getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(String, List)} with {@code calledElement}, {@code mapExceptions}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(String, List)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"CallActivityBehavior DefaultActivityBehaviorFactory.createCallActivityBehavior(String, List)"})
-  public void testCreateCallActivityBehaviorWithCalledElementMapExceptions2() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    ArrayList<MapExceptionEntry> mapExceptions = new ArrayList<>();
-    mapExceptions.add(new MapExceptionEntry("An error occurred", "Class Name", true));
-    mapExceptions.add(new MapExceptionEntry("An error occurred", "Class Name", true));
-
-    // Act
-    CallActivityBehavior actualCreateCallActivityBehaviorResult = defaultActivityBehaviorFactory
-        .createCallActivityBehavior("Called Element", mapExceptions);
-
-    // Assert
-    assertEquals("Called Element", actualCreateCallActivityBehaviorResult.getProcessDefinitionKey());
-    assertNull(actualCreateCallActivityBehaviorResult.getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(String, List)} with {@code calledElement}, {@code mapExceptions}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(String, List)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"CallActivityBehavior DefaultActivityBehaviorFactory.createCallActivityBehavior(String, List)"})
-  public void testCreateCallActivityBehaviorWithCalledElementMapExceptions_whenArrayList() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    // Act
+  public void testCreateCallActivityBehavior() {
+    // Arrange and Act
     CallActivityBehavior actualCreateCallActivityBehaviorResult = defaultActivityBehaviorFactory
         .createCallActivityBehavior("Called Element", new ArrayList<>());
 
@@ -2612,25 +1828,72 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(Expression, List)} with {@code expression}, {@code mapExceptions}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(Expression, List)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(String, List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "CallActivityBehavior DefaultActivityBehaviorFactory.createCallActivityBehavior(Expression, List)"})
-  public void testCreateCallActivityBehaviorWithExpressionMapExceptions() {
+  public void testCreateCallActivityBehavior2() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    FixedValue expression = new FixedValue(JSONObject.NULL);
-
     ArrayList<MapExceptionEntry> mapExceptions = new ArrayList<>();
     mapExceptions.add(new MapExceptionEntry("An error occurred", "Class Name", true));
 
     // Act
     CallActivityBehavior actualCreateCallActivityBehaviorResult = defaultActivityBehaviorFactory
-        .createCallActivityBehavior(expression, mapExceptions);
+        .createCallActivityBehavior("Called Element", mapExceptions);
+
+    // Assert
+    assertEquals("Called Element", actualCreateCallActivityBehaviorResult.getProcessDefinitionKey());
+    assertNull(actualCreateCallActivityBehaviorResult.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(String, List)}
+   */
+  @Test
+  public void testCreateCallActivityBehavior3() {
+    // Arrange
+    ArrayList<MapExceptionEntry> mapExceptions = new ArrayList<>();
+    mapExceptions.add(new MapExceptionEntry("An error occurred", "Class Name", true));
+    mapExceptions.add(new MapExceptionEntry("An error occurred", "Class Name", true));
+
+    // Act
+    CallActivityBehavior actualCreateCallActivityBehaviorResult = defaultActivityBehaviorFactory
+        .createCallActivityBehavior("Called Element", mapExceptions);
+
+    // Assert
+    assertEquals("Called Element", actualCreateCallActivityBehaviorResult.getProcessDefinitionKey());
+    assertNull(actualCreateCallActivityBehaviorResult.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(String, List)}
+   */
+  @Test
+  public void testCreateCallActivityBehavior4() {
+    // Arrange
+    ArrayList<MapExceptionEntry> mapExceptions = new ArrayList<>();
+    mapExceptions.add(mock(MapExceptionEntry.class));
+
+    // Act
+    CallActivityBehavior actualCreateCallActivityBehaviorResult = defaultActivityBehaviorFactory
+        .createCallActivityBehavior("Called Element", mapExceptions);
+
+    // Assert
+    assertEquals("Called Element", actualCreateCallActivityBehaviorResult.getProcessDefinitionKey());
+    assertNull(actualCreateCallActivityBehaviorResult.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(CallActivity)}
+   */
+  @Test
+  public void testCreateCallActivityBehavior5() {
+    // Arrange and Act
+    CallActivityBehavior actualCreateCallActivityBehaviorResult = defaultActivityBehaviorFactory
+        .createCallActivityBehavior(new CallActivity());
 
     // Assert
     assertNull(actualCreateCallActivityBehaviorResult.getProcessDefinitionKey());
@@ -2638,47 +1901,56 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(Expression, List)} with {@code expression}, {@code mapExceptions}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(Expression, List)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(CallActivity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "CallActivityBehavior DefaultActivityBehaviorFactory.createCallActivityBehavior(Expression, List)"})
-  public void testCreateCallActivityBehaviorWithExpressionMapExceptions2() {
+  public void testCreateCallActivityBehavior6() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    FixedValue expression = new FixedValue(JSONObject.NULL);
-
-    ArrayList<MapExceptionEntry> mapExceptions = new ArrayList<>();
-    mapExceptions.add(new MapExceptionEntry("An error occurred", "Class Name", true));
-    mapExceptions.add(new MapExceptionEntry("An error occurred", "Class Name", true));
+    CallActivity callActivity = mock(CallActivity.class);
+    when(callActivity.getCalledElement()).thenReturn("Called Element");
+    when(callActivity.getMapExceptions()).thenReturn(new ArrayList<>());
 
     // Act
     CallActivityBehavior actualCreateCallActivityBehaviorResult = defaultActivityBehaviorFactory
-        .createCallActivityBehavior(expression, mapExceptions);
+        .createCallActivityBehavior(callActivity);
 
     // Assert
-    assertNull(actualCreateCallActivityBehaviorResult.getProcessDefinitionKey());
+    verify(callActivity).getMapExceptions();
+    verify(callActivity, atLeast(1)).getCalledElement();
+    assertEquals("Called Element", actualCreateCallActivityBehaviorResult.getProcessDefinitionKey());
     assertNull(actualCreateCallActivityBehaviorResult.getMultiInstanceActivityBehavior());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(Expression, List)} with {@code expression}, {@code mapExceptions}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(Expression, List)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(CallActivity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "CallActivityBehavior DefaultActivityBehaviorFactory.createCallActivityBehavior(Expression, List)"})
-  public void testCreateCallActivityBehaviorWithExpressionMapExceptions_whenArrayList() {
+  public void testCreateCallActivityBehavior7() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
+    CallActivity callActivity = mock(CallActivity.class);
+    when(callActivity.getCalledElement()).thenReturn("");
+    when(callActivity.getMapExceptions()).thenReturn(new ArrayList<>());
+
+    // Act
+    CallActivityBehavior actualCreateCallActivityBehaviorResult = defaultActivityBehaviorFactory
+        .createCallActivityBehavior(callActivity);
+
+    // Assert
+    verify(callActivity).getMapExceptions();
+    verify(callActivity, atLeast(1)).getCalledElement();
+    assertEquals("", actualCreateCallActivityBehaviorResult.getProcessDefinitionKey());
+    assertNull(actualCreateCallActivityBehaviorResult.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(Expression, List)}
+   */
+  @Test
+  public void testCreateCallActivityBehavior8() {
+    // Arrange
     FixedValue expression = new FixedValue(JSONObject.NULL);
 
     // Act
@@ -2691,53 +1963,103 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createTransactionActivityBehavior(Transaction)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createTransactionActivityBehavior(Transaction)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(Expression, List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.TransactionActivityBehavior DefaultActivityBehaviorFactory.createTransactionActivityBehavior(Transaction)"})
-  public void testCreateTransactionActivityBehavior() {
+  public void testCreateCallActivityBehavior9() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    JuelExpression expression = new JuelExpression(new ObjectValueExpression(converter, JSONObject.NULL, type),
+        "Expression Text");
 
-    // Act and Assert
+    // Act
+    CallActivityBehavior actualCreateCallActivityBehaviorResult = defaultActivityBehaviorFactory
+        .createCallActivityBehavior(expression, new ArrayList<>());
+
+    // Assert
+    assertNull(actualCreateCallActivityBehaviorResult.getProcessDefinitionKey());
+    assertNull(actualCreateCallActivityBehaviorResult.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(Expression, List)}
+   */
+  @Test
+  public void testCreateCallActivityBehavior10() {
+    // Arrange
+    FixedValue expression = new FixedValue(JSONObject.NULL);
+
+    ArrayList<MapExceptionEntry> mapExceptions = new ArrayList<>();
+    mapExceptions.add(new MapExceptionEntry("An error occurred", "Class Name", true));
+
+    // Act
+    CallActivityBehavior actualCreateCallActivityBehaviorResult = defaultActivityBehaviorFactory
+        .createCallActivityBehavior(expression, mapExceptions);
+
+    // Assert
+    assertNull(actualCreateCallActivityBehaviorResult.getProcessDefinitionKey());
+    assertNull(actualCreateCallActivityBehaviorResult.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createCallActivityBehavior(Expression, List)}
+   */
+  @Test
+  public void testCreateCallActivityBehavior11() {
+    // Arrange
+    FixedValue expression = new FixedValue(JSONObject.NULL);
+
+    ArrayList<MapExceptionEntry> mapExceptions = new ArrayList<>();
+    mapExceptions.add(new MapExceptionEntry("An error occurred", "Class Name", true));
+    mapExceptions.add(new MapExceptionEntry("An error occurred", "Class Name", true));
+
+    // Act
+    CallActivityBehavior actualCreateCallActivityBehaviorResult = defaultActivityBehaviorFactory
+        .createCallActivityBehavior(expression, mapExceptions);
+
+    // Assert
+    assertNull(actualCreateCallActivityBehaviorResult.getProcessDefinitionKey());
+    assertNull(actualCreateCallActivityBehaviorResult.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createTransactionActivityBehavior(Transaction)}
+   */
+  @Test
+  public void testCreateTransactionActivityBehavior() {
+    // Arrange, Act and Assert
     assertNull(defaultActivityBehaviorFactory.createTransactionActivityBehavior(new Transaction())
         .getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createIntermediateCatchEventActivityBehavior(IntermediateCatchEvent)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createIntermediateCatchEventActivityBehavior(IntermediateCatchEvent)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.IntermediateCatchEventActivityBehavior DefaultActivityBehaviorFactory.createIntermediateCatchEventActivityBehavior(IntermediateCatchEvent)"})
-  public void testCreateIntermediateCatchEventActivityBehavior() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    // Act and Assert
-    assertNull(defaultActivityBehaviorFactory.createIntermediateCatchEventActivityBehavior(new IntermediateCatchEvent())
+    assertNull(defaultActivityBehaviorFactory.createTransactionActivityBehavior(mock(Transaction.class))
         .getMultiInstanceActivityBehavior());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createIntermediateCatchMessageEventActivityBehavior(IntermediateCatchEvent, MessageEventDefinition)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createIntermediateCatchMessageEventActivityBehavior(IntermediateCatchEvent, MessageEventDefinition)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createIntermediateCatchEventActivityBehavior(IntermediateCatchEvent)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "IntermediateCatchMessageEventActivityBehavior DefaultActivityBehaviorFactory.createIntermediateCatchMessageEventActivityBehavior(IntermediateCatchEvent, MessageEventDefinition)"})
+  public void testCreateIntermediateCatchEventActivityBehavior() {
+    // Arrange, Act and Assert
+    assertNull(defaultActivityBehaviorFactory.createIntermediateCatchEventActivityBehavior(new IntermediateCatchEvent())
+        .getMultiInstanceActivityBehavior());
+    assertNull(
+        defaultActivityBehaviorFactory.createIntermediateCatchEventActivityBehavior(mock(IntermediateCatchEvent.class))
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createIntermediateCatchMessageEventActivityBehavior(IntermediateCatchEvent, MessageEventDefinition)}
+   */
+  @Test
   public void testCreateIntermediateCatchMessageEventActivityBehavior() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
     IntermediateCatchEvent intermediateCatchEvent = new IntermediateCatchEvent();
     MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
 
@@ -2758,44 +2080,139 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createIntermediateCatchMessageEventActivityBehavior(IntermediateCatchEvent, MessageEventDefinition)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createIntermediateCatchMessageEventActivityBehavior(IntermediateCatchEvent, MessageEventDefinition)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createIntermediateCatchMessageEventActivityBehavior(IntermediateCatchEvent, MessageEventDefinition)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "IntermediateCatchMessageEventActivityBehavior DefaultActivityBehaviorFactory.createIntermediateCatchMessageEventActivityBehavior(IntermediateCatchEvent, MessageEventDefinition)"})
   public void testCreateIntermediateCatchMessageEventActivityBehavior2() {
     // Arrange
-    MessageExecutionContextFactory messageExecutionContextFactory = mock(MessageExecutionContextFactory.class);
-    when(messageExecutionContextFactory.create(Mockito.<MessageEventDefinition>any(),
-        Mockito.<MessagePayloadMappingProvider>any(), Mockito.<ExpressionManager>any()))
-        .thenThrow(new ActivitiException("An error occurred"));
+    IntermediateCatchEvent intermediateCatchEvent = mock(IntermediateCatchEvent.class);
+    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
 
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setMessageExecutionContextFactory(messageExecutionContextFactory);
-    IntermediateCatchEvent intermediateCatchEvent = new IntermediateCatchEvent();
+    // Act
+    IntermediateCatchMessageEventActivityBehavior actualCreateIntermediateCatchMessageEventActivityBehaviorResult = defaultActivityBehaviorFactory
+        .createIntermediateCatchMessageEventActivityBehavior(intermediateCatchEvent, messageEventDefinition);
 
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> defaultActivityBehaviorFactory
-        .createIntermediateCatchMessageEventActivityBehavior(intermediateCatchEvent, new MessageEventDefinition()));
-    verify(messageExecutionContextFactory).create(isA(MessageEventDefinition.class),
-        isA(MessagePayloadMappingProvider.class), isNull());
+    // Assert
+    MessageExecutionContext messageExecutionContext = actualCreateIntermediateCatchMessageEventActivityBehaviorResult
+        .getMessageExecutionContext();
+    assertTrue(messageExecutionContext instanceof DefaultMessageExecutionContext);
+    assertTrue(((DefaultMessageExecutionContext) messageExecutionContext)
+        .getMessagePayloadMappingProvider() instanceof BpmnMessagePayloadMappingProvider);
+    assertNull(actualCreateIntermediateCatchMessageEventActivityBehaviorResult.getMultiInstanceActivityBehavior());
+    assertNull(((DefaultMessageExecutionContext) messageExecutionContext).getExpressionManager());
+    assertSame(messageEventDefinition,
+        actualCreateIntermediateCatchMessageEventActivityBehaviorResult.getMessageEventDefinition());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createIntermediateCatchTimerEventActivityBehavior(IntermediateCatchEvent, TimerEventDefinition)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createIntermediateCatchTimerEventActivityBehavior(IntermediateCatchEvent, TimerEventDefinition)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createIntermediateCatchMessageEventActivityBehavior(IntermediateCatchEvent, MessageEventDefinition)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.IntermediateCatchTimerEventActivityBehavior DefaultActivityBehaviorFactory.createIntermediateCatchTimerEventActivityBehavior(IntermediateCatchEvent, TimerEventDefinition)"})
+  public void testCreateIntermediateCatchMessageEventActivityBehavior3() {
+    // Arrange
+    IntermediateCatchEvent intermediateCatchEvent = new IntermediateCatchEvent();
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(new FieldExtension());
+
+    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
+    messageEventDefinition.setFieldExtensions(fieldExtensions);
+
+    // Act
+    IntermediateCatchMessageEventActivityBehavior actualCreateIntermediateCatchMessageEventActivityBehaviorResult = defaultActivityBehaviorFactory
+        .createIntermediateCatchMessageEventActivityBehavior(intermediateCatchEvent, messageEventDefinition);
+
+    // Assert
+    MessageExecutionContext messageExecutionContext = actualCreateIntermediateCatchMessageEventActivityBehaviorResult
+        .getMessageExecutionContext();
+    assertTrue(messageExecutionContext instanceof DefaultMessageExecutionContext);
+    assertTrue(((DefaultMessageExecutionContext) messageExecutionContext)
+        .getMessagePayloadMappingProvider() instanceof BpmnMessagePayloadMappingProvider);
+    assertNull(actualCreateIntermediateCatchMessageEventActivityBehaviorResult.getMultiInstanceActivityBehavior());
+    assertNull(((DefaultMessageExecutionContext) messageExecutionContext).getExpressionManager());
+    assertSame(messageEventDefinition,
+        actualCreateIntermediateCatchMessageEventActivityBehaviorResult.getMessageEventDefinition());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createIntermediateCatchMessageEventActivityBehavior(IntermediateCatchEvent, MessageEventDefinition)}
+   */
+  @Test
+  public void testCreateIntermediateCatchMessageEventActivityBehavior4() {
+    // Arrange
+    IntermediateCatchEvent intermediateCatchEvent = new IntermediateCatchEvent();
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(new FieldExtension());
+    fieldExtensions.add(new FieldExtension());
+
+    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
+    messageEventDefinition.setFieldExtensions(fieldExtensions);
+
+    // Act
+    IntermediateCatchMessageEventActivityBehavior actualCreateIntermediateCatchMessageEventActivityBehaviorResult = defaultActivityBehaviorFactory
+        .createIntermediateCatchMessageEventActivityBehavior(intermediateCatchEvent, messageEventDefinition);
+
+    // Assert
+    MessageExecutionContext messageExecutionContext = actualCreateIntermediateCatchMessageEventActivityBehaviorResult
+        .getMessageExecutionContext();
+    assertTrue(messageExecutionContext instanceof DefaultMessageExecutionContext);
+    assertTrue(((DefaultMessageExecutionContext) messageExecutionContext)
+        .getMessagePayloadMappingProvider() instanceof BpmnMessagePayloadMappingProvider);
+    assertNull(actualCreateIntermediateCatchMessageEventActivityBehaviorResult.getMultiInstanceActivityBehavior());
+    assertNull(((DefaultMessageExecutionContext) messageExecutionContext).getExpressionManager());
+    assertSame(messageEventDefinition,
+        actualCreateIntermediateCatchMessageEventActivityBehaviorResult.getMessageEventDefinition());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createIntermediateCatchMessageEventActivityBehavior(IntermediateCatchEvent, MessageEventDefinition)}
+   */
+  @Test
+  public void testCreateIntermediateCatchMessageEventActivityBehavior5() {
+    // Arrange
+    IntermediateCatchEvent intermediateCatchEvent = new IntermediateCatchEvent();
+    FieldExtension fieldExtension = mock(FieldExtension.class);
+    when(fieldExtension.getExpression()).thenReturn("");
+    when(fieldExtension.getFieldName()).thenReturn("Field Name");
+    when(fieldExtension.getStringValue()).thenReturn("42");
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(fieldExtension);
+
+    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
+    messageEventDefinition.setFieldExtensions(fieldExtensions);
+
+    // Act
+    IntermediateCatchMessageEventActivityBehavior actualCreateIntermediateCatchMessageEventActivityBehaviorResult = defaultActivityBehaviorFactory
+        .createIntermediateCatchMessageEventActivityBehavior(intermediateCatchEvent, messageEventDefinition);
+
+    // Assert
+    verify(fieldExtension).getExpression();
+    verify(fieldExtension).getFieldName();
+    verify(fieldExtension).getStringValue();
+    MessageExecutionContext messageExecutionContext = actualCreateIntermediateCatchMessageEventActivityBehaviorResult
+        .getMessageExecutionContext();
+    assertTrue(messageExecutionContext instanceof DefaultMessageExecutionContext);
+    assertTrue(((DefaultMessageExecutionContext) messageExecutionContext)
+        .getMessagePayloadMappingProvider() instanceof BpmnMessagePayloadMappingProvider);
+    assertNull(actualCreateIntermediateCatchMessageEventActivityBehaviorResult.getMultiInstanceActivityBehavior());
+    assertNull(((DefaultMessageExecutionContext) messageExecutionContext).getExpressionManager());
+    assertSame(messageEventDefinition,
+        actualCreateIntermediateCatchMessageEventActivityBehaviorResult.getMessageEventDefinition());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createIntermediateCatchTimerEventActivityBehavior(IntermediateCatchEvent, TimerEventDefinition)}
+   */
+  @Test
   public void testCreateIntermediateCatchTimerEventActivityBehavior() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
     IntermediateCatchEvent intermediateCatchEvent = new IntermediateCatchEvent();
 
     // Act and Assert
@@ -2805,17 +2222,27 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createIntermediateCatchSignalEventActivityBehavior(IntermediateCatchEvent, SignalEventDefinition, Signal)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createIntermediateCatchSignalEventActivityBehavior(IntermediateCatchEvent, SignalEventDefinition, Signal)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createIntermediateCatchTimerEventActivityBehavior(IntermediateCatchEvent, TimerEventDefinition)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.IntermediateCatchSignalEventActivityBehavior DefaultActivityBehaviorFactory.createIntermediateCatchSignalEventActivityBehavior(IntermediateCatchEvent, SignalEventDefinition, Signal)"})
+  public void testCreateIntermediateCatchTimerEventActivityBehavior2() {
+    // Arrange
+    IntermediateCatchEvent intermediateCatchEvent = mock(IntermediateCatchEvent.class);
+
+    // Act and Assert
+    assertNull(defaultActivityBehaviorFactory
+        .createIntermediateCatchTimerEventActivityBehavior(intermediateCatchEvent, new TimerEventDefinition())
+        .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createIntermediateCatchSignalEventActivityBehavior(IntermediateCatchEvent, SignalEventDefinition, Signal)}
+   */
+  @Test
   public void testCreateIntermediateCatchSignalEventActivityBehavior() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
     IntermediateCatchEvent intermediateCatchEvent = new IntermediateCatchEvent();
     SignalEventDefinition signalEventDefinition = new SignalEventDefinition();
 
@@ -2827,17 +2254,29 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createIntermediateThrowSignalEventActivityBehavior(ThrowEvent, SignalEventDefinition, Signal)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createIntermediateThrowSignalEventActivityBehavior(ThrowEvent, SignalEventDefinition, Signal)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createIntermediateCatchSignalEventActivityBehavior(IntermediateCatchEvent, SignalEventDefinition, Signal)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.IntermediateThrowSignalEventActivityBehavior DefaultActivityBehaviorFactory.createIntermediateThrowSignalEventActivityBehavior(ThrowEvent, SignalEventDefinition, Signal)"})
+  public void testCreateIntermediateCatchSignalEventActivityBehavior2() {
+    // Arrange
+    IntermediateCatchEvent intermediateCatchEvent = mock(IntermediateCatchEvent.class);
+    SignalEventDefinition signalEventDefinition = new SignalEventDefinition();
+
+    // Act and Assert
+    assertNull(defaultActivityBehaviorFactory
+        .createIntermediateCatchSignalEventActivityBehavior(intermediateCatchEvent, signalEventDefinition,
+            new Signal("42", "Name"))
+        .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createIntermediateThrowSignalEventActivityBehavior(ThrowEvent, SignalEventDefinition, Signal)}
+   */
+  @Test
   public void testCreateIntermediateThrowSignalEventActivityBehavior() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
     ThrowEvent throwEvent = new ThrowEvent();
     SignalEventDefinition signalEventDefinition = new SignalEventDefinition();
 
@@ -2848,21 +2287,30 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createIntermediateThrowSignalEventActivityBehavior(ThrowEvent, SignalEventDefinition, Signal)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createIntermediateThrowSignalEventActivityBehavior(ThrowEvent, SignalEventDefinition, Signal)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createIntermediateThrowSignalEventActivityBehavior(ThrowEvent, SignalEventDefinition, Signal)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.IntermediateThrowSignalEventActivityBehavior DefaultActivityBehaviorFactory.createIntermediateThrowSignalEventActivityBehavior(ThrowEvent, SignalEventDefinition, Signal)"})
   public void testCreateIntermediateThrowSignalEventActivityBehavior2() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    ThrowEvent throwEvent = new ThrowEvent();
-
+    ThrowEvent throwEvent = mock(ThrowEvent.class);
     SignalEventDefinition signalEventDefinition = new SignalEventDefinition();
-    signalEventDefinition.setSignalRef(null);
+
+    // Act and Assert
+    assertNull(defaultActivityBehaviorFactory
+        .createIntermediateThrowSignalEventActivityBehavior(throwEvent, signalEventDefinition, new Signal("42", "Name"))
+        .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createIntermediateThrowSignalEventActivityBehavior(ThrowEvent, SignalEventDefinition, Signal)}
+   */
+  @Test
+  public void testCreateIntermediateThrowSignalEventActivityBehavior3() {
+    // Arrange
+    ThrowEvent throwEvent = new ThrowEvent();
+    SignalEventDefinition signalEventDefinition = new SignalEventDefinition();
 
     Signal signal = new Signal("42", "Name");
     signal.setScope(Signal.SCOPE_PROCESS_INSTANCE);
@@ -2874,40 +2322,27 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createIntermediateThrowSignalEventActivityBehavior(ThrowEvent, SignalEventDefinition, Signal)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createIntermediateThrowSignalEventActivityBehavior(ThrowEvent, SignalEventDefinition, Signal)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createIntermediateThrowSignalEventActivityBehavior(ThrowEvent, SignalEventDefinition, Signal)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.IntermediateThrowSignalEventActivityBehavior DefaultActivityBehaviorFactory.createIntermediateThrowSignalEventActivityBehavior(ThrowEvent, SignalEventDefinition, Signal)"})
-  public void testCreateIntermediateThrowSignalEventActivityBehavior3() {
+  public void testCreateIntermediateThrowSignalEventActivityBehavior4() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
     ThrowEvent throwEvent = new ThrowEvent();
-
-    SignalEventDefinition signalEventDefinition = new SignalEventDefinition();
-    signalEventDefinition.setSignalRef("Signal Event Definition");
 
     // Act and Assert
     assertNull(defaultActivityBehaviorFactory
-        .createIntermediateThrowSignalEventActivityBehavior(throwEvent, signalEventDefinition, null)
+        .createIntermediateThrowSignalEventActivityBehavior(throwEvent, new SignalEventDefinition(), null)
         .getMultiInstanceActivityBehavior());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createIntermediateThrowSignalEventActivityBehavior(ThrowEvent, SignalEventDefinition, Signal)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createIntermediateThrowSignalEventActivityBehavior(ThrowEvent, SignalEventDefinition, Signal)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createIntermediateThrowSignalEventActivityBehavior(ThrowEvent, SignalEventDefinition, Signal)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.IntermediateThrowSignalEventActivityBehavior DefaultActivityBehaviorFactory.createIntermediateThrowSignalEventActivityBehavior(ThrowEvent, SignalEventDefinition, Signal)"})
-  public void testCreateIntermediateThrowSignalEventActivityBehavior4() {
+  public void testCreateIntermediateThrowSignalEventActivityBehavior5() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
     ThrowEvent throwEvent = new ThrowEvent();
     SignalEventDefinition signalEventDefinition = new SignalEventDefinition();
     Signal signal = mock(Signal.class);
@@ -2920,72 +2355,12 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createIntermediateThrowSignalEventActivityBehavior(ThrowEvent, SignalEventDefinition, Signal)}.
-   * <ul>
-   *   <li>Given empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createIntermediateThrowSignalEventActivityBehavior(ThrowEvent, SignalEventDefinition, Signal)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createErrorEndEventActivityBehavior(EndEvent, ErrorEventDefinition)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.IntermediateThrowSignalEventActivityBehavior DefaultActivityBehaviorFactory.createIntermediateThrowSignalEventActivityBehavior(ThrowEvent, SignalEventDefinition, Signal)"})
-  public void testCreateIntermediateThrowSignalEventActivityBehavior_givenEmptyString() {
+  public void testCreateErrorEndEventActivityBehavior() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    ThrowEvent throwEvent = new ThrowEvent();
-
-    SignalEventDefinition signalEventDefinition = new SignalEventDefinition();
-    signalEventDefinition.setSignalRef("");
-
-    // Act and Assert
-    assertNull(defaultActivityBehaviorFactory
-        .createIntermediateThrowSignalEventActivityBehavior(throwEvent, signalEventDefinition, null)
-        .getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createIntermediateThrowSignalEventActivityBehavior(ThrowEvent, SignalEventDefinition, Signal)}.
-   * <ul>
-   *   <li>Given {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createIntermediateThrowSignalEventActivityBehavior(ThrowEvent, SignalEventDefinition, Signal)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.IntermediateThrowSignalEventActivityBehavior DefaultActivityBehaviorFactory.createIntermediateThrowSignalEventActivityBehavior(ThrowEvent, SignalEventDefinition, Signal)"})
-  public void testCreateIntermediateThrowSignalEventActivityBehavior_givenNull() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    ThrowEvent throwEvent = new ThrowEvent();
-
-    SignalEventDefinition signalEventDefinition = new SignalEventDefinition();
-    signalEventDefinition.setSignalRef(null);
-
-    // Act and Assert
-    assertNull(defaultActivityBehaviorFactory
-        .createIntermediateThrowSignalEventActivityBehavior(throwEvent, signalEventDefinition, null)
-        .getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createErrorEndEventActivityBehavior(EndEvent, ErrorEventDefinition)}.
-   * <ul>
-   *   <li>Then return ErrorRef is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createErrorEndEventActivityBehavior(EndEvent, ErrorEventDefinition)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.ErrorEndEventActivityBehavior DefaultActivityBehaviorFactory.createErrorEndEventActivityBehavior(EndEvent, ErrorEventDefinition)"})
-  public void testCreateErrorEndEventActivityBehavior_thenReturnErrorRefIsNull() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
     EndEvent endEvent = new EndEvent();
 
     // Act and Assert
@@ -2994,160 +2369,26 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createTerminateEndEventActivityBehavior(EndEvent)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createTerminateEndEventActivityBehavior(EndEvent)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createErrorEndEventActivityBehavior(EndEvent, ErrorEventDefinition)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "TerminateEndEventActivityBehavior DefaultActivityBehaviorFactory.createTerminateEndEventActivityBehavior(EndEvent)"})
+  public void testCreateErrorEndEventActivityBehavior2() {
+    // Arrange
+    EndEvent endEvent = mock(EndEvent.class);
+
+    // Act and Assert
+    assertNull(defaultActivityBehaviorFactory.createErrorEndEventActivityBehavior(endEvent, new ErrorEventDefinition())
+        .getErrorRef());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createTerminateEndEventActivityBehavior(EndEvent)}
+   */
+  @Test
   public void testCreateTerminateEndEventActivityBehavior() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
-    eventDefinitions.add(new TerminateEventDefinition());
-
-    EndEvent endEvent = new EndEvent();
-    endEvent.setEventDefinitions(eventDefinitions);
-
-    // Act
-    TerminateEndEventActivityBehavior actualCreateTerminateEndEventActivityBehaviorResult = defaultActivityBehaviorFactory
-        .createTerminateEndEventActivityBehavior(endEvent);
-
-    // Assert
-    assertFalse(actualCreateTerminateEndEventActivityBehaviorResult.isTerminateAll());
-    assertFalse(actualCreateTerminateEndEventActivityBehaviorResult.isTerminateMultiInstance());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createTerminateEndEventActivityBehavior(EndEvent)}.
-   * <ul>
-   *   <li>Given {@link CancelEventDefinition} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createTerminateEndEventActivityBehavior(EndEvent)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "TerminateEndEventActivityBehavior DefaultActivityBehaviorFactory.createTerminateEndEventActivityBehavior(EndEvent)"})
-  public void testCreateTerminateEndEventActivityBehavior_givenCancelEventDefinition() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    EndEvent endEvent = new EndEvent();
-    endEvent.addEventDefinition(new CancelEventDefinition());
-
-    // Act
-    TerminateEndEventActivityBehavior actualCreateTerminateEndEventActivityBehaviorResult = defaultActivityBehaviorFactory
-        .createTerminateEndEventActivityBehavior(endEvent);
-
-    // Assert
-    assertFalse(actualCreateTerminateEndEventActivityBehaviorResult.isTerminateAll());
-    assertFalse(actualCreateTerminateEndEventActivityBehaviorResult.isTerminateMultiInstance());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createTerminateEndEventActivityBehavior(EndEvent)}.
-   * <ul>
-   *   <li>Given {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createTerminateEndEventActivityBehavior(EndEvent)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "TerminateEndEventActivityBehavior DefaultActivityBehaviorFactory.createTerminateEndEventActivityBehavior(EndEvent)"})
-  public void testCreateTerminateEndEventActivityBehavior_givenNull() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    EndEvent endEvent = new EndEvent();
-    endEvent.setEventDefinitions(null);
-
-    // Act
-    TerminateEndEventActivityBehavior actualCreateTerminateEndEventActivityBehaviorResult = defaultActivityBehaviorFactory
-        .createTerminateEndEventActivityBehavior(endEvent);
-
-    // Assert
-    assertFalse(actualCreateTerminateEndEventActivityBehaviorResult.isTerminateAll());
-    assertFalse(actualCreateTerminateEndEventActivityBehaviorResult.isTerminateMultiInstance());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createTerminateEndEventActivityBehavior(EndEvent)}.
-   * <ul>
-   *   <li>Then calls {@link TerminateEventDefinition#isTerminateAll()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createTerminateEndEventActivityBehavior(EndEvent)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "TerminateEndEventActivityBehavior DefaultActivityBehaviorFactory.createTerminateEndEventActivityBehavior(EndEvent)"})
-  public void testCreateTerminateEndEventActivityBehavior_thenCallsIsTerminateAll() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    TerminateEventDefinition eventDefinition = mock(TerminateEventDefinition.class);
-    when(eventDefinition.isTerminateAll()).thenThrow(new ActivitiException("An error occurred"));
-
-    EndEvent endEvent = new EndEvent();
-    endEvent.addEventDefinition(eventDefinition);
-
-    // Act and Assert
-    assertThrows(ActivitiException.class,
-        () -> defaultActivityBehaviorFactory.createTerminateEndEventActivityBehavior(endEvent));
-    verify(eventDefinition).isTerminateAll();
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createTerminateEndEventActivityBehavior(EndEvent)}.
-   * <ul>
-   *   <li>Then calls {@link COWArrayList#size()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createTerminateEndEventActivityBehavior(EndEvent)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "TerminateEndEventActivityBehavior DefaultActivityBehaviorFactory.createTerminateEndEventActivityBehavior(EndEvent)"})
-  public void testCreateTerminateEndEventActivityBehavior_thenCallsSize() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    COWArrayList<EventDefinition> eventDefinitions = mock(COWArrayList.class);
-    when(eventDefinitions.size()).thenThrow(new ActivitiException("An error occurred"));
-
-    EndEvent endEvent = new EndEvent();
-    endEvent.setEventDefinitions(eventDefinitions);
-
-    // Act and Assert
-    assertThrows(ActivitiException.class,
-        () -> defaultActivityBehaviorFactory.createTerminateEndEventActivityBehavior(endEvent));
-    verify(eventDefinitions).size();
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createTerminateEndEventActivityBehavior(EndEvent)}.
-   * <ul>
-   *   <li>When {@link EndEvent} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createTerminateEndEventActivityBehavior(EndEvent)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "TerminateEndEventActivityBehavior DefaultActivityBehaviorFactory.createTerminateEndEventActivityBehavior(EndEvent)"})
-  public void testCreateTerminateEndEventActivityBehavior_whenEndEvent() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    // Act
+    // Arrange and Act
     TerminateEndEventActivityBehavior actualCreateTerminateEndEventActivityBehaviorResult = defaultActivityBehaviorFactory
         .createTerminateEndEventActivityBehavior(new EndEvent());
 
@@ -3157,53 +2398,125 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createBoundaryEventActivityBehavior(BoundaryEvent, boolean)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createBoundaryEventActivityBehavior(BoundaryEvent, boolean)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createTerminateEndEventActivityBehavior(EndEvent)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.BoundaryEventActivityBehavior DefaultActivityBehaviorFactory.createBoundaryEventActivityBehavior(BoundaryEvent, boolean)"})
-  public void testCreateBoundaryEventActivityBehavior() {
+  public void testCreateTerminateEndEventActivityBehavior2() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
+    EndEvent endEvent = mock(EndEvent.class);
+    when(endEvent.getEventDefinitions()).thenReturn(new ArrayList<>());
 
-    // Act and Assert
-    assertTrue(
-        defaultActivityBehaviorFactory.createBoundaryEventActivityBehavior(new BoundaryEvent(), true).isInterrupting());
+    // Act
+    TerminateEndEventActivityBehavior actualCreateTerminateEndEventActivityBehaviorResult = defaultActivityBehaviorFactory
+        .createTerminateEndEventActivityBehavior(endEvent);
+
+    // Assert
+    verify(endEvent, atLeast(1)).getEventDefinitions();
+    assertFalse(actualCreateTerminateEndEventActivityBehaviorResult.isTerminateAll());
+    assertFalse(actualCreateTerminateEndEventActivityBehaviorResult.isTerminateMultiInstance());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createBoundaryCancelEventActivityBehavior(CancelEventDefinition)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createBoundaryCancelEventActivityBehavior(CancelEventDefinition)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createTerminateEndEventActivityBehavior(EndEvent)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.BoundaryCancelEventActivityBehavior DefaultActivityBehaviorFactory.createBoundaryCancelEventActivityBehavior(CancelEventDefinition)"})
-  public void testCreateBoundaryCancelEventActivityBehavior() {
+  public void testCreateTerminateEndEventActivityBehavior3() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
+    ArrayList<EventDefinition> eventDefinitionList = new ArrayList<>();
+    eventDefinitionList.add(new CancelEventDefinition());
+    EndEvent endEvent = mock(EndEvent.class);
+    when(endEvent.getEventDefinitions()).thenReturn(eventDefinitionList);
+
+    // Act
+    TerminateEndEventActivityBehavior actualCreateTerminateEndEventActivityBehaviorResult = defaultActivityBehaviorFactory
+        .createTerminateEndEventActivityBehavior(endEvent);
+
+    // Assert
+    verify(endEvent, atLeast(1)).getEventDefinitions();
+    assertFalse(actualCreateTerminateEndEventActivityBehaviorResult.isTerminateAll());
+    assertFalse(actualCreateTerminateEndEventActivityBehaviorResult.isTerminateMultiInstance());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createTerminateEndEventActivityBehavior(EndEvent)}
+   */
+  @Test
+  public void testCreateTerminateEndEventActivityBehavior4() {
+    // Arrange
+    ArrayList<EventDefinition> eventDefinitionList = new ArrayList<>();
+    eventDefinitionList.add(new TerminateEventDefinition());
+    EndEvent endEvent = mock(EndEvent.class);
+    when(endEvent.getEventDefinitions()).thenReturn(eventDefinitionList);
+
+    // Act
+    TerminateEndEventActivityBehavior actualCreateTerminateEndEventActivityBehaviorResult = defaultActivityBehaviorFactory
+        .createTerminateEndEventActivityBehavior(endEvent);
+
+    // Assert
+    verify(endEvent, atLeast(1)).getEventDefinitions();
+    assertFalse(actualCreateTerminateEndEventActivityBehaviorResult.isTerminateAll());
+    assertFalse(actualCreateTerminateEndEventActivityBehaviorResult.isTerminateMultiInstance());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createTerminateEndEventActivityBehavior(EndEvent)}
+   */
+  @Test
+  public void testCreateTerminateEndEventActivityBehavior5() {
+    // Arrange
+    TerminateEventDefinition terminateEventDefinition = mock(TerminateEventDefinition.class);
+    when(terminateEventDefinition.isTerminateAll()).thenThrow(new ActivitiException("An error occurred"));
+
+    ArrayList<EventDefinition> eventDefinitionList = new ArrayList<>();
+    eventDefinitionList.add(terminateEventDefinition);
+    EndEvent endEvent = mock(EndEvent.class);
+    when(endEvent.getEventDefinitions()).thenReturn(eventDefinitionList);
 
     // Act and Assert
-    assertFalse(defaultActivityBehaviorFactory.createBoundaryCancelEventActivityBehavior(new CancelEventDefinition())
+    assertThrows(ActivitiException.class,
+        () -> defaultActivityBehaviorFactory.createTerminateEndEventActivityBehavior(endEvent));
+    verify(endEvent, atLeast(1)).getEventDefinitions();
+    verify(terminateEventDefinition).isTerminateAll();
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createBoundaryEventActivityBehavior(BoundaryEvent, boolean)}
+   */
+  @Test
+  public void testCreateBoundaryEventActivityBehavior() {
+    // Arrange, Act and Assert
+    assertTrue(
+        defaultActivityBehaviorFactory.createBoundaryEventActivityBehavior(new BoundaryEvent(), true).isInterrupting());
+    assertTrue(defaultActivityBehaviorFactory.createBoundaryEventActivityBehavior(mock(BoundaryEvent.class), true)
         .isInterrupting());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createBoundaryCompensateEventActivityBehavior(BoundaryEvent, CompensateEventDefinition, boolean)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createBoundaryCompensateEventActivityBehavior(BoundaryEvent, CompensateEventDefinition, boolean)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createBoundaryCancelEventActivityBehavior(CancelEventDefinition)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.BoundaryCompensateEventActivityBehavior DefaultActivityBehaviorFactory.createBoundaryCompensateEventActivityBehavior(BoundaryEvent, CompensateEventDefinition, boolean)"})
+  public void testCreateBoundaryCancelEventActivityBehavior() {
+    // Arrange, Act and Assert
+    assertFalse(defaultActivityBehaviorFactory.createBoundaryCancelEventActivityBehavior(new CancelEventDefinition())
+        .isInterrupting());
+    assertFalse(
+        defaultActivityBehaviorFactory.createBoundaryCancelEventActivityBehavior(mock(CancelEventDefinition.class))
+            .isInterrupting());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createBoundaryCompensateEventActivityBehavior(BoundaryEvent, CompensateEventDefinition, boolean)}
+   */
+  @Test
   public void testCreateBoundaryCompensateEventActivityBehavior() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
     BoundaryEvent boundaryEvent = new BoundaryEvent();
 
     // Act and Assert
@@ -3213,17 +2526,27 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createBoundaryTimerEventActivityBehavior(BoundaryEvent, TimerEventDefinition, boolean)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createBoundaryTimerEventActivityBehavior(BoundaryEvent, TimerEventDefinition, boolean)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createBoundaryCompensateEventActivityBehavior(BoundaryEvent, CompensateEventDefinition, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.BoundaryTimerEventActivityBehavior DefaultActivityBehaviorFactory.createBoundaryTimerEventActivityBehavior(BoundaryEvent, TimerEventDefinition, boolean)"})
+  public void testCreateBoundaryCompensateEventActivityBehavior2() {
+    // Arrange
+    BoundaryEvent boundaryEvent = mock(BoundaryEvent.class);
+
+    // Act and Assert
+    assertTrue(defaultActivityBehaviorFactory
+        .createBoundaryCompensateEventActivityBehavior(boundaryEvent, new CompensateEventDefinition(), true)
+        .isInterrupting());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createBoundaryTimerEventActivityBehavior(BoundaryEvent, TimerEventDefinition, boolean)}
+   */
+  @Test
   public void testCreateBoundaryTimerEventActivityBehavior() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
     BoundaryEvent boundaryEvent = new BoundaryEvent();
 
     // Act and Assert
@@ -3233,17 +2556,27 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createBoundarySignalEventActivityBehavior(BoundaryEvent, SignalEventDefinition, Signal, boolean)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createBoundarySignalEventActivityBehavior(BoundaryEvent, SignalEventDefinition, Signal, boolean)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createBoundaryTimerEventActivityBehavior(BoundaryEvent, TimerEventDefinition, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "org.activiti.engine.impl.bpmn.behavior.BoundarySignalEventActivityBehavior DefaultActivityBehaviorFactory.createBoundarySignalEventActivityBehavior(BoundaryEvent, SignalEventDefinition, Signal, boolean)"})
+  public void testCreateBoundaryTimerEventActivityBehavior2() {
+    // Arrange
+    BoundaryEvent boundaryEvent = mock(BoundaryEvent.class);
+
+    // Act and Assert
+    assertTrue(defaultActivityBehaviorFactory
+        .createBoundaryTimerEventActivityBehavior(boundaryEvent, new TimerEventDefinition(), true)
+        .isInterrupting());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createBoundarySignalEventActivityBehavior(BoundaryEvent, SignalEventDefinition, Signal, boolean)}
+   */
+  @Test
   public void testCreateBoundarySignalEventActivityBehavior() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
     BoundaryEvent boundaryEvent = new BoundaryEvent();
     SignalEventDefinition signalEventDefinition = new SignalEventDefinition();
 
@@ -3254,17 +2587,28 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createBoundaryMessageEventActivityBehavior(BoundaryEvent, MessageEventDefinition, boolean)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createBoundaryMessageEventActivityBehavior(BoundaryEvent, MessageEventDefinition, boolean)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createBoundarySignalEventActivityBehavior(BoundaryEvent, SignalEventDefinition, Signal, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "BoundaryMessageEventActivityBehavior DefaultActivityBehaviorFactory.createBoundaryMessageEventActivityBehavior(BoundaryEvent, MessageEventDefinition, boolean)"})
+  public void testCreateBoundarySignalEventActivityBehavior2() {
+    // Arrange
+    BoundaryEvent boundaryEvent = mock(BoundaryEvent.class);
+    SignalEventDefinition signalEventDefinition = new SignalEventDefinition();
+
+    // Act and Assert
+    assertTrue(defaultActivityBehaviorFactory
+        .createBoundarySignalEventActivityBehavior(boundaryEvent, signalEventDefinition, new Signal("42", "Name"), true)
+        .isInterrupting());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createBoundaryMessageEventActivityBehavior(BoundaryEvent, MessageEventDefinition, boolean)}
+   */
+  @Test
   public void testCreateBoundaryMessageEventActivityBehavior() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
     BoundaryEvent boundaryEvent = new BoundaryEvent();
     MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
 
@@ -3285,322 +2629,182 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createBoundaryMessageEventActivityBehavior(BoundaryEvent, MessageEventDefinition, boolean)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createBoundaryMessageEventActivityBehavior(BoundaryEvent, MessageEventDefinition, boolean)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createBoundaryMessageEventActivityBehavior(BoundaryEvent, MessageEventDefinition, boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "BoundaryMessageEventActivityBehavior DefaultActivityBehaviorFactory.createBoundaryMessageEventActivityBehavior(BoundaryEvent, MessageEventDefinition, boolean)"})
-  public void testCreateBoundaryMessageEventActivityBehavior_thenThrowActivitiException() {
+  public void testCreateBoundaryMessageEventActivityBehavior2() {
     // Arrange
-    MessageExecutionContextFactory messageExecutionContextFactory = mock(MessageExecutionContextFactory.class);
-    when(messageExecutionContextFactory.create(Mockito.<MessageEventDefinition>any(),
-        Mockito.<MessagePayloadMappingProvider>any(), Mockito.<ExpressionManager>any()))
-        .thenThrow(new ActivitiException("An error occurred"));
+    BoundaryEvent boundaryEvent = mock(BoundaryEvent.class);
+    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
 
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setMessageExecutionContextFactory(messageExecutionContextFactory);
-    BoundaryEvent boundaryEvent = new BoundaryEvent();
+    // Act
+    BoundaryMessageEventActivityBehavior actualCreateBoundaryMessageEventActivityBehaviorResult = defaultActivityBehaviorFactory
+        .createBoundaryMessageEventActivityBehavior(boundaryEvent, messageEventDefinition, true);
 
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> defaultActivityBehaviorFactory
-        .createBoundaryMessageEventActivityBehavior(boundaryEvent, new MessageEventDefinition(), true));
-    verify(messageExecutionContextFactory).create(isA(MessageEventDefinition.class),
-        isA(MessagePayloadMappingProvider.class), isNull());
+    // Assert
+    MessageExecutionContext messageExecutionContext = actualCreateBoundaryMessageEventActivityBehaviorResult
+        .getMessageExecutionContext();
+    assertTrue(messageExecutionContext instanceof DefaultMessageExecutionContext);
+    assertTrue(((DefaultMessageExecutionContext) messageExecutionContext)
+        .getMessagePayloadMappingProvider() instanceof BpmnMessagePayloadMappingProvider);
+    assertNull(((DefaultMessageExecutionContext) messageExecutionContext).getExpressionManager());
+    assertTrue(actualCreateBoundaryMessageEventActivityBehaviorResult.isInterrupting());
+    assertSame(messageEventDefinition,
+        actualCreateBoundaryMessageEventActivityBehaviorResult.getMessageEventDefinition());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createThrowMessageEventActivityBehavior(ThrowEvent, MessageEventDefinition, Message)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createThrowMessageEventActivityBehavior(ThrowEvent, MessageEventDefinition, Message)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createThrowMessageEventActivityBehavior(ThrowEvent, MessageEventDefinition, Message)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "IntermediateThrowMessageEventActivityBehavior DefaultActivityBehaviorFactory.createThrowMessageEventActivityBehavior(ThrowEvent, MessageEventDefinition, Message)"})
   public void testCreateThrowMessageEventActivityBehavior() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
     ThrowEvent throwEvent = new ThrowEvent();
     MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
-    Builder builderResult = Message.builder();
-    Builder attributesResult = builderResult.attributes(new HashMap<>());
-    Message message = attributesResult.extensionElements(new HashMap<>())
-        .id("42")
-        .itemRef("Item Ref")
-        .name("Name")
-        .xmlColumnNumber(10)
-        .xmlRowNumber(10)
-        .build();
 
     // Act
     IntermediateThrowMessageEventActivityBehavior actualCreateThrowMessageEventActivityBehaviorResult = defaultActivityBehaviorFactory
-        .createThrowMessageEventActivityBehavior(throwEvent, messageEventDefinition, message);
+        .createThrowMessageEventActivityBehavior(throwEvent, messageEventDefinition,
+            new Message("42", "Name", "Item Ref"));
 
     // Assert
-    assertTrue(actualCreateThrowMessageEventActivityBehaviorResult
-        .getMessageExecutionContext() instanceof DefaultMessageExecutionContext);
+    MessageExecutionContext messageExecutionContext = actualCreateThrowMessageEventActivityBehaviorResult
+        .getMessageExecutionContext();
+    assertTrue(messageExecutionContext instanceof DefaultMessageExecutionContext);
+    assertTrue(((DefaultMessageExecutionContext) messageExecutionContext)
+        .getMessagePayloadMappingProvider() instanceof BpmnMessagePayloadMappingProvider);
     assertTrue(
         actualCreateThrowMessageEventActivityBehaviorResult.getDelegate() instanceof DefaultThrowMessageJavaDelegate);
+    assertNull(((DefaultMessageExecutionContext) messageExecutionContext).getExpressionManager());
     assertSame(messageEventDefinition, actualCreateThrowMessageEventActivityBehaviorResult.getMessageEventDefinition());
     assertSame(throwEvent, actualCreateThrowMessageEventActivityBehaviorResult.getThrowEvent());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createThrowMessageEventActivityBehavior(ThrowEvent, MessageEventDefinition, Message)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createThrowMessageEventActivityBehavior(ThrowEvent, MessageEventDefinition, Message)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createThrowMessageEventActivityBehavior(ThrowEvent, MessageEventDefinition, Message)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "IntermediateThrowMessageEventActivityBehavior DefaultActivityBehaviorFactory.createThrowMessageEventActivityBehavior(ThrowEvent, MessageEventDefinition, Message)"})
   public void testCreateThrowMessageEventActivityBehavior2() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setThrowMessageDelegateFactory(new TestThrowMessageDelegateFactory());
-    ThrowEvent throwEvent = new ThrowEvent();
+    ThrowEvent throwEvent = mock(ThrowEvent.class);
     MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
-    Builder builderResult = Message.builder();
-    Builder attributesResult = builderResult.attributes(new HashMap<>());
-    Message message = attributesResult.extensionElements(new HashMap<>())
-        .id("42")
-        .itemRef("Item Ref")
-        .name("Name")
-        .xmlColumnNumber(10)
-        .xmlRowNumber(10)
-        .build();
 
     // Act
     IntermediateThrowMessageEventActivityBehavior actualCreateThrowMessageEventActivityBehaviorResult = defaultActivityBehaviorFactory
-        .createThrowMessageEventActivityBehavior(throwEvent, messageEventDefinition, message);
+        .createThrowMessageEventActivityBehavior(throwEvent, messageEventDefinition,
+            new Message("42", "Name", "Item Ref"));
 
     // Assert
-    assertTrue(actualCreateThrowMessageEventActivityBehaviorResult
-        .getMessageExecutionContext() instanceof DefaultMessageExecutionContext);
-    assertTrue(actualCreateThrowMessageEventActivityBehaviorResult.getDelegate() instanceof TestThrowMessageDelegate);
+    MessageExecutionContext messageExecutionContext = actualCreateThrowMessageEventActivityBehaviorResult
+        .getMessageExecutionContext();
+    assertTrue(messageExecutionContext instanceof DefaultMessageExecutionContext);
+    assertTrue(((DefaultMessageExecutionContext) messageExecutionContext)
+        .getMessagePayloadMappingProvider() instanceof BpmnMessagePayloadMappingProvider);
+    assertTrue(
+        actualCreateThrowMessageEventActivityBehaviorResult.getDelegate() instanceof DefaultThrowMessageJavaDelegate);
+    assertNull(((DefaultMessageExecutionContext) messageExecutionContext).getExpressionManager());
     assertSame(messageEventDefinition, actualCreateThrowMessageEventActivityBehaviorResult.getMessageEventDefinition());
     assertSame(throwEvent, actualCreateThrowMessageEventActivityBehaviorResult.getThrowEvent());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createThrowMessageEventActivityBehavior(ThrowEvent, MessageEventDefinition, Message)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createThrowMessageEventActivityBehavior(ThrowEvent, MessageEventDefinition, Message)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createThrowMessageEndEventActivityBehavior(EndEvent, MessageEventDefinition, Message)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "IntermediateThrowMessageEventActivityBehavior DefaultActivityBehaviorFactory.createThrowMessageEventActivityBehavior(ThrowEvent, MessageEventDefinition, Message)"})
-  public void testCreateThrowMessageEventActivityBehavior_thenThrowActivitiException() {
-    // Arrange
-    MessagePayloadMappingProviderFactory messagePayloadMappingProviderFactory = mock(
-        MessagePayloadMappingProviderFactory.class);
-    when(messagePayloadMappingProviderFactory.create(Mockito.<Event>any(), Mockito.<MessageEventDefinition>any(),
-        Mockito.<ExpressionManager>any())).thenThrow(new ActivitiException("An error occurred"));
-
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setMessagePayloadMappingProviderFactory(messagePayloadMappingProviderFactory);
-    ThrowEvent throwEvent = new ThrowEvent();
-    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
-    Builder builderResult = Message.builder();
-    Builder attributesResult = builderResult.attributes(new HashMap<>());
-    Message message = attributesResult.extensionElements(new HashMap<>())
-        .id("42")
-        .itemRef("Item Ref")
-        .name("Name")
-        .xmlColumnNumber(10)
-        .xmlRowNumber(10)
-        .build();
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> defaultActivityBehaviorFactory
-        .createThrowMessageEventActivityBehavior(throwEvent, messageEventDefinition, message));
-    verify(messagePayloadMappingProviderFactory).create(isA(Event.class), isA(MessageEventDefinition.class), isNull());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createThrowMessageEndEventActivityBehavior(EndEvent, MessageEventDefinition, Message)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createThrowMessageEndEventActivityBehavior(EndEvent, MessageEventDefinition, Message)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ThrowMessageEndEventActivityBehavior DefaultActivityBehaviorFactory.createThrowMessageEndEventActivityBehavior(EndEvent, MessageEventDefinition, Message)"})
   public void testCreateThrowMessageEndEventActivityBehavior() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
     EndEvent endEvent = new EndEvent();
     MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
-    Builder builderResult = Message.builder();
-    Builder attributesResult = builderResult.attributes(new HashMap<>());
-    Message message = attributesResult.extensionElements(new HashMap<>())
-        .id("42")
-        .itemRef("Item Ref")
-        .name("Name")
-        .xmlColumnNumber(10)
-        .xmlRowNumber(10)
-        .build();
 
     // Act
     ThrowMessageEndEventActivityBehavior actualCreateThrowMessageEndEventActivityBehaviorResult = defaultActivityBehaviorFactory
-        .createThrowMessageEndEventActivityBehavior(endEvent, messageEventDefinition, message);
+        .createThrowMessageEndEventActivityBehavior(endEvent, messageEventDefinition,
+            new Message("42", "Name", "Item Ref"));
 
     // Assert
-    assertTrue(actualCreateThrowMessageEndEventActivityBehaviorResult
-        .getMessageExecutionContext() instanceof DefaultMessageExecutionContext);
+    MessageExecutionContext messageExecutionContext = actualCreateThrowMessageEndEventActivityBehaviorResult
+        .getMessageExecutionContext();
+    assertTrue(messageExecutionContext instanceof DefaultMessageExecutionContext);
+    assertTrue(((DefaultMessageExecutionContext) messageExecutionContext)
+        .getMessagePayloadMappingProvider() instanceof BpmnMessagePayloadMappingProvider);
     assertTrue(actualCreateThrowMessageEndEventActivityBehaviorResult
         .getDelegate() instanceof DefaultThrowMessageJavaDelegate);
+    assertNull(((DefaultMessageExecutionContext) messageExecutionContext).getExpressionManager());
     assertSame(endEvent, actualCreateThrowMessageEndEventActivityBehaviorResult.getEndEvent());
     assertSame(messageEventDefinition,
         actualCreateThrowMessageEndEventActivityBehaviorResult.getMessageEventDefinition());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createThrowMessageEndEventActivityBehavior(EndEvent, MessageEventDefinition, Message)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createThrowMessageEndEventActivityBehavior(EndEvent, MessageEventDefinition, Message)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createThrowMessageEndEventActivityBehavior(EndEvent, MessageEventDefinition, Message)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ThrowMessageEndEventActivityBehavior DefaultActivityBehaviorFactory.createThrowMessageEndEventActivityBehavior(EndEvent, MessageEventDefinition, Message)"})
   public void testCreateThrowMessageEndEventActivityBehavior2() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setThrowMessageDelegateFactory(new TestThrowMessageDelegateFactory());
-    EndEvent endEvent = new EndEvent();
+    EndEvent endEvent = mock(EndEvent.class);
     MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
-    Builder builderResult = Message.builder();
-    Builder attributesResult = builderResult.attributes(new HashMap<>());
-    Message message = attributesResult.extensionElements(new HashMap<>())
-        .id("42")
-        .itemRef("Item Ref")
-        .name("Name")
-        .xmlColumnNumber(10)
-        .xmlRowNumber(10)
-        .build();
 
     // Act
     ThrowMessageEndEventActivityBehavior actualCreateThrowMessageEndEventActivityBehaviorResult = defaultActivityBehaviorFactory
-        .createThrowMessageEndEventActivityBehavior(endEvent, messageEventDefinition, message);
+        .createThrowMessageEndEventActivityBehavior(endEvent, messageEventDefinition,
+            new Message("42", "Name", "Item Ref"));
 
     // Assert
+    MessageExecutionContext messageExecutionContext = actualCreateThrowMessageEndEventActivityBehaviorResult
+        .getMessageExecutionContext();
+    assertTrue(messageExecutionContext instanceof DefaultMessageExecutionContext);
+    assertTrue(((DefaultMessageExecutionContext) messageExecutionContext)
+        .getMessagePayloadMappingProvider() instanceof BpmnMessagePayloadMappingProvider);
     assertTrue(actualCreateThrowMessageEndEventActivityBehaviorResult
-        .getMessageExecutionContext() instanceof DefaultMessageExecutionContext);
-    assertTrue(
-        actualCreateThrowMessageEndEventActivityBehaviorResult.getDelegate() instanceof TestThrowMessageDelegate);
-    assertSame(endEvent, actualCreateThrowMessageEndEventActivityBehaviorResult.getEndEvent());
+        .getDelegate() instanceof DefaultThrowMessageJavaDelegate);
+    assertNull(((DefaultMessageExecutionContext) messageExecutionContext).getExpressionManager());
     assertSame(messageEventDefinition,
         actualCreateThrowMessageEndEventActivityBehaviorResult.getMessageEventDefinition());
+    assertSame(endEvent, actualCreateThrowMessageEndEventActivityBehaviorResult.getEndEvent());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createThrowMessageEndEventActivityBehavior(EndEvent, MessageEventDefinition, Message)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createThrowMessageEndEventActivityBehavior(EndEvent, MessageEventDefinition, Message)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createThrowMessageDelegate(MessageEventDefinition)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ThrowMessageEndEventActivityBehavior DefaultActivityBehaviorFactory.createThrowMessageEndEventActivityBehavior(EndEvent, MessageEventDefinition, Message)"})
-  public void testCreateThrowMessageEndEventActivityBehavior_thenThrowActivitiException() {
-    // Arrange
-    MessagePayloadMappingProviderFactory messagePayloadMappingProviderFactory = mock(
-        MessagePayloadMappingProviderFactory.class);
-    when(messagePayloadMappingProviderFactory.create(Mockito.<Event>any(), Mockito.<MessageEventDefinition>any(),
-        Mockito.<ExpressionManager>any())).thenThrow(new ActivitiException("An error occurred"));
-
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setMessagePayloadMappingProviderFactory(messagePayloadMappingProviderFactory);
-    EndEvent endEvent = new EndEvent();
-    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
-    Builder builderResult = Message.builder();
-    Builder attributesResult = builderResult.attributes(new HashMap<>());
-    Message message = attributesResult.extensionElements(new HashMap<>())
-        .id("42")
-        .itemRef("Item Ref")
-        .name("Name")
-        .xmlColumnNumber(10)
-        .xmlRowNumber(10)
-        .build();
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> defaultActivityBehaviorFactory
-        .createThrowMessageEndEventActivityBehavior(endEvent, messageEventDefinition, message));
-    verify(messagePayloadMappingProviderFactory).create(isA(Event.class), isA(MessageEventDefinition.class), isNull());
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createThrowMessageDelegate(MessageEventDefinition)}.
-   * <ul>
-   *   <li>Then return {@link DefaultThrowMessageJavaDelegate}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createThrowMessageDelegate(MessageEventDefinition)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ThrowMessageDelegate DefaultActivityBehaviorFactory.createThrowMessageDelegate(MessageEventDefinition)"})
-  public void testCreateThrowMessageDelegate_thenReturnDefaultThrowMessageJavaDelegate() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    // Act and Assert
+  public void testCreateThrowMessageDelegate() {
+    // Arrange, Act and Assert
     assertTrue(defaultActivityBehaviorFactory
         .createThrowMessageDelegate(new MessageEventDefinition()) instanceof DefaultThrowMessageJavaDelegate);
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createThrowMessageDelegate(MessageEventDefinition)}.
-   * <ul>
-   *   <li>Then return {@link MessageThrowCatchEventTest.TestThrowMessageDelegate}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createThrowMessageDelegate(MessageEventDefinition)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createThrowMessageDelegate(MessageEventDefinition)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ThrowMessageDelegate DefaultActivityBehaviorFactory.createThrowMessageDelegate(MessageEventDefinition)"})
-  public void testCreateThrowMessageDelegate_thenReturnTestThrowMessageDelegate() {
+  public void testCreateThrowMessageDelegate2() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setThrowMessageDelegateFactory(new TestThrowMessageDelegateFactory());
+    MessageEventDefinition messageEventDefinition = mock(MessageEventDefinition.class);
+    when(messageEventDefinition.getAttributes()).thenReturn(new HashMap<>());
 
-    // Act and Assert
-    assertTrue(defaultActivityBehaviorFactory
-        .createThrowMessageDelegate(new MessageEventDefinition()) instanceof TestThrowMessageDelegate);
+    // Act
+    ThrowMessageDelegate actualCreateThrowMessageDelegateResult = defaultActivityBehaviorFactory
+        .createThrowMessageDelegate(messageEventDefinition);
+
+    // Assert
+    verify(messageEventDefinition).getAttributes();
+    assertTrue(actualCreateThrowMessageDelegateResult instanceof DefaultThrowMessageJavaDelegate);
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createMessageExecutionContext(Event, MessageEventDefinition)}.
-   * <ul>
-   *   <li>Then return {@link DefaultMessageExecutionContext}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createMessageExecutionContext(Event, MessageEventDefinition)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createMessageExecutionContext(Event, MessageEventDefinition)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "MessageExecutionContext DefaultActivityBehaviorFactory.createMessageExecutionContext(Event, MessageEventDefinition)"})
-  public void testCreateMessageExecutionContext_thenReturnDefaultMessageExecutionContext() {
+  public void testCreateMessageExecutionContext() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
     BoundaryEvent bpmnEvent = new BoundaryEvent();
 
     // Act
@@ -3615,68 +2819,45 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createMessageExecutionContext(Event, MessageEventDefinition)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createMessageExecutionContext(Event, MessageEventDefinition)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createMessageExecutionContext(Event, MessageEventDefinition)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "MessageExecutionContext DefaultActivityBehaviorFactory.createMessageExecutionContext(Event, MessageEventDefinition)"})
-  public void testCreateMessageExecutionContext_thenThrowActivitiException() {
+  public void testCreateMessageExecutionContext2() {
     // Arrange
-    MessageExecutionContextFactory messageExecutionContextFactory = mock(MessageExecutionContextFactory.class);
-    when(messageExecutionContextFactory.create(Mockito.<MessageEventDefinition>any(),
-        Mockito.<MessagePayloadMappingProvider>any(), Mockito.<ExpressionManager>any()))
-        .thenThrow(new ActivitiException("An error occurred"));
+    BoundaryEvent bpmnEvent = mock(BoundaryEvent.class);
 
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setMessageExecutionContextFactory(messageExecutionContextFactory);
-    BoundaryEvent bpmnEvent = new BoundaryEvent();
+    // Act
+    MessageExecutionContext actualCreateMessageExecutionContextResult = defaultActivityBehaviorFactory
+        .createMessageExecutionContext(bpmnEvent, new MessageEventDefinition());
 
-    // Act and Assert
-    assertThrows(ActivitiException.class,
-        () -> defaultActivityBehaviorFactory.createMessageExecutionContext(bpmnEvent, new MessageEventDefinition()));
-    verify(messageExecutionContextFactory).create(isA(MessageEventDefinition.class),
-        isA(MessagePayloadMappingProvider.class), isNull());
+    // Assert
+    assertTrue(actualCreateMessageExecutionContextResult instanceof DefaultMessageExecutionContext);
+    assertTrue(((DefaultMessageExecutionContext) actualCreateMessageExecutionContextResult)
+        .getMessagePayloadMappingProvider() instanceof BpmnMessagePayloadMappingProvider);
+    assertNull(((DefaultMessageExecutionContext) actualCreateMessageExecutionContextResult).getExpressionManager());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createThrowMessageJavaDelegate(String)}.
-   * <ul>
-   *   <li>Then return {@link ThrowMessageJavaDelegate}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createThrowMessageJavaDelegate(String)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createThrowMessageJavaDelegate(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ThrowMessageDelegate DefaultActivityBehaviorFactory.createThrowMessageJavaDelegate(String)"})
-  public void testCreateThrowMessageJavaDelegate_thenReturnThrowMessageJavaDelegate() {
+  public void testCreateThrowMessageJavaDelegate() {
     // Arrange, Act and Assert
     assertTrue(defaultActivityBehaviorFactory.createThrowMessageJavaDelegate(
         "org.activiti.engine.impl.delegate.ThrowMessageDelegate") instanceof ThrowMessageJavaDelegate);
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createThrowMessageDelegateExpression(String)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createThrowMessageDelegateExpression(String)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createThrowMessageDelegateExpression(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ThrowMessageDelegate DefaultActivityBehaviorFactory.createThrowMessageDelegateExpression(String)"})
   public void testCreateThrowMessageDelegateExpression() {
     // Arrange
-    ExpressionManager expressionManager = new ExpressionManager();
-    expressionManager.setCustomFunctionProviders(null);
-
     DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
+    defaultActivityBehaviorFactory.setExpressionManager(new ExpressionManager());
 
     // Act and Assert
     assertTrue(defaultActivityBehaviorFactory
@@ -3684,14 +2865,10 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createThrowMessageDelegateExpression(String)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createThrowMessageDelegateExpression(String)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createThrowMessageDelegateExpression(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ThrowMessageDelegate DefaultActivityBehaviorFactory.createThrowMessageDelegateExpression(String)"})
   public void testCreateThrowMessageDelegateExpression2() {
     // Arrange
     ExpressionManager expressionManager = new ExpressionManager();
@@ -3706,138 +2883,14 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createThrowMessageDelegateExpression(String)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createThrowMessageDelegateExpression(String)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createThrowMessageDelegateExpression(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ThrowMessageDelegate DefaultActivityBehaviorFactory.createThrowMessageDelegateExpression(String)"})
   public void testCreateThrowMessageDelegateExpression3() {
-    // Arrange
-    CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
-    doNothing().when(customFunctionProvider).addCustomFunctions(Mockito.<ActivitiElContext>any());
-    CustomFunctionProvider customFunctionProvider2 = mock(CustomFunctionProvider.class);
-    doNothing().when(customFunctionProvider2).addCustomFunctions(Mockito.<ActivitiElContext>any());
-    CustomFunctionProvider customFunctionProvider3 = mock(CustomFunctionProvider.class);
-    doThrow(new ActivitiException("An error occurred")).when(customFunctionProvider3)
-        .addCustomFunctions(Mockito.<ActivitiElContext>any());
-
-    ArrayList<CustomFunctionProvider> customFunctionProviders = new ArrayList<>();
-    customFunctionProviders.add(customFunctionProvider3);
-    customFunctionProviders.add(customFunctionProvider2);
-    customFunctionProviders.add(customFunctionProvider);
-
-    ExpressionManager expressionManager = new ExpressionManager();
-    expressionManager.setCustomFunctionProviders(customFunctionProviders);
-
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
-
-    // Act
-    ThrowMessageDelegate actualCreateThrowMessageDelegateExpressionResult = defaultActivityBehaviorFactory
-        .createThrowMessageDelegateExpression("Delegate Expression");
-
-    // Assert
-    verify(customFunctionProvider3).addCustomFunctions(isA(ActivitiElContext.class));
-    verify(customFunctionProvider2).addCustomFunctions(isA(ActivitiElContext.class));
-    verify(customFunctionProvider).addCustomFunctions(isA(ActivitiElContext.class));
-    assertTrue(actualCreateThrowMessageDelegateExpressionResult instanceof ThrowMessageDelegateExpression);
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createThrowMessageDelegateExpression(String)}.
-   * <ul>
-   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createThrowMessageDelegateExpression(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ThrowMessageDelegate DefaultActivityBehaviorFactory.createThrowMessageDelegateExpression(String)"})
-  public void testCreateThrowMessageDelegateExpression_thenCallsAddCustomFunctions() {
-    // Arrange
-    CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
-    doNothing().when(customFunctionProvider).addCustomFunctions(Mockito.<ActivitiElContext>any());
-
-    ArrayList<CustomFunctionProvider> customFunctionProviders = new ArrayList<>();
-    customFunctionProviders.add(customFunctionProvider);
-
-    ExpressionManager expressionManager = new ExpressionManager();
-    expressionManager.setCustomFunctionProviders(customFunctionProviders);
-
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
-
-    // Act
-    ThrowMessageDelegate actualCreateThrowMessageDelegateExpressionResult = defaultActivityBehaviorFactory
-        .createThrowMessageDelegateExpression("Delegate Expression");
-
-    // Assert
-    verify(customFunctionProvider).addCustomFunctions(isA(ActivitiElContext.class));
-    assertTrue(actualCreateThrowMessageDelegateExpressionResult instanceof ThrowMessageDelegateExpression);
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createThrowMessageDelegateExpression(String)}.
-   * <ul>
-   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createThrowMessageDelegateExpression(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ThrowMessageDelegate DefaultActivityBehaviorFactory.createThrowMessageDelegateExpression(String)"})
-  public void testCreateThrowMessageDelegateExpression_thenCallsAddCustomFunctions2() {
-    // Arrange
-    CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
-    doNothing().when(customFunctionProvider).addCustomFunctions(Mockito.<ActivitiElContext>any());
-    CustomFunctionProvider customFunctionProvider2 = mock(CustomFunctionProvider.class);
-    doNothing().when(customFunctionProvider2).addCustomFunctions(Mockito.<ActivitiElContext>any());
-
-    ArrayList<CustomFunctionProvider> customFunctionProviders = new ArrayList<>();
-    customFunctionProviders.add(customFunctionProvider2);
-    customFunctionProviders.add(customFunctionProvider);
-
-    ExpressionManager expressionManager = new ExpressionManager();
-    expressionManager.setCustomFunctionProviders(customFunctionProviders);
-
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
-
-    // Act
-    ThrowMessageDelegate actualCreateThrowMessageDelegateExpressionResult = defaultActivityBehaviorFactory
-        .createThrowMessageDelegateExpression("Delegate Expression");
-
-    // Assert
-    verify(customFunctionProvider2).addCustomFunctions(isA(ActivitiElContext.class));
-    verify(customFunctionProvider).addCustomFunctions(isA(ActivitiElContext.class));
-    assertTrue(actualCreateThrowMessageDelegateExpressionResult instanceof ThrowMessageDelegateExpression);
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createThrowMessageDelegateExpression(String)}.
-   * <ul>
-   *   <li>Then calls {@link ExpressionManager#createExpression(String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createThrowMessageDelegateExpression(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ThrowMessageDelegate DefaultActivityBehaviorFactory.createThrowMessageDelegateExpression(String)"})
-  public void testCreateThrowMessageDelegateExpression_thenCallsCreateExpression() {
     // Arrange
     ExpressionManager expressionManager = mock(ExpressionManager.class);
     when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
-    doNothing().when(expressionManager).setCustomFunctionProviders(Mockito.<List<CustomFunctionProvider>>any());
-    expressionManager.setCustomFunctionProviders(null);
 
     DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
     defaultActivityBehaviorFactory.setExpressionManager(expressionManager);
@@ -3848,59 +2901,27 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
 
     // Assert
     verify(expressionManager).createExpression(eq("Delegate Expression"));
-    verify(expressionManager).setCustomFunctionProviders(isNull());
     assertTrue(actualCreateThrowMessageDelegateExpressionResult instanceof ThrowMessageDelegateExpression);
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createDefaultThrowMessageDelegate()}.
-   * <ul>
-   *   <li>Then return {@link DefaultThrowMessageJavaDelegate}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createDefaultThrowMessageDelegate()}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createDefaultThrowMessageDelegate()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ThrowMessageDelegate DefaultActivityBehaviorFactory.createDefaultThrowMessageDelegate()"})
-  public void testCreateDefaultThrowMessageDelegate_thenReturnDefaultThrowMessageJavaDelegate() {
+  public void testCreateDefaultThrowMessageDelegate() {
     // Arrange, Act and Assert
-    assertTrue((new DefaultActivityBehaviorFactory())
-        .createDefaultThrowMessageDelegate() instanceof DefaultThrowMessageJavaDelegate);
+    assertTrue(
+        defaultActivityBehaviorFactory.createDefaultThrowMessageDelegate() instanceof DefaultThrowMessageJavaDelegate);
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#createDefaultThrowMessageDelegate()}.
-   * <ul>
-   *   <li>Then return {@link MessageThrowCatchEventTest.TestThrowMessageDelegate}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createDefaultThrowMessageDelegate()}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createMessagePayloadMappingProvider(Event, MessageEventDefinition)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ThrowMessageDelegate DefaultActivityBehaviorFactory.createDefaultThrowMessageDelegate()"})
-  public void testCreateDefaultThrowMessageDelegate_thenReturnTestThrowMessageDelegate() {
-    // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    defaultActivityBehaviorFactory.setThrowMessageDelegateFactory(new TestThrowMessageDelegateFactory());
-
-    // Act and Assert
-    assertTrue(defaultActivityBehaviorFactory.createDefaultThrowMessageDelegate() instanceof TestThrowMessageDelegate);
-  }
-
-  /**
-   * Test {@link DefaultActivityBehaviorFactory#createMessagePayloadMappingProvider(Event, MessageEventDefinition)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#createMessagePayloadMappingProvider(Event, MessageEventDefinition)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "MessagePayloadMappingProvider DefaultActivityBehaviorFactory.createMessagePayloadMappingProvider(Event, MessageEventDefinition)"})
   public void testCreateMessagePayloadMappingProvider() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
     BoundaryEvent bpmnEvent = new BoundaryEvent();
 
     // Act and Assert
@@ -3909,104 +2930,188 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#checkClassDelegate(Map)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#checkClassDelegate(Map)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#createMessagePayloadMappingProvider(Event, MessageEventDefinition)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.util.Optional DefaultActivityBehaviorFactory.checkClassDelegate(Map)"})
-  public void testCheckClassDelegate() {
+  public void testCreateMessagePayloadMappingProvider2() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
+    BoundaryEvent bpmnEvent = mock(BoundaryEvent.class);
 
     // Act and Assert
+    assertTrue(defaultActivityBehaviorFactory.createMessagePayloadMappingProvider(bpmnEvent,
+        new MessageEventDefinition()) instanceof BpmnMessagePayloadMappingProvider);
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#checkClassDelegate(Map)}
+   */
+  @Test
+  public void testCheckClassDelegate() {
+    // Arrange, Act and Assert
     assertFalse(defaultActivityBehaviorFactory.checkClassDelegate(new HashMap<>()).isPresent());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#checkDelegateExpression(Map)}.
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#checkDelegateExpression(Map)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#checkClassDelegate(Map)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.util.Optional DefaultActivityBehaviorFactory.checkDelegateExpression(Map)"})
-  public void testCheckDelegateExpression() {
+  public void testCheckClassDelegate2() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
+    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
+    attributes.computeIfPresent("class", mock(BiFunction.class));
 
     // Act and Assert
+    assertFalse(defaultActivityBehaviorFactory.checkClassDelegate(attributes).isPresent());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#checkClassDelegate(Map)}
+   */
+  @Test
+  public void testCheckClassDelegate3() {
+    // Arrange
+    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
+    attributes.put("activiti", new ArrayList<>());
+    attributes.computeIfPresent("class", mock(BiFunction.class));
+
+    // Act and Assert
+    assertFalse(defaultActivityBehaviorFactory.checkClassDelegate(attributes).isPresent());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#checkClassDelegate(Map)}
+   */
+  @Test
+  public void testCheckClassDelegate4() {
+    // Arrange
+    ArrayList<ExtensionAttribute> extensionAttributeList = new ArrayList<>();
+    extensionAttributeList.add(new ExtensionAttribute("class"));
+
+    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
+    attributes.put("activiti", extensionAttributeList);
+    attributes.computeIfPresent("class", mock(BiFunction.class));
+
+    // Act and Assert
+    assertFalse(defaultActivityBehaviorFactory.checkClassDelegate(attributes).isPresent());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#checkClassDelegate(Map)}
+   */
+  @Test
+  public void testCheckClassDelegate5() {
+    // Arrange
+    ArrayList<ExtensionAttribute> extensionAttributeList = new ArrayList<>();
+    extensionAttributeList.add(new ExtensionAttribute("Name"));
+    extensionAttributeList.add(new ExtensionAttribute("class"));
+
+    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
+    attributes.put("activiti", extensionAttributeList);
+    attributes.computeIfPresent("class", mock(BiFunction.class));
+
+    // Act and Assert
+    assertFalse(defaultActivityBehaviorFactory.checkClassDelegate(attributes).isPresent());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#checkDelegateExpression(Map)}
+   */
+  @Test
+  public void testCheckDelegateExpression() {
+    // Arrange, Act and Assert
     assertFalse(defaultActivityBehaviorFactory.checkDelegateExpression(new HashMap<>()).isPresent());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#getAttributeValue(Map, String)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link ExtensionAttribute#ExtensionAttribute(String)} with name is {@code activiti}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#getAttributeValue(Map, String)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#checkDelegateExpression(Map)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.util.Optional DefaultActivityBehaviorFactory.getAttributeValue(Map, String)"})
-  public void testGetAttributeValue_givenArrayListAddExtensionAttributeWithNameIsActiviti() {
+  public void testCheckDelegateExpression2() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    ArrayList<ExtensionAttribute> extensionAttributeList = new ArrayList<>();
-    extensionAttributeList.add(new ExtensionAttribute("activiti"));
-
     HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
-    attributes.put("activiti", extensionAttributeList);
+    attributes.computeIfPresent("delegateExpression", mock(BiFunction.class));
 
     // Act and Assert
-    assertFalse(defaultActivityBehaviorFactory.getAttributeValue(attributes, "Name").isPresent());
+    assertFalse(defaultActivityBehaviorFactory.checkDelegateExpression(attributes).isPresent());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#getAttributeValue(Map, String)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link ExtensionAttribute#ExtensionAttribute(String)} with name is {@code activiti}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#getAttributeValue(Map, String)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#checkDelegateExpression(Map)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.util.Optional DefaultActivityBehaviorFactory.getAttributeValue(Map, String)"})
-  public void testGetAttributeValue_givenArrayListAddExtensionAttributeWithNameIsActiviti2() {
+  public void testCheckDelegateExpression3() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-
-    ArrayList<ExtensionAttribute> extensionAttributeList = new ArrayList<>();
-    extensionAttributeList.add(new ExtensionAttribute("activiti"));
-    extensionAttributeList.add(new ExtensionAttribute("activiti"));
-
     HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
-    attributes.put("activiti", extensionAttributeList);
+    attributes.put("activiti", new ArrayList<>());
+    attributes.computeIfPresent("delegateExpression", mock(BiFunction.class));
 
     // Act and Assert
-    assertFalse(defaultActivityBehaviorFactory.getAttributeValue(attributes, "Name").isPresent());
+    assertFalse(defaultActivityBehaviorFactory.checkDelegateExpression(attributes).isPresent());
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#getAttributeValue(Map, String)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return not Present.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#getAttributeValue(Map, String)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#checkDelegateExpression(Map)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.util.Optional DefaultActivityBehaviorFactory.getAttributeValue(Map, String)"})
-  public void testGetAttributeValue_givenArrayList_thenReturnNotPresent() {
+  public void testCheckDelegateExpression4() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
+    ArrayList<ExtensionAttribute> extensionAttributeList = new ArrayList<>();
+    extensionAttributeList.add(new ExtensionAttribute("delegateExpression"));
 
+    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
+    attributes.put("activiti", extensionAttributeList);
+    attributes.computeIfPresent("delegateExpression", mock(BiFunction.class));
+
+    // Act and Assert
+    assertFalse(defaultActivityBehaviorFactory.checkDelegateExpression(attributes).isPresent());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#checkDelegateExpression(Map)}
+   */
+  @Test
+  public void testCheckDelegateExpression5() {
+    // Arrange
+    ArrayList<ExtensionAttribute> extensionAttributeList = new ArrayList<>();
+    extensionAttributeList.add(new ExtensionAttribute("Name"));
+    extensionAttributeList.add(new ExtensionAttribute("delegateExpression"));
+
+    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
+    attributes.put("activiti", extensionAttributeList);
+    attributes.computeIfPresent("delegateExpression", mock(BiFunction.class));
+
+    // Act and Assert
+    assertFalse(defaultActivityBehaviorFactory.checkDelegateExpression(attributes).isPresent());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#getAttributeValue(Map, String)}
+   */
+  @Test
+  public void testGetAttributeValue() {
+    // Arrange, Act and Assert
+    assertFalse(defaultActivityBehaviorFactory.getAttributeValue(new HashMap<>(), "Name").isPresent());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#getAttributeValue(Map, String)}
+   */
+  @Test
+  public void testGetAttributeValue2() {
+    // Arrange
     HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
     attributes.put("activiti", new ArrayList<>());
 
@@ -4015,22 +3120,105 @@ public class DefaultActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultActivityBehaviorFactory#getAttributeValue(Map, String)}.
-   * <ul>
-   *   <li>When {@link HashMap#HashMap()}.</li>
-   *   <li>Then return not Present.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultActivityBehaviorFactory#getAttributeValue(Map, String)}
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#getAttributeValue(Map, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.util.Optional DefaultActivityBehaviorFactory.getAttributeValue(Map, String)"})
-  public void testGetAttributeValue_whenHashMap_thenReturnNotPresent() {
+  public void testGetAttributeValue3() {
     // Arrange
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
+    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
+    attributes.computeIfPresent("activiti", mock(BiFunction.class));
+    attributes.put("activiti", new ArrayList<>());
 
     // Act and Assert
-    assertFalse(defaultActivityBehaviorFactory.getAttributeValue(new HashMap<>(), "Name").isPresent());
+    assertFalse(defaultActivityBehaviorFactory.getAttributeValue(attributes, "Name").isPresent());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#getAttributeValue(Map, String)}
+   */
+  @Test
+  public void testGetAttributeValue4() {
+    // Arrange
+    ArrayList<ExtensionAttribute> extensionAttributeList = new ArrayList<>();
+    extensionAttributeList.add(new ExtensionAttribute("activiti"));
+
+    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
+    attributes.put("activiti", extensionAttributeList);
+
+    // Act and Assert
+    assertFalse(defaultActivityBehaviorFactory.getAttributeValue(attributes, "Name").isPresent());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#getAttributeValue(Map, String)}
+   */
+  @Test
+  public void testGetAttributeValue5() {
+    // Arrange
+    ArrayList<ExtensionAttribute> extensionAttributeList = new ArrayList<>();
+    extensionAttributeList.add(new ExtensionAttribute("activiti"));
+    extensionAttributeList.add(new ExtensionAttribute("activiti"));
+
+    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
+    attributes.put("activiti", extensionAttributeList);
+
+    // Act and Assert
+    assertFalse(defaultActivityBehaviorFactory.getAttributeValue(attributes, "Name").isPresent());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#DefaultActivityBehaviorFactory()}
+   */
+  @Test
+  public void testNewDefaultActivityBehaviorFactory() {
+    // Arrange and Act
+    DefaultActivityBehaviorFactory actualDefaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
+
+    // Assert
+    assertTrue(actualDefaultActivityBehaviorFactory
+        .getMessageExecutionContextFactory() instanceof DefaultMessageExecutionContextFactory);
+    assertTrue(actualDefaultActivityBehaviorFactory
+        .getMessagePayloadMappingProviderFactory() instanceof BpmnMessagePayloadMappingProviderFactory);
+    assertNull(actualDefaultActivityBehaviorFactory.getExpressionManager());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#DefaultActivityBehaviorFactory(ClassDelegateFactory)}
+   */
+  @Test
+  public void testNewDefaultActivityBehaviorFactory2() {
+    // Arrange and Act
+    DefaultActivityBehaviorFactory actualDefaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory(
+        new DefaultClassDelegateFactory());
+
+    // Assert
+    assertTrue(actualDefaultActivityBehaviorFactory
+        .getMessageExecutionContextFactory() instanceof DefaultMessageExecutionContextFactory);
+    assertTrue(actualDefaultActivityBehaviorFactory
+        .getMessagePayloadMappingProviderFactory() instanceof BpmnMessagePayloadMappingProviderFactory);
+    assertNull(actualDefaultActivityBehaviorFactory.getExpressionManager());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultActivityBehaviorFactory#DefaultActivityBehaviorFactory(ClassDelegateFactory)}
+   */
+  @Test
+  public void testNewDefaultActivityBehaviorFactory3() {
+    // Arrange and Act
+    DefaultActivityBehaviorFactory actualDefaultActivityBehaviorFactory = new DefaultActivityBehaviorFactory(
+        mock(DefaultClassDelegateFactory.class));
+
+    // Assert
+    assertTrue(actualDefaultActivityBehaviorFactory
+        .getMessageExecutionContextFactory() instanceof DefaultMessageExecutionContextFactory);
+    assertTrue(actualDefaultActivityBehaviorFactory
+        .getMessagePayloadMappingProviderFactory() instanceof BpmnMessagePayloadMappingProviderFactory);
+    assertNull(actualDefaultActivityBehaviorFactory.getExpressionManager());
   }
 }

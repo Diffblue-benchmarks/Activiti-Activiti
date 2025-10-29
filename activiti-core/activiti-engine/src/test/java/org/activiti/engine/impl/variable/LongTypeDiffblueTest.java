@@ -19,27 +19,22 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.activiti.engine.impl.persistence.entity.HistoricDetailVariableInstanceUpdateEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.mockito.Mockito;
 
 public class LongTypeDiffblueTest {
   /**
-   * Test {@link LongType#getValue(ValueFields)}.
-   * <ul>
-   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor).</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link LongType#getValue(ValueFields)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object LongType.getValue(ValueFields)"})
-  public void testGetValue_whenHistoricDetailVariableInstanceUpdateEntityImpl_thenReturnNull() {
+  public void testGetValue() {
     // Arrange
     LongType longType = new LongType();
 
@@ -48,17 +43,27 @@ public class LongTypeDiffblueTest {
   }
 
   /**
-   * Test {@link LongType#setValue(Object, ValueFields)}.
-   * <ul>
-   *   <li>Then {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor) LongValue is {@code null}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link LongType#getValue(ValueFields)}
+   */
+  @Test
+  public void testGetValue2() {
+    // Arrange
+    LongType longType = new LongType();
+    ValueFields valueFields = mock(ValueFields.class);
+    when(valueFields.getLongValue()).thenReturn(42L);
+
+    // Act
+    longType.getValue(valueFields);
+
+    // Assert
+    verify(valueFields).getLongValue();
+  }
+
+  /**
    * Method under test: {@link LongType#setValue(Object, ValueFields)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void LongType.setValue(Object, ValueFields)"})
-  public void testSetValue_thenHistoricDetailVariableInstanceUpdateEntityImplLongValueIsNull() {
+  public void testSetValue() {
     // Arrange
     LongType longType = new LongType();
     HistoricDetailVariableInstanceUpdateEntityImpl valueFields = new HistoricDetailVariableInstanceUpdateEntityImpl();
@@ -66,23 +71,16 @@ public class LongTypeDiffblueTest {
     // Act
     longType.setValue(null, valueFields);
 
-    // Assert that nothing has changed
+    // Assert
     assertNull(valueFields.getLongValue());
     assertNull(valueFields.getTextValue());
   }
 
   /**
-   * Test {@link LongType#setValue(Object, ValueFields)}.
-   * <ul>
-   *   <li>Then {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor) TextValue is {@code 42}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link LongType#setValue(Object, ValueFields)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void LongType.setValue(Object, ValueFields)"})
-  public void testSetValue_thenHistoricDetailVariableInstanceUpdateEntityImplTextValueIs42() {
+  public void testSetValue2() {
     // Arrange
     LongType longType = new LongType();
     HistoricDetailVariableInstanceUpdateEntityImpl valueFields = new HistoricDetailVariableInstanceUpdateEntityImpl();
@@ -96,42 +94,35 @@ public class LongTypeDiffblueTest {
   }
 
   /**
-   * Test {@link LongType#isAbleToStore(Object)}.
-   * <ul>
-   *   <li>When {@link JSONObject#NULL}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link LongType#isAbleToStore(Object)}
+   * Method under test: {@link LongType#setValue(Object, ValueFields)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean LongType.isAbleToStore(Object)"})
-  public void testIsAbleToStore_whenNull_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse((new LongType()).isAbleToStore(JSONObject.NULL));
+  public void testSetValue3() {
+    // Arrange
+    LongType longType = new LongType();
+    ValueFields valueFields = mock(ValueFields.class);
+    doNothing().when(valueFields).setLongValue(Mockito.<Long>any());
+    doNothing().when(valueFields).setTextValue(Mockito.<String>any());
+
+    // Act
+    longType.setValue(42L, valueFields);
+
+    // Assert
+    verify(valueFields).setLongValue(eq(42L));
+    verify(valueFields).setTextValue(eq("42"));
   }
 
   /**
-   * Test {@link LongType#isAbleToStore(Object)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link LongType#isAbleToStore(Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean LongType.isAbleToStore(Object)"})
-  public void testIsAbleToStore_whenNull_thenReturnTrue() {
+  public void testIsAbleToStore() {
     // Arrange, Act and Assert
+    assertFalse((new LongType()).isAbleToStore(JSONObject.NULL));
     assertTrue((new LongType()).isAbleToStore(null));
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link LongType}
@@ -140,8 +131,6 @@ public class LongTypeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void LongType.<init>()", "String LongType.getTypeName()", "boolean LongType.isCachable()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     LongType actualLongType = new LongType();

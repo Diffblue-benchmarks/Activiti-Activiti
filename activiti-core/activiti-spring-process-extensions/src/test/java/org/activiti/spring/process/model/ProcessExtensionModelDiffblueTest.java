@@ -19,31 +19,39 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
+import java.util.function.BiFunction;
 import org.junit.jupiter.api.Test;
 
 class ProcessExtensionModelDiffblueTest {
   /**
-   * Test {@link ProcessExtensionModel#getExtensions(String)}.
-   * <p>
    * Method under test: {@link ProcessExtensionModel#getExtensions(String)}
    */
   @Test
-  @DisplayName("Test getExtensions(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Extension ProcessExtensionModel.getExtensions(String)"})
   void testGetExtensions() {
     // Arrange, Act and Assert
     assertNull((new ProcessExtensionModel()).getExtensions("Process Definition Key"));
   }
 
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link ProcessExtensionModel#getExtensions(String)}
+   */
+  @Test
+  void testGetExtensions2() {
+    // Arrange
+    HashMap<String, Extension> extensions = new HashMap<>();
+    extensions.computeIfPresent("foo", mock(BiFunction.class));
+
+    ProcessExtensionModel processExtensionModel = new ProcessExtensionModel();
+    processExtensionModel.setExtensions(extensions);
+
+    // Act and Assert
+    assertNull(processExtensionModel.getExtensions("Process Definition Key"));
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ProcessExtensionModel}
@@ -54,11 +62,6 @@ class ProcessExtensionModelDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessExtensionModel.<init>()", "Map ProcessExtensionModel.getAllExtensions()",
-      "String ProcessExtensionModel.getId()", "void ProcessExtensionModel.setExtensions(Map)",
-      "void ProcessExtensionModel.setId(String)"})
   void testGettersAndSetters() {
     // Arrange and Act
     ProcessExtensionModel actualProcessExtensionModel = new ProcessExtensionModel();
@@ -67,7 +70,7 @@ class ProcessExtensionModelDiffblueTest {
     actualProcessExtensionModel.setId("42");
     Map<String, Extension> actualAllExtensions = actualProcessExtensionModel.getAllExtensions();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("42", actualProcessExtensionModel.getId());
     assertTrue(actualAllExtensions.isEmpty());
     assertSame(extensions, actualAllExtensions);

@@ -18,34 +18,24 @@ package org.activiti.runtime.api.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Optional;
+import org.activiti.api.process.model.BPMNActivity;
 import org.activiti.api.process.model.events.BPMNActivityCompletedEvent;
 import org.activiti.api.process.model.events.BPMNActivityEvent;
-import org.activiti.api.process.model.events.BPMNActivityEvent.ActivityEvents;
 import org.activiti.api.runtime.event.impl.BPMNActivityCompletedEventImpl;
 import org.activiti.api.runtime.model.impl.BPMNActivityImpl;
 import org.activiti.engine.delegate.event.ActivitiActivityEvent;
 import org.activiti.engine.delegate.event.impl.ActivitiActivityCancelledEventImpl;
 import org.activiti.runtime.api.model.impl.ToActivityConverter;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ToActivityCompletedConverterDiffblueTest {
   /**
-   * Test {@link ToActivityCompletedConverter#from(ActivitiActivityEvent)} with {@code ActivitiActivityEvent}.
-   * <ul>
-   *   <li>Then {@link Optional#get()} return {@link BPMNActivityCompletedEventImpl}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ToActivityCompletedConverter#from(ActivitiActivityEvent)}
+   * Method under test:
+   * {@link ToActivityCompletedConverter#from(ActivitiActivityEvent)}
    */
   @Test
-  @DisplayName("Test from(ActivitiActivityEvent) with 'ActivitiActivityEvent'; then get() return BPMNActivityCompletedEventImpl")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Optional ToActivityCompletedConverter.from(ActivitiActivityEvent)"})
-  void testFromWithActivitiActivityEvent_thenGetReturnBPMNActivityCompletedEventImpl() {
+  void testFrom() {
     // Arrange
     ToActivityCompletedConverter toActivityCompletedConverter = new ToActivityCompletedConverter(
         new ToActivityConverter());
@@ -57,14 +47,21 @@ class ToActivityCompletedConverterDiffblueTest {
     // Assert
     BPMNActivityCompletedEvent getResult = actualFromResult.get();
     assertTrue(getResult instanceof BPMNActivityCompletedEventImpl);
-    assertTrue(getResult.getEntity() instanceof BPMNActivityImpl);
+    BPMNActivity entity = getResult.getEntity();
+    assertTrue(entity instanceof BPMNActivityImpl);
     assertNull(getResult.getProcessDefinitionVersion());
     assertNull(getResult.getBusinessKey());
     assertNull(getResult.getParentProcessInstanceId());
     assertNull(getResult.getProcessDefinitionId());
     assertNull(getResult.getProcessDefinitionKey());
     assertNull(getResult.getProcessInstanceId());
-    assertEquals(ActivityEvents.ACTIVITY_COMPLETED, getResult.getEventType());
+    assertNull(entity.getActivityName());
+    assertNull(entity.getActivityType());
+    assertNull(entity.getExecutionId());
+    assertNull(entity.getElementId());
+    assertNull(entity.getProcessDefinitionId());
+    assertNull(entity.getProcessInstanceId());
+    assertEquals(BPMNActivityEvent.ActivityEvents.ACTIVITY_COMPLETED, getResult.getEventType());
     assertTrue(actualFromResult.isPresent());
   }
 }

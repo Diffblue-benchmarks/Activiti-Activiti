@@ -21,8 +21,6 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BoundaryEvent;
@@ -32,19 +30,35 @@ import org.activiti.bpmn.model.SignalEventDefinition;
 import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class SignalEventDefinitionParseHandlerDiffblueTest {
   /**
-   * Test {@link SignalEventDefinitionParseHandler#executeParse(BpmnParse, SignalEventDefinition)} with {@code BpmnParse}, {@code SignalEventDefinition}.
-   * <p>
-   * Method under test: {@link SignalEventDefinitionParseHandler#executeParse(BpmnParse, SignalEventDefinition)}
+   * Method under test:
+   * {@link SignalEventDefinitionParseHandler#executeParse(BpmnParse, SignalEventDefinition)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SignalEventDefinitionParseHandler.executeParse(BpmnParse, SignalEventDefinition)"})
-  public void testExecuteParseWithBpmnParseSignalEventDefinition() {
+  public void testExecuteParse() {
+    // Arrange
+    SignalEventDefinitionParseHandler signalEventDefinitionParseHandler = new SignalEventDefinitionParseHandler();
+    BpmnParse bpmnParse = mock(BpmnParse.class);
+    when(bpmnParse.getCurrentFlowElement()).thenReturn(new AdhocSubProcess());
+    when(bpmnParse.getBpmnModel()).thenReturn(new BpmnModel());
+
+    // Act
+    signalEventDefinitionParseHandler.executeParse(bpmnParse, new SignalEventDefinition());
+
+    // Assert that nothing has changed
+    verify(bpmnParse).getBpmnModel();
+    verify(bpmnParse, atLeast(1)).getCurrentFlowElement();
+  }
+
+  /**
+   * Method under test:
+   * {@link SignalEventDefinitionParseHandler#executeParse(BpmnParse, SignalEventDefinition)}
+   */
+  @Test
+  public void testExecuteParse2() {
     // Arrange
     SignalEventDefinitionParseHandler signalEventDefinitionParseHandler = new SignalEventDefinitionParseHandler();
     BpmnParse bpmnParse = mock(BpmnParse.class);
@@ -62,43 +76,11 @@ public class SignalEventDefinitionParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link SignalEventDefinitionParseHandler#executeParse(BpmnParse, SignalEventDefinition)} with {@code BpmnParse}, {@code SignalEventDefinition}.
-   * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SignalEventDefinitionParseHandler#executeParse(BpmnParse, SignalEventDefinition)}
+   * Method under test:
+   * {@link SignalEventDefinitionParseHandler#executeParse(BpmnParse, SignalEventDefinition)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SignalEventDefinitionParseHandler.executeParse(BpmnParse, SignalEventDefinition)"})
-  public void testExecuteParseWithBpmnParseSignalEventDefinition_givenAdhocSubProcess() {
-    // Arrange
-    SignalEventDefinitionParseHandler signalEventDefinitionParseHandler = new SignalEventDefinitionParseHandler();
-    BpmnParse bpmnParse = mock(BpmnParse.class);
-    when(bpmnParse.getCurrentFlowElement()).thenReturn(new AdhocSubProcess());
-    when(bpmnParse.getBpmnModel()).thenReturn(new BpmnModel());
-
-    // Act
-    signalEventDefinitionParseHandler.executeParse(bpmnParse, new SignalEventDefinition());
-
-    // Assert
-    verify(bpmnParse).getBpmnModel();
-    verify(bpmnParse, atLeast(1)).getCurrentFlowElement();
-  }
-
-  /**
-   * Test {@link SignalEventDefinitionParseHandler#executeParse(BpmnParse, SignalEventDefinition)} with {@code BpmnParse}, {@code SignalEventDefinition}.
-   * <ul>
-   *   <li>Then calls {@link BpmnModel#containsSignalId(String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SignalEventDefinitionParseHandler#executeParse(BpmnParse, SignalEventDefinition)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SignalEventDefinitionParseHandler.executeParse(BpmnParse, SignalEventDefinition)"})
-  public void testExecuteParseWithBpmnParseSignalEventDefinition_thenCallsContainsSignalId() {
+  public void testExecuteParse3() {
     // Arrange
     SignalEventDefinitionParseHandler signalEventDefinitionParseHandler = new SignalEventDefinitionParseHandler();
     BpmnModel bpmnModel = mock(BpmnModel.class);
@@ -121,18 +103,14 @@ public class SignalEventDefinitionParseHandlerDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of {@link SignalEventDefinitionParseHandler}
+   *   <li>default or parameterless constructor of
+   * {@link SignalEventDefinitionParseHandler}
    *   <li>{@link SignalEventDefinitionParseHandler#getHandledType()}
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SignalEventDefinitionParseHandler.<init>()",
-      "Class SignalEventDefinitionParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends BaseElement> actualHandledType = (new SignalEventDefinitionParseHandler()).getHandledType();

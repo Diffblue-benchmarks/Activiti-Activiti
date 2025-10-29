@@ -16,12 +16,10 @@
 package org.activiti.core.common.spring.identity.config;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import org.activiti.api.runtime.shared.identity.UserGroupManager;
 import org.activiti.core.common.spring.identity.ActivitiUserGroupManagerImpl;
 import org.activiti.core.common.spring.identity.ExtendedInMemoryUserDetailsManager;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,21 +40,30 @@ class ActivitiSpringIdentityAutoConfigurationDiffblueTest {
   private UserDetailsService userDetailsService;
 
   /**
-   * Test {@link ActivitiSpringIdentityAutoConfiguration#userGroupManager(UserDetailsService)}.
-   * <ul>
-   *   <li>Then return {@link ActivitiUserGroupManagerImpl}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ActivitiSpringIdentityAutoConfiguration#userGroupManager(UserDetailsService)}
+   * Method under test:
+   * {@link ActivitiSpringIdentityAutoConfiguration#userGroupManager(UserDetailsService)}
    */
   @Test
-  @DisplayName("Test userGroupManager(UserDetailsService); then return ActivitiUserGroupManagerImpl")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"UserGroupManager ActivitiSpringIdentityAutoConfiguration.userGroupManager(UserDetailsService)"})
-  void testUserGroupManager_thenReturnActivitiUserGroupManagerImpl() {
+  void testUserGroupManager() {
     // Arrange and Act
     UserGroupManager actualUserGroupManagerResult = activitiSpringIdentityAutoConfiguration
         .userGroupManager(new ExtendedInMemoryUserDetailsManager());
+
+    // Assert
+    assertTrue(actualUserGroupManagerResult instanceof ActivitiUserGroupManagerImpl);
+    assertTrue(actualUserGroupManagerResult.getGroups().isEmpty());
+    assertTrue(actualUserGroupManagerResult.getUsers().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link ActivitiSpringIdentityAutoConfiguration#userGroupManager(UserDetailsService)}
+   */
+  @Test
+  void testUserGroupManager2() {
+    // Arrange and Act
+    UserGroupManager actualUserGroupManagerResult = activitiSpringIdentityAutoConfiguration
+        .userGroupManager(mock(ExtendedInMemoryUserDetailsManager.class));
 
     // Assert
     assertTrue(actualUserGroupManagerResult instanceof ActivitiUserGroupManagerImpl);

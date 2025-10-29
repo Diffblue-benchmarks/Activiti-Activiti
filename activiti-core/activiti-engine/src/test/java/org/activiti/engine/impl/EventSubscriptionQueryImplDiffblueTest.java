@@ -18,35 +18,23 @@ package org.activiti.engine.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
 @RunWith(MockitoJUnitRunner.class)
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class EventSubscriptionQueryImplDiffblueTest {
   @InjectMocks
   private EventSubscriptionQueryImpl eventSubscriptionQueryImpl;
 
   /**
-   * Test {@link EventSubscriptionQueryImpl#eventSubscriptionId(String)}.
-   * <ul>
-   *   <li>Then {@link EventSubscriptionQueryImpl} EventSubscriptionId is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EventSubscriptionQueryImpl#eventSubscriptionId(String)}
+   * Method under test:
+   * {@link EventSubscriptionQueryImpl#eventSubscriptionId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"EventSubscriptionQueryImpl EventSubscriptionQueryImpl.eventSubscriptionId(String)"})
-  public void testEventSubscriptionId_thenEventSubscriptionQueryImplEventSubscriptionIdIs42() {
+  public void testEventSubscriptionId() {
     // Arrange and Act
     EventSubscriptionQueryImpl actualEventSubscriptionIdResult = eventSubscriptionQueryImpl.eventSubscriptionId("42");
 
@@ -56,35 +44,20 @@ public class EventSubscriptionQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link EventSubscriptionQueryImpl#eventSubscriptionId(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EventSubscriptionQueryImpl#eventSubscriptionId(String)}
+   * Method under test:
+   * {@link EventSubscriptionQueryImpl#eventSubscriptionId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"EventSubscriptionQueryImpl EventSubscriptionQueryImpl.eventSubscriptionId(String)"})
-  public void testEventSubscriptionId_whenNull_thenThrowActivitiIllegalArgumentException() {
+  public void testEventSubscriptionId2() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> eventSubscriptionQueryImpl.eventSubscriptionId(null));
   }
 
   /**
-   * Test {@link EventSubscriptionQueryImpl#eventName(String)}.
-   * <ul>
-   *   <li>When {@code Event Name}.</li>
-   *   <li>Then {@link EventSubscriptionQueryImpl} EventName is {@code Event Name}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link EventSubscriptionQueryImpl#eventName(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"EventSubscriptionQueryImpl EventSubscriptionQueryImpl.eventName(String)"})
-  public void testEventName_whenEventName_thenEventSubscriptionQueryImplEventNameIsEventName() {
+  public void testEventName() {
     // Arrange and Act
     EventSubscriptionQueryImpl actualEventNameResult = eventSubscriptionQueryImpl.eventName("Event Name");
 
@@ -94,35 +67,19 @@ public class EventSubscriptionQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link EventSubscriptionQueryImpl#eventName(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link EventSubscriptionQueryImpl#eventName(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"EventSubscriptionQueryImpl EventSubscriptionQueryImpl.eventName(String)"})
-  public void testEventName_whenNull_thenThrowActivitiIllegalArgumentException() {
+  public void testEventName2() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> eventSubscriptionQueryImpl.eventName(null));
   }
 
   /**
-   * Test {@link EventSubscriptionQueryImpl#executionId(String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then {@link EventSubscriptionQueryImpl} ExecutionId is {@code 42}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link EventSubscriptionQueryImpl#executionId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"EventSubscriptionQueryImpl EventSubscriptionQueryImpl.executionId(String)"})
-  public void testExecutionId_when42_thenEventSubscriptionQueryImplExecutionIdIs42() {
+  public void testExecutionId() {
     // Arrange and Act
     EventSubscriptionQueryImpl actualExecutionIdResult = eventSubscriptionQueryImpl.executionId("42");
 
@@ -132,35 +89,20 @@ public class EventSubscriptionQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link EventSubscriptionQueryImpl#executionId(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link EventSubscriptionQueryImpl#executionId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"EventSubscriptionQueryImpl EventSubscriptionQueryImpl.executionId(String)"})
-  public void testExecutionId_whenNull_thenThrowActivitiIllegalArgumentException() {
+  public void testExecutionId2() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> eventSubscriptionQueryImpl.executionId(null));
   }
 
   /**
-   * Test {@link EventSubscriptionQueryImpl#processInstanceId(String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then {@link EventSubscriptionQueryImpl} ProcessInstanceId is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EventSubscriptionQueryImpl#processInstanceId(String)}
+   * Method under test:
+   * {@link EventSubscriptionQueryImpl#processInstanceId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"EventSubscriptionQueryImpl EventSubscriptionQueryImpl.processInstanceId(String)"})
-  public void testProcessInstanceId_when42_thenEventSubscriptionQueryImplProcessInstanceIdIs42() {
+  public void testProcessInstanceId() {
     // Arrange and Act
     EventSubscriptionQueryImpl actualProcessInstanceIdResult = eventSubscriptionQueryImpl.processInstanceId("42");
 
@@ -170,35 +112,20 @@ public class EventSubscriptionQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link EventSubscriptionQueryImpl#processInstanceId(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EventSubscriptionQueryImpl#processInstanceId(String)}
+   * Method under test:
+   * {@link EventSubscriptionQueryImpl#processInstanceId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"EventSubscriptionQueryImpl EventSubscriptionQueryImpl.processInstanceId(String)"})
-  public void testProcessInstanceId_whenNull_thenThrowActivitiIllegalArgumentException() {
+  public void testProcessInstanceId2() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> eventSubscriptionQueryImpl.processInstanceId(null));
   }
 
   /**
-   * Test {@link EventSubscriptionQueryImpl#activityId(String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then {@link EventSubscriptionQueryImpl} ActivityId is {@code 42}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link EventSubscriptionQueryImpl#activityId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"EventSubscriptionQueryImpl EventSubscriptionQueryImpl.activityId(String)"})
-  public void testActivityId_when42_thenEventSubscriptionQueryImplActivityIdIs42() {
+  public void testActivityId() {
     // Arrange and Act
     EventSubscriptionQueryImpl actualActivityIdResult = eventSubscriptionQueryImpl.activityId("42");
 
@@ -208,35 +135,19 @@ public class EventSubscriptionQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link EventSubscriptionQueryImpl#activityId(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link EventSubscriptionQueryImpl#activityId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"EventSubscriptionQueryImpl EventSubscriptionQueryImpl.activityId(String)"})
-  public void testActivityId_whenNull_thenThrowActivitiIllegalArgumentException() {
+  public void testActivityId2() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> eventSubscriptionQueryImpl.activityId(null));
   }
 
   /**
-   * Test {@link EventSubscriptionQueryImpl#eventType(String)}.
-   * <ul>
-   *   <li>When {@code Event Type}.</li>
-   *   <li>Then {@link EventSubscriptionQueryImpl} EventType is {@code Event Type}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link EventSubscriptionQueryImpl#eventType(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"EventSubscriptionQueryImpl EventSubscriptionQueryImpl.eventType(String)"})
-  public void testEventType_whenEventType_thenEventSubscriptionQueryImplEventTypeIsEventType() {
+  public void testEventType() {
     // Arrange and Act
     EventSubscriptionQueryImpl actualEventTypeResult = eventSubscriptionQueryImpl.eventType("Event Type");
 
@@ -246,18 +157,10 @@ public class EventSubscriptionQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link EventSubscriptionQueryImpl#eventType(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link EventSubscriptionQueryImpl#eventType(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"EventSubscriptionQueryImpl EventSubscriptionQueryImpl.eventType(String)"})
-  public void testEventType_whenNull_thenThrowActivitiIllegalArgumentException() {
+  public void testEventType2() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> eventSubscriptionQueryImpl.eventType(null));
   }

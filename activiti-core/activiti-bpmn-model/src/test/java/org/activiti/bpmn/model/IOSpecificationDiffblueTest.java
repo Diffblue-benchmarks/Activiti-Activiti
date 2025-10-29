@@ -23,100 +23,36 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class IOSpecificationDiffblueTest {
   /**
-   * Test {@link IOSpecification#clone()}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link DataSpec} (default constructor).</li>
-   *   <li>Then return not DataOutputs first Collection.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link IOSpecification#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"IOSpecification IOSpecification.clone()"})
-  public void testClone_givenArrayListAddDataSpec_thenReturnNotDataOutputsFirstCollection() {
-    // Arrange
-    ArrayList<DataSpec> dataOutputs = new ArrayList<>();
-    dataOutputs.add(new DataSpec());
+  public void testClone() {
+    // Arrange and Act
+    IOSpecification actualCloneResult = (new IOSpecification()).clone();
 
-    IOSpecification ioSpecification = new IOSpecification();
-    ioSpecification.setDataInputs(null);
-    ioSpecification.setDataOutputs(dataOutputs);
-
-    // Act and Assert
-    List<DataSpec> dataOutputs2 = ioSpecification.clone().getDataOutputs();
-    assertEquals(1, dataOutputs2.size());
-    DataSpec getResult = dataOutputs2.get(0);
-    assertNull(getResult.getId());
-    assertNull(getResult.getItemSubjectRef());
-    assertNull(getResult.getName());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertFalse(getResult.isCollection());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertTrue(actualCloneResult.getDataInputRefs().isEmpty());
+    assertTrue(actualCloneResult.getDataInputs().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputRefs().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputs().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
   }
 
   /**
-   * Test {@link IOSpecification#clone()}.
-   * <ul>
-   *   <li>Given {@link DataSpec} (default constructor) Collection is {@code true}.</li>
-   *   <li>Then return DataOutputs first Collection.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link IOSpecification#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"IOSpecification IOSpecification.clone()"})
-  public void testClone_givenDataSpecCollectionIsTrue_thenReturnDataOutputsFirstCollection() {
-    // Arrange
-    DataSpec dataSpec = new DataSpec();
-    dataSpec.setCollection(true);
-
-    ArrayList<DataSpec> dataOutputs = new ArrayList<>();
-    dataOutputs.add(dataSpec);
-
-    IOSpecification ioSpecification = new IOSpecification();
-    ioSpecification.setDataInputs(null);
-    ioSpecification.setDataOutputs(dataOutputs);
-
-    // Act and Assert
-    List<DataSpec> dataOutputs2 = ioSpecification.clone().getDataOutputs();
-    assertEquals(1, dataOutputs2.size());
-    DataSpec getResult = dataOutputs2.get(0);
-    assertNull(getResult.getId());
-    assertNull(getResult.getItemSubjectRef());
-    assertNull(getResult.getName());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
-    assertTrue(getResult.isCollection());
-  }
-
-  /**
-   * Test {@link IOSpecification#clone()}.
-   * <ul>
-   *   <li>Given {@link IOSpecification} (default constructor) DataOutputs is {@code null}.</li>
-   *   <li>Then return Id is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link IOSpecification#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"IOSpecification IOSpecification.clone()"})
-  public void testClone_givenIOSpecificationDataOutputsIsNull_thenReturnIdIsNull() {
+  public void testClone2() {
     // Arrange
     IOSpecification ioSpecification = new IOSpecification();
     ioSpecification.setDataInputs(null);
@@ -138,45 +74,48 @@ public class IOSpecificationDiffblueTest {
   }
 
   /**
-   * Test {@link IOSpecification#clone()}.
-   * <ul>
-   *   <li>Given {@link IOSpecification} (default constructor).</li>
-   *   <li>Then return Id is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link IOSpecification#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"IOSpecification IOSpecification.clone()"})
-  public void testClone_givenIOSpecification_thenReturnIdIsNull() {
-    // Arrange and Act
-    IOSpecification actualCloneResult = (new IOSpecification()).clone();
+  public void testClone3() {
+    // Arrange
+    ArrayList<DataSpec> dataOutputs = new ArrayList<>();
+    dataOutputs.add(new DataSpec());
+
+    IOSpecification ioSpecification = new IOSpecification();
+    ioSpecification.setDataInputs(null);
+    ioSpecification.setDataOutputs(dataOutputs);
+
+    // Act
+    IOSpecification actualCloneResult = ioSpecification.clone();
 
     // Assert
+    List<DataSpec> dataOutputs2 = actualCloneResult.getDataOutputs();
+    assertEquals(1, dataOutputs2.size());
+    DataSpec getResult = dataOutputs2.get(0);
+    assertNull(getResult.getId());
     assertNull(actualCloneResult.getId());
+    assertNull(getResult.getItemSubjectRef());
+    assertNull(getResult.getName());
+    assertEquals(0, getResult.getXmlColumnNumber());
     assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlRowNumber());
     assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(getResult.isCollection());
     assertTrue(actualCloneResult.getDataInputRefs().isEmpty());
     assertTrue(actualCloneResult.getDataInputs().isEmpty());
     assertTrue(actualCloneResult.getDataOutputRefs().isEmpty());
-    assertTrue(actualCloneResult.getDataOutputs().isEmpty());
+    assertTrue(getResult.getAttributes().isEmpty());
     assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(getResult.getExtensionElements().isEmpty());
     assertTrue(actualCloneResult.getExtensionElements().isEmpty());
   }
 
   /**
-   * Test {@link IOSpecification#clone()}.
-   * <ul>
-   *   <li>Then return DataInputs size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link IOSpecification#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"IOSpecification IOSpecification.clone()"})
-  public void testClone_thenReturnDataInputsSizeIsOne() {
+  public void testClone4() {
     // Arrange
     ArrayList<DataSpec> dataInputs = new ArrayList<>();
     dataInputs.add(new DataSpec());
@@ -185,33 +124,77 @@ public class IOSpecificationDiffblueTest {
     ioSpecification.setDataInputs(dataInputs);
     ioSpecification.setDataOutputs(null);
 
-    // Act and Assert
-    List<DataSpec> dataInputs2 = ioSpecification.clone().getDataInputs();
+    // Act
+    IOSpecification actualCloneResult = ioSpecification.clone();
+
+    // Assert
+    List<DataSpec> dataInputs2 = actualCloneResult.getDataInputs();
     assertEquals(1, dataInputs2.size());
     DataSpec getResult = dataInputs2.get(0);
     assertNull(getResult.getId());
+    assertNull(actualCloneResult.getId());
     assertNull(getResult.getItemSubjectRef());
     assertNull(getResult.getName());
     assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
     assertEquals(0, getResult.getXmlRowNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
     assertFalse(getResult.isCollection());
+    assertTrue(actualCloneResult.getDataInputRefs().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputRefs().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputs().isEmpty());
     assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
     assertTrue(getResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
   }
 
   /**
-   * Test {@link IOSpecification#setValues(IOSpecification)} with {@code otherSpec}.
-   * <ul>
-   *   <li>Given {@link DataSpec} {@link DataSpec#clone()} return {@link DataSpec} (default constructor).</li>
-   *   <li>Then calls {@link DataSpec#clone()}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link IOSpecification#clone()}
+   */
+  @Test
+  public void testClone5() {
+    // Arrange
+    DataSpec dataSpec = new DataSpec();
+    dataSpec.setCollection(true);
+
+    ArrayList<DataSpec> dataOutputs = new ArrayList<>();
+    dataOutputs.add(dataSpec);
+
+    IOSpecification ioSpecification = new IOSpecification();
+    ioSpecification.setDataInputs(null);
+    ioSpecification.setDataOutputs(dataOutputs);
+
+    // Act
+    IOSpecification actualCloneResult = ioSpecification.clone();
+
+    // Assert
+    List<DataSpec> dataOutputs2 = actualCloneResult.getDataOutputs();
+    assertEquals(1, dataOutputs2.size());
+    DataSpec getResult = dataOutputs2.get(0);
+    assertNull(getResult.getId());
+    assertNull(actualCloneResult.getId());
+    assertNull(getResult.getItemSubjectRef());
+    assertNull(getResult.getName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlRowNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertTrue(actualCloneResult.getDataInputRefs().isEmpty());
+    assertTrue(actualCloneResult.getDataInputs().isEmpty());
+    assertTrue(actualCloneResult.getDataOutputRefs().isEmpty());
+    assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(getResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(getResult.isCollection());
+  }
+
+  /**
    * Method under test: {@link IOSpecification#setValues(IOSpecification)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void IOSpecification.setValues(IOSpecification)"})
-  public void testSetValuesWithOtherSpec_givenDataSpecCloneReturnDataSpec_thenCallsClone() {
+  public void testSetValues() {
     // Arrange
     IOSpecification ioSpecification = new IOSpecification();
     DataSpec dataSpec = mock(DataSpec.class);
@@ -232,18 +215,10 @@ public class IOSpecificationDiffblueTest {
   }
 
   /**
-   * Test {@link IOSpecification#setValues(IOSpecification)} with {@code otherSpec}.
-   * <ul>
-   *   <li>Given {@link DataSpec} {@link DataSpec#clone()} return {@link DataSpec} (default constructor).</li>
-   *   <li>Then calls {@link DataSpec#clone()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link IOSpecification#setValues(IOSpecification)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void IOSpecification.setValues(IOSpecification)"})
-  public void testSetValuesWithOtherSpec_givenDataSpecCloneReturnDataSpec_thenCallsClone2() {
+  public void testSetValues2() {
     // Arrange
     IOSpecification ioSpecification = new IOSpecification();
     DataSpec dataSpec = mock(DataSpec.class);
@@ -264,8 +239,6 @@ public class IOSpecificationDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link IOSpecification}
@@ -280,12 +253,6 @@ public class IOSpecificationDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void IOSpecification.<init>()", "List IOSpecification.getDataInputRefs()",
-      "List IOSpecification.getDataInputs()", "List IOSpecification.getDataOutputRefs()",
-      "List IOSpecification.getDataOutputs()", "void IOSpecification.setDataInputRefs(List)",
-      "void IOSpecification.setDataInputs(List)", "void IOSpecification.setDataOutputRefs(List)",
-      "void IOSpecification.setDataOutputs(List)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     IOSpecification actualIoSpecification = new IOSpecification();
@@ -302,8 +269,7 @@ public class IOSpecificationDiffblueTest {
     List<String> actualDataOutputRefs = actualIoSpecification.getDataOutputRefs();
     List<DataSpec> actualDataOutputs = actualIoSpecification.getDataOutputs();
 
-    // Assert
-    assertNull(actualIoSpecification.getId());
+    // Assert that nothing has changed
     assertEquals(0, actualIoSpecification.getXmlColumnNumber());
     assertEquals(0, actualIoSpecification.getXmlRowNumber());
     assertTrue(actualDataInputRefs.isEmpty());

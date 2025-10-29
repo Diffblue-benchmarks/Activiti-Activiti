@@ -18,25 +18,29 @@ package org.activiti.api.runtime.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
 import org.activiti.api.process.model.BPMNTimer;
 import org.activiti.api.process.model.events.BPMNTimerEvent;
-import org.activiti.api.process.model.events.BPMNTimerEvent.TimerEvents;
+import org.activiti.api.process.model.payloads.TimerPayload;
 import org.activiti.api.runtime.model.impl.BPMNTimerImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class BPMNTimerFiredEventImplDiffblueTest {
   /**
-   * Test {@link BPMNTimerFiredEventImpl#BPMNTimerFiredEventImpl()}.
-   * <p>
+   * Method under test: {@link BPMNTimerFiredEventImpl#getEventType()}
+   */
+  @Test
+  void testGetEventType() {
+    // Arrange, Act and Assert
+    assertEquals(BPMNTimerEvent.TimerEvents.TIMER_FIRED, (new BPMNTimerFiredEventImpl()).getEventType());
+  }
+
+  /**
    * Method under test: {@link BPMNTimerFiredEventImpl#BPMNTimerFiredEventImpl()}
    */
   @Test
-  @DisplayName("Test new BPMNTimerFiredEventImpl()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BPMNTimerFiredEventImpl.<init>()"})
   void testNewBPMNTimerFiredEventImpl() {
     // Arrange and Act
     BPMNTimerFiredEventImpl actualBpmnTimerFiredEventImpl = new BPMNTimerFiredEventImpl();
@@ -49,18 +53,14 @@ class BPMNTimerFiredEventImplDiffblueTest {
     assertNull(actualBpmnTimerFiredEventImpl.getProcessDefinitionKey());
     assertNull(actualBpmnTimerFiredEventImpl.getProcessInstanceId());
     assertNull(actualBpmnTimerFiredEventImpl.getEntity());
-    assertEquals(TimerEvents.TIMER_FIRED, actualBpmnTimerFiredEventImpl.getEventType());
+    assertEquals(BPMNTimerEvent.TimerEvents.TIMER_FIRED, actualBpmnTimerFiredEventImpl.getEventType());
   }
 
   /**
-   * Test {@link BPMNTimerFiredEventImpl#BPMNTimerFiredEventImpl(BPMNTimer)}.
-   * <p>
-   * Method under test: {@link BPMNTimerFiredEventImpl#BPMNTimerFiredEventImpl(BPMNTimer)}
+   * Method under test:
+   * {@link BPMNTimerFiredEventImpl#BPMNTimerFiredEventImpl(BPMNTimer)}
    */
   @Test
-  @DisplayName("Test new BPMNTimerFiredEventImpl(BPMNTimer)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BPMNTimerFiredEventImpl.<init>(BPMNTimer)"})
   void testNewBPMNTimerFiredEventImpl2() {
     // Arrange
     BPMNTimerImpl entity = new BPMNTimerImpl("42");
@@ -75,21 +75,40 @@ class BPMNTimerFiredEventImplDiffblueTest {
     assertNull(actualBpmnTimerFiredEventImpl.getProcessDefinitionId());
     assertNull(actualBpmnTimerFiredEventImpl.getProcessDefinitionKey());
     assertNull(actualBpmnTimerFiredEventImpl.getProcessInstanceId());
-    assertEquals(TimerEvents.TIMER_FIRED, actualBpmnTimerFiredEventImpl.getEventType());
+    assertEquals(BPMNTimerEvent.TimerEvents.TIMER_FIRED, actualBpmnTimerFiredEventImpl.getEventType());
     assertSame(entity, actualBpmnTimerFiredEventImpl.getEntity());
   }
 
   /**
-   * Test {@link BPMNTimerFiredEventImpl#getEventType()}.
-   * <p>
-   * Method under test: {@link BPMNTimerFiredEventImpl#getEventType()}
+   * Method under test:
+   * {@link BPMNTimerFiredEventImpl#BPMNTimerFiredEventImpl(BPMNTimer)}
    */
   @Test
-  @DisplayName("Test getEventType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"TimerEvents BPMNTimerFiredEventImpl.getEventType()"})
-  void testGetEventType() {
-    // Arrange, Act and Assert
-    assertEquals(TimerEvents.TIMER_FIRED, (new BPMNTimerFiredEventImpl()).getEventType());
+  void testNewBPMNTimerFiredEventImpl3() {
+    // Arrange
+    TimerPayload timerPayload = new TimerPayload();
+    timerPayload.setDuedate(mock(java.sql.Date.class));
+    timerPayload
+        .setEndDate(java.util.Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload.setExceptionMessage("An error occurred");
+    timerPayload.setMaxIterations(3);
+    timerPayload.setRepeat("Repeat");
+    timerPayload.setRetries(1);
+
+    BPMNTimerImpl entity = new BPMNTimerImpl("42");
+    entity.setTimerPayload(timerPayload);
+
+    // Act
+    BPMNTimerFiredEventImpl actualBpmnTimerFiredEventImpl = new BPMNTimerFiredEventImpl(entity);
+
+    // Assert
+    assertNull(actualBpmnTimerFiredEventImpl.getProcessDefinitionVersion());
+    assertNull(actualBpmnTimerFiredEventImpl.getBusinessKey());
+    assertNull(actualBpmnTimerFiredEventImpl.getParentProcessInstanceId());
+    assertNull(actualBpmnTimerFiredEventImpl.getProcessDefinitionId());
+    assertNull(actualBpmnTimerFiredEventImpl.getProcessDefinitionKey());
+    assertNull(actualBpmnTimerFiredEventImpl.getProcessInstanceId());
+    assertEquals(BPMNTimerEvent.TimerEvents.TIMER_FIRED, actualBpmnTimerFiredEventImpl.getEventType());
+    assertSame(entity, actualBpmnTimerFiredEventImpl.getEntity());
   }
 }

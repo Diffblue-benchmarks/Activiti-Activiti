@@ -16,20 +16,13 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class GetModelCmdDiffblueTest {
   /**
-   * Test {@link GetModelCmd#GetModelCmd(String)}.
-   * <p>
    * Method under test: {@link GetModelCmd#GetModelCmd(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void GetModelCmd.<init>(String)"})
   public void testNewGetModelCmd() {
     // Arrange, Act and Assert
     assertEquals("42", (new GetModelCmd("42")).modelId);

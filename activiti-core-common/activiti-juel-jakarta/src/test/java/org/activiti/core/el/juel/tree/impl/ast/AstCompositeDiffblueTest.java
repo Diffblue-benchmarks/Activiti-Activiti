@@ -18,7 +18,6 @@ package org.activiti.core.el.juel.tree.impl.ast;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
 import jakarta.el.ValueExpression;
 import java.lang.reflect.Method;
@@ -28,39 +27,48 @@ import org.activiti.core.el.juel.ObjectValueExpression;
 import org.activiti.core.el.juel.misc.TypeConverter;
 import org.activiti.core.el.juel.tree.Bindings;
 import org.activiti.core.el.juel.util.SimpleContext;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class AstCompositeDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link AstComposite#AstComposite(List)}
-   *   <li>{@link AstComposite#toString()}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AstComposite.<init>(List)", "java.lang.String AstComposite.toString()"})
-  void testGettersAndSetters() {
-    // Arrange, Act and Assert
-    assertEquals("composite", (new AstComposite(new ArrayList<>())).toString());
-  }
-
-  /**
-   * Test {@link AstComposite#eval(Bindings, ELContext)}.
-   * <p>
    * Method under test: {@link AstComposite#eval(Bindings, ELContext)}
    */
   @Test
-  @DisplayName("Test eval(Bindings, ELContext)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object AstComposite.eval(Bindings, ELContext)"})
   void testEval() {
+    // Arrange
+    AstComposite astComposite = new AstComposite(new ArrayList<>());
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    Bindings bindings = new Bindings(new Method[]{null},
+        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
+
+    // Act and Assert
+    assertEquals("", astComposite.eval(bindings, new SimpleContext()));
+  }
+
+  /**
+   * Method under test: {@link AstComposite#eval(Bindings, ELContext)}
+   */
+  @Test
+  void testEval2() {
+    // Arrange
+    ArrayList<AstNode> nodes = new ArrayList<>();
+    nodes.add(new AstNull());
+    AstComposite astComposite = new AstComposite(nodes);
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    Bindings bindings = new Bindings(new Method[]{null},
+        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
+
+    // Act and Assert
+    assertEquals("", astComposite.eval(bindings, new SimpleContext()));
+  }
+
+  /**
+   * Method under test: {@link AstComposite#eval(Bindings, ELContext)}
+   */
+  @Test
+  void testEval3() {
     // Arrange
     ArrayList<AstNode> nodes = new ArrayList<>();
     AstNull question = new AstNull();
@@ -77,44 +85,10 @@ class AstCompositeDiffblueTest {
   }
 
   /**
-   * Test {@link AstComposite#eval(Bindings, ELContext)}.
-   * <p>
    * Method under test: {@link AstComposite#eval(Bindings, ELContext)}
    */
   @Test
-  @DisplayName("Test eval(Bindings, ELContext)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object AstComposite.eval(Bindings, ELContext)"})
-  void testEval2() {
-    // Arrange
-    ArrayList<AstNode> nodes = new ArrayList<>();
-    AstNull question = new AstNull();
-    AstNull yes = new AstNull();
-    nodes.add(new AstChoice(question, yes, new AstComposite(new ArrayList<>())));
-    AstComposite astComposite = new AstComposite(nodes);
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-    Bindings bindings = new Bindings(new Method[]{null},
-        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
-
-    // Act and Assert
-    assertEquals("", astComposite.eval(bindings, new SimpleContext()));
-  }
-
-  /**
-   * Test {@link AstComposite#eval(Bindings, ELContext)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link AstComposite#AstComposite(List)} with nodes is {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstComposite#eval(Bindings, ELContext)}
-   */
-  @Test
-  @DisplayName("Test eval(Bindings, ELContext); given ArrayList() add AstComposite(List) with nodes is ArrayList(); then return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object AstComposite.eval(Bindings, ELContext)"})
-  void testEval_givenArrayListAddAstCompositeWithNodesIsArrayList_thenReturnEmptyString() {
+  void testEval4() {
     // Arrange
     ArrayList<AstNode> nodes = new ArrayList<>();
     nodes.add(new AstComposite(new ArrayList<>()));
@@ -129,46 +103,10 @@ class AstCompositeDiffblueTest {
   }
 
   /**
-   * Test {@link AstComposite#eval(Bindings, ELContext)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link AstNull} (default constructor).</li>
-   *   <li>When {@code Object}.</li>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstComposite#eval(Bindings, ELContext)}
    */
   @Test
-  @DisplayName("Test eval(Bindings, ELContext); given ArrayList() add AstNull (default constructor); when 'java.lang.Object'; then return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object AstComposite.eval(Bindings, ELContext)"})
-  void testEval_givenArrayListAddAstNull_whenJavaLangObject_thenReturnEmptyString() {
-    // Arrange
-    ArrayList<AstNode> nodes = new ArrayList<>();
-    nodes.add(new AstNull());
-    AstComposite astComposite = new AstComposite(nodes);
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-    Bindings bindings = new Bindings(new Method[]{null},
-        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
-
-    // Act and Assert
-    assertEquals("", astComposite.eval(bindings, new SimpleContext()));
-  }
-
-  /**
-   * Test {@link AstComposite#eval(Bindings, ELContext)}.
-   * <ul>
-   *   <li>Given {@link AstChoice#AstChoice(AstNode, AstNode, AstNode)} with question is {@link AstNull} (default constructor) and yes is {@link AstNull} (default constructor) and no is {@link AstNull} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstComposite#eval(Bindings, ELContext)}
-   */
-  @Test
-  @DisplayName("Test eval(Bindings, ELContext); given AstChoice(AstNode, AstNode, AstNode) with question is AstNull (default constructor) and yes is AstNull (default constructor) and no is AstNull (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object AstComposite.eval(Bindings, ELContext)"})
-  void testEval_givenAstChoiceWithQuestionIsAstNullAndYesIsAstNullAndNoIsAstNull() {
+  void testEval5() {
     // Arrange
     ArrayList<AstNode> nodes = new ArrayList<>();
     AstNull question = new AstNull();
@@ -188,21 +126,16 @@ class AstCompositeDiffblueTest {
   }
 
   /**
-   * Test {@link AstComposite#eval(Bindings, ELContext)}.
-   * <ul>
-   *   <li>When {@code Object}.</li>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link AstComposite#eval(Bindings, ELContext)}
    */
   @Test
-  @DisplayName("Test eval(Bindings, ELContext); when 'java.lang.Object'; then return empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Object AstComposite.eval(Bindings, ELContext)"})
-  void testEval_whenJavaLangObject_thenReturnEmptyString() {
+  void testEval6() {
     // Arrange
-    AstComposite astComposite = new AstComposite(new ArrayList<>());
+    ArrayList<AstNode> nodes = new ArrayList<>();
+    AstNull question = new AstNull();
+    AstNull yes = new AstNull();
+    nodes.add(new AstChoice(question, yes, new AstComposite(new ArrayList<>())));
+    AstComposite astComposite = new AstComposite(nodes);
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
     Bindings bindings = new Bindings(new Method[]{null},
@@ -213,47 +146,11 @@ class AstCompositeDiffblueTest {
   }
 
   /**
-   * Test {@link AstComposite#appendStructure(StringBuilder, Bindings)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link AstComposite#AstComposite(List)} with nodes is {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstComposite#appendStructure(StringBuilder, Bindings)}
+   * Method under test:
+   * {@link AstComposite#appendStructure(StringBuilder, Bindings)}
    */
   @Test
-  @DisplayName("Test appendStructure(StringBuilder, Bindings); given ArrayList() add AstComposite(List) with nodes is ArrayList()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AstComposite.appendStructure(StringBuilder, Bindings)"})
-  void testAppendStructure_givenArrayListAddAstCompositeWithNodesIsArrayList() {
-    // Arrange
-    ArrayList<AstNode> nodes = new ArrayList<>();
-    nodes.add(new AstComposite(new ArrayList<>()));
-    AstComposite astComposite = new AstComposite(nodes);
-    StringBuilder b = new StringBuilder("foo");
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-
-    // Act
-    astComposite.appendStructure(b,
-        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
-
-    // Assert that nothing has changed
-    assertEquals("foo", b.toString());
-  }
-
-  /**
-   * Test {@link AstComposite#appendStructure(StringBuilder, Bindings)}.
-   * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstComposite#appendStructure(StringBuilder, Bindings)}
-   */
-  @Test
-  @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foo'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AstComposite.appendStructure(StringBuilder, Bindings)"})
-  void testAppendStructure_thenStringBuilderWithFooToStringIsFoo() {
+  void testAppendStructure() {
     // Arrange
     AstComposite astComposite = new AstComposite(new ArrayList<>());
     StringBuilder b = new StringBuilder("foo");
@@ -269,18 +166,11 @@ class AstCompositeDiffblueTest {
   }
 
   /**
-   * Test {@link AstComposite#appendStructure(StringBuilder, Bindings)}.
-   * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foonull}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstComposite#appendStructure(StringBuilder, Bindings)}
+   * Method under test:
+   * {@link AstComposite#appendStructure(StringBuilder, Bindings)}
    */
   @Test
-  @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foonull'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AstComposite.appendStructure(StringBuilder, Bindings)"})
-  void testAppendStructure_thenStringBuilderWithFooToStringIsFoonull() {
+  void testAppendStructure2() {
     // Arrange
     ArrayList<AstNode> nodes = new ArrayList<>();
     nodes.add(new AstNull());
@@ -298,18 +188,33 @@ class AstCompositeDiffblueTest {
   }
 
   /**
-   * Test {@link AstComposite#appendStructure(StringBuilder, Bindings)}.
-   * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foonull()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstComposite#appendStructure(StringBuilder, Bindings)}
+   * Method under test:
+   * {@link AstComposite#appendStructure(StringBuilder, Bindings)}
    */
   @Test
-  @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foonull()'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AstComposite.appendStructure(StringBuilder, Bindings)"})
-  void testAppendStructure_thenStringBuilderWithFooToStringIsFoonull2() {
+  void testAppendStructure3() {
+    // Arrange
+    ArrayList<AstNode> nodes = new ArrayList<>();
+    nodes.add(new AstComposite(new ArrayList<>()));
+    AstComposite astComposite = new AstComposite(nodes);
+    StringBuilder b = new StringBuilder("foo");
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+
+    // Act
+    astComposite.appendStructure(b,
+        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
+
+    // Assert that nothing has changed
+    assertEquals("foo", b.toString());
+  }
+
+  /**
+   * Method under test:
+   * {@link AstComposite#appendStructure(StringBuilder, Bindings)}
+   */
+  @Test
+  void testAppendStructure4() {
     // Arrange
     ArrayList<AstNode> nodes = new ArrayList<>();
     nodes.add(new AstFunction("null", 1, new AstParameters(new ArrayList<>())));
@@ -327,33 +232,36 @@ class AstCompositeDiffblueTest {
   }
 
   /**
-   * Test {@link AstComposite#getCardinality()}.
-   * <p>
    * Method under test: {@link AstComposite#getCardinality()}
    */
   @Test
-  @DisplayName("Test getCardinality()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int AstComposite.getCardinality()"})
   void testGetCardinality() {
     // Arrange, Act and Assert
     assertEquals(0, (new AstComposite(new ArrayList<>())).getCardinality());
   }
 
   /**
-   * Test {@link AstComposite#getChild(int)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link AstNull} (default constructor).</li>
-   *   <li>Then return {@link AstNull} (default constructor).</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link AstComposite#getCardinality()}
+   */
+  @Test
+  void testGetCardinality2() {
+    // Arrange
+    AstComposite astComposite = new AstComposite(new ArrayList<>());
+    StringBuilder b = new StringBuilder("foo");
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    astComposite.appendStructure(b,
+        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
+
+    // Act and Assert
+    assertEquals(0, astComposite.getCardinality());
+  }
+
+  /**
    * Method under test: {@link AstComposite#getChild(int)}
    */
   @Test
-  @DisplayName("Test getChild(int); given ArrayList() add AstNull (default constructor); then return AstNull (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"AstNode AstComposite.getChild(int)"})
-  void testGetChild_givenArrayListAddAstNull_thenReturnAstNull() {
+  void testGetChild() {
     // Arrange
     ArrayList<AstNode> nodes = new ArrayList<>();
     nodes.add(new AstNull());
@@ -362,5 +270,18 @@ class AstCompositeDiffblueTest {
 
     // Act and Assert
     assertSame(astNull, (new AstComposite(nodes)).getChild(1));
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>{@link AstComposite#AstComposite(List)}
+   *   <li>{@link AstComposite#toString()}
+   * </ul>
+   */
+  @Test
+  void testGettersAndSetters() {
+    // Arrange, Act and Assert
+    assertEquals("composite", (new AstComposite(new ArrayList<>())).toString());
   }
 }

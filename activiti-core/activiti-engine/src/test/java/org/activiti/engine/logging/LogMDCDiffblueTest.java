@@ -19,52 +19,16 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class LogMDCDiffblueTest {
   /**
-   * Test {@link LogMDC#putMDCExecution(ExecutionEntity)}.
-   * <p>
    * Method under test: {@link LogMDC#putMDCExecution(ExecutionEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void LogMDC.putMDCExecution(ExecutionEntity)"})
   public void testPutMDCExecution() {
-    // Arrange
-    ExecutionEntityImpl e = mock(ExecutionEntityImpl.class);
-    when(e.getId()).thenReturn("42");
-    when(e.getProcessDefinitionId()).thenReturn("42");
-    when(e.getProcessInstanceBusinessKey()).thenReturn(null);
-    when(e.getProcessInstanceId()).thenReturn("42");
-
-    // Act
-    LogMDC.putMDCExecution(e);
-
-    // Assert
-    verify(e, atLeast(1)).getId();
-    verify(e, atLeast(1)).getProcessDefinitionId();
-    verify(e).getProcessInstanceBusinessKey();
-    verify(e, atLeast(1)).getProcessInstanceId();
-  }
-
-  /**
-   * Test {@link LogMDC#putMDCExecution(ExecutionEntity)}.
-   * <ul>
-   *   <li>Given {@code Process Instance Business Key}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link LogMDC#putMDCExecution(ExecutionEntity)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void LogMDC.putMDCExecution(ExecutionEntity)"})
-  public void testPutMDCExecution_givenProcessInstanceBusinessKey() {
     // Arrange
     ExecutionEntityImpl e = mock(ExecutionEntityImpl.class);
     when(e.getId()).thenReturn("42");
@@ -79,6 +43,28 @@ public class LogMDCDiffblueTest {
     verify(e, atLeast(1)).getId();
     verify(e, atLeast(1)).getProcessDefinitionId();
     verify(e, atLeast(1)).getProcessInstanceBusinessKey();
+    verify(e, atLeast(1)).getProcessInstanceId();
+  }
+
+  /**
+   * Method under test: {@link LogMDC#putMDCExecution(ExecutionEntity)}
+   */
+  @Test
+  public void testPutMDCExecution2() {
+    // Arrange
+    ExecutionEntityImpl e = mock(ExecutionEntityImpl.class);
+    when(e.getId()).thenReturn("42");
+    when(e.getProcessDefinitionId()).thenReturn("42");
+    when(e.getProcessInstanceBusinessKey()).thenReturn(null);
+    when(e.getProcessInstanceId()).thenReturn("42");
+
+    // Act
+    LogMDC.putMDCExecution(e);
+
+    // Assert
+    verify(e, atLeast(1)).getId();
+    verify(e, atLeast(1)).getProcessDefinitionId();
+    verify(e).getProcessInstanceBusinessKey();
     verify(e, atLeast(1)).getProcessInstanceId();
   }
 }

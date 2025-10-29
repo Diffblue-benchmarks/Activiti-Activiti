@@ -23,37 +23,43 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiFunction;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class BaseElementDiffblueTest {
   /**
-   * Test {@link BaseElement#getId()}.
-   * <p>
    * Method under test: {@link BaseElement#getId()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String BaseElement.getId()"})
   public void testGetId() {
     // Arrange, Act and Assert
     assertNull((new ActivitiListener()).getId());
   }
 
   /**
-   * Test {@link BaseElement#setId(String)}.
-   * <p>
+   * Method under test: {@link BaseElement#getId()}
+   */
+  @Test
+  public void testGetId2() {
+    // Arrange
+    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
+    extensionElements.computeIfPresent("foo", mock(BiFunction.class));
+
+    ActivitiListener activitiListener = new ActivitiListener();
+    activitiListener.setExtensionElements(extensionElements);
+
+    // Act and Assert
+    assertNull(activitiListener.getId());
+  }
+
+  /**
    * Method under test: {@link BaseElement#setId(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void BaseElement.setId(String)"})
   public void testSetId() {
     // Arrange
     ActivitiListener activitiListener = new ActivitiListener();
@@ -66,26 +72,34 @@ public class BaseElementDiffblueTest {
   }
 
   /**
-   * Test {@link BaseElement#getXmlRowNumber()}.
-   * <p>
    * Method under test: {@link BaseElement#getXmlRowNumber()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"int BaseElement.getXmlRowNumber()"})
   public void testGetXmlRowNumber() {
     // Arrange, Act and Assert
     assertEquals(0, (new ActivitiListener()).getXmlRowNumber());
   }
 
   /**
-   * Test {@link BaseElement#setXmlRowNumber(int)}.
-   * <p>
+   * Method under test: {@link BaseElement#getXmlRowNumber()}
+   */
+  @Test
+  public void testGetXmlRowNumber2() {
+    // Arrange
+    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
+    extensionElements.computeIfPresent("foo", mock(BiFunction.class));
+
+    ActivitiListener activitiListener = new ActivitiListener();
+    activitiListener.setExtensionElements(extensionElements);
+
+    // Act and Assert
+    assertEquals(0, activitiListener.getXmlRowNumber());
+  }
+
+  /**
    * Method under test: {@link BaseElement#setXmlRowNumber(int)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void BaseElement.setXmlRowNumber(int)"})
   public void testSetXmlRowNumber() {
     // Arrange
     ActivitiListener activitiListener = new ActivitiListener();
@@ -98,26 +112,34 @@ public class BaseElementDiffblueTest {
   }
 
   /**
-   * Test {@link BaseElement#getXmlColumnNumber()}.
-   * <p>
    * Method under test: {@link BaseElement#getXmlColumnNumber()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"int BaseElement.getXmlColumnNumber()"})
   public void testGetXmlColumnNumber() {
     // Arrange, Act and Assert
     assertEquals(0, (new ActivitiListener()).getXmlColumnNumber());
   }
 
   /**
-   * Test {@link BaseElement#setXmlColumnNumber(int)}.
-   * <p>
+   * Method under test: {@link BaseElement#getXmlColumnNumber()}
+   */
+  @Test
+  public void testGetXmlColumnNumber2() {
+    // Arrange
+    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
+    extensionElements.computeIfPresent("foo", mock(BiFunction.class));
+
+    ActivitiListener activitiListener = new ActivitiListener();
+    activitiListener.setExtensionElements(extensionElements);
+
+    // Act and Assert
+    assertEquals(0, activitiListener.getXmlColumnNumber());
+  }
+
+  /**
    * Method under test: {@link BaseElement#setXmlColumnNumber(int)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void BaseElement.setXmlColumnNumber(int)"})
   public void testSetXmlColumnNumber() {
     // Arrange
     ActivitiListener activitiListener = new ActivitiListener();
@@ -130,57 +152,76 @@ public class BaseElementDiffblueTest {
   }
 
   /**
-   * Test {@link BaseElement#getExtensionElements()}.
-   * <p>
    * Method under test: {@link BaseElement#getExtensionElements()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Map BaseElement.getExtensionElements()"})
   public void testGetExtensionElements() {
-    // Arrange, Act and Assert
-    assertTrue((new ActivitiListener()).getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link BaseElement#addExtensionElement(ExtensionElement)}.
-   * <ul>
-   *   <li>Given empty string.</li>
-   *   <li>When {@link ExtensionElement} (default constructor) Name is empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BaseElement#addExtensionElement(ExtensionElement)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void BaseElement.addExtensionElement(ExtensionElement)"})
-  public void testAddExtensionElement_givenEmptyString_whenExtensionElementNameIsEmptyString() {
     // Arrange
     ActivitiListener activitiListener = new ActivitiListener();
 
-    ExtensionElement extensionElement = new ExtensionElement();
-    extensionElement.setName("");
+    // Act
+    Map<String, List<ExtensionElement>> actualExtensionElements = activitiListener.getExtensionElements();
+
+    // Assert
+    assertTrue(actualExtensionElements.isEmpty());
+    assertSame(activitiListener.extensionElements, actualExtensionElements);
+  }
+
+  /**
+   * Method under test: {@link BaseElement#getExtensionElements()}
+   */
+  @Test
+  public void testGetExtensionElements2() {
+    // Arrange
+    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
+    extensionElements.computeIfPresent("foo", mock(BiFunction.class));
+
+    ActivitiListener activitiListener = new ActivitiListener();
+    activitiListener.setExtensionElements(extensionElements);
 
     // Act
-    activitiListener.addExtensionElement(extensionElement);
+    Map<String, List<ExtensionElement>> actualExtensionElements = activitiListener.getExtensionElements();
+
+    // Assert
+    assertTrue(actualExtensionElements.isEmpty());
+    assertSame(extensionElements, actualExtensionElements);
+  }
+
+  /**
+   * Method under test: {@link BaseElement#addExtensionElement(ExtensionElement)}
+   */
+  @Test
+  public void testAddExtensionElement() {
+    // Arrange
+    ActivitiListener activitiListener = new ActivitiListener();
+
+    // Act
+    activitiListener.addExtensionElement(new ExtensionElement());
 
     // Assert that nothing has changed
     assertTrue(activitiListener.getExtensionElements().isEmpty());
   }
 
   /**
-   * Test {@link BaseElement#addExtensionElement(ExtensionElement)}.
-   * <ul>
-   *   <li>Given {@code Name}.</li>
-   *   <li>Then {@link ActivitiListener} (default constructor) ExtensionElements size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BaseElement#addExtensionElement(ExtensionElement)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void BaseElement.addExtensionElement(ExtensionElement)"})
-  public void testAddExtensionElement_givenName_thenActivitiListenerExtensionElementsSizeIsOne() {
+  public void testAddExtensionElement2() {
+    // Arrange
+    ActivitiListener activitiListener = new ActivitiListener();
+
+    // Act
+    activitiListener.addExtensionElement(null);
+
+    // Assert that nothing has changed
+    assertTrue(activitiListener.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link BaseElement#addExtensionElement(ExtensionElement)}
+   */
+  @Test
+  public void testAddExtensionElement3() {
     // Arrange
     ActivitiListener activitiListener = new ActivitiListener();
 
@@ -199,58 +240,27 @@ public class BaseElementDiffblueTest {
   }
 
   /**
-   * Test {@link BaseElement#addExtensionElement(ExtensionElement)}.
-   * <ul>
-   *   <li>When {@link ExtensionElement} (default constructor).</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BaseElement#addExtensionElement(ExtensionElement)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void BaseElement.addExtensionElement(ExtensionElement)"})
-  public void testAddExtensionElement_whenExtensionElement() {
+  public void testAddExtensionElement4() {
     // Arrange
     ActivitiListener activitiListener = new ActivitiListener();
 
+    ExtensionElement extensionElement = new ExtensionElement();
+    extensionElement.setName("");
+
     // Act
-    activitiListener.addExtensionElement(new ExtensionElement());
+    activitiListener.addExtensionElement(extensionElement);
 
     // Assert that nothing has changed
     assertTrue(activitiListener.getExtensionElements().isEmpty());
   }
 
   /**
-   * Test {@link BaseElement#addExtensionElement(ExtensionElement)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link ActivitiListener} (default constructor) ExtensionElements Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BaseElement#addExtensionElement(ExtensionElement)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void BaseElement.addExtensionElement(ExtensionElement)"})
-  public void testAddExtensionElement_whenNull_thenActivitiListenerExtensionElementsEmpty() {
-    // Arrange
-    ActivitiListener activitiListener = new ActivitiListener();
-
-    // Act
-    activitiListener.addExtensionElement(null);
-
-    // Assert that nothing has changed
-    assertTrue(activitiListener.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link BaseElement#setExtensionElements(Map)}.
-   * <p>
    * Method under test: {@link BaseElement#setExtensionElements(Map)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void BaseElement.setExtensionElements(Map)"})
   public void testSetExtensionElements() {
     // Arrange
     ActivitiListener activitiListener = new ActivitiListener();
@@ -264,47 +274,100 @@ public class BaseElementDiffblueTest {
   }
 
   /**
-   * Test {@link BaseElement#getAttributes()}.
-   * <p>
-   * Method under test: {@link BaseElement#getAttributes()}
+   * Method under test: {@link BaseElement#setExtensionElements(Map)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Map BaseElement.getAttributes()"})
-  public void testGetAttributes() {
-    // Arrange, Act and Assert
-    assertTrue((new ActivitiListener()).getAttributes().isEmpty());
+  public void testSetExtensionElements2() {
+    // Arrange
+    ActivitiListener activitiListener = new ActivitiListener();
+
+    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
+    extensionElements.computeIfPresent("foo", mock(BiFunction.class));
+
+    // Act
+    activitiListener.setExtensionElements(extensionElements);
+
+    // Assert
+    assertSame(extensionElements, activitiListener.getExtensionElements());
   }
 
   /**
-   * Test {@link BaseElement#getAttributeValue(String, String)}.
-   * <ul>
-   *   <li>Given {@link ActivitiListener} (default constructor).</li>
-   *   <li>When {@code Namespace}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link BaseElement#getAttributes()}
+   */
+  @Test
+  public void testGetAttributes() {
+    // Arrange
+    ActivitiListener activitiListener = new ActivitiListener();
+
+    // Act
+    Map<String, List<ExtensionAttribute>> actualAttributes = activitiListener.getAttributes();
+
+    // Assert
+    assertTrue(actualAttributes.isEmpty());
+    assertSame(activitiListener.attributes, actualAttributes);
+  }
+
+  /**
+   * Method under test: {@link BaseElement#getAttributes()}
+   */
+  @Test
+  public void testGetAttributes2() {
+    // Arrange
+    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
+    extensionElements.computeIfPresent("foo", mock(BiFunction.class));
+
+    ActivitiListener activitiListener = new ActivitiListener();
+    activitiListener.setExtensionElements(extensionElements);
+
+    // Act
+    Map<String, List<ExtensionAttribute>> actualAttributes = activitiListener.getAttributes();
+
+    // Assert
+    assertTrue(actualAttributes.isEmpty());
+    assertSame(activitiListener.attributes, actualAttributes);
+  }
+
+  /**
    * Method under test: {@link BaseElement#getAttributeValue(String, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String BaseElement.getAttributeValue(String, String)"})
-  public void testGetAttributeValue_givenActivitiListener_whenNamespace() {
+  public void testGetAttributeValue() {
     // Arrange, Act and Assert
     assertNull((new ActivitiListener()).getAttributeValue("Namespace", "Name"));
   }
 
   /**
-   * Test {@link BaseElement#getAttributeValue(String, String)}.
-   * <ul>
-   *   <li>Given {@link ExtensionAttribute#ExtensionAttribute(String)} with {@code Name} Namespace is {@code Namespace}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BaseElement#getAttributeValue(String, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String BaseElement.getAttributeValue(String, String)"})
-  public void testGetAttributeValue_givenExtensionAttributeWithNameNamespaceIsNamespace() {
+  public void testGetAttributeValue2() {
+    // Arrange
+    ActivitiListener activitiListener = new ActivitiListener();
+    activitiListener.addAttribute(new ExtensionAttribute("Name"));
+
+    // Act and Assert
+    assertNull(activitiListener.getAttributeValue("Namespace", "Name"));
+  }
+
+  /**
+   * Method under test: {@link BaseElement#getAttributeValue(String, String)}
+   */
+  @Test
+  public void testGetAttributeValue3() {
+    // Arrange
+    ActivitiListener activitiListener = new ActivitiListener();
+    activitiListener.addAttribute(new ExtensionAttribute("Name"));
+    activitiListener.addAttribute(new ExtensionAttribute("Name"));
+
+    // Act and Assert
+    assertNull(activitiListener.getAttributeValue("Namespace", "Name"));
+  }
+
+  /**
+   * Method under test: {@link BaseElement#getAttributeValue(String, String)}
+   */
+  @Test
+  public void testGetAttributeValue4() {
     // Arrange
     ExtensionAttribute attribute = new ExtensionAttribute("Name");
     attribute.setNamespace("Namespace");
@@ -317,17 +380,23 @@ public class BaseElementDiffblueTest {
   }
 
   /**
-   * Test {@link BaseElement#getAttributeValue(String, String)}.
-   * <ul>
-   *   <li>Given {@link ExtensionAttribute#ExtensionAttribute(String)} with {@code Name} Namespace is {@code Namespace}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BaseElement#getAttributeValue(String, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String BaseElement.getAttributeValue(String, String)"})
-  public void testGetAttributeValue_givenExtensionAttributeWithNameNamespaceIsNamespace2() {
+  public void testGetAttributeValue5() {
+    // Arrange
+    ActivitiListener activitiListener = new ActivitiListener();
+    activitiListener.addAttribute(new ExtensionAttribute("Name"));
+
+    // Act and Assert
+    assertNull(activitiListener.getAttributeValue(null, "Name"));
+  }
+
+  /**
+   * Method under test: {@link BaseElement#getAttributeValue(String, String)}
+   */
+  @Test
+  public void testGetAttributeValue6() {
     // Arrange
     ExtensionAttribute attribute = new ExtensionAttribute("Name");
     attribute.setNamespace("Namespace");
@@ -340,78 +409,10 @@ public class BaseElementDiffblueTest {
   }
 
   /**
-   * Test {@link BaseElement#getAttributeValue(String, String)}.
-   * <ul>
-   *   <li>When {@code Namespace}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BaseElement#getAttributeValue(String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String BaseElement.getAttributeValue(String, String)"})
-  public void testGetAttributeValue_whenNamespace() {
-    // Arrange
-    ActivitiListener activitiListener = new ActivitiListener();
-    activitiListener.addAttribute(new ExtensionAttribute("Name"));
-
-    // Act and Assert
-    assertNull(activitiListener.getAttributeValue("Namespace", "Name"));
-  }
-
-  /**
-   * Test {@link BaseElement#getAttributeValue(String, String)}.
-   * <ul>
-   *   <li>When {@code Namespace}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BaseElement#getAttributeValue(String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String BaseElement.getAttributeValue(String, String)"})
-  public void testGetAttributeValue_whenNamespace2() {
-    // Arrange
-    ActivitiListener activitiListener = new ActivitiListener();
-    activitiListener.addAttribute(new ExtensionAttribute("Name"));
-    activitiListener.addAttribute(new ExtensionAttribute("Name"));
-
-    // Act and Assert
-    assertNull(activitiListener.getAttributeValue("Namespace", "Name"));
-  }
-
-  /**
-   * Test {@link BaseElement#getAttributeValue(String, String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BaseElement#getAttributeValue(String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String BaseElement.getAttributeValue(String, String)"})
-  public void testGetAttributeValue_whenNull() {
-    // Arrange
-    ActivitiListener activitiListener = new ActivitiListener();
-    activitiListener.addAttribute(new ExtensionAttribute("Name"));
-
-    // Act and Assert
-    assertNull(activitiListener.getAttributeValue(null, "Name"));
-  }
-
-  /**
-   * Test {@link BaseElement#addAttribute(ExtensionAttribute)}.
-   * <ul>
-   *   <li>Then {@link ActivitiListener} (default constructor) Attributes {@code Name} size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BaseElement#addAttribute(ExtensionAttribute)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void BaseElement.addAttribute(ExtensionAttribute)"})
-  public void testAddAttribute_thenActivitiListenerAttributesNameSizeIsOne() {
+  public void testAddAttribute() {
     // Arrange
     ActivitiListener activitiListener = new ActivitiListener();
     ExtensionAttribute attribute = new ExtensionAttribute("Name");
@@ -428,17 +429,10 @@ public class BaseElementDiffblueTest {
   }
 
   /**
-   * Test {@link BaseElement#addAttribute(ExtensionAttribute)}.
-   * <ul>
-   *   <li>Then {@link ActivitiListener} (default constructor) Attributes {@code Name} size is two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BaseElement#addAttribute(ExtensionAttribute)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void BaseElement.addAttribute(ExtensionAttribute)"})
-  public void testAddAttribute_thenActivitiListenerAttributesNameSizeIsTwo() {
+  public void testAddAttribute2() {
     // Arrange
     ActivitiListener activitiListener = new ActivitiListener();
     ExtensionAttribute attribute = new ExtensionAttribute("Name");
@@ -458,39 +452,10 @@ public class BaseElementDiffblueTest {
   }
 
   /**
-   * Test {@link BaseElement#addAttribute(ExtensionAttribute)}.
-   * <ul>
-   *   <li>When {@link ExtensionAttribute#ExtensionAttribute(String)} with name is empty string.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BaseElement#addAttribute(ExtensionAttribute)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void BaseElement.addAttribute(ExtensionAttribute)"})
-  public void testAddAttribute_whenExtensionAttributeWithNameIsEmptyString() {
-    // Arrange
-    ActivitiListener activitiListener = new ActivitiListener();
-
-    // Act
-    activitiListener.addAttribute(new ExtensionAttribute(""));
-
-    // Assert that nothing has changed
-    assertTrue(activitiListener.getAttributes().isEmpty());
-  }
-
-  /**
-   * Test {@link BaseElement#addAttribute(ExtensionAttribute)}.
-   * <ul>
-   *   <li>When {@link ExtensionAttribute#ExtensionAttribute(String)} with name is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BaseElement#addAttribute(ExtensionAttribute)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void BaseElement.addAttribute(ExtensionAttribute)"})
-  public void testAddAttribute_whenExtensionAttributeWithNameIsNull() {
+  public void testAddAttribute3() {
     // Arrange
     ActivitiListener activitiListener = new ActivitiListener();
 
@@ -502,18 +467,25 @@ public class BaseElementDiffblueTest {
   }
 
   /**
-   * Test {@link BaseElement#addAttribute(ExtensionAttribute)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then {@link ActivitiListener} (default constructor) Attributes Empty.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BaseElement#addAttribute(ExtensionAttribute)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void BaseElement.addAttribute(ExtensionAttribute)"})
-  public void testAddAttribute_whenNull_thenActivitiListenerAttributesEmpty() {
+  public void testAddAttribute4() {
+    // Arrange
+    ActivitiListener activitiListener = new ActivitiListener();
+
+    // Act
+    activitiListener.addAttribute(new ExtensionAttribute(""));
+
+    // Assert that nothing has changed
+    assertTrue(activitiListener.getAttributes().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link BaseElement#addAttribute(ExtensionAttribute)}
+   */
+  @Test
+  public void testAddAttribute5() {
     // Arrange
     ActivitiListener activitiListener = new ActivitiListener();
 
@@ -525,13 +497,9 @@ public class BaseElementDiffblueTest {
   }
 
   /**
-   * Test {@link BaseElement#setAttributes(Map)}.
-   * <p>
    * Method under test: {@link BaseElement#setAttributes(Map)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void BaseElement.setAttributes(Map)"})
   public void testSetAttributes() {
     // Arrange
     ActivitiListener activitiListener = new ActivitiListener();
@@ -545,187 +513,45 @@ public class BaseElementDiffblueTest {
   }
 
   /**
-   * Test {@link BaseElement#setValues(BaseElement)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>Then {@link ActivitiListener} (default constructor) Id is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BaseElement#setValues(BaseElement)}
+   * Method under test: {@link BaseElement#setAttributes(Map)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void BaseElement.setValues(BaseElement)"})
-  public void testSetValues_given42_thenActivitiListenerIdIs42() {
-    // Arrange
-    ActivitiListener activitiListener = new ActivitiListener();
-    AdhocSubProcess otherElement = mock(AdhocSubProcess.class);
-    when(otherElement.getId()).thenReturn("42");
-    when(otherElement.getAttributes()).thenReturn(new HashMap<>());
-    when(otherElement.getExtensionElements()).thenReturn(new HashMap<>());
-
-    // Act
-    activitiListener.setValues(otherElement);
-
-    // Assert
-    verify(otherElement, atLeast(1)).getAttributes();
-    verify(otherElement, atLeast(1)).getExtensionElements();
-    verify(otherElement).getId();
-    assertEquals("42", activitiListener.getId());
-    assertTrue(activitiListener.getAttributes().isEmpty());
-  }
-
-  /**
-   * Test {@link BaseElement#setValues(BaseElement)}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code 42} is {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then {@link ActivitiListener} (default constructor) Id is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BaseElement#setValues(BaseElement)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void BaseElement.setValues(BaseElement)"})
-  public void testSetValues_givenHashMap42IsArrayList_thenActivitiListenerIdIs42() {
+  public void testSetAttributes2() {
     // Arrange
     ActivitiListener activitiListener = new ActivitiListener();
 
-    HashMap<String, List<ExtensionAttribute>> stringListMap = new HashMap<>();
-    stringListMap.put("42", new ArrayList<>());
-    stringListMap.put("foo", new ArrayList<>());
-    AdhocSubProcess otherElement = mock(AdhocSubProcess.class);
-    when(otherElement.getId()).thenReturn("42");
-    when(otherElement.getAttributes()).thenReturn(stringListMap);
-    when(otherElement.getExtensionElements()).thenReturn(new HashMap<>());
+    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
+    attributes.computeIfPresent("foo", mock(BiFunction.class));
 
     // Act
-    activitiListener.setValues(otherElement);
+    activitiListener.setAttributes(attributes);
 
     // Assert
-    verify(otherElement, atLeast(1)).getAttributes();
-    verify(otherElement, atLeast(1)).getExtensionElements();
-    verify(otherElement).getId();
-    assertEquals("42", activitiListener.getId());
-    assertTrue(activitiListener.getAttributes().isEmpty());
+    assertSame(attributes, activitiListener.getAttributes());
   }
 
   /**
-   * Test {@link BaseElement#setValues(BaseElement)}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code 42} is {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then {@link ActivitiListener} (default constructor) Id is {@code 42}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BaseElement#setValues(BaseElement)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void BaseElement.setValues(BaseElement)"})
-  public void testSetValues_givenHashMap42IsArrayList_thenActivitiListenerIdIs422() {
+  public void testSetValues() {
     // Arrange
     ActivitiListener activitiListener = new ActivitiListener();
-
-    HashMap<String, List<ExtensionElement>> stringListMap = new HashMap<>();
-    stringListMap.put("42", new ArrayList<>());
-    stringListMap.put("foo", new ArrayList<>());
-    AdhocSubProcess otherElement = mock(AdhocSubProcess.class);
-    when(otherElement.getId()).thenReturn("42");
-    when(otherElement.getAttributes()).thenReturn(new HashMap<>());
-    when(otherElement.getExtensionElements()).thenReturn(stringListMap);
+    ActivitiListener otherElement = new ActivitiListener();
 
     // Act
-    activitiListener.setValues(otherElement);
+    activitiListener.setValues((BaseElement) otherElement);
 
     // Assert
-    verify(otherElement, atLeast(1)).getAttributes();
-    verify(otherElement, atLeast(1)).getExtensionElements();
-    verify(otherElement).getId();
-    assertEquals("42", activitiListener.getId());
-    assertTrue(activitiListener.getAttributes().isEmpty());
+    assertNull(otherElement.getId());
+    assertTrue(otherElement.getAttributes().isEmpty());
   }
 
   /**
-   * Test {@link BaseElement#setValues(BaseElement)}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then {@link ActivitiListener} (default constructor) Id is {@code 42}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BaseElement#setValues(BaseElement)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void BaseElement.setValues(BaseElement)"})
-  public void testSetValues_givenHashMapFooIsArrayList_thenActivitiListenerIdIs42() {
-    // Arrange
-    ActivitiListener activitiListener = new ActivitiListener();
-
-    HashMap<String, List<ExtensionAttribute>> stringListMap = new HashMap<>();
-    stringListMap.put("foo", new ArrayList<>());
-    AdhocSubProcess otherElement = mock(AdhocSubProcess.class);
-    when(otherElement.getId()).thenReturn("42");
-    when(otherElement.getAttributes()).thenReturn(stringListMap);
-    when(otherElement.getExtensionElements()).thenReturn(new HashMap<>());
-
-    // Act
-    activitiListener.setValues(otherElement);
-
-    // Assert
-    verify(otherElement, atLeast(1)).getAttributes();
-    verify(otherElement, atLeast(1)).getExtensionElements();
-    verify(otherElement).getId();
-    assertEquals("42", activitiListener.getId());
-    assertTrue(activitiListener.getAttributes().isEmpty());
-  }
-
-  /**
-   * Test {@link BaseElement#setValues(BaseElement)}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then {@link ActivitiListener} (default constructor) Id is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BaseElement#setValues(BaseElement)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void BaseElement.setValues(BaseElement)"})
-  public void testSetValues_givenHashMapFooIsArrayList_thenActivitiListenerIdIs422() {
-    // Arrange
-    ActivitiListener activitiListener = new ActivitiListener();
-
-    HashMap<String, List<ExtensionElement>> stringListMap = new HashMap<>();
-    stringListMap.put("foo", new ArrayList<>());
-    AdhocSubProcess otherElement = mock(AdhocSubProcess.class);
-    when(otherElement.getId()).thenReturn("42");
-    when(otherElement.getAttributes()).thenReturn(new HashMap<>());
-    when(otherElement.getExtensionElements()).thenReturn(stringListMap);
-
-    // Act
-    activitiListener.setValues(otherElement);
-
-    // Assert
-    verify(otherElement, atLeast(1)).getAttributes();
-    verify(otherElement, atLeast(1)).getExtensionElements();
-    verify(otherElement).getId();
-    assertEquals("42", activitiListener.getId());
-    assertTrue(activitiListener.getAttributes().isEmpty());
-  }
-
-  /**
-   * Test {@link BaseElement#setValues(BaseElement)}.
-   * <ul>
-   *   <li>Given {@code null}.</li>
-   *   <li>Then {@link ActivitiListener} (default constructor) Id is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BaseElement#setValues(BaseElement)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void BaseElement.setValues(BaseElement)"})
-  public void testSetValues_givenNull_thenActivitiListenerIdIsNull() {
+  public void testSetValues2() {
     // Arrange
     ActivitiListener activitiListener = new ActivitiListener();
 
@@ -736,23 +562,145 @@ public class BaseElementDiffblueTest {
     // Act
     activitiListener.setValues((BaseElement) otherElement);
 
-    // Assert that nothing has changed
+    // Assert
     assertNull(otherElement.getId());
     assertNull(otherElement.getAttributes());
   }
 
   /**
-   * Test {@link BaseElement#setValues(BaseElement)}.
-   * <ul>
-   *   <li>Then {@link ActivitiListener} (default constructor) Attributes is {@link HashMap#HashMap()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BaseElement#setValues(BaseElement)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void BaseElement.setValues(BaseElement)"})
-  public void testSetValues_thenActivitiListenerAttributesIsHashMap() {
+  public void testSetValues3() {
+    // Arrange
+    ActivitiListener activitiListener = new ActivitiListener();
+    AdhocSubProcess otherElement = mock(AdhocSubProcess.class);
+    when(otherElement.getId()).thenReturn("42");
+    when(otherElement.getAttributes()).thenReturn(new HashMap<>());
+    when(otherElement.getExtensionElements()).thenReturn(new HashMap<>());
+
+    // Act
+    activitiListener.setValues(otherElement);
+
+    // Assert
+    verify(otherElement, atLeast(1)).getAttributes();
+    verify(otherElement, atLeast(1)).getExtensionElements();
+    verify(otherElement).getId();
+    assertEquals("42", activitiListener.getId());
+    assertTrue(activitiListener.getAttributes().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link BaseElement#setValues(BaseElement)}
+   */
+  @Test
+  public void testSetValues4() {
+    // Arrange
+    ActivitiListener activitiListener = new ActivitiListener();
+
+    HashMap<String, List<ExtensionAttribute>> stringListMap = new HashMap<>();
+    stringListMap.put("foo", new ArrayList<>());
+    AdhocSubProcess otherElement = mock(AdhocSubProcess.class);
+    when(otherElement.getId()).thenReturn("42");
+    when(otherElement.getAttributes()).thenReturn(stringListMap);
+    when(otherElement.getExtensionElements()).thenReturn(new HashMap<>());
+
+    // Act
+    activitiListener.setValues(otherElement);
+
+    // Assert
+    verify(otherElement, atLeast(1)).getAttributes();
+    verify(otherElement, atLeast(1)).getExtensionElements();
+    verify(otherElement).getId();
+    assertEquals("42", activitiListener.getId());
+    assertTrue(activitiListener.getAttributes().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link BaseElement#setValues(BaseElement)}
+   */
+  @Test
+  public void testSetValues5() {
+    // Arrange
+    ActivitiListener activitiListener = new ActivitiListener();
+
+    HashMap<String, List<ExtensionAttribute>> stringListMap = new HashMap<>();
+    stringListMap.put("42", new ArrayList<>());
+    stringListMap.put("foo", new ArrayList<>());
+    AdhocSubProcess otherElement = mock(AdhocSubProcess.class);
+    when(otherElement.getId()).thenReturn("42");
+    when(otherElement.getAttributes()).thenReturn(stringListMap);
+    when(otherElement.getExtensionElements()).thenReturn(new HashMap<>());
+
+    // Act
+    activitiListener.setValues(otherElement);
+
+    // Assert
+    verify(otherElement, atLeast(1)).getAttributes();
+    verify(otherElement, atLeast(1)).getExtensionElements();
+    verify(otherElement).getId();
+    assertEquals("42", activitiListener.getId());
+    assertTrue(activitiListener.getAttributes().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link BaseElement#setValues(BaseElement)}
+   */
+  @Test
+  public void testSetValues6() {
+    // Arrange
+    ActivitiListener activitiListener = new ActivitiListener();
+
+    HashMap<String, List<ExtensionElement>> stringListMap = new HashMap<>();
+    stringListMap.put("foo", new ArrayList<>());
+    AdhocSubProcess otherElement = mock(AdhocSubProcess.class);
+    when(otherElement.getId()).thenReturn("42");
+    when(otherElement.getAttributes()).thenReturn(new HashMap<>());
+    when(otherElement.getExtensionElements()).thenReturn(stringListMap);
+
+    // Act
+    activitiListener.setValues(otherElement);
+
+    // Assert
+    verify(otherElement, atLeast(1)).getAttributes();
+    verify(otherElement, atLeast(1)).getExtensionElements();
+    verify(otherElement).getId();
+    assertEquals("42", activitiListener.getId());
+    assertTrue(activitiListener.getAttributes().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link BaseElement#setValues(BaseElement)}
+   */
+  @Test
+  public void testSetValues7() {
+    // Arrange
+    ActivitiListener activitiListener = new ActivitiListener();
+
+    HashMap<String, List<ExtensionElement>> stringListMap = new HashMap<>();
+    stringListMap.put("42", new ArrayList<>());
+    stringListMap.put("foo", new ArrayList<>());
+    AdhocSubProcess otherElement = mock(AdhocSubProcess.class);
+    when(otherElement.getId()).thenReturn("42");
+    when(otherElement.getAttributes()).thenReturn(new HashMap<>());
+    when(otherElement.getExtensionElements()).thenReturn(stringListMap);
+
+    // Act
+    activitiListener.setValues(otherElement);
+
+    // Assert
+    verify(otherElement, atLeast(1)).getAttributes();
+    verify(otherElement, atLeast(1)).getExtensionElements();
+    verify(otherElement).getId();
+    assertEquals("42", activitiListener.getId());
+    assertTrue(activitiListener.getAttributes().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link BaseElement#setValues(BaseElement)}
+   */
+  @Test
+  public void testSetValues8() {
     // Arrange
     ActivitiListener activitiListener = new ActivitiListener();
 
@@ -773,30 +721,7 @@ public class BaseElementDiffblueTest {
     verify(otherElement, atLeast(1)).getAttributes();
     verify(otherElement, atLeast(1)).getExtensionElements();
     verify(otherElement).getId();
+    assertEquals("42", activitiListener.getId());
     assertEquals(stringListMap, activitiListener.getAttributes());
-  }
-
-  /**
-   * Test {@link BaseElement#setValues(BaseElement)}.
-   * <ul>
-   *   <li>When {@link ActivitiListener} (default constructor).</li>
-   *   <li>Then {@link ActivitiListener} (default constructor) Attributes Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BaseElement#setValues(BaseElement)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void BaseElement.setValues(BaseElement)"})
-  public void testSetValues_whenActivitiListener_thenActivitiListenerAttributesEmpty() {
-    // Arrange
-    ActivitiListener activitiListener = new ActivitiListener();
-    ActivitiListener otherElement = new ActivitiListener();
-
-    // Act
-    activitiListener.setValues((BaseElement) otherElement);
-
-    // Assert that nothing has changed
-    assertTrue(otherElement.getAttributes().isEmpty());
   }
 }

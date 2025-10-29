@@ -18,56 +18,16 @@ package org.activiti.engine.impl.cmd;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class AddIdentityLinkForProcessDefinitionCmdDiffblueTest {
   /**
-   * Test {@link AddIdentityLinkForProcessDefinitionCmd#AddIdentityLinkForProcessDefinitionCmd(String, String, String)}.
-   * <p>
-   * Method under test: {@link AddIdentityLinkForProcessDefinitionCmd#AddIdentityLinkForProcessDefinitionCmd(String, String, String)}
+   * Method under test:
+   * {@link AddIdentityLinkForProcessDefinitionCmd#AddIdentityLinkForProcessDefinitionCmd(String, String, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AddIdentityLinkForProcessDefinitionCmd.<init>(String, String, String)"})
   public void testNewAddIdentityLinkForProcessDefinitionCmd() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> new AddIdentityLinkForProcessDefinitionCmd(null, null, null));
-
-  }
-
-  /**
-   * Test {@link AddIdentityLinkForProcessDefinitionCmd#AddIdentityLinkForProcessDefinitionCmd(String, String, String)}.
-   * <p>
-   * Method under test: {@link AddIdentityLinkForProcessDefinitionCmd#AddIdentityLinkForProcessDefinitionCmd(String, String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AddIdentityLinkForProcessDefinitionCmd.<init>(String, String, String)"})
-  public void testNewAddIdentityLinkForProcessDefinitionCmd2() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> new AddIdentityLinkForProcessDefinitionCmd("42", null, null));
-
-  }
-
-  /**
-   * Test {@link AddIdentityLinkForProcessDefinitionCmd#AddIdentityLinkForProcessDefinitionCmd(String, String, String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then return {@link AddIdentityLinkForProcessDefinitionCmd#userId} is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AddIdentityLinkForProcessDefinitionCmd#AddIdentityLinkForProcessDefinitionCmd(String, String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AddIdentityLinkForProcessDefinitionCmd.<init>(String, String, String)"})
-  public void testNewAddIdentityLinkForProcessDefinitionCmd_when42_thenReturnUserIdIs42() {
     // Arrange and Act
     AddIdentityLinkForProcessDefinitionCmd actualAddIdentityLinkForProcessDefinitionCmd = new AddIdentityLinkForProcessDefinitionCmd(
         "42", "42", "42");
@@ -79,18 +39,36 @@ public class AddIdentityLinkForProcessDefinitionCmdDiffblueTest {
   }
 
   /**
-   * Test {@link AddIdentityLinkForProcessDefinitionCmd#AddIdentityLinkForProcessDefinitionCmd(String, String, String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then return {@link AddIdentityLinkForProcessDefinitionCmd#userId} is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AddIdentityLinkForProcessDefinitionCmd#AddIdentityLinkForProcessDefinitionCmd(String, String, String)}
+   * Method under test:
+   * {@link AddIdentityLinkForProcessDefinitionCmd#validateParams(String, String, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AddIdentityLinkForProcessDefinitionCmd.<init>(String, String, String)"})
-  public void testNewAddIdentityLinkForProcessDefinitionCmd_when42_thenReturnUserIdIsNull() {
+  public void testValidateParams() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new AddIdentityLinkForProcessDefinitionCmd("42", "42", "42")).validateParams("42", "42", null));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new AddIdentityLinkForProcessDefinitionCmd("42", "42", "42")).validateParams(null, null, "42"));
+  }
+
+  /**
+   * Method under test:
+   * {@link AddIdentityLinkForProcessDefinitionCmd#AddIdentityLinkForProcessDefinitionCmd(String, String, String)}
+   */
+  @Test
+  public void testNewAddIdentityLinkForProcessDefinitionCmd2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> new AddIdentityLinkForProcessDefinitionCmd(null, "42", "42"));
+
+  }
+
+  /**
+   * Method under test:
+   * {@link AddIdentityLinkForProcessDefinitionCmd#AddIdentityLinkForProcessDefinitionCmd(String, String, String)}
+   */
+  @Test
+  public void testNewAddIdentityLinkForProcessDefinitionCmd3() {
     // Arrange and Act
     AddIdentityLinkForProcessDefinitionCmd actualAddIdentityLinkForProcessDefinitionCmd = new AddIdentityLinkForProcessDefinitionCmd(
         "42", null, "42");
@@ -102,38 +80,14 @@ public class AddIdentityLinkForProcessDefinitionCmdDiffblueTest {
   }
 
   /**
-   * Test {@link AddIdentityLinkForProcessDefinitionCmd#validateParams(String, String, String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AddIdentityLinkForProcessDefinitionCmd#validateParams(String, String, String)}
+   * Method under test:
+   * {@link AddIdentityLinkForProcessDefinitionCmd#AddIdentityLinkForProcessDefinitionCmd(String, String, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AddIdentityLinkForProcessDefinitionCmd.validateParams(String, String, String)"})
-  public void testValidateParams_whenNull_thenThrowActivitiIllegalArgumentException() {
+  public void testNewAddIdentityLinkForProcessDefinitionCmd4() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> (new AddIdentityLinkForProcessDefinitionCmd("42", "42", "42")).validateParams(null, null, null));
-  }
+        () -> new AddIdentityLinkForProcessDefinitionCmd("42", null, null));
 
-  /**
-   * Test {@link AddIdentityLinkForProcessDefinitionCmd#validateParams(String, String, String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AddIdentityLinkForProcessDefinitionCmd#validateParams(String, String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void AddIdentityLinkForProcessDefinitionCmd.validateParams(String, String, String)"})
-  public void testValidateParams_whenNull_thenThrowActivitiIllegalArgumentException2() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> (new AddIdentityLinkForProcessDefinitionCmd("42", "42", "42")).validateParams(null, null, "42"));
   }
 }

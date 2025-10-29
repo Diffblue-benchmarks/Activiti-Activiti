@@ -21,143 +21,126 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import javax.xml.stream.XMLStreamWriter;
 import org.activiti.bpmn.converter.IndentingXMLStreamWriter;
 import org.activiti.bpmn.model.Activity;
 import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.MultiInstanceLoopCharacteristics;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class MultiInstanceExportDiffblueTest {
   /**
-   * Test {@link MultiInstanceExport#writeMultiInstance(Activity, XMLStreamWriter)}.
-   * <p>
-   * Method under test: {@link MultiInstanceExport#writeMultiInstance(Activity, XMLStreamWriter)}
+   * Method under test:
+   * {@link MultiInstanceExport#writeMultiInstance(Activity, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeMultiInstance(Activity, XMLStreamWriter)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void MultiInstanceExport.writeMultiInstance(Activity, XMLStreamWriter)"})
   void testWriteMultiInstance() throws Exception {
     // Arrange
-    MultiInstanceLoopCharacteristics loopCharacteristics = mock(MultiInstanceLoopCharacteristics.class);
-    when(loopCharacteristics.isSequential()).thenReturn(true);
-    when(loopCharacteristics.getCompletionCondition()).thenReturn("Completion Condition");
-    when(loopCharacteristics.getElementVariable()).thenReturn("Element Variable");
-    when(loopCharacteristics.getInputDataItem()).thenReturn("Input Data Item");
-    when(loopCharacteristics.getLoopCardinality()).thenReturn("Loop Cardinality");
-    when(loopCharacteristics.getLoopDataOutputRef()).thenReturn("Loop Data Output Ref");
-    when(loopCharacteristics.getOutputDataItem()).thenReturn("Output Data Item");
-
-    AdhocSubProcess activity = new AdhocSubProcess();
-    activity.setLoopCharacteristics(loopCharacteristics);
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer)
-        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeEndElement();
-    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    AdhocSubProcess activity = mock(AdhocSubProcess.class);
+    when(activity.getLoopCharacteristics()).thenReturn(new MultiInstanceLoopCharacteristics());
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
 
     // Act
-    MultiInstanceExport.writeMultiInstance(activity, new IndentingXMLStreamWriter(writer));
+    MultiInstanceExport.writeMultiInstance(activity, xtw);
 
-    // Assert
-    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    verify(writer, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
-        Mockito.<String>any());
-    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
-    verify(writer, atLeast(1)).writeEndElement();
-    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
-    verify(loopCharacteristics, atLeast(1)).getCompletionCondition();
-    verify(loopCharacteristics, atLeast(1)).getElementVariable();
-    verify(loopCharacteristics, atLeast(1)).getInputDataItem();
-    verify(loopCharacteristics, atLeast(1)).getLoopCardinality();
-    verify(loopCharacteristics, atLeast(1)).getLoopDataOutputRef();
-    verify(loopCharacteristics, atLeast(1)).getOutputDataItem();
-    verify(loopCharacteristics).isSequential();
+    // Assert that nothing has changed
+    verify(xtw).writeAttribute(eq("isSequential"), eq("false"));
+    verify(xtw).writeEndElement();
+    verify(xtw).writeStartElement(eq("multiInstanceLoopCharacteristics"));
+    verify(activity, atLeast(1)).getLoopCharacteristics();
   }
 
   /**
-   * Test {@link MultiInstanceExport#writeMultiInstance(Activity, XMLStreamWriter)}.
-   * <p>
-   * Method under test: {@link MultiInstanceExport#writeMultiInstance(Activity, XMLStreamWriter)}
+   * Method under test:
+   * {@link MultiInstanceExport#writeMultiInstance(Activity, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeMultiInstance(Activity, XMLStreamWriter)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void MultiInstanceExport.writeMultiInstance(Activity, XMLStreamWriter)"})
   void testWriteMultiInstance2() throws Exception {
     // Arrange
-    MultiInstanceLoopCharacteristics loopCharacteristics = mock(MultiInstanceLoopCharacteristics.class);
-    when(loopCharacteristics.isSequential()).thenReturn(true);
-    when(loopCharacteristics.getCompletionCondition()).thenReturn("");
-    when(loopCharacteristics.getElementVariable()).thenReturn("Element Variable");
-    when(loopCharacteristics.getInputDataItem()).thenReturn("Input Data Item");
-    when(loopCharacteristics.getLoopCardinality()).thenReturn("Loop Cardinality");
-    when(loopCharacteristics.getLoopDataOutputRef()).thenReturn("Loop Data Output Ref");
-    when(loopCharacteristics.getOutputDataItem()).thenReturn("Output Data Item");
-
-    AdhocSubProcess activity = new AdhocSubProcess();
-    activity.setLoopCharacteristics(loopCharacteristics);
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer)
+    MultiInstanceLoopCharacteristics multiInstanceLoopCharacteristics = mock(MultiInstanceLoopCharacteristics.class);
+    when(multiInstanceLoopCharacteristics.isSequential()).thenReturn(true);
+    when(multiInstanceLoopCharacteristics.getCompletionCondition()).thenReturn("Completion Condition");
+    when(multiInstanceLoopCharacteristics.getElementVariable()).thenReturn("Element Variable");
+    when(multiInstanceLoopCharacteristics.getInputDataItem()).thenReturn("Input Data Item");
+    when(multiInstanceLoopCharacteristics.getLoopCardinality()).thenReturn("Loop Cardinality");
+    when(multiInstanceLoopCharacteristics.getLoopDataOutputRef()).thenReturn("Loop Data Output Ref");
+    when(multiInstanceLoopCharacteristics.getOutputDataItem()).thenReturn("Output Data Item");
+    AdhocSubProcess activity = mock(AdhocSubProcess.class);
+    when(activity.getLoopCharacteristics()).thenReturn(multiInstanceLoopCharacteristics);
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw)
         .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeEndElement();
-    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
 
     // Act
-    MultiInstanceExport.writeMultiInstance(activity, new IndentingXMLStreamWriter(writer));
+    MultiInstanceExport.writeMultiInstance(activity, xtw);
 
-    // Assert
-    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    verify(writer, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
+    // Assert that nothing has changed
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
         Mockito.<String>any());
-    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
-    verify(writer, atLeast(1)).writeEndElement();
-    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
-    verify(loopCharacteristics).getCompletionCondition();
-    verify(loopCharacteristics, atLeast(1)).getElementVariable();
-    verify(loopCharacteristics, atLeast(1)).getInputDataItem();
-    verify(loopCharacteristics, atLeast(1)).getLoopCardinality();
-    verify(loopCharacteristics, atLeast(1)).getLoopDataOutputRef();
-    verify(loopCharacteristics, atLeast(1)).getOutputDataItem();
-    verify(loopCharacteristics).isSequential();
+    verify(xtw, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeEndElement();
+    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(activity, atLeast(1)).getLoopCharacteristics();
+    verify(multiInstanceLoopCharacteristics, atLeast(1)).getCompletionCondition();
+    verify(multiInstanceLoopCharacteristics, atLeast(1)).getElementVariable();
+    verify(multiInstanceLoopCharacteristics, atLeast(1)).getInputDataItem();
+    verify(multiInstanceLoopCharacteristics, atLeast(1)).getLoopCardinality();
+    verify(multiInstanceLoopCharacteristics, atLeast(1)).getLoopDataOutputRef();
+    verify(multiInstanceLoopCharacteristics, atLeast(1)).getOutputDataItem();
+    verify(multiInstanceLoopCharacteristics).isSequential();
   }
 
   /**
-   * Test {@link MultiInstanceExport#writeMultiInstance(Activity, XMLStreamWriter)}.
-   * <ul>
-   *   <li>Given {@link MultiInstanceLoopCharacteristics} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link MultiInstanceExport#writeMultiInstance(Activity, XMLStreamWriter)}
+   * Method under test:
+   * {@link MultiInstanceExport#writeMultiInstance(Activity, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeMultiInstance(Activity, XMLStreamWriter); given MultiInstanceLoopCharacteristics (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void MultiInstanceExport.writeMultiInstance(Activity, XMLStreamWriter)"})
-  void testWriteMultiInstance_givenMultiInstanceLoopCharacteristics() throws Exception {
+  void testWriteMultiInstance3() throws Exception {
     // Arrange
-    AdhocSubProcess activity = new AdhocSubProcess();
-    activity.setLoopCharacteristics(new MultiInstanceLoopCharacteristics());
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeEndElement();
-    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    MultiInstanceLoopCharacteristics multiInstanceLoopCharacteristics = mock(MultiInstanceLoopCharacteristics.class);
+    when(multiInstanceLoopCharacteristics.isSequential()).thenReturn(true);
+    when(multiInstanceLoopCharacteristics.getCompletionCondition()).thenReturn("");
+    when(multiInstanceLoopCharacteristics.getElementVariable()).thenReturn("Element Variable");
+    when(multiInstanceLoopCharacteristics.getInputDataItem()).thenReturn("Input Data Item");
+    when(multiInstanceLoopCharacteristics.getLoopCardinality()).thenReturn("Loop Cardinality");
+    when(multiInstanceLoopCharacteristics.getLoopDataOutputRef()).thenReturn("Loop Data Output Ref");
+    when(multiInstanceLoopCharacteristics.getOutputDataItem()).thenReturn("Output Data Item");
+    AdhocSubProcess activity = mock(AdhocSubProcess.class);
+    when(activity.getLoopCharacteristics()).thenReturn(multiInstanceLoopCharacteristics);
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw)
+        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
 
     // Act
-    MultiInstanceExport.writeMultiInstance(activity, new IndentingXMLStreamWriter(writer));
+    MultiInstanceExport.writeMultiInstance(activity, xtw);
 
-    // Assert
-    verify(writer).writeAttribute(eq("isSequential"), eq("false"));
-    verify(writer).writeEndElement();
-    verify(writer).writeStartElement(eq("multiInstanceLoopCharacteristics"));
+    // Assert that nothing has changed
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
+        Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeEndElement();
+    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(activity, atLeast(1)).getLoopCharacteristics();
+    verify(multiInstanceLoopCharacteristics).getCompletionCondition();
+    verify(multiInstanceLoopCharacteristics, atLeast(1)).getElementVariable();
+    verify(multiInstanceLoopCharacteristics, atLeast(1)).getInputDataItem();
+    verify(multiInstanceLoopCharacteristics, atLeast(1)).getLoopCardinality();
+    verify(multiInstanceLoopCharacteristics, atLeast(1)).getLoopDataOutputRef();
+    verify(multiInstanceLoopCharacteristics, atLeast(1)).getOutputDataItem();
+    verify(multiInstanceLoopCharacteristics).isSequential();
   }
 }

@@ -20,29 +20,21 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import org.activiti.engine.impl.persistence.entity.EventSubscriptionEntity;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class SignalEventSubscriptionByNameAndExecutionMatcherDiffblueTest {
   /**
-   * Test {@link SignalEventSubscriptionByNameAndExecutionMatcher#isRetained(EventSubscriptionEntity, Object)} with {@code EventSubscriptionEntity}, {@code Object}.
-   * <p>
-   * Method under test: {@link SignalEventSubscriptionByNameAndExecutionMatcher#isRetained(EventSubscriptionEntity, Object)}
+   * Method under test:
+   * {@link SignalEventSubscriptionByNameAndExecutionMatcher#isRetained(EventSubscriptionEntity, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "boolean SignalEventSubscriptionByNameAndExecutionMatcher.isRetained(EventSubscriptionEntity, Object)"})
-  public void testIsRetainedWithEventSubscriptionEntityObject() {
+  public void testIsRetained() {
     // Arrange
     SignalEventSubscriptionByNameAndExecutionMatcher signalEventSubscriptionByNameAndExecutionMatcher = new SignalEventSubscriptionByNameAndExecutionMatcher();
     EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
-    when(eventSubscriptionEntity.getExecutionId()).thenReturn(null);
-    when(eventSubscriptionEntity.getEventType()).thenReturn("signal");
+    when(eventSubscriptionEntity.getEventType()).thenReturn("Event Type");
 
     // Act
     boolean actualIsRetainedResult = signalEventSubscriptionByNameAndExecutionMatcher
@@ -50,47 +42,15 @@ public class SignalEventSubscriptionByNameAndExecutionMatcherDiffblueTest {
 
     // Assert
     verify(eventSubscriptionEntity, atLeast(1)).getEventType();
-    verify(eventSubscriptionEntity).getExecutionId();
     assertFalse(actualIsRetainedResult);
   }
 
   /**
-   * Test {@link SignalEventSubscriptionByNameAndExecutionMatcher#isRetained(EventSubscriptionEntity, Object)} with {@code EventSubscriptionEntity}, {@code Object}.
-   * <p>
-   * Method under test: {@link SignalEventSubscriptionByNameAndExecutionMatcher#isRetained(EventSubscriptionEntity, Object)}
+   * Method under test:
+   * {@link SignalEventSubscriptionByNameAndExecutionMatcher#isRetained(EventSubscriptionEntity, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "boolean SignalEventSubscriptionByNameAndExecutionMatcher.isRetained(EventSubscriptionEntity, Object)"})
-  public void testIsRetainedWithEventSubscriptionEntityObject2() {
-    // Arrange
-    SignalEventSubscriptionByNameAndExecutionMatcher signalEventSubscriptionByNameAndExecutionMatcher = new SignalEventSubscriptionByNameAndExecutionMatcher();
-    EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
-    when(eventSubscriptionEntity.getEventType()).thenReturn(null);
-
-    // Act
-    boolean actualIsRetainedResult = signalEventSubscriptionByNameAndExecutionMatcher
-        .isRetained(eventSubscriptionEntity, new HashMap<>());
-
-    // Assert
-    verify(eventSubscriptionEntity).getEventType();
-    assertFalse(actualIsRetainedResult);
-  }
-
-  /**
-   * Test {@link SignalEventSubscriptionByNameAndExecutionMatcher#isRetained(EventSubscriptionEntity, Object)} with {@code EventSubscriptionEntity}, {@code Object}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SignalEventSubscriptionByNameAndExecutionMatcher#isRetained(EventSubscriptionEntity, Object)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "boolean SignalEventSubscriptionByNameAndExecutionMatcher.isRetained(EventSubscriptionEntity, Object)"})
-  public void testIsRetainedWithEventSubscriptionEntityObject_given42() {
+  public void testIsRetained2() {
     // Arrange
     SignalEventSubscriptionByNameAndExecutionMatcher signalEventSubscriptionByNameAndExecutionMatcher = new SignalEventSubscriptionByNameAndExecutionMatcher();
     EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
@@ -108,22 +68,16 @@ public class SignalEventSubscriptionByNameAndExecutionMatcherDiffblueTest {
   }
 
   /**
-   * Test {@link SignalEventSubscriptionByNameAndExecutionMatcher#isRetained(EventSubscriptionEntity, Object)} with {@code EventSubscriptionEntity}, {@code Object}.
-   * <ul>
-   *   <li>Given {@code Event Type}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SignalEventSubscriptionByNameAndExecutionMatcher#isRetained(EventSubscriptionEntity, Object)}
+   * Method under test:
+   * {@link SignalEventSubscriptionByNameAndExecutionMatcher#isRetained(EventSubscriptionEntity, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "boolean SignalEventSubscriptionByNameAndExecutionMatcher.isRetained(EventSubscriptionEntity, Object)"})
-  public void testIsRetainedWithEventSubscriptionEntityObject_givenEventType() {
+  public void testIsRetained3() {
     // Arrange
     SignalEventSubscriptionByNameAndExecutionMatcher signalEventSubscriptionByNameAndExecutionMatcher = new SignalEventSubscriptionByNameAndExecutionMatcher();
     EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
-    when(eventSubscriptionEntity.getEventType()).thenReturn("Event Type");
+    when(eventSubscriptionEntity.getExecutionId()).thenReturn(null);
+    when(eventSubscriptionEntity.getEventType()).thenReturn("signal");
 
     // Act
     boolean actualIsRetainedResult = signalEventSubscriptionByNameAndExecutionMatcher
@@ -131,6 +85,27 @@ public class SignalEventSubscriptionByNameAndExecutionMatcherDiffblueTest {
 
     // Assert
     verify(eventSubscriptionEntity, atLeast(1)).getEventType();
+    verify(eventSubscriptionEntity).getExecutionId();
+    assertFalse(actualIsRetainedResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link SignalEventSubscriptionByNameAndExecutionMatcher#isRetained(EventSubscriptionEntity, Object)}
+   */
+  @Test
+  public void testIsRetained4() {
+    // Arrange
+    SignalEventSubscriptionByNameAndExecutionMatcher signalEventSubscriptionByNameAndExecutionMatcher = new SignalEventSubscriptionByNameAndExecutionMatcher();
+    EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
+    when(eventSubscriptionEntity.getEventType()).thenReturn(null);
+
+    // Act
+    boolean actualIsRetainedResult = signalEventSubscriptionByNameAndExecutionMatcher
+        .isRetained(eventSubscriptionEntity, new HashMap<>());
+
+    // Assert
+    verify(eventSubscriptionEntity).getEventType();
     assertFalse(actualIsRetainedResult);
   }
 }

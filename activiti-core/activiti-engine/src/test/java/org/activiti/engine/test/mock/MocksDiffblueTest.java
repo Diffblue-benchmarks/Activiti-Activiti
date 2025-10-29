@@ -16,23 +16,32 @@
 package org.activiti.engine.test.mock;
 
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import java.util.HashMap;
+import java.util.function.BiFunction;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class MocksDiffblueTest {
   /**
-   * Test {@link Mocks#get(Object)}.
-   * <p>
    * Method under test: {@link Mocks#get(Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object Mocks.get(Object)"})
   public void testGet() {
     // Arrange, Act and Assert
     assertNull(Mocks.get(JSONObject.NULL));
+  }
+
+  /**
+   * Method under test: {@link Mocks#get(Object)}
+   */
+  @Test
+  public void testGet2() {
+    // Arrange
+    HashMap<Object, Object> objectObjectMap = new HashMap<>();
+    objectObjectMap.computeIfPresent(JSONObject.NULL, mock(BiFunction.class));
+
+    // Act and Assert
+    assertNull(Mocks.get(objectObjectMap));
   }
 }

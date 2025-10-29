@@ -24,36 +24,25 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ActivityDiffblueTest {
   /**
-   * Test {@link Activity#getFailedJobRetryTimeCycleValue()}.
-   * <p>
    * Method under test: {@link Activity#getFailedJobRetryTimeCycleValue()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String Activity.getFailedJobRetryTimeCycleValue()"})
   public void testGetFailedJobRetryTimeCycleValue() {
     // Arrange, Act and Assert
     assertNull((new AdhocSubProcess()).getFailedJobRetryTimeCycleValue());
   }
 
   /**
-   * Test {@link Activity#setFailedJobRetryTimeCycleValue(String)}.
-   * <p>
    * Method under test: {@link Activity#setFailedJobRetryTimeCycleValue(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setFailedJobRetryTimeCycleValue(String)"})
   public void testSetFailedJobRetryTimeCycleValue() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -66,18 +55,19 @@ public class ActivityDiffblueTest {
   }
 
   /**
-   * Test {@link Activity#isForCompensation()}.
-   * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor) ForCompensation is {@code true}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Activity#isForCompensation()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean Activity.isForCompensation()"})
-  public void testIsForCompensation_givenAdhocSubProcessForCompensationIsTrue_thenReturnTrue() {
+  public void testIsForCompensation() {
+    // Arrange, Act and Assert
+    assertFalse((new AdhocSubProcess()).isForCompensation());
+  }
+
+  /**
+   * Method under test: {@link Activity#isForCompensation()}
+   */
+  @Test
+  public void testIsForCompensation2() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
     adhocSubProcess.setForCompensation(true);
@@ -87,30 +77,9 @@ public class ActivityDiffblueTest {
   }
 
   /**
-   * Test {@link Activity#isForCompensation()}.
-   * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor).</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Activity#isForCompensation()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean Activity.isForCompensation()"})
-  public void testIsForCompensation_givenAdhocSubProcess_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse((new AdhocSubProcess()).isForCompensation());
-  }
-
-  /**
-   * Test {@link Activity#setForCompensation(boolean)}.
-   * <p>
    * Method under test: {@link Activity#setForCompensation(boolean)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setForCompensation(boolean)"})
   public void testSetForCompensation() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -123,31 +92,42 @@ public class ActivityDiffblueTest {
   }
 
   /**
-   * Test {@link Activity#getBoundaryEvents()}.
-   * <p>
    * Method under test: {@link Activity#getBoundaryEvents()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"List Activity.getBoundaryEvents()"})
   public void testGetBoundaryEvents() {
-    // Arrange, Act and Assert
-    assertTrue((new AdhocSubProcess()).getBoundaryEvents().isEmpty());
+    // Arrange
+    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
+
+    // Act
+    List<BoundaryEvent> actualBoundaryEvents = adhocSubProcess.getBoundaryEvents();
+
+    // Assert
+    assertTrue(actualBoundaryEvents.isEmpty());
+    assertSame(adhocSubProcess.boundaryEvents, actualBoundaryEvents);
   }
 
   /**
-   * Test {@link Activity#setBoundaryEvents(List)}.
-   * <ul>
-   *   <li>Given {@link BoundaryEvent} (default constructor).</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@link BoundaryEvent} (default constructor).</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Activity#setBoundaryEvents(List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setBoundaryEvents(List)"})
-  public void testSetBoundaryEvents_givenBoundaryEvent_whenArrayListAddBoundaryEvent() {
+  public void testSetBoundaryEvents() {
+    // Arrange
+    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+
+    // Act
+    adhocSubProcess.setBoundaryEvents(boundaryEvents);
+
+    // Assert
+    assertSame(boundaryEvents, adhocSubProcess.getBoundaryEvents());
+  }
+
+  /**
+   * Method under test: {@link Activity#setBoundaryEvents(List)}
+   */
+  @Test
+  public void testSetBoundaryEvents2() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
 
@@ -162,18 +142,10 @@ public class ActivityDiffblueTest {
   }
 
   /**
-   * Test {@link Activity#setBoundaryEvents(List)}.
-   * <ul>
-   *   <li>Given {@link BoundaryEvent} (default constructor).</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@link BoundaryEvent} (default constructor).</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Activity#setBoundaryEvents(List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setBoundaryEvents(List)"})
-  public void testSetBoundaryEvents_givenBoundaryEvent_whenArrayListAddBoundaryEvent2() {
+  public void testSetBoundaryEvents3() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
 
@@ -189,49 +161,18 @@ public class ActivityDiffblueTest {
   }
 
   /**
-   * Test {@link Activity#setBoundaryEvents(List)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Activity#setBoundaryEvents(List)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setBoundaryEvents(List)"})
-  public void testSetBoundaryEvents_whenArrayList() {
-    // Arrange
-    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
-    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
-
-    // Act
-    adhocSubProcess.setBoundaryEvents(boundaryEvents);
-
-    // Assert
-    assertSame(boundaryEvents, adhocSubProcess.getBoundaryEvents());
-  }
-
-  /**
-   * Test {@link Activity#getDefaultFlow()}.
-   * <p>
    * Method under test: {@link Activity#getDefaultFlow()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String Activity.getDefaultFlow()"})
   public void testGetDefaultFlow() {
     // Arrange, Act and Assert
     assertNull((new AdhocSubProcess()).getDefaultFlow());
   }
 
   /**
-   * Test {@link Activity#setDefaultFlow(String)}.
-   * <p>
    * Method under test: {@link Activity#setDefaultFlow(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setDefaultFlow(String)"})
   public void testSetDefaultFlow() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -244,26 +185,19 @@ public class ActivityDiffblueTest {
   }
 
   /**
-   * Test {@link Activity#getLoopCharacteristics()}.
-   * <p>
    * Method under test: {@link Activity#getLoopCharacteristics()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"MultiInstanceLoopCharacteristics Activity.getLoopCharacteristics()"})
   public void testGetLoopCharacteristics() {
     // Arrange, Act and Assert
     assertNull((new AdhocSubProcess()).getLoopCharacteristics());
   }
 
   /**
-   * Test {@link Activity#setLoopCharacteristics(MultiInstanceLoopCharacteristics)}.
-   * <p>
-   * Method under test: {@link Activity#setLoopCharacteristics(MultiInstanceLoopCharacteristics)}
+   * Method under test:
+   * {@link Activity#setLoopCharacteristics(MultiInstanceLoopCharacteristics)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setLoopCharacteristics(MultiInstanceLoopCharacteristics)"})
   public void testSetLoopCharacteristics() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -278,34 +212,19 @@ public class ActivityDiffblueTest {
   }
 
   /**
-   * Test {@link Activity#hasMultiInstanceLoopCharacteristics()}.
-   * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor).</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Activity#hasMultiInstanceLoopCharacteristics()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean Activity.hasMultiInstanceLoopCharacteristics()"})
-  public void testHasMultiInstanceLoopCharacteristics_givenAdhocSubProcess_thenReturnFalse() {
+  public void testHasMultiInstanceLoopCharacteristics() {
     // Arrange, Act and Assert
     assertFalse((new AdhocSubProcess()).hasMultiInstanceLoopCharacteristics());
   }
 
   /**
-   * Test {@link Activity#hasMultiInstanceLoopCharacteristics()}.
-   * <ul>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Activity#hasMultiInstanceLoopCharacteristics()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean Activity.hasMultiInstanceLoopCharacteristics()"})
-  public void testHasMultiInstanceLoopCharacteristics_thenReturnTrue() {
+  public void testHasMultiInstanceLoopCharacteristics2() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
     adhocSubProcess.setLoopCharacteristics(new MultiInstanceLoopCharacteristics());
@@ -315,26 +234,18 @@ public class ActivityDiffblueTest {
   }
 
   /**
-   * Test {@link Activity#getIoSpecification()}.
-   * <p>
    * Method under test: {@link Activity#getIoSpecification()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"IOSpecification Activity.getIoSpecification()"})
   public void testGetIoSpecification() {
     // Arrange, Act and Assert
     assertNull((new AdhocSubProcess()).getIoSpecification());
   }
 
   /**
-   * Test {@link Activity#setIoSpecification(IOSpecification)}.
-   * <p>
    * Method under test: {@link Activity#setIoSpecification(IOSpecification)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setIoSpecification(IOSpecification)"})
   public void testSetIoSpecification() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -348,30 +259,42 @@ public class ActivityDiffblueTest {
   }
 
   /**
-   * Test {@link Activity#getDataInputAssociations()}.
-   * <p>
    * Method under test: {@link Activity#getDataInputAssociations()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"List Activity.getDataInputAssociations()"})
   public void testGetDataInputAssociations() {
-    // Arrange, Act and Assert
-    assertTrue((new AdhocSubProcess()).getDataInputAssociations().isEmpty());
+    // Arrange
+    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
+
+    // Act
+    List<DataAssociation> actualDataInputAssociations = adhocSubProcess.getDataInputAssociations();
+
+    // Assert
+    assertTrue(actualDataInputAssociations.isEmpty());
+    assertSame(adhocSubProcess.dataInputAssociations, actualDataInputAssociations);
   }
 
   /**
-   * Test {@link Activity#setDataInputAssociations(List)}.
-   * <ul>
-   *   <li>Given {@link DataAssociation} (default constructor).</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Activity#setDataInputAssociations(List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setDataInputAssociations(List)"})
-  public void testSetDataInputAssociations_givenDataAssociation() {
+  public void testSetDataInputAssociations() {
+    // Arrange
+    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
+    ArrayList<DataAssociation> dataInputAssociations = new ArrayList<>();
+
+    // Act
+    adhocSubProcess.setDataInputAssociations(dataInputAssociations);
+
+    // Assert
+    assertSame(dataInputAssociations, adhocSubProcess.getDataInputAssociations());
+  }
+
+  /**
+   * Method under test: {@link Activity#setDataInputAssociations(List)}
+   */
+  @Test
+  public void testSetDataInputAssociations2() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
 
@@ -386,17 +309,10 @@ public class ActivityDiffblueTest {
   }
 
   /**
-   * Test {@link Activity#setDataInputAssociations(List)}.
-   * <ul>
-   *   <li>Given {@link DataAssociation} (default constructor).</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Activity#setDataInputAssociations(List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setDataInputAssociations(List)"})
-  public void testSetDataInputAssociations_givenDataAssociation2() {
+  public void testSetDataInputAssociations3() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
 
@@ -412,53 +328,42 @@ public class ActivityDiffblueTest {
   }
 
   /**
-   * Test {@link Activity#setDataInputAssociations(List)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Activity#setDataInputAssociations(List)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setDataInputAssociations(List)"})
-  public void testSetDataInputAssociations_whenArrayList() {
-    // Arrange
-    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
-    ArrayList<DataAssociation> dataInputAssociations = new ArrayList<>();
-
-    // Act
-    adhocSubProcess.setDataInputAssociations(dataInputAssociations);
-
-    // Assert
-    assertSame(dataInputAssociations, adhocSubProcess.getDataInputAssociations());
-  }
-
-  /**
-   * Test {@link Activity#getDataOutputAssociations()}.
-   * <p>
    * Method under test: {@link Activity#getDataOutputAssociations()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"List Activity.getDataOutputAssociations()"})
   public void testGetDataOutputAssociations() {
-    // Arrange, Act and Assert
-    assertTrue((new AdhocSubProcess()).getDataOutputAssociations().isEmpty());
+    // Arrange
+    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
+
+    // Act
+    List<DataAssociation> actualDataOutputAssociations = adhocSubProcess.getDataOutputAssociations();
+
+    // Assert
+    assertTrue(actualDataOutputAssociations.isEmpty());
+    assertSame(adhocSubProcess.dataOutputAssociations, actualDataOutputAssociations);
   }
 
   /**
-   * Test {@link Activity#setDataOutputAssociations(List)}.
-   * <ul>
-   *   <li>Given {@link DataAssociation} (default constructor).</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Activity#setDataOutputAssociations(List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setDataOutputAssociations(List)"})
-  public void testSetDataOutputAssociations_givenDataAssociation() {
+  public void testSetDataOutputAssociations() {
+    // Arrange
+    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
+    ArrayList<DataAssociation> dataOutputAssociations = new ArrayList<>();
+
+    // Act
+    adhocSubProcess.setDataOutputAssociations(dataOutputAssociations);
+
+    // Assert
+    assertSame(dataOutputAssociations, adhocSubProcess.getDataOutputAssociations());
+  }
+
+  /**
+   * Method under test: {@link Activity#setDataOutputAssociations(List)}
+   */
+  @Test
+  public void testSetDataOutputAssociations2() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
 
@@ -473,17 +378,10 @@ public class ActivityDiffblueTest {
   }
 
   /**
-   * Test {@link Activity#setDataOutputAssociations(List)}.
-   * <ul>
-   *   <li>Given {@link DataAssociation} (default constructor).</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Activity#setDataOutputAssociations(List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setDataOutputAssociations(List)"})
-  public void testSetDataOutputAssociations_givenDataAssociation2() {
+  public void testSetDataOutputAssociations3() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
 
@@ -499,55 +397,29 @@ public class ActivityDiffblueTest {
   }
 
   /**
-   * Test {@link Activity#setDataOutputAssociations(List)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Activity#setDataOutputAssociations(List)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setDataOutputAssociations(List)"})
-  public void testSetDataOutputAssociations_whenArrayList() {
-    // Arrange
-    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
-    ArrayList<DataAssociation> dataOutputAssociations = new ArrayList<>();
-
-    // Act
-    adhocSubProcess.setDataOutputAssociations(dataOutputAssociations);
-
-    // Assert
-    assertSame(dataOutputAssociations, adhocSubProcess.getDataOutputAssociations());
-  }
-
-  /**
-   * Test {@link Activity#getMapExceptions()}.
-   * <p>
    * Method under test: {@link Activity#getMapExceptions()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"List Activity.getMapExceptions()"})
   public void testGetMapExceptions() {
-    // Arrange, Act and Assert
-    assertTrue((new AdhocSubProcess()).getMapExceptions().isEmpty());
-  }
-
-  /**
-   * Test {@link Activity#setMapExceptions(List)}.
-   * <p>
-   * Method under test: {@link Activity#setMapExceptions(List)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setMapExceptions(List)"})
-  public void testSetMapExceptions() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
 
+    // Act
+    List<MapExceptionEntry> actualMapExceptions = adhocSubProcess.getMapExceptions();
+
+    // Assert
+    assertTrue(actualMapExceptions.isEmpty());
+    assertSame(adhocSubProcess.mapExceptions, actualMapExceptions);
+  }
+
+  /**
+   * Method under test: {@link Activity#setMapExceptions(List)}
+   */
+  @Test
+  public void testSetMapExceptions() {
+    // Arrange
+    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
     ArrayList<MapExceptionEntry> mapExceptions = new ArrayList<>();
-    mapExceptions.add(new MapExceptionEntry("An error occurred", "Class Name", true));
 
     // Act
     adhocSubProcess.setMapExceptions(mapExceptions);
@@ -557,19 +429,33 @@ public class ActivityDiffblueTest {
   }
 
   /**
-   * Test {@link Activity#setMapExceptions(List)}.
-   * <p>
    * Method under test: {@link Activity#setMapExceptions(List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setMapExceptions(List)"})
   public void testSetMapExceptions2() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
 
     ArrayList<MapExceptionEntry> mapExceptions = new ArrayList<>();
     mapExceptions.add(new MapExceptionEntry("An error occurred", "Class Name", true));
+
+    // Act
+    adhocSubProcess.setMapExceptions(mapExceptions);
+
+    // Assert
+    assertSame(mapExceptions, adhocSubProcess.getMapExceptions());
+  }
+
+  /**
+   * Method under test: {@link Activity#setMapExceptions(List)}
+   */
+  @Test
+  public void testSetMapExceptions3() {
+    // Arrange
+    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
+
+    ArrayList<MapExceptionEntry> mapExceptions = new ArrayList<>();
+    mapExceptions.add(new MapExceptionEntry("An error occurred", "Class Name", true));
     mapExceptions.add(new MapExceptionEntry("An error occurred", "Class Name", true));
 
     // Act
@@ -580,37 +466,39 @@ public class ActivityDiffblueTest {
   }
 
   /**
-   * Test {@link Activity#setMapExceptions(List)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Activity#setMapExceptions(List)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setMapExceptions(List)"})
-  public void testSetMapExceptions_whenArrayList() {
-    // Arrange
-    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
-    ArrayList<MapExceptionEntry> mapExceptions = new ArrayList<>();
-
-    // Act
-    adhocSubProcess.setMapExceptions(mapExceptions);
-
-    // Assert
-    assertSame(mapExceptions, adhocSubProcess.getMapExceptions());
-  }
-
-  /**
-   * Test {@link Activity#setValues(Activity)} with {@code Activity}.
-   * <p>
    * Method under test: {@link Activity#setValues(Activity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setValues(Activity)"})
-  public void testSetValuesWithActivity() {
+  public void testSetValues() {
+    // Arrange
+    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
+    AdhocSubProcess otherActivity = new AdhocSubProcess();
+
+    // Act
+    adhocSubProcess.setValues((Activity) otherActivity);
+
+    // Assert
+    assertNull(otherActivity.getDefaultFlow());
+    assertNull(otherActivity.getFailedJobRetryTimeCycleValue());
+    assertNull(otherActivity.getId());
+    assertNull(otherActivity.getDocumentation());
+    assertNull(otherActivity.getName());
+    assertNull(otherActivity.getIoSpecification());
+    assertNull(otherActivity.getLoopCharacteristics());
+    assertFalse(otherActivity.hasMultiInstanceLoopCharacteristics());
+    assertFalse(otherActivity.isForCompensation());
+    assertFalse(otherActivity.isAsynchronous());
+    assertFalse(otherActivity.isNotExclusive());
+    assertTrue(otherActivity.getDataInputAssociations().isEmpty());
+    assertTrue(otherActivity.getDataOutputAssociations().isEmpty());
+    assertTrue(otherActivity.isExclusive());
+  }
+
+  /**
+   * Method under test: {@link Activity#setValues(Activity)}
+   */
+  @Test
+  public void testSetValues2() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
 
@@ -618,8 +506,7 @@ public class ActivityDiffblueTest {
     boundaryEvents.add(new BoundaryEvent());
 
     AdhocSubProcess otherActivity = new AdhocSubProcess();
-    MultiInstanceLoopCharacteristics loopCharacteristics = new MultiInstanceLoopCharacteristics();
-    otherActivity.setLoopCharacteristics(loopCharacteristics);
+    otherActivity.setLoopCharacteristics(null);
     otherActivity.setIoSpecification(null);
     otherActivity.setDataInputAssociations(null);
     otherActivity.setDataOutputAssociations(null);
@@ -628,27 +515,191 @@ public class ActivityDiffblueTest {
     // Act
     adhocSubProcess.setValues((Activity) otherActivity);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(otherActivity.getDefaultFlow());
+    assertNull(otherActivity.getFailedJobRetryTimeCycleValue());
+    assertNull(otherActivity.getId());
+    assertNull(otherActivity.getDocumentation());
+    assertNull(otherActivity.getName());
+    assertNull(otherActivity.getDataInputAssociations());
+    assertNull(otherActivity.getDataOutputAssociations());
+    assertNull(otherActivity.getIoSpecification());
+    assertNull(otherActivity.getLoopCharacteristics());
+    assertFalse(otherActivity.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherActivity.isForCompensation());
     assertFalse(otherActivity.isAsynchronous());
     assertFalse(otherActivity.isNotExclusive());
-    assertTrue(otherActivity.hasMultiInstanceLoopCharacteristics());
     assertTrue(otherActivity.isExclusive());
-    assertSame(loopCharacteristics, otherActivity.getLoopCharacteristics());
   }
 
   /**
-   * Test {@link Activity#setValues(Activity)} with {@code Activity}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link DataSpec} (default constructor).</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Activity#setValues(Activity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setValues(Activity)"})
-  public void testSetValuesWithActivity_givenArrayListAddDataSpec() {
+  public void testSetValues3() {
+    // Arrange
+    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
+
+    ArrayList<DataAssociation> dataOutputAssociations = new ArrayList<>();
+    dataOutputAssociations.add(new DataAssociation());
+
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
+
+    AdhocSubProcess otherActivity = new AdhocSubProcess();
+    otherActivity.setLoopCharacteristics(null);
+    otherActivity.setIoSpecification(null);
+    otherActivity.setDataInputAssociations(null);
+    otherActivity.setDataOutputAssociations(dataOutputAssociations);
+    otherActivity.setBoundaryEvents(boundaryEvents);
+
+    // Act
+    adhocSubProcess.setValues((Activity) otherActivity);
+
+    // Assert
+    assertNull(otherActivity.getDefaultFlow());
+    assertNull(otherActivity.getFailedJobRetryTimeCycleValue());
+    assertNull(otherActivity.getId());
+    assertNull(otherActivity.getDocumentation());
+    assertNull(otherActivity.getName());
+    assertNull(otherActivity.getDataInputAssociations());
+    assertNull(otherActivity.getIoSpecification());
+    assertNull(otherActivity.getLoopCharacteristics());
+    assertFalse(otherActivity.hasMultiInstanceLoopCharacteristics());
+    assertFalse(otherActivity.isForCompensation());
+    assertFalse(otherActivity.isAsynchronous());
+    assertFalse(otherActivity.isNotExclusive());
+    assertTrue(otherActivity.isExclusive());
+    assertSame(dataOutputAssociations, otherActivity.getDataOutputAssociations());
+  }
+
+  /**
+   * Method under test: {@link Activity#setValues(Activity)}
+   */
+  @Test
+  public void testSetValues4() {
+    // Arrange
+    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
+
+    ArrayList<DataAssociation> dataInputAssociations = new ArrayList<>();
+    dataInputAssociations.add(new DataAssociation());
+
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
+
+    AdhocSubProcess otherActivity = new AdhocSubProcess();
+    otherActivity.setLoopCharacteristics(null);
+    otherActivity.setIoSpecification(null);
+    otherActivity.setDataInputAssociations(dataInputAssociations);
+    otherActivity.setDataOutputAssociations(null);
+    otherActivity.setBoundaryEvents(boundaryEvents);
+
+    // Act
+    adhocSubProcess.setValues((Activity) otherActivity);
+
+    // Assert
+    assertNull(otherActivity.getDefaultFlow());
+    assertNull(otherActivity.getFailedJobRetryTimeCycleValue());
+    assertNull(otherActivity.getId());
+    assertNull(otherActivity.getDocumentation());
+    assertNull(otherActivity.getName());
+    assertNull(otherActivity.getDataOutputAssociations());
+    assertNull(otherActivity.getIoSpecification());
+    assertNull(otherActivity.getLoopCharacteristics());
+    assertFalse(otherActivity.hasMultiInstanceLoopCharacteristics());
+    assertFalse(otherActivity.isForCompensation());
+    assertFalse(otherActivity.isAsynchronous());
+    assertFalse(otherActivity.isNotExclusive());
+    assertTrue(otherActivity.isExclusive());
+    assertSame(dataInputAssociations, otherActivity.getDataInputAssociations());
+  }
+
+  /**
+   * Method under test: {@link Activity#setValues(Activity)}
+   */
+  @Test
+  public void testSetValues5() {
+    // Arrange
+    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
+
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
+
+    AdhocSubProcess otherActivity = new AdhocSubProcess();
+    otherActivity.setLoopCharacteristics(null);
+    IOSpecification ioSpecification = new IOSpecification();
+    otherActivity.setIoSpecification(ioSpecification);
+    otherActivity.setDataInputAssociations(null);
+    otherActivity.setDataOutputAssociations(null);
+    otherActivity.setBoundaryEvents(boundaryEvents);
+
+    // Act
+    adhocSubProcess.setValues((Activity) otherActivity);
+
+    // Assert
+    assertNull(otherActivity.getDefaultFlow());
+    assertNull(otherActivity.getFailedJobRetryTimeCycleValue());
+    assertNull(otherActivity.getId());
+    assertNull(otherActivity.getDocumentation());
+    assertNull(otherActivity.getName());
+    assertNull(otherActivity.getDataInputAssociations());
+    assertNull(otherActivity.getDataOutputAssociations());
+    assertNull(otherActivity.getLoopCharacteristics());
+    assertFalse(otherActivity.hasMultiInstanceLoopCharacteristics());
+    assertFalse(otherActivity.isForCompensation());
+    assertFalse(otherActivity.isAsynchronous());
+    assertFalse(otherActivity.isNotExclusive());
+    assertTrue(otherActivity.isExclusive());
+    assertSame(ioSpecification, otherActivity.getIoSpecification());
+  }
+
+  /**
+   * Method under test: {@link Activity#setValues(Activity)}
+   */
+  @Test
+  public void testSetValues6() {
+    // Arrange
+    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
+
+    IOSpecification ioSpecification = new IOSpecification();
+    ioSpecification.setDataInputs(null);
+    ioSpecification.setDataOutputs(null);
+
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
+
+    AdhocSubProcess otherActivity = new AdhocSubProcess();
+    otherActivity.setLoopCharacteristics(null);
+    otherActivity.setIoSpecification(ioSpecification);
+    otherActivity.setDataInputAssociations(null);
+    otherActivity.setDataOutputAssociations(null);
+    otherActivity.setBoundaryEvents(boundaryEvents);
+
+    // Act
+    adhocSubProcess.setValues((Activity) otherActivity);
+
+    // Assert
+    assertNull(otherActivity.getDefaultFlow());
+    assertNull(otherActivity.getFailedJobRetryTimeCycleValue());
+    assertNull(otherActivity.getId());
+    assertNull(otherActivity.getDocumentation());
+    assertNull(otherActivity.getName());
+    assertNull(otherActivity.getDataInputAssociations());
+    assertNull(otherActivity.getDataOutputAssociations());
+    assertNull(otherActivity.getLoopCharacteristics());
+    assertFalse(otherActivity.hasMultiInstanceLoopCharacteristics());
+    assertFalse(otherActivity.isForCompensation());
+    assertFalse(otherActivity.isAsynchronous());
+    assertFalse(otherActivity.isNotExclusive());
+    assertTrue(otherActivity.isExclusive());
+    assertSame(ioSpecification, otherActivity.getIoSpecification());
+  }
+
+  /**
+   * Method under test: {@link Activity#setValues(Activity)}
+   */
+  @Test
+  public void testSetValues7() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
 
@@ -672,7 +723,15 @@ public class ActivityDiffblueTest {
     // Act
     adhocSubProcess.setValues((Activity) otherActivity);
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(otherActivity.getDefaultFlow());
+    assertNull(otherActivity.getFailedJobRetryTimeCycleValue());
+    assertNull(otherActivity.getId());
+    assertNull(otherActivity.getDocumentation());
+    assertNull(otherActivity.getName());
+    assertNull(otherActivity.getDataInputAssociations());
+    assertNull(otherActivity.getDataOutputAssociations());
+    assertNull(otherActivity.getLoopCharacteristics());
     assertFalse(otherActivity.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherActivity.isForCompensation());
     assertFalse(otherActivity.isAsynchronous());
@@ -682,196 +741,10 @@ public class ActivityDiffblueTest {
   }
 
   /**
-   * Test {@link Activity#setValues(Activity)} with {@code Activity}.
-   * <ul>
-   *   <li>Given {@link IOSpecification} (default constructor) DataOutputs is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Activity#setValues(Activity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setValues(Activity)"})
-  public void testSetValuesWithActivity_givenIOSpecificationDataOutputsIsNull() {
-    // Arrange
-    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
-
-    IOSpecification ioSpecification = new IOSpecification();
-    ioSpecification.setDataInputs(null);
-    ioSpecification.setDataOutputs(null);
-
-    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
-    boundaryEvents.add(new BoundaryEvent());
-
-    AdhocSubProcess otherActivity = new AdhocSubProcess();
-    otherActivity.setLoopCharacteristics(null);
-    otherActivity.setIoSpecification(ioSpecification);
-    otherActivity.setDataInputAssociations(null);
-    otherActivity.setDataOutputAssociations(null);
-    otherActivity.setBoundaryEvents(boundaryEvents);
-
-    // Act
-    adhocSubProcess.setValues((Activity) otherActivity);
-
-    // Assert that nothing has changed
-    assertFalse(otherActivity.hasMultiInstanceLoopCharacteristics());
-    assertFalse(otherActivity.isForCompensation());
-    assertFalse(otherActivity.isAsynchronous());
-    assertFalse(otherActivity.isNotExclusive());
-    assertTrue(otherActivity.isExclusive());
-    assertSame(ioSpecification, otherActivity.getIoSpecification());
-  }
-
-  /**
-   * Test {@link Activity#setValues(Activity)} with {@code Activity}.
-   * <ul>
-   *   <li>Then {@link AdhocSubProcess} (default constructor) DataInputAssociations size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Activity#setValues(Activity)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setValues(Activity)"})
-  public void testSetValuesWithActivity_thenAdhocSubProcessDataInputAssociationsSizeIsOne() {
-    // Arrange
-    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
-
-    ArrayList<DataAssociation> dataAssociationList = new ArrayList<>();
-    dataAssociationList.add(new DataAssociation());
-    BusinessRuleTask otherActivity = mock(BusinessRuleTask.class);
-    when(otherActivity.isForCompensation()).thenReturn(true);
-    when(otherActivity.isAsynchronous()).thenReturn(true);
-    when(otherActivity.isNotExclusive()).thenReturn(true);
-    when(otherActivity.getDefaultFlow()).thenReturn("Default Flow");
-    when(otherActivity.getFailedJobRetryTimeCycleValue()).thenReturn("42");
-    when(otherActivity.getId()).thenReturn("42");
-    when(otherActivity.getDocumentation()).thenReturn("Documentation");
-    when(otherActivity.getName()).thenReturn("Name");
-    when(otherActivity.getBoundaryEvents()).thenReturn(new ArrayList<>());
-    when(otherActivity.getDataInputAssociations()).thenReturn(dataAssociationList);
-    when(otherActivity.getDataOutputAssociations()).thenReturn(new ArrayList<>());
-    when(otherActivity.getExecutionListeners()).thenReturn(new ArrayList<>());
-    when(otherActivity.getAttributes()).thenReturn(new HashMap<>());
-    when(otherActivity.getExtensionElements()).thenReturn(new HashMap<>());
-    when(otherActivity.getIoSpecification()).thenReturn(new IOSpecification());
-    when(otherActivity.getLoopCharacteristics()).thenReturn(new MultiInstanceLoopCharacteristics());
-
-    // Act
-    adhocSubProcess.setValues(otherActivity);
-
-    // Assert
-    verify(otherActivity).getBoundaryEvents();
-    verify(otherActivity, atLeast(1)).getDataInputAssociations();
-    verify(otherActivity, atLeast(1)).getDataOutputAssociations();
-    verify(otherActivity).getDefaultFlow();
-    verify(otherActivity).getFailedJobRetryTimeCycleValue();
-    verify(otherActivity, atLeast(1)).getIoSpecification();
-    verify(otherActivity, atLeast(1)).getLoopCharacteristics();
-    verify(otherActivity).isForCompensation();
-    verify(otherActivity, atLeast(1)).getAttributes();
-    verify(otherActivity, atLeast(1)).getExtensionElements();
-    verify(otherActivity).getId();
-    verify(otherActivity).getDocumentation();
-    verify(otherActivity, atLeast(1)).getExecutionListeners();
-    verify(otherActivity).getName();
-    verify(otherActivity).isAsynchronous();
-    verify(otherActivity).isNotExclusive();
-    List<DataAssociation> dataInputAssociations = adhocSubProcess.getDataInputAssociations();
-    assertEquals(1, dataInputAssociations.size());
-    DataAssociation getResult = dataInputAssociations.get(0);
-    assertNull(getResult.getId());
-    assertNull(getResult.getSourceRef());
-    assertNull(getResult.getTargetRef());
-    assertNull(getResult.getTransformation());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(getResult.getAssignments().isEmpty());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link Activity#setValues(Activity)} with {@code Activity}.
-   * <ul>
-   *   <li>Then {@link AdhocSubProcess} (default constructor) DataOutputAssociations size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Activity#setValues(Activity)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setValues(Activity)"})
-  public void testSetValuesWithActivity_thenAdhocSubProcessDataOutputAssociationsSizeIsOne() {
-    // Arrange
-    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
-
-    ArrayList<DataAssociation> dataAssociationList = new ArrayList<>();
-    dataAssociationList.add(new DataAssociation());
-    BusinessRuleTask otherActivity = mock(BusinessRuleTask.class);
-    when(otherActivity.isForCompensation()).thenReturn(true);
-    when(otherActivity.isAsynchronous()).thenReturn(true);
-    when(otherActivity.isNotExclusive()).thenReturn(true);
-    when(otherActivity.getDefaultFlow()).thenReturn("Default Flow");
-    when(otherActivity.getFailedJobRetryTimeCycleValue()).thenReturn("42");
-    when(otherActivity.getId()).thenReturn("42");
-    when(otherActivity.getDocumentation()).thenReturn("Documentation");
-    when(otherActivity.getName()).thenReturn("Name");
-    when(otherActivity.getBoundaryEvents()).thenReturn(new ArrayList<>());
-    when(otherActivity.getDataInputAssociations()).thenReturn(new ArrayList<>());
-    when(otherActivity.getDataOutputAssociations()).thenReturn(dataAssociationList);
-    when(otherActivity.getExecutionListeners()).thenReturn(new ArrayList<>());
-    when(otherActivity.getAttributes()).thenReturn(new HashMap<>());
-    when(otherActivity.getExtensionElements()).thenReturn(new HashMap<>());
-    when(otherActivity.getIoSpecification()).thenReturn(new IOSpecification());
-    when(otherActivity.getLoopCharacteristics()).thenReturn(new MultiInstanceLoopCharacteristics());
-
-    // Act
-    adhocSubProcess.setValues(otherActivity);
-
-    // Assert
-    verify(otherActivity).getBoundaryEvents();
-    verify(otherActivity, atLeast(1)).getDataInputAssociations();
-    verify(otherActivity, atLeast(1)).getDataOutputAssociations();
-    verify(otherActivity).getDefaultFlow();
-    verify(otherActivity).getFailedJobRetryTimeCycleValue();
-    verify(otherActivity, atLeast(1)).getIoSpecification();
-    verify(otherActivity, atLeast(1)).getLoopCharacteristics();
-    verify(otherActivity).isForCompensation();
-    verify(otherActivity, atLeast(1)).getAttributes();
-    verify(otherActivity, atLeast(1)).getExtensionElements();
-    verify(otherActivity).getId();
-    verify(otherActivity).getDocumentation();
-    verify(otherActivity, atLeast(1)).getExecutionListeners();
-    verify(otherActivity).getName();
-    verify(otherActivity).isAsynchronous();
-    verify(otherActivity).isNotExclusive();
-    List<DataAssociation> dataOutputAssociations = adhocSubProcess.getDataOutputAssociations();
-    assertEquals(1, dataOutputAssociations.size());
-    DataAssociation getResult = dataOutputAssociations.get(0);
-    assertNull(getResult.getId());
-    assertNull(getResult.getSourceRef());
-    assertNull(getResult.getTargetRef());
-    assertNull(getResult.getTransformation());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(getResult.getAssignments().isEmpty());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link Activity#setValues(Activity)} with {@code Activity}.
-   * <ul>
-   *   <li>Then {@link AdhocSubProcess} (default constructor) FailedJobRetryTimeCycleValue is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Activity#setValues(Activity)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setValues(Activity)"})
-  public void testSetValuesWithActivity_thenAdhocSubProcessFailedJobRetryTimeCycleValueIs42() {
+  public void testSetValues8() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
     BusinessRuleTask otherActivity = mock(BusinessRuleTask.class);
@@ -917,7 +790,33 @@ public class ActivityDiffblueTest {
     assertEquals("Default Flow", adhocSubProcess.getDefaultFlow());
     assertEquals("Documentation", adhocSubProcess.getDocumentation());
     assertEquals("Name", adhocSubProcess.getName());
+    IOSpecification ioSpecification = adhocSubProcess.getIoSpecification();
+    assertNull(ioSpecification.getId());
+    MultiInstanceLoopCharacteristics loopCharacteristics = adhocSubProcess.getLoopCharacteristics();
+    assertNull(loopCharacteristics.getId());
+    assertNull(loopCharacteristics.getCompletionCondition());
+    assertNull(loopCharacteristics.getElementIndexVariable());
+    assertNull(loopCharacteristics.getElementVariable());
+    assertNull(loopCharacteristics.getInputDataItem());
+    assertNull(loopCharacteristics.getLoopCardinality());
+    assertNull(loopCharacteristics.getLoopDataOutputRef());
+    assertNull(loopCharacteristics.getOutputDataItem());
+    assertEquals(0, ioSpecification.getXmlColumnNumber());
+    assertEquals(0, loopCharacteristics.getXmlColumnNumber());
+    assertEquals(0, ioSpecification.getXmlRowNumber());
+    assertEquals(0, loopCharacteristics.getXmlRowNumber());
     assertFalse(adhocSubProcess.isExclusive());
+    assertFalse(loopCharacteristics.isSequential());
+    assertTrue(adhocSubProcess.getDataInputAssociations().isEmpty());
+    assertTrue(adhocSubProcess.getDataOutputAssociations().isEmpty());
+    assertTrue(ioSpecification.getDataInputRefs().isEmpty());
+    assertTrue(ioSpecification.getDataInputs().isEmpty());
+    assertTrue(ioSpecification.getDataOutputRefs().isEmpty());
+    assertTrue(ioSpecification.getDataOutputs().isEmpty());
+    assertTrue(ioSpecification.getAttributes().isEmpty());
+    assertTrue(loopCharacteristics.getAttributes().isEmpty());
+    assertTrue(ioSpecification.getExtensionElements().isEmpty());
+    assertTrue(loopCharacteristics.getExtensionElements().isEmpty());
     assertTrue(adhocSubProcess.hasMultiInstanceLoopCharacteristics());
     assertTrue(adhocSubProcess.isForCompensation());
     assertTrue(adhocSubProcess.isAsynchronous());
@@ -925,17 +824,204 @@ public class ActivityDiffblueTest {
   }
 
   /**
-   * Test {@link Activity#setValues(Activity)} with {@code Activity}.
-   * <ul>
-   *   <li>Then calls {@link IOSpecification#clone()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Activity#setValues(Activity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setValues(Activity)"})
-  public void testSetValuesWithActivity_thenCallsClone() {
+  public void testSetValues9() {
+    // Arrange
+    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
+
+    ArrayList<DataAssociation> dataAssociationList = new ArrayList<>();
+    dataAssociationList.add(new DataAssociation());
+    BusinessRuleTask otherActivity = mock(BusinessRuleTask.class);
+    when(otherActivity.isForCompensation()).thenReturn(true);
+    when(otherActivity.isAsynchronous()).thenReturn(true);
+    when(otherActivity.isNotExclusive()).thenReturn(true);
+    when(otherActivity.getDefaultFlow()).thenReturn("Default Flow");
+    when(otherActivity.getFailedJobRetryTimeCycleValue()).thenReturn("42");
+    when(otherActivity.getId()).thenReturn("42");
+    when(otherActivity.getDocumentation()).thenReturn("Documentation");
+    when(otherActivity.getName()).thenReturn("Name");
+    when(otherActivity.getBoundaryEvents()).thenReturn(new ArrayList<>());
+    when(otherActivity.getDataInputAssociations()).thenReturn(dataAssociationList);
+    when(otherActivity.getDataOutputAssociations()).thenReturn(new ArrayList<>());
+    when(otherActivity.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(otherActivity.getAttributes()).thenReturn(new HashMap<>());
+    when(otherActivity.getExtensionElements()).thenReturn(new HashMap<>());
+    when(otherActivity.getIoSpecification()).thenReturn(new IOSpecification());
+    when(otherActivity.getLoopCharacteristics()).thenReturn(new MultiInstanceLoopCharacteristics());
+
+    // Act
+    adhocSubProcess.setValues(otherActivity);
+
+    // Assert
+    verify(otherActivity).getBoundaryEvents();
+    verify(otherActivity, atLeast(1)).getDataInputAssociations();
+    verify(otherActivity, atLeast(1)).getDataOutputAssociations();
+    verify(otherActivity).getDefaultFlow();
+    verify(otherActivity).getFailedJobRetryTimeCycleValue();
+    verify(otherActivity, atLeast(1)).getIoSpecification();
+    verify(otherActivity, atLeast(1)).getLoopCharacteristics();
+    verify(otherActivity).isForCompensation();
+    verify(otherActivity, atLeast(1)).getAttributes();
+    verify(otherActivity, atLeast(1)).getExtensionElements();
+    verify(otherActivity).getId();
+    verify(otherActivity).getDocumentation();
+    verify(otherActivity, atLeast(1)).getExecutionListeners();
+    verify(otherActivity).getName();
+    verify(otherActivity).isAsynchronous();
+    verify(otherActivity).isNotExclusive();
+    assertEquals("42", adhocSubProcess.getFailedJobRetryTimeCycleValue());
+    assertEquals("42", adhocSubProcess.getId());
+    assertEquals("Default Flow", adhocSubProcess.getDefaultFlow());
+    assertEquals("Documentation", adhocSubProcess.getDocumentation());
+    assertEquals("Name", adhocSubProcess.getName());
+    List<DataAssociation> dataInputAssociations = adhocSubProcess.getDataInputAssociations();
+    assertEquals(1, dataInputAssociations.size());
+    DataAssociation getResult = dataInputAssociations.get(0);
+    assertNull(getResult.getId());
+    IOSpecification ioSpecification = adhocSubProcess.getIoSpecification();
+    assertNull(ioSpecification.getId());
+    MultiInstanceLoopCharacteristics loopCharacteristics = adhocSubProcess.getLoopCharacteristics();
+    assertNull(loopCharacteristics.getId());
+    assertNull(getResult.getSourceRef());
+    assertNull(getResult.getTargetRef());
+    assertNull(getResult.getTransformation());
+    assertNull(loopCharacteristics.getCompletionCondition());
+    assertNull(loopCharacteristics.getElementIndexVariable());
+    assertNull(loopCharacteristics.getElementVariable());
+    assertNull(loopCharacteristics.getInputDataItem());
+    assertNull(loopCharacteristics.getLoopCardinality());
+    assertNull(loopCharacteristics.getLoopDataOutputRef());
+    assertNull(loopCharacteristics.getOutputDataItem());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, ioSpecification.getXmlColumnNumber());
+    assertEquals(0, loopCharacteristics.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlRowNumber());
+    assertEquals(0, ioSpecification.getXmlRowNumber());
+    assertEquals(0, loopCharacteristics.getXmlRowNumber());
+    assertFalse(adhocSubProcess.isExclusive());
+    assertFalse(loopCharacteristics.isSequential());
+    assertTrue(adhocSubProcess.getDataOutputAssociations().isEmpty());
+    assertTrue(getResult.getAssignments().isEmpty());
+    assertTrue(ioSpecification.getDataInputRefs().isEmpty());
+    assertTrue(ioSpecification.getDataInputs().isEmpty());
+    assertTrue(ioSpecification.getDataOutputRefs().isEmpty());
+    assertTrue(ioSpecification.getDataOutputs().isEmpty());
+    assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(ioSpecification.getAttributes().isEmpty());
+    assertTrue(loopCharacteristics.getAttributes().isEmpty());
+    assertTrue(getResult.getExtensionElements().isEmpty());
+    assertTrue(ioSpecification.getExtensionElements().isEmpty());
+    assertTrue(loopCharacteristics.getExtensionElements().isEmpty());
+    assertTrue(adhocSubProcess.hasMultiInstanceLoopCharacteristics());
+    assertTrue(adhocSubProcess.isForCompensation());
+    assertTrue(adhocSubProcess.isAsynchronous());
+    assertTrue(adhocSubProcess.isNotExclusive());
+  }
+
+  /**
+   * Method under test: {@link Activity#setValues(Activity)}
+   */
+  @Test
+  public void testSetValues10() {
+    // Arrange
+    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
+
+    ArrayList<DataAssociation> dataAssociationList = new ArrayList<>();
+    dataAssociationList.add(new DataAssociation());
+    BusinessRuleTask otherActivity = mock(BusinessRuleTask.class);
+    when(otherActivity.isForCompensation()).thenReturn(true);
+    when(otherActivity.isAsynchronous()).thenReturn(true);
+    when(otherActivity.isNotExclusive()).thenReturn(true);
+    when(otherActivity.getDefaultFlow()).thenReturn("Default Flow");
+    when(otherActivity.getFailedJobRetryTimeCycleValue()).thenReturn("42");
+    when(otherActivity.getId()).thenReturn("42");
+    when(otherActivity.getDocumentation()).thenReturn("Documentation");
+    when(otherActivity.getName()).thenReturn("Name");
+    when(otherActivity.getBoundaryEvents()).thenReturn(new ArrayList<>());
+    when(otherActivity.getDataInputAssociations()).thenReturn(new ArrayList<>());
+    when(otherActivity.getDataOutputAssociations()).thenReturn(dataAssociationList);
+    when(otherActivity.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(otherActivity.getAttributes()).thenReturn(new HashMap<>());
+    when(otherActivity.getExtensionElements()).thenReturn(new HashMap<>());
+    when(otherActivity.getIoSpecification()).thenReturn(new IOSpecification());
+    when(otherActivity.getLoopCharacteristics()).thenReturn(new MultiInstanceLoopCharacteristics());
+
+    // Act
+    adhocSubProcess.setValues(otherActivity);
+
+    // Assert
+    verify(otherActivity).getBoundaryEvents();
+    verify(otherActivity, atLeast(1)).getDataInputAssociations();
+    verify(otherActivity, atLeast(1)).getDataOutputAssociations();
+    verify(otherActivity).getDefaultFlow();
+    verify(otherActivity).getFailedJobRetryTimeCycleValue();
+    verify(otherActivity, atLeast(1)).getIoSpecification();
+    verify(otherActivity, atLeast(1)).getLoopCharacteristics();
+    verify(otherActivity).isForCompensation();
+    verify(otherActivity, atLeast(1)).getAttributes();
+    verify(otherActivity, atLeast(1)).getExtensionElements();
+    verify(otherActivity).getId();
+    verify(otherActivity).getDocumentation();
+    verify(otherActivity, atLeast(1)).getExecutionListeners();
+    verify(otherActivity).getName();
+    verify(otherActivity).isAsynchronous();
+    verify(otherActivity).isNotExclusive();
+    assertEquals("42", adhocSubProcess.getFailedJobRetryTimeCycleValue());
+    assertEquals("42", adhocSubProcess.getId());
+    assertEquals("Default Flow", adhocSubProcess.getDefaultFlow());
+    assertEquals("Documentation", adhocSubProcess.getDocumentation());
+    assertEquals("Name", adhocSubProcess.getName());
+    List<DataAssociation> dataOutputAssociations = adhocSubProcess.getDataOutputAssociations();
+    assertEquals(1, dataOutputAssociations.size());
+    DataAssociation getResult = dataOutputAssociations.get(0);
+    assertNull(getResult.getId());
+    IOSpecification ioSpecification = adhocSubProcess.getIoSpecification();
+    assertNull(ioSpecification.getId());
+    MultiInstanceLoopCharacteristics loopCharacteristics = adhocSubProcess.getLoopCharacteristics();
+    assertNull(loopCharacteristics.getId());
+    assertNull(getResult.getSourceRef());
+    assertNull(getResult.getTargetRef());
+    assertNull(getResult.getTransformation());
+    assertNull(loopCharacteristics.getCompletionCondition());
+    assertNull(loopCharacteristics.getElementIndexVariable());
+    assertNull(loopCharacteristics.getElementVariable());
+    assertNull(loopCharacteristics.getInputDataItem());
+    assertNull(loopCharacteristics.getLoopCardinality());
+    assertNull(loopCharacteristics.getLoopDataOutputRef());
+    assertNull(loopCharacteristics.getOutputDataItem());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, ioSpecification.getXmlColumnNumber());
+    assertEquals(0, loopCharacteristics.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlRowNumber());
+    assertEquals(0, ioSpecification.getXmlRowNumber());
+    assertEquals(0, loopCharacteristics.getXmlRowNumber());
+    assertFalse(adhocSubProcess.isExclusive());
+    assertFalse(loopCharacteristics.isSequential());
+    assertTrue(adhocSubProcess.getDataInputAssociations().isEmpty());
+    assertTrue(getResult.getAssignments().isEmpty());
+    assertTrue(ioSpecification.getDataInputRefs().isEmpty());
+    assertTrue(ioSpecification.getDataInputs().isEmpty());
+    assertTrue(ioSpecification.getDataOutputRefs().isEmpty());
+    assertTrue(ioSpecification.getDataOutputs().isEmpty());
+    assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(ioSpecification.getAttributes().isEmpty());
+    assertTrue(loopCharacteristics.getAttributes().isEmpty());
+    assertTrue(getResult.getExtensionElements().isEmpty());
+    assertTrue(ioSpecification.getExtensionElements().isEmpty());
+    assertTrue(loopCharacteristics.getExtensionElements().isEmpty());
+    assertTrue(adhocSubProcess.hasMultiInstanceLoopCharacteristics());
+    assertTrue(adhocSubProcess.isForCompensation());
+    assertTrue(adhocSubProcess.isAsynchronous());
+    assertTrue(adhocSubProcess.isNotExclusive());
+  }
+
+  /**
+   * Method under test: {@link Activity#setValues(Activity)}
+   */
+  @Test
+  public void testSetValues11() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
     IOSpecification ioSpecification = mock(IOSpecification.class);
@@ -985,7 +1071,23 @@ public class ActivityDiffblueTest {
     assertEquals("Default Flow", adhocSubProcess.getDefaultFlow());
     assertEquals("Documentation", adhocSubProcess.getDocumentation());
     assertEquals("Name", adhocSubProcess.getName());
+    MultiInstanceLoopCharacteristics loopCharacteristics = adhocSubProcess.getLoopCharacteristics();
+    assertNull(loopCharacteristics.getId());
+    assertNull(loopCharacteristics.getCompletionCondition());
+    assertNull(loopCharacteristics.getElementIndexVariable());
+    assertNull(loopCharacteristics.getElementVariable());
+    assertNull(loopCharacteristics.getInputDataItem());
+    assertNull(loopCharacteristics.getLoopCardinality());
+    assertNull(loopCharacteristics.getLoopDataOutputRef());
+    assertNull(loopCharacteristics.getOutputDataItem());
+    assertEquals(0, loopCharacteristics.getXmlColumnNumber());
+    assertEquals(0, loopCharacteristics.getXmlRowNumber());
     assertFalse(adhocSubProcess.isExclusive());
+    assertFalse(loopCharacteristics.isSequential());
+    assertTrue(adhocSubProcess.getDataInputAssociations().isEmpty());
+    assertTrue(adhocSubProcess.getDataOutputAssociations().isEmpty());
+    assertTrue(loopCharacteristics.getAttributes().isEmpty());
+    assertTrue(loopCharacteristics.getExtensionElements().isEmpty());
     assertTrue(adhocSubProcess.hasMultiInstanceLoopCharacteristics());
     assertTrue(adhocSubProcess.isForCompensation());
     assertTrue(adhocSubProcess.isAsynchronous());
@@ -994,17 +1096,10 @@ public class ActivityDiffblueTest {
   }
 
   /**
-   * Test {@link Activity#setValues(Activity)} with {@code Activity}.
-   * <ul>
-   *   <li>Then calls {@link MultiInstanceLoopCharacteristics#clone()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Activity#setValues(Activity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setValues(Activity)"})
-  public void testSetValuesWithActivity_thenCallsClone2() {
+  public void testSetValues12() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
     IOSpecification ioSpecification = mock(IOSpecification.class);
@@ -1059,6 +1154,8 @@ public class ActivityDiffblueTest {
     assertEquals("Documentation", adhocSubProcess.getDocumentation());
     assertEquals("Name", adhocSubProcess.getName());
     assertFalse(adhocSubProcess.isExclusive());
+    assertTrue(adhocSubProcess.getDataInputAssociations().isEmpty());
+    assertTrue(adhocSubProcess.getDataOutputAssociations().isEmpty());
     assertTrue(adhocSubProcess.hasMultiInstanceLoopCharacteristics());
     assertTrue(adhocSubProcess.isForCompensation());
     assertTrue(adhocSubProcess.isAsynchronous());
@@ -1068,17 +1165,49 @@ public class ActivityDiffblueTest {
   }
 
   /**
-   * Test {@link Activity#setValues(Activity)} with {@code Activity}.
-   * <ul>
-   *   <li>Then calls {@link DataAssociation#clone()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Activity#setValues(Activity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setValues(Activity)"})
-  public void testSetValuesWithActivity_thenCallsClone3() {
+  public void testSetValues13() {
+    // Arrange
+    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
+
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
+
+    AdhocSubProcess otherActivity = new AdhocSubProcess();
+    MultiInstanceLoopCharacteristics loopCharacteristics = new MultiInstanceLoopCharacteristics();
+    otherActivity.setLoopCharacteristics(loopCharacteristics);
+    otherActivity.setIoSpecification(null);
+    otherActivity.setDataInputAssociations(null);
+    otherActivity.setDataOutputAssociations(null);
+    otherActivity.setBoundaryEvents(boundaryEvents);
+
+    // Act
+    adhocSubProcess.setValues((Activity) otherActivity);
+
+    // Assert
+    assertNull(otherActivity.getDefaultFlow());
+    assertNull(otherActivity.getFailedJobRetryTimeCycleValue());
+    assertNull(otherActivity.getId());
+    assertNull(otherActivity.getDocumentation());
+    assertNull(otherActivity.getName());
+    assertNull(otherActivity.getDataInputAssociations());
+    assertNull(otherActivity.getDataOutputAssociations());
+    assertNull(otherActivity.getIoSpecification());
+    assertFalse(otherActivity.isForCompensation());
+    assertFalse(otherActivity.isAsynchronous());
+    assertFalse(otherActivity.isNotExclusive());
+    assertTrue(otherActivity.hasMultiInstanceLoopCharacteristics());
+    assertTrue(otherActivity.isExclusive());
+    assertSame(loopCharacteristics, otherActivity.getLoopCharacteristics());
+  }
+
+  /**
+   * Method under test: {@link Activity#setValues(Activity)}
+   */
+  @Test
+  public void testSetValues14() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
     DataAssociation dataAssociation = mock(DataAssociation.class);
@@ -1100,27 +1229,31 @@ public class ActivityDiffblueTest {
     // Act
     adhocSubProcess.setValues((Activity) otherActivity);
 
-    // Assert that nothing has changed
+    // Assert
     verify(dataAssociation).clone();
+    assertNull(otherActivity.getDefaultFlow());
+    assertNull(otherActivity.getFailedJobRetryTimeCycleValue());
+    assertNull(otherActivity.getId());
+    assertNull(otherActivity.getDocumentation());
+    assertNull(otherActivity.getName());
+    assertNull(otherActivity.getDataInputAssociations());
+    assertNull(otherActivity.getIoSpecification());
+    assertNull(otherActivity.getLoopCharacteristics());
+    List<DataAssociation> dataOutputAssociations2 = otherActivity.getDataOutputAssociations();
+    assertEquals(1, dataOutputAssociations2.size());
     assertFalse(otherActivity.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherActivity.isForCompensation());
     assertFalse(otherActivity.isAsynchronous());
     assertFalse(otherActivity.isNotExclusive());
     assertTrue(otherActivity.isExclusive());
+    assertSame(dataOutputAssociations, dataOutputAssociations2);
   }
 
   /**
-   * Test {@link Activity#setValues(Activity)} with {@code Activity}.
-   * <ul>
-   *   <li>Then calls {@link DataAssociation#clone()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Activity#setValues(Activity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setValues(Activity)"})
-  public void testSetValuesWithActivity_thenCallsClone4() {
+  public void testSetValues15() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
     DataAssociation dataAssociation = mock(DataAssociation.class);
@@ -1142,191 +1275,23 @@ public class ActivityDiffblueTest {
     // Act
     adhocSubProcess.setValues((Activity) otherActivity);
 
-    // Assert that nothing has changed
+    // Assert
     verify(dataAssociation).clone();
+    assertNull(otherActivity.getDefaultFlow());
+    assertNull(otherActivity.getFailedJobRetryTimeCycleValue());
+    assertNull(otherActivity.getId());
+    assertNull(otherActivity.getDocumentation());
+    assertNull(otherActivity.getName());
+    assertNull(otherActivity.getDataOutputAssociations());
+    assertNull(otherActivity.getIoSpecification());
+    assertNull(otherActivity.getLoopCharacteristics());
+    List<DataAssociation> dataInputAssociations2 = otherActivity.getDataInputAssociations();
+    assertEquals(1, dataInputAssociations2.size());
     assertFalse(otherActivity.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherActivity.isForCompensation());
     assertFalse(otherActivity.isAsynchronous());
     assertFalse(otherActivity.isNotExclusive());
     assertTrue(otherActivity.isExclusive());
-  }
-
-  /**
-   * Test {@link Activity#setValues(Activity)} with {@code Activity}.
-   * <ul>
-   *   <li>When {@link AdhocSubProcess} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Activity#setValues(Activity)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setValues(Activity)"})
-  public void testSetValuesWithActivity_whenAdhocSubProcess() {
-    // Arrange
-    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
-    AdhocSubProcess otherActivity = new AdhocSubProcess();
-
-    // Act
-    adhocSubProcess.setValues((Activity) otherActivity);
-
-    // Assert that nothing has changed
-    assertFalse(otherActivity.hasMultiInstanceLoopCharacteristics());
-    assertFalse(otherActivity.isForCompensation());
-    assertFalse(otherActivity.isAsynchronous());
-    assertFalse(otherActivity.isNotExclusive());
-    assertTrue(otherActivity.isExclusive());
-  }
-
-  /**
-   * Test {@link Activity#setValues(Activity)} with {@code Activity}.
-   * <ul>
-   *   <li>When {@link AdhocSubProcess} (default constructor) DataInputAssociations is {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Activity#setValues(Activity)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setValues(Activity)"})
-  public void testSetValuesWithActivity_whenAdhocSubProcessDataInputAssociationsIsArrayList() {
-    // Arrange
-    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
-
-    ArrayList<DataAssociation> dataInputAssociations = new ArrayList<>();
-    dataInputAssociations.add(new DataAssociation());
-
-    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
-    boundaryEvents.add(new BoundaryEvent());
-
-    AdhocSubProcess otherActivity = new AdhocSubProcess();
-    otherActivity.setLoopCharacteristics(null);
-    otherActivity.setIoSpecification(null);
-    otherActivity.setDataInputAssociations(dataInputAssociations);
-    otherActivity.setDataOutputAssociations(null);
-    otherActivity.setBoundaryEvents(boundaryEvents);
-
-    // Act
-    adhocSubProcess.setValues((Activity) otherActivity);
-
-    // Assert that nothing has changed
-    assertFalse(otherActivity.hasMultiInstanceLoopCharacteristics());
-    assertFalse(otherActivity.isForCompensation());
-    assertFalse(otherActivity.isAsynchronous());
-    assertFalse(otherActivity.isNotExclusive());
-    assertTrue(otherActivity.isExclusive());
-  }
-
-  /**
-   * Test {@link Activity#setValues(Activity)} with {@code Activity}.
-   * <ul>
-   *   <li>When {@link AdhocSubProcess} (default constructor) DataOutputAssociations is {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Activity#setValues(Activity)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setValues(Activity)"})
-  public void testSetValuesWithActivity_whenAdhocSubProcessDataOutputAssociationsIsArrayList() {
-    // Arrange
-    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
-
-    ArrayList<DataAssociation> dataOutputAssociations = new ArrayList<>();
-    dataOutputAssociations.add(new DataAssociation());
-
-    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
-    boundaryEvents.add(new BoundaryEvent());
-
-    AdhocSubProcess otherActivity = new AdhocSubProcess();
-    otherActivity.setLoopCharacteristics(null);
-    otherActivity.setIoSpecification(null);
-    otherActivity.setDataInputAssociations(null);
-    otherActivity.setDataOutputAssociations(dataOutputAssociations);
-    otherActivity.setBoundaryEvents(boundaryEvents);
-
-    // Act
-    adhocSubProcess.setValues((Activity) otherActivity);
-
-    // Assert that nothing has changed
-    assertFalse(otherActivity.hasMultiInstanceLoopCharacteristics());
-    assertFalse(otherActivity.isForCompensation());
-    assertFalse(otherActivity.isAsynchronous());
-    assertFalse(otherActivity.isNotExclusive());
-    assertTrue(otherActivity.isExclusive());
-  }
-
-  /**
-   * Test {@link Activity#setValues(Activity)} with {@code Activity}.
-   * <ul>
-   *   <li>When {@link AdhocSubProcess} (default constructor) IoSpecification is {@link IOSpecification} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Activity#setValues(Activity)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setValues(Activity)"})
-  public void testSetValuesWithActivity_whenAdhocSubProcessIoSpecificationIsIOSpecification() {
-    // Arrange
-    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
-
-    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
-    boundaryEvents.add(new BoundaryEvent());
-
-    AdhocSubProcess otherActivity = new AdhocSubProcess();
-    otherActivity.setLoopCharacteristics(null);
-    IOSpecification ioSpecification = new IOSpecification();
-    otherActivity.setIoSpecification(ioSpecification);
-    otherActivity.setDataInputAssociations(null);
-    otherActivity.setDataOutputAssociations(null);
-    otherActivity.setBoundaryEvents(boundaryEvents);
-
-    // Act
-    adhocSubProcess.setValues((Activity) otherActivity);
-
-    // Assert that nothing has changed
-    assertFalse(otherActivity.hasMultiInstanceLoopCharacteristics());
-    assertFalse(otherActivity.isForCompensation());
-    assertFalse(otherActivity.isAsynchronous());
-    assertFalse(otherActivity.isNotExclusive());
-    assertTrue(otherActivity.isExclusive());
-    assertSame(ioSpecification, otherActivity.getIoSpecification());
-  }
-
-  /**
-   * Test {@link Activity#setValues(Activity)} with {@code Activity}.
-   * <ul>
-   *   <li>When {@link AdhocSubProcess} (default constructor) IoSpecification is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Activity#setValues(Activity)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Activity.setValues(Activity)"})
-  public void testSetValuesWithActivity_whenAdhocSubProcessIoSpecificationIsNull() {
-    // Arrange
-    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
-
-    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
-    boundaryEvents.add(new BoundaryEvent());
-
-    AdhocSubProcess otherActivity = new AdhocSubProcess();
-    otherActivity.setLoopCharacteristics(null);
-    otherActivity.setIoSpecification(null);
-    otherActivity.setDataInputAssociations(null);
-    otherActivity.setDataOutputAssociations(null);
-    otherActivity.setBoundaryEvents(boundaryEvents);
-
-    // Act
-    adhocSubProcess.setValues((Activity) otherActivity);
-
-    // Assert that nothing has changed
-    assertFalse(otherActivity.hasMultiInstanceLoopCharacteristics());
-    assertFalse(otherActivity.isForCompensation());
-    assertFalse(otherActivity.isAsynchronous());
-    assertFalse(otherActivity.isNotExclusive());
-    assertTrue(otherActivity.isExclusive());
+    assertSame(dataInputAssociations, dataInputAssociations2);
   }
 }

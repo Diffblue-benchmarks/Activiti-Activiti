@@ -17,41 +17,28 @@ package org.activiti.image.impl.icon;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class MessageIconTypeDiffblueTest {
   /**
-   * Test {@link MessageIconType#getWidth()}.
-   * <p>
    * Method under test: {@link MessageIconType#getWidth()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.lang.Integer MessageIconType.getWidth()"})
   public void testGetWidth() {
     // Arrange, Act and Assert
     assertEquals(17, (new MessageIconType()).getWidth().intValue());
   }
 
   /**
-   * Test {@link MessageIconType#getHeight()}.
-   * <p>
    * Method under test: {@link MessageIconType#getHeight()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.lang.Integer MessageIconType.getHeight()"})
   public void testGetHeight() {
     // Arrange, Act and Assert
     assertEquals(13, (new MessageIconType()).getHeight().intValue());
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link MessageIconType}
@@ -64,11 +51,6 @@ public class MessageIconTypeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void MessageIconType.<init>()", "String MessageIconType.getAnchorValue()",
-      "String MessageIconType.getDValue()", "String MessageIconType.getFillValue()",
-      "String MessageIconType.getStrokeValue()", "String MessageIconType.getStrokeWidth()",
-      "String MessageIconType.getStyleValue()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     MessageIconType actualMessageIconType = new MessageIconType();

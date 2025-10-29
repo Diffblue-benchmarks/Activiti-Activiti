@@ -18,15 +18,10 @@ package org.activiti.engine.impl.util.json;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class JSONExceptionDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link JSONException#JSONException(String)}
@@ -34,8 +29,6 @@ public class JSONExceptionDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void JSONException.<init>(String)", "Throwable JSONException.getCause()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     JSONException actualJsonException = new JSONException("An error occurred");
@@ -47,13 +40,9 @@ public class JSONExceptionDiffblueTest {
   }
 
   /**
-   * Test {@link JSONException#JSONException(Throwable)}.
-   * <p>
    * Method under test: {@link JSONException#JSONException(Throwable)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void JSONException.<init>(Throwable)"})
   public void testNewJSONException() {
     // Arrange
     Throwable t = new Throwable();

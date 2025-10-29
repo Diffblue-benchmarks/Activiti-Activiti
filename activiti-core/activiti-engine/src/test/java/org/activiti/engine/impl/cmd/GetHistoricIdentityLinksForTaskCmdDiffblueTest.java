@@ -18,40 +18,16 @@ package org.activiti.engine.impl.cmd;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class GetHistoricIdentityLinksForTaskCmdDiffblueTest {
   /**
-   * Test {@link GetHistoricIdentityLinksForTaskCmd#GetHistoricIdentityLinksForTaskCmd(String, String)}.
-   * <p>
-   * Method under test: {@link GetHistoricIdentityLinksForTaskCmd#GetHistoricIdentityLinksForTaskCmd(String, String)}
+   * Method under test:
+   * {@link GetHistoricIdentityLinksForTaskCmd#GetHistoricIdentityLinksForTaskCmd(String, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void GetHistoricIdentityLinksForTaskCmd.<init>(String, String)"})
   public void testNewGetHistoricIdentityLinksForTaskCmd() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> new GetHistoricIdentityLinksForTaskCmd(null, null));
-
-  }
-
-  /**
-   * Test {@link GetHistoricIdentityLinksForTaskCmd#GetHistoricIdentityLinksForTaskCmd(String, String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then return {@link GetHistoricIdentityLinksForTaskCmd#taskId} is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GetHistoricIdentityLinksForTaskCmd#GetHistoricIdentityLinksForTaskCmd(String, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void GetHistoricIdentityLinksForTaskCmd.<init>(String, String)"})
-  public void testNewGetHistoricIdentityLinksForTaskCmd_when42_thenReturnTaskIdIs42() {
     // Arrange and Act
     GetHistoricIdentityLinksForTaskCmd actualGetHistoricIdentityLinksForTaskCmd = new GetHistoricIdentityLinksForTaskCmd(
         "42", "42");
@@ -62,18 +38,11 @@ public class GetHistoricIdentityLinksForTaskCmdDiffblueTest {
   }
 
   /**
-   * Test {@link GetHistoricIdentityLinksForTaskCmd#GetHistoricIdentityLinksForTaskCmd(String, String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return {@link GetHistoricIdentityLinksForTaskCmd#taskId} is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GetHistoricIdentityLinksForTaskCmd#GetHistoricIdentityLinksForTaskCmd(String, String)}
+   * Method under test:
+   * {@link GetHistoricIdentityLinksForTaskCmd#GetHistoricIdentityLinksForTaskCmd(String, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void GetHistoricIdentityLinksForTaskCmd.<init>(String, String)"})
-  public void testNewGetHistoricIdentityLinksForTaskCmd_whenNull_thenReturnTaskIdIsNull() {
+  public void testNewGetHistoricIdentityLinksForTaskCmd2() {
     // Arrange and Act
     GetHistoricIdentityLinksForTaskCmd actualGetHistoricIdentityLinksForTaskCmd = new GetHistoricIdentityLinksForTaskCmd(
         null, "42");
@@ -81,5 +50,16 @@ public class GetHistoricIdentityLinksForTaskCmdDiffblueTest {
     // Assert
     assertEquals("42", actualGetHistoricIdentityLinksForTaskCmd.processInstanceId);
     assertNull(actualGetHistoricIdentityLinksForTaskCmd.taskId);
+  }
+
+  /**
+   * Method under test:
+   * {@link GetHistoricIdentityLinksForTaskCmd#GetHistoricIdentityLinksForTaskCmd(String, String)}
+   */
+  @Test
+  public void testNewGetHistoricIdentityLinksForTaskCmd3() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> new GetHistoricIdentityLinksForTaskCmd(null, null));
+
   }
 }

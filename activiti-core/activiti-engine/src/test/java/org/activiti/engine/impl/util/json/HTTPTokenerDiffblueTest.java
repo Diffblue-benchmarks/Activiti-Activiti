@@ -16,21 +16,29 @@
 package org.activiti.engine.impl.util.json;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class HTTPTokenerDiffblueTest {
   /**
-   * Test {@link HTTPTokener#nextToken()}.
-   * <p>
+   * Method under test: {@link HTTPTokener#HTTPTokener(String)}
+   */
+  @Test
+  public void testNewHTTPTokener() throws JSONException {
+    // Arrange and Act
+    HTTPTokener actualHttpTokener = new HTTPTokener("https://example.org/example");
+
+    // Assert
+    boolean actualEndResult = actualHttpTokener.end();
+    assertEquals("https://example.org/example", actualHttpTokener.nextToken());
+    assertFalse(actualEndResult);
+  }
+
+  /**
    * Method under test: {@link HTTPTokener#nextToken()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.lang.String HTTPTokener.nextToken()"})
   public void testNextToken() throws JSONException {
     // Arrange
     HTTPTokener httpTokener = new HTTPTokener("https://example.org/example");

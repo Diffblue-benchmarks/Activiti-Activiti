@@ -18,24 +18,18 @@ package org.activiti.engine.impl.asyncexecutor.multitenant;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Collection;
 import java.util.Set;
 import org.activiti.engine.impl.cfg.multitenant.TenantInfoHolder;
 import org.activiti.engine.test.cfg.multitenant.DummyTenantInfoHolder;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class TenantAwareExecuteAsyncRunnableFactoryDiffblueTest {
   /**
-   * Test {@link TenantAwareExecuteAsyncRunnableFactory#TenantAwareExecuteAsyncRunnableFactory(TenantInfoHolder, String)}.
-   * <p>
-   * Method under test: {@link TenantAwareExecuteAsyncRunnableFactory#TenantAwareExecuteAsyncRunnableFactory(TenantInfoHolder, String)}
+   * Method under test:
+   * {@link TenantAwareExecuteAsyncRunnableFactory#TenantAwareExecuteAsyncRunnableFactory(TenantInfoHolder, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void TenantAwareExecuteAsyncRunnableFactory.<init>(TenantInfoHolder, String)"})
   public void testNewTenantAwareExecuteAsyncRunnableFactory() {
     // Arrange and Act
     TenantAwareExecuteAsyncRunnableFactory actualTenantAwareExecuteAsyncRunnableFactory = new TenantAwareExecuteAsyncRunnableFactory(

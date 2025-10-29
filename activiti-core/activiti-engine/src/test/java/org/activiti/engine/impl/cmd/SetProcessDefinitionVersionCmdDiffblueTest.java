@@ -16,78 +16,21 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class SetProcessDefinitionVersionCmdDiffblueTest {
   /**
-   * Test {@link SetProcessDefinitionVersionCmd#SetProcessDefinitionVersionCmd(String, Integer)}.
-   * <ul>
-   *   <li>When empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SetProcessDefinitionVersionCmd#SetProcessDefinitionVersionCmd(String, Integer)}
+   * Method under test:
+   * {@link SetProcessDefinitionVersionCmd#SetProcessDefinitionVersionCmd(String, Integer)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SetProcessDefinitionVersionCmd.<init>(String, Integer)"})
-  public void testNewSetProcessDefinitionVersionCmd_whenEmptyString() {
+  public void testNewSetProcessDefinitionVersionCmd() {
     // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> new SetProcessDefinitionVersionCmd(null, 1));
+
     assertThrows(ActivitiIllegalArgumentException.class, () -> new SetProcessDefinitionVersionCmd("", 1));
-
-  }
-
-  /**
-   * Test {@link SetProcessDefinitionVersionCmd#SetProcessDefinitionVersionCmd(String, Integer)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SetProcessDefinitionVersionCmd#SetProcessDefinitionVersionCmd(String, Integer)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SetProcessDefinitionVersionCmd.<init>(String, Integer)"})
-  public void testNewSetProcessDefinitionVersionCmd_whenNull() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> new SetProcessDefinitionVersionCmd(null, null));
-
-  }
-
-  /**
-   * Test {@link SetProcessDefinitionVersionCmd#SetProcessDefinitionVersionCmd(String, Integer)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SetProcessDefinitionVersionCmd#SetProcessDefinitionVersionCmd(String, Integer)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SetProcessDefinitionVersionCmd.<init>(String, Integer)"})
-  public void testNewSetProcessDefinitionVersionCmd_whenNull2() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> new SetProcessDefinitionVersionCmd("42", null));
-
-  }
-
-  /**
-   * Test {@link SetProcessDefinitionVersionCmd#SetProcessDefinitionVersionCmd(String, Integer)}.
-   * <ul>
-   *   <li>When zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SetProcessDefinitionVersionCmd#SetProcessDefinitionVersionCmd(String, Integer)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SetProcessDefinitionVersionCmd.<init>(String, Integer)"})
-  public void testNewSetProcessDefinitionVersionCmd_whenZero() {
-    // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> new SetProcessDefinitionVersionCmd("42", 0));
-
+    assertThrows(ActivitiIllegalArgumentException.class, () -> new SetProcessDefinitionVersionCmd("42", null));
   }
 }

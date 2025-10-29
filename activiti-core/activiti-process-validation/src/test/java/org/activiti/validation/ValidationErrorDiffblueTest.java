@@ -18,340 +18,12 @@ package org.activiti.validation;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ValidationErrorDiffblueTest {
   /**
-   * Test {@link ValidationError#toString()}.
-   * <p>
-   * Method under test: {@link ValidationError#toString()}
-   */
-  @Test
-  @DisplayName("Test toString()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ValidationError.toString()"})
-  void testToString() {
-    // Arrange
-    ValidationError validationError = new ValidationError();
-    validationError.setDefaultDescription("Default Description");
-    validationError.setProblem("Problem");
-    validationError.setValidatorSetName("Validator Set Name");
-    validationError.setWarning(true);
-    validationError.setProcessDefinitionId(null);
-    validationError.setProcessDefinitionName(null);
-    validationError.setActivityId(null);
-    validationError.setActivityName(null);
-    validationError.setXmlLineNumber(0);
-    validationError.setXmlColumnNumber(0);
-    validationError.setKey(null);
-    validationError.setParams(null);
-
-    // Act and Assert
-    assertEquals("[Validation set: 'Validator Set Name' | Problem: 'Problem'] : Default Description - [Extra info : ]",
-        validationError.toString());
-  }
-
-  /**
-   * Test {@link ValidationError#toString()}.
-   * <p>
-   * Method under test: {@link ValidationError#toString()}
-   */
-  @Test
-  @DisplayName("Test toString()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ValidationError.toString()"})
-  void testToString2() {
-    // Arrange
-    ValidationError validationError = new ValidationError();
-    validationError.setDefaultDescription("Default Description");
-    validationError.setProblem("Problem");
-    validationError.setValidatorSetName("Validator Set Name");
-    validationError.setWarning(true);
-    validationError.setProcessDefinitionId(null);
-    validationError.setProcessDefinitionName(null);
-    validationError.setActivityId(null);
-    validationError.setActivityName(null);
-    validationError.setXmlLineNumber(1);
-    validationError.setXmlColumnNumber(0);
-    validationError.setKey(null);
-    validationError.setParams(null);
-
-    // Act and Assert
-    assertEquals("[Validation set: 'Validator Set Name' | Problem: 'Problem'] : Default Description - [Extra info : ]",
-        validationError.toString());
-  }
-
-  /**
-   * Test {@link ValidationError#toString()}.
-   * <p>
-   * Method under test: {@link ValidationError#toString()}
-   */
-  @Test
-  @DisplayName("Test toString()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ValidationError.toString()"})
-  void testToString3() {
-    // Arrange
-    ValidationError validationError = new ValidationError();
-    validationError.setProcessDefinitionId("42");
-
-    // Act and Assert
-    assertEquals("[Validation set: 'null' | Problem: 'null'] : null - [Extra info : processDefinitionId = 42]",
-        validationError.toString());
-  }
-
-  /**
-   * Test {@link ValidationError#toString()}.
-   * <ul>
-   *   <li>Given {@link ValidationError} (default constructor) ActivityId is {@code foo}.</li>
-   *   <li>Then return a string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ValidationError#toString()}
-   */
-  @Test
-  @DisplayName("Test toString(); given ValidationError (default constructor) ActivityId is 'foo'; then return a string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ValidationError.toString()"})
-  void testToString_givenValidationErrorActivityIdIsFoo_thenReturnAString() {
-    // Arrange
-    ValidationError validationError = new ValidationError();
-    validationError.setDefaultDescription("Default Description");
-    validationError.setProblem("Problem");
-    validationError.setValidatorSetName("Validator Set Name");
-    validationError.setWarning(true);
-    validationError.setProcessDefinitionId(null);
-    validationError.setProcessDefinitionName(null);
-    validationError.setActivityId("foo");
-    validationError.setActivityName(null);
-    validationError.setXmlLineNumber(0);
-    validationError.setXmlColumnNumber(0);
-    validationError.setKey(null);
-    validationError.setParams(null);
-
-    // Act and Assert
-    assertEquals("[Validation set: 'Validator Set Name' | Problem: 'Problem'] : Default Description - [Extra info : id"
-        + " = foo | ]", validationError.toString());
-  }
-
-  /**
-   * Test {@link ValidationError#toString()}.
-   * <ul>
-   *   <li>Given {@link ValidationError} (default constructor) ActivityId is {@code foo}.</li>
-   *   <li>Then return a string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ValidationError#toString()}
-   */
-  @Test
-  @DisplayName("Test toString(); given ValidationError (default constructor) ActivityId is 'foo'; then return a string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ValidationError.toString()"})
-  void testToString_givenValidationErrorActivityIdIsFoo_thenReturnAString2() {
-    // Arrange
-    ValidationError validationError = new ValidationError();
-    validationError.setDefaultDescription("Default Description");
-    validationError.setProblem("Problem");
-    validationError.setValidatorSetName("Validator Set Name");
-    validationError.setWarning(true);
-    validationError.setProcessDefinitionId(null);
-    validationError.setProcessDefinitionName(null);
-    validationError.setActivityId("foo");
-    validationError.setActivityName("foo");
-    validationError.setXmlLineNumber(0);
-    validationError.setXmlColumnNumber(0);
-    validationError.setKey(null);
-    validationError.setParams(null);
-
-    // Act and Assert
-    assertEquals("[Validation set: 'Validator Set Name' | Problem: 'Problem'] : Default Description - [Extra info : id"
-        + " = foo |  | activityName = foo | ]", validationError.toString());
-  }
-
-  /**
-   * Test {@link ValidationError#toString()}.
-   * <ul>
-   *   <li>Given {@link ValidationError} (default constructor) ActivityName is {@code foo}.</li>
-   *   <li>Then return a string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ValidationError#toString()}
-   */
-  @Test
-  @DisplayName("Test toString(); given ValidationError (default constructor) ActivityName is 'foo'; then return a string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ValidationError.toString()"})
-  void testToString_givenValidationErrorActivityNameIsFoo_thenReturnAString() {
-    // Arrange
-    ValidationError validationError = new ValidationError();
-    validationError.setDefaultDescription("Default Description");
-    validationError.setProblem("Problem");
-    validationError.setValidatorSetName("Validator Set Name");
-    validationError.setWarning(true);
-    validationError.setProcessDefinitionId(null);
-    validationError.setProcessDefinitionName(null);
-    validationError.setActivityId(null);
-    validationError.setActivityName("foo");
-    validationError.setXmlLineNumber(0);
-    validationError.setXmlColumnNumber(0);
-    validationError.setKey(null);
-    validationError.setParams(null);
-
-    // Act and Assert
-    assertEquals("[Validation set: 'Validator Set Name' | Problem: 'Problem'] : Default Description - [Extra info :"
-        + " activityName = foo | ]", validationError.toString());
-  }
-
-  /**
-   * Test {@link ValidationError#toString()}.
-   * <ul>
-   *   <li>Given {@link ValidationError} (default constructor) Key is {@code foo}.</li>
-   *   <li>Then return a string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ValidationError#toString()}
-   */
-  @Test
-  @DisplayName("Test toString(); given ValidationError (default constructor) Key is 'foo'; then return a string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ValidationError.toString()"})
-  void testToString_givenValidationErrorKeyIsFoo_thenReturnAString() {
-    // Arrange
-    ValidationError validationError = new ValidationError();
-    validationError.setDefaultDescription("Default Description");
-    validationError.setProblem("Problem");
-    validationError.setValidatorSetName("Validator Set Name");
-    validationError.setWarning(true);
-    validationError.setProcessDefinitionId(null);
-    validationError.setProcessDefinitionName(null);
-    validationError.setActivityId(null);
-    validationError.setActivityName(null);
-    validationError.setXmlLineNumber(0);
-    validationError.setXmlColumnNumber(0);
-    validationError.setKey("foo");
-    validationError.setParams(null);
-
-    // Act and Assert
-    assertEquals("[Validation set: 'Validator Set Name' | Problem: 'Problem'] : Default Description - [Extra info :  ("
-        + " key: foo )]", validationError.toString());
-  }
-
-  /**
-   * Test {@link ValidationError#toString()}.
-   * <ul>
-   *   <li>Given {@link ValidationError} (default constructor) Key is {@code foo}.</li>
-   *   <li>Then return a string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ValidationError#toString()}
-   */
-  @Test
-  @DisplayName("Test toString(); given ValidationError (default constructor) Key is 'foo'; then return a string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ValidationError.toString()"})
-  void testToString_givenValidationErrorKeyIsFoo_thenReturnAString2() {
-    // Arrange
-    ValidationError validationError = new ValidationError();
-    validationError.setDefaultDescription("Default Description");
-    validationError.setProblem("Problem");
-    validationError.setValidatorSetName("Validator Set Name");
-    validationError.setWarning(true);
-    validationError.setProcessDefinitionId(null);
-    validationError.setProcessDefinitionName(null);
-    validationError.setActivityId(null);
-    validationError.setActivityName("foo");
-    validationError.setXmlLineNumber(0);
-    validationError.setXmlColumnNumber(0);
-    validationError.setKey("foo");
-    validationError.setParams(null);
-
-    // Act and Assert
-    assertEquals("[Validation set: 'Validator Set Name' | Problem: 'Problem'] : Default Description - [Extra info :"
-        + " activityName = foo |  |  ( key: foo )]", validationError.toString());
-  }
-
-  /**
-   * Test {@link ValidationError#toString()}.
-   * <ul>
-   *   <li>Given {@link ValidationError} (default constructor) ProcessDefinitionName is {@code - [Extra info :}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ValidationError#toString()}
-   */
-  @Test
-  @DisplayName("Test toString(); given ValidationError (default constructor) ProcessDefinitionName is '- [Extra info :'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ValidationError.toString()"})
-  void testToString_givenValidationErrorProcessDefinitionNameIsExtraInfo() {
-    // Arrange
-    ValidationError validationError = new ValidationError();
-    validationError.setProcessDefinitionName(" - [Extra info : ");
-
-    // Act and Assert
-    assertEquals("[Validation set: 'null' | Problem: 'null'] : null - [Extra info : processDefinitionName =  - [Extra"
-        + " info :  | ]", validationError.toString());
-  }
-
-  /**
-   * Test {@link ValidationError#toString()}.
-   * <ul>
-   *   <li>Given {@link ValidationError} (default constructor) XmlColumnNumber is one.</li>
-   *   <li>Then return a string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ValidationError#toString()}
-   */
-  @Test
-  @DisplayName("Test toString(); given ValidationError (default constructor) XmlColumnNumber is one; then return a string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ValidationError.toString()"})
-  void testToString_givenValidationErrorXmlColumnNumberIsOne_thenReturnAString() {
-    // Arrange
-    ValidationError validationError = new ValidationError();
-    validationError.setDefaultDescription("Default Description");
-    validationError.setProblem("Problem");
-    validationError.setValidatorSetName("Validator Set Name");
-    validationError.setWarning(true);
-    validationError.setProcessDefinitionId(null);
-    validationError.setProcessDefinitionName(null);
-    validationError.setActivityId(null);
-    validationError.setActivityName(null);
-    validationError.setXmlLineNumber(1);
-    validationError.setXmlColumnNumber(1);
-    validationError.setKey(null);
-    validationError.setParams(null);
-
-    // Act and Assert
-    assertEquals("[Validation set: 'Validator Set Name' | Problem: 'Problem'] : Default Description - [Extra info :  ("
-        + " line: 1, column: 1)]", validationError.toString());
-  }
-
-  /**
-   * Test {@link ValidationError#toString()}.
-   * <ul>
-   *   <li>Then return {@code [Validation set: 'null' | Problem: 'null'] : null - [Extra info : ]}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ValidationError#toString()}
-   */
-  @Test
-  @DisplayName("Test toString(); then return '[Validation set: 'null' | Problem: 'null'] : null - [Extra info : ]'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ValidationError.toString()"})
-  void testToString_thenReturnValidationSetNullProblemNullNullExtraInfo() {
-    // Arrange, Act and Assert
-    assertEquals("[Validation set: 'null' | Problem: 'null'] : null - [Extra info : ]",
-        (new ValidationError()).toString());
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ValidationError}
@@ -382,20 +54,6 @@ class ValidationErrorDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ValidationError.<init>()", "String ValidationError.getActivityId()",
-      "String ValidationError.getActivityName()", "String ValidationError.getDefaultDescription()",
-      "String ValidationError.getKey()", "Map ValidationError.getParams()", "String ValidationError.getProblem()",
-      "String ValidationError.getProcessDefinitionId()", "String ValidationError.getProcessDefinitionName()",
-      "String ValidationError.getValidatorSetName()", "int ValidationError.getXmlColumnNumber()",
-      "int ValidationError.getXmlLineNumber()", "boolean ValidationError.isWarning()",
-      "void ValidationError.setActivityId(String)", "void ValidationError.setActivityName(String)",
-      "void ValidationError.setDefaultDescription(String)", "void ValidationError.setKey(String)",
-      "void ValidationError.setParams(Map)", "void ValidationError.setProblem(String)",
-      "void ValidationError.setProcessDefinitionId(String)", "void ValidationError.setProcessDefinitionName(String)",
-      "void ValidationError.setValidatorSetName(String)", "void ValidationError.setWarning(boolean)",
-      "void ValidationError.setXmlColumnNumber(int)", "void ValidationError.setXmlLineNumber(int)"})
   void testGettersAndSetters() {
     // Arrange and Act
     ValidationError actualValidationError = new ValidationError();
@@ -425,7 +83,7 @@ class ValidationErrorDiffblueTest {
     int actualXmlLineNumber = actualValidationError.getXmlLineNumber();
     boolean actualIsWarningResult = actualValidationError.isWarning();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("42", actualActivityId);
     assertEquals("42", actualProcessDefinitionId);
     assertEquals("Activity Name", actualActivityName);
@@ -439,5 +97,243 @@ class ValidationErrorDiffblueTest {
     assertTrue(actualParams.isEmpty());
     assertTrue(actualIsWarningResult);
     assertSame(params, actualParams);
+  }
+
+  /**
+   * Method under test: {@link ValidationError#toString()}
+   */
+  @Test
+  void testToString() {
+    // Arrange, Act and Assert
+    assertEquals("[Validation set: 'null' | Problem: 'null'] : null - [Extra info : ]",
+        (new ValidationError()).toString());
+  }
+
+  /**
+   * Method under test: {@link ValidationError#toString()}
+   */
+  @Test
+  void testToString2() {
+    // Arrange
+    ValidationError validationError = new ValidationError();
+    validationError.setDefaultDescription("Default Description");
+    validationError.setProblem("Problem");
+    validationError.setValidatorSetName("Validator Set Name");
+    validationError.setWarning(true);
+    validationError.setProcessDefinitionId(null);
+    validationError.setProcessDefinitionName(null);
+    validationError.setActivityId(null);
+    validationError.setActivityName(null);
+    validationError.setXmlLineNumber(0);
+    validationError.setXmlColumnNumber(0);
+    validationError.setKey(null);
+    validationError.setParams(null);
+
+    // Act and Assert
+    assertEquals("[Validation set: 'Validator Set Name' | Problem: 'Problem'] : Default Description - [Extra info : ]",
+        validationError.toString());
+  }
+
+  /**
+   * Method under test: {@link ValidationError#toString()}
+   */
+  @Test
+  void testToString3() {
+    // Arrange
+    ValidationError validationError = new ValidationError();
+    validationError.setDefaultDescription("Default Description");
+    validationError.setProblem("Problem");
+    validationError.setValidatorSetName("Validator Set Name");
+    validationError.setWarning(true);
+    validationError.setProcessDefinitionId(null);
+    validationError.setProcessDefinitionName(null);
+    validationError.setActivityId(null);
+    validationError.setActivityName(null);
+    validationError.setXmlLineNumber(0);
+    validationError.setXmlColumnNumber(0);
+    validationError.setKey("foo");
+    validationError.setParams(null);
+
+    // Act and Assert
+    assertEquals("[Validation set: 'Validator Set Name' | Problem: 'Problem'] : Default Description - [Extra info :  ("
+        + " key: foo )]", validationError.toString());
+  }
+
+  /**
+   * Method under test: {@link ValidationError#toString()}
+   */
+  @Test
+  void testToString4() {
+    // Arrange
+    ValidationError validationError = new ValidationError();
+    validationError.setDefaultDescription("Default Description");
+    validationError.setProblem("Problem");
+    validationError.setValidatorSetName("Validator Set Name");
+    validationError.setWarning(true);
+    validationError.setProcessDefinitionId(null);
+    validationError.setProcessDefinitionName(null);
+    validationError.setActivityId(null);
+    validationError.setActivityName(null);
+    validationError.setXmlLineNumber(1);
+    validationError.setXmlColumnNumber(0);
+    validationError.setKey(null);
+    validationError.setParams(null);
+
+    // Act and Assert
+    assertEquals("[Validation set: 'Validator Set Name' | Problem: 'Problem'] : Default Description - [Extra info : ]",
+        validationError.toString());
+  }
+
+  /**
+   * Method under test: {@link ValidationError#toString()}
+   */
+  @Test
+  void testToString5() {
+    // Arrange
+    ValidationError validationError = new ValidationError();
+    validationError.setDefaultDescription("Default Description");
+    validationError.setProblem("Problem");
+    validationError.setValidatorSetName("Validator Set Name");
+    validationError.setWarning(true);
+    validationError.setProcessDefinitionId(null);
+    validationError.setProcessDefinitionName(null);
+    validationError.setActivityId(null);
+    validationError.setActivityName(null);
+    validationError.setXmlLineNumber(1);
+    validationError.setXmlColumnNumber(1);
+    validationError.setKey(null);
+    validationError.setParams(null);
+
+    // Act and Assert
+    assertEquals("[Validation set: 'Validator Set Name' | Problem: 'Problem'] : Default Description - [Extra info :  ("
+        + " line: 1, column: 1)]", validationError.toString());
+  }
+
+  /**
+   * Method under test: {@link ValidationError#toString()}
+   */
+  @Test
+  void testToString6() {
+    // Arrange
+    ValidationError validationError = new ValidationError();
+    validationError.setDefaultDescription("Default Description");
+    validationError.setProblem("Problem");
+    validationError.setValidatorSetName("Validator Set Name");
+    validationError.setWarning(true);
+    validationError.setProcessDefinitionId(null);
+    validationError.setProcessDefinitionName(null);
+    validationError.setActivityId(null);
+    validationError.setActivityName("foo");
+    validationError.setXmlLineNumber(0);
+    validationError.setXmlColumnNumber(0);
+    validationError.setKey(null);
+    validationError.setParams(null);
+
+    // Act and Assert
+    assertEquals("[Validation set: 'Validator Set Name' | Problem: 'Problem'] : Default Description - [Extra info :"
+        + " activityName = foo | ]", validationError.toString());
+  }
+
+  /**
+   * Method under test: {@link ValidationError#toString()}
+   */
+  @Test
+  void testToString7() {
+    // Arrange
+    ValidationError validationError = new ValidationError();
+    validationError.setDefaultDescription("Default Description");
+    validationError.setProblem("Problem");
+    validationError.setValidatorSetName("Validator Set Name");
+    validationError.setWarning(true);
+    validationError.setProcessDefinitionId(null);
+    validationError.setProcessDefinitionName(null);
+    validationError.setActivityId(null);
+    validationError.setActivityName("foo");
+    validationError.setXmlLineNumber(0);
+    validationError.setXmlColumnNumber(0);
+    validationError.setKey("foo");
+    validationError.setParams(null);
+
+    // Act and Assert
+    assertEquals("[Validation set: 'Validator Set Name' | Problem: 'Problem'] : Default Description - [Extra info :"
+        + " activityName = foo |  |  ( key: foo )]", validationError.toString());
+  }
+
+  /**
+   * Method under test: {@link ValidationError#toString()}
+   */
+  @Test
+  void testToString8() {
+    // Arrange
+    ValidationError validationError = new ValidationError();
+    validationError.setDefaultDescription("Default Description");
+    validationError.setProblem("Problem");
+    validationError.setValidatorSetName("Validator Set Name");
+    validationError.setWarning(true);
+    validationError.setProcessDefinitionId(null);
+    validationError.setProcessDefinitionName(null);
+    validationError.setActivityId("foo");
+    validationError.setActivityName(null);
+    validationError.setXmlLineNumber(0);
+    validationError.setXmlColumnNumber(0);
+    validationError.setKey(null);
+    validationError.setParams(null);
+
+    // Act and Assert
+    assertEquals("[Validation set: 'Validator Set Name' | Problem: 'Problem'] : Default Description - [Extra info : id"
+        + " = foo | ]", validationError.toString());
+  }
+
+  /**
+   * Method under test: {@link ValidationError#toString()}
+   */
+  @Test
+  void testToString9() {
+    // Arrange
+    ValidationError validationError = new ValidationError();
+    validationError.setDefaultDescription("Default Description");
+    validationError.setProblem("Problem");
+    validationError.setValidatorSetName("Validator Set Name");
+    validationError.setWarning(true);
+    validationError.setProcessDefinitionId(null);
+    validationError.setProcessDefinitionName(null);
+    validationError.setActivityId("foo");
+    validationError.setActivityName("foo");
+    validationError.setXmlLineNumber(0);
+    validationError.setXmlColumnNumber(0);
+    validationError.setKey(null);
+    validationError.setParams(null);
+
+    // Act and Assert
+    assertEquals("[Validation set: 'Validator Set Name' | Problem: 'Problem'] : Default Description - [Extra info : id"
+        + " = foo |  | activityName = foo | ]", validationError.toString());
+  }
+
+  /**
+   * Method under test: {@link ValidationError#toString()}
+   */
+  @Test
+  void testToString10() {
+    // Arrange
+    ValidationError validationError = new ValidationError();
+    validationError.setProcessDefinitionId("42");
+
+    // Act and Assert
+    assertEquals("[Validation set: 'null' | Problem: 'null'] : null - [Extra info : processDefinitionId = 42]",
+        validationError.toString());
+  }
+
+  /**
+   * Method under test: {@link ValidationError#toString()}
+   */
+  @Test
+  void testToString11() {
+    // Arrange
+    ValidationError validationError = new ValidationError();
+    validationError.setProcessDefinitionName(" - [Extra info : ");
+
+    // Act and Assert
+    assertEquals("[Validation set: 'null' | Problem: 'null'] : null - [Extra info : processDefinitionName =  - [Extra"
+        + " info :  | ]", validationError.toString());
   }
 }

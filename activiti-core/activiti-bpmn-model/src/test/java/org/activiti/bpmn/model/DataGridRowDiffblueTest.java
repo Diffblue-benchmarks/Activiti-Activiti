@@ -22,60 +22,29 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class DataGridRowDiffblueTest {
   /**
-   * Test {@link DataGridRow#clone()}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link DataGridField} (default constructor).</li>
-   *   <li>Then return Fields size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DataGridRow#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"DataGridRow DataGridRow.clone()"})
-  public void testClone_givenArrayListAddDataGridField_thenReturnFieldsSizeIsOne() {
-    // Arrange
-    ArrayList<DataGridField> fields = new ArrayList<>();
-    fields.add(new DataGridField());
+  public void testClone() {
+    // Arrange and Act
+    DataGridRow actualCloneResult = (new DataGridRow()).clone();
 
-    DataGridRow dataGridRow = new DataGridRow();
-    dataGridRow.setFields(fields);
-
-    // Act and Assert
-    List<DataGridField> fields2 = dataGridRow.clone().getFields();
-    assertEquals(1, fields2.size());
-    DataGridField getResult = fields2.get(0);
-    assertNull(getResult.getId());
-    assertNull(getResult.getName());
-    assertNull(getResult.getValue());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
+    // Assert
+    assertEquals(0, actualCloneResult.getIndex());
+    assertTrue(actualCloneResult.getFields().isEmpty());
   }
 
   /**
-   * Test {@link DataGridRow#clone()}.
-   * <ul>
-   *   <li>Given {@link DataGridRow} (default constructor) Fields is {@code null}.</li>
-   *   <li>Then return Index is zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DataGridRow#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"DataGridRow DataGridRow.clone()"})
-  public void testClone_givenDataGridRowFieldsIsNull_thenReturnIndexIsZero() {
+  public void testClone2() {
     // Arrange
     DataGridRow dataGridRow = new DataGridRow();
     dataGridRow.setFields(null);
@@ -89,39 +58,39 @@ public class DataGridRowDiffblueTest {
   }
 
   /**
-   * Test {@link DataGridRow#clone()}.
-   * <ul>
-   *   <li>Given {@link DataGridRow} (default constructor).</li>
-   *   <li>Then return Index is zero.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DataGridRow#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"DataGridRow DataGridRow.clone()"})
-  public void testClone_givenDataGridRow_thenReturnIndexIsZero() {
-    // Arrange and Act
-    DataGridRow actualCloneResult = (new DataGridRow()).clone();
+  public void testClone3() {
+    // Arrange
+    ArrayList<DataGridField> fields = new ArrayList<>();
+    fields.add(new DataGridField());
+
+    DataGridRow dataGridRow = new DataGridRow();
+    dataGridRow.setFields(fields);
+
+    // Act
+    DataGridRow actualCloneResult = dataGridRow.clone();
 
     // Assert
+    List<DataGridField> fields2 = actualCloneResult.getFields();
+    assertEquals(1, fields2.size());
+    DataGridField getResult = fields2.get(0);
+    assertNull(getResult.getId());
+    assertNull(getResult.getName());
+    assertNull(getResult.getValue());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlRowNumber());
     assertEquals(0, actualCloneResult.getIndex());
-    assertTrue(actualCloneResult.getFields().isEmpty());
+    assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(getResult.getExtensionElements().isEmpty());
   }
 
   /**
-   * Test {@link DataGridRow#setValues(DataGridRow)}.
-   * <ul>
-   *   <li>Given {@link DataGridField} {@link DataGridField#clone()} return {@link DataGridField} (default constructor).</li>
-   *   <li>Then calls {@link DataGridField#clone()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DataGridRow#setValues(DataGridRow)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DataGridRow.setValues(DataGridRow)"})
-  public void testSetValues_givenDataGridFieldCloneReturnDataGridField_thenCallsClone() {
+  public void testSetValues() {
     // Arrange
     DataGridRow dataGridRow = new DataGridRow();
     DataGridField dataGridField = mock(DataGridField.class);
@@ -141,8 +110,6 @@ public class DataGridRowDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link DataGridRow}
@@ -153,9 +120,6 @@ public class DataGridRowDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DataGridRow.<init>()", "List DataGridRow.getFields()", "int DataGridRow.getIndex()",
-      "void DataGridRow.setFields(List)", "void DataGridRow.setIndex(int)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     DataGridRow actualDataGridRow = new DataGridRow();
@@ -164,7 +128,7 @@ public class DataGridRowDiffblueTest {
     actualDataGridRow.setIndex(1);
     List<DataGridField> actualFields = actualDataGridRow.getFields();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals(1, actualDataGridRow.getIndex());
     assertTrue(actualFields.isEmpty());
     assertSame(fields, actualFields);

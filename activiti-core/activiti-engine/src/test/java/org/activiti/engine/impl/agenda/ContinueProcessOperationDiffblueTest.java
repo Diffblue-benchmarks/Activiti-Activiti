@@ -25,13 +25,10 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.FlowNode;
 import org.activiti.engine.ActivitiEngineAgendaFactory;
 import org.activiti.engine.ActivitiException;
-import org.activiti.engine.Agenda;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.delegate.ActivityBehavior;
@@ -40,101 +37,14 @@ import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class ContinueProcessOperationDiffblueTest {
   /**
-   * Test {@link ContinueProcessOperation#ContinueProcessOperation(CommandContext, ExecutionEntity)}.
-   * <ul>
-   *   <li>Then Agenda return {@link DefaultActivitiEngineAgenda}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ContinueProcessOperation#ContinueProcessOperation(CommandContext, ExecutionEntity)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ContinueProcessOperation.<init>(CommandContext, ExecutionEntity)"})
-  public void testNewContinueProcessOperation_thenAgendaReturnDefaultActivitiEngineAgenda() {
-    // Arrange
-    ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
-    DefaultActivitiEngineAgenda defaultActivitiEngineAgenda = new DefaultActivitiEngineAgenda(null);
-    when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any())).thenReturn(defaultActivitiEngineAgenda);
-
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext = new CommandContext(mock(Command.class), processEngineConfiguration);
-
-    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-
-    // Act
-    ContinueProcessOperation actualContinueProcessOperation = new ContinueProcessOperation(commandContext, execution);
-
-    // Assert
-    verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
-    Agenda agenda = actualContinueProcessOperation.getAgenda();
-    assertTrue(agenda instanceof DefaultActivitiEngineAgenda);
-    ExecutionEntity execution2 = actualContinueProcessOperation.getExecution();
-    assertTrue(execution2 instanceof ExecutionEntityImpl);
-    assertFalse(actualContinueProcessOperation.forceSynchronousOperation);
-    assertFalse(actualContinueProcessOperation.inCompensation);
-    assertSame(defaultActivitiEngineAgenda, agenda);
-    assertSame(commandContext, actualContinueProcessOperation.getCommandContext());
-    assertSame(execution, execution2);
-  }
-
-  /**
-   * Test {@link ContinueProcessOperation#ContinueProcessOperation(CommandContext, ExecutionEntity, boolean, boolean)}.
-   * <ul>
-   *   <li>Then Agenda return {@link DefaultActivitiEngineAgenda}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ContinueProcessOperation#ContinueProcessOperation(CommandContext, ExecutionEntity, boolean, boolean)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ContinueProcessOperation.<init>(CommandContext, ExecutionEntity, boolean, boolean)"})
-  public void testNewContinueProcessOperation_thenAgendaReturnDefaultActivitiEngineAgenda2() {
-    // Arrange
-    ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
-    DefaultActivitiEngineAgenda defaultActivitiEngineAgenda = new DefaultActivitiEngineAgenda(null);
-    when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any())).thenReturn(defaultActivitiEngineAgenda);
-
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext = new CommandContext(mock(Command.class), processEngineConfiguration);
-
-    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-
-    // Act
-    ContinueProcessOperation actualContinueProcessOperation = new ContinueProcessOperation(commandContext, execution,
-        true, true);
-
-    // Assert
-    verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
-    Agenda agenda = actualContinueProcessOperation.getAgenda();
-    assertTrue(agenda instanceof DefaultActivitiEngineAgenda);
-    ExecutionEntity execution2 = actualContinueProcessOperation.getExecution();
-    assertTrue(execution2 instanceof ExecutionEntityImpl);
-    assertTrue(actualContinueProcessOperation.forceSynchronousOperation);
-    assertTrue(actualContinueProcessOperation.inCompensation);
-    assertSame(defaultActivitiEngineAgenda, agenda);
-    assertSame(commandContext, actualContinueProcessOperation.getCommandContext());
-    assertSame(execution, execution2);
-  }
-
-  /**
-   * Test {@link ContinueProcessOperation#run()}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ContinueProcessOperation#run()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ContinueProcessOperation.run()"})
-  public void testRun_thenThrowActivitiException() {
+  public void testRun() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
     when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
@@ -151,17 +61,10 @@ public class ContinueProcessOperationDiffblueTest {
   }
 
   /**
-   * Test {@link ContinueProcessOperation#isMultiInstance(FlowNode)}.
-   * <ul>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ContinueProcessOperation#isMultiInstance(FlowNode)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Boolean ContinueProcessOperation.isMultiInstance(FlowNode)"})
-  public void testIsMultiInstance_thenReturnFalse() {
+  public void testIsMultiInstance() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
     when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
@@ -183,17 +86,11 @@ public class ContinueProcessOperationDiffblueTest {
   }
 
   /**
-   * Test {@link ContinueProcessOperation#executeMultiInstanceSynchronous(FlowNode)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ContinueProcessOperation#executeMultiInstanceSynchronous(FlowNode)}
+   * Method under test:
+   * {@link ContinueProcessOperation#executeMultiInstanceSynchronous(FlowNode)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ContinueProcessOperation.executeMultiInstanceSynchronous(FlowNode)"})
-  public void testExecuteMultiInstanceSynchronous_thenThrowActivitiException() {
+  public void testExecuteMultiInstanceSynchronous() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
     when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
@@ -213,17 +110,11 @@ public class ContinueProcessOperationDiffblueTest {
   }
 
   /**
-   * Test {@link ContinueProcessOperation#executeActivityBehavior(ActivityBehavior, FlowNode)}.
-   * <ul>
-   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ContinueProcessOperation#executeActivityBehavior(ActivityBehavior, FlowNode)}
+   * Method under test:
+   * {@link ContinueProcessOperation#executeActivityBehavior(ActivityBehavior, FlowNode)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ContinueProcessOperation.executeActivityBehavior(ActivityBehavior, FlowNode)"})
-  public void testExecuteActivityBehavior_thenCallsCreateAgenda() {
+  public void testExecuteActivityBehavior() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
     when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
@@ -247,17 +138,11 @@ public class ContinueProcessOperationDiffblueTest {
   }
 
   /**
-   * Test {@link ContinueProcessOperation#executeActivityBehavior(ActivityBehavior, FlowNode)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ContinueProcessOperation#executeActivityBehavior(ActivityBehavior, FlowNode)}
+   * Method under test:
+   * {@link ContinueProcessOperation#executeActivityBehavior(ActivityBehavior, FlowNode)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ContinueProcessOperation.executeActivityBehavior(ActivityBehavior, FlowNode)"})
-  public void testExecuteActivityBehavior_thenThrowActivitiException() {
+  public void testExecuteActivityBehavior2() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
     when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
@@ -278,5 +163,64 @@ public class ContinueProcessOperationDiffblueTest {
         () -> continueProcessOperation.executeActivityBehavior(activityBehavior, new AdhocSubProcess()));
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
     verify(activityBehavior).execute(isA(DelegateExecution.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link ContinueProcessOperation#ContinueProcessOperation(CommandContext, ExecutionEntity)}
+   */
+  @Test
+  public void testNewContinueProcessOperation() {
+    // Arrange
+    ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
+    DefaultActivitiEngineAgenda defaultActivitiEngineAgenda = new DefaultActivitiEngineAgenda(null);
+    when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any())).thenReturn(defaultActivitiEngineAgenda);
+
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
+    CommandContext commandContext = new CommandContext(mock(Command.class), processEngineConfiguration);
+
+    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+
+    // Act
+    ContinueProcessOperation actualContinueProcessOperation = new ContinueProcessOperation(commandContext, execution);
+
+    // Assert
+    verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
+    assertFalse(actualContinueProcessOperation.forceSynchronousOperation);
+    assertFalse(actualContinueProcessOperation.inCompensation);
+    assertSame(defaultActivitiEngineAgenda, actualContinueProcessOperation.getAgenda());
+    assertSame(commandContext, actualContinueProcessOperation.getCommandContext());
+    assertSame(execution, actualContinueProcessOperation.getExecution());
+  }
+
+  /**
+   * Method under test:
+   * {@link ContinueProcessOperation#ContinueProcessOperation(CommandContext, ExecutionEntity, boolean, boolean)}
+   */
+  @Test
+  public void testNewContinueProcessOperation2() {
+    // Arrange
+    ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
+    DefaultActivitiEngineAgenda defaultActivitiEngineAgenda = new DefaultActivitiEngineAgenda(null);
+    when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any())).thenReturn(defaultActivitiEngineAgenda);
+
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
+    CommandContext commandContext = new CommandContext(mock(Command.class), processEngineConfiguration);
+
+    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+
+    // Act
+    ContinueProcessOperation actualContinueProcessOperation = new ContinueProcessOperation(commandContext, execution,
+        true, true);
+
+    // Assert
+    verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
+    assertTrue(actualContinueProcessOperation.forceSynchronousOperation);
+    assertTrue(actualContinueProcessOperation.inCompensation);
+    assertSame(defaultActivitiEngineAgenda, actualContinueProcessOperation.getAgenda());
+    assertSame(commandContext, actualContinueProcessOperation.getCommandContext());
+    assertSame(execution, actualContinueProcessOperation.getExecution());
   }
 }

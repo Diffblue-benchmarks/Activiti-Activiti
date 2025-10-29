@@ -18,20 +18,20 @@ package org.activiti.bpmn.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import java.util.HashMap;
+import java.util.List;
+import java.util.function.BiFunction;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class DataGridFieldDiffblueTest {
   /**
-   * Test {@link DataGridField#clone()}.
-   * <p>
    * Method under test: {@link DataGridField#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"DataGridField DataGridField.clone()"})
   public void testClone() {
     // Arrange and Act
     DataGridField actualCloneResult = (new DataGridField()).clone();
@@ -47,8 +47,50 @@ public class DataGridFieldDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link DataGridField#clone()}
+   */
+  @Test
+  public void testClone2() {
+    // Arrange
+    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
+    extensionElements.computeIfPresent("foo", mock(BiFunction.class));
+
+    DataGridField dataGridField = new DataGridField();
+    dataGridField.setExtensionElements(extensionElements);
+
+    // Act
+    DataGridField actualCloneResult = dataGridField.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getValue());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link DataGridField#setValues(DataGridField)}
+   */
+  @Test
+  public void testSetValues() {
+    // Arrange
+    ExtensionElement extensionElement = mock(ExtensionElement.class);
+    when(extensionElement.getName()).thenReturn("Name");
+
+    DataGridField dataGridField = new DataGridField();
+    dataGridField.addExtensionElement(extensionElement);
+
+    // Act
+    dataGridField.setValues(new DataGridField());
+
+    // Assert
+    verify(extensionElement, atLeast(1)).getName();
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link DataGridField}
@@ -59,9 +101,6 @@ public class DataGridFieldDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DataGridField.<init>()", "String DataGridField.getName()", "String DataGridField.getValue()",
-      "void DataGridField.setName(String)", "void DataGridField.setValue(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     DataGridField actualDataGridField = new DataGridField();
@@ -69,10 +108,9 @@ public class DataGridFieldDiffblueTest {
     actualDataGridField.setValue("42");
     String actualName = actualDataGridField.getName();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("42", actualDataGridField.getValue());
     assertEquals("Name", actualName);
-    assertNull(actualDataGridField.getId());
     assertEquals(0, actualDataGridField.getXmlColumnNumber());
     assertEquals(0, actualDataGridField.getXmlRowNumber());
     assertTrue(actualDataGridField.getAttributes().isEmpty());

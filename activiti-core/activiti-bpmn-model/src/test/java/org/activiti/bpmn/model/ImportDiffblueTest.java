@@ -19,27 +19,39 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.util.List;
 import java.util.Map;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ImportDiffblueTest {
   /**
-   * Test {@link Import#clone()}.
-   * <ul>
-   *   <li>Given {@link Import} (default constructor) ExtensionElements is {@code null}.</li>
-   *   <li>Then return Id is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Import#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Import Import.clone()"})
-  public void testClone_givenImportExtensionElementsIsNull_thenReturnIdIsNull() {
+  public void testClone() {
+    // Arrange and Act
+    Import actualCloneResult = (new Import()).clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getImportType());
+    assertNull(actualCloneResult.getLocation());
+    assertNull(actualCloneResult.getNamespace());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link Import#clone()}
+   */
+  @Test
+  public void testClone2() {
     // Arrange
     Import resultImport = new Import();
     resultImport.setExtensionElements(null);
@@ -60,20 +72,17 @@ public class ImportDiffblueTest {
   }
 
   /**
-   * Test {@link Import#clone()}.
-   * <ul>
-   *   <li>Given {@link Import} (default constructor).</li>
-   *   <li>Then return Id is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Import#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Import Import.clone()"})
-  public void testClone_givenImport_thenReturnIdIsNull() {
-    // Arrange and Act
-    Import actualCloneResult = (new Import()).clone();
+  public void testClone3() {
+    // Arrange
+    Import resultImport = new Import();
+    ExtensionAttribute attribute = new ExtensionAttribute("Name");
+    resultImport.addAttribute(attribute);
+
+    // Act
+    Import actualCloneResult = resultImport.clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
@@ -82,65 +91,68 @@ public class ImportDiffblueTest {
     assertNull(actualCloneResult.getNamespace());
     assertEquals(0, actualCloneResult.getXmlColumnNumber());
     assertEquals(0, actualCloneResult.getXmlRowNumber());
-    assertTrue(actualCloneResult.getAttributes().isEmpty());
-    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link Import#clone()}.
-   * <ul>
-   *   <li>Then return Attributes size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Import#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Import Import.clone()"})
-  public void testClone_thenReturnAttributesSizeIsOne() {
-    // Arrange
-    Import resultImport = new Import();
-    ExtensionAttribute attribute = new ExtensionAttribute("Name");
-    resultImport.addAttribute(attribute);
-
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = resultImport.clone().getAttributes();
+    Map<String, List<ExtensionAttribute>> attributes = actualCloneResult.getAttributes();
     assertEquals(1, attributes.size());
     List<ExtensionAttribute> getResult = attributes.get("Name");
     assertEquals(1, getResult.size());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
     assertSame(attribute, getResult.get(0));
   }
 
   /**
-   * Test {@link Import#clone()}.
-   * <ul>
-   *   <li>Then return Attributes size is two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Import#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Import Import.clone()"})
-  public void testClone_thenReturnAttributesSizeIsTwo() {
+  public void testClone4() {
     // Arrange
     Import resultImport = new Import();
     ExtensionAttribute attribute = new ExtensionAttribute("42");
     resultImport.addAttribute(attribute);
-    resultImport.addAttribute(new ExtensionAttribute("Name"));
+    ExtensionAttribute attribute2 = new ExtensionAttribute("Name");
+    resultImport.addAttribute(attribute2);
 
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = resultImport.clone().getAttributes();
+    // Act
+    Import actualCloneResult = resultImport.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getImportType());
+    assertNull(actualCloneResult.getLocation());
+    assertNull(actualCloneResult.getNamespace());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    Map<String, List<ExtensionAttribute>> attributes = actualCloneResult.getAttributes();
     assertEquals(2, attributes.size());
     List<ExtensionAttribute> getResult = attributes.get("42");
     assertEquals(1, getResult.size());
-    assertTrue(attributes.containsKey("Name"));
+    List<ExtensionAttribute> getResult2 = attributes.get("Name");
+    assertEquals(1, getResult2.size());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
     assertSame(attribute, getResult.get(0));
+    assertSame(attribute2, getResult2.get(0));
   }
 
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link Import#setValues(Import)}
+   */
+  @Test
+  public void testSetValues() {
+    // Arrange
+    Import resultImport = new Import();
+    ExtensionAttribute attribute = mock(ExtensionAttribute.class);
+    when(attribute.getName()).thenReturn("Name");
+
+    Import otherElement = new Import();
+    otherElement.addAttribute(attribute);
+
+    // Act
+    resultImport.setValues(otherElement);
+
+    // Assert
+    verify(attribute, atLeast(1)).getName();
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link Import}
@@ -153,10 +165,6 @@ public class ImportDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Import.<init>()", "String Import.getImportType()", "String Import.getLocation()",
-      "String Import.getNamespace()", "void Import.setImportType(String)", "void Import.setLocation(String)",
-      "void Import.setNamespace(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Import actualResultImport = new Import();
@@ -166,11 +174,10 @@ public class ImportDiffblueTest {
     String actualImportType = actualResultImport.getImportType();
     String actualLocation = actualResultImport.getLocation();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("Import Type", actualImportType);
     assertEquals("Location", actualLocation);
     assertEquals("Namespace", actualResultImport.getNamespace());
-    assertNull(actualResultImport.getId());
     assertEquals(0, actualResultImport.getXmlColumnNumber());
     assertEquals(0, actualResultImport.getXmlRowNumber());
     assertTrue(actualResultImport.getAttributes().isEmpty());

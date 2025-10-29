@@ -20,115 +20,92 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.isNull;
-import static org.mockito.Mockito.doNothing;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.util.List;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.EventListener;
-import org.activiti.core.el.CustomFunctionProvider;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.delegate.event.ActivitiEventListener;
 import org.activiti.engine.impl.bpmn.helper.ClassDelegateFactory;
 import org.activiti.engine.impl.bpmn.helper.DefaultClassDelegateFactory;
 import org.activiti.engine.impl.bpmn.helper.DelegateActivitiEventListener;
 import org.activiti.engine.impl.bpmn.helper.DelegateExpressionActivitiEventListener;
+import org.activiti.engine.impl.bpmn.helper.ErrorThrowingEventListener;
+import org.activiti.engine.impl.bpmn.helper.MessageThrowingEventListener;
+import org.activiti.engine.impl.bpmn.helper.SignalThrowingEventListener;
 import org.activiti.engine.impl.bpmn.listener.DelegateExpressionTransactionDependentExecutionListener;
 import org.activiti.engine.impl.delegate.BpmnMessagePayloadMappingProviderFactory;
+import org.activiti.engine.impl.delegate.MessagePayloadMappingProviderFactory;
 import org.activiti.engine.impl.el.ExpressionManager;
 import org.activiti.engine.impl.el.FixedValue;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.activiti.engine.task.Task;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class DefaultListenerFactoryDiffblueTest {
-  /**
-   * Test {@link DefaultListenerFactory#DefaultListenerFactory()}.
-   * <p>
-   * Method under test: {@link DefaultListenerFactory#DefaultListenerFactory()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultListenerFactory.<init>()"})
-  public void testNewDefaultListenerFactory() {
-    // Arrange and Act
-    DefaultListenerFactory actualDefaultListenerFactory = new DefaultListenerFactory();
-
-    // Assert
-    assertTrue(actualDefaultListenerFactory
-        .getMessageExecutionContextFactory() instanceof DefaultMessageExecutionContextFactory);
-    assertTrue(actualDefaultListenerFactory
-        .getMessagePayloadMappingProviderFactory() instanceof BpmnMessagePayloadMappingProviderFactory);
-    assertNull(actualDefaultListenerFactory.getExpressionManager());
-  }
+  @InjectMocks
+  private DefaultListenerFactory defaultListenerFactory;
 
   /**
-   * Test {@link DefaultListenerFactory#DefaultListenerFactory(ClassDelegateFactory)}.
-   * <p>
-   * Method under test: {@link DefaultListenerFactory#DefaultListenerFactory(ClassDelegateFactory)}
+   * Method under test:
+   * {@link DefaultListenerFactory#createTransactionDependentDelegateExpressionExecutionListener(ActivitiListener)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void DefaultListenerFactory.<init>(ClassDelegateFactory)"})
-  public void testNewDefaultListenerFactory2() {
-    // Arrange and Act
-    DefaultListenerFactory actualDefaultListenerFactory = new DefaultListenerFactory(new DefaultClassDelegateFactory());
-
-    // Assert
-    assertTrue(actualDefaultListenerFactory
-        .getMessageExecutionContextFactory() instanceof DefaultMessageExecutionContextFactory);
-    assertTrue(actualDefaultListenerFactory
-        .getMessagePayloadMappingProviderFactory() instanceof BpmnMessagePayloadMappingProviderFactory);
-    assertNull(actualDefaultListenerFactory.getExpressionManager());
-  }
-
-  /**
-   * Test {@link DefaultListenerFactory#createTransactionDependentDelegateExpressionExecutionListener(ActivitiListener)}.
-   * <p>
-   * Method under test: {@link DefaultListenerFactory#createTransactionDependentDelegateExpressionExecutionListener(ActivitiListener)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "DelegateExpressionTransactionDependentExecutionListener DefaultListenerFactory.createTransactionDependentDelegateExpressionExecutionListener(ActivitiListener)"})
   public void testCreateTransactionDependentDelegateExpressionExecutionListener() {
     // Arrange
-    ExpressionManager expressionManager = mock(ExpressionManager.class);
-    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
-    doNothing().when(expressionManager).setCustomFunctionProviders(Mockito.<List<CustomFunctionProvider>>any());
-    expressionManager.setCustomFunctionProviders(null);
-
     DefaultListenerFactory defaultListenerFactory = new DefaultListenerFactory();
-    defaultListenerFactory.setExpressionManager(expressionManager);
+    defaultListenerFactory.setExpressionManager(new ExpressionManager());
+    ActivitiListener activitiListener = mock(ActivitiListener.class);
+    when(activitiListener.getImplementation()).thenReturn("Implementation");
 
     // Act
     DelegateExpressionTransactionDependentExecutionListener actualCreateTransactionDependentDelegateExpressionExecutionListenerResult = defaultListenerFactory
-        .createTransactionDependentDelegateExpressionExecutionListener(new ActivitiListener());
+        .createTransactionDependentDelegateExpressionExecutionListener(activitiListener);
 
     // Assert
-    verify(expressionManager).createExpression(isNull());
-    verify(expressionManager).setCustomFunctionProviders(isNull());
+    verify(activitiListener).getImplementation();
+    assertEquals("Implementation",
+        actualCreateTransactionDependentDelegateExpressionExecutionListenerResult.getExpressionText());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultListenerFactory#createTransactionDependentDelegateExpressionExecutionListener(ActivitiListener)}
+   */
+  @Test
+  public void testCreateTransactionDependentDelegateExpressionExecutionListener2() {
+    // Arrange
+    ExpressionManager expressionManager = mock(ExpressionManager.class);
+    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
+
+    DefaultListenerFactory defaultListenerFactory = new DefaultListenerFactory();
+    defaultListenerFactory.setExpressionManager(expressionManager);
+    ActivitiListener activitiListener = mock(ActivitiListener.class);
+    when(activitiListener.getImplementation()).thenReturn("Implementation");
+
+    // Act
+    DelegateExpressionTransactionDependentExecutionListener actualCreateTransactionDependentDelegateExpressionExecutionListenerResult = defaultListenerFactory
+        .createTransactionDependentDelegateExpressionExecutionListener(activitiListener);
+
+    // Assert
+    verify(activitiListener).getImplementation();
+    verify(expressionManager).createExpression(eq("Implementation"));
     assertEquals("null", actualCreateTransactionDependentDelegateExpressionExecutionListenerResult.getExpressionText());
   }
 
   /**
-   * Test {@link DefaultListenerFactory#createClassDelegateEventListener(EventListener)}.
-   * <ul>
-   *   <li>Then return {@link DelegateActivitiEventListener}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultListenerFactory#createClassDelegateEventListener(EventListener)}
+   * Method under test:
+   * {@link DefaultListenerFactory#createClassDelegateEventListener(EventListener)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ActivitiEventListener DefaultListenerFactory.createClassDelegateEventListener(EventListener)"})
-  public void testCreateClassDelegateEventListener_thenReturnDelegateActivitiEventListener() {
+  public void testCreateClassDelegateEventListener() {
     // Arrange
     DefaultListenerFactory defaultListenerFactory = new DefaultListenerFactory();
 
@@ -142,17 +119,11 @@ public class DefaultListenerFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultListenerFactory#createClassDelegateEventListener(EventListener)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultListenerFactory#createClassDelegateEventListener(EventListener)}
+   * Method under test:
+   * {@link DefaultListenerFactory#createClassDelegateEventListener(EventListener)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ActivitiEventListener DefaultListenerFactory.createClassDelegateEventListener(EventListener)"})
-  public void testCreateClassDelegateEventListener_thenThrowActivitiIllegalArgumentException() {
+  public void testCreateClassDelegateEventListener2() {
     // Arrange
     DefaultListenerFactory defaultListenerFactory = new DefaultListenerFactory();
 
@@ -165,79 +136,102 @@ public class DefaultListenerFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultListenerFactory#createDelegateExpressionEventListener(EventListener)}.
-   * <p>
-   * Method under test: {@link DefaultListenerFactory#createDelegateExpressionEventListener(EventListener)}
+   * Method under test:
+   * {@link DefaultListenerFactory#createClassDelegateEventListener(EventListener)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ActivitiEventListener DefaultListenerFactory.createDelegateExpressionEventListener(EventListener)"})
+  public void testCreateClassDelegateEventListener3() {
+    // Arrange
+    DefaultListenerFactory defaultListenerFactory = new DefaultListenerFactory();
+    defaultListenerFactory.setMessagePayloadMappingProviderFactory(mock(MessagePayloadMappingProviderFactory.class));
+
+    // Act
+    ActivitiEventListener actualCreateClassDelegateEventListenerResult = defaultListenerFactory
+        .createClassDelegateEventListener(new EventListener());
+
+    // Assert
+    assertTrue(actualCreateClassDelegateEventListenerResult instanceof DelegateActivitiEventListener);
+    assertFalse(actualCreateClassDelegateEventListenerResult.isFailOnException());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultListenerFactory#createDelegateExpressionEventListener(EventListener)}
+   */
+  @Test
   public void testCreateDelegateExpressionEventListener() {
+    // Arrange
+    DefaultListenerFactory defaultListenerFactory = new DefaultListenerFactory();
+    defaultListenerFactory.setExpressionManager(new ExpressionManager());
+    EventListener eventListener = mock(EventListener.class);
+    when(eventListener.getEntityType()).thenReturn("Entity Type");
+    when(eventListener.getImplementation()).thenReturn("Implementation");
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> defaultListenerFactory.createDelegateExpressionEventListener(eventListener));
+    verify(eventListener).getEntityType();
+    verify(eventListener).getImplementation();
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultListenerFactory#createDelegateExpressionEventListener(EventListener)}
+   */
+  @Test
+  public void testCreateDelegateExpressionEventListener2() {
     // Arrange
     ExpressionManager expressionManager = mock(ExpressionManager.class);
     when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
-    doNothing().when(expressionManager).setCustomFunctionProviders(Mockito.<List<CustomFunctionProvider>>any());
-    expressionManager.setCustomFunctionProviders(null);
 
     DefaultListenerFactory defaultListenerFactory = new DefaultListenerFactory();
     defaultListenerFactory.setExpressionManager(expressionManager);
+    EventListener eventListener = mock(EventListener.class);
+    when(eventListener.getEntityType()).thenReturn("Entity Type");
+    when(eventListener.getImplementation()).thenReturn("Implementation");
 
-    EventListener eventListener = new EventListener();
-    eventListener.setEntityType(null);
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> defaultListenerFactory.createDelegateExpressionEventListener(eventListener));
+    verify(eventListener).getEntityType();
+    verify(eventListener).getImplementation();
+    verify(expressionManager).createExpression(eq("Implementation"));
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultListenerFactory#createDelegateExpressionEventListener(EventListener)}
+   */
+  @Test
+  public void testCreateDelegateExpressionEventListener3() {
+    // Arrange
+    ExpressionManager expressionManager = mock(ExpressionManager.class);
+    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
+
+    DefaultListenerFactory defaultListenerFactory = new DefaultListenerFactory();
+    defaultListenerFactory.setExpressionManager(expressionManager);
+    EventListener eventListener = mock(EventListener.class);
+    when(eventListener.getEntityType()).thenReturn(null);
+    when(eventListener.getImplementation()).thenReturn("Implementation");
 
     // Act
     ActivitiEventListener actualCreateDelegateExpressionEventListenerResult = defaultListenerFactory
         .createDelegateExpressionEventListener(eventListener);
 
     // Assert
-    verify(expressionManager).createExpression(isNull());
-    verify(expressionManager).setCustomFunctionProviders(isNull());
+    verify(eventListener).getEntityType();
+    verify(eventListener).getImplementation();
+    verify(expressionManager).createExpression(eq("Implementation"));
     assertTrue(actualCreateDelegateExpressionEventListenerResult instanceof DelegateExpressionActivitiEventListener);
     assertFalse(actualCreateDelegateExpressionEventListenerResult.isFailOnException());
   }
 
   /**
-   * Test {@link DefaultListenerFactory#createDelegateExpressionEventListener(EventListener)}.
-   * <p>
-   * Method under test: {@link DefaultListenerFactory#createDelegateExpressionEventListener(EventListener)}
+   * Method under test:
+   * {@link DefaultListenerFactory#createEventThrowingEventListener(EventListener)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ActivitiEventListener DefaultListenerFactory.createDelegateExpressionEventListener(EventListener)"})
-  public void testCreateDelegateExpressionEventListener2() {
-    // Arrange
-    ExpressionManager expressionManager = mock(ExpressionManager.class);
-    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue(JSONObject.NULL));
-    doNothing().when(expressionManager).setCustomFunctionProviders(Mockito.<List<CustomFunctionProvider>>any());
-    expressionManager.setCustomFunctionProviders(null);
-
-    DefaultListenerFactory defaultListenerFactory = new DefaultListenerFactory();
-    defaultListenerFactory.setExpressionManager(expressionManager);
-
-    EventListener eventListener = new EventListener();
-    eventListener.setEntityType("Entity Type");
-
-    // Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> defaultListenerFactory.createDelegateExpressionEventListener(eventListener));
-    verify(expressionManager).createExpression(isNull());
-    verify(expressionManager).setCustomFunctionProviders(isNull());
-  }
-
-  /**
-   * Test {@link DefaultListenerFactory#createEventThrowingEventListener(EventListener)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultListenerFactory#createEventThrowingEventListener(EventListener)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ActivitiEventListener DefaultListenerFactory.createEventThrowingEventListener(EventListener)"})
-  public void testCreateEventThrowingEventListener_thenThrowActivitiIllegalArgumentException() {
+  public void testCreateEventThrowingEventListener() {
     // Arrange
     DefaultListenerFactory defaultListenerFactory = new DefaultListenerFactory();
 
@@ -247,58 +241,165 @@ public class DefaultListenerFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultListenerFactory#getEntityType(String)}.
-   * <ul>
-   *   <li>When {@code Entity Type}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultListenerFactory#getEntityType(String)}
+   * Method under test:
+   * {@link DefaultListenerFactory#createEventThrowingEventListener(EventListener)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Class DefaultListenerFactory.getEntityType(String)"})
-  public void testGetEntityType_whenEntityType_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
+  public void testCreateEventThrowingEventListener2() {
+    // Arrange
+    DefaultListenerFactory defaultListenerFactory = new DefaultListenerFactory();
+    defaultListenerFactory.setMessagePayloadMappingProviderFactory(mock(MessagePayloadMappingProviderFactory.class));
+
+    EventListener eventListener = new EventListener();
+    eventListener.setImplementationType("throwSignalEvent");
+
+    // Act
+    ActivitiEventListener actualCreateEventThrowingEventListenerResult = defaultListenerFactory
+        .createEventThrowingEventListener(eventListener);
+
+    // Assert
+    assertTrue(actualCreateEventThrowingEventListenerResult instanceof SignalThrowingEventListener);
+    assertTrue(actualCreateEventThrowingEventListenerResult.isFailOnException());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultListenerFactory#createEventThrowingEventListener(EventListener)}
+   */
+  @Test
+  public void testCreateEventThrowingEventListener3() {
+    // Arrange
+    DefaultListenerFactory defaultListenerFactory = new DefaultListenerFactory();
+    defaultListenerFactory.setMessagePayloadMappingProviderFactory(mock(MessagePayloadMappingProviderFactory.class));
+
+    EventListener eventListener = new EventListener();
+    eventListener.setImplementationType("throwGlobalSignalEvent");
+
+    // Act
+    ActivitiEventListener actualCreateEventThrowingEventListenerResult = defaultListenerFactory
+        .createEventThrowingEventListener(eventListener);
+
+    // Assert
+    assertTrue(actualCreateEventThrowingEventListenerResult instanceof SignalThrowingEventListener);
+    assertTrue(actualCreateEventThrowingEventListenerResult.isFailOnException());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultListenerFactory#createEventThrowingEventListener(EventListener)}
+   */
+  @Test
+  public void testCreateEventThrowingEventListener4() {
+    // Arrange
+    DefaultListenerFactory defaultListenerFactory = new DefaultListenerFactory();
+    defaultListenerFactory.setMessagePayloadMappingProviderFactory(mock(MessagePayloadMappingProviderFactory.class));
+
+    EventListener eventListener = new EventListener();
+    eventListener.setImplementationType("throwMessageEvent");
+
+    // Act
+    ActivitiEventListener actualCreateEventThrowingEventListenerResult = defaultListenerFactory
+        .createEventThrowingEventListener(eventListener);
+
+    // Assert
+    assertTrue(actualCreateEventThrowingEventListenerResult instanceof MessageThrowingEventListener);
+    assertTrue(actualCreateEventThrowingEventListenerResult.isFailOnException());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultListenerFactory#createEventThrowingEventListener(EventListener)}
+   */
+  @Test
+  public void testCreateEventThrowingEventListener5() {
+    // Arrange
+    DefaultListenerFactory defaultListenerFactory = new DefaultListenerFactory();
+    defaultListenerFactory.setMessagePayloadMappingProviderFactory(mock(MessagePayloadMappingProviderFactory.class));
+
+    EventListener eventListener = new EventListener();
+    eventListener.setImplementationType("throwErrorEvent");
+
+    // Act
+    ActivitiEventListener actualCreateEventThrowingEventListenerResult = defaultListenerFactory
+        .createEventThrowingEventListener(eventListener);
+
+    // Assert
+    assertTrue(actualCreateEventThrowingEventListenerResult instanceof ErrorThrowingEventListener);
+    assertTrue(actualCreateEventThrowingEventListenerResult.isFailOnException());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultListenerFactory#createEventThrowingEventListener(EventListener)}
+   */
+  @Test
+  public void testCreateEventThrowingEventListener6() {
+    // Arrange
+    DefaultListenerFactory defaultListenerFactory = new DefaultListenerFactory();
+    defaultListenerFactory.setMessagePayloadMappingProviderFactory(mock(MessagePayloadMappingProviderFactory.class));
+
+    EventListener eventListener = new EventListener();
+    eventListener.setEntityType("throwSignalEvent");
+    eventListener.setImplementationType("throwSignalEvent");
+
+    // Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> (new DefaultListenerFactory()).getEntityType("Entity Type"));
+        () -> defaultListenerFactory.createEventThrowingEventListener(eventListener));
   }
 
   /**
-   * Test {@link DefaultListenerFactory#getEntityType(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DefaultListenerFactory#getEntityType(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Class DefaultListenerFactory.getEntityType(String)"})
-  public void testGetEntityType_whenNull_thenReturnNull() {
+  public void testGetEntityType() {
     // Arrange, Act and Assert
-    assertNull((new DefaultListenerFactory()).getEntityType(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> defaultListenerFactory.getEntityType("Entity Type"));
+    assertNull(defaultListenerFactory.getEntityType(null));
   }
 
   /**
-   * Test {@link DefaultListenerFactory#getEntityType(String)}.
-   * <ul>
-   *   <li>When {@code task}.</li>
-   *   <li>Then return {@link Task}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DefaultListenerFactory#getEntityType(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Class DefaultListenerFactory.getEntityType(String)"})
-  public void testGetEntityType_whenTask_thenReturnTask() {
+  public void testGetEntityType2() {
     // Arrange and Act
-    Class<?> actualEntityType = (new DefaultListenerFactory()).getEntityType("task");
+    Class<?> actualEntityType = defaultListenerFactory.getEntityType("task");
 
     // Assert
     Class<Task> expectedEntityType = Task.class;
     assertEquals(expectedEntityType, actualEntityType);
+  }
+
+  /**
+   * Method under test: {@link DefaultListenerFactory#DefaultListenerFactory()}
+   */
+  @Test
+  public void testNewDefaultListenerFactory() {
+    // Arrange and Act
+    DefaultListenerFactory actualDefaultListenerFactory = new DefaultListenerFactory();
+
+    // Assert
+    assertTrue(actualDefaultListenerFactory
+        .getMessageExecutionContextFactory() instanceof DefaultMessageExecutionContextFactory);
+    assertTrue(actualDefaultListenerFactory
+        .getMessagePayloadMappingProviderFactory() instanceof BpmnMessagePayloadMappingProviderFactory);
+    assertNull(actualDefaultListenerFactory.getExpressionManager());
+  }
+
+  /**
+   * Method under test:
+   * {@link DefaultListenerFactory#DefaultListenerFactory(ClassDelegateFactory)}
+   */
+  @Test
+  public void testNewDefaultListenerFactory2() {
+    // Arrange and Act
+    DefaultListenerFactory actualDefaultListenerFactory = new DefaultListenerFactory(new DefaultClassDelegateFactory());
+
+    // Assert
+    assertTrue(actualDefaultListenerFactory
+        .getMessageExecutionContextFactory() instanceof DefaultMessageExecutionContextFactory);
+    assertTrue(actualDefaultListenerFactory
+        .getMessagePayloadMappingProviderFactory() instanceof BpmnMessagePayloadMappingProviderFactory);
+    assertNull(actualDefaultListenerFactory.getExpressionManager());
   }
 }

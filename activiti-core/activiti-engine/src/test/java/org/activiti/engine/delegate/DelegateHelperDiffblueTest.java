@@ -24,11 +24,12 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiFunction;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.ExtensionElement;
 import org.activiti.bpmn.model.FieldExtension;
@@ -36,56 +37,50 @@ import org.activiti.engine.ActivitiException;
 import org.activiti.engine.impl.el.FixedValue;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class DelegateHelperDiffblueTest {
+  @InjectMocks
+  private DelegateHelper delegateHelper;
+
   /**
-   * Test {@link DelegateHelper#getBpmnModel(DelegateExecution)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DelegateHelper#getBpmnModel(DelegateExecution)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"org.activiti.bpmn.model.BpmnModel DelegateHelper.getBpmnModel(DelegateExecution)"})
-  public void testGetBpmnModel_whenNull_thenThrowActivitiException() {
+  public void testGetBpmnModel() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> DelegateHelper.getBpmnModel(null));
   }
 
   /**
-   * Test {@link DelegateHelper#getFlowElement(DelegateExecution)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DelegateHelper#getFlowElement(DelegateExecution)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"org.activiti.bpmn.model.FlowElement DelegateHelper.getFlowElement(DelegateExecution)"})
-  public void testGetFlowElement_whenNull_thenThrowActivitiException() {
+  public void testGetFlowElement() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> DelegateHelper.getFlowElement(null));
   }
 
   /**
-   * Test {@link DelegateHelper#isExecutingExecutionListener(DelegateExecution)}.
-   * <ul>
-   *   <li>Given {@link ActivitiListener} (default constructor).</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegateHelper#isExecutingExecutionListener(DelegateExecution)}
+   * Method under test:
+   * {@link DelegateHelper#isExecutingExecutionListener(DelegateExecution)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean DelegateHelper.isExecutingExecutionListener(DelegateExecution)"})
-  public void testIsExecutingExecutionListener_givenActivitiListener_thenReturnTrue() {
+  public void testIsExecutingExecutionListener() {
+    // Arrange, Act and Assert
+    assertFalse(
+        DelegateHelper.isExecutingExecutionListener(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+  }
+
+  /**
+   * Method under test:
+   * {@link DelegateHelper#isExecutingExecutionListener(DelegateExecution)}
+   */
+  @Test
+  public void testIsExecutingExecutionListener2() {
     // Arrange
     ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
     execution.setCurrentActivitiListener(new ActivitiListener());
@@ -95,35 +90,25 @@ public class DelegateHelperDiffblueTest {
   }
 
   /**
-   * Test {@link DelegateHelper#isExecutingExecutionListener(DelegateExecution)}.
-   * <ul>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegateHelper#isExecutingExecutionListener(DelegateExecution)}
+   * Method under test:
+   * {@link DelegateHelper#isExecutingExecutionListener(DelegateExecution)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean DelegateHelper.isExecutingExecutionListener(DelegateExecution)"})
-  public void testIsExecutingExecutionListener_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(
-        DelegateHelper.isExecutingExecutionListener(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+  public void testIsExecutingExecutionListener3() {
+    // Arrange
+    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+    execution.setLockTime(mock(Date.class));
+
+    // Act and Assert
+    assertFalse(DelegateHelper.isExecutingExecutionListener(execution));
   }
 
   /**
-   * Test {@link DelegateHelper#getExtensionElements(DelegateExecution)}.
-   * <ul>
-   *   <li>Given {@link ActivitiListener} (default constructor).</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegateHelper#getExtensionElements(DelegateExecution)}
+   * Method under test:
+   * {@link DelegateHelper#getExtensionElements(DelegateExecution)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Map DelegateHelper.getExtensionElements(DelegateExecution)"})
-  public void testGetExtensionElements_givenActivitiListener_thenReturnEmpty() {
+  public void testGetExtensionElements() {
     // Arrange
     ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
     execution.setCurrentActivitiListener(new ActivitiListener());
@@ -136,35 +121,21 @@ public class DelegateHelperDiffblueTest {
   }
 
   /**
-   * Test {@link DelegateHelper#getFlowElementExtensionElements(DelegateExecution)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegateHelper#getFlowElementExtensionElements(DelegateExecution)}
+   * Method under test:
+   * {@link DelegateHelper#getFlowElementExtensionElements(DelegateExecution)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Map DelegateHelper.getFlowElementExtensionElements(DelegateExecution)"})
-  public void testGetFlowElementExtensionElements_whenNull_thenThrowActivitiException() {
+  public void testGetFlowElementExtensionElements() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> DelegateHelper.getFlowElementExtensionElements(null));
   }
 
   /**
-   * Test {@link DelegateHelper#getListenerExtensionElements(DelegateExecution)}.
-   * <ul>
-   *   <li>Given {@link ActivitiListener} (default constructor).</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegateHelper#getListenerExtensionElements(DelegateExecution)}
+   * Method under test:
+   * {@link DelegateHelper#getListenerExtensionElements(DelegateExecution)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Map DelegateHelper.getListenerExtensionElements(DelegateExecution)"})
-  public void testGetListenerExtensionElements_givenActivitiListener_thenReturnEmpty() {
+  public void testGetListenerExtensionElements() {
     // Arrange
     ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
     execution.setCurrentActivitiListener(new ActivitiListener());
@@ -178,18 +149,10 @@ public class DelegateHelperDiffblueTest {
   }
 
   /**
-   * Test {@link DelegateHelper#getFields(DelegateExecution)}.
-   * <ul>
-   *   <li>Given {@link ActivitiListener} (default constructor).</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DelegateHelper#getFields(DelegateExecution)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"List DelegateHelper.getFields(DelegateExecution)"})
-  public void testGetFields_givenActivitiListener_thenReturnEmpty() {
+  public void testGetFields() {
     // Arrange
     ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
     execution.setCurrentActivitiListener(new ActivitiListener());
@@ -202,35 +165,21 @@ public class DelegateHelperDiffblueTest {
   }
 
   /**
-   * Test {@link DelegateHelper#getFlowElementFields(DelegateExecution)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegateHelper#getFlowElementFields(DelegateExecution)}
+   * Method under test:
+   * {@link DelegateHelper#getFlowElementFields(DelegateExecution)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"List DelegateHelper.getFlowElementFields(DelegateExecution)"})
-  public void testGetFlowElementFields_whenNull_thenThrowActivitiException() {
+  public void testGetFlowElementFields() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> DelegateHelper.getFlowElementFields(null));
   }
 
   /**
-   * Test {@link DelegateHelper#getListenerFields(DelegateExecution)}.
-   * <ul>
-   *   <li>Given {@link ActivitiListener} (default constructor).</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegateHelper#getListenerFields(DelegateExecution)}
+   * Method under test:
+   * {@link DelegateHelper#getListenerFields(DelegateExecution)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"List DelegateHelper.getListenerFields(DelegateExecution)"})
-  public void testGetListenerFields_givenActivitiListener_thenReturnEmpty() {
+  public void testGetListenerFields() {
     // Arrange
     ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
     execution.setCurrentActivitiListener(new ActivitiListener());
@@ -243,17 +192,10 @@ public class DelegateHelperDiffblueTest {
   }
 
   /**
-   * Test {@link DelegateHelper#getField(DelegateExecution, String)}.
-   * <ul>
-   *   <li>Given {@link ActivitiListener} (default constructor).</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DelegateHelper#getField(DelegateExecution, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"FieldExtension DelegateHelper.getField(DelegateExecution, String)"})
-  public void testGetField_givenActivitiListener() {
+  public void testGetField() {
     // Arrange
     DelegateExecution execution = mock(DelegateExecution.class);
     when(execution.getCurrentActivitiListener()).thenReturn(new ActivitiListener());
@@ -267,18 +209,30 @@ public class DelegateHelperDiffblueTest {
   }
 
   /**
-   * Test {@link DelegateHelper#getField(DelegateExecution, String)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default constructor).</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DelegateHelper#getField(DelegateExecution, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"FieldExtension DelegateHelper.getField(DelegateExecution, String)"})
-  public void testGetField_givenArrayListAddFieldExtension_thenReturnNull() {
+  public void testGetField2() {
+    // Arrange
+    ActivitiListener activitiListener = mock(ActivitiListener.class);
+    when(activitiListener.getFieldExtensions()).thenReturn(new ArrayList<>());
+    DelegateExecution execution = mock(DelegateExecution.class);
+    when(execution.getCurrentActivitiListener()).thenReturn(activitiListener);
+
+    // Act
+    FieldExtension actualField = DelegateHelper.getField(execution, "Field Name");
+
+    // Assert
+    verify(activitiListener).getFieldExtensions();
+    verify(execution, atLeast(1)).getCurrentActivitiListener();
+    assertNull(actualField);
+  }
+
+  /**
+   * Method under test: {@link DelegateHelper#getField(DelegateExecution, String)}
+   */
+  @Test
+  public void testGetField3() {
     // Arrange
     ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
     fieldExtensionList.add(new FieldExtension());
@@ -297,17 +251,27 @@ public class DelegateHelperDiffblueTest {
   }
 
   /**
-   * Test {@link DelegateHelper#getField(DelegateExecution, String)}.
-   * <ul>
-   *   <li>Given {@link FieldExtension} {@link FieldExtension#getFieldName()} return {@code Field Name}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DelegateHelper#getField(DelegateExecution, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"FieldExtension DelegateHelper.getField(DelegateExecution, String)"})
-  public void testGetField_givenFieldExtensionGetFieldNameReturnFieldName() {
+  public void testGetField4() {
+    // Arrange
+    ActivitiListener activitiListener = mock(ActivitiListener.class);
+    when(activitiListener.getFieldExtensions()).thenThrow(new ActivitiException("An error occurred"));
+    DelegateExecution execution = mock(DelegateExecution.class);
+    when(execution.getCurrentActivitiListener()).thenReturn(activitiListener);
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> DelegateHelper.getField(execution, "Field Name"));
+    verify(activitiListener).getFieldExtensions();
+    verify(execution, atLeast(1)).getCurrentActivitiListener();
+  }
+
+  /**
+   * Method under test: {@link DelegateHelper#getField(DelegateExecution, String)}
+   */
+  @Test
+  public void testGetField5() {
     // Arrange
     FieldExtension fieldExtension = mock(FieldExtension.class);
     when(fieldExtension.getFieldName()).thenReturn("Field Name");
@@ -329,18 +293,10 @@ public class DelegateHelperDiffblueTest {
   }
 
   /**
-   * Test {@link DelegateHelper#getField(DelegateExecution, String)}.
-   * <ul>
-   *   <li>Given {@link FieldExtension} {@link FieldExtension#getFieldName()} return {@code foo}.</li>
-   *   <li>Then calls {@link FieldExtension#getFieldName()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link DelegateHelper#getField(DelegateExecution, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"FieldExtension DelegateHelper.getField(DelegateExecution, String)"})
-  public void testGetField_givenFieldExtensionGetFieldNameReturnFoo_thenCallsGetFieldName() {
+  public void testGetField6() {
     // Arrange
     FieldExtension fieldExtension = mock(FieldExtension.class);
     when(fieldExtension.getFieldName()).thenReturn("foo");
@@ -363,85 +319,21 @@ public class DelegateHelperDiffblueTest {
   }
 
   /**
-   * Test {@link DelegateHelper#getField(DelegateExecution, String)}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegateHelper#getField(DelegateExecution, String)}
+   * Method under test:
+   * {@link DelegateHelper#getFlowElementField(DelegateExecution, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"FieldExtension DelegateHelper.getField(DelegateExecution, String)"})
-  public void testGetField_thenReturnNull() {
-    // Arrange
-    ActivitiListener activitiListener = mock(ActivitiListener.class);
-    when(activitiListener.getFieldExtensions()).thenReturn(new ArrayList<>());
-    DelegateExecution execution = mock(DelegateExecution.class);
-    when(execution.getCurrentActivitiListener()).thenReturn(activitiListener);
-
-    // Act
-    FieldExtension actualField = DelegateHelper.getField(execution, "Field Name");
-
-    // Assert
-    verify(activitiListener).getFieldExtensions();
-    verify(execution, atLeast(1)).getCurrentActivitiListener();
-    assertNull(actualField);
-  }
-
-  /**
-   * Test {@link DelegateHelper#getField(DelegateExecution, String)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegateHelper#getField(DelegateExecution, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"FieldExtension DelegateHelper.getField(DelegateExecution, String)"})
-  public void testGetField_thenThrowActivitiException() {
-    // Arrange
-    ActivitiListener activitiListener = mock(ActivitiListener.class);
-    when(activitiListener.getFieldExtensions()).thenThrow(new ActivitiException("An error occurred"));
-    DelegateExecution execution = mock(DelegateExecution.class);
-    when(execution.getCurrentActivitiListener()).thenReturn(activitiListener);
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> DelegateHelper.getField(execution, "Field Name"));
-    verify(activitiListener).getFieldExtensions();
-    verify(execution, atLeast(1)).getCurrentActivitiListener();
-  }
-
-  /**
-   * Test {@link DelegateHelper#getFlowElementField(DelegateExecution, String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegateHelper#getFlowElementField(DelegateExecution, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"FieldExtension DelegateHelper.getFlowElementField(DelegateExecution, String)"})
-  public void testGetFlowElementField_whenNull_thenThrowActivitiException() {
+  public void testGetFlowElementField() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> DelegateHelper.getFlowElementField(null, "Field Name"));
   }
 
   /**
-   * Test {@link DelegateHelper#getListenerField(DelegateExecution, String)}.
-   * <ul>
-   *   <li>Given {@link ActivitiListener} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegateHelper#getListenerField(DelegateExecution, String)}
+   * Method under test:
+   * {@link DelegateHelper#getListenerField(DelegateExecution, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"FieldExtension DelegateHelper.getListenerField(DelegateExecution, String)"})
-  public void testGetListenerField_givenActivitiListener() {
+  public void testGetListenerField() {
     // Arrange
     ExecutionEntityImpl execution = mock(ExecutionEntityImpl.class);
     when(execution.getCurrentActivitiListener()).thenReturn(new ActivitiListener());
@@ -455,18 +347,32 @@ public class DelegateHelperDiffblueTest {
   }
 
   /**
-   * Test {@link DelegateHelper#getListenerField(DelegateExecution, String)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default constructor).</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegateHelper#getListenerField(DelegateExecution, String)}
+   * Method under test:
+   * {@link DelegateHelper#getListenerField(DelegateExecution, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"FieldExtension DelegateHelper.getListenerField(DelegateExecution, String)"})
-  public void testGetListenerField_givenArrayListAddFieldExtension_thenReturnNull() {
+  public void testGetListenerField2() {
+    // Arrange
+    ActivitiListener activitiListener = mock(ActivitiListener.class);
+    when(activitiListener.getFieldExtensions()).thenReturn(new ArrayList<>());
+    ExecutionEntityImpl execution = mock(ExecutionEntityImpl.class);
+    when(execution.getCurrentActivitiListener()).thenReturn(activitiListener);
+
+    // Act
+    FieldExtension actualListenerField = DelegateHelper.getListenerField(execution, "Field Name");
+
+    // Assert
+    verify(activitiListener).getFieldExtensions();
+    verify(execution).getCurrentActivitiListener();
+    assertNull(actualListenerField);
+  }
+
+  /**
+   * Method under test:
+   * {@link DelegateHelper#getListenerField(DelegateExecution, String)}
+   */
+  @Test
+  public void testGetListenerField3() {
     // Arrange
     ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
     fieldExtensionList.add(new FieldExtension());
@@ -485,17 +391,11 @@ public class DelegateHelperDiffblueTest {
   }
 
   /**
-   * Test {@link DelegateHelper#getListenerField(DelegateExecution, String)}.
-   * <ul>
-   *   <li>Given {@link FieldExtension} {@link FieldExtension#getFieldName()} return {@code Field Name}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegateHelper#getListenerField(DelegateExecution, String)}
+   * Method under test:
+   * {@link DelegateHelper#getListenerField(DelegateExecution, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"FieldExtension DelegateHelper.getListenerField(DelegateExecution, String)"})
-  public void testGetListenerField_givenFieldExtensionGetFieldNameReturnFieldName() {
+  public void testGetListenerField4() {
     // Arrange
     FieldExtension fieldExtension = mock(FieldExtension.class);
     when(fieldExtension.getFieldName()).thenReturn("Field Name");
@@ -517,17 +417,11 @@ public class DelegateHelperDiffblueTest {
   }
 
   /**
-   * Test {@link DelegateHelper#getListenerField(DelegateExecution, String)}.
-   * <ul>
-   *   <li>Given {@link FieldExtension} {@link FieldExtension#getFieldName()} return {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegateHelper#getListenerField(DelegateExecution, String)}
+   * Method under test:
+   * {@link DelegateHelper#getListenerField(DelegateExecution, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"FieldExtension DelegateHelper.getListenerField(DelegateExecution, String)"})
-  public void testGetListenerField_givenFieldExtensionGetFieldNameReturnFoo() {
+  public void testGetListenerField5() {
     // Arrange
     FieldExtension fieldExtension = mock(FieldExtension.class);
     when(fieldExtension.getFieldName()).thenReturn("foo");
@@ -550,44 +444,21 @@ public class DelegateHelperDiffblueTest {
   }
 
   /**
-   * Test {@link DelegateHelper#getListenerField(DelegateExecution, String)}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegateHelper#getListenerField(DelegateExecution, String)}
+   * Method under test:
+   * {@link DelegateHelper#createExpressionForField(FieldExtension)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"FieldExtension DelegateHelper.getListenerField(DelegateExecution, String)"})
-  public void testGetListenerField_thenReturnNull() {
-    // Arrange
-    ActivitiListener activitiListener = mock(ActivitiListener.class);
-    when(activitiListener.getFieldExtensions()).thenReturn(new ArrayList<>());
-    ExecutionEntityImpl execution = mock(ExecutionEntityImpl.class);
-    when(execution.getCurrentActivitiListener()).thenReturn(activitiListener);
-
-    // Act
-    FieldExtension actualListenerField = DelegateHelper.getListenerField(execution, "Field Name");
-
-    // Assert
-    verify(activitiListener).getFieldExtensions();
-    verify(execution).getCurrentActivitiListener();
-    assertNull(actualListenerField);
+  public void testCreateExpressionForField() {
+    // Arrange, Act and Assert
+    assertTrue(DelegateHelper.createExpressionForField(new FieldExtension()) instanceof FixedValue);
   }
 
   /**
-   * Test {@link DelegateHelper#createExpressionForField(FieldExtension)}.
-   * <ul>
-   *   <li>Given empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegateHelper#createExpressionForField(FieldExtension)}
+   * Method under test:
+   * {@link DelegateHelper#createExpressionForField(FieldExtension)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Expression DelegateHelper.createExpressionForField(FieldExtension)"})
-  public void testCreateExpressionForField_givenEmptyString() {
+  public void testCreateExpressionForField2() {
     // Arrange
     FieldExtension fieldExtension = new FieldExtension();
     fieldExtension.setExpression("");
@@ -597,134 +468,28 @@ public class DelegateHelperDiffblueTest {
   }
 
   /**
-   * Test {@link DelegateHelper#createExpressionForField(FieldExtension)}.
-   * <ul>
-   *   <li>When {@link FieldExtension} (default constructor).</li>
-   *   <li>Then return {@link FixedValue}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegateHelper#createExpressionForField(FieldExtension)}
+   * Method under test:
+   * {@link DelegateHelper#createExpressionForField(FieldExtension)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Expression DelegateHelper.createExpressionForField(FieldExtension)"})
-  public void testCreateExpressionForField_whenFieldExtension_thenReturnFixedValue() {
-    // Arrange, Act and Assert
-    assertTrue(DelegateHelper.createExpressionForField(new FieldExtension()) instanceof FixedValue);
-  }
-
-  /**
-   * Test {@link DelegateHelper#getFieldExpression(DelegateExecution, String)} with {@code execution}, {@code fieldName}.
-   * <p>
-   * Method under test: {@link DelegateHelper#getFieldExpression(DelegateExecution, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Expression DelegateHelper.getFieldExpression(DelegateExecution, String)"})
-  public void testGetFieldExpressionWithExecutionFieldName() {
+  public void testCreateExpressionForField3() {
     // Arrange
-    FieldExtension fieldExtension = mock(FieldExtension.class);
-    when(fieldExtension.getFieldName()).thenReturn("foo");
+    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
+    extensionElements.computeIfPresent("foo", mock(BiFunction.class));
 
-    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
-    fieldExtensionList.add(fieldExtension);
-    ActivitiListener activitiListener = mock(ActivitiListener.class);
-    when(activitiListener.getFieldExtensions()).thenReturn(fieldExtensionList);
-    DelegateExecution execution = mock(DelegateExecution.class);
-    when(execution.getCurrentActivitiListener()).thenReturn(activitiListener);
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setExtensionElements(extensionElements);
 
-    // Act
-    Expression actualFieldExpression = DelegateHelper.getFieldExpression(execution, "Field Name");
-
-    // Assert
-    verify(activitiListener).getFieldExtensions();
-    verify(fieldExtension, atLeast(1)).getFieldName();
-    verify(execution, atLeast(1)).getCurrentActivitiListener();
-    assertNull(actualFieldExpression);
+    // Act and Assert
+    assertTrue(DelegateHelper.createExpressionForField(fieldExtension) instanceof FixedValue);
   }
 
   /**
-   * Test {@link DelegateHelper#getFieldExpression(DelegateExecution, String)} with {@code execution}, {@code fieldName}.
-   * <p>
-   * Method under test: {@link DelegateHelper#getFieldExpression(DelegateExecution, String)}
+   * Method under test:
+   * {@link DelegateHelper#getFieldExpression(DelegateExecution, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Expression DelegateHelper.getFieldExpression(DelegateExecution, String)"})
-  public void testGetFieldExpressionWithExecutionFieldName2() {
-    // Arrange
-    FieldExtension fieldExtension = mock(FieldExtension.class);
-    when(fieldExtension.getExpression()).thenReturn(null);
-    when(fieldExtension.getStringValue()).thenReturn("42");
-    when(fieldExtension.getFieldName()).thenReturn("Field Name");
-
-    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
-    fieldExtensionList.add(fieldExtension);
-    ActivitiListener activitiListener = mock(ActivitiListener.class);
-    when(activitiListener.getFieldExtensions()).thenReturn(fieldExtensionList);
-    DelegateExecution execution = mock(DelegateExecution.class);
-    when(execution.getCurrentActivitiListener()).thenReturn(activitiListener);
-
-    // Act
-    Expression actualFieldExpression = DelegateHelper.getFieldExpression(execution, "Field Name");
-
-    // Assert
-    verify(activitiListener).getFieldExtensions();
-    verify(fieldExtension).getExpression();
-    verify(fieldExtension, atLeast(1)).getFieldName();
-    verify(fieldExtension).getStringValue();
-    verify(execution, atLeast(1)).getCurrentActivitiListener();
-    assertTrue(actualFieldExpression instanceof FixedValue);
-    assertEquals("42", actualFieldExpression.getExpressionText());
-  }
-
-  /**
-   * Test {@link DelegateHelper#getFieldExpression(DelegateExecution, String)} with {@code execution}, {@code fieldName}.
-   * <p>
-   * Method under test: {@link DelegateHelper#getFieldExpression(DelegateExecution, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Expression DelegateHelper.getFieldExpression(DelegateExecution, String)"})
-  public void testGetFieldExpressionWithExecutionFieldName3() {
-    // Arrange
-    FieldExtension fieldExtension = mock(FieldExtension.class);
-    when(fieldExtension.getExpression()).thenReturn("");
-    when(fieldExtension.getStringValue()).thenReturn("42");
-    when(fieldExtension.getFieldName()).thenReturn("Field Name");
-
-    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
-    fieldExtensionList.add(fieldExtension);
-    ActivitiListener activitiListener = mock(ActivitiListener.class);
-    when(activitiListener.getFieldExtensions()).thenReturn(fieldExtensionList);
-    DelegateExecution execution = mock(DelegateExecution.class);
-    when(execution.getCurrentActivitiListener()).thenReturn(activitiListener);
-
-    // Act
-    Expression actualFieldExpression = DelegateHelper.getFieldExpression(execution, "Field Name");
-
-    // Assert
-    verify(activitiListener).getFieldExtensions();
-    verify(fieldExtension).getExpression();
-    verify(fieldExtension, atLeast(1)).getFieldName();
-    verify(fieldExtension).getStringValue();
-    verify(execution, atLeast(1)).getCurrentActivitiListener();
-    assertTrue(actualFieldExpression instanceof FixedValue);
-    assertEquals("42", actualFieldExpression.getExpressionText());
-  }
-
-  /**
-   * Test {@link DelegateHelper#getFieldExpression(DelegateExecution, String)} with {@code execution}, {@code fieldName}.
-   * <ul>
-   *   <li>Given {@link ActivitiListener} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegateHelper#getFieldExpression(DelegateExecution, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Expression DelegateHelper.getFieldExpression(DelegateExecution, String)"})
-  public void testGetFieldExpressionWithExecutionFieldName_givenActivitiListener() {
+  public void testGetFieldExpression() {
     // Arrange
     DelegateExecution execution = mock(DelegateExecution.class);
     when(execution.getCurrentActivitiListener()).thenReturn(new ActivitiListener());
@@ -738,17 +503,32 @@ public class DelegateHelperDiffblueTest {
   }
 
   /**
-   * Test {@link DelegateHelper#getFieldExpression(DelegateExecution, String)} with {@code execution}, {@code fieldName}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegateHelper#getFieldExpression(DelegateExecution, String)}
+   * Method under test:
+   * {@link DelegateHelper#getFieldExpression(DelegateExecution, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Expression DelegateHelper.getFieldExpression(DelegateExecution, String)"})
-  public void testGetFieldExpressionWithExecutionFieldName_givenArrayListAddFieldExtension() {
+  public void testGetFieldExpression2() {
+    // Arrange
+    ActivitiListener activitiListener = mock(ActivitiListener.class);
+    when(activitiListener.getFieldExtensions()).thenReturn(new ArrayList<>());
+    DelegateExecution execution = mock(DelegateExecution.class);
+    when(execution.getCurrentActivitiListener()).thenReturn(activitiListener);
+
+    // Act
+    Expression actualFieldExpression = DelegateHelper.getFieldExpression(execution, "Field Name");
+
+    // Assert
+    verify(activitiListener).getFieldExtensions();
+    verify(execution, atLeast(1)).getCurrentActivitiListener();
+    assertNull(actualFieldExpression);
+  }
+
+  /**
+   * Method under test:
+   * {@link DelegateHelper#getFieldExpression(DelegateExecution, String)}
+   */
+  @Test
+  public void testGetFieldExpression3() {
     // Arrange
     ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
     fieldExtensionList.add(new FieldExtension());
@@ -767,44 +547,11 @@ public class DelegateHelperDiffblueTest {
   }
 
   /**
-   * Test {@link DelegateHelper#getFieldExpression(DelegateExecution, String)} with {@code execution}, {@code fieldName}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegateHelper#getFieldExpression(DelegateExecution, String)}
+   * Method under test:
+   * {@link DelegateHelper#getFieldExpression(DelegateExecution, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Expression DelegateHelper.getFieldExpression(DelegateExecution, String)"})
-  public void testGetFieldExpressionWithExecutionFieldName_thenReturnNull() {
-    // Arrange
-    ActivitiListener activitiListener = mock(ActivitiListener.class);
-    when(activitiListener.getFieldExtensions()).thenReturn(new ArrayList<>());
-    DelegateExecution execution = mock(DelegateExecution.class);
-    when(execution.getCurrentActivitiListener()).thenReturn(activitiListener);
-
-    // Act
-    Expression actualFieldExpression = DelegateHelper.getFieldExpression(execution, "Field Name");
-
-    // Assert
-    verify(activitiListener).getFieldExtensions();
-    verify(execution, atLeast(1)).getCurrentActivitiListener();
-    assertNull(actualFieldExpression);
-  }
-
-  /**
-   * Test {@link DelegateHelper#getFieldExpression(DelegateExecution, String)} with {@code execution}, {@code fieldName}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegateHelper#getFieldExpression(DelegateExecution, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Expression DelegateHelper.getFieldExpression(DelegateExecution, String)"})
-  public void testGetFieldExpressionWithExecutionFieldName_thenThrowActivitiException() {
+  public void testGetFieldExpression4() {
     // Arrange
     ActivitiListener activitiListener = mock(ActivitiListener.class);
     when(activitiListener.getFieldExtensions()).thenThrow(new ActivitiException("An error occurred"));
@@ -818,34 +565,112 @@ public class DelegateHelperDiffblueTest {
   }
 
   /**
-   * Test {@link DelegateHelper#getFlowElementFieldExpression(DelegateExecution, String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegateHelper#getFlowElementFieldExpression(DelegateExecution, String)}
+   * Method under test:
+   * {@link DelegateHelper#getFieldExpression(DelegateExecution, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Expression DelegateHelper.getFlowElementFieldExpression(DelegateExecution, String)"})
-  public void testGetFlowElementFieldExpression_whenNull_thenThrowActivitiException() {
+  public void testGetFieldExpression5() {
+    // Arrange
+    FieldExtension fieldExtension = mock(FieldExtension.class);
+    when(fieldExtension.getFieldName()).thenReturn("foo");
+
+    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
+    fieldExtensionList.add(fieldExtension);
+    ActivitiListener activitiListener = mock(ActivitiListener.class);
+    when(activitiListener.getFieldExtensions()).thenReturn(fieldExtensionList);
+    DelegateExecution execution = mock(DelegateExecution.class);
+    when(execution.getCurrentActivitiListener()).thenReturn(activitiListener);
+
+    // Act
+    Expression actualFieldExpression = DelegateHelper.getFieldExpression(execution, "Field Name");
+
+    // Assert
+    verify(activitiListener).getFieldExtensions();
+    verify(fieldExtension, atLeast(1)).getFieldName();
+    verify(execution, atLeast(1)).getCurrentActivitiListener();
+    assertNull(actualFieldExpression);
+  }
+
+  /**
+   * Method under test:
+   * {@link DelegateHelper#getFieldExpression(DelegateExecution, String)}
+   */
+  @Test
+  public void testGetFieldExpression6() {
+    // Arrange
+    FieldExtension fieldExtension = mock(FieldExtension.class);
+    when(fieldExtension.getExpression()).thenReturn(null);
+    when(fieldExtension.getStringValue()).thenReturn("42");
+    when(fieldExtension.getFieldName()).thenReturn("Field Name");
+
+    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
+    fieldExtensionList.add(fieldExtension);
+    ActivitiListener activitiListener = mock(ActivitiListener.class);
+    when(activitiListener.getFieldExtensions()).thenReturn(fieldExtensionList);
+    DelegateExecution execution = mock(DelegateExecution.class);
+    when(execution.getCurrentActivitiListener()).thenReturn(activitiListener);
+
+    // Act
+    Expression actualFieldExpression = DelegateHelper.getFieldExpression(execution, "Field Name");
+
+    // Assert
+    verify(activitiListener).getFieldExtensions();
+    verify(fieldExtension).getExpression();
+    verify(fieldExtension, atLeast(1)).getFieldName();
+    verify(fieldExtension).getStringValue();
+    verify(execution, atLeast(1)).getCurrentActivitiListener();
+    assertTrue(actualFieldExpression instanceof FixedValue);
+    assertEquals("42", actualFieldExpression.getExpressionText());
+  }
+
+  /**
+   * Method under test:
+   * {@link DelegateHelper#getFieldExpression(DelegateExecution, String)}
+   */
+  @Test
+  public void testGetFieldExpression7() {
+    // Arrange
+    FieldExtension fieldExtension = mock(FieldExtension.class);
+    when(fieldExtension.getExpression()).thenReturn("");
+    when(fieldExtension.getStringValue()).thenReturn("42");
+    when(fieldExtension.getFieldName()).thenReturn("Field Name");
+
+    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
+    fieldExtensionList.add(fieldExtension);
+    ActivitiListener activitiListener = mock(ActivitiListener.class);
+    when(activitiListener.getFieldExtensions()).thenReturn(fieldExtensionList);
+    DelegateExecution execution = mock(DelegateExecution.class);
+    when(execution.getCurrentActivitiListener()).thenReturn(activitiListener);
+
+    // Act
+    Expression actualFieldExpression = DelegateHelper.getFieldExpression(execution, "Field Name");
+
+    // Assert
+    verify(activitiListener).getFieldExtensions();
+    verify(fieldExtension).getExpression();
+    verify(fieldExtension, atLeast(1)).getFieldName();
+    verify(fieldExtension).getStringValue();
+    verify(execution, atLeast(1)).getCurrentActivitiListener();
+    assertTrue(actualFieldExpression instanceof FixedValue);
+    assertEquals("42", actualFieldExpression.getExpressionText());
+  }
+
+  /**
+   * Method under test:
+   * {@link DelegateHelper#getFlowElementFieldExpression(DelegateExecution, String)}
+   */
+  @Test
+  public void testGetFlowElementFieldExpression() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> DelegateHelper.getFlowElementFieldExpression(null, "Field Name"));
   }
 
   /**
-   * Test {@link DelegateHelper#getListenerFieldExpression(DelegateExecution, String)}.
-   * <ul>
-   *   <li>Given {@link ActivitiListener} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegateHelper#getListenerFieldExpression(DelegateExecution, String)}
+   * Method under test:
+   * {@link DelegateHelper#getListenerFieldExpression(DelegateExecution, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Expression DelegateHelper.getListenerFieldExpression(DelegateExecution, String)"})
-  public void testGetListenerFieldExpression_givenActivitiListener() {
+  public void testGetListenerFieldExpression() {
     // Arrange
     ExecutionEntityImpl execution = mock(ExecutionEntityImpl.class);
     when(execution.getCurrentActivitiListener()).thenReturn(new ActivitiListener());
@@ -859,18 +684,32 @@ public class DelegateHelperDiffblueTest {
   }
 
   /**
-   * Test {@link DelegateHelper#getListenerFieldExpression(DelegateExecution, String)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default constructor).</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegateHelper#getListenerFieldExpression(DelegateExecution, String)}
+   * Method under test:
+   * {@link DelegateHelper#getListenerFieldExpression(DelegateExecution, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Expression DelegateHelper.getListenerFieldExpression(DelegateExecution, String)"})
-  public void testGetListenerFieldExpression_givenArrayListAddFieldExtension_thenReturnNull() {
+  public void testGetListenerFieldExpression2() {
+    // Arrange
+    ActivitiListener activitiListener = mock(ActivitiListener.class);
+    when(activitiListener.getFieldExtensions()).thenReturn(new ArrayList<>());
+    ExecutionEntityImpl execution = mock(ExecutionEntityImpl.class);
+    when(execution.getCurrentActivitiListener()).thenReturn(activitiListener);
+
+    // Act
+    Expression actualListenerFieldExpression = DelegateHelper.getListenerFieldExpression(execution, "Field Name");
+
+    // Assert
+    verify(activitiListener).getFieldExtensions();
+    verify(execution).getCurrentActivitiListener();
+    assertNull(actualListenerFieldExpression);
+  }
+
+  /**
+   * Method under test:
+   * {@link DelegateHelper#getListenerFieldExpression(DelegateExecution, String)}
+   */
+  @Test
+  public void testGetListenerFieldExpression3() {
     // Arrange
     ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
     fieldExtensionList.add(new FieldExtension());
@@ -889,22 +728,14 @@ public class DelegateHelperDiffblueTest {
   }
 
   /**
-   * Test {@link DelegateHelper#getListenerFieldExpression(DelegateExecution, String)}.
-   * <ul>
-   *   <li>Given {@link FieldExtension} {@link FieldExtension#getExpression()} return empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegateHelper#getListenerFieldExpression(DelegateExecution, String)}
+   * Method under test:
+   * {@link DelegateHelper#getListenerFieldExpression(DelegateExecution, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Expression DelegateHelper.getListenerFieldExpression(DelegateExecution, String)"})
-  public void testGetListenerFieldExpression_givenFieldExtensionGetExpressionReturnEmptyString() {
+  public void testGetListenerFieldExpression4() {
     // Arrange
     FieldExtension fieldExtension = mock(FieldExtension.class);
-    when(fieldExtension.getExpression()).thenReturn("");
-    when(fieldExtension.getStringValue()).thenReturn("42");
-    when(fieldExtension.getFieldName()).thenReturn("Field Name");
+    when(fieldExtension.getFieldName()).thenReturn("foo");
 
     ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
     fieldExtensionList.add(fieldExtension);
@@ -918,26 +749,17 @@ public class DelegateHelperDiffblueTest {
 
     // Assert
     verify(activitiListener).getFieldExtensions();
-    verify(fieldExtension).getExpression();
     verify(fieldExtension, atLeast(1)).getFieldName();
-    verify(fieldExtension).getStringValue();
     verify(execution).getCurrentActivitiListener();
-    assertTrue(actualListenerFieldExpression instanceof FixedValue);
-    assertEquals("42", actualListenerFieldExpression.getExpressionText());
+    assertNull(actualListenerFieldExpression);
   }
 
   /**
-   * Test {@link DelegateHelper#getListenerFieldExpression(DelegateExecution, String)}.
-   * <ul>
-   *   <li>Given {@link FieldExtension} {@link FieldExtension#getExpression()} return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegateHelper#getListenerFieldExpression(DelegateExecution, String)}
+   * Method under test:
+   * {@link DelegateHelper#getListenerFieldExpression(DelegateExecution, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Expression DelegateHelper.getListenerFieldExpression(DelegateExecution, String)"})
-  public void testGetListenerFieldExpression_givenFieldExtensionGetExpressionReturnNull() {
+  public void testGetListenerFieldExpression5() {
     // Arrange
     FieldExtension fieldExtension = mock(FieldExtension.class);
     when(fieldExtension.getExpression()).thenReturn(null);
@@ -965,20 +787,16 @@ public class DelegateHelperDiffblueTest {
   }
 
   /**
-   * Test {@link DelegateHelper#getListenerFieldExpression(DelegateExecution, String)}.
-   * <ul>
-   *   <li>Given {@link FieldExtension} {@link FieldExtension#getFieldName()} return {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegateHelper#getListenerFieldExpression(DelegateExecution, String)}
+   * Method under test:
+   * {@link DelegateHelper#getListenerFieldExpression(DelegateExecution, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Expression DelegateHelper.getListenerFieldExpression(DelegateExecution, String)"})
-  public void testGetListenerFieldExpression_givenFieldExtensionGetFieldNameReturnFoo() {
+  public void testGetListenerFieldExpression6() {
     // Arrange
     FieldExtension fieldExtension = mock(FieldExtension.class);
-    when(fieldExtension.getFieldName()).thenReturn("foo");
+    when(fieldExtension.getExpression()).thenReturn("");
+    when(fieldExtension.getStringValue()).thenReturn("42");
+    when(fieldExtension.getFieldName()).thenReturn("Field Name");
 
     ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
     fieldExtensionList.add(fieldExtension);
@@ -992,35 +810,11 @@ public class DelegateHelperDiffblueTest {
 
     // Assert
     verify(activitiListener).getFieldExtensions();
+    verify(fieldExtension).getExpression();
     verify(fieldExtension, atLeast(1)).getFieldName();
+    verify(fieldExtension).getStringValue();
     verify(execution).getCurrentActivitiListener();
-    assertNull(actualListenerFieldExpression);
-  }
-
-  /**
-   * Test {@link DelegateHelper#getListenerFieldExpression(DelegateExecution, String)}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DelegateHelper#getListenerFieldExpression(DelegateExecution, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Expression DelegateHelper.getListenerFieldExpression(DelegateExecution, String)"})
-  public void testGetListenerFieldExpression_thenReturnNull() {
-    // Arrange
-    ActivitiListener activitiListener = mock(ActivitiListener.class);
-    when(activitiListener.getFieldExtensions()).thenReturn(new ArrayList<>());
-    ExecutionEntityImpl execution = mock(ExecutionEntityImpl.class);
-    when(execution.getCurrentActivitiListener()).thenReturn(activitiListener);
-
-    // Act
-    Expression actualListenerFieldExpression = DelegateHelper.getListenerFieldExpression(execution, "Field Name");
-
-    // Assert
-    verify(activitiListener).getFieldExtensions();
-    verify(execution).getCurrentActivitiListener();
-    assertNull(actualListenerFieldExpression);
+    assertTrue(actualListenerFieldExpression instanceof FixedValue);
+    assertEquals("42", actualListenerFieldExpression.getExpressionText());
   }
 }

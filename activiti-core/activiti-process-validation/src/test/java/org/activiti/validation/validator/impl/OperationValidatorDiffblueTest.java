@@ -19,32 +19,37 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.Interface;
 import org.activiti.validation.ValidationError;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class OperationValidatorDiffblueTest {
   /**
-   * Test {@link OperationValidator#validate(BpmnModel, List)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link Interface} (default constructor).</li>
-   *   <li>Then calls {@link BpmnModel#getInterfaces()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link OperationValidator#validate(BpmnModel, List)}
    */
   @Test
-  @DisplayName("Test validate(BpmnModel, List); given ArrayList() add Interface (default constructor); then calls getInterfaces()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void OperationValidator.validate(BpmnModel, List)"})
-  void testValidate_givenArrayListAddInterface_thenCallsGetInterfaces() {
+  void testValidate() {
+    // Arrange
+    OperationValidator operationValidator = new OperationValidator();
+    BpmnModel bpmnModel = mock(BpmnModel.class);
+    when(bpmnModel.getInterfaces()).thenReturn(new ArrayList<>());
+
+    // Act
+    operationValidator.validate(bpmnModel, new ArrayList<>());
+
+    // Assert that nothing has changed
+    verify(bpmnModel, atLeast(1)).getInterfaces();
+  }
+
+  /**
+   * Method under test: {@link OperationValidator#validate(BpmnModel, List)}
+   */
+  @Test
+  void testValidate2() {
     // Arrange
     OperationValidator operationValidator = new OperationValidator();
 
@@ -56,50 +61,15 @@ class OperationValidatorDiffblueTest {
     // Act
     operationValidator.validate(bpmnModel, new ArrayList<>());
 
-    // Assert
+    // Assert that nothing has changed
     verify(bpmnModel, atLeast(1)).getInterfaces();
   }
 
   /**
-   * Test {@link OperationValidator#validate(BpmnModel, List)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then calls {@link BpmnModel#getInterfaces()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link OperationValidator#validate(BpmnModel, List)}
    */
   @Test
-  @DisplayName("Test validate(BpmnModel, List); given ArrayList(); then calls getInterfaces()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void OperationValidator.validate(BpmnModel, List)"})
-  void testValidate_givenArrayList_thenCallsGetInterfaces() {
-    // Arrange
-    OperationValidator operationValidator = new OperationValidator();
-    BpmnModel bpmnModel = mock(BpmnModel.class);
-    when(bpmnModel.getInterfaces()).thenReturn(new ArrayList<>());
-
-    // Act
-    operationValidator.validate(bpmnModel, new ArrayList<>());
-
-    // Assert
-    verify(bpmnModel, atLeast(1)).getInterfaces();
-  }
-
-  /**
-   * Test {@link OperationValidator#validate(BpmnModel, List)}.
-   * <ul>
-   *   <li>Given {@link ValidationError} (default constructor) ActivityId is {@code 42}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@link ValidationError} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link OperationValidator#validate(BpmnModel, List)}
-   */
-  @Test
-  @DisplayName("Test validate(BpmnModel, List); given ValidationError (default constructor) ActivityId is '42'; when ArrayList() add ValidationError (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void OperationValidator.validate(BpmnModel, List)"})
-  void testValidate_givenValidationErrorActivityIdIs42_whenArrayListAddValidationError() {
+  void testValidate3() {
     // Arrange
     OperationValidator operationValidator = new OperationValidator();
     BpmnModel bpmnModel = mock(BpmnModel.class);
@@ -125,23 +95,15 @@ class OperationValidatorDiffblueTest {
     // Act
     operationValidator.validate(bpmnModel, errors);
 
-    // Assert
+    // Assert that nothing has changed
     verify(bpmnModel, atLeast(1)).getInterfaces();
   }
 
   /**
-   * Test {@link OperationValidator#validate(BpmnModel, List)}.
-   * <ul>
-   *   <li>Given {@link ValidationError} (default constructor) ActivityId is {@code Activity Id}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link OperationValidator#validate(BpmnModel, List)}
    */
   @Test
-  @DisplayName("Test validate(BpmnModel, List); given ValidationError (default constructor) ActivityId is 'Activity Id'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void OperationValidator.validate(BpmnModel, List)"})
-  void testValidate_givenValidationErrorActivityIdIsActivityId() {
+  void testValidate4() {
     // Arrange
     OperationValidator operationValidator = new OperationValidator();
     BpmnModel bpmnModel = mock(BpmnModel.class);
@@ -182,7 +144,7 @@ class OperationValidatorDiffblueTest {
     // Act
     operationValidator.validate(bpmnModel, errors);
 
-    // Assert
+    // Assert that nothing has changed
     verify(bpmnModel, atLeast(1)).getInterfaces();
   }
 }

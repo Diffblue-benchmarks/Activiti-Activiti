@@ -18,8 +18,8 @@ package org.activiti.validation.validator.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -30,22 +30,78 @@ import org.activiti.bpmn.model.Process;
 import org.activiti.bpmn.model.SendTask;
 import org.activiti.bpmn.model.TaskWithFieldExtensions;
 import org.activiti.validation.ValidationError;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ExternalInvocationTaskValidatorDiffblueTest {
   /**
-   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}.
-   * <p>
-   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}
+   * Method under test:
+   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}
    */
   @Test
-  @DisplayName("Test validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)"})
   void testValidateFieldDeclarationsForEmail() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    Process process = new Process();
+    SendTask task = new SendTask();
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sendTaskValidator.validateFieldDeclarationsForEmail(process, task, fieldExtensions, errors);
+
+    // Assert
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertEquals(2, errors.size());
+    ValidationError getResult = errors.get(1);
+    assertEquals("MAIL_TASK_NO_CONTENT", getResult.getDefaultDescription());
+    assertEquals("MAIL_TASK_NO_CONTENT", getResult.getKey());
+    assertEquals("MAIL_TASK_NO_CONTENT", getResult.getProblem());
+    ValidationError getResult2 = errors.get(0);
+    assertEquals("MAIL_TASK_NO_RECIPIENT", getResult2.getDefaultDescription());
+    assertEquals("MAIL_TASK_NO_RECIPIENT", getResult2.getKey());
+    assertEquals("MAIL_TASK_NO_RECIPIENT", getResult2.getProblem());
+    assertNull(getResult2.getActivityId());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult2.getActivityName());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult2.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult2.getProcessDefinitionName());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult2.getValidatorSetName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult2.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult2.getXmlLineNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertFalse(getResult2.isWarning());
+    assertFalse(getResult.isWarning());
+    assertTrue(flowElements.isEmpty());
+    assertTrue(task.getBoundaryEvents().isEmpty());
+    assertTrue(task.getDataInputAssociations().isEmpty());
+    assertTrue(task.getDataOutputAssociations().isEmpty());
+    assertTrue(task.getMapExceptions().isEmpty());
+    assertTrue(task.getExecutionListeners().isEmpty());
+    assertTrue(task.getIncomingFlows().isEmpty());
+    assertTrue(task.getOutgoingFlows().isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+    assertTrue(task.getFieldExtensions().isEmpty());
+    assertTrue(getResult2.getParams().isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}
+   */
+  @Test
+  void testValidateFieldDeclarationsForEmail2() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
     Process process = new Process();
@@ -69,23 +125,38 @@ class ExternalInvocationTaskValidatorDiffblueTest {
     assertEquals("MAIL_TASK_NO_CONTENT", getResult.getDefaultDescription());
     assertEquals("MAIL_TASK_NO_CONTENT", getResult.getKey());
     assertEquals("MAIL_TASK_NO_CONTENT", getResult.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
     assertTrue(flowElements.isEmpty());
+    assertTrue(task.getBoundaryEvents().isEmpty());
+    assertTrue(task.getDataInputAssociations().isEmpty());
+    assertTrue(task.getDataOutputAssociations().isEmpty());
+    assertTrue(task.getMapExceptions().isEmpty());
+    assertTrue(task.getExecutionListeners().isEmpty());
+    assertTrue(task.getIncomingFlows().isEmpty());
+    assertTrue(task.getOutgoingFlows().isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+    assertTrue(task.getFieldExtensions().isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
   }
 
   /**
-   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}.
-   * <ul>
-   *   <li>Given {@link FieldExtension} (default constructor) FieldName is {@code html}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}
+   * Method under test:
+   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}
    */
   @Test
-  @DisplayName("Test validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List); given FieldExtension (default constructor) FieldName is 'html'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)"})
-  void testValidateFieldDeclarationsForEmail_givenFieldExtensionFieldNameIsHtml() {
+  void testValidateFieldDeclarationsForEmail3() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
     Process process = new Process();
@@ -109,23 +180,38 @@ class ExternalInvocationTaskValidatorDiffblueTest {
     assertEquals("MAIL_TASK_NO_RECIPIENT", getResult.getDefaultDescription());
     assertEquals("MAIL_TASK_NO_RECIPIENT", getResult.getKey());
     assertEquals("MAIL_TASK_NO_RECIPIENT", getResult.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
     assertTrue(flowElements.isEmpty());
+    assertTrue(task.getBoundaryEvents().isEmpty());
+    assertTrue(task.getDataInputAssociations().isEmpty());
+    assertTrue(task.getDataOutputAssociations().isEmpty());
+    assertTrue(task.getMapExceptions().isEmpty());
+    assertTrue(task.getExecutionListeners().isEmpty());
+    assertTrue(task.getIncomingFlows().isEmpty());
+    assertTrue(task.getOutgoingFlows().isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+    assertTrue(task.getFieldExtensions().isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
   }
 
   /**
-   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}.
-   * <ul>
-   *   <li>Given {@link FieldExtension} (default constructor) FieldName is {@code htmlVar}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}
+   * Method under test:
+   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}
    */
   @Test
-  @DisplayName("Test validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List); given FieldExtension (default constructor) FieldName is 'htmlVar'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)"})
-  void testValidateFieldDeclarationsForEmail_givenFieldExtensionFieldNameIsHtmlVar() {
+  void testValidateFieldDeclarationsForEmail4() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
     Process process = new Process();
@@ -149,23 +235,38 @@ class ExternalInvocationTaskValidatorDiffblueTest {
     assertEquals("MAIL_TASK_NO_RECIPIENT", getResult.getDefaultDescription());
     assertEquals("MAIL_TASK_NO_RECIPIENT", getResult.getKey());
     assertEquals("MAIL_TASK_NO_RECIPIENT", getResult.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
     assertTrue(flowElements.isEmpty());
+    assertTrue(task.getBoundaryEvents().isEmpty());
+    assertTrue(task.getDataInputAssociations().isEmpty());
+    assertTrue(task.getDataOutputAssociations().isEmpty());
+    assertTrue(task.getMapExceptions().isEmpty());
+    assertTrue(task.getExecutionListeners().isEmpty());
+    assertTrue(task.getIncomingFlows().isEmpty());
+    assertTrue(task.getOutgoingFlows().isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+    assertTrue(task.getFieldExtensions().isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
   }
 
   /**
-   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}.
-   * <ul>
-   *   <li>Given {@link FieldExtension} (default constructor) FieldName is {@code text}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}
+   * Method under test:
+   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}
    */
   @Test
-  @DisplayName("Test validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List); given FieldExtension (default constructor) FieldName is 'text'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)"})
-  void testValidateFieldDeclarationsForEmail_givenFieldExtensionFieldNameIsText() {
+  void testValidateFieldDeclarationsForEmail5() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
     Process process = new Process();
@@ -189,23 +290,38 @@ class ExternalInvocationTaskValidatorDiffblueTest {
     assertEquals("MAIL_TASK_NO_RECIPIENT", getResult.getDefaultDescription());
     assertEquals("MAIL_TASK_NO_RECIPIENT", getResult.getKey());
     assertEquals("MAIL_TASK_NO_RECIPIENT", getResult.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
     assertTrue(flowElements.isEmpty());
+    assertTrue(task.getBoundaryEvents().isEmpty());
+    assertTrue(task.getDataInputAssociations().isEmpty());
+    assertTrue(task.getDataOutputAssociations().isEmpty());
+    assertTrue(task.getMapExceptions().isEmpty());
+    assertTrue(task.getExecutionListeners().isEmpty());
+    assertTrue(task.getIncomingFlows().isEmpty());
+    assertTrue(task.getOutgoingFlows().isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+    assertTrue(task.getFieldExtensions().isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
   }
 
   /**
-   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}.
-   * <ul>
-   *   <li>Given {@link FieldExtension} (default constructor) FieldName is {@code textVar}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}
+   * Method under test:
+   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}
    */
   @Test
-  @DisplayName("Test validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List); given FieldExtension (default constructor) FieldName is 'textVar'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)"})
-  void testValidateFieldDeclarationsForEmail_givenFieldExtensionFieldNameIsTextVar() {
+  void testValidateFieldDeclarationsForEmail6() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
     Process process = new Process();
@@ -229,42 +345,6 @@ class ExternalInvocationTaskValidatorDiffblueTest {
     assertEquals("MAIL_TASK_NO_RECIPIENT", getResult.getDefaultDescription());
     assertEquals("MAIL_TASK_NO_RECIPIENT", getResult.getKey());
     assertEquals("MAIL_TASK_NO_RECIPIENT", getResult.getProblem());
-    assertTrue(flowElements.isEmpty());
-  }
-
-  /**
-   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}.
-   * <ul>
-   *   <li>When {@link SendTask} (default constructor).</li>
-   *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}
-   */
-  @Test
-  @DisplayName("Test validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List); when SendTask (default constructor); then ArrayList() size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)"})
-  void testValidateFieldDeclarationsForEmail_whenSendTask_thenArrayListSizeIsTwo() {
-    // Arrange
-    SendTaskValidator sendTaskValidator = new SendTaskValidator();
-    Process process = new Process();
-    SendTask task = new SendTask();
-    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    sendTaskValidator.validateFieldDeclarationsForEmail(process, task, fieldExtensions, errors);
-
-    // Assert
-    Collection<FlowElement> flowElements = process.getFlowElements();
-    assertTrue(flowElements instanceof List);
-    assertEquals(2, errors.size());
-    ValidationError getResult = errors.get(1);
-    assertEquals("MAIL_TASK_NO_CONTENT", getResult.getDefaultDescription());
-    assertEquals("MAIL_TASK_NO_CONTENT", getResult.getKey());
-    assertEquals("MAIL_TASK_NO_CONTENT", getResult.getProblem());
     assertNull(getResult.getActivityId());
     assertNull(getResult.getActivityName());
     assertNull(getResult.getProcessDefinitionId());
@@ -274,67 +354,78 @@ class ExternalInvocationTaskValidatorDiffblueTest {
     assertEquals(0, getResult.getXmlLineNumber());
     assertFalse(getResult.isWarning());
     assertTrue(flowElements.isEmpty());
+    assertTrue(task.getBoundaryEvents().isEmpty());
+    assertTrue(task.getDataInputAssociations().isEmpty());
+    assertTrue(task.getDataOutputAssociations().isEmpty());
+    assertTrue(task.getMapExceptions().isEmpty());
+    assertTrue(task.getExecutionListeners().isEmpty());
+    assertTrue(task.getIncomingFlows().isEmpty());
+    assertTrue(task.getOutgoingFlows().isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+    assertTrue(task.getFieldExtensions().isEmpty());
     assertTrue(getResult.getParams().isEmpty());
   }
 
   /**
-   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}.
-   * <p>
-   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}
+   * Method under test:
+   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}
    */
   @Test
-  @DisplayName("Test validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)"})
   void testValidateFieldDeclarationsForShell() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
     Process process = new Process();
     SendTask task = new SendTask();
-
-    FieldExtension fieldExtension = new FieldExtension();
-    fieldExtension.setStringValue("42");
-    fieldExtension.setFieldName("wait");
-
     ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
-    fieldExtensions.add(fieldExtension);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
     sendTaskValidator.validateFieldDeclarationsForShell(process, task, fieldExtensions, errors);
 
     // Assert
-    assertEquals(2, errors.size());
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertEquals(1, errors.size());
     ValidationError getResult = errors.get(0);
-    assertEquals("SHELL_TASK_INVALID_PARAM", getResult.getDefaultDescription());
-    assertEquals("SHELL_TASK_INVALID_PARAM", getResult.getKey());
-    assertEquals("SHELL_TASK_INVALID_PARAM", getResult.getProblem());
-    ValidationError getResult2 = errors.get(1);
-    assertEquals("SHELL_TASK_NO_COMMAND", getResult2.getDefaultDescription());
-    assertEquals("SHELL_TASK_NO_COMMAND", getResult2.getKey());
-    assertEquals("SHELL_TASK_NO_COMMAND", getResult2.getProblem());
-    assertNull(getResult2.getActivityId());
-    assertNull(getResult2.getActivityName());
-    assertNull(getResult2.getProcessDefinitionId());
-    assertNull(getResult2.getProcessDefinitionName());
-    assertNull(getResult2.getValidatorSetName());
-    assertEquals(0, getResult2.getXmlColumnNumber());
-    assertEquals(0, getResult2.getXmlLineNumber());
-    assertFalse(getResult2.isWarning());
-    assertTrue(getResult2.getParams().isEmpty());
+    assertEquals("SHELL_TASK_NO_COMMAND", getResult.getDefaultDescription());
+    assertEquals("SHELL_TASK_NO_COMMAND", getResult.getKey());
+    assertEquals("SHELL_TASK_NO_COMMAND", getResult.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
+    assertTrue(flowElements.isEmpty());
+    assertTrue(task.getBoundaryEvents().isEmpty());
+    assertTrue(task.getDataInputAssociations().isEmpty());
+    assertTrue(task.getDataOutputAssociations().isEmpty());
+    assertTrue(task.getMapExceptions().isEmpty());
+    assertTrue(task.getExecutionListeners().isEmpty());
+    assertTrue(task.getIncomingFlows().isEmpty());
+    assertTrue(task.getOutgoingFlows().isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+    assertTrue(task.getFieldExtensions().isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
   }
 
   /**
-   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}.
-   * <p>
-   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}
+   * Method under test:
+   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}
    */
   @Test
-  @DisplayName("Test validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)"})
   void testValidateFieldDeclarationsForShell2() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
@@ -342,8 +433,7 @@ class ExternalInvocationTaskValidatorDiffblueTest {
     SendTask task = new SendTask();
 
     FieldExtension fieldExtension = new FieldExtension();
-    fieldExtension.setStringValue(Boolean.TRUE.toString());
-    fieldExtension.setFieldName("wait");
+    fieldExtension.setFieldName("command");
 
     ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
     fieldExtensions.add(fieldExtension);
@@ -352,69 +442,33 @@ class ExternalInvocationTaskValidatorDiffblueTest {
     // Act
     sendTaskValidator.validateFieldDeclarationsForShell(process, task, fieldExtensions, errors);
 
-    // Assert
+    // Assert that nothing has changed
     Collection<FlowElement> flowElements = process.getFlowElements();
     assertTrue(flowElements instanceof List);
-    assertEquals(1, errors.size());
-    ValidationError getResult = errors.get(0);
-    assertEquals("SHELL_TASK_NO_COMMAND", getResult.getDefaultDescription());
-    assertEquals("SHELL_TASK_NO_COMMAND", getResult.getKey());
-    assertEquals("SHELL_TASK_NO_COMMAND", getResult.getProblem());
+    assertTrue(errors.isEmpty());
     assertTrue(flowElements.isEmpty());
+    assertTrue(task.getBoundaryEvents().isEmpty());
+    assertTrue(task.getDataInputAssociations().isEmpty());
+    assertTrue(task.getDataOutputAssociations().isEmpty());
+    assertTrue(task.getMapExceptions().isEmpty());
+    assertTrue(task.getExecutionListeners().isEmpty());
+    assertTrue(task.getIncomingFlows().isEmpty());
+    assertTrue(task.getOutgoingFlows().isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+    assertTrue(task.getFieldExtensions().isEmpty());
   }
 
   /**
-   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}.
-   * <p>
-   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}
+   * Method under test:
+   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}
    */
   @Test
-  @DisplayName("Test validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)"})
   void testValidateFieldDeclarationsForShell3() {
-    // Arrange
-    SendTaskValidator sendTaskValidator = new SendTaskValidator();
-    Process process = new Process();
-    SendTask task = new SendTask();
-
-    FieldExtension fieldExtension = new FieldExtension();
-    fieldExtension.setStringValue(Boolean.FALSE.toString());
-    fieldExtension.setFieldName("wait");
-
-    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
-    fieldExtensions.add(fieldExtension);
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    sendTaskValidator.validateFieldDeclarationsForShell(process, task, fieldExtensions, errors);
-
-    // Assert
-    Collection<FlowElement> flowElements = process.getFlowElements();
-    assertTrue(flowElements instanceof List);
-    assertEquals(1, errors.size());
-    ValidationError getResult = errors.get(0);
-    assertEquals("SHELL_TASK_NO_COMMAND", getResult.getDefaultDescription());
-    assertEquals("SHELL_TASK_NO_COMMAND", getResult.getKey());
-    assertEquals("SHELL_TASK_NO_COMMAND", getResult.getProblem());
-    assertTrue(flowElements.isEmpty());
-  }
-
-  /**
-   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}.
-   * <ul>
-   *   <li>Given {@link ValidationError} (default constructor) ActivityId is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}
-   */
-  @Test
-  @DisplayName("Test validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List); given ValidationError (default constructor) ActivityId is '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)"})
-  void testValidateFieldDeclarationsForShell_givenValidationErrorActivityIdIs42() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
     Process process = new Process();
@@ -442,47 +496,54 @@ class ExternalInvocationTaskValidatorDiffblueTest {
     sendTaskValidator.validateFieldDeclarationsForShell(process, task, fieldExtensions, errors);
 
     // Assert
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
     assertEquals(2, errors.size());
-    ValidationError getResult = errors.get(0);
+    ValidationError getResult = errors.get(1);
     assertEquals("SHELL_TASK_NO_COMMAND", getResult.getDefaultDescription());
-    ValidationError getResult2 = errors.get(1);
-    assertEquals("SHELL_TASK_NO_COMMAND", getResult2.getDefaultDescription());
     assertEquals("SHELL_TASK_NO_COMMAND", getResult.getKey());
-    assertEquals("SHELL_TASK_NO_COMMAND", getResult2.getKey());
     assertEquals("SHELL_TASK_NO_COMMAND", getResult.getProblem());
-    assertEquals("SHELL_TASK_NO_COMMAND", getResult2.getProblem());
-    assertNull(getResult2.getActivityId());
-    assertNull(getResult2.getActivityName());
-    assertNull(getResult2.getProcessDefinitionId());
-    assertNull(getResult2.getProcessDefinitionName());
-    assertNull(getResult2.getValidatorSetName());
-    assertEquals(0, getResult2.getXmlColumnNumber());
-    assertEquals(0, getResult2.getXmlLineNumber());
-    assertFalse(getResult2.isWarning());
-    assertTrue(getResult2.getParams().isEmpty());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
+    assertTrue(flowElements.isEmpty());
+    assertTrue(task.getBoundaryEvents().isEmpty());
+    assertTrue(task.getDataInputAssociations().isEmpty());
+    assertTrue(task.getDataOutputAssociations().isEmpty());
+    assertTrue(task.getMapExceptions().isEmpty());
+    assertTrue(task.getExecutionListeners().isEmpty());
+    assertTrue(task.getIncomingFlows().isEmpty());
+    assertTrue(task.getOutgoingFlows().isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+    assertTrue(task.getFieldExtensions().isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
+    assertSame(validationError, errors.get(0));
   }
 
   /**
-   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}.
-   * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}
+   * Method under test:
+   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}
    */
   @Test
-  @DisplayName("Test validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List); then ArrayList() Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)"})
-  void testValidateFieldDeclarationsForShell_thenArrayListEmpty() {
+  void testValidateFieldDeclarationsForShell4() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
     Process process = new Process();
     SendTask task = new SendTask();
 
     FieldExtension fieldExtension = new FieldExtension();
-    fieldExtension.setFieldName("command");
+    fieldExtension.setStringValue("42");
+    fieldExtension.setFieldName("wait");
 
     ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
     fieldExtensions.add(fieldExtension);
@@ -491,33 +552,70 @@ class ExternalInvocationTaskValidatorDiffblueTest {
     // Act
     sendTaskValidator.validateFieldDeclarationsForShell(process, task, fieldExtensions, errors);
 
-    // Assert that nothing has changed
+    // Assert
     Collection<FlowElement> flowElements = process.getFlowElements();
     assertTrue(flowElements instanceof List);
-    assertTrue(errors.isEmpty());
+    assertEquals(2, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("SHELL_TASK_INVALID_PARAM", getResult.getDefaultDescription());
+    assertEquals("SHELL_TASK_INVALID_PARAM", getResult.getKey());
+    assertEquals("SHELL_TASK_INVALID_PARAM", getResult.getProblem());
+    ValidationError getResult2 = errors.get(1);
+    assertEquals("SHELL_TASK_NO_COMMAND", getResult2.getDefaultDescription());
+    assertEquals("SHELL_TASK_NO_COMMAND", getResult2.getKey());
+    assertEquals("SHELL_TASK_NO_COMMAND", getResult2.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult2.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult2.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult2.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult2.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertNull(getResult2.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult2.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertEquals(0, getResult2.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
+    assertFalse(getResult2.isWarning());
     assertTrue(flowElements.isEmpty());
+    assertTrue(task.getBoundaryEvents().isEmpty());
+    assertTrue(task.getDataInputAssociations().isEmpty());
+    assertTrue(task.getDataOutputAssociations().isEmpty());
+    assertTrue(task.getMapExceptions().isEmpty());
+    assertTrue(task.getExecutionListeners().isEmpty());
+    assertTrue(task.getIncomingFlows().isEmpty());
+    assertTrue(task.getOutgoingFlows().isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+    assertTrue(task.getFieldExtensions().isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
+    assertTrue(getResult2.getParams().isEmpty());
   }
 
   /**
-   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}.
-   * <ul>
-   *   <li>When {@link SendTask} (default constructor).</li>
-   *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}
+   * Method under test:
+   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}
    */
   @Test
-  @DisplayName("Test validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List); when SendTask (default constructor); then ArrayList() size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)"})
-  void testValidateFieldDeclarationsForShell_whenSendTask_thenArrayListSizeIsOne() {
+  void testValidateFieldDeclarationsForShell5() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
     Process process = new Process();
     SendTask task = new SendTask();
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setStringValue(Boolean.TRUE.toString());
+    fieldExtension.setFieldName("wait");
+
     ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(fieldExtension);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
@@ -531,23 +629,310 @@ class ExternalInvocationTaskValidatorDiffblueTest {
     assertEquals("SHELL_TASK_NO_COMMAND", getResult.getDefaultDescription());
     assertEquals("SHELL_TASK_NO_COMMAND", getResult.getKey());
     assertEquals("SHELL_TASK_NO_COMMAND", getResult.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
     assertTrue(flowElements.isEmpty());
+    assertTrue(task.getBoundaryEvents().isEmpty());
+    assertTrue(task.getDataInputAssociations().isEmpty());
+    assertTrue(task.getDataOutputAssociations().isEmpty());
+    assertTrue(task.getMapExceptions().isEmpty());
+    assertTrue(task.getExecutionListeners().isEmpty());
+    assertTrue(task.getIncomingFlows().isEmpty());
+    assertTrue(task.getOutgoingFlows().isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+    assertTrue(task.getFieldExtensions().isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
   }
 
   /**
-   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}.
-   * <ul>
-   *   <li>Given {@link FieldExtension} (default constructor) FieldName is {@code DMN_TASK_NO_KEY}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}
+   * Method under test:
+   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}
    */
   @Test
-  @DisplayName("Test validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List); given FieldExtension (default constructor) FieldName is 'DMN_TASK_NO_KEY'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)"})
-  void testValidateFieldDeclarationsForDmn_givenFieldExtensionFieldNameIsDmnTaskNoKey() {
+  void testValidateFieldDeclarationsForShell6() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    Process process = new Process();
+    SendTask task = new SendTask();
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setStringValue(Boolean.FALSE.toString());
+    fieldExtension.setFieldName("wait");
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(fieldExtension);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sendTaskValidator.validateFieldDeclarationsForShell(process, task, fieldExtensions, errors);
+
+    // Assert
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertEquals(1, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("SHELL_TASK_NO_COMMAND", getResult.getDefaultDescription());
+    assertEquals("SHELL_TASK_NO_COMMAND", getResult.getKey());
+    assertEquals("SHELL_TASK_NO_COMMAND", getResult.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
+    assertTrue(flowElements.isEmpty());
+    assertTrue(task.getBoundaryEvents().isEmpty());
+    assertTrue(task.getDataInputAssociations().isEmpty());
+    assertTrue(task.getDataOutputAssociations().isEmpty());
+    assertTrue(task.getMapExceptions().isEmpty());
+    assertTrue(task.getExecutionListeners().isEmpty());
+    assertTrue(task.getIncomingFlows().isEmpty());
+    assertTrue(task.getOutgoingFlows().isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+    assertTrue(task.getFieldExtensions().isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}
+   */
+  @Test
+  void testValidateFieldDeclarationsForDmn() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    Process process = new Process();
+    SendTask task = new SendTask();
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sendTaskValidator.validateFieldDeclarationsForDmn(process, task, fieldExtensions, errors);
+
+    // Assert
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertEquals(1, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("DMN_TASK_NO_KEY", getResult.getDefaultDescription());
+    assertEquals("DMN_TASK_NO_KEY", getResult.getKey());
+    assertEquals("DMN_TASK_NO_KEY", getResult.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
+    assertTrue(flowElements.isEmpty());
+    assertTrue(task.getBoundaryEvents().isEmpty());
+    assertTrue(task.getDataInputAssociations().isEmpty());
+    assertTrue(task.getDataOutputAssociations().isEmpty());
+    assertTrue(task.getMapExceptions().isEmpty());
+    assertTrue(task.getExecutionListeners().isEmpty());
+    assertTrue(task.getIncomingFlows().isEmpty());
+    assertTrue(task.getOutgoingFlows().isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+    assertTrue(task.getFieldExtensions().isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}
+   */
+  @Test
+  void testValidateFieldDeclarationsForDmn2() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    Process process = new Process();
+    SendTask task = new SendTask();
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setFieldName("decisionTableReferenceKey");
+    fieldExtension.setStringValue(null);
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(fieldExtension);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sendTaskValidator.validateFieldDeclarationsForDmn(process, task, fieldExtensions, errors);
+
+    // Assert
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertEquals(1, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("DMN_TASK_NO_KEY", getResult.getDefaultDescription());
+    assertEquals("DMN_TASK_NO_KEY", getResult.getKey());
+    assertEquals("DMN_TASK_NO_KEY", getResult.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
+    assertTrue(flowElements.isEmpty());
+    assertTrue(task.getBoundaryEvents().isEmpty());
+    assertTrue(task.getDataInputAssociations().isEmpty());
+    assertTrue(task.getDataOutputAssociations().isEmpty());
+    assertTrue(task.getMapExceptions().isEmpty());
+    assertTrue(task.getExecutionListeners().isEmpty());
+    assertTrue(task.getIncomingFlows().isEmpty());
+    assertTrue(task.getOutgoingFlows().isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+    assertTrue(task.getFieldExtensions().isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}
+   */
+  @Test
+  void testValidateFieldDeclarationsForDmn3() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    Process process = new Process();
+    SendTask task = new SendTask();
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setFieldName("decisionTableReferenceKey");
+    fieldExtension.setStringValue("Field Extensions");
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(fieldExtension);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sendTaskValidator.validateFieldDeclarationsForDmn(process, task, fieldExtensions, errors);
+
+    // Assert that nothing has changed
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertTrue(errors.isEmpty());
+    assertTrue(flowElements.isEmpty());
+    assertTrue(task.getBoundaryEvents().isEmpty());
+    assertTrue(task.getDataInputAssociations().isEmpty());
+    assertTrue(task.getDataOutputAssociations().isEmpty());
+    assertTrue(task.getMapExceptions().isEmpty());
+    assertTrue(task.getExecutionListeners().isEmpty());
+    assertTrue(task.getIncomingFlows().isEmpty());
+    assertTrue(task.getOutgoingFlows().isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+    assertTrue(task.getFieldExtensions().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}
+   */
+  @Test
+  void testValidateFieldDeclarationsForDmn4() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    Process process = new Process();
+    SendTask task = new SendTask();
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+
+    ValidationError validationError = new ValidationError();
+    validationError.setActivityId("42");
+    validationError.setActivityName("DMN_TASK_NO_KEY");
+    validationError.setDefaultDescription("DMN_TASK_NO_KEY");
+    validationError.setKey("DMN_TASK_NO_KEY");
+    validationError.setParams(new HashMap<>());
+    validationError.setProblem("DMN_TASK_NO_KEY");
+    validationError.setProcessDefinitionId("42");
+    validationError.setProcessDefinitionName("DMN_TASK_NO_KEY");
+    validationError.setValidatorSetName("DMN_TASK_NO_KEY");
+    validationError.setWarning(true);
+    validationError.setXmlColumnNumber(10);
+    validationError.setXmlLineNumber(2);
+
+    ArrayList<ValidationError> errors = new ArrayList<>();
+    errors.add(validationError);
+
+    // Act
+    sendTaskValidator.validateFieldDeclarationsForDmn(process, task, fieldExtensions, errors);
+
+    // Assert
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertEquals(2, errors.size());
+    ValidationError getResult = errors.get(1);
+    assertEquals("DMN_TASK_NO_KEY", getResult.getDefaultDescription());
+    assertEquals("DMN_TASK_NO_KEY", getResult.getKey());
+    assertEquals("DMN_TASK_NO_KEY", getResult.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
+    assertTrue(flowElements.isEmpty());
+    assertTrue(task.getBoundaryEvents().isEmpty());
+    assertTrue(task.getDataInputAssociations().isEmpty());
+    assertTrue(task.getDataOutputAssociations().isEmpty());
+    assertTrue(task.getMapExceptions().isEmpty());
+    assertTrue(task.getExecutionListeners().isEmpty());
+    assertTrue(task.getIncomingFlows().isEmpty());
+    assertTrue(task.getOutgoingFlows().isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+    assertTrue(task.getFieldExtensions().isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
+    assertSame(validationError, errors.get(0));
+  }
+
+  /**
+   * Method under test:
+   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}
+   */
+  @Test
+  void testValidateFieldDeclarationsForDmn5() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
     Process process = new Process();
@@ -581,23 +966,29 @@ class ExternalInvocationTaskValidatorDiffblueTest {
     assertEquals(0, getResult.getXmlLineNumber());
     assertFalse(getResult.isWarning());
     assertTrue(flowElements.isEmpty());
+    assertTrue(task.getBoundaryEvents().isEmpty());
+    assertTrue(task.getDataInputAssociations().isEmpty());
+    assertTrue(task.getDataOutputAssociations().isEmpty());
+    assertTrue(task.getMapExceptions().isEmpty());
+    assertTrue(task.getExecutionListeners().isEmpty());
+    assertTrue(task.getIncomingFlows().isEmpty());
+    assertTrue(task.getOutgoingFlows().isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+    assertTrue(task.getFieldExtensions().isEmpty());
     assertTrue(getResult.getParams().isEmpty());
   }
 
   /**
-   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}.
-   * <ul>
-   *   <li>Given {@link FieldExtension} (default constructor) StringValue is empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}
+   * Method under test:
+   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}
    */
   @Test
-  @DisplayName("Test validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List); given FieldExtension (default constructor) StringValue is empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)"})
-  void testValidateFieldDeclarationsForDmn_givenFieldExtensionStringValueIsEmptyString() {
+  void testValidateFieldDeclarationsForDmn6() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
     Process process = new Process();
@@ -631,195 +1022,20 @@ class ExternalInvocationTaskValidatorDiffblueTest {
     assertEquals(0, getResult.getXmlLineNumber());
     assertFalse(getResult.isWarning());
     assertTrue(flowElements.isEmpty());
-    assertTrue(getResult.getParams().isEmpty());
-  }
-
-  /**
-   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}.
-   * <ul>
-   *   <li>Given {@link FieldExtension} (default constructor) StringValue is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}
-   */
-  @Test
-  @DisplayName("Test validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List); given FieldExtension (default constructor) StringValue is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)"})
-  void testValidateFieldDeclarationsForDmn_givenFieldExtensionStringValueIsNull() {
-    // Arrange
-    SendTaskValidator sendTaskValidator = new SendTaskValidator();
-    Process process = new Process();
-    SendTask task = new SendTask();
-
-    FieldExtension fieldExtension = new FieldExtension();
-    fieldExtension.setFieldName("decisionTableReferenceKey");
-    fieldExtension.setStringValue(null);
-
-    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
-    fieldExtensions.add(fieldExtension);
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    sendTaskValidator.validateFieldDeclarationsForDmn(process, task, fieldExtensions, errors);
-
-    // Assert
-    Collection<FlowElement> flowElements = process.getFlowElements();
-    assertTrue(flowElements instanceof List);
-    assertEquals(1, errors.size());
-    ValidationError getResult = errors.get(0);
-    assertEquals("DMN_TASK_NO_KEY", getResult.getDefaultDescription());
-    assertEquals("DMN_TASK_NO_KEY", getResult.getKey());
-    assertEquals("DMN_TASK_NO_KEY", getResult.getProblem());
-    assertNull(getResult.getActivityId());
-    assertNull(getResult.getActivityName());
-    assertNull(getResult.getProcessDefinitionId());
-    assertNull(getResult.getProcessDefinitionName());
-    assertNull(getResult.getValidatorSetName());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlLineNumber());
-    assertFalse(getResult.isWarning());
-    assertTrue(flowElements.isEmpty());
-    assertTrue(getResult.getParams().isEmpty());
-  }
-
-  /**
-   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}.
-   * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}
-   */
-  @Test
-  @DisplayName("Test validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List); then ArrayList() Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)"})
-  void testValidateFieldDeclarationsForDmn_thenArrayListEmpty() {
-    // Arrange
-    SendTaskValidator sendTaskValidator = new SendTaskValidator();
-    Process process = new Process();
-    SendTask task = new SendTask();
-
-    FieldExtension fieldExtension = new FieldExtension();
-    fieldExtension.setFieldName("decisionTableReferenceKey");
-    fieldExtension.setStringValue("Field Extensions");
-
-    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
-    fieldExtensions.add(fieldExtension);
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    sendTaskValidator.validateFieldDeclarationsForDmn(process, task, fieldExtensions, errors);
-
-    // Assert that nothing has changed
-    Collection<FlowElement> flowElements = process.getFlowElements();
-    assertTrue(flowElements instanceof List);
-    assertTrue(errors.isEmpty());
-    assertTrue(flowElements.isEmpty());
-  }
-
-  /**
-   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}.
-   * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}
-   */
-  @Test
-  @DisplayName("Test validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List); then ArrayList() size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)"})
-  void testValidateFieldDeclarationsForDmn_thenArrayListSizeIsTwo() {
-    // Arrange
-    SendTaskValidator sendTaskValidator = new SendTaskValidator();
-    Process process = new Process();
-    SendTask task = new SendTask();
-    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
-
-    ValidationError validationError = new ValidationError();
-    validationError.setActivityId("42");
-    validationError.setActivityName("DMN_TASK_NO_KEY");
-    validationError.setDefaultDescription("DMN_TASK_NO_KEY");
-    validationError.setKey("DMN_TASK_NO_KEY");
-    validationError.setParams(new HashMap<>());
-    validationError.setProblem("DMN_TASK_NO_KEY");
-    validationError.setProcessDefinitionId("42");
-    validationError.setProcessDefinitionName("DMN_TASK_NO_KEY");
-    validationError.setValidatorSetName("DMN_TASK_NO_KEY");
-    validationError.setWarning(true);
-    validationError.setXmlColumnNumber(10);
-    validationError.setXmlLineNumber(2);
-
-    ArrayList<ValidationError> errors = new ArrayList<>();
-    errors.add(validationError);
-
-    // Act
-    sendTaskValidator.validateFieldDeclarationsForDmn(process, task, fieldExtensions, errors);
-
-    // Assert
-    assertEquals(2, errors.size());
-    ValidationError getResult = errors.get(1);
-    assertEquals("DMN_TASK_NO_KEY", getResult.getDefaultDescription());
-    assertEquals("DMN_TASK_NO_KEY", getResult.getKey());
-    assertEquals("DMN_TASK_NO_KEY", getResult.getProblem());
-    assertNull(getResult.getActivityId());
-    assertNull(getResult.getActivityName());
-    assertNull(getResult.getProcessDefinitionId());
-    assertNull(getResult.getProcessDefinitionName());
-    assertNull(getResult.getValidatorSetName());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlLineNumber());
-    assertFalse(getResult.isWarning());
-    assertTrue(getResult.getParams().isEmpty());
-  }
-
-  /**
-   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}.
-   * <ul>
-   *   <li>When {@link SendTask} (default constructor).</li>
-   *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}
-   */
-  @Test
-  @DisplayName("Test validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List); when SendTask (default constructor); then ArrayList() size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)"})
-  void testValidateFieldDeclarationsForDmn_whenSendTask_thenArrayListSizeIsOne() {
-    // Arrange
-    SendTaskValidator sendTaskValidator = new SendTaskValidator();
-    Process process = new Process();
-    SendTask task = new SendTask();
-    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    sendTaskValidator.validateFieldDeclarationsForDmn(process, task, fieldExtensions, errors);
-
-    // Assert
-    Collection<FlowElement> flowElements = process.getFlowElements();
-    assertTrue(flowElements instanceof List);
-    assertEquals(1, errors.size());
-    ValidationError getResult = errors.get(0);
-    assertEquals("DMN_TASK_NO_KEY", getResult.getDefaultDescription());
-    assertEquals("DMN_TASK_NO_KEY", getResult.getKey());
-    assertEquals("DMN_TASK_NO_KEY", getResult.getProblem());
-    assertNull(getResult.getActivityId());
-    assertNull(getResult.getActivityName());
-    assertNull(getResult.getProcessDefinitionId());
-    assertNull(getResult.getProcessDefinitionName());
-    assertNull(getResult.getValidatorSetName());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlLineNumber());
-    assertFalse(getResult.isWarning());
-    assertTrue(flowElements.isEmpty());
+    assertTrue(task.getBoundaryEvents().isEmpty());
+    assertTrue(task.getDataInputAssociations().isEmpty());
+    assertTrue(task.getDataOutputAssociations().isEmpty());
+    assertTrue(task.getMapExceptions().isEmpty());
+    assertTrue(task.getExecutionListeners().isEmpty());
+    assertTrue(task.getIncomingFlows().isEmpty());
+    assertTrue(task.getOutgoingFlows().isEmpty());
+    assertTrue(process.getCandidateStarterGroups().isEmpty());
+    assertTrue(process.getCandidateStarterUsers().isEmpty());
+    assertTrue(process.getDataObjects().isEmpty());
+    assertTrue(process.getEventListeners().isEmpty());
+    assertTrue(process.getExecutionListeners().isEmpty());
+    assertTrue(process.getLanes().isEmpty());
+    assertTrue(task.getFieldExtensions().isEmpty());
     assertTrue(getResult.getParams().isEmpty());
   }
 }

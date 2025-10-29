@@ -22,14 +22,10 @@ import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.activiti.api.process.model.ProcessDefinition;
 import org.activiti.api.runtime.model.impl.ProcessDefinitionImpl;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntityImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -50,26 +46,19 @@ class APIProcessDefinitionConverterDiffblueTest {
   private RepositoryService repositoryService;
 
   /**
-   * Test {@link APIProcessDefinitionConverter#from(ProcessDefinition)} with {@code ProcessDefinition}.
-   * <ul>
-   *   <li>Then return {@link ProcessDefinitionImpl}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link APIProcessDefinitionConverter#from(org.activiti.engine.repository.ProcessDefinition)}
+   * Method under test:
+   * {@link APIProcessDefinitionConverter#from(org.activiti.engine.repository.ProcessDefinition)}
    */
   @Test
-  @DisplayName("Test from(ProcessDefinition) with 'ProcessDefinition'; then return ProcessDefinitionImpl")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({
-      "ProcessDefinition APIProcessDefinitionConverter.from(org.activiti.engine.repository.ProcessDefinition)"})
-  void testFromWithProcessDefinition_thenReturnProcessDefinitionImpl() {
+  void testFrom() {
     // Arrange
     BpmnModel bpmnModel = mock(BpmnModel.class);
     when(bpmnModel.getStartFormKey(Mockito.<String>any())).thenReturn("Start Form Key");
     when(repositoryService.getBpmnModel(Mockito.<String>any())).thenReturn(bpmnModel);
 
     // Act
-    ProcessDefinition actualFromResult = aPIProcessDefinitionConverter.from(new ProcessDefinitionEntityImpl());
+    org.activiti.api.process.model.ProcessDefinition actualFromResult = aPIProcessDefinitionConverter
+        .from(new ProcessDefinitionEntityImpl());
 
     // Assert
     verify(bpmnModel).getStartFormKey(isNull());

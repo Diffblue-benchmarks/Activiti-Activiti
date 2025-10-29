@@ -16,37 +16,28 @@
 package org.activiti.bpmn.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import javax.xml.stream.XMLStreamWriter;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.InclusiveGateway;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class InclusiveGatewayXMLConverterDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of {@link InclusiveGatewayXMLConverter}
-   *   <li>{@link InclusiveGatewayXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
-   *   <li>{@link InclusiveGatewayXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
+   *   <li>default or parameterless constructor of
+   * {@link InclusiveGatewayXMLConverter}
+   *   <li>
+   * {@link InclusiveGatewayXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
+   *   <li>
+   * {@link InclusiveGatewayXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
    *   <li>{@link InclusiveGatewayXMLConverter#getBpmnElementType()}
    *   <li>{@link InclusiveGatewayXMLConverter#getXMLElementName()}
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void InclusiveGatewayXMLConverter.<init>()",
-      "Class InclusiveGatewayXMLConverter.getBpmnElementType()",
-      "java.lang.String InclusiveGatewayXMLConverter.getXMLElementName()",
-      "void InclusiveGatewayXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)",
-      "void InclusiveGatewayXMLConverter.writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)"})
   void testGettersAndSetters() throws Exception {
     // Arrange and Act
     InclusiveGatewayXMLConverter actualInclusiveGatewayXMLConverter = new InclusiveGatewayXMLConverter();
@@ -59,7 +50,7 @@ class InclusiveGatewayXMLConverterDiffblueTest {
         new IndentingXMLStreamWriter(null));
     Class<? extends BaseElement> actualBpmnElementType = actualInclusiveGatewayXMLConverter.getBpmnElementType();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("inclusiveGateway", actualInclusiveGatewayXMLConverter.getXMLElementName());
     Class<InclusiveGateway> expectedBpmnElementType = InclusiveGateway.class;
     assertEquals(expectedBpmnElementType, actualBpmnElementType);

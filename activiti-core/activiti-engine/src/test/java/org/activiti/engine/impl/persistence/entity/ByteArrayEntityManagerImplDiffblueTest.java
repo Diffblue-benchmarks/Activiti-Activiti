@@ -22,8 +22,6 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
@@ -31,7 +29,6 @@ import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.persistence.entity.data.ByteArrayDataManager;
 import org.activiti.engine.impl.persistence.entity.data.impl.MybatisByteArrayDataManager;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -46,23 +43,57 @@ public class ByteArrayEntityManagerImplDiffblueTest {
   @InjectMocks
   private ByteArrayEntityManagerImpl byteArrayEntityManagerImpl;
 
+  @Mock
+  private ProcessEngineConfigurationImpl processEngineConfigurationImpl;
+
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link ByteArrayEntityManagerImpl#findAll()}
+   */
+  @Test
+  public void testFindAll() {
+    // Arrange
+    ByteArrayDataManager byteArrayDataManager = mock(ByteArrayDataManager.class);
+    ArrayList<ByteArrayEntity> byteArrayEntityList = new ArrayList<>();
+    when(byteArrayDataManager.findAll()).thenReturn(byteArrayEntityList);
+
+    // Act
+    List<ByteArrayEntity> actualFindAllResult = (new ByteArrayEntityManagerImpl(new JtaProcessEngineConfiguration(),
+        byteArrayDataManager)).findAll();
+
+    // Assert
+    verify(byteArrayDataManager).findAll();
+    assertTrue(actualFindAllResult.isEmpty());
+    assertSame(byteArrayEntityList, actualFindAllResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link ByteArrayEntityManagerImpl#deleteByteArrayById(String)}
+   */
+  @Test
+  public void testDeleteByteArrayById() {
+    // Arrange
+    doNothing().when(byteArrayDataManager).deleteByteArrayNoRevisionCheck(Mockito.<String>any());
+
+    // Act
+    byteArrayEntityManagerImpl.deleteByteArrayById("42");
+
+    // Assert
+    verify(byteArrayDataManager).deleteByteArrayNoRevisionCheck(eq("42"));
+  }
+
+  /**
    * Methods under test:
    * <ul>
-   *   <li>{@link ByteArrayEntityManagerImpl#ByteArrayEntityManagerImpl(ProcessEngineConfigurationImpl, ByteArrayDataManager)}
-   *   <li>{@link ByteArrayEntityManagerImpl#setByteArrayDataManager(ByteArrayDataManager)}
+   *   <li>
+   * {@link ByteArrayEntityManagerImpl#ByteArrayEntityManagerImpl(ProcessEngineConfigurationImpl, ByteArrayDataManager)}
+   *   <li>
+   * {@link ByteArrayEntityManagerImpl#setByteArrayDataManager(ByteArrayDataManager)}
    *   <li>{@link ByteArrayEntityManagerImpl#getByteArrayDataManager()}
    *   <li>{@link ByteArrayEntityManagerImpl#getDataManager()}
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ByteArrayEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, ByteArrayDataManager)",
-      "ByteArrayDataManager ByteArrayEntityManagerImpl.getByteArrayDataManager()",
-      "org.activiti.engine.impl.persistence.entity.data.DataManager ByteArrayEntityManagerImpl.getDataManager()",
-      "void ByteArrayEntityManagerImpl.setByteArrayDataManager(ByteArrayDataManager)"})
   public void testGettersAndSetters() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
@@ -75,53 +106,8 @@ public class ByteArrayEntityManagerImplDiffblueTest {
     actualByteArrayEntityManagerImpl.setByteArrayDataManager(byteArrayDataManager);
     ByteArrayDataManager actualByteArrayDataManager = actualByteArrayEntityManagerImpl.getByteArrayDataManager();
 
-    // Assert
+    // Assert that nothing has changed
     assertSame(byteArrayDataManager, actualByteArrayDataManager);
     assertSame(byteArrayDataManager, actualByteArrayEntityManagerImpl.getDataManager());
-  }
-
-  /**
-   * Test {@link ByteArrayEntityManagerImpl#findAll()}.
-   * <ul>
-   *   <li>Given {@link ByteArrayDataManager} {@link ByteArrayDataManager#findAll()} return {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ByteArrayEntityManagerImpl#findAll()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"List ByteArrayEntityManagerImpl.findAll()"})
-  public void testFindAll_givenByteArrayDataManagerFindAllReturnArrayList_thenReturnEmpty() {
-    // Arrange
-    ByteArrayDataManager byteArrayDataManager = mock(ByteArrayDataManager.class);
-    when(byteArrayDataManager.findAll()).thenReturn(new ArrayList<>());
-
-    // Act
-    List<ByteArrayEntity> actualFindAllResult = (new ByteArrayEntityManagerImpl(new JtaProcessEngineConfiguration(),
-        byteArrayDataManager)).findAll();
-
-    // Assert
-    verify(byteArrayDataManager).findAll();
-    assertTrue(actualFindAllResult.isEmpty());
-  }
-
-  /**
-   * Test {@link ByteArrayEntityManagerImpl#deleteByteArrayById(String)}.
-   * <p>
-   * Method under test: {@link ByteArrayEntityManagerImpl#deleteByteArrayById(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ByteArrayEntityManagerImpl.deleteByteArrayById(String)"})
-  public void testDeleteByteArrayById() {
-    // Arrange
-    doNothing().when(byteArrayDataManager).deleteByteArrayNoRevisionCheck(Mockito.<String>any());
-
-    // Act
-    byteArrayEntityManagerImpl.deleteByteArrayById("42");
-
-    // Assert
-    verify(byteArrayDataManager).deleteByteArrayNoRevisionCheck(eq("42"));
   }
 }

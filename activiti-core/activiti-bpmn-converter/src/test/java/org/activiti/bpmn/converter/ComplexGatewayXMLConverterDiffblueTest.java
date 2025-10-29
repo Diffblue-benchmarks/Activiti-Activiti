@@ -16,37 +16,28 @@
 package org.activiti.bpmn.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import javax.xml.stream.XMLStreamWriter;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.ComplexGateway;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ComplexGatewayXMLConverterDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of {@link ComplexGatewayXMLConverter}
-   *   <li>{@link ComplexGatewayXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
-   *   <li>{@link ComplexGatewayXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
+   *   <li>default or parameterless constructor of
+   * {@link ComplexGatewayXMLConverter}
+   *   <li>
+   * {@link ComplexGatewayXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
+   *   <li>
+   * {@link ComplexGatewayXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
    *   <li>{@link ComplexGatewayXMLConverter#getBpmnElementType()}
    *   <li>{@link ComplexGatewayXMLConverter#getXMLElementName()}
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ComplexGatewayXMLConverter.<init>()",
-      "Class ComplexGatewayXMLConverter.getBpmnElementType()",
-      "java.lang.String ComplexGatewayXMLConverter.getXMLElementName()",
-      "void ComplexGatewayXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)",
-      "void ComplexGatewayXMLConverter.writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)"})
   void testGettersAndSetters() throws Exception {
     // Arrange and Act
     ComplexGatewayXMLConverter actualComplexGatewayXMLConverter = new ComplexGatewayXMLConverter();
@@ -58,7 +49,7 @@ class ComplexGatewayXMLConverterDiffblueTest {
     actualComplexGatewayXMLConverter.writeAdditionalChildElements(element2, model2, new IndentingXMLStreamWriter(null));
     Class<? extends BaseElement> actualBpmnElementType = actualComplexGatewayXMLConverter.getBpmnElementType();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("complexGateway", actualComplexGatewayXMLConverter.getXMLElementName());
     Class<ComplexGateway> expectedBpmnElementType = ComplexGateway.class;
     assertEquals(expectedBpmnElementType, actualBpmnElementType);

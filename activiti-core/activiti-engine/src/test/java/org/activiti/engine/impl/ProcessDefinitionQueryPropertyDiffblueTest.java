@@ -17,48 +17,44 @@ package org.activiti.engine.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ProcessDefinitionQueryPropertyDiffblueTest {
-  /**
-   * Test {@link ProcessDefinitionQueryProperty#ProcessDefinitionQueryProperty(String)}.
-   * <p>
-   * Method under test: {@link ProcessDefinitionQueryProperty#ProcessDefinitionQueryProperty(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ProcessDefinitionQueryProperty.<init>(String)"})
-  public void testNewProcessDefinitionQueryProperty() {
-    // Arrange, Act and Assert
-    assertEquals("Name", (new ProcessDefinitionQueryProperty("Name")).getName());
-  }
+  @InjectMocks
+  private ProcessDefinitionQueryProperty processDefinitionQueryProperty;
+
+  @InjectMocks
+  private String string;
 
   /**
-   * Test {@link ProcessDefinitionQueryProperty#getName()}.
-   * <p>
    * Method under test: {@link ProcessDefinitionQueryProperty#getName()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String ProcessDefinitionQueryProperty.getName()"})
   public void testGetName() {
     // Arrange, Act and Assert
     assertEquals("Name", (new ProcessDefinitionQueryProperty("Name")).getName());
   }
 
   /**
-   * Test {@link ProcessDefinitionQueryProperty#findByName(String)}.
-   * <p>
    * Method under test: {@link ProcessDefinitionQueryProperty#findByName(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ProcessDefinitionQueryProperty ProcessDefinitionQueryProperty.findByName(String)"})
   public void testFindByName() {
     // Arrange, Act and Assert
     assertNull(ProcessDefinitionQueryProperty.findByName("Property Name"));
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessDefinitionQueryProperty#ProcessDefinitionQueryProperty(String)}
+   */
+  @Test
+  public void testNewProcessDefinitionQueryProperty() {
+    // Arrange, Act and Assert
+    assertEquals("Name", (new ProcessDefinitionQueryProperty("Name")).getName());
   }
 }

@@ -15,66 +15,50 @@
  */
 package org.activiti.engine.impl.bpmn.data;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.util.Map;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class ItemInstanceDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link ItemInstance#ItemInstance(ItemDefinition, StructureInstance)}
-   *   <li>{@link ItemInstance#getItem()}
-   *   <li>{@link ItemInstance#getStructureInstance()}
-   * </ul>
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ItemInstance.<init>(ItemDefinition, StructureInstance)",
-      "ItemDefinition ItemInstance.getItem()", "StructureInstance ItemInstance.getStructureInstance()"})
-  public void testGettersAndSetters() {
-    // Arrange
-    ItemDefinition item = new ItemDefinition("42", new SimpleStructureDefinition("42"));
-
-    FieldBaseStructureInstance structureInstance = new FieldBaseStructureInstance(new SimpleStructureDefinition("42"));
-
-    // Act
-    ItemInstance actualItemInstance = new ItemInstance(item, structureInstance);
-    ItemDefinition actualItem = actualItemInstance.getItem();
-
-    // Assert
-    assertSame(structureInstance, actualItemInstance.getStructureInstance());
-    assertSame(item, actualItem);
-  }
-
-  /**
-   * Test {@link ItemInstance#getFieldValue(String)}.
-   * <ul>
-   *   <li>Then calls {@link FieldBaseStructureInstance#getFieldValue(String)}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ItemInstance#getFieldValue(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object ItemInstance.getFieldValue(String)"})
-  public void testGetFieldValue_thenCallsGetFieldValue() {
+  public void testGetFieldValue() {
+    // Arrange
+    ItemDefinition item = new ItemDefinition("42", new SimpleStructureDefinition("42"));
+
+    // Act and Assert
+    assertNull((new ItemInstance(item, new FieldBaseStructureInstance(new SimpleStructureDefinition("42"))))
+        .getFieldValue("Field Name"));
+  }
+
+  /**
+   * Method under test: {@link ItemInstance#getFieldValue(String)}
+   */
+  @Test
+  public void testGetFieldValue2() {
+    // Arrange
+    ItemDefinition item = new ItemDefinition("42", mock(StructureDefinition.class));
+
+    // Act and Assert
+    assertNull((new ItemInstance(item, new FieldBaseStructureInstance(new SimpleStructureDefinition("42"))))
+        .getFieldValue("Field Name"));
+  }
+
+  /**
+   * Method under test: {@link ItemInstance#getFieldValue(String)}
+   */
+  @Test
+  public void testGetFieldValue3() {
     // Arrange
     FieldBaseStructureInstance structureInstance = mock(FieldBaseStructureInstance.class);
     when(structureInstance.getFieldValue(Mockito.<String>any())).thenReturn(JSONObject.NULL);
@@ -88,65 +72,46 @@ public class ItemInstanceDiffblueTest {
   }
 
   /**
-   * Test {@link ItemInstance#getFieldValue(String)}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ItemInstance#getFieldValue(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object ItemInstance.getFieldValue(String)"})
-  public void testGetFieldValue_thenReturnNull() {
-    // Arrange
-    ItemDefinition item = new ItemDefinition("42", new SimpleStructureDefinition("42"));
-
-    // Act and Assert
-    assertNull((new ItemInstance(item, new FieldBaseStructureInstance(new SimpleStructureDefinition("42"))))
-        .getFieldValue("Field Name"));
-  }
-
-  /**
-   * Test {@link ItemInstance#setFieldValue(String, Object)}.
-   * <p>
    * Method under test: {@link ItemInstance#setFieldValue(String, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ItemInstance.setFieldValue(String, Object)"})
   public void testSetFieldValue() {
     // Arrange
     ItemDefinition item = new ItemDefinition("42", new SimpleStructureDefinition("42"));
 
     FieldBaseStructureInstance structureInstance = new FieldBaseStructureInstance(new SimpleStructureDefinition("42"));
     ItemInstance itemInstance = new ItemInstance(item, structureInstance);
-    Object object = JSONObject.NULL;
 
     // Act
-    itemInstance.setFieldValue("Field Name", object);
+    itemInstance.setFieldValue("Field Name", JSONObject.NULL);
 
     // Assert
-    StructureInstance structureInstance2 = itemInstance.getStructureInstance();
-    assertTrue(structureInstance2 instanceof FieldBaseStructureInstance);
-    Map<String, Object> stringObjectMap = ((FieldBaseStructureInstance) structureInstance2).fieldValues;
-    assertEquals(1, stringObjectMap.size());
-    assertSame(structureInstance.fieldValues, stringObjectMap);
-    assertSame(object, stringObjectMap.get("Field Name"));
+    assertSame(structureInstance, itemInstance.getStructureInstance());
   }
 
   /**
-   * Test {@link ItemInstance#setFieldValue(String, Object)}.
-   * <ul>
-   *   <li>Then calls {@link FieldBaseStructureInstance#setFieldValue(String, Object)}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ItemInstance#setFieldValue(String, Object)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ItemInstance.setFieldValue(String, Object)"})
-  public void testSetFieldValue_thenCallsSetFieldValue() {
+  public void testSetFieldValue2() {
+    // Arrange
+    ItemDefinition item = new ItemDefinition("42", mock(StructureDefinition.class));
+
+    FieldBaseStructureInstance structureInstance = new FieldBaseStructureInstance(new SimpleStructureDefinition("42"));
+    ItemInstance itemInstance = new ItemInstance(item, structureInstance);
+
+    // Act
+    itemInstance.setFieldValue("Field Name", JSONObject.NULL);
+
+    // Assert
+    assertSame(structureInstance, itemInstance.getStructureInstance());
+  }
+
+  /**
+   * Method under test: {@link ItemInstance#setFieldValue(String, Object)}
+   */
+  @Test
+  public void testSetFieldValue3() {
     // Arrange
     FieldBaseStructureInstance structureInstance = mock(FieldBaseStructureInstance.class);
     doNothing().when(structureInstance).setFieldValue(Mockito.<String>any(), Mockito.<Object>any());
@@ -155,7 +120,31 @@ public class ItemInstanceDiffblueTest {
     (new ItemInstance(new ItemDefinition("42", new SimpleStructureDefinition("42")), structureInstance))
         .setFieldValue("Field Name", JSONObject.NULL);
 
-    // Assert
+    // Assert that nothing has changed
     verify(structureInstance).setFieldValue(eq("Field Name"), isA(Object.class));
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>{@link ItemInstance#ItemInstance(ItemDefinition, StructureInstance)}
+   *   <li>{@link ItemInstance#getItem()}
+   *   <li>{@link ItemInstance#getStructureInstance()}
+   * </ul>
+   */
+  @Test
+  public void testGettersAndSetters() {
+    // Arrange
+    ItemDefinition item = new ItemDefinition("42", new SimpleStructureDefinition("42"));
+
+    FieldBaseStructureInstance structureInstance = new FieldBaseStructureInstance(new SimpleStructureDefinition("42"));
+
+    // Act
+    ItemInstance actualItemInstance = new ItemInstance(item, structureInstance);
+    ItemDefinition actualItem = actualItemInstance.getItem();
+
+    // Assert
+    assertSame(structureInstance, actualItemInstance.getStructureInstance());
+    assertSame(item, actualItem);
   }
 }

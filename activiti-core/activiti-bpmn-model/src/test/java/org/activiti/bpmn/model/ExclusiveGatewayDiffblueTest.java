@@ -19,25 +19,46 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import java.util.HashMap;
+import java.util.List;
+import java.util.function.BiFunction;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ExclusiveGatewayDiffblueTest {
   /**
-   * Test {@link ExclusiveGateway#clone()}.
-   * <ul>
-   *   <li>Given {@link ExclusiveGateway} (default constructor) Asynchronous is {@code true}.</li>
-   *   <li>Then return Asynchronous.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ExclusiveGateway#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExclusiveGateway ExclusiveGateway.clone()"})
-  public void testClone_givenExclusiveGatewayAsynchronousIsTrue_thenReturnAsynchronous() {
+  public void testClone() {
+    // Arrange and Act
+    ExclusiveGateway actualCloneResult = (new ExclusiveGateway()).clone();
+
+    // Assert
+    assertNull(actualCloneResult.getBehavior());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getDefaultFlow());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.isAsynchronous());
+    assertFalse(actualCloneResult.isNotExclusive());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
+    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.isExclusive());
+  }
+
+  /**
+   * Method under test: {@link ExclusiveGateway#clone()}
+   */
+  @Test
+  public void testClone2() {
     // Arrange
     ExclusiveGateway exclusiveGateway = new ExclusiveGateway();
     exclusiveGateway.setAsynchronous(true);
@@ -66,20 +87,20 @@ public class ExclusiveGatewayDiffblueTest {
   }
 
   /**
-   * Test {@link ExclusiveGateway#clone()}.
-   * <ul>
-   *   <li>Given {@link ExclusiveGateway} (default constructor).</li>
-   *   <li>Then return not Asynchronous.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ExclusiveGateway#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExclusiveGateway ExclusiveGateway.clone()"})
-  public void testClone_givenExclusiveGateway_thenReturnNotAsynchronous() {
-    // Arrange and Act
-    ExclusiveGateway actualCloneResult = (new ExclusiveGateway()).clone();
+  public void testClone3() {
+    // Arrange
+    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
+    attributes.computeIfPresent("foo", mock(BiFunction.class));
+
+    ExclusiveGateway exclusiveGateway = new ExclusiveGateway();
+    exclusiveGateway.setExtensionElements(null);
+    exclusiveGateway.setAttributes(attributes);
+
+    // Act
+    ExclusiveGateway actualCloneResult = exclusiveGateway.clone();
 
     // Assert
     assertNull(actualCloneResult.getBehavior());
@@ -102,13 +123,10 @@ public class ExclusiveGatewayDiffblueTest {
   }
 
   /**
-   * Test new {@link ExclusiveGateway} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link ExclusiveGateway}
+   * Method under test: default or parameterless constructor of
+   * {@link ExclusiveGateway}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExclusiveGateway.<init>()"})
   public void testNewExclusiveGateway() {
     // Arrange and Act
     ExclusiveGateway actualExclusiveGateway = new ExclusiveGateway();

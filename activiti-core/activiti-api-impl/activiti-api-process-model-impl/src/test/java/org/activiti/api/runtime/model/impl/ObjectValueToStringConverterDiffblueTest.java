@@ -20,13 +20,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -47,18 +44,10 @@ class ObjectValueToStringConverterDiffblueTest {
   private ObjectValueToStringConverter objectValueToStringConverter;
 
   /**
-   * Test {@link ObjectValueToStringConverter#convert(ObjectValue)} with {@code ObjectValue}.
-   * <ul>
-   *   <li>Then return {@code 42}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ObjectValueToStringConverter#convert(ObjectValue)}
    */
   @Test
-  @DisplayName("Test convert(ObjectValue) with 'ObjectValue'; then return '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ObjectValueToStringConverter.convert(ObjectValue)"})
-  void testConvertWithObjectValue_thenReturn42() throws JsonProcessingException, IllegalArgumentException {
+  void testConvert() throws JsonProcessingException, IllegalArgumentException {
     // Arrange
     when(objectMapper.writeValueAsString(Mockito.<Object>any())).thenReturn("42");
     when(objectMapper.convertValue(Mockito.<Object>any(), Mockito.<Class<Map<Object, Object>>>any()))
@@ -74,18 +63,10 @@ class ObjectValueToStringConverterDiffblueTest {
   }
 
   /**
-   * Test {@link ObjectValueToStringConverter#convert(ObjectValue)} with {@code ObjectValue}.
-   * <ul>
-   *   <li>Then throw {@link RuntimeException}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ObjectValueToStringConverter#convert(ObjectValue)}
    */
   @Test
-  @DisplayName("Test convert(ObjectValue) with 'ObjectValue'; then throw RuntimeException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ObjectValueToStringConverter.convert(ObjectValue)"})
-  void testConvertWithObjectValue_thenThrowRuntimeException() throws JsonProcessingException, IllegalArgumentException {
+  void testConvert2() throws JsonProcessingException, IllegalArgumentException {
     // Arrange
     when(objectMapper.writeValueAsString(Mockito.<Object>any()))
         .thenThrow(new RuntimeException(ProcessVariablesMapTypeRegistry.OBJECT_TYPE_KEY));

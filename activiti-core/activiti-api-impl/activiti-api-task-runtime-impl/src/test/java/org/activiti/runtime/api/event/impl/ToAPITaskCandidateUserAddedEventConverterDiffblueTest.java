@@ -16,13 +16,12 @@
 package org.activiti.runtime.api.event.impl;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import org.activiti.engine.delegate.event.ActivitiEntityEvent;
 import org.activiti.engine.delegate.event.impl.ActivitiProcessCancelledEventImpl;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.runtime.api.model.impl.APITaskCandidateUserConverter;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,18 +41,27 @@ class ToAPITaskCandidateUserAddedEventConverterDiffblueTest {
   private ToAPITaskCandidateUserAddedEventConverter toAPITaskCandidateUserAddedEventConverter;
 
   /**
-   * Test {@link ToAPITaskCandidateUserAddedEventConverter#ToAPITaskCandidateUserAddedEventConverter(APITaskCandidateUserConverter)}.
-   * <p>
-   * Method under test: {@link ToAPITaskCandidateUserAddedEventConverter#ToAPITaskCandidateUserAddedEventConverter(APITaskCandidateUserConverter)}
+   * Method under test:
+   * {@link ToAPITaskCandidateUserAddedEventConverter#from(ActivitiEntityEvent)}
    */
   @Test
-  @DisplayName("Test new ToAPITaskCandidateUserAddedEventConverter(APITaskCandidateUserConverter)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ToAPITaskCandidateUserAddedEventConverter.<init>(APITaskCandidateUserConverter)"})
+  void testFrom() {
+    // Arrange, Act and Assert
+    assertFalse(toAPITaskCandidateUserAddedEventConverter
+        .from(new ActivitiProcessCancelledEventImpl(ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
+        .isPresent());
+    assertFalse(toAPITaskCandidateUserAddedEventConverter
+        .from(new ActivitiProcessCancelledEventImpl(mock(ProcessInstance.class)))
+        .isPresent());
+  }
+
+  /**
+   * Method under test:
+   * {@link ToAPITaskCandidateUserAddedEventConverter#ToAPITaskCandidateUserAddedEventConverter(APITaskCandidateUserConverter)}
+   */
+  @Test
   void testNewToAPITaskCandidateUserAddedEventConverter() {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
-    //   Run dcover create --keep-partial-tests to gain insights into why
-    //   a non-Spring test was created.
 
     // Arrange and Act
     ToAPITaskCandidateUserAddedEventConverter actualToAPITaskCandidateUserAddedEventConverter = new ToAPITaskCandidateUserAddedEventConverter(
@@ -66,20 +74,19 @@ class ToAPITaskCandidateUserAddedEventConverterDiffblueTest {
   }
 
   /**
-   * Test {@link ToAPITaskCandidateUserAddedEventConverter#from(ActivitiEntityEvent)} with {@code ActivitiEntityEvent}.
-   * <ul>
-   *   <li>Then return not Present.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ToAPITaskCandidateUserAddedEventConverter#from(ActivitiEntityEvent)}
+   * Method under test:
+   * {@link ToAPITaskCandidateUserAddedEventConverter#ToAPITaskCandidateUserAddedEventConverter(APITaskCandidateUserConverter)}
    */
   @Test
-  @DisplayName("Test from(ActivitiEntityEvent) with 'ActivitiEntityEvent'; then return not Present")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.util.Optional ToAPITaskCandidateUserAddedEventConverter.from(ActivitiEntityEvent)"})
-  void testFromWithActivitiEntityEvent_thenReturnNotPresent() {
-    // Arrange, Act and Assert
-    assertFalse(toAPITaskCandidateUserAddedEventConverter
+  void testNewToAPITaskCandidateUserAddedEventConverter2() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+
+    // Arrange and Act
+    ToAPITaskCandidateUserAddedEventConverter actualToAPITaskCandidateUserAddedEventConverter = new ToAPITaskCandidateUserAddedEventConverter(
+        mock(APITaskCandidateUserConverter.class));
+
+    // Assert
+    assertFalse(actualToAPITaskCandidateUserAddedEventConverter
         .from(new ActivitiProcessCancelledEventImpl(ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
         .isPresent());
   }

@@ -16,120 +16,50 @@
 package org.activiti.engine.impl.util.json;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class CookieDiffblueTest {
+  @InjectMocks
+  private Cookie cookie;
+
   /**
-   * Test {@link Cookie#escape(String)}.
-   * <ul>
-   *   <li>When {@code =;}.</li>
-   *   <li>Then return {@code %3d%3b}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Cookie#escape(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String Cookie.escape(String)"})
-  public void testEscape_whenEqualsSignSemicolon_thenReturn3d3b() {
+  public void testEscape() {
     // Arrange, Act and Assert
+    assertEquals("String", Cookie.escape("String"));
     assertEquals("%3d%3b", Cookie.escape("=;"));
   }
 
   /**
-   * Test {@link Cookie#escape(String)}.
-   * <ul>
-   *   <li>When {@code String}.</li>
-   *   <li>Then return {@code String}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Cookie#escape(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String Cookie.escape(String)"})
-  public void testEscape_whenString_thenReturnString() {
-    // Arrange, Act and Assert
-    assertEquals("String", Cookie.escape("String"));
-  }
-
-  /**
-   * Test {@link Cookie#toJSONObject(String)}.
-   * <ul>
-   *   <li>When {@code =;=;}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Cookie#toJSONObject(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"JSONObject Cookie.toJSONObject(String)"})
-  public void testToJSONObject_whenEqualsSignSemicolonEqualsSignSemicolon() throws JSONException {
-    // Arrange, Act and Assert
-    assertEquals(3, Cookie.toJSONObject("=;=;").length());
-  }
-
-  /**
-   * Test {@link Cookie#toJSONObject(String)}.
-   * <ul>
-   *   <li>When {@code =;}.</li>
-   *   <li>Then return length is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Cookie#toJSONObject(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"JSONObject Cookie.toJSONObject(String)"})
-  public void testToJSONObject_whenEqualsSignSemicolon_thenReturnLengthIsTwo() throws JSONException {
+  public void testToJSONObject() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(2, Cookie.toJSONObject("=;").length());
-  }
-
-  /**
-   * Test {@link Cookie#toJSONObject(String)}.
-   * <ul>
-   *   <li>When {@code =;secure}.</li>
-   *   <li>Then return length is three.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Cookie#toJSONObject(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"JSONObject Cookie.toJSONObject(String)"})
-  public void testToJSONObject_whenSecure_thenReturnLengthIsThree() throws JSONException {
-    // Arrange, Act and Assert
+    assertEquals(3, Cookie.toJSONObject("=;=;").length());
     assertEquals(3, Cookie.toJSONObject("=;secure").length());
   }
 
   /**
-   * Test {@link Cookie#toString(JSONObject)} with {@code JSONObject}.
-   * <ul>
-   *   <li>Then return {@code =}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Cookie#toString(JSONObject)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String Cookie.toString(JSONObject)"})
-  public void testToStringWithJSONObject_thenReturnEqualsSign() throws JSONException {
+  public void testToString() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("=", Cookie.toString(Cookie.toJSONObject("=;")));
   }
 
   /**
-   * Test {@link Cookie#unescape(String)}.
-   * <p>
    * Method under test: {@link Cookie#unescape(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String Cookie.unescape(String)"})
   public void testUnescape() {
     // Arrange, Act and Assert
     assertEquals("foo", Cookie.unescape("foo"));

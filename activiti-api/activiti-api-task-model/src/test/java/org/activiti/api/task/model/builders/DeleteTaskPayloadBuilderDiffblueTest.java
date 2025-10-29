@@ -17,16 +17,11 @@ package org.activiti.api.task.model.builders;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.task.model.payloads.DeleteTaskPayload;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class DeleteTaskPayloadBuilderDiffblueTest {
   /**
-   * Test {@link DeleteTaskPayloadBuilder#build()}.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link DeleteTaskPayloadBuilder#build()}
@@ -36,11 +31,6 @@ class DeleteTaskPayloadBuilderDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test build()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DeleteTaskPayloadBuilder.<init>()", "DeleteTaskPayload DeleteTaskPayloadBuilder.build()",
-      "DeleteTaskPayloadBuilder DeleteTaskPayloadBuilder.withReason(String)",
-      "DeleteTaskPayloadBuilder DeleteTaskPayloadBuilder.withTaskId(String)"})
   void testBuild() {
     // Arrange and Act
     DeleteTaskPayload actualBuildResult = (new DeleteTaskPayloadBuilder()).withReason("Just cause")

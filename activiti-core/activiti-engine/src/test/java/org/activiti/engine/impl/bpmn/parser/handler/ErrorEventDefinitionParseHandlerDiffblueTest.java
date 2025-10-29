@@ -16,9 +16,10 @@
 package org.activiti.engine.impl.bpmn.parser.handler;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BoundaryEvent;
 import org.activiti.bpmn.model.ErrorEventDefinition;
@@ -27,19 +28,53 @@ import org.activiti.engine.impl.bpmn.behavior.BoundaryEventActivityBehavior;
 import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
+import org.activiti.engine.impl.cfg.BpmnParseFactory;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ErrorEventDefinitionParseHandlerDiffblueTest {
   /**
-   * Test {@link ErrorEventDefinitionParseHandler#executeParse(BpmnParse, ErrorEventDefinition)} with {@code BpmnParse}, {@code ErrorEventDefinition}.
-   * <p>
-   * Method under test: {@link ErrorEventDefinitionParseHandler#executeParse(BpmnParse, ErrorEventDefinition)}
+   * Method under test:
+   * {@link ErrorEventDefinitionParseHandler#executeParse(BpmnParse, ErrorEventDefinition)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ErrorEventDefinitionParseHandler.executeParse(BpmnParse, ErrorEventDefinition)"})
-  public void testExecuteParseWithBpmnParseErrorEventDefinition() {
+  public void testExecuteParse() {
+    // Arrange
+    ErrorEventDefinitionParseHandler errorEventDefinitionParseHandler = new ErrorEventDefinitionParseHandler();
+    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
+
+    // Act
+    errorEventDefinitionParseHandler.executeParse(bpmnParse, new ErrorEventDefinition());
+
+    // Assert that nothing has changed
+    assertNull(bpmnParse.getCurrentFlowElement());
+  }
+
+  /**
+   * Method under test:
+   * {@link ErrorEventDefinitionParseHandler#executeParse(BpmnParse, ErrorEventDefinition)}
+   */
+  @Test
+  public void testExecuteParse2() {
+    // Arrange
+    ErrorEventDefinitionParseHandler errorEventDefinitionParseHandler = new ErrorEventDefinitionParseHandler();
+
+    BpmnParser parser = new BpmnParser();
+    parser.setBpmnParseFactory(mock(BpmnParseFactory.class));
+    BpmnParse bpmnParse = new BpmnParse(parser);
+
+    // Act
+    errorEventDefinitionParseHandler.executeParse(bpmnParse, new ErrorEventDefinition());
+
+    // Assert that nothing has changed
+    assertNull(bpmnParse.getCurrentFlowElement());
+  }
+
+  /**
+   * Method under test:
+   * {@link ErrorEventDefinitionParseHandler#executeParse(BpmnParse, ErrorEventDefinition)}
+   */
+  @Test
+  public void testExecuteParse3() {
     // Arrange
     ErrorEventDefinitionParseHandler errorEventDefinitionParseHandler = new ErrorEventDefinitionParseHandler();
 
@@ -47,32 +82,30 @@ public class ErrorEventDefinitionParseHandlerDiffblueTest {
     parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
 
     BpmnParse bpmnParse = new BpmnParse(parser);
-    bpmnParse.setCurrentFlowElement(new BoundaryEvent());
+    BoundaryEvent currentFlowElement = new BoundaryEvent();
+    bpmnParse.setCurrentFlowElement(currentFlowElement);
 
     // Act
     errorEventDefinitionParseHandler.executeParse(bpmnParse, new ErrorEventDefinition());
 
     // Assert
-    FlowElement currentFlowElement = bpmnParse.getCurrentFlowElement();
-    assertTrue(currentFlowElement instanceof BoundaryEvent);
-    Object behavior = ((BoundaryEvent) currentFlowElement).getBehavior();
+    FlowElement currentFlowElement2 = bpmnParse.getCurrentFlowElement();
+    assertTrue(currentFlowElement2 instanceof BoundaryEvent);
+    Object behavior = ((BoundaryEvent) currentFlowElement2).getBehavior();
     assertTrue(behavior instanceof BoundaryEventActivityBehavior);
     assertTrue(((BoundaryEventActivityBehavior) behavior).isInterrupting());
+    assertSame(currentFlowElement, currentFlowElement2);
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of {@link ErrorEventDefinitionParseHandler}
+   *   <li>default or parameterless constructor of
+   * {@link ErrorEventDefinitionParseHandler}
    *   <li>{@link ErrorEventDefinitionParseHandler#getHandledType()}
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ErrorEventDefinitionParseHandler.<init>()",
-      "Class ErrorEventDefinitionParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends BaseElement> actualHandledType = (new ErrorEventDefinitionParseHandler()).getHandledType();

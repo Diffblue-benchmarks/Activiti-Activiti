@@ -18,59 +18,21 @@ package org.activiti.bpmn.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import java.util.HashMap;
+import java.util.List;
+import java.util.function.BiFunction;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class AssociationDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link Association#setAssociationDirection(AssociationDirection)}
-   *   <li>{@link Association#setSourceRef(String)}
-   *   <li>{@link Association#setTargetRef(String)}
-   *   <li>{@link Association#getAssociationDirection()}
-   *   <li>{@link Association#getSourceRef()}
-   *   <li>{@link Association#getTargetRef()}
-   * </ul>
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"AssociationDirection Association.getAssociationDirection()", "String Association.getSourceRef()",
-      "String Association.getTargetRef()", "void Association.setAssociationDirection(AssociationDirection)",
-      "void Association.setSourceRef(String)", "void Association.setTargetRef(String)"})
-  public void testGettersAndSetters() {
-    // Arrange
-    Association association = new Association();
-
-    // Act
-    association.setAssociationDirection(AssociationDirection.NONE);
-    association.setSourceRef("Source Ref");
-    association.setTargetRef("Target Ref");
-    AssociationDirection actualAssociationDirection = association.getAssociationDirection();
-    String actualSourceRef = association.getSourceRef();
-
-    // Assert
-    assertEquals("Source Ref", actualSourceRef);
-    assertEquals("Target Ref", association.getTargetRef());
-    assertEquals(AssociationDirection.NONE, actualAssociationDirection);
-  }
-
-  /**
-   * Test {@link Association#clone()}.
-   * <ul>
-   *   <li>Given {@link Association} (default constructor).</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Association#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Association Association.clone()"})
-  public void testClone_givenAssociation() {
+  public void testClone() {
     // Arrange and Act
     Association actualCloneResult = (new Association()).clone();
 
@@ -86,17 +48,10 @@ public class AssociationDiffblueTest {
   }
 
   /**
-   * Test {@link Association#clone()}.
-   * <ul>
-   *   <li>Given {@link Association} (default constructor) AssociationDirection is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Association#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Association Association.clone()"})
-  public void testClone_givenAssociationAssociationDirectionIsNull() {
+  public void testClone2() {
     // Arrange
     Association association = new Association();
     association.setAssociationDirection(null);
@@ -116,13 +71,84 @@ public class AssociationDiffblueTest {
   }
 
   /**
-   * Test new {@link Association} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link Association}
+   * Method under test: {@link Association#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Association.<init>()"})
+  public void testClone3() {
+    // Arrange
+    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
+    extensionElements.computeIfPresent("foo", mock(BiFunction.class));
+
+    Association association = new Association();
+    association.setExtensionElements(extensionElements);
+
+    // Act
+    Association actualCloneResult = association.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getSourceRef());
+    assertNull(actualCloneResult.getTargetRef());
+    assertNull(actualCloneResult.getId());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertEquals(AssociationDirection.NONE, actualCloneResult.getAssociationDirection());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link Association#setValues(Association)}
+   */
+  @Test
+  public void testSetValues() {
+    // Arrange
+    ExtensionElement extensionElement = mock(ExtensionElement.class);
+    when(extensionElement.getName()).thenReturn("Name");
+
+    Association association = new Association();
+    association.addExtensionElement(extensionElement);
+
+    // Act
+    association.setValues(new Association());
+
+    // Assert
+    verify(extensionElement, atLeast(1)).getName();
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>{@link Association#setAssociationDirection(AssociationDirection)}
+   *   <li>{@link Association#setSourceRef(String)}
+   *   <li>{@link Association#setTargetRef(String)}
+   *   <li>{@link Association#getAssociationDirection()}
+   *   <li>{@link Association#getSourceRef()}
+   *   <li>{@link Association#getTargetRef()}
+   * </ul>
+   */
+  @Test
+  public void testGettersAndSetters() {
+    // Arrange
+    Association association = new Association();
+
+    // Act
+    association.setAssociationDirection(AssociationDirection.NONE);
+    association.setSourceRef("Source Ref");
+    association.setTargetRef("Target Ref");
+    AssociationDirection actualAssociationDirection = association.getAssociationDirection();
+    String actualSourceRef = association.getSourceRef();
+
+    // Assert that nothing has changed
+    assertEquals("Source Ref", actualSourceRef);
+    assertEquals("Target Ref", association.getTargetRef());
+    assertEquals(AssociationDirection.NONE, actualAssociationDirection);
+  }
+
+  /**
+   * Method under test: default or parameterless constructor of
+   * {@link Association}
+   */
+  @Test
   public void testNewAssociation() {
     // Arrange and Act
     Association actualAssociation = new Association();

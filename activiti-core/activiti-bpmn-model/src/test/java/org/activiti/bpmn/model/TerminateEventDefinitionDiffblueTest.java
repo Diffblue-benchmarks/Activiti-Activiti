@@ -19,25 +19,39 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import java.util.HashMap;
+import java.util.List;
+import java.util.function.BiFunction;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class TerminateEventDefinitionDiffblueTest {
   /**
-   * Test {@link TerminateEventDefinition#clone()}.
-   * <ul>
-   *   <li>Given {@link TerminateEventDefinition} (default constructor) TerminateAll is {@code true}.</li>
-   *   <li>Then return TerminateAll.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TerminateEventDefinition#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"TerminateEventDefinition TerminateEventDefinition.clone()"})
-  public void testClone_givenTerminateEventDefinitionTerminateAllIsTrue_thenReturnTerminateAll() {
+  public void testClone() {
+    // Arrange and Act
+    TerminateEventDefinition actualCloneResult = (new TerminateEventDefinition()).clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertFalse(actualCloneResult.isTerminateAll());
+    assertFalse(actualCloneResult.isTerminateMultiInstance());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link TerminateEventDefinition#clone()}
+   */
+  @Test
+  public void testClone2() {
     // Arrange
     TerminateEventDefinition terminateEventDefinition = new TerminateEventDefinition();
     terminateEventDefinition.setTerminateAll(true);
@@ -56,20 +70,19 @@ public class TerminateEventDefinitionDiffblueTest {
   }
 
   /**
-   * Test {@link TerminateEventDefinition#clone()}.
-   * <ul>
-   *   <li>Given {@link TerminateEventDefinition} (default constructor).</li>
-   *   <li>Then return not TerminateAll.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link TerminateEventDefinition#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"TerminateEventDefinition TerminateEventDefinition.clone()"})
-  public void testClone_givenTerminateEventDefinition_thenReturnNotTerminateAll() {
-    // Arrange and Act
-    TerminateEventDefinition actualCloneResult = (new TerminateEventDefinition()).clone();
+  public void testClone3() {
+    // Arrange
+    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
+    extensionElements.computeIfPresent("foo", mock(BiFunction.class));
+
+    TerminateEventDefinition terminateEventDefinition = new TerminateEventDefinition();
+    terminateEventDefinition.setExtensionElements(extensionElements);
+
+    // Act
+    TerminateEventDefinition actualCloneResult = terminateEventDefinition.clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
@@ -82,8 +95,26 @@ public class TerminateEventDefinitionDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test:
+   * {@link TerminateEventDefinition#setValues(TerminateEventDefinition)}
+   */
+  @Test
+  public void testSetValues() {
+    // Arrange
+    ExtensionElement extensionElement = mock(ExtensionElement.class);
+    when(extensionElement.getName()).thenReturn("Name");
+
+    TerminateEventDefinition terminateEventDefinition = new TerminateEventDefinition();
+    terminateEventDefinition.addExtensionElement(extensionElement);
+
+    // Act
+    terminateEventDefinition.setValues(new TerminateEventDefinition());
+
+    // Assert
+    verify(extensionElement, atLeast(1)).getName();
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link TerminateEventDefinition}
@@ -94,11 +125,6 @@ public class TerminateEventDefinitionDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void TerminateEventDefinition.<init>()", "boolean TerminateEventDefinition.isTerminateAll()",
-      "boolean TerminateEventDefinition.isTerminateMultiInstance()",
-      "void TerminateEventDefinition.setTerminateAll(boolean)",
-      "void TerminateEventDefinition.setTerminateMultiInstance(boolean)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     TerminateEventDefinition actualTerminateEventDefinition = new TerminateEventDefinition();
@@ -107,8 +133,7 @@ public class TerminateEventDefinitionDiffblueTest {
     boolean actualIsTerminateAllResult = actualTerminateEventDefinition.isTerminateAll();
     boolean actualIsTerminateMultiInstanceResult = actualTerminateEventDefinition.isTerminateMultiInstance();
 
-    // Assert
-    assertNull(actualTerminateEventDefinition.getId());
+    // Assert that nothing has changed
     assertEquals(0, actualTerminateEventDefinition.getXmlColumnNumber());
     assertEquals(0, actualTerminateEventDefinition.getXmlRowNumber());
     assertTrue(actualTerminateEventDefinition.getAttributes().isEmpty());

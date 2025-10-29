@@ -17,48 +17,45 @@ package org.activiti.engine.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class HistoricActivityInstanceQueryPropertyDiffblueTest {
-  /**
-   * Test {@link HistoricActivityInstanceQueryProperty#HistoricActivityInstanceQueryProperty(String)}.
-   * <p>
-   * Method under test: {@link HistoricActivityInstanceQueryProperty#HistoricActivityInstanceQueryProperty(String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void HistoricActivityInstanceQueryProperty.<init>(String)"})
-  public void testNewHistoricActivityInstanceQueryProperty() {
-    // Arrange, Act and Assert
-    assertEquals("Name", (new HistoricActivityInstanceQueryProperty("Name")).getName());
-  }
+  @InjectMocks
+  private HistoricActivityInstanceQueryProperty historicActivityInstanceQueryProperty;
+
+  @InjectMocks
+  private String string;
 
   /**
-   * Test {@link HistoricActivityInstanceQueryProperty#getName()}.
-   * <p>
    * Method under test: {@link HistoricActivityInstanceQueryProperty#getName()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"String HistoricActivityInstanceQueryProperty.getName()"})
   public void testGetName() {
     // Arrange, Act and Assert
     assertEquals("Name", (new HistoricActivityInstanceQueryProperty("Name")).getName());
   }
 
   /**
-   * Test {@link HistoricActivityInstanceQueryProperty#findByName(String)}.
-   * <p>
-   * Method under test: {@link HistoricActivityInstanceQueryProperty#findByName(String)}
+   * Method under test:
+   * {@link HistoricActivityInstanceQueryProperty#findByName(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"HistoricActivityInstanceQueryProperty HistoricActivityInstanceQueryProperty.findByName(String)"})
   public void testFindByName() {
     // Arrange, Act and Assert
     assertNull(HistoricActivityInstanceQueryProperty.findByName("Property Name"));
+  }
+
+  /**
+   * Method under test:
+   * {@link HistoricActivityInstanceQueryProperty#HistoricActivityInstanceQueryProperty(String)}
+   */
+  @Test
+  public void testNewHistoricActivityInstanceQueryProperty() {
+    // Arrange, Act and Assert
+    assertEquals("Name", (new HistoricActivityInstanceQueryProperty("Name")).getName());
   }
 }

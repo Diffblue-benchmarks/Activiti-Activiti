@@ -26,7 +26,6 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.bpmn.model.AdhocSubProcess;
@@ -36,26 +35,77 @@ import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.Process;
 import org.activiti.bpmn.model.ValuedDataObject;
 import org.activiti.validation.ValidationError;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class DataObjectValidatorDiffblueTest {
   /**
-   * Test {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link AdhocSubProcess} (default constructor).</li>
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test:
+   * {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList() add AdhocSubProcess (default constructor); then ArrayList() Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DataObjectValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_givenArrayListAddAdhocSubProcess_thenArrayListEmpty() {
+  void testExecuteValidation() {
+    // Arrange
+    DataObjectValidator dataObjectValidator = new DataObjectValidator();
+    BpmnModel bpmnModel = new BpmnModel();
+    Process process = new Process();
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    dataObjectValidator.executeValidation(bpmnModel, process, errors);
+
+    // Assert
+    assertTrue(errors.isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}
+   */
+  @Test
+  void testExecuteValidation2() {
+    // Arrange
+    DataObjectValidator dataObjectValidator = new DataObjectValidator();
+    BpmnModel bpmnModel = mock(BpmnModel.class);
+    Process process = new Process();
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    dataObjectValidator.executeValidation(bpmnModel, process, errors);
+
+    // Assert
+    assertTrue(errors.isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}
+   */
+  @Test
+  void testExecuteValidation3() {
+    // Arrange
+    DataObjectValidator dataObjectValidator = new DataObjectValidator();
+    BpmnModel bpmnModel = new BpmnModel();
+    Process process = mock(Process.class);
+    when(process.findFlowElementsOfType(Mockito.<Class<FlowElement>>any(), anyBoolean())).thenReturn(new ArrayList<>());
+    when(process.getDataObjects()).thenReturn(new ArrayList<>());
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    dataObjectValidator.executeValidation(bpmnModel, process, errors);
+
+    // Assert
+    verify(process).findFlowElementsOfType(isA(Class.class), eq(true));
+    verify(process).getDataObjects();
+    assertTrue(errors.isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}
+   */
+  @Test
+  void testExecuteValidation4() {
     // Arrange
     DataObjectValidator dataObjectValidator = new DataObjectValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -70,145 +120,18 @@ class DataObjectValidatorDiffblueTest {
     // Act
     dataObjectValidator.executeValidation(bpmnModel, process, errors);
 
-    // Assert that nothing has changed
-    verify(process).findFlowElementsOfType(isA(Class.class), eq(true));
-    verify(process).getDataObjects();
-    assertTrue(errors.isEmpty());
-  }
-
-  /**
-   * Test {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link BooleanDataObject} (default constructor).</li>
-   *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}
-   */
-  @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList() add BooleanDataObject (default constructor); then ArrayList() size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DataObjectValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_givenArrayListAddBooleanDataObject_thenArrayListSizeIsTwo() {
-    // Arrange
-    DataObjectValidator dataObjectValidator = new DataObjectValidator();
-    BpmnModel bpmnModel = new BpmnModel();
-
-    ArrayList<ValuedDataObject> valuedDataObjectList = new ArrayList<>();
-    valuedDataObjectList.add(new BooleanDataObject());
-    valuedDataObjectList.add(new BooleanDataObject());
-    Process process = mock(Process.class);
-    when(process.getId()).thenReturn("42");
-    when(process.getName()).thenReturn("Name");
-    when(process.findFlowElementsOfType(Mockito.<Class<FlowElement>>any(), anyBoolean())).thenReturn(new ArrayList<>());
-    when(process.getDataObjects()).thenReturn(valuedDataObjectList);
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    dataObjectValidator.executeValidation(bpmnModel, process, errors);
-
     // Assert
-    verify(process, atLeast(1)).getId();
-    verify(process).findFlowElementsOfType(isA(Class.class), eq(true));
-    verify(process).getDataObjects();
-    verify(process, atLeast(1)).getName();
-    assertEquals(2, errors.size());
-    ValidationError getResult = errors.get(1);
-    assertEquals("42", getResult.getProcessDefinitionId());
-    assertEquals("DATA_OBJECT_MISSING_NAME", getResult.getDefaultDescription());
-    assertEquals("DATA_OBJECT_MISSING_NAME", getResult.getKey());
-    assertEquals("DATA_OBJECT_MISSING_NAME", getResult.getProblem());
-    assertEquals("Name", getResult.getProcessDefinitionName());
-    assertNull(getResult.getActivityId());
-    assertNull(getResult.getActivityName());
-    assertNull(getResult.getValidatorSetName());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlLineNumber());
-    assertFalse(getResult.isWarning());
-    assertTrue(getResult.getParams().isEmpty());
-  }
-
-  /**
-   * Test {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}
-   */
-  @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList(); then ArrayList() Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DataObjectValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_givenArrayList_thenArrayListEmpty() {
-    // Arrange
-    DataObjectValidator dataObjectValidator = new DataObjectValidator();
-    BpmnModel bpmnModel = new BpmnModel();
-    Process process = mock(Process.class);
-    when(process.findFlowElementsOfType(Mockito.<Class<FlowElement>>any(), anyBoolean())).thenReturn(new ArrayList<>());
-    when(process.getDataObjects()).thenReturn(new ArrayList<>());
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    dataObjectValidator.executeValidation(bpmnModel, process, errors);
-
-    // Assert that nothing has changed
     verify(process).findFlowElementsOfType(isA(Class.class), eq(true));
     verify(process).getDataObjects();
     assertTrue(errors.isEmpty());
   }
 
   /**
-   * Test {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}.
-   * <ul>
-   *   <li>Given {@link BooleanDataObject} {@link FlowElement#getName()} return {@code Name}.</li>
-   *   <li>Then calls {@link FlowElement#getName()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test:
+   * {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); given BooleanDataObject getName() return 'Name'; then calls getName()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DataObjectValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_givenBooleanDataObjectGetNameReturnName_thenCallsGetName() {
-    // Arrange
-    DataObjectValidator dataObjectValidator = new DataObjectValidator();
-    BpmnModel bpmnModel = new BpmnModel();
-    BooleanDataObject booleanDataObject = mock(BooleanDataObject.class);
-    when(booleanDataObject.getName()).thenReturn("Name");
-
-    ArrayList<ValuedDataObject> valuedDataObjectList = new ArrayList<>();
-    valuedDataObjectList.add(booleanDataObject);
-    Process process = mock(Process.class);
-    when(process.findFlowElementsOfType(Mockito.<Class<FlowElement>>any(), anyBoolean())).thenReturn(new ArrayList<>());
-    when(process.getDataObjects()).thenReturn(valuedDataObjectList);
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    dataObjectValidator.executeValidation(bpmnModel, process, errors);
-
-    // Assert that nothing has changed
-    verify(booleanDataObject).getName();
-    verify(process).findFlowElementsOfType(isA(Class.class), eq(true));
-    verify(process).getDataObjects();
-    assertTrue(errors.isEmpty());
-  }
-
-  /**
-   * Test {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}.
-   * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}
-   */
-  @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityId is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DataObjectValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_thenArrayListFirstActivityIdIsNull() {
+  void testExecuteValidation5() {
     // Arrange
     DataObjectValidator dataObjectValidator = new DataObjectValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -232,25 +155,112 @@ class DataObjectValidatorDiffblueTest {
     verify(process).getName();
     assertEquals(1, errors.size());
     ValidationError getResult = errors.get(0);
+    assertEquals("42", getResult.getProcessDefinitionId());
+    assertEquals("DATA_OBJECT_MISSING_NAME", getResult.getDefaultDescription());
+    assertEquals("DATA_OBJECT_MISSING_NAME", getResult.getKey());
+    assertEquals("DATA_OBJECT_MISSING_NAME", getResult.getProblem());
+    assertEquals("Name", getResult.getProcessDefinitionName());
     assertNull(getResult.getActivityId());
     assertNull(getResult.getActivityName());
+    assertNull(getResult.getValidatorSetName());
     assertEquals(0, getResult.getXmlColumnNumber());
     assertEquals(0, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
+    assertTrue(getResult.getParams().isEmpty());
   }
 
   /**
-   * Test {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}.
-   * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} first ActivityName is empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test:
+   * {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityName is empty string")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DataObjectValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_thenArrayListFirstActivityNameIsEmptyString() {
+  void testExecuteValidation6() {
+    // Arrange
+    DataObjectValidator dataObjectValidator = new DataObjectValidator();
+    BpmnModel bpmnModel = new BpmnModel();
+
+    ArrayList<ValuedDataObject> valuedDataObjectList = new ArrayList<>();
+    valuedDataObjectList.add(new BooleanDataObject());
+    valuedDataObjectList.add(new BooleanDataObject());
+    Process process = mock(Process.class);
+    when(process.getId()).thenReturn("42");
+    when(process.getName()).thenReturn("Name");
+    when(process.findFlowElementsOfType(Mockito.<Class<FlowElement>>any(), anyBoolean())).thenReturn(new ArrayList<>());
+    when(process.getDataObjects()).thenReturn(valuedDataObjectList);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    dataObjectValidator.executeValidation(bpmnModel, process, errors);
+
+    // Assert
+    verify(process, atLeast(1)).getId();
+    verify(process).findFlowElementsOfType(isA(Class.class), eq(true));
+    verify(process).getDataObjects();
+    verify(process, atLeast(1)).getName();
+    assertEquals(2, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("42", getResult.getProcessDefinitionId());
+    ValidationError getResult2 = errors.get(1);
+    assertEquals("42", getResult2.getProcessDefinitionId());
+    assertEquals("DATA_OBJECT_MISSING_NAME", getResult.getDefaultDescription());
+    assertEquals("DATA_OBJECT_MISSING_NAME", getResult2.getDefaultDescription());
+    assertEquals("DATA_OBJECT_MISSING_NAME", getResult.getKey());
+    assertEquals("DATA_OBJECT_MISSING_NAME", getResult2.getKey());
+    assertEquals("DATA_OBJECT_MISSING_NAME", getResult.getProblem());
+    assertEquals("DATA_OBJECT_MISSING_NAME", getResult2.getProblem());
+    assertEquals("Name", getResult.getProcessDefinitionName());
+    assertEquals("Name", getResult2.getProcessDefinitionName());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult2.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult2.getActivityName());
+    assertNull(getResult.getValidatorSetName());
+    assertNull(getResult2.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult2.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertEquals(0, getResult2.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
+    assertFalse(getResult2.isWarning());
+    assertTrue(getResult.getParams().isEmpty());
+    assertTrue(getResult2.getParams().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}
+   */
+  @Test
+  void testExecuteValidation7() {
+    // Arrange
+    DataObjectValidator dataObjectValidator = new DataObjectValidator();
+    BpmnModel bpmnModel = new BpmnModel();
+    BooleanDataObject booleanDataObject = mock(BooleanDataObject.class);
+    when(booleanDataObject.getName()).thenReturn("Name");
+
+    ArrayList<ValuedDataObject> valuedDataObjectList = new ArrayList<>();
+    valuedDataObjectList.add(booleanDataObject);
+    Process process = mock(Process.class);
+    when(process.findFlowElementsOfType(Mockito.<Class<FlowElement>>any(), anyBoolean())).thenReturn(new ArrayList<>());
+    when(process.getDataObjects()).thenReturn(valuedDataObjectList);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    dataObjectValidator.executeValidation(bpmnModel, process, errors);
+
+    // Assert
+    verify(booleanDataObject).getName();
+    verify(process).findFlowElementsOfType(isA(Class.class), eq(true));
+    verify(process).getDataObjects();
+    assertTrue(errors.isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}
+   */
+  @Test
+  void testExecuteValidation8() {
     // Arrange
     DataObjectValidator dataObjectValidator = new DataObjectValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -285,34 +295,15 @@ class DataObjectValidatorDiffblueTest {
     ValidationError getResult = errors.get(0);
     assertEquals("", getResult.getActivityName());
     assertEquals("42", getResult.getActivityId());
+    assertEquals("42", getResult.getProcessDefinitionId());
+    assertEquals("DATA_OBJECT_MISSING_NAME", getResult.getDefaultDescription());
+    assertEquals("DATA_OBJECT_MISSING_NAME", getResult.getKey());
+    assertEquals("DATA_OBJECT_MISSING_NAME", getResult.getProblem());
+    assertEquals("Name", getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
     assertEquals(10, getResult.getXmlColumnNumber());
     assertEquals(10, getResult.getXmlLineNumber());
-  }
-
-  /**
-   * Test {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}.
-   * <ul>
-   *   <li>When {@link Process} (default constructor).</li>
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}
-   */
-  @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); when Process (default constructor); then ArrayList() Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DataObjectValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_whenProcess_thenArrayListEmpty() {
-    // Arrange
-    DataObjectValidator dataObjectValidator = new DataObjectValidator();
-    BpmnModel bpmnModel = new BpmnModel();
-    Process process = new Process();
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    dataObjectValidator.executeValidation(bpmnModel, process, errors);
-
-    // Assert that nothing has changed
-    assertTrue(errors.isEmpty());
+    assertFalse(getResult.isWarning());
+    assertTrue(getResult.getParams().isEmpty());
   }
 }

@@ -25,8 +25,6 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -38,42 +36,23 @@ import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class ExecutionTreeUtilDiffblueTest {
   /**
-   * Test {@link ExecutionTreeUtil#buildExecutionTree(DelegateExecution)} with {@code executionEntity}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionTreeUtil#buildExecutionTree(DelegateExecution)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionTree ExecutionTreeUtil.buildExecutionTree(DelegateExecution)"})
-  public void testBuildExecutionTreeWithExecutionEntity_thenThrowActivitiException() {
-    // Arrange
-    ExecutionEntityImpl executionEntity = mock(ExecutionEntityImpl.class);
-    when(executionEntity.getParent()).thenThrow(new ActivitiException("An error occurred"));
-    when(executionEntity.getParentId()).thenReturn("42");
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> ExecutionTreeUtil.buildExecutionTree(executionEntity));
-    verify(executionEntity).getParent();
-    verify(executionEntity, atLeast(1)).getParentId();
-  }
-
-  /**
-   * Test {@link ExecutionTreeUtil#buildExecutionTree(Collection)} with {@code executions}.
-   * <p>
    * Method under test: {@link ExecutionTreeUtil#buildExecutionTree(Collection)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionTree ExecutionTreeUtil.buildExecutionTree(Collection)"})
-  public void testBuildExecutionTreeWithExecutions() {
+  public void testBuildExecutionTree() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiException.class, () -> ExecutionTreeUtil.buildExecutionTree(new ArrayList<>()));
+  }
+
+  /**
+   * Method under test: {@link ExecutionTreeUtil#buildExecutionTree(Collection)}
+   */
+  @Test
+  public void testBuildExecutionTree2() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
         .createWithEmptyRelationshipCollections();
@@ -87,35 +66,28 @@ public class ExecutionTreeUtilDiffblueTest {
   }
 
   /**
-   * Test {@link ExecutionTreeUtil#buildExecutionTree(Collection)} with {@code executions}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionTreeUtil#buildExecutionTree(Collection)}
+   * Method under test:
+   * {@link ExecutionTreeUtil#buildExecutionTree(DelegateExecution)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionTree ExecutionTreeUtil.buildExecutionTree(Collection)"})
-  public void testBuildExecutionTreeWithExecutions_whenArrayList_thenThrowActivitiException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiException.class, () -> ExecutionTreeUtil.buildExecutionTree(new ArrayList<>()));
+  public void testBuildExecutionTree3() {
+    // Arrange
+    ExecutionEntityImpl executionEntity = mock(ExecutionEntityImpl.class);
+    when(executionEntity.getParent()).thenThrow(new ActivitiException("An error occurred"));
+    when(executionEntity.getParentId()).thenReturn("42");
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> ExecutionTreeUtil.buildExecutionTree(executionEntity));
+    verify(executionEntity).getParent();
+    verify(executionEntity, atLeast(1)).getParentId();
   }
 
   /**
-   * Test {@link ExecutionTreeUtil#collectChildExecutions(ExecutionEntity, List)}.
-   * <ul>
-   *   <li>Given {@code null}.</li>
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionTreeUtil#collectChildExecutions(ExecutionEntity, List)}
+   * Method under test:
+   * {@link ExecutionTreeUtil#collectChildExecutions(ExecutionEntity, List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecutionTreeUtil.collectChildExecutions(ExecutionEntity, List)"})
-  public void testCollectChildExecutions_givenNull_thenArrayListEmpty() {
+  public void testCollectChildExecutions() {
     // Arrange
     ExecutionEntityImpl rootExecutionEntity = mock(ExecutionEntityImpl.class);
     when(rootExecutionEntity.getExecutions()).thenReturn(new ArrayList<>());
@@ -135,17 +107,11 @@ public class ExecutionTreeUtilDiffblueTest {
   }
 
   /**
-   * Test {@link ExecutionTreeUtil#collectChildExecutions(ExecutionEntity, List)}.
-   * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionTreeUtil#collectChildExecutions(ExecutionEntity, List)}
+   * Method under test:
+   * {@link ExecutionTreeUtil#collectChildExecutions(ExecutionEntity, List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecutionTreeUtil.collectChildExecutions(ExecutionEntity, List)"})
-  public void testCollectChildExecutions_thenArrayListSizeIsOne() {
+  public void testCollectChildExecutions2() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
     when(executionEntityImpl.getExecutions()).thenReturn(new ArrayList<>());
@@ -170,17 +136,11 @@ public class ExecutionTreeUtilDiffblueTest {
   }
 
   /**
-   * Test {@link ExecutionTreeUtil#collectChildExecutions(ExecutionEntity, List)}.
-   * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionTreeUtil#collectChildExecutions(ExecutionEntity, List)}
+   * Method under test:
+   * {@link ExecutionTreeUtil#collectChildExecutions(ExecutionEntity, List)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecutionTreeUtil.collectChildExecutions(ExecutionEntity, List)"})
-  public void testCollectChildExecutions_thenArrayListSizeIsTwo() {
+  public void testCollectChildExecutions3() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
     when(executionEntityImpl.getExecutions()).thenReturn(new ArrayList<>());
@@ -213,17 +173,26 @@ public class ExecutionTreeUtilDiffblueTest {
   }
 
   /**
-   * Test {@link ExecutionTreeUtil#buildExecutionTreeForProcessInstance(Collection)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionTreeUtil#buildExecutionTreeForProcessInstance(Collection)}
+   * Method under test:
+   * {@link ExecutionTreeUtil#buildExecutionTreeForProcessInstance(Collection)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionTree ExecutionTreeUtil.buildExecutionTreeForProcessInstance(Collection)"})
-  public void testBuildExecutionTreeForProcessInstance_thenThrowActivitiException() {
+  public void testBuildExecutionTreeForProcessInstance() {
+    // Arrange and Act
+    ExecutionTree actualBuildExecutionTreeForProcessInstanceResult = ExecutionTreeUtil
+        .buildExecutionTreeForProcessInstance(new ArrayList<>());
+
+    // Assert
+    assertTrue(actualBuildExecutionTreeForProcessInstanceResult.iterator() instanceof ExecutionTreeBfsIterator);
+    assertNull(actualBuildExecutionTreeForProcessInstanceResult.getRoot());
+  }
+
+  /**
+   * Method under test:
+   * {@link ExecutionTreeUtil#buildExecutionTreeForProcessInstance(Collection)}
+   */
+  @Test
+  public void testBuildExecutionTreeForProcessInstance2() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
         .createWithEmptyRelationshipCollections();
@@ -237,40 +206,11 @@ public class ExecutionTreeUtilDiffblueTest {
   }
 
   /**
-   * Test {@link ExecutionTreeUtil#buildExecutionTreeForProcessInstance(Collection)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return Root is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionTreeUtil#buildExecutionTreeForProcessInstance(Collection)}
+   * Method under test:
+   * {@link ExecutionTreeUtil#fillExecutionTree(ExecutionTree, Map)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ExecutionTree ExecutionTreeUtil.buildExecutionTreeForProcessInstance(Collection)"})
-  public void testBuildExecutionTreeForProcessInstance_whenArrayList_thenReturnRootIsNull() {
-    // Arrange and Act
-    ExecutionTree actualBuildExecutionTreeForProcessInstanceResult = ExecutionTreeUtil
-        .buildExecutionTreeForProcessInstance(new ArrayList<>());
-
-    // Assert
-    assertTrue(actualBuildExecutionTreeForProcessInstanceResult.iterator() instanceof ExecutionTreeBfsIterator);
-    assertNull(actualBuildExecutionTreeForProcessInstanceResult.getRoot());
-  }
-
-  /**
-   * Test {@link ExecutionTreeUtil#fillExecutionTree(ExecutionTree, Map)}.
-   * <ul>
-   *   <li>When {@link ExecutionTree} (default constructor).</li>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionTreeUtil#fillExecutionTree(ExecutionTree, Map)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ExecutionTreeUtil.fillExecutionTree(ExecutionTree, Map)"})
-  public void testFillExecutionTree_whenExecutionTree_thenThrowActivitiException() {
+  public void testFillExecutionTree() {
     // Arrange
     ExecutionTree executionTree = new ExecutionTree();
 

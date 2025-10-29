@@ -16,34 +16,25 @@
 package org.activiti.bpmn.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import javax.xml.stream.XMLStreamWriter;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.ThrowEvent;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ThrowEventXMLConverterDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ThrowEventXMLConverter}
-   *   <li>{@link ThrowEventXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
+   *   <li>
+   * {@link ThrowEventXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
    *   <li>{@link ThrowEventXMLConverter#getBpmnElementType()}
    *   <li>{@link ThrowEventXMLConverter#getXMLElementName()}
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ThrowEventXMLConverter.<init>()", "Class ThrowEventXMLConverter.getBpmnElementType()",
-      "java.lang.String ThrowEventXMLConverter.getXMLElementName()",
-      "void ThrowEventXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)"})
   void testGettersAndSetters() throws Exception {
     // Arrange and Act
     ThrowEventXMLConverter actualThrowEventXMLConverter = new ThrowEventXMLConverter();
@@ -52,7 +43,7 @@ class ThrowEventXMLConverterDiffblueTest {
     actualThrowEventXMLConverter.writeAdditionalAttributes(element, model, new IndentingXMLStreamWriter(null));
     Class<? extends BaseElement> actualBpmnElementType = actualThrowEventXMLConverter.getBpmnElementType();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("intermediateThrowEvent", actualThrowEventXMLConverter.getXMLElementName());
     Class<ThrowEvent> expectedBpmnElementType = ThrowEvent.class;
     assertEquals(expectedBpmnElementType, actualBpmnElementType);

@@ -20,8 +20,6 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.cfg.CommandExecutorImpl;
 import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandConfig;
@@ -29,8 +27,8 @@ import org.activiti.engine.impl.interceptor.CommandExecutor;
 import org.activiti.engine.impl.interceptor.CommandInterceptor;
 import org.activiti.engine.impl.persistence.entity.integration.IntegrationContextEntity;
 import org.activiti.engine.impl.persistence.entity.integration.IntegrationContextEntityImpl;
+import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -46,13 +44,9 @@ public class IntegrationContextServiceImplDiffblueTest {
   private IntegrationContextServiceImpl integrationContextServiceImpl;
 
   /**
-   * Test {@link IntegrationContextServiceImpl#findById(String)}.
-   * <p>
    * Method under test: {@link IntegrationContextServiceImpl#findById(String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"IntegrationContextEntity IntegrationContextServiceImpl.findById(String)"})
   public void testFindById() {
     // Arrange
     IntegrationContextEntityImpl integrationContextEntityImpl = new IntegrationContextEntityImpl();
@@ -68,23 +62,16 @@ public class IntegrationContextServiceImplDiffblueTest {
   }
 
   /**
-   * Test {@link IntegrationContextServiceImpl#deleteIntegrationContext(IntegrationContextEntity)}.
-   * <ul>
-   *   <li>Then calls {@link CommandInterceptor#execute(CommandConfig, Command)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link IntegrationContextServiceImpl#deleteIntegrationContext(IntegrationContextEntity)}
+   * Method under test:
+   * {@link IntegrationContextServiceImpl#deleteIntegrationContext(IntegrationContextEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void IntegrationContextServiceImpl.deleteIntegrationContext(IntegrationContextEntity)"})
-  public void testDeleteIntegrationContext_thenCallsExecute() {
+  public void testDeleteIntegrationContext() {
     // Arrange
     CommandInterceptor first = mock(CommandInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<IntegrationContextEntity>>any()))
-        .thenReturn(new IntegrationContextEntityImpl());
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(JSONObject.NULL);
     IntegrationContextServiceImpl integrationContextServiceImpl = new IntegrationContextServiceImpl(
-        new CommandExecutorImpl(new CommandConfig(), first));
+        new CommandExecutorImpl(mock(CommandConfig.class), first));
 
     // Act
     integrationContextServiceImpl.deleteIntegrationContext(new IntegrationContextEntityImpl());

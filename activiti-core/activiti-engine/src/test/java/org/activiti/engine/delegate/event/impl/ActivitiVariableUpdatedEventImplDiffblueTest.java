@@ -18,22 +18,36 @@ package org.activiti.engine.delegate.event.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ActivitiVariableUpdatedEventImplDiffblueTest {
   /**
-   * Test new {@link ActivitiVariableUpdatedEventImpl} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link ActivitiVariableUpdatedEventImpl}
+   * Methods under test:
+   * <ul>
+   *   <li>{@link ActivitiVariableUpdatedEventImpl#setVariablePreviousValue(Object)}
+   *   <li>{@link ActivitiVariableUpdatedEventImpl#getVariablePreviousValue()}
+   * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiVariableUpdatedEventImpl.<init>()"})
+  public void testGettersAndSetters() {
+    // Arrange
+    ActivitiVariableUpdatedEventImpl activitiVariableUpdatedEventImpl = new ActivitiVariableUpdatedEventImpl();
+    Object object = JSONObject.NULL;
+
+    // Act
+    activitiVariableUpdatedEventImpl.setVariablePreviousValue(object);
+
+    // Assert that nothing has changed
+    assertSame(object, activitiVariableUpdatedEventImpl.getVariablePreviousValue());
+  }
+
+  /**
+   * Method under test: default or parameterless constructor of
+   * {@link ActivitiVariableUpdatedEventImpl}
+   */
+  @Test
   public void testNewActivitiVariableUpdatedEventImpl() {
     // Arrange and Act
     ActivitiVariableUpdatedEventImpl actualActivitiVariableUpdatedEventImpl = new ActivitiVariableUpdatedEventImpl();
@@ -49,30 +63,5 @@ public class ActivitiVariableUpdatedEventImplDiffblueTest {
     assertNull(actualActivitiVariableUpdatedEventImpl.getVariableName());
     assertNull(actualActivitiVariableUpdatedEventImpl.getVariableType());
     assertEquals(ActivitiEventType.VARIABLE_UPDATED, actualActivitiVariableUpdatedEventImpl.getType());
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link ActivitiVariableUpdatedEventImpl#setVariablePreviousValue(Object)}
-   *   <li>{@link ActivitiVariableUpdatedEventImpl#getVariablePreviousValue()}
-   * </ul>
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object ActivitiVariableUpdatedEventImpl.getVariablePreviousValue()",
-      "void ActivitiVariableUpdatedEventImpl.setVariablePreviousValue(Object)"})
-  public void testGettersAndSetters() {
-    // Arrange
-    ActivitiVariableUpdatedEventImpl activitiVariableUpdatedEventImpl = new ActivitiVariableUpdatedEventImpl();
-    Object object = JSONObject.NULL;
-
-    // Act
-    activitiVariableUpdatedEventImpl.setVariablePreviousValue(object);
-
-    // Assert
-    assertSame(object, activitiVariableUpdatedEventImpl.getVariablePreviousValue());
   }
 }

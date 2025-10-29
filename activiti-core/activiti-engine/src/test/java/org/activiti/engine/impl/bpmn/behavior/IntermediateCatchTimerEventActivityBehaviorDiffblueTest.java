@@ -18,22 +18,23 @@ package org.activiti.engine.impl.bpmn.behavior;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.BiFunction;
+import org.activiti.bpmn.model.ExtensionElement;
 import org.activiti.bpmn.model.TimerEventDefinition;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class IntermediateCatchTimerEventActivityBehaviorDiffblueTest {
   /**
-   * Test {@link IntermediateCatchTimerEventActivityBehavior#IntermediateCatchTimerEventActivityBehavior(TimerEventDefinition)}.
-   * <p>
-   * Method under test: {@link IntermediateCatchTimerEventActivityBehavior#IntermediateCatchTimerEventActivityBehavior(TimerEventDefinition)}
+   * Method under test:
+   * {@link IntermediateCatchTimerEventActivityBehavior#IntermediateCatchTimerEventActivityBehavior(TimerEventDefinition)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void IntermediateCatchTimerEventActivityBehavior.<init>(TimerEventDefinition)"})
   public void testNewIntermediateCatchTimerEventActivityBehavior() {
     // Arrange and Act
     IntermediateCatchTimerEventActivityBehavior actualIntermediateCatchTimerEventActivityBehavior = new IntermediateCatchTimerEventActivityBehavior(
@@ -54,5 +55,41 @@ public class IntermediateCatchTimerEventActivityBehaviorDiffblueTest {
     assertFalse(actualIntermediateCatchTimerEventActivityBehavior.hasMultiInstanceCharacteristics());
     assertTrue(timerEventDefinition.getAttributes().isEmpty());
     assertTrue(timerEventDefinition.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link IntermediateCatchTimerEventActivityBehavior#IntermediateCatchTimerEventActivityBehavior(TimerEventDefinition)}
+   */
+  @Test
+  public void testNewIntermediateCatchTimerEventActivityBehavior2() {
+    // Arrange
+    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
+    extensionElements.computeIfPresent("foo", mock(BiFunction.class));
+
+    TimerEventDefinition timerEventDefinition = new TimerEventDefinition();
+    timerEventDefinition.setExtensionElements(extensionElements);
+
+    // Act
+    IntermediateCatchTimerEventActivityBehavior actualIntermediateCatchTimerEventActivityBehavior = new IntermediateCatchTimerEventActivityBehavior(
+        timerEventDefinition);
+
+    // Assert
+    TimerEventDefinition timerEventDefinition2 = actualIntermediateCatchTimerEventActivityBehavior.timerEventDefinition;
+    assertNull(timerEventDefinition2.getId());
+    assertNull(timerEventDefinition2.getCalendarName());
+    assertNull(timerEventDefinition2.getEndDate());
+    assertNull(timerEventDefinition2.getTimeCycle());
+    assertNull(timerEventDefinition2.getTimeDate());
+    assertNull(timerEventDefinition2.getTimeDuration());
+    assertNull(actualIntermediateCatchTimerEventActivityBehavior.getMultiInstanceActivityBehavior());
+    assertEquals(0, timerEventDefinition2.getXmlColumnNumber());
+    assertEquals(0, timerEventDefinition2.getXmlRowNumber());
+    assertFalse(actualIntermediateCatchTimerEventActivityBehavior.hasLoopCharacteristics());
+    assertFalse(actualIntermediateCatchTimerEventActivityBehavior.hasMultiInstanceCharacteristics());
+    assertTrue(timerEventDefinition2.getAttributes().isEmpty());
+    Map<String, List<ExtensionElement>> extensionElements2 = timerEventDefinition2.getExtensionElements();
+    assertTrue(extensionElements2.isEmpty());
+    assertSame(extensionElements, extensionElements2);
   }
 }

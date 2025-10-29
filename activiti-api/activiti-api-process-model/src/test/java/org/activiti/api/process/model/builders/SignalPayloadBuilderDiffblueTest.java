@@ -18,28 +18,19 @@ package org.activiti.api.process.model.builders;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BiFunction;
 import org.activiti.api.process.model.payloads.SignalPayload;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class SignalPayloadBuilderDiffblueTest {
   /**
-   * Test {@link SignalPayloadBuilder#withVariable(String, Object)}.
-   * <ul>
-   *   <li>Given signal.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SignalPayloadBuilder#withVariable(String, Object)}
    */
   @Test
-  @DisplayName("Test withVariable(String, Object); given signal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"SignalPayloadBuilder SignalPayloadBuilder.withVariable(String, Object)"})
-  void testWithVariable_givenSignal() {
+  void testWithVariable() {
     // Arrange
     SignalPayloadBuilder signalResult = ProcessPayloadBuilder.signal();
 
@@ -48,18 +39,10 @@ class SignalPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link SignalPayloadBuilder#withVariable(String, Object)}.
-   * <ul>
-   *   <li>Given signal withVariables {@link HashMap#HashMap()}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SignalPayloadBuilder#withVariable(String, Object)}
    */
   @Test
-  @DisplayName("Test withVariable(String, Object); given signal withVariables HashMap()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"SignalPayloadBuilder SignalPayloadBuilder.withVariable(String, Object)"})
-  void testWithVariable_givenSignalWithVariablesHashMap() {
+  void testWithVariable2() {
     // Arrange
     SignalPayloadBuilder signalResult = ProcessPayloadBuilder.signal();
     signalResult.withVariables(new HashMap<>());
@@ -69,8 +52,21 @@ class SignalPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link SignalPayloadBuilder#build()}.
-   * <p>
+   * Method under test: {@link SignalPayloadBuilder#withVariable(String, Object)}
+   */
+  @Test
+  void testWithVariable3() {
+    // Arrange
+    HashMap<String, Object> variables = new HashMap<>();
+    variables.computeIfPresent("foo", mock(BiFunction.class));
+    SignalPayloadBuilder signalResult = ProcessPayloadBuilder.signal();
+    signalResult.withVariables(variables);
+
+    // Act and Assert
+    assertSame(signalResult, signalResult.withVariable("Name", "Value"));
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>{@link SignalPayloadBuilder#build()}
@@ -80,11 +76,6 @@ class SignalPayloadBuilderDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test build()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void SignalPayloadBuilder.<init>()", "SignalPayload SignalPayloadBuilder.build()",
-      "SignalPayloadBuilder SignalPayloadBuilder.withName(String)",
-      "SignalPayloadBuilder SignalPayloadBuilder.withVariables(Map)"})
   void testBuild() {
     // Arrange
     SignalPayloadBuilder withVariableResult = (new SignalPayloadBuilder()).withName("Name")

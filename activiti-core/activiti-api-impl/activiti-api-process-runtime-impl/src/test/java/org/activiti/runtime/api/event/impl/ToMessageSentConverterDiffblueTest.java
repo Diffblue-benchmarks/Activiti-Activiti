@@ -18,34 +18,24 @@ package org.activiti.runtime.api.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Optional;
+import org.activiti.api.process.model.BPMNMessage;
 import org.activiti.api.process.model.events.BPMNMessageEvent;
-import org.activiti.api.process.model.events.BPMNMessageEvent.MessageEvents;
 import org.activiti.api.process.model.events.BPMNMessageSentEvent;
+import org.activiti.api.process.model.payloads.MessageEventPayload;
 import org.activiti.api.runtime.event.impl.BPMNMessageSentEventImpl;
 import org.activiti.api.runtime.model.impl.BPMNMessageImpl;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.delegate.event.ActivitiMessageEvent;
 import org.activiti.engine.delegate.event.impl.ActivitiMessageEventImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ToMessageSentConverterDiffblueTest {
   /**
-   * Test {@link ToMessageSentConverter#from(ActivitiMessageEvent)} with {@code ActivitiMessageEvent}.
-   * <ul>
-   *   <li>Then {@link Optional#get()} return {@link BPMNMessageSentEventImpl}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ToMessageSentConverter#from(ActivitiMessageEvent)}
    */
   @Test
-  @DisplayName("Test from(ActivitiMessageEvent) with 'ActivitiMessageEvent'; then get() return BPMNMessageSentEventImpl")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Optional ToMessageSentConverter.from(ActivitiMessageEvent)"})
-  void testFromWithActivitiMessageEvent_thenGetReturnBPMNMessageSentEventImpl() {
+  void testFrom() {
     // Arrange
     ToMessageSentConverter toMessageSentConverter = new ToMessageSentConverter(new BPMNMessageConverter());
 
@@ -56,14 +46,23 @@ class ToMessageSentConverterDiffblueTest {
     // Assert
     BPMNMessageSentEvent getResult = actualFromResult.get();
     assertTrue(getResult instanceof BPMNMessageSentEventImpl);
-    assertTrue(getResult.getEntity() instanceof BPMNMessageImpl);
+    BPMNMessage entity = getResult.getEntity();
+    assertTrue(entity instanceof BPMNMessageImpl);
     assertNull(getResult.getProcessDefinitionVersion());
     assertNull(getResult.getBusinessKey());
     assertNull(getResult.getParentProcessInstanceId());
     assertNull(getResult.getProcessDefinitionId());
     assertNull(getResult.getProcessDefinitionKey());
     assertNull(getResult.getProcessInstanceId());
-    assertEquals(MessageEvents.MESSAGE_SENT, getResult.getEventType());
+    assertNull(entity.getElementId());
+    assertNull(entity.getProcessDefinitionId());
+    assertNull(entity.getProcessInstanceId());
+    MessageEventPayload messagePayload = entity.getMessagePayload();
+    assertNull(messagePayload.getBusinessKey());
+    assertNull(messagePayload.getCorrelationKey());
+    assertNull(messagePayload.getName());
+    assertNull(messagePayload.getVariables());
+    assertEquals(BPMNMessageEvent.MessageEvents.MESSAGE_SENT, getResult.getEventType());
     assertTrue(actualFromResult.isPresent());
   }
 }

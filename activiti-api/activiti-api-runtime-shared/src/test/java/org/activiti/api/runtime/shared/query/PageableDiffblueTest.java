@@ -18,57 +18,10 @@ package org.activiti.api.runtime.shared.query;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.activiti.api.runtime.shared.query.Order.Direction;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PageableDiffblueTest {
   /**
-   * Test {@link Pageable#of(int, int)} with {@code startIndex}, {@code maxItems}.
-   * <p>
-   * Method under test: {@link Pageable#of(int, int)}
-   */
-  @Test
-  @DisplayName("Test of(int, int) with 'startIndex', 'maxItems'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Pageable Pageable.of(int, int)"})
-  void testOfWithStartIndexMaxItems() {
-    // Arrange and Act
-    Pageable actualOfResult = Pageable.of(1, 3);
-
-    // Assert
-    assertNull(actualOfResult.getOrder());
-    assertEquals(1, actualOfResult.getStartIndex());
-    assertEquals(3, actualOfResult.getMaxItems());
-  }
-
-  /**
-   * Test {@link Pageable#of(int, int, Order)} with {@code startIndex}, {@code maxItems}, {@code order}.
-   * <p>
-   * Method under test: {@link Pageable#of(int, int, Order)}
-   */
-  @Test
-  @DisplayName("Test of(int, int, Order) with 'startIndex', 'maxItems', 'order'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Pageable Pageable.of(int, int, Order)"})
-  void testOfWithStartIndexMaxItemsOrder() {
-    // Arrange
-    Order order = Order.by("Property", Direction.ASC);
-
-    // Act
-    Pageable actualOfResult = Pageable.of(1, 3, order);
-
-    // Assert
-    assertEquals(1, actualOfResult.getStartIndex());
-    assertEquals(3, actualOfResult.getMaxItems());
-    assertSame(order, actualOfResult.getOrder());
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link Pageable#getMaxItems()}
@@ -77,9 +30,6 @@ class PageableDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"int Pageable.getMaxItems()", "Order Pageable.getOrder()", "int Pageable.getStartIndex()"})
   void testGettersAndSetters() {
     // Arrange
     Pageable ofResult = Pageable.of(1, 3);
@@ -92,5 +42,36 @@ class PageableDiffblueTest {
     assertNull(actualOrder);
     assertEquals(1, ofResult.getStartIndex());
     assertEquals(3, actualMaxItems);
+  }
+
+  /**
+   * Method under test: {@link Pageable#of(int, int)}
+   */
+  @Test
+  void testOf() {
+    // Arrange and Act
+    Pageable actualOfResult = Pageable.of(1, 3);
+
+    // Assert
+    assertNull(actualOfResult.getOrder());
+    assertEquals(1, actualOfResult.getStartIndex());
+    assertEquals(3, actualOfResult.getMaxItems());
+  }
+
+  /**
+   * Method under test: {@link Pageable#of(int, int, Order)}
+   */
+  @Test
+  void testOf2() {
+    // Arrange
+    Order order = Order.by("Property", Order.Direction.ASC);
+
+    // Act
+    Pageable actualOfResult = Pageable.of(1, 3, order);
+
+    // Assert
+    assertEquals(1, actualOfResult.getStartIndex());
+    assertEquals(3, actualOfResult.getMaxItems());
+    assertSame(order, actualOfResult.getOrder());
   }
 }

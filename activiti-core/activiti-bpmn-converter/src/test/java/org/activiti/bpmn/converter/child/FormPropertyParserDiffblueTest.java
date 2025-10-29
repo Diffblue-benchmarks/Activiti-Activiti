@@ -18,30 +18,18 @@ package org.activiti.bpmn.converter.child;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.StartEvent;
 import org.activiti.bpmn.model.UserTask;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class FormPropertyParserDiffblueTest {
   /**
-   * Test {@link FormPropertyParser#accepts(BaseElement)}.
-   * <ul>
-   *   <li>When {@link ActivitiListener} (default constructor).</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link FormPropertyParser#accepts(BaseElement)}
    */
   @Test
-  @DisplayName("Test accepts(BaseElement); when ActivitiListener (default constructor); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean FormPropertyParser.accepts(BaseElement)"})
-  void testAccepts_whenActivitiListener_thenReturnFalse() {
+  void testAccepts() {
     // Arrange
     FormPropertyParser formPropertyParser = new FormPropertyParser();
 
@@ -50,40 +38,10 @@ class FormPropertyParserDiffblueTest {
   }
 
   /**
-   * Test {@link FormPropertyParser#accepts(BaseElement)}.
-   * <ul>
-   *   <li>When {@link StartEvent} (default constructor).</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link FormPropertyParser#accepts(BaseElement)}
    */
   @Test
-  @DisplayName("Test accepts(BaseElement); when StartEvent (default constructor); then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean FormPropertyParser.accepts(BaseElement)"})
-  void testAccepts_whenStartEvent_thenReturnTrue() {
-    // Arrange
-    FormPropertyParser formPropertyParser = new FormPropertyParser();
-
-    // Act and Assert
-    assertTrue(formPropertyParser.accepts(new StartEvent()));
-  }
-
-  /**
-   * Test {@link FormPropertyParser#accepts(BaseElement)}.
-   * <ul>
-   *   <li>When {@link UserTask} (default constructor).</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FormPropertyParser#accepts(BaseElement)}
-   */
-  @Test
-  @DisplayName("Test accepts(BaseElement); when UserTask (default constructor); then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean FormPropertyParser.accepts(BaseElement)"})
-  void testAccepts_whenUserTask_thenReturnTrue() {
+  void testAccepts2() {
     // Arrange
     FormPropertyParser formPropertyParser = new FormPropertyParser();
 
@@ -92,8 +50,18 @@ class FormPropertyParserDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link FormPropertyParser#accepts(BaseElement)}
+   */
+  @Test
+  void testAccepts3() {
+    // Arrange
+    FormPropertyParser formPropertyParser = new FormPropertyParser();
+
+    // Act and Assert
+    assertTrue(formPropertyParser.accepts(new StartEvent()));
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link FormPropertyParser}
@@ -101,9 +69,6 @@ class FormPropertyParserDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void FormPropertyParser.<init>()", "java.lang.String FormPropertyParser.getElementName()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals("formProperty", (new FormPropertyParser()).getElementName());

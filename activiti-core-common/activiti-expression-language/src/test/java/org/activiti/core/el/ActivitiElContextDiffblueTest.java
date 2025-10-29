@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELResolver;
 import jakarta.el.FunctionMapper;
 import jakarta.el.ValueExpression;
@@ -30,93 +29,14 @@ import java.lang.reflect.Method;
 import java.util.Map;
 import org.activiti.core.el.juel.ObjectValueExpression;
 import org.activiti.core.el.juel.misc.TypeConverter;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ActivitiElContextDiffblueTest {
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>Then return ELResolver is {@link JsonNodeELResolver#JsonNodeELResolver()}.</li>
-   * </ul>
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link ActivitiElContext#ActivitiElContext(ELResolver)}
-   *   <li>{@link ActivitiElContext#getELResolver()}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test getters and setters; then return ELResolver is JsonNodeELResolver()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ActivitiElContext.<init>()", "void ActivitiElContext.<init>(ELResolver)",
-      "ELResolver ActivitiElContext.getELResolver()"})
-  void testGettersAndSetters_thenReturnELResolverIsJsonNodeELResolver() {
-    // Arrange
-    JsonNodeELResolver elResolver = new JsonNodeELResolver();
-
-    // Act
-    ActivitiElContext actualActivitiElContext = new ActivitiElContext(elResolver);
-    ELResolver actualELResolver = actualActivitiElContext.getELResolver();
-
-    // Assert
-    FunctionMapper functionMapper = actualActivitiElContext.getFunctionMapper();
-    assertTrue(functionMapper instanceof ActivitiFunctionMapper);
-    assertTrue(actualActivitiElContext.getVariableMapper() instanceof ActivitiVariablesMapper);
-    assertNull(actualActivitiElContext.getEvaluationListeners());
-    assertNull(actualActivitiElContext.getLocale());
-    assertFalse(actualActivitiElContext.isPropertyResolved());
-    assertTrue(((ActivitiFunctionMapper) functionMapper).map.isEmpty());
-    assertSame(elResolver, actualELResolver);
-  }
-
-  /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>Then return ELResolver is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link ActivitiElContext#ActivitiElContext()}
-   *   <li>{@link ActivitiElContext#getELResolver()}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test getters and setters; then return ELResolver is 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ActivitiElContext.<init>()", "void ActivitiElContext.<init>(ELResolver)",
-      "ELResolver ActivitiElContext.getELResolver()"})
-  void testGettersAndSetters_thenReturnELResolverIsNull() {
-    // Arrange and Act
-    ActivitiElContext actualActivitiElContext = new ActivitiElContext();
-    ELResolver actualELResolver = actualActivitiElContext.getELResolver();
-
-    // Assert
-    FunctionMapper functionMapper = actualActivitiElContext.getFunctionMapper();
-    assertTrue(functionMapper instanceof ActivitiFunctionMapper);
-    assertTrue(actualActivitiElContext.getVariableMapper() instanceof ActivitiVariablesMapper);
-    assertNull(actualELResolver);
-    assertNull(actualActivitiElContext.getEvaluationListeners());
-    assertNull(actualActivitiElContext.getLocale());
-    assertFalse(actualActivitiElContext.isPropertyResolved());
-    assertTrue(((ActivitiFunctionMapper) functionMapper).map.isEmpty());
-  }
-
-  /**
-   * Test {@link ActivitiElContext#getFunctionMapper()}.
-   * <ul>
-   *   <li>Then return {@link ActivitiFunctionMapper#map} Empty.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ActivitiElContext#getFunctionMapper()}
    */
   @Test
-  @DisplayName("Test getFunctionMapper(); then return map Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"FunctionMapper ActivitiElContext.getFunctionMapper()"})
-  void testGetFunctionMapper_thenReturnMapEmpty() {
+  void testGetFunctionMapper() {
     // Arrange
     ActivitiElContext activitiElContext = new ActivitiElContext();
 
@@ -132,18 +52,10 @@ class ActivitiElContextDiffblueTest {
   }
 
   /**
-   * Test {@link ActivitiElContext#getFunctionMapper()}.
-   * <ul>
-   *   <li>Then return {@link ActivitiFunctionMapper#map} size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ActivitiElContext#getFunctionMapper()}
    */
   @Test
-  @DisplayName("Test getFunctionMapper(); then return map size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"FunctionMapper ActivitiElContext.getFunctionMapper()"})
-  void testGetFunctionMapper_thenReturnMapSizeIsOne() {
+  void testGetFunctionMapper2() {
     // Arrange
     ActivitiElContext activitiElContext = new ActivitiElContext();
     activitiElContext.setFunction("Prefix", "Local Name", null);
@@ -162,19 +74,34 @@ class ActivitiElContextDiffblueTest {
   }
 
   /**
-   * Test {@link ActivitiElContext#getVariableMapper()}.
-   * <ul>
-   *   <li>Given {@link ActivitiElContext#ActivitiElContext()}.</li>
-   *   <li>Then return {@link ActivitiVariablesMapper#map} Empty.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link ActivitiElContext#getFunctionMapper()}
+   */
+  @Test
+  void testGetFunctionMapper3() {
+    // Arrange
+    ActivitiElContext activitiElContext = new ActivitiElContext();
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    activitiElContext.setVariable("Name", new ObjectValueExpression(converter, "Object", type));
+
+    // Act
+    FunctionMapper actualFunctionMapper = activitiElContext.getFunctionMapper();
+
+    // Assert
+    assertTrue(actualFunctionMapper instanceof ActivitiFunctionMapper);
+    VariableMapper variableMapper = activitiElContext.getVariableMapper();
+    assertTrue(variableMapper instanceof ActivitiVariablesMapper);
+    Map<String, ValueExpression> stringValueExpressionMap = ((ActivitiVariablesMapper) variableMapper).map;
+    assertEquals(1, stringValueExpressionMap.size());
+    assertTrue(stringValueExpressionMap.containsKey("Name"));
+    assertTrue(((ActivitiFunctionMapper) actualFunctionMapper).map.isEmpty());
+  }
+
+  /**
    * Method under test: {@link ActivitiElContext#getVariableMapper()}
    */
   @Test
-  @DisplayName("Test getVariableMapper(); given ActivitiElContext(); then return map Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"VariableMapper ActivitiElContext.getVariableMapper()"})
-  void testGetVariableMapper_givenActivitiElContext_thenReturnMapEmpty() {
+  void testGetVariableMapper() {
     // Arrange
     ActivitiElContext activitiElContext = new ActivitiElContext();
 
@@ -190,19 +117,10 @@ class ActivitiElContextDiffblueTest {
   }
 
   /**
-   * Test {@link ActivitiElContext#getVariableMapper()}.
-   * <ul>
-   *   <li>Given {@code Object}.</li>
-   *   <li>Then return {@link ActivitiVariablesMapper#map} size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ActivitiElContext#getVariableMapper()}
    */
   @Test
-  @DisplayName("Test getVariableMapper(); given 'java.lang.Object'; then return map size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"VariableMapper ActivitiElContext.getVariableMapper()"})
-  void testGetVariableMapper_givenJavaLangObject_thenReturnMapSizeIsOne() {
+  void testGetVariableMapper2() {
     // Arrange
     ActivitiElContext activitiElContext = new ActivitiElContext();
     TypeConverter converter = mock(TypeConverter.class);
@@ -225,14 +143,10 @@ class ActivitiElContextDiffblueTest {
   }
 
   /**
-   * Test {@link ActivitiElContext#setFunction(String, String, Method)}.
-   * <p>
-   * Method under test: {@link ActivitiElContext#setFunction(String, String, Method)}
+   * Method under test:
+   * {@link ActivitiElContext#setFunction(String, String, Method)}
    */
   @Test
-  @DisplayName("Test setFunction(String, String, Method)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ActivitiElContext.setFunction(String, String, Method)"})
   void testSetFunction() {
     // Arrange
     ActivitiElContext activitiElContext = new ActivitiElContext();
@@ -252,14 +166,38 @@ class ActivitiElContextDiffblueTest {
   }
 
   /**
-   * Test {@link ActivitiElContext#setVariable(String, ValueExpression)}.
-   * <p>
-   * Method under test: {@link ActivitiElContext#setVariable(String, ValueExpression)}
+   * Method under test:
+   * {@link ActivitiElContext#setFunction(String, String, Method)}
    */
   @Test
-  @DisplayName("Test setVariable(String, ValueExpression)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ValueExpression ActivitiElContext.setVariable(String, ValueExpression)"})
+  void testSetFunction2() {
+    // Arrange
+    ActivitiElContext activitiElContext = new ActivitiElContext();
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    activitiElContext.setVariable("Name", new ObjectValueExpression(converter, "Object", type));
+
+    // Act
+    activitiElContext.setFunction("Prefix", "Local Name", null);
+
+    // Assert
+    FunctionMapper functionMapper = activitiElContext.getFunctionMapper();
+    assertTrue(functionMapper instanceof ActivitiFunctionMapper);
+    VariableMapper variableMapper = activitiElContext.getVariableMapper();
+    assertTrue(variableMapper instanceof ActivitiVariablesMapper);
+    Map<String, Method> stringMethodMap = ((ActivitiFunctionMapper) functionMapper).map;
+    assertEquals(1, stringMethodMap.size());
+    assertNull(stringMethodMap.get("Prefix:Local Name"));
+    Map<String, ValueExpression> stringValueExpressionMap = ((ActivitiVariablesMapper) variableMapper).map;
+    assertEquals(1, stringValueExpressionMap.size());
+    assertTrue(stringValueExpressionMap.containsKey("Name"));
+  }
+
+  /**
+   * Method under test:
+   * {@link ActivitiElContext#setVariable(String, ValueExpression)}
+   */
+  @Test
   void testSetVariable() {
     // Arrange
     ActivitiElContext activitiElContext = new ActivitiElContext();
@@ -277,5 +215,56 @@ class ActivitiElContextDiffblueTest {
     Map<String, ValueExpression> stringValueExpressionMap = ((ActivitiVariablesMapper) variableMapper).map;
     assertEquals(1, stringValueExpressionMap.size());
     assertSame(expression, stringValueExpressionMap.get("Name"));
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>{@link ActivitiElContext#ActivitiElContext()}
+   *   <li>{@link ActivitiElContext#getELResolver()}
+   * </ul>
+   */
+  @Test
+  void testGettersAndSetters() {
+    // Arrange and Act
+    ActivitiElContext actualActivitiElContext = new ActivitiElContext();
+    ELResolver actualELResolver = actualActivitiElContext.getELResolver();
+
+    // Assert
+    FunctionMapper functionMapper = actualActivitiElContext.getFunctionMapper();
+    assertTrue(functionMapper instanceof ActivitiFunctionMapper);
+    assertTrue(actualActivitiElContext.getVariableMapper() instanceof ActivitiVariablesMapper);
+    assertNull(actualELResolver);
+    assertNull(actualActivitiElContext.getEvaluationListeners());
+    assertNull(actualActivitiElContext.getLocale());
+    assertFalse(actualActivitiElContext.isPropertyResolved());
+    assertTrue(((ActivitiFunctionMapper) functionMapper).map.isEmpty());
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>{@link ActivitiElContext#ActivitiElContext(ELResolver)}
+   *   <li>{@link ActivitiElContext#getELResolver()}
+   * </ul>
+   */
+  @Test
+  void testGettersAndSetters2() {
+    // Arrange
+    JsonNodeELResolver elResolver = new JsonNodeELResolver();
+
+    // Act
+    ActivitiElContext actualActivitiElContext = new ActivitiElContext(elResolver);
+    ELResolver actualELResolver = actualActivitiElContext.getELResolver();
+
+    // Assert
+    FunctionMapper functionMapper = actualActivitiElContext.getFunctionMapper();
+    assertTrue(functionMapper instanceof ActivitiFunctionMapper);
+    assertTrue(actualActivitiElContext.getVariableMapper() instanceof ActivitiVariablesMapper);
+    assertNull(actualActivitiElContext.getEvaluationListeners());
+    assertNull(actualActivitiElContext.getLocale());
+    assertFalse(actualActivitiElContext.isPropertyResolved());
+    assertTrue(((ActivitiFunctionMapper) functionMapper).map.isEmpty());
+    assertSame(elResolver, actualELResolver);
   }
 }

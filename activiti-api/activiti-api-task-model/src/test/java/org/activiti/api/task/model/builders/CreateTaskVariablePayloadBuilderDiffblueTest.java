@@ -18,22 +18,15 @@ package org.activiti.api.task.model.builders;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.task.model.payloads.CreateTaskVariablePayload;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class CreateTaskVariablePayloadBuilderDiffblueTest {
   /**
-   * Test {@link CreateTaskVariablePayloadBuilder#withVariable(String, Object)}.
-   * <p>
-   * Method under test: {@link CreateTaskVariablePayloadBuilder#withVariable(String, Object)}
+   * Method under test:
+   * {@link CreateTaskVariablePayloadBuilder#withVariable(String, Object)}
    */
   @Test
-  @DisplayName("Test withVariable(String, Object)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"CreateTaskVariablePayloadBuilder CreateTaskVariablePayloadBuilder.withVariable(String, Object)"})
   void testWithVariable() {
     // Arrange
     CreateTaskVariablePayloadBuilder createVariableResult = TaskPayloadBuilder.createVariable();
@@ -49,21 +42,15 @@ class CreateTaskVariablePayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link CreateTaskVariablePayloadBuilder#build()}.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link CreateTaskVariablePayloadBuilder#build()}
-   *   <li>default or parameterless constructor of {@link CreateTaskVariablePayloadBuilder}
+   *   <li>default or parameterless constructor of
+   * {@link CreateTaskVariablePayloadBuilder}
    *   <li>{@link CreateTaskVariablePayloadBuilder#withTaskId(String)}
    * </ul>
    */
   @Test
-  @DisplayName("Test build()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void CreateTaskVariablePayloadBuilder.<init>()",
-      "CreateTaskVariablePayload CreateTaskVariablePayloadBuilder.build()",
-      "CreateTaskVariablePayloadBuilder CreateTaskVariablePayloadBuilder.withTaskId(String)"})
   void testBuild() {
     // Arrange and Act
     CreateTaskVariablePayload actualBuildResult = (new CreateTaskVariablePayloadBuilder()).withTaskId("42").build();

@@ -16,20 +16,14 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class SetProcessInstanceNameCmdDiffblueTest {
   /**
-   * Test {@link SetProcessInstanceNameCmd#SetProcessInstanceNameCmd(String, String)}.
-   * <p>
-   * Method under test: {@link SetProcessInstanceNameCmd#SetProcessInstanceNameCmd(String, String)}
+   * Method under test:
+   * {@link SetProcessInstanceNameCmd#SetProcessInstanceNameCmd(String, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SetProcessInstanceNameCmd.<init>(String, String)"})
   public void testNewSetProcessInstanceNameCmd() {
     // Arrange and Act
     SetProcessInstanceNameCmd actualSetProcessInstanceNameCmd = new SetProcessInstanceNameCmd("42", "Name");

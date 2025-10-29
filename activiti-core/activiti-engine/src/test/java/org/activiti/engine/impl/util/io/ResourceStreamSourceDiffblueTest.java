@@ -17,41 +17,23 @@ package org.activiti.engine.impl.util.io;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import groovy.lang.GroovyClassLoader;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ResourceStreamSourceDiffblueTest {
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@link GroovyClassLoader#GroovyClassLoader()}.</li>
-   * </ul>
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link ResourceStreamSource#ResourceStreamSource(String, ClassLoader)}
-   *   <li>{@link ResourceStreamSource#toString()}
-   * </ul>
+   * Method under test: {@link ResourceStreamSource#getInputStream()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ResourceStreamSource.<init>(String)",
-      "void ResourceStreamSource.<init>(String, ClassLoader)", "String ResourceStreamSource.toString()"})
-  public void testGettersAndSetters_whenGroovyClassLoader() {
+  public void testGetInputStream() {
     // Arrange, Act and Assert
-    assertEquals("Resource[Resource]", (new ResourceStreamSource("Resource", new GroovyClassLoader())).toString());
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ResourceStreamSource("Resource")).getInputStream());
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new ResourceStreamSource("Resource", new GroovyClassLoader())).getInputStream());
   }
 
   /**
-   * Test getters and setters.
-   * <ul>
-   *   <li>When {@code Resource}.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link ResourceStreamSource#ResourceStreamSource(String)}
@@ -59,41 +41,9 @@ public class ResourceStreamSourceDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ResourceStreamSource.<init>(String)",
-      "void ResourceStreamSource.<init>(String, ClassLoader)", "String ResourceStreamSource.toString()"})
-  public void testGettersAndSetters_whenResource() {
+  public void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals("Resource[Resource]", (new ResourceStreamSource("Resource")).toString());
-  }
-
-  /**
-   * Test {@link ResourceStreamSource#getInputStream()}.
-   * <p>
-   * Method under test: {@link ResourceStreamSource#getInputStream()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.io.InputStream ResourceStreamSource.getInputStream()"})
-  public void testGetInputStream() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> (new ResourceStreamSource("Resource", new GroovyClassLoader())).getInputStream());
-  }
-
-  /**
-   * Test {@link ResourceStreamSource#getInputStream()}.
-   * <ul>
-   *   <li>Given {@link ResourceStreamSource#ResourceStreamSource(String)} with {@code Resource}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ResourceStreamSource#getInputStream()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"java.io.InputStream ResourceStreamSource.getInputStream()"})
-  public void testGetInputStream_givenResourceStreamSourceWithResource() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ResourceStreamSource("Resource")).getInputStream());
+    assertEquals("Resource[Resource]", (new ResourceStreamSource("Resource", new GroovyClassLoader())).toString());
   }
 }

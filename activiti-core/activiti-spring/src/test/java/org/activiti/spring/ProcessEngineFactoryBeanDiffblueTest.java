@@ -18,15 +18,12 @@ package org.activiti.spring;
 import static org.junit.Assert.assertSame;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.anyBoolean;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
 import org.activiti.engine.ProcessEngine;
@@ -46,19 +43,14 @@ import org.activiti.engine.impl.el.ExpressionManager;
 import org.activiti.engine.impl.interceptor.CommandConfig;
 import org.activiti.engine.impl.interceptor.SessionFactory;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 public class ProcessEngineFactoryBeanDiffblueTest {
   /**
-   * Test {@link ProcessEngineFactoryBean#getObject()}.
-   * <p>
    * Method under test: {@link ProcessEngineFactoryBean#getObject()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"ProcessEngine ProcessEngineFactoryBean.getObject()"})
   public void testGetObject() throws Exception {
     // Arrange
     ProcessEngineLifecycleListener processEngineLifecycleListener = mock(ProcessEngineLifecycleListener.class);
@@ -85,26 +77,16 @@ public class ProcessEngineFactoryBeanDiffblueTest {
     when(processEngineConfiguration.getCommandExecutor()).thenReturn(
         new CommandExecutorImpl(defaultConfig, new SpringTransactionInterceptor(new DataSourceTransactionManager())));
     ProcessEngineImpl processEngineImpl = new ProcessEngineImpl(processEngineConfiguration);
-    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
+    SpringProcessEngineConfiguration processEngineConfiguration2 = mock(SpringProcessEngineConfiguration.class);
+    when(processEngineConfiguration2.setTransactionsExternallyManaged(anyBoolean()))
+        .thenReturn(new SpringProcessEngineConfiguration());
     when(processEngineConfiguration2.getBeans()).thenReturn(new HashMap<>());
     when(processEngineConfiguration2.buildProcessEngine()).thenReturn(processEngineImpl);
     when(processEngineConfiguration2.getExpressionManager()).thenReturn(new ExpressionManager());
-    when(processEngineConfiguration2.setClassLoader(Mockito.<ClassLoader>any()))
-        .thenReturn(new SpringProcessEngineConfiguration());
-    when(processEngineConfiguration2.setDatabaseSchemaUpdate(Mockito.<String>any()))
-        .thenReturn(new SpringProcessEngineConfiguration());
-    when(processEngineConfiguration2.setProcessEngineLifecycleListener(Mockito.<ProcessEngineLifecycleListener>any()))
-        .thenReturn(new SpringProcessEngineConfiguration());
-    when(processEngineConfiguration2.setUsingRelationalDatabase(anyBoolean()))
-        .thenReturn(new SpringProcessEngineConfiguration());
-    processEngineConfiguration2.setClassLoader(null);
-    processEngineConfiguration2.setUsingRelationalDatabase(false);
-    processEngineConfiguration2.setDatabaseSchemaUpdate(null);
-    processEngineConfiguration2.setProcessEngineLifecycleListener(null);
+    when(processEngineConfiguration2.getTransactionManager()).thenReturn(new DataSourceTransactionManager());
 
     ProcessEngineFactoryBean processEngineFactoryBean = new ProcessEngineFactoryBean();
     processEngineFactoryBean.setProcessEngineConfiguration(processEngineConfiguration2);
-    processEngineFactoryBean.setApplicationContext(null);
 
     // Act
     ProcessEngine actualObject = processEngineFactoryBean.getObject();
@@ -113,11 +95,8 @@ public class ProcessEngineFactoryBeanDiffblueTest {
     verify(processEngineConfiguration).getAsyncExecutor();
     verify(processEngineConfiguration, atLeast(1)).getProcessEngineLifecycleListener();
     verify(processEngineConfiguration).getProcessEngineName();
-    verify(processEngineConfiguration2).setClassLoader(isNull());
-    verify(processEngineConfiguration2).setDatabaseSchemaUpdate(isNull());
-    verify(processEngineConfiguration2).setProcessEngineLifecycleListener(isNull());
+    verify(processEngineConfiguration2).setTransactionsExternallyManaged(eq(true));
     verify(processEngineLifecycleListener).onProcessEngineBuilt(isA(ProcessEngine.class));
-    verify(processEngineConfiguration2).buildProcessEngine();
     verify(processEngineConfiguration2).getBeans();
     verify(processEngineConfiguration).getCommandExecutor();
     verify(processEngineConfiguration).getDynamicBpmnService();
@@ -131,7 +110,8 @@ public class ProcessEngineFactoryBeanDiffblueTest {
     verify(processEngineConfiguration).getTaskService();
     verify(processEngineConfiguration).getTransactionContextFactory();
     verify(processEngineConfiguration).isUsingRelationalDatabase();
-    verify(processEngineConfiguration2).setUsingRelationalDatabase(eq(false));
+    verify(processEngineConfiguration2).buildProcessEngine();
+    verify(processEngineConfiguration2).getTransactionManager();
     assertSame(processEngineImpl, actualObject);
   }
 }

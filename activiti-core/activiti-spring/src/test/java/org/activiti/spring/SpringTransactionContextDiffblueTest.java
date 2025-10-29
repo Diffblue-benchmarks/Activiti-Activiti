@@ -22,15 +22,12 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.transaction.SystemException;
 import jakarta.transaction.TransactionManager;
 import java.util.Collection;
 import java.util.List;
 import org.activiti.engine.impl.interceptor.CommandContext;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionExecutionListener;
@@ -38,13 +35,10 @@ import org.springframework.transaction.jta.JtaTransactionManager;
 
 public class SpringTransactionContextDiffblueTest {
   /**
-   * Test {@link SpringTransactionContext#SpringTransactionContext(PlatformTransactionManager, CommandContext)}.
-   * <p>
-   * Method under test: {@link SpringTransactionContext#SpringTransactionContext(PlatformTransactionManager, CommandContext)}
+   * Method under test:
+   * {@link SpringTransactionContext#SpringTransactionContext(PlatformTransactionManager, CommandContext)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SpringTransactionContext.<init>(PlatformTransactionManager, CommandContext)"})
   public void testNewSpringTransactionContext() {
     // Arrange and Act
     SpringTransactionContext actualSpringTransactionContext = new SpringTransactionContext(
@@ -71,13 +65,26 @@ public class SpringTransactionContextDiffblueTest {
   }
 
   /**
-   * Test {@link SpringTransactionContext#SpringTransactionContext(PlatformTransactionManager, CommandContext, Integer)}.
-   * <p>
-   * Method under test: {@link SpringTransactionContext#SpringTransactionContext(PlatformTransactionManager, CommandContext, Integer)}
+   * Method under test: {@link SpringTransactionContext#rollback()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SpringTransactionContext.<init>(PlatformTransactionManager, CommandContext, Integer)"})
+  public void testRollback() throws SystemException {
+    // Arrange
+    TransactionManager transactionManager = mock(TransactionManager.class);
+    when(transactionManager.getStatus()).thenReturn(1);
+
+    // Act
+    (new SpringTransactionContext(new JtaTransactionManager(transactionManager), null)).rollback();
+
+    // Assert
+    verify(transactionManager).getStatus();
+  }
+
+  /**
+   * Method under test:
+   * {@link SpringTransactionContext#SpringTransactionContext(PlatformTransactionManager, CommandContext, Integer)}
+   */
+  @Test
   public void testNewSpringTransactionContext2() {
     // Arrange and Act
     SpringTransactionContext actualSpringTransactionContext = new SpringTransactionContext(
@@ -104,13 +111,10 @@ public class SpringTransactionContextDiffblueTest {
   }
 
   /**
-   * Test {@link SpringTransactionContext#SpringTransactionContext(PlatformTransactionManager, CommandContext, Integer)}.
-   * <p>
-   * Method under test: {@link SpringTransactionContext#SpringTransactionContext(PlatformTransactionManager, CommandContext, Integer)}
+   * Method under test:
+   * {@link SpringTransactionContext#SpringTransactionContext(PlatformTransactionManager, CommandContext, Integer)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SpringTransactionContext.<init>(PlatformTransactionManager, CommandContext, Integer)"})
   public void testNewSpringTransactionContext3() {
     // Arrange and Act
     SpringTransactionContext actualSpringTransactionContext = new SpringTransactionContext(
@@ -134,29 +138,5 @@ public class SpringTransactionContextDiffblueTest {
     assertTrue(((DataSourceTransactionManager) platformTransactionManager).isGlobalRollbackOnParticipationFailure());
     assertTrue(((DataSourceTransactionManager) platformTransactionManager).isNestedTransactionAllowed());
     assertEquals(Integer.MAX_VALUE, actualSpringTransactionContext.transactionSynchronizationAdapterOrder.intValue());
-  }
-
-  /**
-   * Test {@link SpringTransactionContext#rollback()}.
-   * <ul>
-   *   <li>Given {@link TransactionManager} {@link TransactionManager#getStatus()} return one.</li>
-   *   <li>Then calls {@link TransactionManager#getStatus()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SpringTransactionContext#rollback()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SpringTransactionContext.rollback()"})
-  public void testRollback_givenTransactionManagerGetStatusReturnOne_thenCallsGetStatus() throws SystemException {
-    // Arrange
-    TransactionManager transactionManager = mock(TransactionManager.class);
-    when(transactionManager.getStatus()).thenReturn(1);
-
-    // Act
-    (new SpringTransactionContext(new JtaTransactionManager(transactionManager), null)).rollback();
-
-    // Assert
-    verify(transactionManager).getStatus();
   }
 }

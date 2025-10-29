@@ -18,28 +18,20 @@ package org.activiti.api.task.model.builders;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BiFunction;
 import org.activiti.api.task.model.payloads.CompleteTaskPayload;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class CompleteTaskPayloadBuilderDiffblueTest {
   /**
-   * Test {@link CompleteTaskPayloadBuilder#withVariable(String, Object)}.
-   * <ul>
-   *   <li>Given complete.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CompleteTaskPayloadBuilder#withVariable(String, Object)}
+   * Method under test:
+   * {@link CompleteTaskPayloadBuilder#withVariable(String, Object)}
    */
   @Test
-  @DisplayName("Test withVariable(String, Object); given complete")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"CompleteTaskPayloadBuilder CompleteTaskPayloadBuilder.withVariable(String, Object)"})
-  void testWithVariable_givenComplete() {
+  void testWithVariable() {
     // Arrange
     CompleteTaskPayloadBuilder completeResult = TaskPayloadBuilder.complete();
 
@@ -48,18 +40,11 @@ class CompleteTaskPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link CompleteTaskPayloadBuilder#withVariable(String, Object)}.
-   * <ul>
-   *   <li>Given complete withVariables {@link HashMap#HashMap()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CompleteTaskPayloadBuilder#withVariable(String, Object)}
+   * Method under test:
+   * {@link CompleteTaskPayloadBuilder#withVariable(String, Object)}
    */
   @Test
-  @DisplayName("Test withVariable(String, Object); given complete withVariables HashMap()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"CompleteTaskPayloadBuilder CompleteTaskPayloadBuilder.withVariable(String, Object)"})
-  void testWithVariable_givenCompleteWithVariablesHashMap() {
+  void testWithVariable2() {
     // Arrange
     CompleteTaskPayloadBuilder completeResult = TaskPayloadBuilder.complete();
     completeResult.withVariables(new HashMap<>());
@@ -69,23 +54,32 @@ class CompleteTaskPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link CompleteTaskPayloadBuilder#build()}.
-   * <p>
+   * Method under test:
+   * {@link CompleteTaskPayloadBuilder#withVariable(String, Object)}
+   */
+  @Test
+  void testWithVariable3() {
+    // Arrange
+    HashMap<String, Object> variables = new HashMap<>();
+    variables.computeIfPresent("foo", mock(BiFunction.class));
+    CompleteTaskPayloadBuilder completeResult = TaskPayloadBuilder.complete();
+    completeResult.withVariables(variables);
+
+    // Act and Assert
+    assertSame(completeResult, completeResult.withVariable("Name", "Value"));
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>{@link CompleteTaskPayloadBuilder#build()}
-   *   <li>default or parameterless constructor of {@link CompleteTaskPayloadBuilder}
+   *   <li>default or parameterless constructor of
+   * {@link CompleteTaskPayloadBuilder}
    *   <li>{@link CompleteTaskPayloadBuilder#withTaskId(String)}
    *   <li>{@link CompleteTaskPayloadBuilder#withVariables(Map)}
    * </ul>
    */
   @Test
-  @DisplayName("Test build()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void CompleteTaskPayloadBuilder.<init>()",
-      "CompleteTaskPayload CompleteTaskPayloadBuilder.build()",
-      "CompleteTaskPayloadBuilder CompleteTaskPayloadBuilder.withTaskId(String)",
-      "CompleteTaskPayloadBuilder CompleteTaskPayloadBuilder.withVariables(Map)"})
   void testBuild() {
     // Arrange
     CompleteTaskPayloadBuilder withVariableResult = (new CompleteTaskPayloadBuilder()).withTaskId("42")

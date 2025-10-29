@@ -25,14 +25,11 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.BoundaryEvent;
 import org.activiti.engine.ActivitiEngineAgendaFactory;
-import org.activiti.engine.Agenda;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandContext;
@@ -43,7 +40,6 @@ import org.activiti.engine.impl.persistence.entity.ExecutionEntityManagerImpl;
 import org.activiti.engine.impl.persistence.entity.data.ExecutionDataManager;
 import org.activiti.engine.impl.persistence.entity.data.impl.MybatisExecutionDataManager;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -62,55 +58,11 @@ public class EndExecutionOperationDiffblueTest {
   private ExecutionEntity executionEntity;
 
   /**
-   * Test {@link EndExecutionOperation#EndExecutionOperation(CommandContext, ExecutionEntity)}.
-   * <ul>
-   *   <li>Then Agenda return {@link DefaultActivitiEngineAgenda}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EndExecutionOperation#EndExecutionOperation(CommandContext, ExecutionEntity)}
+   * Method under test:
+   * {@link EndExecutionOperation#handleRegularExecutionEnd(ExecutionEntityManager, ExecutionEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void EndExecutionOperation.<init>(CommandContext, ExecutionEntity)"})
-  public void testNewEndExecutionOperation_thenAgendaReturnDefaultActivitiEngineAgenda() {
-    // Arrange
-    ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
-    DefaultActivitiEngineAgenda defaultActivitiEngineAgenda = new DefaultActivitiEngineAgenda(null);
-    when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any())).thenReturn(defaultActivitiEngineAgenda);
-
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext = new CommandContext(mock(Command.class), processEngineConfiguration);
-
-    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-
-    // Act
-    EndExecutionOperation actualEndExecutionOperation = new EndExecutionOperation(commandContext, execution);
-
-    // Assert
-    verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
-    Agenda agenda = actualEndExecutionOperation.getAgenda();
-    assertTrue(agenda instanceof DefaultActivitiEngineAgenda);
-    ExecutionEntity execution2 = actualEndExecutionOperation.getExecution();
-    assertTrue(execution2 instanceof ExecutionEntityImpl);
-    assertSame(defaultActivitiEngineAgenda, agenda);
-    assertSame(commandContext, actualEndExecutionOperation.getCommandContext());
-    assertSame(execution, execution2);
-  }
-
-  /**
-   * Test {@link EndExecutionOperation#handleRegularExecutionEnd(ExecutionEntityManager, ExecutionEntity)}.
-   * <ul>
-   *   <li>Then return createWithEmptyRelationshipCollections.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EndExecutionOperation#handleRegularExecutionEnd(ExecutionEntityManager, ExecutionEntity)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "ExecutionEntity EndExecutionOperation.handleRegularExecutionEnd(ExecutionEntityManager, ExecutionEntity)"})
-  public void testHandleRegularExecutionEnd_thenReturnCreateWithEmptyRelationshipCollections() {
+  public void testHandleRegularExecutionEnd() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
     when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
@@ -138,17 +90,11 @@ public class EndExecutionOperationDiffblueTest {
   }
 
   /**
-   * Test {@link EndExecutionOperation#isEndEventInMultiInstanceSubprocess(ExecutionEntity)}.
-   * <ul>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EndExecutionOperation#isEndEventInMultiInstanceSubprocess(ExecutionEntity)}
+   * Method under test:
+   * {@link EndExecutionOperation#isEndEventInMultiInstanceSubprocess(ExecutionEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean EndExecutionOperation.isEndEventInMultiInstanceSubprocess(ExecutionEntity)"})
-  public void testIsEndEventInMultiInstanceSubprocess_thenReturnFalse() {
+  public void testIsEndEventInMultiInstanceSubprocess() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
     when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
@@ -171,15 +117,32 @@ public class EndExecutionOperationDiffblueTest {
   }
 
   /**
-   * Test {@link EndExecutionOperation#getNumberOfActiveChildExecutionsForProcessInstance(ExecutionEntityManager, String)}.
-   * <p>
-   * Method under test: {@link EndExecutionOperation#getNumberOfActiveChildExecutionsForProcessInstance(ExecutionEntityManager, String)}
+   * Method under test:
+   * {@link EndExecutionOperation#getNumberOfActiveChildExecutionsForProcessInstance(ExecutionEntityManager, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "int EndExecutionOperation.getNumberOfActiveChildExecutionsForProcessInstance(ExecutionEntityManager, String)"})
   public void testGetNumberOfActiveChildExecutionsForProcessInstance() {
+    // Arrange
+    ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
+    when(executionDataManager.findChildExecutionsByProcessInstanceId(Mockito.<String>any()))
+        .thenReturn(new ArrayList<>());
+
+    // Act
+    int actualNumberOfActiveChildExecutionsForProcessInstance = endExecutionOperation
+        .getNumberOfActiveChildExecutionsForProcessInstance(
+            new ExecutionEntityManagerImpl(new JtaProcessEngineConfiguration(), executionDataManager), "42");
+
+    // Assert
+    verify(executionDataManager).findChildExecutionsByProcessInstanceId(eq("42"));
+    assertEquals(0, actualNumberOfActiveChildExecutionsForProcessInstance);
+  }
+
+  /**
+   * Method under test:
+   * {@link EndExecutionOperation#getNumberOfActiveChildExecutionsForProcessInstance(ExecutionEntityManager, String)}
+   */
+  @Test
+  public void testGetNumberOfActiveChildExecutionsForProcessInstance2() {
     // Arrange
     when(executionEntity.getId()).thenReturn("42");
     when(executionEntity.isActive()).thenReturn(true);
@@ -203,46 +166,35 @@ public class EndExecutionOperationDiffblueTest {
   }
 
   /**
-   * Test {@link EndExecutionOperation#getNumberOfActiveChildExecutionsForProcessInstance(ExecutionEntityManager, String)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EndExecutionOperation#getNumberOfActiveChildExecutionsForProcessInstance(ExecutionEntityManager, String)}
+   * Method under test:
+   * {@link EndExecutionOperation#getNumberOfActiveChildExecutionsForProcessInstance(ExecutionEntityManager, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "int EndExecutionOperation.getNumberOfActiveChildExecutionsForProcessInstance(ExecutionEntityManager, String)"})
-  public void testGetNumberOfActiveChildExecutionsForProcessInstance_givenArrayList() {
+  public void testGetNumberOfActiveChildExecutionsForProcessInstance3() {
     // Arrange
+    when(executionEntity.getId()).thenThrow(new RuntimeException("foo"));
+    when(executionEntity.isActive()).thenReturn(true);
+
+    ArrayList<ExecutionEntity> executionEntityList = new ArrayList<>();
+    executionEntityList.add(executionEntity);
     ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
     when(executionDataManager.findChildExecutionsByProcessInstanceId(Mockito.<String>any()))
-        .thenReturn(new ArrayList<>());
+        .thenReturn(executionEntityList);
 
-    // Act
-    int actualNumberOfActiveChildExecutionsForProcessInstance = endExecutionOperation
-        .getNumberOfActiveChildExecutionsForProcessInstance(
-            new ExecutionEntityManagerImpl(new JtaProcessEngineConfiguration(), executionDataManager), "42");
-
-    // Assert
+    // Act and Assert
+    assertThrows(RuntimeException.class, () -> endExecutionOperation.getNumberOfActiveChildExecutionsForProcessInstance(
+        new ExecutionEntityManagerImpl(new JtaProcessEngineConfiguration(), executionDataManager), "42"));
+    verify(executionEntity).getId();
+    verify(executionEntity).isActive();
     verify(executionDataManager).findChildExecutionsByProcessInstanceId(eq("42"));
-    assertEquals(0, actualNumberOfActiveChildExecutionsForProcessInstance);
   }
 
   /**
-   * Test {@link EndExecutionOperation#getNumberOfActiveChildExecutionsForProcessInstance(ExecutionEntityManager, String)}.
-   * <ul>
-   *   <li>Then return one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EndExecutionOperation#getNumberOfActiveChildExecutionsForProcessInstance(ExecutionEntityManager, String)}
+   * Method under test:
+   * {@link EndExecutionOperation#getNumberOfActiveChildExecutionsForProcessInstance(ExecutionEntityManager, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "int EndExecutionOperation.getNumberOfActiveChildExecutionsForProcessInstance(ExecutionEntityManager, String)"})
-  public void testGetNumberOfActiveChildExecutionsForProcessInstance_thenReturnOne() {
+  public void testGetNumberOfActiveChildExecutionsForProcessInstance4() {
     // Arrange
     when(executionEntity.getId()).thenReturn("foo");
     when(executionEntity.isActive()).thenReturn(true);
@@ -266,80 +218,11 @@ public class EndExecutionOperationDiffblueTest {
   }
 
   /**
-   * Test {@link EndExecutionOperation#getNumberOfActiveChildExecutionsForProcessInstance(ExecutionEntityManager, String)}.
-   * <ul>
-   *   <li>Then throw {@link RuntimeException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EndExecutionOperation#getNumberOfActiveChildExecutionsForProcessInstance(ExecutionEntityManager, String)}
+   * Method under test:
+   * {@link EndExecutionOperation#getNumberOfActiveChildExecutionsForExecution(ExecutionEntityManager, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "int EndExecutionOperation.getNumberOfActiveChildExecutionsForProcessInstance(ExecutionEntityManager, String)"})
-  public void testGetNumberOfActiveChildExecutionsForProcessInstance_thenThrowRuntimeException() {
-    // Arrange
-    when(executionEntity.getId()).thenThrow(new RuntimeException("foo"));
-    when(executionEntity.isActive()).thenReturn(true);
-
-    ArrayList<ExecutionEntity> executionEntityList = new ArrayList<>();
-    executionEntityList.add(executionEntity);
-    ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
-    when(executionDataManager.findChildExecutionsByProcessInstanceId(Mockito.<String>any()))
-        .thenReturn(executionEntityList);
-
-    // Act and Assert
-    assertThrows(RuntimeException.class, () -> endExecutionOperation.getNumberOfActiveChildExecutionsForProcessInstance(
-        new ExecutionEntityManagerImpl(new JtaProcessEngineConfiguration(), executionDataManager), "42"));
-    verify(executionEntity).getId();
-    verify(executionEntity).isActive();
-    verify(executionDataManager).findChildExecutionsByProcessInstanceId(eq("42"));
-  }
-
-  /**
-   * Test {@link EndExecutionOperation#getNumberOfActiveChildExecutionsForExecution(ExecutionEntityManager, String)}.
-   * <p>
-   * Method under test: {@link EndExecutionOperation#getNumberOfActiveChildExecutionsForExecution(ExecutionEntityManager, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "int EndExecutionOperation.getNumberOfActiveChildExecutionsForExecution(ExecutionEntityManager, String)"})
   public void testGetNumberOfActiveChildExecutionsForExecution() {
-    // Arrange
-    when(executionEntity.getCurrentFlowElement()).thenReturn(new BoundaryEvent());
-
-    ArrayList<ExecutionEntity> executionEntityList = new ArrayList<>();
-    executionEntityList.add(executionEntity);
-    ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
-    when(executionDataManager.findChildExecutionsByParentExecutionId(Mockito.<String>any()))
-        .thenReturn(executionEntityList);
-
-    // Act
-    int actualNumberOfActiveChildExecutionsForExecution = endExecutionOperation
-        .getNumberOfActiveChildExecutionsForExecution(
-            new ExecutionEntityManagerImpl(new JtaProcessEngineConfiguration(), executionDataManager), "42");
-
-    // Assert
-    verify(executionEntity).getCurrentFlowElement();
-    verify(executionDataManager).findChildExecutionsByParentExecutionId(eq("42"));
-    assertEquals(0, actualNumberOfActiveChildExecutionsForExecution);
-  }
-
-  /**
-   * Test {@link EndExecutionOperation#getNumberOfActiveChildExecutionsForExecution(ExecutionEntityManager, String)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return zero.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EndExecutionOperation#getNumberOfActiveChildExecutionsForExecution(ExecutionEntityManager, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "int EndExecutionOperation.getNumberOfActiveChildExecutionsForExecution(ExecutionEntityManager, String)"})
-  public void testGetNumberOfActiveChildExecutionsForExecution_givenArrayList_thenReturnZero() {
     // Arrange
     ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
     when(executionDataManager.findChildExecutionsByParentExecutionId(Mockito.<String>any()))
@@ -356,18 +239,11 @@ public class EndExecutionOperationDiffblueTest {
   }
 
   /**
-   * Test {@link EndExecutionOperation#getNumberOfActiveChildExecutionsForExecution(ExecutionEntityManager, String)}.
-   * <ul>
-   *   <li>Then return one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EndExecutionOperation#getNumberOfActiveChildExecutionsForExecution(ExecutionEntityManager, String)}
+   * Method under test:
+   * {@link EndExecutionOperation#getNumberOfActiveChildExecutionsForExecution(ExecutionEntityManager, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "int EndExecutionOperation.getNumberOfActiveChildExecutionsForExecution(ExecutionEntityManager, String)"})
-  public void testGetNumberOfActiveChildExecutionsForExecution_thenReturnOne() {
+  public void testGetNumberOfActiveChildExecutionsForExecution2() {
     // Arrange
     when(executionEntity.getCurrentFlowElement()).thenReturn(new AdhocSubProcess());
 
@@ -389,18 +265,37 @@ public class EndExecutionOperationDiffblueTest {
   }
 
   /**
-   * Test {@link EndExecutionOperation#getNumberOfActiveChildExecutionsForExecution(ExecutionEntityManager, String)}.
-   * <ul>
-   *   <li>Then throw {@link RuntimeException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EndExecutionOperation#getNumberOfActiveChildExecutionsForExecution(ExecutionEntityManager, String)}
+   * Method under test:
+   * {@link EndExecutionOperation#getNumberOfActiveChildExecutionsForExecution(ExecutionEntityManager, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "int EndExecutionOperation.getNumberOfActiveChildExecutionsForExecution(ExecutionEntityManager, String)"})
-  public void testGetNumberOfActiveChildExecutionsForExecution_thenThrowRuntimeException() {
+  public void testGetNumberOfActiveChildExecutionsForExecution3() {
+    // Arrange
+    when(executionEntity.getCurrentFlowElement()).thenReturn(new BoundaryEvent());
+
+    ArrayList<ExecutionEntity> executionEntityList = new ArrayList<>();
+    executionEntityList.add(executionEntity);
+    ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
+    when(executionDataManager.findChildExecutionsByParentExecutionId(Mockito.<String>any()))
+        .thenReturn(executionEntityList);
+
+    // Act
+    int actualNumberOfActiveChildExecutionsForExecution = endExecutionOperation
+        .getNumberOfActiveChildExecutionsForExecution(
+            new ExecutionEntityManagerImpl(new JtaProcessEngineConfiguration(), executionDataManager), "42");
+
+    // Assert
+    verify(executionEntity).getCurrentFlowElement();
+    verify(executionDataManager).findChildExecutionsByParentExecutionId(eq("42"));
+    assertEquals(0, actualNumberOfActiveChildExecutionsForExecution);
+  }
+
+  /**
+   * Method under test:
+   * {@link EndExecutionOperation#getNumberOfActiveChildExecutionsForExecution(ExecutionEntityManager, String)}
+   */
+  @Test
+  public void testGetNumberOfActiveChildExecutionsForExecution4() {
     // Arrange
     when(executionEntity.getCurrentFlowElement()).thenThrow(new RuntimeException("foo"));
 
@@ -418,47 +313,11 @@ public class EndExecutionOperationDiffblueTest {
   }
 
   /**
-   * Test {@link EndExecutionOperation#getActiveChildExecutionsForExecution(ExecutionEntityManager, String)}.
-   * <p>
-   * Method under test: {@link EndExecutionOperation#getActiveChildExecutionsForExecution(ExecutionEntityManager, String)}
+   * Method under test:
+   * {@link EndExecutionOperation#getActiveChildExecutionsForExecution(ExecutionEntityManager, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"List EndExecutionOperation.getActiveChildExecutionsForExecution(ExecutionEntityManager, String)"})
   public void testGetActiveChildExecutionsForExecution() {
-    // Arrange
-    when(executionEntity.getCurrentFlowElement()).thenReturn(new BoundaryEvent());
-
-    ArrayList<ExecutionEntity> executionEntityList = new ArrayList<>();
-    executionEntityList.add(executionEntity);
-    ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
-    when(executionDataManager.findChildExecutionsByParentExecutionId(Mockito.<String>any()))
-        .thenReturn(executionEntityList);
-
-    // Act
-    List<ExecutionEntity> actualActiveChildExecutionsForExecution = endExecutionOperation
-        .getActiveChildExecutionsForExecution(
-            new ExecutionEntityManagerImpl(new JtaProcessEngineConfiguration(), executionDataManager), "42");
-
-    // Assert
-    verify(executionEntity).getCurrentFlowElement();
-    verify(executionDataManager).findChildExecutionsByParentExecutionId(eq("42"));
-    assertTrue(actualActiveChildExecutionsForExecution.isEmpty());
-  }
-
-  /**
-   * Test {@link EndExecutionOperation#getActiveChildExecutionsForExecution(ExecutionEntityManager, String)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EndExecutionOperation#getActiveChildExecutionsForExecution(ExecutionEntityManager, String)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"List EndExecutionOperation.getActiveChildExecutionsForExecution(ExecutionEntityManager, String)"})
-  public void testGetActiveChildExecutionsForExecution_givenArrayList_thenReturnEmpty() {
     // Arrange
     ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
     when(executionDataManager.findChildExecutionsByParentExecutionId(Mockito.<String>any()))
@@ -475,17 +334,11 @@ public class EndExecutionOperationDiffblueTest {
   }
 
   /**
-   * Test {@link EndExecutionOperation#getActiveChildExecutionsForExecution(ExecutionEntityManager, String)}.
-   * <ul>
-   *   <li>Then return size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EndExecutionOperation#getActiveChildExecutionsForExecution(ExecutionEntityManager, String)}
+   * Method under test:
+   * {@link EndExecutionOperation#getActiveChildExecutionsForExecution(ExecutionEntityManager, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"List EndExecutionOperation.getActiveChildExecutionsForExecution(ExecutionEntityManager, String)"})
-  public void testGetActiveChildExecutionsForExecution_thenReturnSizeIsOne() {
+  public void testGetActiveChildExecutionsForExecution2() {
     // Arrange
     when(executionEntity.getCurrentFlowElement()).thenReturn(new AdhocSubProcess());
 
@@ -507,17 +360,37 @@ public class EndExecutionOperationDiffblueTest {
   }
 
   /**
-   * Test {@link EndExecutionOperation#getActiveChildExecutionsForExecution(ExecutionEntityManager, String)}.
-   * <ul>
-   *   <li>Then throw {@link RuntimeException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EndExecutionOperation#getActiveChildExecutionsForExecution(ExecutionEntityManager, String)}
+   * Method under test:
+   * {@link EndExecutionOperation#getActiveChildExecutionsForExecution(ExecutionEntityManager, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"List EndExecutionOperation.getActiveChildExecutionsForExecution(ExecutionEntityManager, String)"})
-  public void testGetActiveChildExecutionsForExecution_thenThrowRuntimeException() {
+  public void testGetActiveChildExecutionsForExecution3() {
+    // Arrange
+    when(executionEntity.getCurrentFlowElement()).thenReturn(new BoundaryEvent());
+
+    ArrayList<ExecutionEntity> executionEntityList = new ArrayList<>();
+    executionEntityList.add(executionEntity);
+    ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
+    when(executionDataManager.findChildExecutionsByParentExecutionId(Mockito.<String>any()))
+        .thenReturn(executionEntityList);
+
+    // Act
+    List<ExecutionEntity> actualActiveChildExecutionsForExecution = endExecutionOperation
+        .getActiveChildExecutionsForExecution(
+            new ExecutionEntityManagerImpl(new JtaProcessEngineConfiguration(), executionDataManager), "42");
+
+    // Assert
+    verify(executionEntity).getCurrentFlowElement();
+    verify(executionDataManager).findChildExecutionsByParentExecutionId(eq("42"));
+    assertTrue(actualActiveChildExecutionsForExecution.isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link EndExecutionOperation#getActiveChildExecutionsForExecution(ExecutionEntityManager, String)}
+   */
+  @Test
+  public void testGetActiveChildExecutionsForExecution4() {
     // Arrange
     when(executionEntity.getCurrentFlowElement()).thenThrow(new RuntimeException("foo"));
 
@@ -535,17 +408,11 @@ public class EndExecutionOperationDiffblueTest {
   }
 
   /**
-   * Test {@link EndExecutionOperation#allChildExecutionsEnded(ExecutionEntity, ExecutionEntity)}.
-   * <ul>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EndExecutionOperation#allChildExecutionsEnded(ExecutionEntity, ExecutionEntity)}
+   * Method under test:
+   * {@link EndExecutionOperation#allChildExecutionsEnded(ExecutionEntity, ExecutionEntity)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean EndExecutionOperation.allChildExecutionsEnded(ExecutionEntity, ExecutionEntity)"})
-  public void testAllChildExecutionsEnded_thenReturnTrue() {
+  public void testAllChildExecutionsEnded() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
     when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
@@ -566,5 +433,32 @@ public class EndExecutionOperationDiffblueTest {
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
     assertTrue(actualAllChildExecutionsEndedResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link EndExecutionOperation#EndExecutionOperation(CommandContext, ExecutionEntity)}
+   */
+  @Test
+  public void testNewEndExecutionOperation() {
+    // Arrange
+    ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
+    DefaultActivitiEngineAgenda defaultActivitiEngineAgenda = new DefaultActivitiEngineAgenda(null);
+    when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any())).thenReturn(defaultActivitiEngineAgenda);
+
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
+    CommandContext commandContext = new CommandContext(mock(Command.class), processEngineConfiguration);
+
+    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+
+    // Act
+    EndExecutionOperation actualEndExecutionOperation = new EndExecutionOperation(commandContext, execution);
+
+    // Assert
+    verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
+    assertSame(defaultActivitiEngineAgenda, actualEndExecutionOperation.getAgenda());
+    assertSame(commandContext, actualEndExecutionOperation.getCommandContext());
+    assertSame(execution, actualEndExecutionOperation.getExecution());
   }
 }

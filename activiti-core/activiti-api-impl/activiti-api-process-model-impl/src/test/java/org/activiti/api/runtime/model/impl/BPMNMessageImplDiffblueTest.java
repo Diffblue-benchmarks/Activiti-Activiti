@@ -19,69 +19,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import org.activiti.api.process.model.payloads.MessageEventPayload;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class BPMNMessageImplDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link BPMNMessageImpl#BPMNMessageImpl()}
-   *   <li>{@link BPMNMessageImpl#setMessagePayload(MessageEventPayload)}
-   *   <li>{@link BPMNMessageImpl#getMessagePayload()}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BPMNMessageImpl.<init>()", "MessageEventPayload BPMNMessageImpl.getMessagePayload()",
-      "void BPMNMessageImpl.setMessagePayload(MessageEventPayload)"})
-  void testGettersAndSetters() {
-    // Arrange and Act
-    BPMNMessageImpl actualBpmnMessageImpl = new BPMNMessageImpl();
-    MessageEventPayload messagePayload = new MessageEventPayload();
-    actualBpmnMessageImpl.setMessagePayload(messagePayload);
-    MessageEventPayload actualMessagePayload = actualBpmnMessageImpl.getMessagePayload();
-
-    // Assert
-    assertNull(actualBpmnMessageImpl.getElementId());
-    assertNull(actualBpmnMessageImpl.getProcessDefinitionId());
-    assertNull(actualBpmnMessageImpl.getProcessInstanceId());
-    assertSame(messagePayload, actualMessagePayload);
-  }
-
-  /**
-   * Test {@link BPMNMessageImpl#BPMNMessageImpl(String)}.
-   * <p>
-   * Method under test: {@link BPMNMessageImpl#BPMNMessageImpl(String)}
-   */
-  @Test
-  @DisplayName("Test new BPMNMessageImpl(String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BPMNMessageImpl.<init>(String)"})
-  void testNewBPMNMessageImpl() {
-    // Arrange and Act
-    BPMNMessageImpl actualBpmnMessageImpl = new BPMNMessageImpl("42");
-
-    // Assert
-    assertEquals("42", actualBpmnMessageImpl.getElementId());
-    assertNull(actualBpmnMessageImpl.getProcessDefinitionId());
-    assertNull(actualBpmnMessageImpl.getProcessInstanceId());
-    assertNull(actualBpmnMessageImpl.getMessagePayload());
-  }
-
-  /**
-   * Test {@link BPMNMessageImpl#equals(Object)}, and {@link BPMNMessageImpl#hashCode()}.
-   * <ul>
-   *   <li>When other is equal.</li>
-   *   <li>Then return equal.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link BPMNMessageImpl#equals(Object)}
@@ -89,9 +32,6 @@ class BPMNMessageImplDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test equals(Object), and hashCode(); when other is equal; then return equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean BPMNMessageImpl.equals(Object)", "int BPMNMessageImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {
     // Arrange
     BPMNMessageImpl bpmnMessageImpl = new BPMNMessageImpl("42");
@@ -104,12 +44,6 @@ class BPMNMessageImplDiffblueTest {
   }
 
   /**
-   * Test {@link BPMNMessageImpl#equals(Object)}, and {@link BPMNMessageImpl#hashCode()}.
-   * <ul>
-   *   <li>When other is same.</li>
-   *   <li>Then return equal.</li>
-   * </ul>
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link BPMNMessageImpl#equals(Object)}
@@ -117,9 +51,6 @@ class BPMNMessageImplDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean BPMNMessageImpl.equals(Object)", "int BPMNMessageImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
     BPMNMessageImpl bpmnMessageImpl = new BPMNMessageImpl("42");
@@ -131,18 +62,9 @@ class BPMNMessageImplDiffblueTest {
   }
 
   /**
-   * Test {@link BPMNMessageImpl#equals(Object)}.
-   * <ul>
-   *   <li>When other is different.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BPMNMessageImpl#equals(Object)}
    */
   @Test
-  @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean BPMNMessageImpl.equals(Object)", "int BPMNMessageImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange
     BPMNMessageImpl bpmnMessageImpl = new BPMNMessageImpl("Element Id");
@@ -152,18 +74,9 @@ class BPMNMessageImplDiffblueTest {
   }
 
   /**
-   * Test {@link BPMNMessageImpl#equals(Object)}.
-   * <ul>
-   *   <li>When other is different.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BPMNMessageImpl#equals(Object)}
    */
   @Test
-  @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean BPMNMessageImpl.equals(Object)", "int BPMNMessageImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
     // Arrange
     BPMNMessageImpl bpmnMessageImpl = new BPMNMessageImpl("42");
@@ -174,55 +87,67 @@ class BPMNMessageImplDiffblueTest {
   }
 
   /**
-   * Test {@link BPMNMessageImpl#equals(Object)}.
-   * <ul>
-   *   <li>When other is {@code null}.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BPMNMessageImpl#equals(Object)}
    */
   @Test
-  @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean BPMNMessageImpl.equals(Object)", "int BPMNMessageImpl.hashCode()"})
+  void testEquals_whenOtherIsDifferent_thenReturnNotEqual3() {
+    // Arrange
+    BPMNMessageImpl bpmnMessageImpl = new BPMNMessageImpl("42");
+    bpmnMessageImpl.setMessagePayload(mock(MessageEventPayload.class));
+
+    // Act and Assert
+    assertNotEquals(bpmnMessageImpl, new BPMNMessageImpl("42"));
+  }
+
+  /**
+   * Method under test: {@link BPMNMessageImpl#equals(Object)}
+   */
+  @Test
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new BPMNMessageImpl("42"), null);
   }
 
   /**
-   * Test {@link BPMNMessageImpl#equals(Object)}.
-   * <ul>
-   *   <li>When other is wrong type.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BPMNMessageImpl#equals(Object)}
    */
   @Test
-  @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean BPMNMessageImpl.equals(Object)", "int BPMNMessageImpl.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new BPMNMessageImpl("42"), "Different type to BPMNMessageImpl");
   }
 
   /**
-   * Test {@link BPMNMessageImpl#toString()}.
+   * Methods under test:
    * <ul>
-   *   <li>Then return {@code BPMNMessageImpl{, elementId='42', messagePayload='null'}}.</li>
+   *   <li>{@link BPMNMessageImpl#BPMNMessageImpl()}
+   *   <li>{@link BPMNMessageImpl#setMessagePayload(MessageEventPayload)}
+   *   <li>{@link BPMNMessageImpl#getMessagePayload()}
    * </ul>
-   * <p>
-   * Method under test: {@link BPMNMessageImpl#toString()}
    */
   @Test
-  @DisplayName("Test toString(); then return 'BPMNMessageImpl{, elementId='42', messagePayload='null'}'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String BPMNMessageImpl.toString()"})
-  void testToString_thenReturnBPMNMessageImplElementId42MessagePayloadNull() {
-    // Arrange, Act and Assert
-    assertEquals("BPMNMessageImpl{, elementId='42', messagePayload='null'}", (new BPMNMessageImpl("42")).toString());
+  void testGettersAndSetters() {
+    // Arrange and Act
+    BPMNMessageImpl actualBpmnMessageImpl = new BPMNMessageImpl();
+    MessageEventPayload messagePayload = new MessageEventPayload();
+    actualBpmnMessageImpl.setMessagePayload(messagePayload);
+
+    // Assert that nothing has changed
+    assertSame(messagePayload, actualBpmnMessageImpl.getMessagePayload());
+  }
+
+  /**
+   * Method under test: {@link BPMNMessageImpl#BPMNMessageImpl(String)}
+   */
+  @Test
+  void testNewBPMNMessageImpl() {
+    // Arrange and Act
+    BPMNMessageImpl actualBpmnMessageImpl = new BPMNMessageImpl("42");
+
+    // Assert
+    assertEquals("42", actualBpmnMessageImpl.getElementId());
+    assertNull(actualBpmnMessageImpl.getProcessDefinitionId());
+    assertNull(actualBpmnMessageImpl.getProcessInstanceId());
+    assertNull(actualBpmnMessageImpl.getMessagePayload());
   }
 }

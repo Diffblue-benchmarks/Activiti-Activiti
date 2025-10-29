@@ -16,63 +16,19 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class SetJobRetriesCmdDiffblueTest {
   /**
-   * Test {@link SetJobRetriesCmd#SetJobRetriesCmd(String, int)}.
-   * <ul>
-   *   <li>When empty string.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SetJobRetriesCmd#SetJobRetriesCmd(String, int)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SetJobRetriesCmd.<init>(String, int)"})
-  public void testNewSetJobRetriesCmd_whenEmptyString() {
+  public void testNewSetJobRetriesCmd() {
     // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> new SetJobRetriesCmd(null, 1));
+
     assertThrows(ActivitiIllegalArgumentException.class, () -> new SetJobRetriesCmd("", 1));
-
-  }
-
-  /**
-   * Test {@link SetJobRetriesCmd#SetJobRetriesCmd(String, int)}.
-   * <ul>
-   *   <li>When minus one.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SetJobRetriesCmd#SetJobRetriesCmd(String, int)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SetJobRetriesCmd.<init>(String, int)"})
-  public void testNewSetJobRetriesCmd_whenMinusOne_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> new SetJobRetriesCmd("42", -1));
-
-  }
-
-  /**
-   * Test {@link SetJobRetriesCmd#SetJobRetriesCmd(String, int)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SetJobRetriesCmd#SetJobRetriesCmd(String, int)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SetJobRetriesCmd.<init>(String, int)"})
-  public void testNewSetJobRetriesCmd_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> new SetJobRetriesCmd(null, 0));
-
   }
 }

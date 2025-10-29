@@ -18,30 +18,44 @@ package org.activiti.runtime.api.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import java.sql.Date;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.events.ProcessRuntimeEvent;
-import org.activiti.api.process.model.events.ProcessRuntimeEvent.ProcessEvents;
 import org.activiti.api.runtime.model.impl.ProcessInstanceImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ProcessCompletedImplDiffblueTest {
   /**
-   * Test {@link ProcessCompletedImpl#ProcessCompletedImpl(ProcessInstance)}.
-   * <ul>
-   *   <li>Then Entity return {@link ProcessInstanceImpl}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessCompletedImpl#ProcessCompletedImpl(ProcessInstance)}
+   * Method under test: {@link ProcessCompletedImpl#getEventType()}
    */
   @Test
-  @DisplayName("Test new ProcessCompletedImpl(ProcessInstance); then Entity return ProcessInstanceImpl")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessCompletedImpl.<init>(ProcessInstance)"})
-  void testNewProcessCompletedImpl_thenEntityReturnProcessInstanceImpl() {
+  void testGetEventType() {
+    // Arrange, Act and Assert
+    assertEquals(ProcessRuntimeEvent.ProcessEvents.PROCESS_COMPLETED,
+        (new ProcessCompletedImpl(new ProcessInstanceImpl())).getEventType());
+  }
+
+  /**
+   * Method under test: {@link ProcessCompletedImpl#getEventType()}
+   */
+  @Test
+  void testGetEventType2() {
+    // Arrange
+    ProcessInstanceImpl entity = new ProcessInstanceImpl();
+    entity.setStartDate(mock(Date.class));
+
+    // Act and Assert
+    assertEquals(ProcessRuntimeEvent.ProcessEvents.PROCESS_COMPLETED,
+        (new ProcessCompletedImpl(entity)).getEventType());
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessCompletedImpl#ProcessCompletedImpl(ProcessInstance)}
+   */
+  @Test
+  void testNewProcessCompletedImpl() {
     // Arrange
     ProcessInstanceImpl entity = new ProcessInstanceImpl();
 
@@ -49,29 +63,37 @@ class ProcessCompletedImplDiffblueTest {
     ProcessCompletedImpl actualProcessCompletedImpl = new ProcessCompletedImpl(entity);
 
     // Assert
-    ProcessInstance entity2 = actualProcessCompletedImpl.getEntity();
-    assertTrue(entity2 instanceof ProcessInstanceImpl);
     assertNull(actualProcessCompletedImpl.getProcessDefinitionVersion());
     assertNull(actualProcessCompletedImpl.getBusinessKey());
     assertNull(actualProcessCompletedImpl.getParentProcessInstanceId());
     assertNull(actualProcessCompletedImpl.getProcessDefinitionId());
     assertNull(actualProcessCompletedImpl.getProcessDefinitionKey());
     assertNull(actualProcessCompletedImpl.getProcessInstanceId());
-    assertEquals(ProcessEvents.PROCESS_COMPLETED, actualProcessCompletedImpl.getEventType());
-    assertSame(entity, entity2);
+    assertEquals(ProcessRuntimeEvent.ProcessEvents.PROCESS_COMPLETED, actualProcessCompletedImpl.getEventType());
+    assertSame(entity, actualProcessCompletedImpl.getEntity());
   }
 
   /**
-   * Test {@link ProcessCompletedImpl#getEventType()}.
-   * <p>
-   * Method under test: {@link ProcessCompletedImpl#getEventType()}
+   * Method under test:
+   * {@link ProcessCompletedImpl#ProcessCompletedImpl(ProcessInstance)}
    */
   @Test
-  @DisplayName("Test getEventType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ProcessRuntimeEvent.ProcessEvents ProcessCompletedImpl.getEventType()"})
-  void testGetEventType() {
-    // Arrange, Act and Assert
-    assertEquals(ProcessEvents.PROCESS_COMPLETED, (new ProcessCompletedImpl(new ProcessInstanceImpl())).getEventType());
+  void testNewProcessCompletedImpl2() {
+    // Arrange
+    ProcessInstanceImpl entity = new ProcessInstanceImpl();
+    entity.setStartDate(mock(Date.class));
+
+    // Act
+    ProcessCompletedImpl actualProcessCompletedImpl = new ProcessCompletedImpl(entity);
+
+    // Assert
+    assertNull(actualProcessCompletedImpl.getProcessDefinitionVersion());
+    assertNull(actualProcessCompletedImpl.getBusinessKey());
+    assertNull(actualProcessCompletedImpl.getParentProcessInstanceId());
+    assertNull(actualProcessCompletedImpl.getProcessDefinitionId());
+    assertNull(actualProcessCompletedImpl.getProcessDefinitionKey());
+    assertNull(actualProcessCompletedImpl.getProcessInstanceId());
+    assertEquals(ProcessRuntimeEvent.ProcessEvents.PROCESS_COMPLETED, actualProcessCompletedImpl.getEventType());
+    assertSame(entity, actualProcessCompletedImpl.getEntity());
   }
 }

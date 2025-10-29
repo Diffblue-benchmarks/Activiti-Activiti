@@ -16,18 +16,14 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class SetProcessDefinitionCategoryCmdDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
-   *   <li>{@link SetProcessDefinitionCategoryCmd#SetProcessDefinitionCategoryCmd(String, String)}
+   *   <li>
+   * {@link SetProcessDefinitionCategoryCmd#SetProcessDefinitionCategoryCmd(String, String)}
    *   <li>{@link SetProcessDefinitionCategoryCmd#setCategory(String)}
    *   <li>{@link SetProcessDefinitionCategoryCmd#setProcessDefinitionId(String)}
    *   <li>{@link SetProcessDefinitionCategoryCmd#getCategory()}
@@ -35,12 +31,6 @@ public class SetProcessDefinitionCategoryCmdDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void SetProcessDefinitionCategoryCmd.<init>(String, String)",
-      "String SetProcessDefinitionCategoryCmd.getCategory()",
-      "String SetProcessDefinitionCategoryCmd.getProcessDefinitionId()",
-      "void SetProcessDefinitionCategoryCmd.setCategory(String)",
-      "void SetProcessDefinitionCategoryCmd.setProcessDefinitionId(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     SetProcessDefinitionCategoryCmd actualSetProcessDefinitionCategoryCmd = new SetProcessDefinitionCategoryCmd("42",
@@ -49,7 +39,7 @@ public class SetProcessDefinitionCategoryCmdDiffblueTest {
     actualSetProcessDefinitionCategoryCmd.setProcessDefinitionId("42");
     String actualCategory = actualSetProcessDefinitionCategoryCmd.getCategory();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("42", actualSetProcessDefinitionCategoryCmd.getProcessDefinitionId());
     assertEquals("Category", actualCategory);
   }

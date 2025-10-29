@@ -21,8 +21,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -35,18 +33,13 @@ import org.activiti.engine.impl.bpmn.parser.factory.MessageExecutionContext;
 import org.activiti.engine.impl.delegate.MessagePayloadMappingProvider;
 import org.activiti.engine.impl.el.ExpressionManager;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class EventSubProcessMessageStartEventActivityBehaviorDiffblueTest {
   /**
-   * Test {@link EventSubProcessMessageStartEventActivityBehavior#EventSubProcessMessageStartEventActivityBehavior(MessageEventDefinition, MessageExecutionContext)}.
-   * <p>
-   * Method under test: {@link EventSubProcessMessageStartEventActivityBehavior#EventSubProcessMessageStartEventActivityBehavior(MessageEventDefinition, MessageExecutionContext)}
+   * Method under test:
+   * {@link EventSubProcessMessageStartEventActivityBehavior#EventSubProcessMessageStartEventActivityBehavior(MessageEventDefinition, MessageExecutionContext)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({
-      "void EventSubProcessMessageStartEventActivityBehavior.<init>(MessageEventDefinition, MessageExecutionContext)"})
   public void testNewEventSubProcessMessageStartEventActivityBehavior() {
     // Arrange
     MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
@@ -78,51 +71,11 @@ public class EventSubProcessMessageStartEventActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()} add {@link BooleanDataObject} (default constructor).</li>
-   *   <li>Then return size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}
+   * Method under test:
+   * {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Map EventSubProcessMessageStartEventActivityBehavior.processDataObjects(Collection)"})
-  public void testProcessDataObjects_whenArrayListAddBooleanDataObject_thenReturnSizeIsOne() {
-    // Arrange
-    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
-    MessageEventDefinition messageEventDefinition2 = new MessageEventDefinition();
-    EventSubProcessMessageStartEventActivityBehavior eventSubProcessMessageStartEventActivityBehavior = new EventSubProcessMessageStartEventActivityBehavior(
-        messageEventDefinition, new DefaultMessageExecutionContext(messageEventDefinition2, new ExpressionManager(),
-            mock(MessagePayloadMappingProvider.class)));
-
-    ArrayList<ValuedDataObject> dataObjects = new ArrayList<>();
-    dataObjects.add(new BooleanDataObject());
-    dataObjects.add(new BooleanDataObject());
-
-    // Act
-    Map<String, Object> actualProcessDataObjectsResult = eventSubProcessMessageStartEventActivityBehavior
-        .processDataObjects(dataObjects);
-
-    // Assert
-    assertEquals(1, actualProcessDataObjectsResult.size());
-    assertNull(actualProcessDataObjectsResult.get(null));
-  }
-
-  /**
-   * Test {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Map EventSubProcessMessageStartEventActivityBehavior.processDataObjects(Collection)"})
-  public void testProcessDataObjects_whenArrayList_thenReturnEmpty() {
+  public void testProcessDataObjects() {
     // Arrange
     MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
     MessageEventDefinition messageEventDefinition2 = new MessageEventDefinition();
@@ -135,18 +88,29 @@ public class EventSubProcessMessageStartEventActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}.
-   * <ul>
-   *   <li>When {@link LinkedHashSet#LinkedHashSet()} add {@link BooleanDataObject} (default constructor).</li>
-   *   <li>Then return size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}
+   * Method under test:
+   * {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Map EventSubProcessMessageStartEventActivityBehavior.processDataObjects(Collection)"})
-  public void testProcessDataObjects_whenLinkedHashSetAddBooleanDataObject_thenReturnSizeIsOne() {
+  public void testProcessDataObjects2() {
+    // Arrange
+    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
+    MessageEventDefinition messageEventDefinition2 = new MessageEventDefinition();
+
+    // Act and Assert
+    assertTrue((new EventSubProcessMessageStartEventActivityBehavior(messageEventDefinition,
+        new DefaultMessageExecutionContext(messageEventDefinition2, new ExpressionManager(),
+            mock(MessagePayloadMappingProvider.class))))
+        .processDataObjects(null)
+        .isEmpty());
+  }
+
+  /**
+   * Method under test:
+   * {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}
+   */
+  @Test
+  public void testProcessDataObjects3() {
     // Arrange
     MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
     MessageEventDefinition messageEventDefinition2 = new MessageEventDefinition();
@@ -167,27 +131,28 @@ public class EventSubProcessMessageStartEventActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}
+   * Method under test:
+   * {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Map EventSubProcessMessageStartEventActivityBehavior.processDataObjects(Collection)"})
-  public void testProcessDataObjects_whenNull_thenReturnEmpty() {
+  public void testProcessDataObjects4() {
     // Arrange
     MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
     MessageEventDefinition messageEventDefinition2 = new MessageEventDefinition();
+    EventSubProcessMessageStartEventActivityBehavior eventSubProcessMessageStartEventActivityBehavior = new EventSubProcessMessageStartEventActivityBehavior(
+        messageEventDefinition, new DefaultMessageExecutionContext(messageEventDefinition2, new ExpressionManager(),
+            mock(MessagePayloadMappingProvider.class)));
 
-    // Act and Assert
-    assertTrue((new EventSubProcessMessageStartEventActivityBehavior(messageEventDefinition,
-        new DefaultMessageExecutionContext(messageEventDefinition2, new ExpressionManager(),
-            mock(MessagePayloadMappingProvider.class))))
-        .processDataObjects(null)
-        .isEmpty());
+    ArrayList<ValuedDataObject> dataObjects = new ArrayList<>();
+    dataObjects.add(new BooleanDataObject());
+    dataObjects.add(new BooleanDataObject());
+
+    // Act
+    Map<String, Object> actualProcessDataObjectsResult = eventSubProcessMessageStartEventActivityBehavior
+        .processDataObjects(dataObjects);
+
+    // Assert
+    assertEquals(1, actualProcessDataObjectsResult.size());
+    assertNull(actualProcessDataObjectsResult.get(null));
   }
 }

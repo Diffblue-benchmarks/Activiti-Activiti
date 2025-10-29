@@ -19,21 +19,61 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class DeleteTaskPayloadDiffblueTest {
   /**
-   * Test {@link DeleteTaskPayload#DeleteTaskPayload()}.
-   * <p>
+   * Method under test: {@link DeleteTaskPayload#hasReason()}
+   */
+  @Test
+  void testHasReason() {
+    // Arrange, Act and Assert
+    assertFalse((new DeleteTaskPayload()).hasReason());
+  }
+
+  /**
+   * Method under test: {@link DeleteTaskPayload#hasReason()}
+   */
+  @Test
+  void testHasReason2() {
+    // Arrange
+    DeleteTaskPayload deleteTaskPayload = new DeleteTaskPayload();
+    deleteTaskPayload.setReason("foo");
+
+    // Act and Assert
+    assertTrue(deleteTaskPayload.hasReason());
+  }
+
+  /**
+   * Methods under test:
+   * <ul>
+   *   <li>{@link DeleteTaskPayload#setReason(String)}
+   *   <li>{@link DeleteTaskPayload#setTaskId(String)}
+   *   <li>{@link DeleteTaskPayload#getId()}
+   *   <li>{@link DeleteTaskPayload#getReason()}
+   *   <li>{@link DeleteTaskPayload#getTaskId()}
+   * </ul>
+   */
+  @Test
+  void testGettersAndSetters() {
+    // Arrange
+    DeleteTaskPayload deleteTaskPayload = new DeleteTaskPayload();
+
+    // Act
+    deleteTaskPayload.setReason("Just cause");
+    deleteTaskPayload.setTaskId("42");
+    deleteTaskPayload.getId();
+    String actualReason = deleteTaskPayload.getReason();
+
+    // Assert that nothing has changed
+    assertEquals("42", deleteTaskPayload.getTaskId());
+    assertEquals("Just cause", actualReason);
+  }
+
+  /**
    * Method under test: {@link DeleteTaskPayload#DeleteTaskPayload()}
    */
   @Test
-  @DisplayName("Test new DeleteTaskPayload()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DeleteTaskPayload.<init>()"})
   void testNewDeleteTaskPayload() {
     // Arrange and Act
     DeleteTaskPayload actualDeleteTaskPayload = new DeleteTaskPayload();
@@ -45,14 +85,10 @@ class DeleteTaskPayloadDiffblueTest {
   }
 
   /**
-   * Test {@link DeleteTaskPayload#DeleteTaskPayload(String, String)}.
-   * <p>
-   * Method under test: {@link DeleteTaskPayload#DeleteTaskPayload(String, String)}
+   * Method under test:
+   * {@link DeleteTaskPayload#DeleteTaskPayload(String, String)}
    */
   @Test
-  @DisplayName("Test new DeleteTaskPayload(String, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void DeleteTaskPayload.<init>(String, String)"})
   void testNewDeleteTaskPayload2() {
     // Arrange and Act
     DeleteTaskPayload actualDeleteTaskPayload = new DeleteTaskPayload("42", "Just cause");
@@ -61,78 +97,5 @@ class DeleteTaskPayloadDiffblueTest {
     assertEquals("42", actualDeleteTaskPayload.getTaskId());
     assertEquals("Just cause", actualDeleteTaskPayload.getReason());
     assertTrue(actualDeleteTaskPayload.hasReason());
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link DeleteTaskPayload#setReason(String)}
-   *   <li>{@link DeleteTaskPayload#setTaskId(String)}
-   *   <li>{@link DeleteTaskPayload#getId()}
-   *   <li>{@link DeleteTaskPayload#getReason()}
-   *   <li>{@link DeleteTaskPayload#getTaskId()}
-   * </ul>
-   */
-  @Test
-  @DisplayName("Test getters and setters")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String DeleteTaskPayload.getId()", "String DeleteTaskPayload.getReason()",
-      "String DeleteTaskPayload.getTaskId()", "void DeleteTaskPayload.setReason(String)",
-      "void DeleteTaskPayload.setTaskId(String)"})
-  void testGettersAndSetters() {
-    // Arrange
-    DeleteTaskPayload deleteTaskPayload = new DeleteTaskPayload();
-
-    // Act
-    deleteTaskPayload.setReason("Just cause");
-    deleteTaskPayload.setTaskId("42");
-    deleteTaskPayload.getId();
-    String actualReason = deleteTaskPayload.getReason();
-
-    // Assert
-    assertEquals("42", deleteTaskPayload.getTaskId());
-    assertEquals("Just cause", actualReason);
-  }
-
-  /**
-   * Test {@link DeleteTaskPayload#hasReason()}.
-   * <ul>
-   *   <li>Given {@link DeleteTaskPayload#DeleteTaskPayload()} Reason is {@code foo}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeleteTaskPayload#hasReason()}
-   */
-  @Test
-  @DisplayName("Test hasReason(); given DeleteTaskPayload() Reason is 'foo'; then return 'true'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean DeleteTaskPayload.hasReason()"})
-  void testHasReason_givenDeleteTaskPayloadReasonIsFoo_thenReturnTrue() {
-    // Arrange
-    DeleteTaskPayload deleteTaskPayload = new DeleteTaskPayload();
-    deleteTaskPayload.setReason("foo");
-
-    // Act and Assert
-    assertTrue(deleteTaskPayload.hasReason());
-  }
-
-  /**
-   * Test {@link DeleteTaskPayload#hasReason()}.
-   * <ul>
-   *   <li>Given {@link DeleteTaskPayload#DeleteTaskPayload()}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DeleteTaskPayload#hasReason()}
-   */
-  @Test
-  @DisplayName("Test hasReason(); given DeleteTaskPayload(); then return 'false'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean DeleteTaskPayload.hasReason()"})
-  void testHasReason_givenDeleteTaskPayload_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse((new DeleteTaskPayload()).hasReason());
   }
 }

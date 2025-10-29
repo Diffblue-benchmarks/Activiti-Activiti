@@ -25,8 +25,6 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.net.URL;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -41,13 +39,10 @@ import org.activiti.engine.impl.bpmn.webservice.MessageInstance;
 import org.activiti.engine.impl.bpmn.webservice.Operation;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class WSOperationDiffblueTest {
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link WSOperation#WSOperation(String, String, WSService)}
@@ -57,9 +52,6 @@ public class WSOperationDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void WSOperation.<init>(String, String, WSService)", "String WSOperation.getId()",
-      "String WSOperation.getName()", "WSService WSOperation.getService()"})
   public void testGettersAndSetters() {
     // Arrange
     WSService service = new WSService("Name", "Location", "Wsdl Location");
@@ -76,54 +68,11 @@ public class WSOperationDiffblueTest {
   }
 
   /**
-   * Test {@link WSOperation#sendFor(MessageInstance, Operation, ConcurrentMap)}.
-   * <ul>
-   *   <li>Given {@link SyncWebServiceClient} {@link SyncWebServiceClient#send(String, Object[], ConcurrentMap)} return {@code null}.</li>
-   *   <li>When {@link Operation#Operation()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link WSOperation#sendFor(MessageInstance, Operation, ConcurrentMap)}
+   * Method under test:
+   * {@link WSOperation#sendFor(MessageInstance, Operation, ConcurrentMap)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"MessageInstance WSOperation.sendFor(MessageInstance, Operation, ConcurrentMap)"})
-  public void testSendFor_givenSyncWebServiceClientSendReturnNull_whenOperation_thenReturnNull() throws Exception {
-    // Arrange
-    SyncWebServiceClient client = mock(SyncWebServiceClient.class);
-    when(client.send(Mockito.<String>any(), Mockito.<Object[]>any(), Mockito.<ConcurrentMap<QName, URL>>any()))
-        .thenReturn(null);
-    WSOperation wsOperation = new WSOperation("42", "Operation Name",
-        new WSService("org.activiti.engine.impl.webservice.CxfWebServiceClientFactory",
-            "org.activiti.engine.impl.webservice.CxfWebServiceClientFactory", client));
-    MessageDefinition message = new MessageDefinition("42");
-    ItemDefinition item = new ItemDefinition("42", new SimpleStructureDefinition("42"));
-
-    MessageInstance message2 = new MessageInstance(message,
-        new ItemInstance(item, new FieldBaseStructureInstance(new SimpleStructureDefinition("42"))));
-
-    Operation operation = new Operation();
-
-    // Act
-    MessageInstance actualSendForResult = wsOperation.sendFor(message2, operation, new ConcurrentHashMap<>());
-
-    // Assert
-    verify(client).send(eq("Operation Name"), isA(Object[].class), isA(ConcurrentMap.class));
-    assertNull(actualSendForResult);
-  }
-
-  /**
-   * Test {@link WSOperation#sendFor(MessageInstance, Operation, ConcurrentMap)}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link WSOperation#sendFor(MessageInstance, Operation, ConcurrentMap)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"MessageInstance WSOperation.sendFor(MessageInstance, Operation, ConcurrentMap)"})
-  public void testSendFor_thenReturnNull() throws Exception {
+  public void testSendFor() throws Exception {
     // Arrange
     SyncWebServiceClient client = mock(SyncWebServiceClient.class);
     when(client.send(Mockito.<String>any(), Mockito.<Object[]>any(), Mockito.<ConcurrentMap<QName, URL>>any()))
@@ -148,17 +97,66 @@ public class WSOperationDiffblueTest {
   }
 
   /**
-   * Test {@link WSOperation#sendFor(MessageInstance, Operation, ConcurrentMap)}.
-   * <ul>
-   *   <li>Then StructureInstance return {@link FieldBaseStructureInstance}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link WSOperation#sendFor(MessageInstance, Operation, ConcurrentMap)}
+   * Method under test:
+   * {@link WSOperation#sendFor(MessageInstance, Operation, ConcurrentMap)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"MessageInstance WSOperation.sendFor(MessageInstance, Operation, ConcurrentMap)"})
-  public void testSendFor_thenStructureInstanceReturnFieldBaseStructureInstance() throws Exception {
+  public void testSendFor2() throws Exception {
+    // Arrange
+    SyncWebServiceClient client = mock(SyncWebServiceClient.class);
+    when(client.send(Mockito.<String>any(), Mockito.<Object[]>any(), Mockito.<ConcurrentMap<QName, URL>>any()))
+        .thenReturn(null);
+    WSOperation wsOperation = new WSOperation("42", "Operation Name",
+        new WSService("org.activiti.engine.impl.webservice.CxfWebServiceClientFactory",
+            "org.activiti.engine.impl.webservice.CxfWebServiceClientFactory", client));
+    MessageDefinition message = new MessageDefinition("42");
+    ItemDefinition item = new ItemDefinition("42", new SimpleStructureDefinition("42"));
+
+    MessageInstance message2 = new MessageInstance(message,
+        new ItemInstance(item, new FieldBaseStructureInstance(new SimpleStructureDefinition("42"))));
+
+    Operation operation = new Operation();
+
+    // Act
+    MessageInstance actualSendForResult = wsOperation.sendFor(message2, operation, new ConcurrentHashMap<>());
+
+    // Assert
+    verify(client).send(eq("Operation Name"), isA(Object[].class), isA(ConcurrentMap.class));
+    assertNull(actualSendForResult);
+  }
+
+  /**
+   * Method under test:
+   * {@link WSOperation#sendFor(MessageInstance, Operation, ConcurrentMap)}
+   */
+  @Test
+  public void testSendFor3() throws Exception {
+    // Arrange
+    SyncWebServiceClient client = mock(SyncWebServiceClient.class);
+    when(client.send(Mockito.<String>any(), Mockito.<Object[]>any(), Mockito.<ConcurrentMap<QName, URL>>any()))
+        .thenThrow(new Exception("foo"));
+    WSOperation wsOperation = new WSOperation("42", "Operation Name",
+        new WSService("org.activiti.engine.impl.webservice.CxfWebServiceClientFactory",
+            "org.activiti.engine.impl.webservice.CxfWebServiceClientFactory", client));
+    MessageDefinition message = new MessageDefinition("42");
+    ItemDefinition item = new ItemDefinition("42", new SimpleStructureDefinition("42"));
+
+    MessageInstance message2 = new MessageInstance(message,
+        new ItemInstance(item, new FieldBaseStructureInstance(new SimpleStructureDefinition("42"))));
+
+    Operation operation = new Operation();
+
+    // Act and Assert
+    assertThrows(Exception.class, () -> wsOperation.sendFor(message2, operation, new ConcurrentHashMap<>()));
+    verify(client).send(eq("Operation Name"), isA(Object[].class), isA(ConcurrentMap.class));
+  }
+
+  /**
+   * Method under test:
+   * {@link WSOperation#sendFor(MessageInstance, Operation, ConcurrentMap)}
+   */
+  @Test
+  public void testSendFor4() throws Exception {
     // Arrange
     SyncWebServiceClient client = mock(SyncWebServiceClient.class);
     when(client.send(Mockito.<String>any(), Mockito.<Object[]>any(), Mockito.<ConcurrentMap<QName, URL>>any()))
@@ -188,37 +186,5 @@ public class WSOperationDiffblueTest {
     assertEquals(0, ((FieldBaseStructureInstance) structureInstance).getFieldSize());
     assertEquals(0, structureInstance.toArray().length);
     assertSame(outMessage, actualSendForResult.getMessage());
-  }
-
-  /**
-   * Test {@link WSOperation#sendFor(MessageInstance, Operation, ConcurrentMap)}.
-   * <ul>
-   *   <li>Then throw {@link Exception}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link WSOperation#sendFor(MessageInstance, Operation, ConcurrentMap)}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"MessageInstance WSOperation.sendFor(MessageInstance, Operation, ConcurrentMap)"})
-  public void testSendFor_thenThrowException() throws Exception {
-    // Arrange
-    SyncWebServiceClient client = mock(SyncWebServiceClient.class);
-    when(client.send(Mockito.<String>any(), Mockito.<Object[]>any(), Mockito.<ConcurrentMap<QName, URL>>any()))
-        .thenThrow(new Exception("foo"));
-    WSOperation wsOperation = new WSOperation("42", "Operation Name",
-        new WSService("org.activiti.engine.impl.webservice.CxfWebServiceClientFactory",
-            "org.activiti.engine.impl.webservice.CxfWebServiceClientFactory", client));
-    MessageDefinition message = new MessageDefinition("42");
-    ItemDefinition item = new ItemDefinition("42", new SimpleStructureDefinition("42"));
-
-    MessageInstance message2 = new MessageInstance(message,
-        new ItemInstance(item, new FieldBaseStructureInstance(new SimpleStructureDefinition("42"))));
-
-    Operation operation = new Operation();
-
-    // Act and Assert
-    assertThrows(Exception.class, () -> wsOperation.sendFor(message2, operation, new ConcurrentHashMap<>()));
-    verify(client).send(eq("Operation Name"), isA(Object[].class), isA(ConcurrentMap.class));
   }
 }

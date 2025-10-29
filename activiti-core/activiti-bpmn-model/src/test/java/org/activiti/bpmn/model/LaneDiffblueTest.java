@@ -19,28 +19,63 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class LaneDiffblueTest {
   /**
-   * Test {@link Lane#clone()}.
-   * <ul>
-   *   <li>Given {@link Lane} (default constructor) ExtensionElements is {@code null}.</li>
-   *   <li>Then return Id is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Lane#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Lane Lane.clone()"})
-  public void testClone_givenLaneExtensionElementsIsNull_thenReturnIdIsNull() {
+  public void testClone() {
+    // Arrange and Act
+    Lane actualCloneResult = (new Lane()).clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getParentProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertTrue(actualCloneResult.getFlowReferences().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link Lane#clone()}
+   */
+  @Test
+  public void testClone2() {
+    // Arrange
+    Lane lane = new Lane();
+    lane.setFlowReferences(null);
+
+    // Act
+    Lane actualCloneResult = lane.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getParentProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertTrue(actualCloneResult.getFlowReferences().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Method under test: {@link Lane#clone()}
+   */
+  @Test
+  public void testClone3() {
     // Arrange
     Lane lane = new Lane();
     lane.setExtensionElements(null);
@@ -61,21 +96,14 @@ public class LaneDiffblueTest {
   }
 
   /**
-   * Test {@link Lane#clone()}.
-   * <ul>
-   *   <li>Given {@link Lane} (default constructor) FlowReferences is {@code null}.</li>
-   *   <li>Then return Id is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Lane#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Lane Lane.clone()"})
-  public void testClone_givenLaneFlowReferencesIsNull_thenReturnIdIsNull() {
+  public void testClone4() {
     // Arrange
     Lane lane = new Lane();
-    lane.setFlowReferences(null);
+    ExtensionAttribute attribute = new ExtensionAttribute("Name");
+    lane.addAttribute(attribute);
 
     // Act
     Lane actualCloneResult = lane.clone();
@@ -86,26 +114,29 @@ public class LaneDiffblueTest {
     assertNull(actualCloneResult.getParentProcess());
     assertEquals(0, actualCloneResult.getXmlColumnNumber());
     assertEquals(0, actualCloneResult.getXmlRowNumber());
+    Map<String, List<ExtensionAttribute>> attributes = actualCloneResult.getAttributes();
+    assertEquals(1, attributes.size());
+    List<ExtensionAttribute> getResult = attributes.get("Name");
+    assertEquals(1, getResult.size());
     assertTrue(actualCloneResult.getFlowReferences().isEmpty());
-    assertTrue(actualCloneResult.getAttributes().isEmpty());
     assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertSame(attribute, getResult.get(0));
   }
 
   /**
-   * Test {@link Lane#clone()}.
-   * <ul>
-   *   <li>Given {@link Lane} (default constructor).</li>
-   *   <li>Then return Id is {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link Lane#clone()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Lane Lane.clone()"})
-  public void testClone_givenLane_thenReturnIdIsNull() {
-    // Arrange and Act
-    Lane actualCloneResult = (new Lane()).clone();
+  public void testClone5() {
+    // Arrange
+    Lane lane = new Lane();
+    ExtensionAttribute attribute = new ExtensionAttribute("42");
+    lane.addAttribute(attribute);
+    ExtensionAttribute attribute2 = new ExtensionAttribute("Name");
+    lane.addAttribute(attribute2);
+
+    // Act
+    Lane actualCloneResult = lane.clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
@@ -113,66 +144,39 @@ public class LaneDiffblueTest {
     assertNull(actualCloneResult.getParentProcess());
     assertEquals(0, actualCloneResult.getXmlColumnNumber());
     assertEquals(0, actualCloneResult.getXmlRowNumber());
-    assertTrue(actualCloneResult.getFlowReferences().isEmpty());
-    assertTrue(actualCloneResult.getAttributes().isEmpty());
-    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link Lane#clone()}.
-   * <ul>
-   *   <li>Then return Attributes size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Lane#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Lane Lane.clone()"})
-  public void testClone_thenReturnAttributesSizeIsOne() {
-    // Arrange
-    Lane lane = new Lane();
-    ExtensionAttribute attribute = new ExtensionAttribute("Name");
-    lane.addAttribute(attribute);
-
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = lane.clone().getAttributes();
-    assertEquals(1, attributes.size());
-    List<ExtensionAttribute> getResult = attributes.get("Name");
-    assertEquals(1, getResult.size());
-    assertSame(attribute, getResult.get(0));
-  }
-
-  /**
-   * Test {@link Lane#clone()}.
-   * <ul>
-   *   <li>Then return Attributes size is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Lane#clone()}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Lane Lane.clone()"})
-  public void testClone_thenReturnAttributesSizeIsTwo() {
-    // Arrange
-    Lane lane = new Lane();
-    ExtensionAttribute attribute = new ExtensionAttribute("42");
-    lane.addAttribute(attribute);
-    lane.addAttribute(new ExtensionAttribute("Name"));
-
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = lane.clone().getAttributes();
+    Map<String, List<ExtensionAttribute>> attributes = actualCloneResult.getAttributes();
     assertEquals(2, attributes.size());
     List<ExtensionAttribute> getResult = attributes.get("42");
     assertEquals(1, getResult.size());
-    assertTrue(attributes.containsKey("Name"));
+    List<ExtensionAttribute> getResult2 = attributes.get("Name");
+    assertEquals(1, getResult2.size());
+    assertTrue(actualCloneResult.getFlowReferences().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
     assertSame(attribute, getResult.get(0));
+    assertSame(attribute2, getResult2.get(0));
   }
 
   /**
-   * Test getters and setters.
-   * <p>
+   * Method under test: {@link Lane#setValues(Lane)}
+   */
+  @Test
+  public void testSetValues() {
+    // Arrange
+    Lane lane = new Lane();
+    ExtensionAttribute attribute = mock(ExtensionAttribute.class);
+    when(attribute.getName()).thenReturn("Name");
+
+    Lane otherElement = new Lane();
+    otherElement.addAttribute(attribute);
+
+    // Act
+    lane.setValues(otherElement);
+
+    // Assert
+    verify(attribute, atLeast(1)).getName();
+  }
+
+  /**
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link Lane}
@@ -185,10 +189,6 @@ public class LaneDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void Lane.<init>()", "List Lane.getFlowReferences()", "String Lane.getName()",
-      "Process Lane.getParentProcess()", "void Lane.setFlowReferences(List)", "void Lane.setName(String)",
-      "void Lane.setParentProcess(Process)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Lane actualLane = new Lane();
@@ -201,9 +201,8 @@ public class LaneDiffblueTest {
     String actualName = actualLane.getName();
     Process actualParentProcess = actualLane.getParentProcess();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("Name", actualName);
-    assertNull(actualLane.getId());
     assertEquals(0, actualLane.getXmlColumnNumber());
     assertEquals(0, actualLane.getXmlRowNumber());
     assertTrue(actualFlowReferences.isEmpty());

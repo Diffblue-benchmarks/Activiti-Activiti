@@ -20,23 +20,18 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BiFunction;
 import org.activiti.engine.impl.bpmn.data.IOSpecification;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ProcessDefinitionEntityImplDiffblueTest {
   /**
-   * Test {@link ProcessDefinitionEntityImpl#getPersistentState()}.
-   * <p>
    * Method under test: {@link ProcessDefinitionEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object ProcessDefinitionEntityImpl.getPersistentState()"})
   public void testGetPersistentState() {
     // Arrange and Act
     Object actualPersistentState = (new ProcessDefinitionEntityImpl()).getPersistentState();
@@ -49,34 +44,41 @@ public class ProcessDefinitionEntityImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessDefinitionEntityImpl#isSuspended()}.
-   * <ul>
-   *   <li>Given {@link ProcessDefinitionEntityImpl} (default constructor).</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
+   * Method under test: {@link ProcessDefinitionEntityImpl#getPersistentState()}
+   */
+  @Test
+  public void testGetPersistentState2() {
+    // Arrange
+    HashMap<String, Object> variables = new HashMap<>();
+    variables.computeIfPresent("foo", mock(BiFunction.class));
+
+    ProcessDefinitionEntityImpl processDefinitionEntityImpl = new ProcessDefinitionEntityImpl();
+    processDefinitionEntityImpl.setVariables(variables);
+
+    // Act
+    Object actualPersistentState = processDefinitionEntityImpl.getPersistentState();
+
+    // Assert
+    assertTrue(actualPersistentState instanceof Map);
+    assertEquals(2, ((Map<String, Integer>) actualPersistentState).size());
+    assertNull(((Map<String, Integer>) actualPersistentState).get("category"));
+    assertEquals(1, ((Map<String, Integer>) actualPersistentState).get("suspensionState").intValue());
+  }
+
+  /**
    * Method under test: {@link ProcessDefinitionEntityImpl#isSuspended()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean ProcessDefinitionEntityImpl.isSuspended()"})
-  public void testIsSuspended_givenProcessDefinitionEntityImpl_thenReturnFalse() {
+  public void testIsSuspended() {
     // Arrange, Act and Assert
     assertFalse((new ProcessDefinitionEntityImpl()).isSuspended());
   }
 
   /**
-   * Test {@link ProcessDefinitionEntityImpl#isSuspended()}.
-   * <ul>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link ProcessDefinitionEntityImpl#isSuspended()}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"boolean ProcessDefinitionEntityImpl.isSuspended()"})
-  public void testIsSuspended_thenReturnTrue() {
+  public void testIsSuspended2() {
     // Arrange
     ProcessDefinitionEntityImpl processDefinitionEntityImpl = new ProcessDefinitionEntityImpl();
     processDefinitionEntityImpl.setSuspensionState(2);
@@ -86,8 +88,6 @@ public class ProcessDefinitionEntityImplDiffblueTest {
   }
 
   /**
-   * Test getters and setters.
-   * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link ProcessDefinitionEntityImpl#setAppVersion(Integer)}
@@ -131,36 +131,6 @@ public class ProcessDefinitionEntityImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Integer ProcessDefinitionEntityImpl.getAppVersion()",
-      "String ProcessDefinitionEntityImpl.getCategory()", "String ProcessDefinitionEntityImpl.getDeploymentId()",
-      "String ProcessDefinitionEntityImpl.getDescription()",
-      "String ProcessDefinitionEntityImpl.getDiagramResourceName()",
-      "String ProcessDefinitionEntityImpl.getEngineVersion()",
-      "boolean ProcessDefinitionEntityImpl.getHasStartFormKey()",
-      "Integer ProcessDefinitionEntityImpl.getHistoryLevel()",
-      "IOSpecification ProcessDefinitionEntityImpl.getIoSpecification()", "String ProcessDefinitionEntityImpl.getKey()",
-      "String ProcessDefinitionEntityImpl.getName()", "String ProcessDefinitionEntityImpl.getResourceName()",
-      "int ProcessDefinitionEntityImpl.getSuspensionState()", "String ProcessDefinitionEntityImpl.getTenantId()",
-      "Map ProcessDefinitionEntityImpl.getVariables()", "int ProcessDefinitionEntityImpl.getVersion()",
-      "boolean ProcessDefinitionEntityImpl.hasGraphicalNotation()",
-      "boolean ProcessDefinitionEntityImpl.hasStartFormKey()",
-      "boolean ProcessDefinitionEntityImpl.isGraphicalNotationDefined()",
-      "void ProcessDefinitionEntityImpl.setAppVersion(Integer)", "void ProcessDefinitionEntityImpl.setCategory(String)",
-      "void ProcessDefinitionEntityImpl.setDeploymentId(String)",
-      "void ProcessDefinitionEntityImpl.setDescription(String)",
-      "void ProcessDefinitionEntityImpl.setDiagramResourceName(String)",
-      "void ProcessDefinitionEntityImpl.setEngineVersion(String)",
-      "void ProcessDefinitionEntityImpl.setGraphicalNotationDefined(boolean)",
-      "void ProcessDefinitionEntityImpl.setHasStartFormKey(boolean)",
-      "void ProcessDefinitionEntityImpl.setHistoryLevel(Integer)",
-      "void ProcessDefinitionEntityImpl.setIoSpecification(IOSpecification)",
-      "void ProcessDefinitionEntityImpl.setKey(String)", "void ProcessDefinitionEntityImpl.setName(String)",
-      "void ProcessDefinitionEntityImpl.setResourceName(String)",
-      "void ProcessDefinitionEntityImpl.setStartFormKey(boolean)",
-      "void ProcessDefinitionEntityImpl.setSuspensionState(int)",
-      "void ProcessDefinitionEntityImpl.setTenantId(String)", "void ProcessDefinitionEntityImpl.setVariables(Map)",
-      "void ProcessDefinitionEntityImpl.setVersion(int)", "String ProcessDefinitionEntityImpl.toString()"})
   public void testGettersAndSetters() {
     // Arrange
     ProcessDefinitionEntityImpl processDefinitionEntityImpl = new ProcessDefinitionEntityImpl();
@@ -207,7 +177,7 @@ public class ProcessDefinitionEntityImplDiffblueTest {
     boolean actualHasStartFormKeyResult = processDefinitionEntityImpl.hasStartFormKey();
     boolean actualIsGraphicalNotationDefinedResult = processDefinitionEntityImpl.isGraphicalNotationDefined();
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals("1.0.2", actualEngineVersion);
     assertEquals("42", actualDeploymentId);
     assertEquals("42", actualTenantId);
@@ -232,13 +202,10 @@ public class ProcessDefinitionEntityImplDiffblueTest {
   }
 
   /**
-   * Test new {@link ProcessDefinitionEntityImpl} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link ProcessDefinitionEntityImpl}
+   * Method under test: default or parameterless constructor of
+   * {@link ProcessDefinitionEntityImpl}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ProcessDefinitionEntityImpl.<init>()"})
   public void testNewProcessDefinitionEntityImpl() {
     // Arrange and Act
     ProcessDefinitionEntityImpl actualProcessDefinitionEntityImpl = new ProcessDefinitionEntityImpl();
@@ -247,6 +214,8 @@ public class ProcessDefinitionEntityImplDiffblueTest {
     Object persistentState = actualProcessDefinitionEntityImpl.getPersistentState();
     assertTrue(persistentState instanceof Map);
     assertEquals("", actualProcessDefinitionEntityImpl.getTenantId());
+    assertEquals(2, ((Map<String, Integer>) persistentState).size());
+    assertNull(((Map<String, Integer>) persistentState).get("category"));
     assertNull(actualProcessDefinitionEntityImpl.getAppVersion());
     assertNull(actualProcessDefinitionEntityImpl.getHistoryLevel());
     assertNull(actualProcessDefinitionEntityImpl.getId());
@@ -261,9 +230,9 @@ public class ProcessDefinitionEntityImplDiffblueTest {
     assertNull(actualProcessDefinitionEntityImpl.getVariables());
     assertNull(actualProcessDefinitionEntityImpl.getIoSpecification());
     assertEquals(0, actualProcessDefinitionEntityImpl.getVersion());
+    assertEquals(1, ((Map<String, Integer>) persistentState).get("suspensionState").intValue());
     assertEquals(1, actualProcessDefinitionEntityImpl.getRevision());
     assertEquals(1, actualProcessDefinitionEntityImpl.getSuspensionState());
-    assertEquals(2, ((Map<String, Integer>) persistentState).size());
     assertEquals(2, actualProcessDefinitionEntityImpl.getRevisionNext());
     assertFalse(actualProcessDefinitionEntityImpl.isDeleted());
     assertFalse(actualProcessDefinitionEntityImpl.isInserted());
@@ -275,7 +244,5 @@ public class ProcessDefinitionEntityImplDiffblueTest {
     assertFalse(actualProcessDefinitionEntityImpl.isSuspended());
     assertFalse(actualProcessDefinitionEntityImpl.isIdentityLinksInitialized);
     assertTrue(actualProcessDefinitionEntityImpl.definitionIdentityLinkEntities.isEmpty());
-    assertTrue(((Map<String, Integer>) persistentState).containsKey("category"));
-    assertTrue(((Map<String, Integer>) persistentState).containsKey("suspensionState"));
   }
 }

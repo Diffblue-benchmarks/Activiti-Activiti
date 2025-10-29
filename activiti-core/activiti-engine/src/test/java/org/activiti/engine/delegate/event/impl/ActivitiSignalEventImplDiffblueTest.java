@@ -18,27 +18,42 @@ package org.activiti.engine.delegate.event.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 public class ActivitiSignalEventImplDiffblueTest {
   /**
-   * Test {@link ActivitiSignalEventImpl#ActivitiSignalEventImpl(ActivitiEventType)}.
+   * Methods under test:
    * <ul>
-   *   <li>When {@code ENTITY_CREATED}.</li>
-   *   <li>Then return SignalData is {@code null}.</li>
+   *   <li>{@link ActivitiSignalEventImpl#setSignalData(Object)}
+   *   <li>{@link ActivitiSignalEventImpl#setSignalName(String)}
+   *   <li>{@link ActivitiSignalEventImpl#getSignalData()}
+   *   <li>{@link ActivitiSignalEventImpl#getSignalName()}
    * </ul>
-   * <p>
-   * Method under test: {@link ActivitiSignalEventImpl#ActivitiSignalEventImpl(ActivitiEventType)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void ActivitiSignalEventImpl.<init>(ActivitiEventType)"})
-  public void testNewActivitiSignalEventImpl_whenEntityCreated_thenReturnSignalDataIsNull() {
+  public void testGettersAndSetters() {
+    // Arrange
+    ActivitiSignalEventImpl activitiSignalEventImpl = new ActivitiSignalEventImpl(ActivitiEventType.ENTITY_CREATED);
+    Object object = JSONObject.NULL;
+
+    // Act
+    activitiSignalEventImpl.setSignalData(object);
+    activitiSignalEventImpl.setSignalName("Signal Name");
+    Object actualSignalData = activitiSignalEventImpl.getSignalData();
+
+    // Assert that nothing has changed
+    assertEquals("Signal Name", activitiSignalEventImpl.getSignalName());
+    assertSame(object, actualSignalData);
+  }
+
+  /**
+   * Method under test:
+   * {@link ActivitiSignalEventImpl#ActivitiSignalEventImpl(ActivitiEventType)}
+   */
+  @Test
+  public void testNewActivitiSignalEventImpl() {
     // Arrange and Act
     ActivitiSignalEventImpl actualActivitiSignalEventImpl = new ActivitiSignalEventImpl(
         ActivitiEventType.ENTITY_CREATED);
@@ -55,35 +70,5 @@ public class ActivitiSignalEventImplDiffblueTest {
     assertNull(actualActivitiSignalEventImpl.getReason());
     assertNull(actualActivitiSignalEventImpl.getSignalName());
     assertEquals(ActivitiEventType.ENTITY_CREATED, actualActivitiSignalEventImpl.getType());
-  }
-
-  /**
-   * Test getters and setters.
-   * <p>
-   * Methods under test:
-   * <ul>
-   *   <li>{@link ActivitiSignalEventImpl#setSignalData(Object)}
-   *   <li>{@link ActivitiSignalEventImpl#setSignalName(String)}
-   *   <li>{@link ActivitiSignalEventImpl#getSignalData()}
-   *   <li>{@link ActivitiSignalEventImpl#getSignalName()}
-   * </ul>
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"Object ActivitiSignalEventImpl.getSignalData()", "String ActivitiSignalEventImpl.getSignalName()",
-      "void ActivitiSignalEventImpl.setSignalData(Object)", "void ActivitiSignalEventImpl.setSignalName(String)"})
-  public void testGettersAndSetters() {
-    // Arrange
-    ActivitiSignalEventImpl activitiSignalEventImpl = new ActivitiSignalEventImpl(ActivitiEventType.ENTITY_CREATED);
-    Object object = JSONObject.NULL;
-
-    // Act
-    activitiSignalEventImpl.setSignalData(object);
-    activitiSignalEventImpl.setSignalName("Signal Name");
-    Object actualSignalData = activitiSignalEventImpl.getSignalData();
-
-    // Assert
-    assertEquals("Signal Name", activitiSignalEventImpl.getSignalName());
-    assertSame(object, actualSignalData);
   }
 }

@@ -16,23 +16,15 @@
 package org.activiti.bpmn.converter.alfresco;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.alfresco.AlfrescoUserTask;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class AlfrescoUserTaskXMLConverterDiffblueTest {
   /**
-   * Test {@link AlfrescoUserTaskXMLConverter#getBpmnElementType()}.
-   * <p>
    * Method under test: {@link AlfrescoUserTaskXMLConverter#getBpmnElementType()}
    */
   @Test
-  @DisplayName("Test getBpmnElementType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"Class AlfrescoUserTaskXMLConverter.getBpmnElementType()"})
   void testGetBpmnElementType() {
     // Arrange and Act
     Class<? extends BaseElement> actualBpmnElementType = (new AlfrescoUserTaskXMLConverter()).getBpmnElementType();
@@ -43,14 +35,10 @@ class AlfrescoUserTaskXMLConverterDiffblueTest {
   }
 
   /**
-   * Test new {@link AlfrescoUserTaskXMLConverter} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link AlfrescoUserTaskXMLConverter}
+   * Method under test: default or parameterless constructor of
+   * {@link AlfrescoUserTaskXMLConverter}
    */
   @Test
-  @DisplayName("Test new AlfrescoUserTaskXMLConverter (default constructor)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void AlfrescoUserTaskXMLConverter.<init>()"})
   void testNewAlfrescoUserTaskXMLConverter() {
     // Arrange and Act
     AlfrescoUserTaskXMLConverter actualAlfrescoUserTaskXMLConverter = new AlfrescoUserTaskXMLConverter();

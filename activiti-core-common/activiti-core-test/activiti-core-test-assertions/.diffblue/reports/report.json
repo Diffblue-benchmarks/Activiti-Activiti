@@ -3,25 +3,26 @@
     "reportVersion" : "2.6"
   },
   "run" : {
-    "version" : "2025.02.02-08b2a5a-licensed",
-    "creationTimestamp" : "2025-10-21T18:36:58.703503864Z",
+    "version" : "2024.10.01-2ee2e3d-licensed",
+    "creationTimestamp" : "2025-10-28T11:31:52.893683331Z",
     "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
-    "totalTime" : 326.578,
-    "environmentDetectionTime" : 0.379,
-    "indexingTime" : 0.351,
-    "entryPointsTime" : 0.373,
-    "generationTime" : 696.212,
-    "timeToFirstTest" : 1738.979,
-    "timeToLastTest" : 1441.747,
-    "indexQueryTime" : 4.448,
-    "verificationTime" : 46.239,
-    "validationTime" : 17.465
+    "totalTime" : 1763.569,
+    "environmentDetectionTime" : 0.275,
+    "indexingTime" : 0.321,
+    "entryPointsTime" : 0.272,
+    "generationTime" : 676.942,
+    "timeToFirstTest" : 87.907,
+    "timeToLastTest" : 90.172,
+    "indexQueryTime" : 5.665,
+    "verificationTime" : 52.752,
+    "validationTime" : 17.43
   },
   "codes" : {
     "R000" : "Success",
     "R002" : "Missing observers",
     "R004" : "No meaningful assertions found",
     "R013" : "No inputs found that don't throw a trivial exception",
+    "R026" : "Failed to create Spring context",
     "T000" : "Method eligible for test creation",
     "T001" : "Trivial getter",
     "T002" : "Trivial setter",
@@ -35,9 +36,9 @@
   "summary" : {
     "classesCount" : 36,
     "methodsCount" : 181,
-    "cumulativeDiffblueTestCount" : 53,
+    "cumulativeDiffblueTestCount" : 51,
     "cumulativeManualTestCount" : 0,
-    "completeTestCount" : 53,
+    "completeTestCount" : 52,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 849,
@@ -51,20 +52,21 @@
       "T012" : 64
     },
     "perMethodOutcome" : {
-      "R000" : 43,
+      "R000" : 42,
       "R002" : 15,
       "R004" : 2,
       "R013" : 13,
+      "R026" : 1,
       "T003" : 15,
       "T010" : 24,
       "T012" : 64,
       "W001" : 5
     },
     "perTestOutcome" : {
-      "R000" : 53
+      "R000" : 52
     },
     "perTestValidation" : {
-      "V000" : 53
+      "V000" : 52
     },
     "warnings" : {
       "W001" : 7
@@ -248,7 +250,7 @@
     },
     "org.activiti.test.conf.AssertionsAPIAutoConfiguration" : {
       "methodsCount" : 3,
-      "completeTestCount" : 2,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -259,7 +261,7 @@
         "R002" : 1
       },
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 4
       }
     },
     "org.activiti.test.matchers.ActivityMatchers" : {
@@ -574,18 +576,19 @@
     },
     "org.activiti.test.operations.AwaitableProcessOperations" : {
       "methodsCount" : 3,
-      "completeTestCount" : 5,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
         "T005" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 2,
-        "R002" : 1
+        "R000" : 1,
+        "R002" : 1,
+        "R026" : 1
       },
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 2
       }
     },
     "org.activiti.test.operations.AwaitableTaskOperations" : {
@@ -1083,24 +1086,24 @@
       ]
     },
     "org.activiti.test.conf.AssertionsAPIAutoConfiguration.processOperations:(Lorg/activiti/test/operations/ProcessOperations;Z)Lorg/activiti/test/operations/ProcessOperations;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         32
       ]
     },
     "org.activiti.test.conf.AssertionsAPIAutoConfiguration.taskOperations:(Lorg/activiti/test/operations/TaskOperations;Z)Lorg/activiti/test/operations/TaskOperations;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         39
@@ -2463,13 +2466,10 @@
       ]
     },
     "org.activiti.test.operations.AwaitableProcessOperations.signal:(Lorg/activiti/api/process/model/payloads/SignalPayload;)Lorg/activiti/test/assertions/SignalAssertions;" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 3
-      },
+      "perMethodOutcome" : "R026",
       "lineNumbers" : [
         48,
         49,

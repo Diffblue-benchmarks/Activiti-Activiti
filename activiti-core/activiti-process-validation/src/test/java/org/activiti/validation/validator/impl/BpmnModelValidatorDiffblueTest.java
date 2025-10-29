@@ -18,37 +18,30 @@ package org.activiti.validation.validator.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.function.BiFunction;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.Process;
 import org.activiti.bpmn.model.Resource;
 import org.activiti.bpmn.model.Signal;
 import org.activiti.validation.ValidationError;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class BpmnModelValidatorDiffblueTest {
   /**
-   * Test {@link BpmnModelValidator#validate(BpmnModel, List)}.
-   * <ul>
-   *   <li>Given {@link BpmnModelValidator} (default constructor).</li>
-   *   <li>When {@link BpmnModel} (default constructor).</li>
-   *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BpmnModelValidator#validate(BpmnModel, List)}
    */
   @Test
-  @DisplayName("Test validate(BpmnModel, List); given BpmnModelValidator (default constructor); when BpmnModel (default constructor); then ArrayList() size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BpmnModelValidator.validate(BpmnModel, List)"})
-  void testValidate_givenBpmnModelValidator_whenBpmnModel_thenArrayListSizeIsOne() {
+  void testValidate() {
     // Arrange
     BpmnModelValidator bpmnModelValidator = new BpmnModelValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -77,24 +70,18 @@ class BpmnModelValidatorDiffblueTest {
     assertFalse(getResult.isWarning());
     assertTrue(resources.isEmpty());
     assertTrue(signals.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
     assertTrue(getResult.getParams().isEmpty());
   }
 
   /**
-   * Test {@link BpmnModelValidator#validate(BpmnModel, List)}.
-   * <ul>
-   *   <li>Given {@link Process} (default constructor).</li>
-   *   <li>When {@link BpmnModel} (default constructor) addProcess {@link Process} (default constructor).</li>
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BpmnModelValidator#validate(BpmnModel, List)}
    */
   @Test
-  @DisplayName("Test validate(BpmnModel, List); given Process (default constructor); when BpmnModel (default constructor) addProcess Process (default constructor); then ArrayList() Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BpmnModelValidator.validate(BpmnModel, List)"})
-  void testValidate_givenProcess_whenBpmnModelAddProcessProcess_thenArrayListEmpty() {
+  void testValidate2() {
     // Arrange
     BpmnModelValidator bpmnModelValidator = new BpmnModelValidator();
 
@@ -110,26 +97,20 @@ class BpmnModelValidatorDiffblueTest {
     assertTrue(resources instanceof List);
     Collection<Signal> signals = bpmnModel.getSignals();
     assertTrue(signals instanceof List);
+    assertEquals(1, bpmnModel.getProcesses().size());
     assertTrue(errors.isEmpty());
     assertTrue(resources.isEmpty());
     assertTrue(signals.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
   }
 
   /**
-   * Test {@link BpmnModelValidator#validate(BpmnModel, List)}.
-   * <ul>
-   *   <li>Given {@link Process} (default constructor).</li>
-   *   <li>When {@link BpmnModel} (default constructor) addProcess {@link Process} (default constructor).</li>
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BpmnModelValidator#validate(BpmnModel, List)}
    */
   @Test
-  @DisplayName("Test validate(BpmnModel, List); given Process (default constructor); when BpmnModel (default constructor) addProcess Process (default constructor); then ArrayList() Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BpmnModelValidator.validate(BpmnModel, List)"})
-  void testValidate_givenProcess_whenBpmnModelAddProcessProcess_thenArrayListEmpty2() {
+  void testValidate3() {
     // Arrange
     BpmnModelValidator bpmnModelValidator = new BpmnModelValidator();
 
@@ -146,25 +127,20 @@ class BpmnModelValidatorDiffblueTest {
     assertTrue(resources instanceof List);
     Collection<Signal> signals = bpmnModel.getSignals();
     assertTrue(signals instanceof List);
+    assertEquals(2, bpmnModel.getProcesses().size());
     assertTrue(errors.isEmpty());
     assertTrue(resources.isEmpty());
     assertTrue(signals.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
   }
 
   /**
-   * Test {@link BpmnModelValidator#validate(BpmnModel, List)}.
-   * <ul>
-   *   <li>Given {@code Target Namespace}.</li>
-   *   <li>When {@link BpmnModel} (default constructor) TargetNamespace is {@code Target Namespace}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BpmnModelValidator#validate(BpmnModel, List)}
    */
   @Test
-  @DisplayName("Test validate(BpmnModel, List); given 'Target Namespace'; when BpmnModel (default constructor) TargetNamespace is 'Target Namespace'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BpmnModelValidator.validate(BpmnModel, List)"})
-  void testValidate_givenTargetNamespace_whenBpmnModelTargetNamespaceIsTargetNamespace() {
+  void testValidate4() {
     // Arrange
     BpmnModelValidator bpmnModelValidator = new BpmnModelValidator();
 
@@ -181,25 +157,20 @@ class BpmnModelValidatorDiffblueTest {
     assertTrue(resources instanceof List);
     Collection<Signal> signals = bpmnModel.getSignals();
     assertTrue(signals instanceof List);
+    assertEquals(1, bpmnModel.getProcesses().size());
     assertTrue(errors.isEmpty());
     assertTrue(resources.isEmpty());
     assertTrue(signals.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
   }
 
   /**
-   * Test {@link BpmnModelValidator#validate(BpmnModel, List)}.
-   * <ul>
-   *   <li>Given {@link ValidationError} (default constructor) ActivityId is {@code 42}.</li>
-   *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BpmnModelValidator#validate(BpmnModel, List)}
    */
   @Test
-  @DisplayName("Test validate(BpmnModel, List); given ValidationError (default constructor) ActivityId is '42'; then ArrayList() size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void BpmnModelValidator.validate(BpmnModel, List)"})
-  void testValidate_givenValidationErrorActivityIdIs42_thenArrayListSizeIsTwo() {
+  void testValidate5() {
     // Arrange
     BpmnModelValidator bpmnModelValidator = new BpmnModelValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -225,6 +196,10 @@ class BpmnModelValidatorDiffblueTest {
     bpmnModelValidator.validate(bpmnModel, errors);
 
     // Assert
+    Collection<Resource> resources = bpmnModel.getResources();
+    assertTrue(resources instanceof List);
+    Collection<Signal> signals = bpmnModel.getSignals();
+    assertTrue(signals instanceof List);
     assertEquals(2, errors.size());
     ValidationError getResult = errors.get(1);
     assertEquals("ALL_PROCESS_DEFINITIONS_NOT_EXECUTABLE", getResult.getDefaultDescription());
@@ -238,23 +213,168 @@ class BpmnModelValidatorDiffblueTest {
     assertEquals(0, getResult.getXmlColumnNumber());
     assertEquals(0, getResult.getXmlLineNumber());
     assertFalse(getResult.isWarning());
+    assertTrue(resources.isEmpty());
+    assertTrue(signals.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
+    assertSame(validationError, errors.get(0));
+  }
+
+  /**
+   * Method under test:
+   * {@link BpmnModelValidator#handleBPMNModelConstraints(BpmnModel, List)}
+   */
+  @Test
+  void testHandleBPMNModelConstraints() {
+    // Arrange
+    BpmnModelValidator bpmnModelValidator = new BpmnModelValidator();
+    BpmnModel bpmnModel = mock(BpmnModel.class);
+    when(bpmnModel.getTargetNamespace()).thenReturn("Target Namespace");
+
+    // Act
+    bpmnModelValidator.handleBPMNModelConstraints(bpmnModel, new ArrayList<>());
+
+    // Assert that nothing has changed
+    verify(bpmnModel, atLeast(1)).getTargetNamespace();
+  }
+
+  /**
+   * Method under test:
+   * {@link BpmnModelValidator#handleBPMNModelConstraints(BpmnModel, List)}
+   */
+  @Test
+  void testHandleBPMNModelConstraints2() {
+    // Arrange
+    BpmnModelValidator bpmnModelValidator = new BpmnModelValidator();
+    BpmnModel bpmnModel = mock(BpmnModel.class);
+    when(bpmnModel.getTargetNamespace()).thenReturn("Target Namespace");
+
+    ValidationError validationError = new ValidationError();
+    validationError.setActivityId("42");
+    validationError.setActivityName("Activity Name");
+    validationError.setDefaultDescription("Default Description");
+    validationError.setKey("Key");
+    validationError.setParams(new HashMap<>());
+    validationError.setProblem("Problem");
+    validationError.setProcessDefinitionId("42");
+    validationError.setProcessDefinitionName("Process Definition Name");
+    validationError.setValidatorSetName("Validator Set Name");
+    validationError.setWarning(true);
+    validationError.setXmlColumnNumber(10);
+    validationError.setXmlLineNumber(2);
+
+    ArrayList<ValidationError> errors = new ArrayList<>();
+    errors.add(validationError);
+
+    // Act
+    bpmnModelValidator.handleBPMNModelConstraints(bpmnModel, errors);
+
+    // Assert that nothing has changed
+    verify(bpmnModel, atLeast(1)).getTargetNamespace();
+  }
+
+  /**
+   * Method under test:
+   * {@link BpmnModelValidator#handleBPMNModelConstraints(BpmnModel, List)}
+   */
+  @Test
+  void testHandleBPMNModelConstraints3() {
+    // Arrange
+    BpmnModelValidator bpmnModelValidator = new BpmnModelValidator();
+    BpmnModel bpmnModel = mock(BpmnModel.class);
+    when(bpmnModel.getTargetNamespace()).thenReturn("Target Namespace");
+
+    ValidationError validationError = new ValidationError();
+    validationError.setActivityId("42");
+    validationError.setActivityName("Activity Name");
+    validationError.setDefaultDescription("Default Description");
+    validationError.setKey("Key");
+    validationError.setParams(new HashMap<>());
+    validationError.setProblem("Problem");
+    validationError.setProcessDefinitionId("42");
+    validationError.setProcessDefinitionName("Process Definition Name");
+    validationError.setValidatorSetName("Validator Set Name");
+    validationError.setWarning(true);
+    validationError.setXmlColumnNumber(10);
+    validationError.setXmlLineNumber(2);
+
+    ValidationError validationError2 = new ValidationError();
+    validationError2.setActivityId("Activity Id");
+    validationError2.setActivityName("42");
+    validationError2.setDefaultDescription("42");
+    validationError2.setKey("42");
+    validationError2.setParams(new HashMap<>());
+    validationError2.setProblem("42");
+    validationError2.setProcessDefinitionId("Process Definition Id");
+    validationError2.setProcessDefinitionName("42");
+    validationError2.setValidatorSetName("42");
+    validationError2.setWarning(false);
+    validationError2.setXmlColumnNumber(255);
+    validationError2.setXmlLineNumber(10);
+
+    ArrayList<ValidationError> errors = new ArrayList<>();
+    errors.add(validationError2);
+    errors.add(validationError);
+
+    // Act
+    bpmnModelValidator.handleBPMNModelConstraints(bpmnModel, errors);
+
+    // Assert that nothing has changed
+    verify(bpmnModel, atLeast(1)).getTargetNamespace();
+  }
+
+  /**
+   * Method under test:
+   * {@link BpmnModelValidator#validateAtLeastOneExecutable(BpmnModel, List)}
+   */
+  @Test
+  void testValidateAtLeastOneExecutable() {
+    // Arrange
+    BpmnModelValidator bpmnModelValidator = new BpmnModelValidator();
+    BpmnModel bpmnModel = new BpmnModel();
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    boolean actualValidateAtLeastOneExecutableResult = bpmnModelValidator.validateAtLeastOneExecutable(bpmnModel,
+        errors);
+
+    // Assert
+    Collection<Resource> resources = bpmnModel.getResources();
+    assertTrue(resources instanceof List);
+    Collection<Signal> signals = bpmnModel.getSignals();
+    assertTrue(signals instanceof List);
+    assertEquals(1, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("ALL_PROCESS_DEFINITIONS_NOT_EXECUTABLE", getResult.getDefaultDescription());
+    assertEquals("ALL_PROCESS_DEFINITIONS_NOT_EXECUTABLE", getResult.getKey());
+    assertEquals("ALL_PROCESS_DEFINITIONS_NOT_EXECUTABLE", getResult.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
+    assertFalse(actualValidateAtLeastOneExecutableResult);
+    assertTrue(resources.isEmpty());
+    assertTrue(signals.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
     assertTrue(getResult.getParams().isEmpty());
   }
 
   /**
-   * Test {@link BpmnModelValidator#validateAtLeastOneExecutable(BpmnModel, List)}.
-   * <ul>
-   *   <li>Given {@link Process} (default constructor).</li>
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BpmnModelValidator#validateAtLeastOneExecutable(BpmnModel, List)}
+   * Method under test:
+   * {@link BpmnModelValidator#validateAtLeastOneExecutable(BpmnModel, List)}
    */
   @Test
-  @DisplayName("Test validateAtLeastOneExecutable(BpmnModel, List); given Process (default constructor); then ArrayList() Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean BpmnModelValidator.validateAtLeastOneExecutable(BpmnModel, List)"})
-  void testValidateAtLeastOneExecutable_givenProcess_thenArrayListEmpty() {
+  void testValidateAtLeastOneExecutable2() {
     // Arrange
     BpmnModelValidator bpmnModelValidator = new BpmnModelValidator();
 
@@ -271,25 +391,22 @@ class BpmnModelValidatorDiffblueTest {
     assertTrue(resources instanceof List);
     Collection<Signal> signals = bpmnModel.getSignals();
     assertTrue(signals instanceof List);
+    assertEquals(1, bpmnModel.getProcesses().size());
     assertTrue(errors.isEmpty());
     assertTrue(resources.isEmpty());
     assertTrue(signals.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
     assertTrue(actualValidateAtLeastOneExecutableResult);
   }
 
   /**
-   * Test {@link BpmnModelValidator#validateAtLeastOneExecutable(BpmnModel, List)}.
-   * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BpmnModelValidator#validateAtLeastOneExecutable(BpmnModel, List)}
+   * Method under test:
+   * {@link BpmnModelValidator#validateAtLeastOneExecutable(BpmnModel, List)}
    */
   @Test
-  @DisplayName("Test validateAtLeastOneExecutable(BpmnModel, List); then ArrayList() size is two")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean BpmnModelValidator.validateAtLeastOneExecutable(BpmnModel, List)"})
-  void testValidateAtLeastOneExecutable_thenArrayListSizeIsTwo() {
+  void testValidateAtLeastOneExecutable3() {
     // Arrange
     BpmnModelValidator bpmnModelValidator = new BpmnModelValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -312,9 +429,14 @@ class BpmnModelValidatorDiffblueTest {
     errors.add(validationError);
 
     // Act
-    bpmnModelValidator.validateAtLeastOneExecutable(bpmnModel, errors);
+    boolean actualValidateAtLeastOneExecutableResult = bpmnModelValidator.validateAtLeastOneExecutable(bpmnModel,
+        errors);
 
     // Assert
+    Collection<Resource> resources = bpmnModel.getResources();
+    assertTrue(resources instanceof List);
+    Collection<Signal> signals = bpmnModel.getSignals();
+    assertTrue(signals instanceof List);
     assertEquals(2, errors.size());
     ValidationError getResult = errors.get(1);
     assertEquals("ALL_PROCESS_DEFINITIONS_NOT_EXECUTABLE", getResult.getDefaultDescription());
@@ -328,38 +450,58 @@ class BpmnModelValidatorDiffblueTest {
     assertEquals(0, getResult.getXmlColumnNumber());
     assertEquals(0, getResult.getXmlLineNumber());
     assertFalse(getResult.isWarning());
+    assertFalse(actualValidateAtLeastOneExecutableResult);
+    assertTrue(resources.isEmpty());
+    assertTrue(signals.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
     assertTrue(getResult.getParams().isEmpty());
+    assertSame(validationError, errors.get(0));
   }
 
   /**
-   * Test {@link BpmnModelValidator#validateAtLeastOneExecutable(BpmnModel, List)}.
-   * <ul>
-   *   <li>When {@link BpmnModel} (default constructor).</li>
-   *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BpmnModelValidator#validateAtLeastOneExecutable(BpmnModel, List)}
+   * Method under test:
+   * {@link BpmnModelValidator#validateAtLeastOneExecutable(BpmnModel, List)}
    */
   @Test
-  @DisplayName("Test validateAtLeastOneExecutable(BpmnModel, List); when BpmnModel (default constructor); then ArrayList() size is one")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"boolean BpmnModelValidator.validateAtLeastOneExecutable(BpmnModel, List)"})
-  void testValidateAtLeastOneExecutable_whenBpmnModel_thenArrayListSizeIsOne() {
+  void testValidateAtLeastOneExecutable4() {
     // Arrange
     BpmnModelValidator bpmnModelValidator = new BpmnModelValidator();
     BpmnModel bpmnModel = new BpmnModel();
+
+    HashMap<String, String> params = new HashMap<>();
+    params.computeIfPresent("ALL_PROCESS_DEFINITIONS_NOT_EXECUTABLE", mock(BiFunction.class));
+
+    ValidationError validationError = new ValidationError();
+    validationError.setActivityId("42");
+    validationError.setActivityName("ALL_PROCESS_DEFINITIONS_NOT_EXECUTABLE");
+    validationError.setDefaultDescription("ALL_PROCESS_DEFINITIONS_NOT_EXECUTABLE");
+    validationError.setKey("ALL_PROCESS_DEFINITIONS_NOT_EXECUTABLE");
+    validationError.setParams(params);
+    validationError.setProblem("ALL_PROCESS_DEFINITIONS_NOT_EXECUTABLE");
+    validationError.setProcessDefinitionId("42");
+    validationError.setProcessDefinitionName("ALL_PROCESS_DEFINITIONS_NOT_EXECUTABLE");
+    validationError.setValidatorSetName("ALL_PROCESS_DEFINITIONS_NOT_EXECUTABLE");
+    validationError.setWarning(true);
+    validationError.setXmlColumnNumber(10);
+    validationError.setXmlLineNumber(2);
+
     ArrayList<ValidationError> errors = new ArrayList<>();
+    errors.add(validationError);
 
     // Act
-    bpmnModelValidator.validateAtLeastOneExecutable(bpmnModel, errors);
+    boolean actualValidateAtLeastOneExecutableResult = bpmnModelValidator.validateAtLeastOneExecutable(bpmnModel,
+        errors);
 
     // Assert
     Collection<Resource> resources = bpmnModel.getResources();
     assertTrue(resources instanceof List);
     Collection<Signal> signals = bpmnModel.getSignals();
     assertTrue(signals instanceof List);
-    assertEquals(1, errors.size());
-    ValidationError getResult = errors.get(0);
+    assertEquals(2, errors.size());
+    ValidationError getResult = errors.get(1);
     assertEquals("ALL_PROCESS_DEFINITIONS_NOT_EXECUTABLE", getResult.getDefaultDescription());
     assertEquals("ALL_PROCESS_DEFINITIONS_NOT_EXECUTABLE", getResult.getKey());
     assertEquals("ALL_PROCESS_DEFINITIONS_NOT_EXECUTABLE", getResult.getProblem());
@@ -371,25 +513,52 @@ class BpmnModelValidatorDiffblueTest {
     assertEquals(0, getResult.getXmlColumnNumber());
     assertEquals(0, getResult.getXmlLineNumber());
     assertFalse(getResult.isWarning());
+    assertFalse(actualValidateAtLeastOneExecutableResult);
     assertTrue(resources.isEmpty());
     assertTrue(signals.isEmpty());
+    assertTrue(bpmnModel.getImports().isEmpty());
+    assertTrue(bpmnModel.getInterfaces().isEmpty());
+    assertTrue(bpmnModel.getPools().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
     assertTrue(getResult.getParams().isEmpty());
+    assertSame(validationError, errors.get(0));
   }
 
   /**
-   * Test {@link BpmnModelValidator#getProcessesWithSameId(List)}.
-   * <ul>
-   *   <li>Given {@link Process} (default constructor) Id is {@code 42}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BpmnModelValidator#getProcessesWithSameId(List)}
    */
   @Test
-  @DisplayName("Test getProcessesWithSameId(List); given Process (default constructor) Id is '42'; then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List BpmnModelValidator.getProcessesWithSameId(List)"})
-  void testGetProcessesWithSameId_givenProcessIdIs42_thenReturnEmpty() {
+  void testGetProcessesWithSameId() {
+    // Arrange
+    BpmnModelValidator bpmnModelValidator = new BpmnModelValidator();
+
+    // Act and Assert
+    assertTrue(bpmnModelValidator.getProcessesWithSameId(new ArrayList<>()).isEmpty());
+  }
+
+  /**
+   * Method under test: {@link BpmnModelValidator#getProcessesWithSameId(List)}
+   */
+  @Test
+  void testGetProcessesWithSameId2() {
+    // Arrange
+    BpmnModelValidator bpmnModelValidator = new BpmnModelValidator();
+
+    Process process = new Process();
+    process.setName(null);
+
+    ArrayList<Process> processes = new ArrayList<>();
+    processes.add(process);
+
+    // Act and Assert
+    assertTrue(bpmnModelValidator.getProcessesWithSameId(processes).isEmpty());
+  }
+
+  /**
+   * Method under test: {@link BpmnModelValidator#getProcessesWithSameId(List)}
+   */
+  @Test
+  void testGetProcessesWithSameId3() {
     // Arrange
     BpmnModelValidator bpmnModelValidator = new BpmnModelValidator();
 
@@ -405,47 +574,10 @@ class BpmnModelValidatorDiffblueTest {
   }
 
   /**
-   * Test {@link BpmnModelValidator#getProcessesWithSameId(List)}.
-   * <ul>
-   *   <li>Given {@link Process} (default constructor) Name is {@code null}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link BpmnModelValidator#getProcessesWithSameId(List)}
    */
   @Test
-  @DisplayName("Test getProcessesWithSameId(List); given Process (default constructor) Name is 'null'; then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List BpmnModelValidator.getProcessesWithSameId(List)"})
-  void testGetProcessesWithSameId_givenProcessNameIsNull_thenReturnEmpty() {
-    // Arrange
-    BpmnModelValidator bpmnModelValidator = new BpmnModelValidator();
-
-    Process process = new Process();
-    process.setName(null);
-
-    ArrayList<Process> processes = new ArrayList<>();
-    processes.add(process);
-
-    // Act and Assert
-    assertTrue(bpmnModelValidator.getProcessesWithSameId(processes).isEmpty());
-  }
-
-  /**
-   * Test {@link BpmnModelValidator#getProcessesWithSameId(List)}.
-   * <ul>
-   *   <li>Given {@link Process} (default constructor).</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@link Process} (default constructor).</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BpmnModelValidator#getProcessesWithSameId(List)}
-   */
-  @Test
-  @DisplayName("Test getProcessesWithSameId(List); given Process (default constructor); when ArrayList() add Process (default constructor); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List BpmnModelValidator.getProcessesWithSameId(List)"})
-  void testGetProcessesWithSameId_givenProcess_whenArrayListAddProcess_thenReturnEmpty() {
+  void testGetProcessesWithSameId4() {
     // Arrange
     BpmnModelValidator bpmnModelValidator = new BpmnModelValidator();
 
@@ -455,26 +587,5 @@ class BpmnModelValidatorDiffblueTest {
 
     // Act and Assert
     assertTrue(bpmnModelValidator.getProcessesWithSameId(processes).isEmpty());
-  }
-
-  /**
-   * Test {@link BpmnModelValidator#getProcessesWithSameId(List)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BpmnModelValidator#getProcessesWithSameId(List)}
-   */
-  @Test
-  @DisplayName("Test getProcessesWithSameId(List); when ArrayList(); then return Empty")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"List BpmnModelValidator.getProcessesWithSameId(List)"})
-  void testGetProcessesWithSameId_whenArrayList_thenReturnEmpty() {
-    // Arrange
-    BpmnModelValidator bpmnModelValidator = new BpmnModelValidator();
-
-    // Act and Assert
-    assertTrue(bpmnModelValidator.getProcessesWithSameId(new ArrayList<>()).isEmpty());
   }
 }

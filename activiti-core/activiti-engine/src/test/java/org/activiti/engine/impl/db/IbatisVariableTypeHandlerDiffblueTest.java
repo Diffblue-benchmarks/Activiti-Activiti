@@ -24,8 +24,6 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MaintainedByDiffblue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -35,22 +33,22 @@ import org.activiti.engine.impl.variable.BigDecimalType;
 import org.activiti.engine.impl.variable.VariableType;
 import org.apache.ibatis.type.JdbcType;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class IbatisVariableTypeHandlerDiffblueTest {
+  @InjectMocks
+  private IbatisVariableTypeHandler ibatisVariableTypeHandler;
+
   /**
-   * Test {@link IbatisVariableTypeHandler#getResult(CallableStatement, int)} with {@code cs}, {@code columnIndex}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link IbatisVariableTypeHandler#getResult(CallableStatement, int)}
+   * Method under test:
+   * {@link IbatisVariableTypeHandler#getResult(CallableStatement, int)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"VariableType IbatisVariableTypeHandler.getResult(CallableStatement, int)"})
-  public void testGetResultWithCsColumnIndex_thenThrowActivitiException() throws SQLException {
+  public void testGetResult() throws SQLException {
     // Arrange
     IbatisVariableTypeHandler ibatisVariableTypeHandler = new IbatisVariableTypeHandler();
     CallableStatement cs = mock(CallableStatement.class);
@@ -62,17 +60,11 @@ public class IbatisVariableTypeHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link IbatisVariableTypeHandler#getResult(ResultSet, int)} with {@code resultSet}, {@code columnIndex}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link IbatisVariableTypeHandler#getResult(ResultSet, int)}
+   * Method under test:
+   * {@link IbatisVariableTypeHandler#getResult(ResultSet, int)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"VariableType IbatisVariableTypeHandler.getResult(ResultSet, int)"})
-  public void testGetResultWithResultSetColumnIndex_thenThrowActivitiException() throws SQLException {
+  public void testGetResult2() throws SQLException {
     // Arrange
     IbatisVariableTypeHandler ibatisVariableTypeHandler = new IbatisVariableTypeHandler();
     ResultSet resultSet = mock(ResultSet.class);
@@ -84,36 +76,45 @@ public class IbatisVariableTypeHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link IbatisVariableTypeHandler#getResult(ResultSet, String)} with {@code rs}, {@code columnName}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link IbatisVariableTypeHandler#getResult(ResultSet, String)}
+   * Method under test:
+   * {@link IbatisVariableTypeHandler#getResult(ResultSet, String)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"VariableType IbatisVariableTypeHandler.getResult(ResultSet, String)"})
-  public void testGetResultWithRsColumnName_thenThrowActivitiException() throws SQLException {
+  public void testGetResult3() throws SQLException {
     // Arrange
-    IbatisVariableTypeHandler ibatisVariableTypeHandler = new IbatisVariableTypeHandler();
+    IbatisVariableTypeHandler ibatisVariableTypeHandler2 = new IbatisVariableTypeHandler();
     ResultSet rs = mock(ResultSet.class);
     when(rs.getString(Mockito.<String>any())).thenThrow(new ActivitiException("An error occurred"));
 
     // Act and Assert
-    assertThrows(ActivitiException.class, () -> ibatisVariableTypeHandler.getResult(rs, "Column Name"));
+    assertThrows(ActivitiException.class, () -> ibatisVariableTypeHandler2.getResult(rs, "Column Name"));
     verify(rs).getString(eq("Column Name"));
   }
 
   /**
-   * Test {@link IbatisVariableTypeHandler#setParameter(PreparedStatement, int, VariableType, JdbcType)} with {@code PreparedStatement}, {@code int}, {@code VariableType}, {@code JdbcType}.
-   * <p>
-   * Method under test: {@link IbatisVariableTypeHandler#setParameter(PreparedStatement, int, VariableType, JdbcType)}
+   * Method under test:
+   * {@link IbatisVariableTypeHandler#setParameter(PreparedStatement, int, VariableType, JdbcType)}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void IbatisVariableTypeHandler.setParameter(PreparedStatement, int, VariableType, JdbcType)"})
-  public void testSetParameterWithPreparedStatementIntVariableTypeJdbcType() throws SQLException {
+  public void testSetParameter() throws SQLException {
+    // Arrange
+    IbatisVariableTypeHandler ibatisVariableTypeHandler = new IbatisVariableTypeHandler();
+    PreparedStatement ps = mock(PreparedStatement.class);
+    doNothing().when(ps).setString(anyInt(), Mockito.<String>any());
+
+    // Act
+    ibatisVariableTypeHandler.setParameter(ps, 1, new BigDecimalType(), JdbcType.ARRAY);
+
+    // Assert that nothing has changed
+    verify(ps).setString(eq(1), eq("bigdecimal"));
+  }
+
+  /**
+   * Method under test:
+   * {@link IbatisVariableTypeHandler#setParameter(PreparedStatement, int, VariableType, JdbcType)}
+   */
+  @Test
+  public void testSetParameter2() throws SQLException {
     // Arrange
     IbatisVariableTypeHandler ibatisVariableTypeHandler = new IbatisVariableTypeHandler();
     PreparedStatement ps = mock(PreparedStatement.class);
@@ -126,37 +127,10 @@ public class IbatisVariableTypeHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link IbatisVariableTypeHandler#setParameter(PreparedStatement, int, VariableType, JdbcType)} with {@code PreparedStatement}, {@code int}, {@code VariableType}, {@code JdbcType}.
-   * <ul>
-   *   <li>Then calls {@link PreparedStatement#setString(int, String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link IbatisVariableTypeHandler#setParameter(PreparedStatement, int, VariableType, JdbcType)}
+   * Method under test: default or parameterless constructor of
+   * {@link IbatisVariableTypeHandler}
    */
   @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void IbatisVariableTypeHandler.setParameter(PreparedStatement, int, VariableType, JdbcType)"})
-  public void testSetParameterWithPreparedStatementIntVariableTypeJdbcType_thenCallsSetString() throws SQLException {
-    // Arrange
-    IbatisVariableTypeHandler ibatisVariableTypeHandler = new IbatisVariableTypeHandler();
-    PreparedStatement ps = mock(PreparedStatement.class);
-    doNothing().when(ps).setString(anyInt(), Mockito.<String>any());
-
-    // Act
-    ibatisVariableTypeHandler.setParameter(ps, 1, new BigDecimalType(), JdbcType.ARRAY);
-
-    // Assert
-    verify(ps).setString(eq(1), eq("bigdecimal"));
-  }
-
-  /**
-   * Test new {@link IbatisVariableTypeHandler} (default constructor).
-   * <p>
-   * Method under test: default or parameterless constructor of {@link IbatisVariableTypeHandler}
-   */
-  @Test
-  @Category(MaintainedByDiffblue.class)
-  @MethodsUnderTest({"void IbatisVariableTypeHandler.<init>()"})
   public void testNewIbatisVariableTypeHandler() {
     // Arrange, Act and Assert
     assertNull((new IbatisVariableTypeHandler()).variableTypes);

@@ -16,13 +16,10 @@
 package org.activiti.spring.process.variable;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.ActivitiException;
 import org.activiti.spring.process.model.VariableDefinition;
 import org.activiti.spring.process.variable.types.VariableType;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,19 +42,10 @@ class VariableParsingServiceDiffblueTest {
   private VariableType variableType;
 
   /**
-   * Test {@link VariableParsingService#parse(VariableDefinition)}.
-   * <ul>
-   *   <li>When {@link VariableDefinition#VariableDefinition()}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link VariableParsingService#parse(VariableDefinition)}
    */
   @Test
-  @DisplayName("Test parse(VariableDefinition); when VariableDefinition(); then return 'null'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.lang.Object VariableParsingService.parse(VariableDefinition)"})
-  void testParse_whenVariableDefinition_thenReturnNull() throws ActivitiException {
+  void testParse() throws ActivitiException {
     // Arrange, Act and Assert
     assertNull(variableParsingService.parse(new VariableDefinition()));
   }

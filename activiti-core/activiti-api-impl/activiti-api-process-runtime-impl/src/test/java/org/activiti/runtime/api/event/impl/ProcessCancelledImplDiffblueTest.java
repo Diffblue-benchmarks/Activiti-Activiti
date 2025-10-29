@@ -18,26 +18,52 @@ package org.activiti.runtime.api.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
+import java.sql.Date;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.events.ProcessRuntimeEvent;
-import org.activiti.api.process.model.events.ProcessRuntimeEvent.ProcessEvents;
 import org.activiti.api.runtime.model.impl.ProcessInstanceImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ProcessCancelledImplDiffblueTest {
   /**
-   * Test {@link ProcessCancelledImpl#ProcessCancelledImpl(ProcessInstance, String)}.
-   * <p>
-   * Method under test: {@link ProcessCancelledImpl#ProcessCancelledImpl(ProcessInstance, String)}
+   * Method under test: {@link ProcessCancelledImpl#getEventType()}
    */
   @Test
-  @DisplayName("Test new ProcessCancelledImpl(ProcessInstance, String)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ProcessCancelledImpl.<init>(ProcessInstance, String)"})
+  void testGetEventType() {
+    // Arrange, Act and Assert
+    assertEquals(ProcessRuntimeEvent.ProcessEvents.PROCESS_CANCELLED,
+        (new ProcessCancelledImpl(new ProcessInstanceImpl(), "Cause")).getEventType());
+  }
+
+  /**
+   * Method under test: {@link ProcessCancelledImpl#getEventType()}
+   */
+  @Test
+  void testGetEventType2() {
+    // Arrange
+    ProcessInstanceImpl entity = new ProcessInstanceImpl();
+    entity.setStartDate(mock(Date.class));
+
+    // Act and Assert
+    assertEquals(ProcessRuntimeEvent.ProcessEvents.PROCESS_CANCELLED,
+        (new ProcessCancelledImpl(entity, "Cause")).getEventType());
+  }
+
+  /**
+   * Method under test: {@link ProcessCancelledImpl#getCause()}
+   */
+  @Test
+  void testGetCause() {
+    // Arrange, Act and Assert
+    assertEquals("Cause", (new ProcessCancelledImpl(new ProcessInstanceImpl(), "Cause")).getCause());
+  }
+
+  /**
+   * Method under test:
+   * {@link ProcessCancelledImpl#ProcessCancelledImpl(ProcessInstance, String)}
+   */
+  @Test
   void testNewProcessCancelledImpl() {
     // Arrange
     ProcessInstanceImpl entity = new ProcessInstanceImpl();
@@ -46,8 +72,6 @@ class ProcessCancelledImplDiffblueTest {
     ProcessCancelledImpl actualProcessCancelledImpl = new ProcessCancelledImpl(entity, "Cause");
 
     // Assert
-    ProcessInstance entity2 = actualProcessCancelledImpl.getEntity();
-    assertTrue(entity2 instanceof ProcessInstanceImpl);
     assertEquals("Cause", actualProcessCancelledImpl.getCause());
     assertNull(actualProcessCancelledImpl.getProcessDefinitionVersion());
     assertNull(actualProcessCancelledImpl.getBusinessKey());
@@ -55,36 +79,32 @@ class ProcessCancelledImplDiffblueTest {
     assertNull(actualProcessCancelledImpl.getProcessDefinitionId());
     assertNull(actualProcessCancelledImpl.getProcessDefinitionKey());
     assertNull(actualProcessCancelledImpl.getProcessInstanceId());
-    assertEquals(ProcessEvents.PROCESS_CANCELLED, actualProcessCancelledImpl.getEventType());
-    assertSame(entity, entity2);
+    assertEquals(ProcessRuntimeEvent.ProcessEvents.PROCESS_CANCELLED, actualProcessCancelledImpl.getEventType());
+    assertSame(entity, actualProcessCancelledImpl.getEntity());
   }
 
   /**
-   * Test {@link ProcessCancelledImpl#getEventType()}.
-   * <p>
-   * Method under test: {@link ProcessCancelledImpl#getEventType()}
+   * Method under test:
+   * {@link ProcessCancelledImpl#ProcessCancelledImpl(ProcessInstance, String)}
    */
   @Test
-  @DisplayName("Test getEventType()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"ProcessRuntimeEvent.ProcessEvents ProcessCancelledImpl.getEventType()"})
-  void testGetEventType() {
-    // Arrange, Act and Assert
-    assertEquals(ProcessEvents.PROCESS_CANCELLED,
-        (new ProcessCancelledImpl(new ProcessInstanceImpl(), "Cause")).getEventType());
-  }
+  void testNewProcessCancelledImpl2() {
+    // Arrange
+    ProcessInstanceImpl entity = new ProcessInstanceImpl();
+    entity.setStartDate(mock(Date.class));
 
-  /**
-   * Test {@link ProcessCancelledImpl#getCause()}.
-   * <p>
-   * Method under test: {@link ProcessCancelledImpl#getCause()}
-   */
-  @Test
-  @DisplayName("Test getCause()")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String ProcessCancelledImpl.getCause()"})
-  void testGetCause() {
-    // Arrange, Act and Assert
-    assertEquals("Cause", (new ProcessCancelledImpl(new ProcessInstanceImpl(), "Cause")).getCause());
+    // Act
+    ProcessCancelledImpl actualProcessCancelledImpl = new ProcessCancelledImpl(entity, "Cause");
+
+    // Assert
+    assertEquals("Cause", actualProcessCancelledImpl.getCause());
+    assertNull(actualProcessCancelledImpl.getProcessDefinitionVersion());
+    assertNull(actualProcessCancelledImpl.getBusinessKey());
+    assertNull(actualProcessCancelledImpl.getParentProcessInstanceId());
+    assertNull(actualProcessCancelledImpl.getProcessDefinitionId());
+    assertNull(actualProcessCancelledImpl.getProcessDefinitionKey());
+    assertNull(actualProcessCancelledImpl.getProcessInstanceId());
+    assertEquals(ProcessRuntimeEvent.ProcessEvents.PROCESS_CANCELLED, actualProcessCancelledImpl.getEventType());
+    assertSame(entity, actualProcessCancelledImpl.getEntity());
   }
 }

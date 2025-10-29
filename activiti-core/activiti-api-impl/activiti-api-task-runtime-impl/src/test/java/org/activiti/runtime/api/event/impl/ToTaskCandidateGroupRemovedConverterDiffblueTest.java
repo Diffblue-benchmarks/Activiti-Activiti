@@ -16,29 +16,54 @@
 package org.activiti.runtime.api.event.impl;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import com.diffblue.cover.annotations.MethodsUnderTest;
+import static org.mockito.Mockito.mock;
 import org.activiti.engine.delegate.event.ActivitiEntityEvent;
 import org.activiti.engine.delegate.event.impl.ActivitiProcessCancelledEventImpl;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.runtime.api.model.impl.APITaskCandidateGroupConverter;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ToTaskCandidateGroupRemovedConverterDiffblueTest {
   /**
-   * Test {@link ToTaskCandidateGroupRemovedConverter#ToTaskCandidateGroupRemovedConverter(APITaskCandidateGroupConverter)}.
-   * <p>
-   * Method under test: {@link ToTaskCandidateGroupRemovedConverter#ToTaskCandidateGroupRemovedConverter(APITaskCandidateGroupConverter)}
+   * Method under test:
+   * {@link ToTaskCandidateGroupRemovedConverter#from(ActivitiEntityEvent)}
    */
   @Test
-  @DisplayName("Test new ToTaskCandidateGroupRemovedConverter(APITaskCandidateGroupConverter)")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"void ToTaskCandidateGroupRemovedConverter.<init>(APITaskCandidateGroupConverter)"})
+  void testFrom() {
+    // Arrange
+    ToTaskCandidateGroupRemovedConverter toTaskCandidateGroupRemovedConverter = new ToTaskCandidateGroupRemovedConverter(
+        new APITaskCandidateGroupConverter());
+
+    // Act and Assert
+    assertFalse(toTaskCandidateGroupRemovedConverter
+        .from(new ActivitiProcessCancelledEventImpl(ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
+        .isPresent());
+  }
+
+  /**
+   * Method under test:
+   * {@link ToTaskCandidateGroupRemovedConverter#from(ActivitiEntityEvent)}
+   */
+  @Test
+  void testFrom2() {
+    // Arrange
+    ToTaskCandidateGroupRemovedConverter toTaskCandidateGroupRemovedConverter = new ToTaskCandidateGroupRemovedConverter(
+        new APITaskCandidateGroupConverter());
+
+    // Act and Assert
+    assertFalse(
+        toTaskCandidateGroupRemovedConverter.from(new ActivitiProcessCancelledEventImpl(mock(ProcessInstance.class)))
+            .isPresent());
+  }
+
+  /**
+   * Method under test:
+   * {@link ToTaskCandidateGroupRemovedConverter#ToTaskCandidateGroupRemovedConverter(APITaskCandidateGroupConverter)}
+   */
+  @Test
   void testNewToTaskCandidateGroupRemovedConverter() {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
-    //   Run dcover create --keep-partial-tests to gain insights into why
-    //   a non-Spring test was created.
 
     // Arrange and Act
     ToTaskCandidateGroupRemovedConverter actualToTaskCandidateGroupRemovedConverter = new ToTaskCandidateGroupRemovedConverter(
@@ -51,24 +76,19 @@ class ToTaskCandidateGroupRemovedConverterDiffblueTest {
   }
 
   /**
-   * Test {@link ToTaskCandidateGroupRemovedConverter#from(ActivitiEntityEvent)} with {@code ActivitiEntityEvent}.
-   * <ul>
-   *   <li>Then return not Present.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ToTaskCandidateGroupRemovedConverter#from(ActivitiEntityEvent)}
+   * Method under test:
+   * {@link ToTaskCandidateGroupRemovedConverter#ToTaskCandidateGroupRemovedConverter(APITaskCandidateGroupConverter)}
    */
   @Test
-  @DisplayName("Test from(ActivitiEntityEvent) with 'ActivitiEntityEvent'; then return not Present")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"java.util.Optional ToTaskCandidateGroupRemovedConverter.from(ActivitiEntityEvent)"})
-  void testFromWithActivitiEntityEvent_thenReturnNotPresent() {
-    // Arrange
-    ToTaskCandidateGroupRemovedConverter toTaskCandidateGroupRemovedConverter = new ToTaskCandidateGroupRemovedConverter(
-        new APITaskCandidateGroupConverter());
+  void testNewToTaskCandidateGroupRemovedConverter2() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
 
-    // Act and Assert
-    assertFalse(toTaskCandidateGroupRemovedConverter
+    // Arrange and Act
+    ToTaskCandidateGroupRemovedConverter actualToTaskCandidateGroupRemovedConverter = new ToTaskCandidateGroupRemovedConverter(
+        mock(APITaskCandidateGroupConverter.class));
+
+    // Assert
+    assertFalse(actualToTaskCandidateGroupRemovedConverter
         .from(new ActivitiProcessCancelledEventImpl(ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
         .isPresent());
   }

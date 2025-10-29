@@ -20,13 +20,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashSet;
 import java.util.Set;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -47,20 +44,26 @@ class SetToStringConverterDiffblueTest {
   private SetToStringConverter setToStringConverter;
 
   /**
-   * Test {@link SetToStringConverter#convert(Set)} with {@code Set}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link HashSet#HashSet()} add {@code 42}.</li>
-   *   <li>Then return {@code 42}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SetToStringConverter#convert(Set)}
    */
   @Test
-  @DisplayName("Test convert(Set) with 'Set'; given '42'; when HashSet() add '42'; then return '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String SetToStringConverter.convert(Set)"})
-  void testConvertWithSet_given42_whenHashSetAdd42_thenReturn42() throws JsonProcessingException {
+  void testConvert() throws JsonProcessingException {
+    // Arrange
+    when(objectMapper.writeValueAsString(Mockito.<Object>any())).thenReturn("42");
+
+    // Act
+    String actualConvertResult = setToStringConverter.convert(new HashSet<>());
+
+    // Assert
+    verify(objectMapper).writeValueAsString(isA(Object.class));
+    assertEquals("42", actualConvertResult);
+  }
+
+  /**
+   * Method under test: {@link SetToStringConverter#convert(Set)}
+   */
+  @Test
+  void testConvert2() throws JsonProcessingException {
     // Arrange
     when(objectMapper.writeValueAsString(Mockito.<Object>any())).thenReturn("42");
 
@@ -76,48 +79,10 @@ class SetToStringConverterDiffblueTest {
   }
 
   /**
-   * Test {@link SetToStringConverter#convert(Set)} with {@code Set}.
-   * <ul>
-   *   <li>Given two.</li>
-   *   <li>When {@link HashSet#HashSet()} add two.</li>
-   *   <li>Then return {@code 42}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SetToStringConverter#convert(Set)}
    */
   @Test
-  @DisplayName("Test convert(Set) with 'Set'; given two; when HashSet() add two; then return '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String SetToStringConverter.convert(Set)"})
-  void testConvertWithSet_givenTwo_whenHashSetAddTwo_thenReturn42() throws JsonProcessingException {
-    // Arrange
-    when(objectMapper.writeValueAsString(Mockito.<Object>any())).thenReturn("42");
-
-    HashSet<Object> source = new HashSet<>();
-    source.add("42");
-    source.add(2);
-
-    // Act
-    String actualConvertResult = setToStringConverter.convert(source);
-
-    // Assert
-    verify(objectMapper).writeValueAsString(isA(Object.class));
-    assertEquals("42", actualConvertResult);
-  }
-
-  /**
-   * Test {@link SetToStringConverter#convert(Set)} with {@code Set}.
-   * <ul>
-   *   <li>Then throw {@link RuntimeException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SetToStringConverter#convert(Set)}
-   */
-  @Test
-  @DisplayName("Test convert(Set) with 'Set'; then throw RuntimeException")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String SetToStringConverter.convert(Set)"})
-  void testConvertWithSet_thenThrowRuntimeException() throws JsonProcessingException {
+  void testConvert3() throws JsonProcessingException {
     // Arrange
     when(objectMapper.writeValueAsString(Mockito.<Object>any())).thenThrow(new RuntimeException("foo"));
 
@@ -127,24 +92,19 @@ class SetToStringConverterDiffblueTest {
   }
 
   /**
-   * Test {@link SetToStringConverter#convert(Set)} with {@code Set}.
-   * <ul>
-   *   <li>When {@link HashSet#HashSet()}.</li>
-   *   <li>Then return {@code 42}.</li>
-   * </ul>
-   * <p>
    * Method under test: {@link SetToStringConverter#convert(Set)}
    */
   @Test
-  @DisplayName("Test convert(Set) with 'Set'; when HashSet(); then return '42'")
-  @Tag("MaintainedByDiffblue")
-  @MethodsUnderTest({"String SetToStringConverter.convert(Set)"})
-  void testConvertWithSet_whenHashSet_thenReturn42() throws JsonProcessingException {
+  void testConvert4() throws JsonProcessingException {
     // Arrange
     when(objectMapper.writeValueAsString(Mockito.<Object>any())).thenReturn("42");
 
+    HashSet<Object> source = new HashSet<>();
+    source.add("42");
+    source.add(2);
+
     // Act
-    String actualConvertResult = setToStringConverter.convert(new HashSet<>());
+    String actualConvertResult = setToStringConverter.convert(source);
 
     // Assert
     verify(objectMapper).writeValueAsString(isA(Object.class));
