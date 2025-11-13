@@ -1,0 +1,196 @@
+/*
+ * Copyright 2010-2020 Alfresco Software, Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.activiti.bpmn.converter.export;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.stream.XMLStreamWriter;
+import org.activiti.bpmn.converter.IndentingXMLStreamWriter;
+import org.activiti.bpmn.model.FieldExtension;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+
+class FieldExtensionExportDiffblueTest {
+  /**
+   * Test {@link FieldExtensionExport#writeFieldExtensions(List, boolean, XMLStreamWriter)}.
+   *
+   * <ul>
+   *   <li>Given {@link FieldExtension} (default constructor) Expression is empty string.
+   * </ul>
+   *
+   * <p>Method under test: {@link FieldExtensionExport#writeFieldExtensions(List, boolean,
+   * XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test writeFieldExtensions(List, boolean, XMLStreamWriter); given FieldExtension (default constructor) Expression is empty string")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "boolean FieldExtensionExport.writeFieldExtensions(List, boolean, XMLStreamWriter)"
+  })
+  void testWriteFieldExtensions_givenFieldExtensionExpressionIsEmptyString() throws Exception {
+    // Arrange
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setFieldName("not empty");
+    fieldExtension.setStringValue("");
+    fieldExtension.setExpression("");
+
+    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
+    fieldExtensionList.add(fieldExtension);
+
+    // Act and Assert
+    assertFalse(
+        FieldExtensionExport.writeFieldExtensions(
+            fieldExtensionList, false, new IndentingXMLStreamWriter(null)));
+  }
+
+  /**
+   * Test {@link FieldExtensionExport#writeFieldExtensions(List, boolean, XMLStreamWriter)}.
+   *
+   * <ul>
+   *   <li>Given {@link FieldExtension} (default constructor) Expression is {@code null}.
+   *   <li>Then return {@code false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FieldExtensionExport#writeFieldExtensions(List, boolean,
+   * XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test writeFieldExtensions(List, boolean, XMLStreamWriter); given FieldExtension (default constructor) Expression is 'null'; then return 'false'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "boolean FieldExtensionExport.writeFieldExtensions(List, boolean, XMLStreamWriter)"
+  })
+  void testWriteFieldExtensions_givenFieldExtensionExpressionIsNull_thenReturnFalse()
+      throws Exception {
+    // Arrange
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setFieldName("not empty");
+    fieldExtension.setStringValue("");
+    fieldExtension.setExpression(null);
+
+    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
+    fieldExtensionList.add(fieldExtension);
+
+    // Act and Assert
+    assertFalse(
+        FieldExtensionExport.writeFieldExtensions(
+            fieldExtensionList, false, new IndentingXMLStreamWriter(null)));
+  }
+
+  /**
+   * Test {@link FieldExtensionExport#writeFieldExtensions(List, boolean, XMLStreamWriter)}.
+   *
+   * <ul>
+   *   <li>Given {@link FieldExtension} (default constructor) FieldName is empty string.
+   * </ul>
+   *
+   * <p>Method under test: {@link FieldExtensionExport#writeFieldExtensions(List, boolean,
+   * XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test writeFieldExtensions(List, boolean, XMLStreamWriter); given FieldExtension (default constructor) FieldName is empty string")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "boolean FieldExtensionExport.writeFieldExtensions(List, boolean, XMLStreamWriter)"
+  })
+  void testWriteFieldExtensions_givenFieldExtensionFieldNameIsEmptyString() throws Exception {
+    // Arrange
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setFieldName("");
+    fieldExtension.setStringValue("not empty");
+    fieldExtension.setExpression("not empty");
+
+    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
+    fieldExtensionList.add(fieldExtension);
+
+    // Act and Assert
+    assertFalse(
+        FieldExtensionExport.writeFieldExtensions(
+            fieldExtensionList, false, new IndentingXMLStreamWriter(null)));
+  }
+
+  /**
+   * Test {@link FieldExtensionExport#writeFieldExtensions(List, boolean, XMLStreamWriter)}.
+   *
+   * <ul>
+   *   <li>Given {@link FieldExtension} (default constructor).
+   *   <li>When {@code true}.
+   *   <li>Then return {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FieldExtensionExport#writeFieldExtensions(List, boolean,
+   * XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test writeFieldExtensions(List, boolean, XMLStreamWriter); given FieldExtension (default constructor); when 'true'; then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "boolean FieldExtensionExport.writeFieldExtensions(List, boolean, XMLStreamWriter)"
+  })
+  void testWriteFieldExtensions_givenFieldExtension_whenTrue_thenReturnTrue() throws Exception {
+    // Arrange
+    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
+    fieldExtensionList.add(new FieldExtension());
+    fieldExtensionList.add(new FieldExtension());
+
+    // Act and Assert
+    assertTrue(
+        FieldExtensionExport.writeFieldExtensions(
+            fieldExtensionList, true, new IndentingXMLStreamWriter(null)));
+  }
+
+  /**
+   * Test {@link FieldExtensionExport#writeFieldExtensions(List, boolean, XMLStreamWriter)}.
+   *
+   * <ul>
+   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>Then return {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link FieldExtensionExport#writeFieldExtensions(List, boolean,
+   * XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test writeFieldExtensions(List, boolean, XMLStreamWriter); when ArrayList(); then return 'true'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "boolean FieldExtensionExport.writeFieldExtensions(List, boolean, XMLStreamWriter)"
+  })
+  void testWriteFieldExtensions_whenArrayList_thenReturnTrue() throws Exception {
+    // Arrange
+    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
+
+    // Act and Assert
+    assertTrue(
+        FieldExtensionExport.writeFieldExtensions(
+            fieldExtensionList, true, new IndentingXMLStreamWriter(null)));
+  }
+}

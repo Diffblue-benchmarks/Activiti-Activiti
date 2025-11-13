@@ -1,0 +1,2757 @@
+{
+  "meta" : {
+    "reportVersion" : "2.8"
+  },
+  "run" : {
+    "version" : "2025.11.01-3385b9f-licensed",
+    "creationTimestamp" : "2025-11-12T09:22:28.997361025Z",
+    "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
+    "totalTime" : 128.987,
+    "environmentDetectionTime" : 0.187,
+    "indexingTime" : 0.349,
+    "entryPointsTime" : 0.176,
+    "generationTime" : 1015.019,
+    "timeToFirstTest" : 1962.57,
+    "timeToLastTest" : 1519.885,
+    "indexQueryTime" : 2.338,
+    "verificationTime" : 76.406,
+    "validationTime" : 11.502
+  },
+  "codes" : {
+    "R000" : "Success",
+    "R002" : "Missing observers",
+    "R004" : "No meaningful assertions found",
+    "R013" : "No inputs found that don't throw a trivial exception",
+    "R031" : "Method may be time-sensitive",
+    "T000" : "Method eligible for test creation",
+    "T001" : "Trivial getter",
+    "T002" : "Trivial setter",
+    "T003" : "Private method",
+    "T004" : "In anonymous inner class",
+    "T005" : "Trivial constructor",
+    "T008" : "Private and never called",
+    "T010" : "Abstract or interface method",
+    "T012" : "Synthetic method",
+    "V000" : "Validated successfully"
+  },
+  "summary" : {
+    "classesCount" : 15,
+    "methodsCount" : 74,
+    "cumulativeDiffblueTestCount" : 96,
+    "cumulativeManualTestCount" : 12,
+    "completeTestCount" : 96,
+    "incompleteTestCount" : 0,
+    "skeletonTestCount" : 0,
+    "totalPhysicalLineCount" : 374,
+    "perMethodTestability" : {
+      "T000" : 48,
+      "T001" : 2,
+      "T002" : 1,
+      "T003" : 3,
+      "T004" : 4,
+      "T005" : 7,
+      "T008" : 3,
+      "T010" : 3,
+      "T012" : 3
+    },
+    "perMethodOutcome" : {
+      "R000" : 52,
+      "R002" : 3,
+      "R004" : 1,
+      "R013" : 1,
+      "R031" : 1,
+      "T003" : 3,
+      "T004" : 4,
+      "T008" : 3,
+      "T010" : 3,
+      "T012" : 3
+    },
+    "perTestOutcome" : {
+      "R000" : 96
+    },
+    "perTestValidation" : {
+      "V000" : 96
+    }
+  },
+  "classes" : {
+    "org.activiti.core.el.ActivitiElContext" : {
+      "methodsCount" : 7,
+      "completeTestCount" : 8,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 4,
+        "T001" : 1,
+        "T005" : 2
+      },
+      "perMethodOutcome" : {
+        "R000" : 7
+      },
+      "perTestOutcome" : {
+        "R000" : 8
+      }
+    },
+    "org.activiti.core.el.ActivitiFunctionMapper" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 3
+      },
+      "perMethodOutcome" : {
+        "R000" : 3
+      },
+      "perTestOutcome" : {
+        "R000" : 3
+      }
+    },
+    "org.activiti.core.el.ActivitiVariablesMapper" : {
+      "methodsCount" : 4,
+      "completeTestCount" : 5,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 4
+      },
+      "perMethodOutcome" : {
+        "R000" : 4
+      },
+      "perTestOutcome" : {
+        "R000" : 5
+      }
+    },
+    "org.activiti.core.el.CommonELResolversUtil" : {
+      "methodsCount" : 6,
+      "completeTestCount" : 5,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 5,
+        "T008" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 5,
+        "T008" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 5
+      }
+    },
+    "org.activiti.core.el.CustomFunctionProvider" : {
+      "methodsCount" : 1,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 1
+      },
+      "perMethodOutcome" : {
+        "T010" : 1
+      }
+    },
+    "org.activiti.core.el.DateResolverHelper" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T008" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 1,
+        "R031" : 1,
+        "T008" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 1
+      }
+    },
+    "org.activiti.core.el.ELContextBuilder" : {
+      "methodsCount" : 8,
+      "completeTestCount" : 9,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 3,
+        "T002" : 1,
+        "T003" : 2,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 5,
+        "T003" : 2,
+        "T012" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 9
+      }
+    },
+    "org.activiti.core.el.ELResolverDecorator" : {
+      "methodsCount" : 8,
+      "completeTestCount" : 16,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 7,
+        "T010" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 6,
+        "R013" : 1,
+        "T010" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 16
+      }
+    },
+    "org.activiti.core.el.ELResolverReflectionBlockerDecorator" : {
+      "methodsCount" : 4,
+      "completeTestCount" : 5,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 2
+      },
+      "perMethodOutcome" : {
+        "R000" : 1,
+        "R002" : 1,
+        "T012" : 2
+      },
+      "perTestOutcome" : {
+        "R000" : 5
+      }
+    },
+    "org.activiti.core.el.ExpressionResolver" : {
+      "methodsCount" : 1,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 1
+      },
+      "perMethodOutcome" : {
+        "T010" : 1
+      }
+    },
+    "org.activiti.core.el.JsonNodeELResolver" : {
+      "methodsCount" : 10,
+      "completeTestCount" : 26,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 8,
+        "T001" : 1,
+        "T003" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 9,
+        "T003" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 26
+      }
+    },
+    "org.activiti.core.el.JsonNodeELResolver$1" : {
+      "methodsCount" : 4,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T004" : 4
+      },
+      "perMethodOutcome" : {
+        "T004" : 4
+      }
+    },
+    "org.activiti.core.el.JuelExpressionResolver" : {
+      "methodsCount" : 5,
+      "completeTestCount" : 9,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 3,
+        "T005" : 2
+      },
+      "perMethodOutcome" : {
+        "R000" : 3,
+        "R002" : 2
+      },
+      "perTestOutcome" : {
+        "R000" : 9
+      }
+    },
+    "org.activiti.core.el.ListResolverHelper" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T008" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "T008" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 2
+      }
+    },
+    "org.activiti.core.el.ReadOnlyMapELResolver" : {
+      "methodsCount" : 7,
+      "completeTestCount" : 7,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 6,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 6,
+        "R004" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 7
+      }
+    }
+  },
+  "methods" : {
+    "org.activiti.core.el.ActivitiElContext.<init>:()V" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        36,
+        37
+      ]
+    },
+    "org.activiti.core.el.ActivitiElContext.<init>:(Ljakarta/el/ELResolver;)V" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        39,
+        40,
+        41
+      ]
+    },
+    "org.activiti.core.el.ActivitiElContext.getELResolver:()Ljakarta/el/ELResolver;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        44
+      ]
+    },
+    "org.activiti.core.el.ActivitiElContext.getFunctionMapper:()Ljakarta/el/FunctionMapper;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        48,
+        49,
+        51
+      ]
+    },
+    "org.activiti.core.el.ActivitiElContext.getVariableMapper:()Ljakarta/el/VariableMapper;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        55,
+        56,
+        58
+      ]
+    },
+    "org.activiti.core.el.ActivitiElContext.setFunction:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/reflect/Method;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        62,
+        63,
+        65,
+        66
+      ]
+    },
+    "org.activiti.core.el.ActivitiElContext.setVariable:(Ljava/lang/String;Ljakarta/el/ValueExpression;)Ljakarta/el/ValueExpression;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        69,
+        70,
+        72
+      ]
+    },
+    "org.activiti.core.el.ActivitiFunctionMapper.<init>:()V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        29,
+        31
+      ]
+    },
+    "org.activiti.core.el.ActivitiFunctionMapper.resolveFunction:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/reflect/Method;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        34
+      ]
+    },
+    "org.activiti.core.el.ActivitiFunctionMapper.setFunction:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/reflect/Method;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        38,
+        39,
+        41,
+        42
+      ]
+    },
+    "org.activiti.core.el.ActivitiVariablesMapper.<init>:()V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        28,
+        26,
+        29
+      ]
+    },
+    "org.activiti.core.el.ActivitiVariablesMapper.<init>:(Ljava/util/Map;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        31,
+        26,
+        32,
+        33
+      ]
+    },
+    "org.activiti.core.el.ActivitiVariablesMapper.resolveVariable:(Ljava/lang/String;)Ljakarta/el/ValueExpression;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        37
+      ]
+    },
+    "org.activiti.core.el.ActivitiVariablesMapper.setVariable:(Ljava/lang/String;Ljakarta/el/ValueExpression;)Ljakarta/el/ValueExpression;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        42,
+        43,
+        45
+      ]
+    },
+    "org.activiti.core.el.CommonELResolversUtil.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T008",
+      "perMethodOutcome" : "T008",
+      "lineNumbers" : [
+        30,
+        32
+      ]
+    },
+    "org.activiti.core.el.CommonELResolversUtil.arrayResolver:()Ljakarta/el/ELResolver;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        35
+      ]
+    },
+    "org.activiti.core.el.CommonELResolversUtil.beanResolver:()Ljakarta/el/ELResolver;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        51
+      ]
+    },
+    "org.activiti.core.el.CommonELResolversUtil.jsonNodeResolver:()Ljakarta/el/ELResolver;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        47
+      ]
+    },
+    "org.activiti.core.el.CommonELResolversUtil.listResolver:()Ljakarta/el/ELResolver;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        39
+      ]
+    },
+    "org.activiti.core.el.CommonELResolversUtil.mapResolver:()Ljakarta/el/ELResolver;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        43
+      ]
+    },
+    "org.activiti.core.el.CustomFunctionProvider.addCustomFunctions:(Lorg/activiti/core/el/ActivitiElContext;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.core.el.DateResolverHelper.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T008",
+      "perMethodOutcome" : "T008",
+      "lineNumbers" : [
+        32,
+        33
+      ]
+    },
+    "org.activiti.core.el.DateResolverHelper.addDateFunctions:(Lorg/activiti/core/el/ActivitiElContext;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        36,
+        37
+      ]
+    },
+    "org.activiti.core.el.DateResolverHelper.now:()Ljava/util/Date;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R031",
+      "lineNumbers" : [
+        29
+      ]
+    },
+    "org.activiti.core.el.ELContextBuilder.<init>:()V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        36
+      ]
+    },
+    "org.activiti.core.el.ELContextBuilder.addResolvers:(Ljakarta/el/CompositeELResolver;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        80,
+        81,
+        82,
+        83
+      ]
+    },
+    "org.activiti.core.el.ELContextBuilder.build:()Ljakarta/el/ELContext;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        54,
+        55
+      ]
+    },
+    "org.activiti.core.el.ELContextBuilder.buildWithCustomFunctions:(Ljava/util/List;)Ljakarta/el/ELContext;" : {
+      "completeTestCount" : 7,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 7
+      },
+      "lineNumbers" : [
+        59,
+        60,
+        62,
+        63,
+        64,
+        65,
+        75,
+        73,
+        74,
+        76
+      ]
+    },
+    "org.activiti.core.el.ELContextBuilder.createCompositeResolver:()Ljakarta/el/CompositeELResolver;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        86,
+        87,
+        88,
+        89
+      ]
+    },
+    "org.activiti.core.el.ELContextBuilder.lambda$buildWithCustomFunctions$0:(Lorg/activiti/core/el/ActivitiElContext;Lorg/activiti/core/el/CustomFunctionProvider;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        67,
+        70,
+        68,
+        69,
+        71
+      ]
+    },
+    "org.activiti.core.el.ELContextBuilder.withResolvers:([Ljakarta/el/ELResolver;)Lorg/activiti/core/el/ELContextBuilder;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        44,
+        45
+      ]
+    },
+    "org.activiti.core.el.ELContextBuilder.withVariables:(Ljava/util/Map;)Lorg/activiti/core/el/ELContextBuilder;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        49,
+        50
+      ]
+    },
+    "org.activiti.core.el.ELResolverDecorator.<init>:(Ljakarta/el/ELResolver;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010",
+      "lineNumbers" : [
+        30,
+        31,
+        32
+      ]
+    },
+    "org.activiti.core.el.ELResolverDecorator.getCommonPropertyType:(Ljakarta/el/ELContext;Ljava/lang/Object;)Ljava/lang/Class;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        67
+      ]
+    },
+    "org.activiti.core.el.ELResolverDecorator.getFeatureDescriptors:(Ljakarta/el/ELContext;Ljava/lang/Object;)Ljava/util/Iterator;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        62
+      ]
+    },
+    "org.activiti.core.el.ELResolverDecorator.getType:(Ljakarta/el/ELContext;Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Class;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        42
+      ]
+    },
+    "org.activiti.core.el.ELResolverDecorator.getValue:(Ljakarta/el/ELContext;Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        37
+      ]
+    },
+    "org.activiti.core.el.ELResolverDecorator.invoke:(Ljakarta/el/ELContext;Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Class;[Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 5,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 5
+      },
+      "lineNumbers" : [
+        52
+      ]
+    },
+    "org.activiti.core.el.ELResolverDecorator.isReadOnly:(Ljakarta/el/ELContext;Ljava/lang/Object;Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        57
+      ]
+    },
+    "org.activiti.core.el.ELResolverDecorator.setValue:(Ljakarta/el/ELContext;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        47,
+        48
+      ]
+    },
+    "org.activiti.core.el.ELResolverReflectionBlockerDecorator.<init>:(Ljakarta/el/ELResolver;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        41,
+        42
+      ]
+    },
+    "org.activiti.core.el.ELResolverReflectionBlockerDecorator.invoke:(Ljakarta/el/ELContext;Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Class;[Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 5,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 5
+      },
+      "lineNumbers" : [
+        46,
+        47,
+        48,
+        51,
+        52,
+        54
+      ]
+    },
+    "org.activiti.core.el.ELResolverReflectionBlockerDecorator.lambda$static$0:(Ljava/lang/reflect/Method;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        33
+      ]
+    },
+    "org.activiti.core.el.ELResolverReflectionBlockerDecorator.lambda$static$1:(Ljava/lang/reflect/Method;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        34
+      ]
+    },
+    "org.activiti.core.el.ExpressionResolver.resolveExpression:(Ljava/lang/String;Ljava/util/Map;Ljava/lang/Class;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.core.el.JsonNodeELResolver$1.<init>:(Lorg/activiti/core/el/JsonNodeELResolver;Ljava/util/Iterator;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T004",
+      "perMethodOutcome" : "T004",
+      "lineNumbers" : [
+        107
+      ]
+    },
+    "org.activiti.core.el.JsonNodeELResolver$1.hasNext:()Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T004",
+      "perMethodOutcome" : "T004",
+      "lineNumbers" : [
+        110
+      ]
+    },
+    "org.activiti.core.el.JsonNodeELResolver$1.next:()Ljava/beans/FeatureDescriptor;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T004",
+      "perMethodOutcome" : "T004",
+      "lineNumbers" : [
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125
+      ]
+    },
+    "org.activiti.core.el.JsonNodeELResolver$1.remove:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T004",
+      "perMethodOutcome" : "T004",
+      "lineNumbers" : [
+        131
+      ]
+    },
+    "org.activiti.core.el.JsonNodeELResolver.<init>:()V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        49,
+        50
+      ]
+    },
+    "org.activiti.core.el.JsonNodeELResolver.<init>:(Z)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        56,
+        43,
+        57,
+        58
+      ]
+    },
+    "org.activiti.core.el.JsonNodeELResolver.getCommonPropertyType:(Ljakarta/el/ELContext;Ljava/lang/Object;)Ljava/lang/Class;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        75
+      ]
+    },
+    "org.activiti.core.el.JsonNodeELResolver.getFeatureDescriptors:(Ljakarta/el/ELContext;Ljava/lang/Object;)Ljava/util/Iterator;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        104,
+        105,
+        106,
+        107,
+        135
+      ]
+    },
+    "org.activiti.core.el.JsonNodeELResolver.getObjectMapper:()Lcom/fasterxml/jackson/databind/ObjectMapper;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        249
+      ]
+    },
+    "org.activiti.core.el.JsonNodeELResolver.getType:(Ljakarta/el/ELContext;Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Class;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        166,
+        167,
+        169,
+        170,
+        171,
+        172,
+        174
+      ]
+    },
+    "org.activiti.core.el.JsonNodeELResolver.getValue:(Ljakarta/el/ELContext;Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        213,
+        214,
+        216,
+        217,
+        218,
+        219,
+        220,
+        221,
+        222,
+        223,
+        224,
+        225,
+        226,
+        227,
+        229,
+        233,
+        234,
+        236,
+        239,
+        241
+      ]
+    },
+    "org.activiti.core.el.JsonNodeELResolver.isReadOnly:(Ljakarta/el/ELContext;Ljava/lang/Object;Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        287,
+        288,
+        290,
+        291,
+        293
+      ]
+    },
+    "org.activiti.core.el.JsonNodeELResolver.isResolvable:(Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        372
+      ]
+    },
+    "org.activiti.core.el.JsonNodeELResolver.setValue:(Ljakarta/el/ELContext;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)V" : {
+      "completeTestCount" : 13,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 13
+      },
+      "lineNumbers" : [
+        339,
+        340,
+        342,
+        343,
+        344,
+        346,
+        347,
+        349,
+        350,
+        352,
+        353,
+        355,
+        356,
+        358,
+        359,
+        362,
+        364,
+        366
+      ]
+    },
+    "org.activiti.core.el.JuelExpressionResolver.<init>:()V" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        37,
+        38
+      ]
+    },
+    "org.activiti.core.el.JuelExpressionResolver.<init>:(Ljakarta/el/ExpressionFactory;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        41,
+        42
+      ]
+    },
+    "org.activiti.core.el.JuelExpressionResolver.<init>:(Ljakarta/el/ExpressionFactory;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        44,
+        45,
+        46,
+        47
+      ]
+    },
+    "org.activiti.core.el.JuelExpressionResolver.buildContext:(Ljava/util/Map;)Ljakarta/el/ELContext;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        60,
+        62,
+        63,
+        64,
+        65,
+        66,
+        61,
+        68,
+        69,
+        60
+      ]
+    },
+    "org.activiti.core.el.JuelExpressionResolver.resolveExpression:(Ljava/lang/String;Ljava/util/Map;Ljava/lang/Class;)Ljava/lang/Object;" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        51,
+        52,
+        54,
+        55,
+        56
+      ]
+    },
+    "org.activiti.core.el.ListResolverHelper.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T008",
+      "perMethodOutcome" : "T008",
+      "lineNumbers" : [
+        29,
+        30
+      ]
+    },
+    "org.activiti.core.el.ListResolverHelper.addListFunctions:(Lorg/activiti/core/el/ActivitiElContext;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        33,
+        34
+      ]
+    },
+    "org.activiti.core.el.ListResolverHelper.list:([Ljava/lang/Object;)Ljava/util/List;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        26
+      ]
+    },
+    "org.activiti.core.el.ReadOnlyMapELResolver.<init>:(Ljava/util/Map;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        37,
+        38,
+        39
+      ]
+    },
+    "org.activiti.core.el.ReadOnlyMapELResolver.getCommonPropertyType:(Ljakarta/el/ELContext;Ljava/lang/Object;)Ljava/lang/Class;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        64
+      ]
+    },
+    "org.activiti.core.el.ReadOnlyMapELResolver.getFeatureDescriptors:(Ljakarta/el/ELContext;Ljava/lang/Object;)Ljava/util/Iterator;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        68
+      ]
+    },
+    "org.activiti.core.el.ReadOnlyMapELResolver.getType:(Ljakarta/el/ELContext;Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Class;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        72
+      ]
+    },
+    "org.activiti.core.el.ReadOnlyMapELResolver.getValue:(Ljakarta/el/ELContext;Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        42,
+        43,
+        44,
+        45,
+        48
+      ]
+    },
+    "org.activiti.core.el.ReadOnlyMapELResolver.isReadOnly:(Ljakarta/el/ELContext;Ljava/lang/Object;Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        52
+      ]
+    },
+    "org.activiti.core.el.ReadOnlyMapELResolver.setValue:(Ljakarta/el/ELContext;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R004",
+      "lineNumbers" : [
+        56,
+        57,
+        58,
+        61
+      ]
+    }
+  },
+  "validationMetrics" : { },
+  "outputCodes" : [
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.model.shared.event.VariableEvent$VariableEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/model/shared/event/VariableEvent$VariableEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.model.shared.event.VariableEvent$VariableEvents",
+            "descriptor" : "()[Lorg/activiti/api/model/shared/event/VariableEvent$VariableEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.runtime.shared.query.Order$Direction",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/runtime/shared/query/Order$Direction;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.runtime.shared.query.Order$Direction",
+            "descriptor" : "()[Lorg/activiti/api/runtime/shared/query/Order$Direction;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.NonAbstractMethodInAbstractClassMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.runtime.shared.security.AbstractSecurityManager",
+            "descriptor" : "()Ljava/util/List;",
+            "methodName" : "getAuthenticatedUserGroups"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.NonAbstractMethodInAbstractClassMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.runtime.shared.security.AbstractSecurityManager",
+            "descriptor" : "()Ljava/lang/String;",
+            "methodName" : "getAuthenticatedUserId"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.NonAbstractMethodInAbstractClassMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.runtime.shared.security.AbstractSecurityManager",
+            "descriptor" : "()Ljava/util/List;",
+            "methodName" : "getAuthenticatedUserRoles"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.NonAbstractMethodInAbstractClassMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.runtime.shared.security.AbstractSecurityManager",
+            "descriptor" : "()Ljava/lang/SecurityException;",
+            "methodName" : "securityException"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.NonAbstractMethodInAbstractClassMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.runtime.shared.security.PrincipalIdentityProvider",
+            "descriptor" : "(Ljava/security/Principal;)Ljava/lang/String;",
+            "methodName" : "getUserId"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.ProcessInstance$ProcessInstanceStatus",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/ProcessInstance$ProcessInstanceStatus;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.ProcessInstance$ProcessInstanceStatus",
+            "descriptor" : "()[Lorg/activiti/api/process/model/ProcessInstance$ProcessInstanceStatus;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.TrivialConstructorMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.builders.MessagePayloadBuilder",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.TrivialConstructorMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.builders.ProcessPayloadBuilder",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.ApplicationEvent$ApplicationEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/events/ApplicationEvent$ApplicationEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.ApplicationEvent$ApplicationEvents",
+            "descriptor" : "()[Lorg/activiti/api/process/model/events/ApplicationEvent$ApplicationEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.BPMNActivityEvent$ActivityEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/events/BPMNActivityEvent$ActivityEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.BPMNActivityEvent$ActivityEvents",
+            "descriptor" : "()[Lorg/activiti/api/process/model/events/BPMNActivityEvent$ActivityEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.BPMNErrorReceivedEvent$ErrorEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/events/BPMNErrorReceivedEvent$ErrorEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.BPMNErrorReceivedEvent$ErrorEvents",
+            "descriptor" : "()[Lorg/activiti/api/process/model/events/BPMNErrorReceivedEvent$ErrorEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.BPMNMessageEvent$MessageEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/events/BPMNMessageEvent$MessageEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.BPMNMessageEvent$MessageEvents",
+            "descriptor" : "()[Lorg/activiti/api/process/model/events/BPMNMessageEvent$MessageEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.BPMNSignalEvent$SignalEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/events/BPMNSignalEvent$SignalEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.BPMNSignalEvent$SignalEvents",
+            "descriptor" : "()[Lorg/activiti/api/process/model/events/BPMNSignalEvent$SignalEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.BPMNTimerEvent$TimerEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/events/BPMNTimerEvent$TimerEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.BPMNTimerEvent$TimerEvents",
+            "descriptor" : "()[Lorg/activiti/api/process/model/events/BPMNTimerEvent$TimerEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.IntegrationEvent$IntegrationEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/events/IntegrationEvent$IntegrationEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.IntegrationEvent$IntegrationEvents",
+            "descriptor" : "()[Lorg/activiti/api/process/model/events/IntegrationEvent$IntegrationEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.MessageDefinitionEvent$MessageDefinitionEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/events/MessageDefinitionEvent$MessageDefinitionEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.MessageDefinitionEvent$MessageDefinitionEvents",
+            "descriptor" : "()[Lorg/activiti/api/process/model/events/MessageDefinitionEvent$MessageDefinitionEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.NonAbstractMethodInAbstractClassMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.MessageSubscriptionCancelledEvent",
+            "descriptor" : "()Lorg/activiti/api/process/model/events/MessageSubscriptionEvent$MessageSubscriptionEvents;",
+            "methodName" : "getEventType"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.MessageSubscriptionEvent$MessageSubscriptionEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/events/MessageSubscriptionEvent$MessageSubscriptionEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.MessageSubscriptionEvent$MessageSubscriptionEvents",
+            "descriptor" : "()[Lorg/activiti/api/process/model/events/MessageSubscriptionEvent$MessageSubscriptionEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.ProcessCandidateStarterGroupEvent$ProcessCandidateStarterGroupEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/events/ProcessCandidateStarterGroupEvent$ProcessCandidateStarterGroupEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.ProcessCandidateStarterGroupEvent$ProcessCandidateStarterGroupEvents",
+            "descriptor" : "()[Lorg/activiti/api/process/model/events/ProcessCandidateStarterGroupEvent$ProcessCandidateStarterGroupEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.ProcessCandidateStarterUserEvent$ProcessCandidateStarterUserEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/events/ProcessCandidateStarterUserEvent$ProcessCandidateStarterUserEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.ProcessCandidateStarterUserEvent$ProcessCandidateStarterUserEvents",
+            "descriptor" : "()[Lorg/activiti/api/process/model/events/ProcessCandidateStarterUserEvent$ProcessCandidateStarterUserEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.ProcessDefinitionEvent$ProcessDefinitionEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/events/ProcessDefinitionEvent$ProcessDefinitionEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.ProcessDefinitionEvent$ProcessDefinitionEvents",
+            "descriptor" : "()[Lorg/activiti/api/process/model/events/ProcessDefinitionEvent$ProcessDefinitionEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.ProcessRuntimeEvent$ProcessEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/events/ProcessRuntimeEvent$ProcessEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.ProcessRuntimeEvent$ProcessEvents",
+            "descriptor" : "()[Lorg/activiti/api/process/model/events/ProcessRuntimeEvent$ProcessEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.SequenceFlowEvent$SequenceFlowEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/events/SequenceFlowEvent$SequenceFlowEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.SequenceFlowEvent$SequenceFlowEvents",
+            "descriptor" : "()[Lorg/activiti/api/process/model/events/SequenceFlowEvent$SequenceFlowEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.NonAbstractMethodInAbstractClassMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.StartMessageDeployedEvent",
+            "descriptor" : "()Lorg/activiti/api/process/model/events/MessageDefinitionEvent$MessageDefinitionEvents;",
+            "methodName" : "getEventType"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.NoMethodsToTestMessage\",\"serializableCause\":null}",
+      "methodGroup" : null
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.task.model.Task$TaskStatus",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/task/model/Task$TaskStatus;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.task.model.Task$TaskStatus",
+            "descriptor" : "()[Lorg/activiti/api/task/model/Task$TaskStatus;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.TrivialConstructorMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.task.model.builders.TaskPayloadBuilder",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.task.model.events.TaskCandidateGroupEvent$TaskCandidateGroupEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/task/model/events/TaskCandidateGroupEvent$TaskCandidateGroupEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.task.model.events.TaskCandidateGroupEvent$TaskCandidateGroupEvents",
+            "descriptor" : "()[Lorg/activiti/api/task/model/events/TaskCandidateGroupEvent$TaskCandidateGroupEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.task.model.events.TaskCandidateUserEvent$TaskCandidateUserEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/task/model/events/TaskCandidateUserEvent$TaskCandidateUserEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.task.model.events.TaskCandidateUserEvent$TaskCandidateUserEvents",
+            "descriptor" : "()[Lorg/activiti/api/task/model/events/TaskCandidateUserEvent$TaskCandidateUserEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.task.model.events.TaskRuntimeEvent$TaskEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/task/model/events/TaskRuntimeEvent$TaskEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.task.model.events.TaskRuntimeEvent$TaskEvents",
+            "descriptor" : "()[Lorg/activiti/api/task/model/events/TaskRuntimeEvent$TaskEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.NoMethodsToTestMessage\",\"serializableCause\":null}",
+      "methodGroup" : null
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.TrivialConstructorMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.identity.config.ActivitiSpringIdentityAutoConfiguration",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/core/common/spring/security/AuthenticationPrincipalGroupsProvider;\",\"simpleNames\":[\"AuthenticationPrincipalGroupsProvider\"]},\"fieldName\":\"grantedAuthoritiesGroupsMapper\"},{\"className\":{\"descriptor\":\"Lorg/activiti/core/common/spring/security/AuthenticationPrincipalGroupsProvider;\",\"simpleNames\":[\"AuthenticationPrincipalGroupsProvider\"]},\"fieldName\":\"grantedAuthoritiesResolver\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.AuthenticationPrincipalGroupsProvider",
+            "descriptor" : "(Lorg/activiti/core/common/spring/security/GrantedAuthoritiesResolver;Lorg/activiti/core/common/spring/security/GrantedAuthoritiesGroupsMapper;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/core/common/spring/security/AuthenticationPrincipalRolesProvider;\",\"simpleNames\":[\"AuthenticationPrincipalRolesProvider\"]},\"fieldName\":\"grantedAuthoritiesResolver\"},{\"className\":{\"descriptor\":\"Lorg/activiti/core/common/spring/security/AuthenticationPrincipalRolesProvider;\",\"simpleNames\":[\"AuthenticationPrincipalRolesProvider\"]},\"fieldName\":\"grantedAuthoritiesRolesMapper\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.AuthenticationPrincipalRolesProvider",
+            "descriptor" : "(Lorg/activiti/core/common/spring/security/GrantedAuthoritiesResolver;Lorg/activiti/core/common/spring/security/GrantedAuthoritiesRolesMapper;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/api/runtime/shared/security/AbstractSecurityManager;\",\"simpleNames\":[\"AbstractSecurityManager\"]},\"fieldName\":\"principalGroupsProvider\"},{\"className\":{\"descriptor\":\"Lorg/activiti/api/runtime/shared/security/AbstractSecurityManager;\",\"simpleNames\":[\"AbstractSecurityManager\"]},\"fieldName\":\"principalIdentityProvider\"},{\"className\":{\"descriptor\":\"Lorg/activiti/api/runtime/shared/security/AbstractSecurityManager;\",\"simpleNames\":[\"AbstractSecurityManager\"]},\"fieldName\":\"principalRolesProvider\"},{\"className\":{\"descriptor\":\"Lorg/activiti/api/runtime/shared/security/AbstractSecurityManager;\",\"simpleNames\":[\"AbstractSecurityManager\"]},\"fieldName\":\"securityContextPrincipalProvider\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.LocalSpringSecurityManager",
+            "descriptor" : "(Lorg/activiti/api/runtime/shared/security/SecurityContextPrincipalProvider;Lorg/activiti/api/runtime/shared/security/PrincipalIdentityProvider;Lorg/activiti/api/runtime/shared/security/PrincipalGroupsProvider;Lorg/activiti/api/runtime/shared/security/PrincipalRolesProvider;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/core/common/spring/security/SimpleGrantedAuthoritiesGroupsMapper;\",\"simpleNames\":[\"SimpleGrantedAuthoritiesGroupsMapper\"]},\"fieldName\":\"prefix\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesGroupsMapper",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          },
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesGroupsMapper",
+            "descriptor" : "(Ljava/lang/String;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/core/common/spring/security/SimpleGrantedAuthoritiesGroupsMapper;\",\"simpleNames\":[\"SimpleGrantedAuthoritiesGroupsMapper\"]},\"fieldName\":\"prefix\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesGroupsMapper",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          },
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesGroupsMapper",
+            "descriptor" : "(Ljava/lang/String;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/core/common/spring/security/SimpleGrantedAuthoritiesRolesMapper;\",\"simpleNames\":[\"SimpleGrantedAuthoritiesRolesMapper\"]},\"fieldName\":\"prefix\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesRolesMapper",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          },
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesRolesMapper",
+            "descriptor" : "(Ljava/lang/String;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/core/common/spring/security/SimpleGrantedAuthoritiesRolesMapper;\",\"simpleNames\":[\"SimpleGrantedAuthoritiesRolesMapper\"]},\"fieldName\":\"prefix\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesRolesMapper",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          },
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesRolesMapper",
+            "descriptor" : "(Ljava/lang/String;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.TrivialConstructorMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.config.ActivitiSpringSecurityAutoConfiguration",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.policies.SecurityPoliciesProcessDefinitionRestrictionApplier",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.policies.SecurityPoliciesProcessInstanceRestrictionApplier",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.policies.SecurityPolicyAccess",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/core/common/spring/security/policies/SecurityPolicyAccess;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.policies.SecurityPolicyAccess",
+            "descriptor" : "()[Lorg/activiti/core/common/spring/security/policies/SecurityPolicyAccess;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.TrivialConstructorMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.policies.config.ActivitiSpringSecurityPoliciesAutoConfiguration",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.TrivialConstructorMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.connector.autoconfigure.ConnectorAutoConfiguration",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/application/ApplicationContent;\",\"simpleNames\":[\"ApplicationContent\"]},\"fieldName\":\"entries\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.application.ApplicationContent",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoNonThrowingInputsMessage\",\"serializableCause\":{\"cause\":null,\"message\":\"Cannot invoke \\\"org.activiti.application.ApplicationEntry.getType()\\\" because \\\"entry\\\" is null\",\"originalClassName\":\"java.lang.NullPointerException\",\"stackTrace\":[{\"classLoaderName\":null,\"className\":\"org.activiti.application.ApplicationContent\",\"fileName\":\"ApplicationContent.java\",\"lineNumber\":30,\"methodName\":\"add\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.DirectMethodHandleAccessor\",\"fileName\":\"DirectMethodHandleAccessor.java\",\"lineNumber\":103,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.lang.reflect.Method\",\"fileName\":\"Method.java\",\"lineNumber\":580,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":140,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":77,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.a.f\",\"fileName\":\"SourceFile\",\"lineNumber\":852,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":463,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":99,\"methodName\":\"b\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.g.d\",\"fileName\":\"SourceFile\",\"lineNumber\":51,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":368,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":261,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.fuzztest.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":1105,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.SafeTimedExecutor\",\"fileName\":\"SourceFile\",\"lineNumber\":171,\"methodName\":\"lambda$runWithLoopIterationLimit$5\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TimedCallableExecutor$CallableFuture\",\"fileName\":\"SourceFile\",\"lineNumber\":29,\"methodName\":\"executeTask\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TaskQueueRunner\",\"fileName\":\"SourceFile\",\"lineNumber\":39,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.WorkerThread\",\"fileName\":\"SourceFile\",\"lineNumber\":265,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false}]}}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.application.ApplicationContent",
+            "descriptor" : "(Lorg/activiti/application/ApplicationEntry;)V",
+            "methodName" : "add"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/application/ApplicationDiscovery;\",\"simpleNames\":[\"ApplicationDiscovery\"]},\"fieldName\":\"applicationsLocation\"},{\"className\":{\"descriptor\":\"Lorg/activiti/application/ApplicationDiscovery;\",\"simpleNames\":[\"ApplicationDiscovery\"]},\"fieldName\":\"resourceLoader\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.application.ApplicationDiscovery",
+            "descriptor" : "(Lorg/springframework/core/io/support/ResourcePatternResolver;Ljava/lang/String;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/application/ApplicationReader;\",\"simpleNames\":[\"ApplicationReader\"]},\"fieldName\":\"applicationEntryDiscoveries\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.application.ApplicationReader",
+            "descriptor" : "(Ljava/util/List;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/application/ApplicationService;\",\"simpleNames\":[\"ApplicationService\"]},\"fieldName\":\"applicationDiscovery\"},{\"className\":{\"descriptor\":\"Lorg/activiti/application/ApplicationService;\",\"simpleNames\":[\"ApplicationService\"]},\"fieldName\":\"applicationReader\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.application.ApplicationService",
+            "descriptor" : "(Lorg/activiti/application/ApplicationDiscovery;Lorg/activiti/application/ApplicationReader;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoNonThrowingInputsMessage\",\"serializableCause\":{\"cause\":{\"cause\":null,\"message\":\"Byte array resource [resource loaded from byte array] cannot be resolved to URL\",\"originalClassName\":\"java.io.FileNotFoundException\",\"stackTrace\":[{\"classLoaderName\":null,\"className\":\"org.springframework.core.io.AbstractResource\",\"fileName\":\"AbstractResource.java\",\"lineNumber\":108,\"methodName\":\"getURL\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.springframework.core.io.support.PathMatchingResourcePatternResolver\",\"fileName\":\"PathMatchingResourcePatternResolver.java\",\"lineNumber\":592,\"methodName\":\"findPathMatchingResources\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.springframework.core.io.support.PathMatchingResourcePatternResolver\",\"fileName\":\"PathMatchingResourcePatternResolver.java\",\"lineNumber\":350,\"methodName\":\"getResources\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.springframework.context.support.AbstractApplicationContext\",\"fileName\":\"AbstractApplicationContext.java\",\"lineNumber\":1520,\"methodName\":\"getResources\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.springframework.context.support.GenericApplicationContext\",\"fileName\":\"GenericApplicationContext.java\",\"lineNumber\":263,\"methodName\":\"getResources\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.activiti.application.ApplicationDiscovery\",\"fileName\":\"ApplicationDiscovery.java\",\"lineNumber\":43,\"methodName\":\"discoverApplications\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.activiti.application.ApplicationService\",\"fileName\":\"ApplicationService.java\",\"lineNumber\":38,\"methodName\":\"loadApplications\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.activiti.application.deployer.ApplicationDeployer\",\"fileName\":\"ApplicationDeployer.java\",\"lineNumber\":36,\"methodName\":\"deploy\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.activiti.application.conf.ApplicationAutoConfiguration\",\"fileName\":\"ApplicationAutoConfiguration.java\",\"lineNumber\":50,\"methodName\":\"lambda$deployApplications$0\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.DirectMethodHandleAccessor\",\"fileName\":\"DirectMethodHandleAccessor.java\",\"lineNumber\":103,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.lang.reflect.Method\",\"fileName\":\"Method.java\",\"lineNumber\":580,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":140,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":77,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.a.f\",\"fileName\":\"SourceFile\",\"lineNumber\":852,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":463,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":99,\"methodName\":\"b\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.g.d\",\"fileName\":\"SourceFile\",\"lineNumber\":51,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":368,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":261,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.fuzztest.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":1105,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.SafeTimedExecutor\",\"fileName\":\"SourceFile\",\"lineNumber\":171,\"methodName\":\"lambda$runWithLoopIterationLimit$5\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TimedCallableExecutor$CallableFuture\",\"fileName\":\"SourceFile\",\"lineNumber\":29,\"methodName\":\"executeTask\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TaskQueueRunner\",\"fileName\":\"SourceFile\",\"lineNumber\":39,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.WorkerThread\",\"fileName\":\"SourceFile\",\"lineNumber\":265,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false}]},\"message\":\"Unable to load application resources\",\"originalClassName\":\"org.activiti.application.ApplicationLoadException\",\"stackTrace\":[{\"classLoaderName\":null,\"className\":\"org.activiti.application.ApplicationDiscovery\",\"fileName\":\"ApplicationDiscovery.java\",\"lineNumber\":45,\"methodName\":\"discoverApplications\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.activiti.application.ApplicationService\",\"fileName\":\"ApplicationService.java\",\"lineNumber\":38,\"methodName\":\"loadApplications\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.activiti.application.deployer.ApplicationDeployer\",\"fileName\":\"ApplicationDeployer.java\",\"lineNumber\":36,\"methodName\":\"deploy\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.activiti.application.conf.ApplicationAutoConfiguration\",\"fileName\":\"ApplicationAutoConfiguration.java\",\"lineNumber\":50,\"methodName\":\"lambda$deployApplications$0\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.DirectMethodHandleAccessor\",\"fileName\":\"DirectMethodHandleAccessor.java\",\"lineNumber\":103,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.lang.reflect.Method\",\"fileName\":\"Method.java\",\"lineNumber\":580,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":140,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":77,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.a.f\",\"fileName\":\"SourceFile\",\"lineNumber\":852,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":463,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":99,\"methodName\":\"b\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.g.d\",\"fileName\":\"SourceFile\",\"lineNumber\":51,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":368,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":261,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.fuzztest.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":1105,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.SafeTimedExecutor\",\"fileName\":\"SourceFile\",\"lineNumber\":171,\"methodName\":\"lambda$runWithLoopIterationLimit$5\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TimedCallableExecutor$CallableFuture\",\"fileName\":\"SourceFile\",\"lineNumber\":29,\"methodName\":\"executeTask\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TaskQueueRunner\",\"fileName\":\"SourceFile\",\"lineNumber\":39,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.WorkerThread\",\"fileName\":\"SourceFile\",\"lineNumber\":265,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false}]}}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.application.conf.ApplicationAutoConfiguration",
+            "descriptor" : "(Lorg/springframework/core/io/support/ResourcePatternResolver;Ljava/util/List;Ljava/util/List;Ljava/lang/String;)Lorg/springframework/beans/factory/InitializingBean;",
+            "methodName" : "deployApplications"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.TrivialConstructorMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.application.conf.ApplicationAutoConfiguration",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/application/deployer/ApplicationDeployer;\",\"simpleNames\":[\"ApplicationDeployer\"]},\"fieldName\":\"applicationLoader\"},{\"className\":{\"descriptor\":\"Lorg/activiti/application/deployer/ApplicationDeployer;\",\"simpleNames\":[\"ApplicationDeployer\"]},\"fieldName\":\"deployers\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.application.deployer.ApplicationDeployer",
+            "descriptor" : "(Lorg/activiti/application/ApplicationService;Ljava/util/List;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/spring/resources/ResourceFinder;\",\"simpleNames\":[\"ResourceFinder\"]},\"fieldName\":\"resourceLoader\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.spring.resources.ResourceFinder",
+            "descriptor" : "(Lorg/springframework/core/io/support/ResourcePatternResolver;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoMeaningfulAssertionMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.spring.resources.conf.ResourceFinderAutoConfiguration",
+            "descriptor" : "(Lorg/springframework/core/io/support/ResourcePatternResolver;)Lorg/activiti/spring/resources/ResourceFinder;",
+            "methodName" : "resourceFinderImpl"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.TrivialConstructorMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.spring.resources.conf.ResourceFinderAutoConfiguration",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/test/assertions/AwaitProcessInstanceAssertions;\",\"simpleNames\":[\"AwaitProcessInstanceAssertions\"]},\"fieldName\":\"processInstanceAssertions\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.assertions.AwaitProcessInstanceAssertions",
+            "descriptor" : "(Lorg/activiti/test/assertions/ProcessInstanceAssertions;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoNonThrowingInputsMessage\",\"serializableCause\":{\"cause\":null,\"message\":\"Cannot invoke \\\"org.activiti.test.assertions.ProcessInstanceAssertions.andReturn()\\\" because \\\"this.processInstanceAssertions\\\" is null\",\"originalClassName\":\"java.lang.NullPointerException\",\"stackTrace\":[{\"classLoaderName\":null,\"className\":\"org.activiti.test.assertions.AwaitProcessInstanceAssertions\",\"fileName\":\"AwaitProcessInstanceAssertions.java\",\"lineNumber\":53,\"methodName\":\"andReturn\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.DirectMethodHandleAccessor\",\"fileName\":\"DirectMethodHandleAccessor.java\",\"lineNumber\":103,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.lang.reflect.Method\",\"fileName\":\"Method.java\",\"lineNumber\":580,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":140,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":77,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.a.f\",\"fileName\":\"SourceFile\",\"lineNumber\":852,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":463,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":99,\"methodName\":\"b\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.g.d\",\"fileName\":\"SourceFile\",\"lineNumber\":51,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":368,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":261,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.fuzztest.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":1105,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.SafeTimedExecutor\",\"fileName\":\"SourceFile\",\"lineNumber\":171,\"methodName\":\"lambda$runWithLoopIterationLimit$5\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TimedCallableExecutor$CallableFuture\",\"fileName\":\"SourceFile\",\"lineNumber\":29,\"methodName\":\"executeTask\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TaskQueueRunner\",\"fileName\":\"SourceFile\",\"lineNumber\":39,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.WorkerThread\",\"fileName\":\"SourceFile\",\"lineNumber\":265,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false}]}}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.assertions.AwaitProcessInstanceAssertions",
+            "descriptor" : "()Lorg/activiti/api/process/model/ProcessInstance;",
+            "methodName" : "andReturn"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.verification.TestCompilationMessage\",\"compilerErrors\":[{\"className\":\"org.activiti.test.assertions.AwaitProcessInstanceAssertionsDiffblueTest659340206734315089\",\"line\":63,\"message\":\"type argument Object is not within bounds of type-variable ENTITY_TYPE\\nwhere ENTITY_TYPE is a type-variable:\\n  ENTITY_TYPE extends Object declared in interface RuntimeEvent\",\"methodSignature\":\"testExpectEvents_givenArrayListAddRuntimeEvent:()V\",\"sourceFile\":\"/tmp/AwaitProcessInstanceAssertionsDiffblueTest659340206734315089.java\"},{\"className\":\"org.activiti.test.assertions.AwaitProcessInstanceAssertionsDiffblueTest659340206734315089\",\"line\":63,\"message\":\"type argument Object is not within bounds of type-variable EVENT_TYPE\\nwhere EVENT_TYPE is a type-variable:\\n  EVENT_TYPE extends Enum<?> declared in interface RuntimeEvent\",\"methodSignature\":\"testExpectEvents_givenArrayListAddRuntimeEvent:()V\",\"sourceFile\":\"/tmp/AwaitProcessInstanceAssertionsDiffblueTest659340206734315089.java\"},{\"className\":\"org.activiti.test.assertions.AwaitProcessInstanceAssertionsDiffblueTest659340206734315089\",\"line\":63,\"message\":\"incompatible types: List<RuntimeEvent<Object,Object>> cannot be converted to List<RuntimeEvent<?,?>>\",\"methodSignature\":\"testExpectEvents_givenArrayListAddRuntimeEvent:()V\",\"sourceFile\":\"/tmp/AwaitProcessInstanceAssertionsDiffblueTest659340206734315089.java\"}],\"serializableCause\":null,\"testClassJavaCode\":\"File /tmp/AwaitProcessInstanceAssertionsDiffblueTest659340206734315089.java, 77 lines:\\n   1: package org.activiti.test.assertions;\\n   2: \\n   3: import static org.junit.jupiter.api.Assertions.assertSame;\\n   4: import static org.junit.jupiter.api.Assertions.assertTrue;\\n   5: import static org.mockito.ArgumentMatchers.isA;\\n   6: import static org.mockito.Mockito.doNothing;\\n   7: import static org.mockito.Mockito.mock;\\n   8: import static org.mockito.Mockito.verify;\\n   9: import static org.mockito.Mockito.when;\\n  10: import com.diffblue.cover.annotations.ManagedByDiffblue;\\n  11: import com.diffblue.cover.annotations.MethodsUnderTest;\\n  12: import java.util.ArrayList;\\n  13: import java.util.List;\\n  14: import org.activiti.api.model.shared.event.RuntimeEvent;\\n  15: import org.activiti.api.process.model.ProcessInstance;\\n  16: import org.activiti.test.EventSource;\\n  17: import org.activiti.test.matchers.OperationScope;\\n  18: import org.activiti.test.matchers.OperationScopeMatcher;\\n  19: import org.junit.jupiter.api.DisplayName;\\n  20: import org.junit.jupiter.api.Tag;\\n  21: import org.junit.jupiter.api.Test;\\n  22: import org.mockito.Mockito;\\n  23: \\n  24: class AwaitProcessInstanceAssertionsDiffblueTest659340206734315089 {\\n  25:   /**\\n  26:    * Test {@link AwaitProcessInstanceAssertions#expectEvents(OperationScopeMatcher[])}.\\n  27:    *\\n  28:    * <ul>\\n  29:    *   <li>Given {@link ArrayList#ArrayList()} add {@link RuntimeEvent}.\\n  30:    * </ul>\\n  31:    *\\n  32:    * <p>Method under test: {@link\\n  33:    * AwaitProcessInstanceAssertions#expectEvents(OperationScopeMatcher[])}\\n  34:    */\\n  35:   @Test\\n  36:   @DisplayName(\\\"Test expectEvents(OperationScopeMatcher[]); given ArrayList() add RuntimeEvent\\\")\\n  37:   @Tag(\\\"ContributionFromDiffblue\\\")\\n  38:   @ManagedByDiffblue\\n  39:   @MethodsUnderTest({\\n  40:     \\\"ProcessInstanceAssertions AwaitProcessInstanceAssertions.expectEvents(OperationScopeMatcher[])\\\"\\n  41:   })\\n  42:   void testExpectEvents_givenArrayListAddRuntimeEvent() {\\n  43:     // Arrange\\n  44:     ArrayList<RuntimeEvent<?, ?>> runtimeEventList = new ArrayList<>();\\n  45:     runtimeEventList.add(mock(RuntimeEvent.class));\\n  46:     runtimeEventList.addLast(mock(RuntimeEvent.class));\\n  47: \\n  48:     EventSource eventSource = mock(EventSource.class);\\n  49:     Mockito.<List<RuntimeEvent<?, ?>>>when(eventSource.getEvents()).thenReturn(runtimeEventList);\\n  50: \\n  51:     ProcessInstance processInstance = mock(ProcessInstance.class);\\n  52:     when(processInstance.getId()).thenReturn(\\\"42\\\");\\n  53: \\n  54:     ProcessInstanceAssertionsImpl processInstanceAssertions =\\n  55:         new ProcessInstanceAssertionsImpl(eventSource, new ArrayList<>(), processInstance);\\n  56:     AwaitProcessInstanceAssertions awaitProcessInstanceAssertions =\\n  57:         new AwaitProcessInstanceAssertions(\\n  58:             new AwaitProcessInstanceAssertions(processInstanceAssertions));\\n  59: \\n  60:     OperationScopeMatcher operationScopeMatcher = mock(OperationScopeMatcher.class);\\n  61:     doNothing()\\n  62:         .when(operationScopeMatcher)\\n  63:         .match(Mockito.<OperationScope>any(), Mockito.<List<RuntimeEvent<Object, Object>>>any());\\n  64: \\n  65:     // Act\\n  66:     ProcessInstanceAssertions actualExpectEventsResult =\\n  67:         awaitProcessInstanceAssertions.expectEvents(operationScopeMatcher);\\n  68: \\n  69:     // Assert\\n  70:     verify(processInstance).getId();\\n  71:     verify(eventSource).getEvents();\\n  72:     verify(operationScopeMatcher).match(isA(OperationScope.class), isA(List.class));\\n  73:     assertTrue(actualExpectEventsResult instanceof AwaitProcessInstanceAssertions);\\n  74:     assertSame(awaitProcessInstanceAssertions, actualExpectEventsResult);\\n  75:   }\\n  76: }\\n  77: \\nTest compilation failed for method org.activiti.test.assertions.AwaitProcessInstanceAssertions.expectEvents\\n\"}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.assertions.AwaitProcessInstanceAssertions",
+            "descriptor" : "([Lorg/activiti/test/matchers/OperationScopeMatcher;)Lorg/activiti/test/assertions/ProcessInstanceAssertions;",
+            "methodName" : "expectEvents"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/test/assertions/AwaitSignalAssertions;\",\"simpleNames\":[\"AwaitSignalAssertions\"]},\"fieldName\":\"signalAssertions\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.assertions.AwaitSignalAssertions",
+            "descriptor" : "(Lorg/activiti/test/assertions/SignalAssertions;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/test/assertions/AwaitTaskAssertions;\",\"simpleNames\":[\"AwaitTaskAssertions\"]},\"fieldName\":\"taskAssertions\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.assertions.AwaitTaskAssertions",
+            "descriptor" : "(Lorg/activiti/test/assertions/TaskAssertions;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoNonThrowingInputsMessage\",\"serializableCause\":{\"cause\":null,\"message\":\"Cannot invoke \\\"org.activiti.test.assertions.TaskAssertions.andReturn()\\\" because \\\"this.taskAssertions\\\" is null\",\"originalClassName\":\"java.lang.NullPointerException\",\"stackTrace\":[{\"classLoaderName\":null,\"className\":\"org.activiti.test.assertions.AwaitTaskAssertions\",\"fileName\":\"AwaitTaskAssertions.java\",\"lineNumber\":53,\"methodName\":\"andReturn\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.DirectMethodHandleAccessor\",\"fileName\":\"DirectMethodHandleAccessor.java\",\"lineNumber\":103,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.lang.reflect.Method\",\"fileName\":\"Method.java\",\"lineNumber\":580,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":140,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":77,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.a.f\",\"fileName\":\"SourceFile\",\"lineNumber\":852,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":463,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":99,\"methodName\":\"b\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.g.d\",\"fileName\":\"SourceFile\",\"lineNumber\":51,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":368,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":261,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.fuzztest.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":1105,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.SafeTimedExecutor\",\"fileName\":\"SourceFile\",\"lineNumber\":171,\"methodName\":\"lambda$runWithLoopIterationLimit$5\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TimedCallableExecutor$CallableFuture\",\"fileName\":\"SourceFile\",\"lineNumber\":29,\"methodName\":\"executeTask\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TaskQueueRunner\",\"fileName\":\"SourceFile\",\"lineNumber\":39,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.WorkerThread\",\"fileName\":\"SourceFile\",\"lineNumber\":265,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false}]}}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.assertions.AwaitTaskAssertions",
+            "descriptor" : "()Lorg/activiti/api/task/model/Task;",
+            "methodName" : "andReturn"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.verification.TestCompilationMessage\",\"compilerErrors\":[{\"className\":\"org.activiti.test.assertions.AwaitTaskAssertionsDiffblueTest12206899694808604683\",\"line\":56,\"message\":\"type argument Object is not within bounds of type-variable ENTITY_TYPE\\nwhere ENTITY_TYPE is a type-variable:\\n  ENTITY_TYPE extends Object declared in interface RuntimeEvent\",\"methodSignature\":\"testExpectEvents_givenTaskGetIdReturnFoo:()V\",\"sourceFile\":\"/tmp/AwaitTaskAssertionsDiffblueTest12206899694808604683.java\"},{\"className\":\"org.activiti.test.assertions.AwaitTaskAssertionsDiffblueTest12206899694808604683\",\"line\":56,\"message\":\"type argument Object is not within bounds of type-variable EVENT_TYPE\\nwhere EVENT_TYPE is a type-variable:\\n  EVENT_TYPE extends Enum<?> declared in interface RuntimeEvent\",\"methodSignature\":\"testExpectEvents_givenTaskGetIdReturnFoo:()V\",\"sourceFile\":\"/tmp/AwaitTaskAssertionsDiffblueTest12206899694808604683.java\"},{\"className\":\"org.activiti.test.assertions.AwaitTaskAssertionsDiffblueTest12206899694808604683\",\"line\":56,\"message\":\"incompatible types: List<RuntimeEvent<Object,Object>> cannot be converted to List<RuntimeEvent<?,?>>\",\"methodSignature\":\"testExpectEvents_givenTaskGetIdReturnFoo:()V\",\"sourceFile\":\"/tmp/AwaitTaskAssertionsDiffblueTest12206899694808604683.java\"}],\"serializableCause\":null,\"testClassJavaCode\":\"File /tmp/AwaitTaskAssertionsDiffblueTest12206899694808604683.java, 71 lines:\\n   1: package org.activiti.test.assertions;\\n   2: \\n   3: import static org.junit.jupiter.api.Assertions.assertSame;\\n   4: import static org.junit.jupiter.api.Assertions.assertTrue;\\n   5: import static org.mockito.ArgumentMatchers.isA;\\n   6: import static org.mockito.Mockito.doNothing;\\n   7: import static org.mockito.Mockito.mock;\\n   8: import static org.mockito.Mockito.verify;\\n   9: import static org.mockito.Mockito.when;\\n  10: import com.diffblue.cover.annotations.ManagedByDiffblue;\\n  11: import com.diffblue.cover.annotations.MethodsUnderTest;\\n  12: import java.util.ArrayList;\\n  13: import java.util.List;\\n  14: import org.activiti.api.model.shared.event.RuntimeEvent;\\n  15: import org.activiti.api.task.model.Task;\\n  16: import org.activiti.test.EventSource;\\n  17: import org.activiti.test.matchers.OperationScope;\\n  18: import org.activiti.test.matchers.OperationScopeMatcher;\\n  19: import org.junit.jupiter.api.DisplayName;\\n  20: import org.junit.jupiter.api.Tag;\\n  21: import org.junit.jupiter.api.Test;\\n  22: import org.mockito.Mockito;\\n  23: \\n  24: class AwaitTaskAssertionsDiffblueTest12206899694808604683 {\\n  25:   /**\\n  26:    * Test {@link AwaitTaskAssertions#expectEvents(OperationScopeMatcher[])}.\\n  27:    *\\n  28:    * <ul>\\n  29:    *   <li>Given {@link Task} {@link Task#getId()} return {@code foo}.\\n  30:    * </ul>\\n  31:    *\\n  32:    * <p>Method under test: {@link AwaitTaskAssertions#expectEvents(OperationScopeMatcher[])}\\n  33:    */\\n  34:   @Test\\n  35:   @DisplayName(\\\"Test expectEvents(OperationScopeMatcher[]); given Task getId() return 'foo'\\\")\\n  36:   @Tag(\\\"ContributionFromDiffblue\\\")\\n  37:   @ManagedByDiffblue\\n  38:   @MethodsUnderTest({\\\"TaskAssertions AwaitTaskAssertions.expectEvents(OperationScopeMatcher[])\\\"})\\n  39:   void testExpectEvents_givenTaskGetIdReturnFoo() {\\n  40:     // Arrange\\n  41:     Task task = mock(Task.class);\\n  42:     when(task.getId()).thenReturn(\\\"foo\\\");\\n  43:     when(task.getProcessInstanceId()).thenReturn(\\\"\\\");\\n  44: \\n  45:     EventSource eventSource = mock(EventSource.class);\\n  46:     Mockito.<List<RuntimeEvent<?, ?>>>when(eventSource.getEvents()).thenReturn(new ArrayList<>());\\n  47: \\n  48:     TaskAssertionsImpl taskAssertions =\\n  49:         new TaskAssertionsImpl(task, new ArrayList<>(), eventSource);\\n  50:     AwaitTaskAssertions awaitTaskAssertions =\\n  51:         new AwaitTaskAssertions(new AwaitTaskAssertions(taskAssertions));\\n  52: \\n  53:     OperationScopeMatcher operationScopeMatcher = mock(OperationScopeMatcher.class);\\n  54:     doNothing()\\n  55:         .when(operationScopeMatcher)\\n  56:         .match(Mockito.<OperationScope>any(), Mockito.<List<RuntimeEvent<Object, Object>>>any());\\n  57: \\n  58:     // Act\\n  59:     TaskAssertions actualExpectEventsResult =\\n  60:         awaitTaskAssertions.expectEvents(operationScopeMatcher);\\n  61: \\n  62:     // Assert\\n  63:     verify(task).getId();\\n  64:     verify(task).getProcessInstanceId();\\n  65:     verify(eventSource).getEvents();\\n  66:     verify(operationScopeMatcher).match(isA(OperationScope.class), isA(List.class));\\n  67:     assertTrue(actualExpectEventsResult instanceof AwaitTaskAssertions);\\n  68:     assertSame(awaitTaskAssertions, actualExpectEventsResult);\\n  69:   }\\n  70: }\\n  71: \\nTest compilation failed for method org.activiti.test.assertions.AwaitTaskAssertions.expectEvents\\n\"}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.assertions.AwaitTaskAssertions",
+            "descriptor" : "([Lorg/activiti/test/matchers/OperationScopeMatcher;)Lorg/activiti/test/assertions/TaskAssertions;",
+            "methodName" : "expectEvents"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/test/assertions/ProcessInstanceAssertionsImpl;\",\"simpleNames\":[\"ProcessInstanceAssertionsImpl\"]},\"fieldName\":\"eventSource\"},{\"className\":{\"descriptor\":\"Lorg/activiti/test/assertions/ProcessInstanceAssertionsImpl;\",\"simpleNames\":[\"ProcessInstanceAssertionsImpl\"]},\"fieldName\":\"processInstance\"},{\"className\":{\"descriptor\":\"Lorg/activiti/test/assertions/ProcessInstanceAssertionsImpl;\",\"simpleNames\":[\"ProcessInstanceAssertionsImpl\"]},\"fieldName\":\"taskSources\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.assertions.ProcessInstanceAssertionsImpl",
+            "descriptor" : "(Lorg/activiti/test/EventSource;Ljava/util/List;Lorg/activiti/api/process/model/ProcessInstance;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/test/assertions/ProcessInstanceAssertionsImpl;\",\"simpleNames\":[\"ProcessInstanceAssertionsImpl\"]},\"fieldName\":\"eventSource\"},{\"className\":{\"descriptor\":\"Lorg/activiti/test/assertions/ProcessInstanceAssertionsImpl;\",\"simpleNames\":[\"ProcessInstanceAssertionsImpl\"]},\"fieldName\":\"processInstance\"},{\"className\":{\"descriptor\":\"Lorg/activiti/test/assertions/ProcessInstanceAssertionsImpl;\",\"simpleNames\":[\"ProcessInstanceAssertionsImpl\"]},\"fieldName\":\"taskSources\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.assertions.ProcessInstanceAssertionsImpl",
+            "descriptor" : "()Lorg/activiti/api/process/model/ProcessInstance;",
+            "methodName" : "andReturn"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.verification.TestCompilationMessage\",\"compilerErrors\":[{\"className\":\"org.activiti.test.assertions.ProcessInstanceAssertionsImplDiffblueTest2365515473061791304\",\"line\":52,\"message\":\"type argument Object is not within bounds of type-variable ENTITY_TYPE\\nwhere ENTITY_TYPE is a type-variable:\\n  ENTITY_TYPE extends Object declared in interface RuntimeEvent\",\"methodSignature\":\"testExpectEvents:()V\",\"sourceFile\":\"/tmp/ProcessInstanceAssertionsImplDiffblueTest2365515473061791304.java\"},{\"className\":\"org.activiti.test.assertions.ProcessInstanceAssertionsImplDiffblueTest2365515473061791304\",\"line\":52,\"message\":\"type argument Object is not within bounds of type-variable EVENT_TYPE\\nwhere EVENT_TYPE is a type-variable:\\n  EVENT_TYPE extends Enum<?> declared in interface RuntimeEvent\",\"methodSignature\":\"testExpectEvents:()V\",\"sourceFile\":\"/tmp/ProcessInstanceAssertionsImplDiffblueTest2365515473061791304.java\"},{\"className\":\"org.activiti.test.assertions.ProcessInstanceAssertionsImplDiffblueTest2365515473061791304\",\"line\":52,\"message\":\"incompatible types: List<RuntimeEvent<Object,Object>> cannot be converted to List<RuntimeEvent<?,?>>\",\"methodSignature\":\"testExpectEvents:()V\",\"sourceFile\":\"/tmp/ProcessInstanceAssertionsImplDiffblueTest2365515473061791304.java\"}],\"serializableCause\":null,\"testClassJavaCode\":\"File /tmp/ProcessInstanceAssertionsImplDiffblueTest2365515473061791304.java, 66 lines:\\n   1: package org.activiti.test.assertions;\\n   2: \\n   3: import static org.junit.jupiter.api.Assertions.assertSame;\\n   4: import static org.junit.jupiter.api.Assertions.assertTrue;\\n   5: import static org.mockito.ArgumentMatchers.isA;\\n   6: import static org.mockito.Mockito.doNothing;\\n   7: import static org.mockito.Mockito.mock;\\n   8: import static org.mockito.Mockito.verify;\\n   9: import static org.mockito.Mockito.when;\\n  10: import com.diffblue.cover.annotations.ManagedByDiffblue;\\n  11: import com.diffblue.cover.annotations.MethodsUnderTest;\\n  12: import java.util.ArrayList;\\n  13: import java.util.List;\\n  14: import org.activiti.api.model.shared.event.RuntimeEvent;\\n  15: import org.activiti.api.process.model.ProcessInstance;\\n  16: import org.activiti.test.EventSource;\\n  17: import org.activiti.test.matchers.OperationScope;\\n  18: import org.activiti.test.matchers.OperationScopeMatcher;\\n  19: import org.junit.jupiter.api.DisplayName;\\n  20: import org.junit.jupiter.api.Tag;\\n  21: import org.junit.jupiter.api.Test;\\n  22: import org.mockito.Mockito;\\n  23: \\n  24: class ProcessInstanceAssertionsImplDiffblueTest2365515473061791304 {\\n  25:   /**\\n  26:    * Test {@link ProcessInstanceAssertionsImpl#expectEvents(OperationScopeMatcher[])}.\\n  27:    *\\n  28:    * <p>Method under test: {@link\\n  29:    * ProcessInstanceAssertionsImpl#expectEvents(OperationScopeMatcher[])}\\n  30:    */\\n  31:   @Test\\n  32:   @DisplayName(\\\"Test expectEvents(OperationScopeMatcher[])\\\")\\n  33:   @Tag(\\\"ContributionFromDiffblue\\\")\\n  34:   @ManagedByDiffblue\\n  35:   @MethodsUnderTest({\\n  36:     \\\"ProcessInstanceAssertions ProcessInstanceAssertionsImpl.expectEvents(OperationScopeMatcher[])\\\"\\n  37:   })\\n  38:   void testExpectEvents() {\\n  39:     // Arrange\\n  40:     EventSource eventSource = mock(EventSource.class);\\n  41:     Mockito.<List<RuntimeEvent<?, ?>>>when(eventSource.getEvents()).thenReturn(new ArrayList<>());\\n  42: \\n  43:     ProcessInstance processInstance = mock(ProcessInstance.class);\\n  44:     when(processInstance.getId()).thenReturn(\\\"42\\\");\\n  45: \\n  46:     ProcessInstanceAssertionsImpl processInstanceAssertionsImpl =\\n  47:         new ProcessInstanceAssertionsImpl(eventSource, new ArrayList<>(), processInstance);\\n  48: \\n  49:     OperationScopeMatcher operationScopeMatcher = mock(OperationScopeMatcher.class);\\n  50:     doNothing()\\n  51:         .when(operationScopeMatcher)\\n  52:         .match(Mockito.<OperationScope>any(), Mockito.<List<RuntimeEvent<Object, Object>>>any());\\n  53: \\n  54:     // Act\\n  55:     ProcessInstanceAssertions actualExpectEventsResult =\\n  56:         processInstanceAssertionsImpl.expectEvents(operationScopeMatcher);\\n  57: \\n  58:     // Assert\\n  59:     verify(processInstance).getId();\\n  60:     verify(eventSource).getEvents();\\n  61:     verify(operationScopeMatcher).match(isA(OperationScope.class), isA(List.class));\\n  62:     assertTrue(actualExpectEventsResult instanceof ProcessInstanceAssertionsImpl);\\n  63:     assertSame(processInstanceAssertionsImpl, actualExpectEventsResult);\\n  64:   }\\n  65: }\\n  66: \\nTest compilation failed for method org.activiti.test.assertions.ProcessInstanceAssertionsImpl.expectEvents\\n\"}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.assertions.ProcessInstanceAssertionsImpl",
+            "descriptor" : "([Lorg/activiti/test/matchers/OperationScopeMatcher;)Lorg/activiti/test/assertions/ProcessInstanceAssertions;",
+            "methodName" : "expectEvents"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/test/assertions/SignalAssertionsImpl;\",\"simpleNames\":[\"SignalAssertionsImpl\"]},\"fieldName\":\"eventSource\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.assertions.SignalAssertionsImpl",
+            "descriptor" : "(Lorg/activiti/test/EventSource;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.verification.TestCompilationMessage\",\"compilerErrors\":[{\"className\":\"org.activiti.test.assertions.SignalAssertionsImplDiffblueTest17416185999092717620\",\"line\":52,\"message\":\"type argument Object is not within bounds of type-variable ENTITY_TYPE\\nwhere ENTITY_TYPE is a type-variable:\\n  ENTITY_TYPE extends Object declared in interface RuntimeEvent\",\"methodSignature\":\"testExpectEventsOnProcessInstance:()V\",\"sourceFile\":\"/tmp/SignalAssertionsImplDiffblueTest17416185999092717620.java\"},{\"className\":\"org.activiti.test.assertions.SignalAssertionsImplDiffblueTest17416185999092717620\",\"line\":52,\"message\":\"type argument Object is not within bounds of type-variable EVENT_TYPE\\nwhere EVENT_TYPE is a type-variable:\\n  EVENT_TYPE extends Enum<?> declared in interface RuntimeEvent\",\"methodSignature\":\"testExpectEventsOnProcessInstance:()V\",\"sourceFile\":\"/tmp/SignalAssertionsImplDiffblueTest17416185999092717620.java\"},{\"className\":\"org.activiti.test.assertions.SignalAssertionsImplDiffblueTest17416185999092717620\",\"line\":52,\"message\":\"incompatible types: List<RuntimeEvent<Object,Object>> cannot be converted to List<RuntimeEvent<?,?>>\",\"methodSignature\":\"testExpectEventsOnProcessInstance:()V\",\"sourceFile\":\"/tmp/SignalAssertionsImplDiffblueTest17416185999092717620.java\"},{\"className\":\"org.activiti.test.assertions.SignalAssertionsImplDiffblueTest17416185999092717620\",\"line\":62,\"message\":\"type argument Object is not within bounds of type-variable ENTITY_TYPE\\nwhere ENTITY_TYPE is a type-variable:\\n  ENTITY_TYPE extends Object declared in interface RuntimeEvent\",\"methodSignature\":\"testExpectEventsOnProcessInstance:()V\",\"sourceFile\":\"/tmp/SignalAssertionsImplDiffblueTest17416185999092717620.java\"},{\"className\":\"org.activiti.test.assertions.SignalAssertionsImplDiffblueTest17416185999092717620\",\"line\":62,\"message\":\"type argument Object is not within bounds of type-variable EVENT_TYPE\\nwhere EVENT_TYPE is a type-variable:\\n  EVENT_TYPE extends Enum<?> declared in interface RuntimeEvent\",\"methodSignature\":\"testExpectEventsOnProcessInstance:()V\",\"sourceFile\":\"/tmp/SignalAssertionsImplDiffblueTest17416185999092717620.java\"},{\"className\":\"org.activiti.test.assertions.SignalAssertionsImplDiffblueTest17416185999092717620\",\"line\":62,\"message\":\"incompatible types: List<RuntimeEvent<Object,Object>> cannot be converted to List<RuntimeEvent<?,?>>\",\"methodSignature\":\"testExpectEventsOnProcessInstance:()V\",\"sourceFile\":\"/tmp/SignalAssertionsImplDiffblueTest17416185999092717620.java\"}],\"serializableCause\":null,\"testClassJavaCode\":\"File /tmp/SignalAssertionsImplDiffblueTest17416185999092717620.java, 78 lines:\\n   1: package org.activiti.test.assertions;\\n   2: \\n   3: import static org.junit.jupiter.api.Assertions.assertSame;\\n   4: import static org.junit.jupiter.api.Assertions.assertTrue;\\n   5: import static org.mockito.ArgumentMatchers.isA;\\n   6: import static org.mockito.Mockito.atLeast;\\n   7: import static org.mockito.Mockito.doNothing;\\n   8: import static org.mockito.Mockito.mock;\\n   9: import static org.mockito.Mockito.verify;\\n  10: import static org.mockito.Mockito.when;\\n  11: import com.diffblue.cover.annotations.ManagedByDiffblue;\\n  12: import com.diffblue.cover.annotations.MethodsUnderTest;\\n  13: import java.util.ArrayList;\\n  14: import java.util.List;\\n  15: import org.activiti.api.model.shared.event.RuntimeEvent;\\n  16: import org.activiti.api.process.model.ProcessInstance;\\n  17: import org.activiti.test.EventSource;\\n  18: import org.activiti.test.matchers.OperationScope;\\n  19: import org.activiti.test.matchers.OperationScopeMatcher;\\n  20: import org.junit.jupiter.api.DisplayName;\\n  21: import org.junit.jupiter.api.Tag;\\n  22: import org.junit.jupiter.api.Test;\\n  23: import org.mockito.Mockito;\\n  24: \\n  25: class SignalAssertionsImplDiffblueTest17416185999092717620 {\\n  26:   /**\\n  27:    * Test {@link SignalAssertionsImpl#expectEventsOnProcessInstance(ProcessInstance,\\n  28:    * OperationScopeMatcher[])}.\\n  29:    *\\n  30:    * <p>Method under test: {@link\\n  31:    * SignalAssertionsImpl#expectEventsOnProcessInstance(ProcessInstance, OperationScopeMatcher[])}\\n  32:    */\\n  33:   @Test\\n  34:   @DisplayName(\\\"Test expectEventsOnProcessInstance(ProcessInstance, OperationScopeMatcher[])\\\")\\n  35:   @Tag(\\\"ContributionFromDiffblue\\\")\\n  36:   @ManagedByDiffblue\\n  37:   @MethodsUnderTest({\\n  38:     \\\"SignalAssertions SignalAssertionsImpl.expectEventsOnProcessInstance(ProcessInstance, OperationScopeMatcher[])\\\"\\n  39:   })\\n  40:   void testExpectEventsOnProcessInstance() {\\n  41:     // Arrange\\n  42:     EventSource eventSource = mock(EventSource.class);\\n  43:     Mockito.<List<RuntimeEvent<?, ?>>>when(eventSource.getEvents()).thenReturn(new ArrayList<>());\\n  44:     SignalAssertionsImpl signalAssertionsImpl = new SignalAssertionsImpl(eventSource);\\n  45: \\n  46:     ProcessInstance processInstance = mock(ProcessInstance.class);\\n  47:     when(processInstance.getId()).thenReturn(\\\"42\\\");\\n  48: \\n  49:     OperationScopeMatcher operationScopeMatcher = mock(OperationScopeMatcher.class);\\n  50:     doNothing()\\n  51:         .when(operationScopeMatcher)\\n  52:         .match(Mockito.<OperationScope>any(), Mockito.<List<RuntimeEvent<Object, Object>>>any());\\n  53: \\n  54:     // Act\\n  55:     SignalAssertions actualExpectEventsOnProcessInstanceResult =\\n  56:         signalAssertionsImpl.expectEventsOnProcessInstance(processInstance, operationScopeMatcher);\\n  57:     ProcessInstance processInstance2 = mock(ProcessInstance.class);\\n  58:     when(processInstance2.getId()).thenReturn(\\\"42\\\");\\n  59:     OperationScopeMatcher operationScopeMatcher2 = mock(OperationScopeMatcher.class);\\n  60:     doNothing()\\n  61:         .when(operationScopeMatcher2)\\n  62:         .match(Mockito.<OperationScope>any(), Mockito.<List<RuntimeEvent<Object, Object>>>any());\\n  63:     SignalAssertions actualExpectEventsOnProcessInstanceResult2 =\\n  64:         actualExpectEventsOnProcessInstanceResult.expectEventsOnProcessInstance(\\n  65:             processInstance2, operationScopeMatcher2);\\n  66: \\n  67:     // Assert\\n  68:     verify(processInstance).getId();\\n  69:     verify(processInstance2).getId();\\n  70:     verify(eventSource, atLeast(1)).getEvents();\\n  71:     verify(operationScopeMatcher).match(isA(OperationScope.class), isA(List.class));\\n  72:     verify(operationScopeMatcher2).match(isA(OperationScope.class), isA(List.class));\\n  73:     assertTrue(actualExpectEventsOnProcessInstanceResult instanceof SignalAssertionsImpl);\\n  74:     assertSame(\\n  75:         actualExpectEventsOnProcessInstanceResult, actualExpectEventsOnProcessInstanceResult2);\\n  76:   }\\n  77: }\\n  78: \\nTest compilation failed for method org.activiti.test.assertions.SignalAssertionsImpl.expectEventsOnProcessInstance\\n\"}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.assertions.SignalAssertionsImpl",
+            "descriptor" : "(Lorg/activiti/api/process/model/ProcessInstance;[Lorg/activiti/test/matchers/OperationScopeMatcher;)Lorg/activiti/test/assertions/SignalAssertions;",
+            "methodName" : "expectEventsOnProcessInstance"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/test/assertions/TaskAssertionsImpl;\",\"simpleNames\":[\"TaskAssertionsImpl\"]},\"fieldName\":\"eventSource\"},{\"className\":{\"descriptor\":\"Lorg/activiti/test/assertions/TaskAssertionsImpl;\",\"simpleNames\":[\"TaskAssertionsImpl\"]},\"fieldName\":\"task\"},{\"className\":{\"descriptor\":\"Lorg/activiti/test/assertions/TaskAssertionsImpl;\",\"simpleNames\":[\"TaskAssertionsImpl\"]},\"fieldName\":\"taskSources\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.assertions.TaskAssertionsImpl",
+            "descriptor" : "(Lorg/activiti/api/task/model/Task;Ljava/util/List;Lorg/activiti/test/EventSource;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/test/assertions/TaskAssertionsImpl;\",\"simpleNames\":[\"TaskAssertionsImpl\"]},\"fieldName\":\"eventSource\"},{\"className\":{\"descriptor\":\"Lorg/activiti/test/assertions/TaskAssertionsImpl;\",\"simpleNames\":[\"TaskAssertionsImpl\"]},\"fieldName\":\"task\"},{\"className\":{\"descriptor\":\"Lorg/activiti/test/assertions/TaskAssertionsImpl;\",\"simpleNames\":[\"TaskAssertionsImpl\"]},\"fieldName\":\"taskSources\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.assertions.TaskAssertionsImpl",
+            "descriptor" : "()Lorg/activiti/api/task/model/Task;",
+            "methodName" : "andReturn"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.verification.TestCompilationMessage\",\"compilerErrors\":[{\"className\":\"org.activiti.test.assertions.TaskAssertionsImplDiffblueTest16067969079376494014\",\"line\":50,\"message\":\"type argument Object is not within bounds of type-variable ENTITY_TYPE\\nwhere ENTITY_TYPE is a type-variable:\\n  ENTITY_TYPE extends Object declared in interface RuntimeEvent\",\"methodSignature\":\"testExpectEvents:()V\",\"sourceFile\":\"/tmp/TaskAssertionsImplDiffblueTest16067969079376494014.java\"},{\"className\":\"org.activiti.test.assertions.TaskAssertionsImplDiffblueTest16067969079376494014\",\"line\":50,\"message\":\"type argument Object is not within bounds of type-variable EVENT_TYPE\\nwhere EVENT_TYPE is a type-variable:\\n  EVENT_TYPE extends Enum<?> declared in interface RuntimeEvent\",\"methodSignature\":\"testExpectEvents:()V\",\"sourceFile\":\"/tmp/TaskAssertionsImplDiffblueTest16067969079376494014.java\"},{\"className\":\"org.activiti.test.assertions.TaskAssertionsImplDiffblueTest16067969079376494014\",\"line\":50,\"message\":\"incompatible types: List<RuntimeEvent<Object,Object>> cannot be converted to List<RuntimeEvent<?,?>>\",\"methodSignature\":\"testExpectEvents:()V\",\"sourceFile\":\"/tmp/TaskAssertionsImplDiffblueTest16067969079376494014.java\"}],\"serializableCause\":null,\"testClassJavaCode\":\"File /tmp/TaskAssertionsImplDiffblueTest16067969079376494014.java, 65 lines:\\n   1: package org.activiti.test.assertions;\\n   2: \\n   3: import static org.junit.jupiter.api.Assertions.assertSame;\\n   4: import static org.junit.jupiter.api.Assertions.assertTrue;\\n   5: import static org.mockito.ArgumentMatchers.isA;\\n   6: import static org.mockito.Mockito.doNothing;\\n   7: import static org.mockito.Mockito.mock;\\n   8: import static org.mockito.Mockito.verify;\\n   9: import static org.mockito.Mockito.when;\\n  10: import com.diffblue.cover.annotations.ManagedByDiffblue;\\n  11: import com.diffblue.cover.annotations.MethodsUnderTest;\\n  12: import java.util.ArrayList;\\n  13: import java.util.List;\\n  14: import org.activiti.api.model.shared.event.RuntimeEvent;\\n  15: import org.activiti.api.task.model.Task;\\n  16: import org.activiti.test.EventSource;\\n  17: import org.activiti.test.matchers.OperationScope;\\n  18: import org.activiti.test.matchers.OperationScopeMatcher;\\n  19: import org.junit.jupiter.api.DisplayName;\\n  20: import org.junit.jupiter.api.Tag;\\n  21: import org.junit.jupiter.api.Test;\\n  22: import org.mockito.Mockito;\\n  23: \\n  24: class TaskAssertionsImplDiffblueTest16067969079376494014 {\\n  25:   /**\\n  26:    * Test {@link TaskAssertionsImpl#expectEvents(OperationScopeMatcher[])}.\\n  27:    *\\n  28:    * <p>Method under test: {@link TaskAssertionsImpl#expectEvents(OperationScopeMatcher[])}\\n  29:    */\\n  30:   @Test\\n  31:   @DisplayName(\\\"Test expectEvents(OperationScopeMatcher[])\\\")\\n  32:   @Tag(\\\"ContributionFromDiffblue\\\")\\n  33:   @ManagedByDiffblue\\n  34:   @MethodsUnderTest({\\\"TaskAssertions TaskAssertionsImpl.expectEvents(OperationScopeMatcher[])\\\"})\\n  35:   void testExpectEvents() {\\n  36:     // Arrange\\n  37:     Task task = mock(Task.class);\\n  38:     when(task.getId()).thenReturn(\\\"42\\\");\\n  39:     when(task.getProcessInstanceId()).thenReturn(\\\"42\\\");\\n  40: \\n  41:     EventSource eventSource = mock(EventSource.class);\\n  42:     Mockito.<List<RuntimeEvent<?, ?>>>when(eventSource.getEvents()).thenReturn(new ArrayList<>());\\n  43: \\n  44:     TaskAssertionsImpl taskAssertionsImpl =\\n  45:         new TaskAssertionsImpl(task, new ArrayList<>(), eventSource);\\n  46: \\n  47:     OperationScopeMatcher operationScopeMatcher = mock(OperationScopeMatcher.class);\\n  48:     doNothing()\\n  49:         .when(operationScopeMatcher)\\n  50:         .match(Mockito.<OperationScope>any(), Mockito.<List<RuntimeEvent<Object, Object>>>any());\\n  51: \\n  52:     // Act\\n  53:     TaskAssertions actualExpectEventsResult =\\n  54:         taskAssertionsImpl.expectEvents(operationScopeMatcher);\\n  55: \\n  56:     // Assert\\n  57:     verify(task).getId();\\n  58:     verify(task).getProcessInstanceId();\\n  59:     verify(eventSource).getEvents();\\n  60:     verify(operationScopeMatcher).match(isA(OperationScope.class), isA(List.class));\\n  61:     assertTrue(actualExpectEventsResult instanceof TaskAssertionsImpl);\\n  62:     assertSame(taskAssertionsImpl, actualExpectEventsResult);\\n  63:   }\\n  64: }\\n  65: \\nTest compilation failed for method org.activiti.test.assertions.TaskAssertionsImpl.expectEvents\\n\"}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.assertions.TaskAssertionsImpl",
+            "descriptor" : "([Lorg/activiti/test/matchers/OperationScopeMatcher;)Lorg/activiti/test/assertions/TaskAssertions;",
+            "methodName" : "expectEvents"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.TrivialConstructorMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.conf.AssertionsAPIAutoConfiguration",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoMeaningfulAssertionMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.matchers.ActivityMatchers",
+            "descriptor" : "()Lorg/activiti/test/matchers/OperationScopeMatcher;",
+            "methodName" : "hasBeenCompleted"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoMeaningfulAssertionMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.matchers.ActivityMatchers",
+            "descriptor" : "()Lorg/activiti/test/matchers/OperationScopeMatcher;",
+            "methodName" : "hasBeenStarted"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoMeaningfulAssertionMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.matchers.ProcessInstanceMatchers",
+            "descriptor" : "()Lorg/activiti/test/matchers/ProcessInstanceMatchers;",
+            "methodName" : "processInstance"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/test/matchers/ProcessTaskMatchers;\",\"simpleNames\":[\"ProcessTaskMatchers\"]},\"fieldName\":\"taskName\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.matchers.ProcessTaskMatchers",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/test/matchers/ProcessTaskMatchers;",
+            "methodName" : "taskWithName"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoNonThrowingInputsMessage\",\"serializableCause\":{\"cause\":null,\"message\":\"Cannot invoke \\\"org.activiti.test.matchers.OperationScope.getProcessInstanceId()\\\" because \\\"operationScope\\\" is null\",\"originalClassName\":\"java.lang.NullPointerException\",\"stackTrace\":[{\"classLoaderName\":null,\"className\":\"org.activiti.test.matchers.ProcessVariableMatchers\",\"fileName\":\"ProcessVariableMatchers.java\",\"lineNumber\":56,\"methodName\":\"lambda$hasBeenCreated$5\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.DirectMethodHandleAccessor\",\"fileName\":\"DirectMethodHandleAccessor.java\",\"lineNumber\":103,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.lang.reflect.Method\",\"fileName\":\"Method.java\",\"lineNumber\":580,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":140,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":77,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.a.f\",\"fileName\":\"SourceFile\",\"lineNumber\":852,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":463,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":99,\"methodName\":\"b\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.g.d\",\"fileName\":\"SourceFile\",\"lineNumber\":51,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":368,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":261,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.fuzztest.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":1105,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.SafeTimedExecutor\",\"fileName\":\"SourceFile\",\"lineNumber\":171,\"methodName\":\"lambda$runWithLoopIterationLimit$5\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TimedCallableExecutor$CallableFuture\",\"fileName\":\"SourceFile\",\"lineNumber\":29,\"methodName\":\"executeTask\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TaskQueueRunner\",\"fileName\":\"SourceFile\",\"lineNumber\":39,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.WorkerThread\",\"fileName\":\"SourceFile\",\"lineNumber\":265,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false}]}}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.matchers.ProcessVariableMatchers",
+            "descriptor" : "()Lorg/activiti/test/matchers/OperationScopeMatcher;",
+            "methodName" : "hasBeenCreated"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/test/matchers/ProcessVariableMatchers;\",\"simpleNames\":[\"ProcessVariableMatchers\"]},\"fieldName\":\"value\"},{\"className\":{\"descriptor\":\"Lorg/activiti/test/matchers/ProcessVariableMatchers;\",\"simpleNames\":[\"ProcessVariableMatchers\"]},\"fieldName\":\"variableName\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.matchers.ProcessVariableMatchers",
+            "descriptor" : "(Ljava/lang/String;Ljava/lang/Object;)Lorg/activiti/test/matchers/ProcessVariableMatchers;",
+            "methodName" : "processVariable"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/test/matchers/SequenceFlowMatchers;\",\"simpleNames\":[\"SequenceFlowMatchers\"]},\"fieldName\":\"definitionKey\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.matchers.SequenceFlowMatchers",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/test/matchers/SequenceFlowMatchers;",
+            "methodName" : "sequenceFlow"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/test/matchers/SignalMatchers;\",\"simpleNames\":[\"SignalMatchers\"]},\"fieldName\":\"signalName\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.matchers.SignalMatchers",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/test/matchers/SignalMatchers;",
+            "methodName" : "signal"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoMeaningfulAssertionMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.matchers.TaskMatchers",
+            "descriptor" : "()Lorg/activiti/test/matchers/TaskMatchers;",
+            "methodName" : "task"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/test/operations/AwaitableProcessOperations;\",\"simpleNames\":[\"AwaitableProcessOperations\"]},\"fieldName\":\"awaitEnabled\"},{\"className\":{\"descriptor\":\"Lorg/activiti/test/operations/AwaitableProcessOperations;\",\"simpleNames\":[\"AwaitableProcessOperations\"]},\"fieldName\":\"processOperations\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.operations.AwaitableProcessOperations",
+            "descriptor" : "(Lorg/activiti/test/operations/ProcessOperations;Z)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/test/operations/AwaitableTaskOperations;\",\"simpleNames\":[\"AwaitableTaskOperations\"]},\"fieldName\":\"awaitEnabled\"},{\"className\":{\"descriptor\":\"Lorg/activiti/test/operations/AwaitableTaskOperations;\",\"simpleNames\":[\"AwaitableTaskOperations\"]},\"fieldName\":\"taskOperations\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.operations.AwaitableTaskOperations",
+            "descriptor" : "(Lorg/activiti/test/operations/TaskOperations;Z)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.verification.TestCompilationMessage\",\"compilerErrors\":[{\"className\":\"org.activiti.test.LocalEventSourceDiffblueTest12384985186308872236\",\"line\":38,\"message\":\"type argument Object is not within bounds of type-variable ENTITY_TYPE\\nwhere ENTITY_TYPE is a type-variable:\\n  ENTITY_TYPE extends Object declared in interface RuntimeEvent\",\"methodSignature\":\"testAddCollectedEvents:()V\",\"sourceFile\":\"/tmp/LocalEventSourceDiffblueTest12384985186308872236.java\"},{\"className\":\"org.activiti.test.LocalEventSourceDiffblueTest12384985186308872236\",\"line\":38,\"message\":\"type argument Object is not within bounds of type-variable EVENT_TYPE\\nwhere EVENT_TYPE is a type-variable:\\n  EVENT_TYPE extends Enum<?> declared in interface RuntimeEvent\",\"methodSignature\":\"testAddCollectedEvents:()V\",\"sourceFile\":\"/tmp/LocalEventSourceDiffblueTest12384985186308872236.java\"}],\"serializableCause\":null,\"testClassJavaCode\":\"File /tmp/LocalEventSourceDiffblueTest12384985186308872236.java, 49 lines:\\n   1: package org.activiti.test;\\n   2: \\n   3: import static org.junit.jupiter.api.Assertions.assertEquals;\\n   4: import static org.junit.jupiter.api.Assertions.assertSame;\\n   5: import static org.mockito.Mockito.mock;\\n   6: import com.diffblue.cover.annotations.ManagedByDiffblue;\\n   7: import com.diffblue.cover.annotations.MethodsUnderTest;\\n   8: import java.util.List;\\n   9: import org.activiti.api.model.shared.event.RuntimeEvent;\\n  10: import org.junit.jupiter.api.DisplayName;\\n  11: import org.junit.jupiter.api.Tag;\\n  12: import org.junit.jupiter.api.Test;\\n  13: import org.junit.jupiter.api.extension.ExtendWith;\\n  14: import org.springframework.beans.factory.annotation.Autowired;\\n  15: import org.springframework.test.annotation.DirtiesContext;\\n  16: import org.springframework.test.annotation.DirtiesContext.ClassMode;\\n  17: import org.springframework.test.context.ContextConfiguration;\\n  18: import org.springframework.test.context.junit.jupiter.SpringExtension;\\n  19: \\n  20: @ContextConfiguration(classes = {LocalEventSource.class})\\n  21: @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)\\n  22: @ExtendWith(SpringExtension.class)\\n  23: class LocalEventSourceDiffblueTest12384985186308872236 {\\n  24:   @Autowired private LocalEventSource localEventSource;\\n  25: \\n  26:   /**\\n  27:    * Test {@link LocalEventSource#addCollectedEvents(RuntimeEvent)}.\\n  28:    *\\n  29:    * <p>Method under test: {@link LocalEventSource#addCollectedEvents(RuntimeEvent)}\\n  30:    */\\n  31:   @Test\\n  32:   @DisplayName(\\\"Test addCollectedEvents(RuntimeEvent)\\\")\\n  33:   @Tag(\\\"ContributionFromDiffblue\\\")\\n  34:   @ManagedByDiffblue\\n  35:   @MethodsUnderTest({\\\"void LocalEventSource.addCollectedEvents(RuntimeEvent)\\\"})\\n  36:   void testAddCollectedEvents() {\\n  37:     // Arrange\\n  38:     RuntimeEvent<Object, Object> event = mock(RuntimeEvent.class);\\n  39: \\n  40:     // Act\\n  41:     localEventSource.addCollectedEvents(event);\\n  42: \\n  43:     // Assert\\n  44:     List<RuntimeEvent<?, ?>> events = localEventSource.getEvents();\\n  45:     assertEquals(1, events.size());\\n  46:     assertSame(event, events.get(0));\\n  47:   }\\n  48: }\\n  49: \\nTest compilation failed for method org.activiti.test.LocalEventSource.addCollectedEvents\\n\"}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.LocalEventSource",
+            "descriptor" : "(Lorg/activiti/api/model/shared/event/RuntimeEvent;)V",
+            "methodName" : "addCollectedEvents"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/test/LocalTaskSource;\",\"simpleNames\":[\"LocalTaskSource\"]},\"fieldName\":\"taskRuntime\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.LocalTaskSource",
+            "descriptor" : "(Lorg/activiti/api/task/runtime/TaskRuntime;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.TrivialConstructorMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.config.ActivitiAssertionsAutoConfiguration",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/test/operations/ProcessRuntimeOperations;\",\"simpleNames\":[\"ProcessRuntimeOperations\"]},\"fieldName\":\"eventSource\"},{\"className\":{\"descriptor\":\"Lorg/activiti/test/operations/ProcessRuntimeOperations;\",\"simpleNames\":[\"ProcessRuntimeOperations\"]},\"fieldName\":\"processRuntime\"},{\"className\":{\"descriptor\":\"Lorg/activiti/test/operations/ProcessRuntimeOperations;\",\"simpleNames\":[\"ProcessRuntimeOperations\"]},\"fieldName\":\"taskSources\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.operations.ProcessRuntimeOperations",
+            "descriptor" : "(Lorg/activiti/api/process/runtime/ProcessRuntime;Lorg/activiti/test/EventSource;Ljava/util/List;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.verification.TestCompilationMessage\",\"compilerErrors\":[{\"className\":\"org.activiti.test.operations.ProcessRuntimeOperationsDiffblueTest14489223910062533171\",\"line\":71,\"message\":\"type argument Object is not within bounds of type-variable ENTITY_TYPE\\nwhere ENTITY_TYPE is a type-variable:\\n  ENTITY_TYPE extends Object declared in interface RuntimeEvent\",\"methodSignature\":\"testSignal:()V\",\"sourceFile\":\"/tmp/ProcessRuntimeOperationsDiffblueTest14489223910062533171.java\"},{\"className\":\"org.activiti.test.operations.ProcessRuntimeOperationsDiffblueTest14489223910062533171\",\"line\":71,\"message\":\"type argument Object is not within bounds of type-variable EVENT_TYPE\\nwhere EVENT_TYPE is a type-variable:\\n  EVENT_TYPE extends Enum<?> declared in interface RuntimeEvent\",\"methodSignature\":\"testSignal:()V\",\"sourceFile\":\"/tmp/ProcessRuntimeOperationsDiffblueTest14489223910062533171.java\"},{\"className\":\"org.activiti.test.operations.ProcessRuntimeOperationsDiffblueTest14489223910062533171\",\"line\":71,\"message\":\"incompatible types: List<RuntimeEvent<Object,Object>> cannot be converted to List<RuntimeEvent<?,?>>\",\"methodSignature\":\"testSignal:()V\",\"sourceFile\":\"/tmp/ProcessRuntimeOperationsDiffblueTest14489223910062533171.java\"}],\"serializableCause\":null,\"testClassJavaCode\":\"File /tmp/ProcessRuntimeOperationsDiffblueTest14489223910062533171.java, 84 lines:\\n   1: package org.activiti.test.operations;\\n   2: \\n   3: import static org.junit.jupiter.api.Assertions.assertSame;\\n   4: import static org.junit.jupiter.api.Assertions.assertTrue;\\n   5: import static org.mockito.ArgumentMatchers.isA;\\n   6: import static org.mockito.Mockito.doNothing;\\n   7: import static org.mockito.Mockito.mock;\\n   8: import static org.mockito.Mockito.verify;\\n   9: import static org.mockito.Mockito.when;\\n  10: import com.diffblue.cover.annotations.ManagedByDiffblue;\\n  11: import com.diffblue.cover.annotations.MethodsUnderTest;\\n  12: import java.util.ArrayList;\\n  13: import java.util.List;\\n  14: import org.activiti.api.model.shared.event.RuntimeEvent;\\n  15: import org.activiti.api.process.model.ProcessInstance;\\n  16: import org.activiti.api.process.model.payloads.SignalPayload;\\n  17: import org.activiti.api.process.runtime.ProcessRuntime;\\n  18: import org.activiti.test.EventSource;\\n  19: import org.activiti.test.TaskSource;\\n  20: import org.activiti.test.assertions.SignalAssertions;\\n  21: import org.activiti.test.assertions.SignalAssertionsImpl;\\n  22: import org.activiti.test.matchers.OperationScope;\\n  23: import org.activiti.test.matchers.OperationScopeMatcher;\\n  24: import org.junit.jupiter.api.DisplayName;\\n  25: import org.junit.jupiter.api.Tag;\\n  26: import org.junit.jupiter.api.Test;\\n  27: import org.junit.jupiter.api.extension.ExtendWith;\\n  28: import org.mockito.Mockito;\\n  29: import org.springframework.beans.factory.annotation.Autowired;\\n  30: import org.springframework.boot.test.mock.mockito.MockBean;\\n  31: import org.springframework.test.context.ContextConfiguration;\\n  32: import org.springframework.test.context.aot.DisabledInAotMode;\\n  33: import org.springframework.test.context.junit.jupiter.SpringExtension;\\n  34: \\n  35: @ContextConfiguration(classes = {ProcessRuntimeOperations.class})\\n  36: @DisabledInAotMode\\n  37: @ExtendWith(SpringExtension.class)\\n  38: class ProcessRuntimeOperationsDiffblueTest14489223910062533171 {\\n  39:   @MockBean private EventSource eventSource;\\n  40: \\n  41:   @Autowired private List<TaskSource> list;\\n  42: \\n  43:   @MockBean private ProcessRuntime processRuntime;\\n  44: \\n  45:   @Autowired private ProcessRuntimeOperations processRuntimeOperations;\\n  46: \\n  47:   @MockBean private TaskSource taskSource;\\n  48: \\n  49:   /**\\n  50:    * Test {@link ProcessRuntimeOperations#signal(SignalPayload)}.\\n  51:    *\\n  52:    * <p>Method under test: {@link ProcessRuntimeOperations#signal(SignalPayload)}\\n  53:    */\\n  54:   @Test\\n  55:   @DisplayName(\\\"Test signal(SignalPayload)\\\")\\n  56:   @Tag(\\\"ContributionFromDiffblue\\\")\\n  57:   @ManagedByDiffblue\\n  58:   @MethodsUnderTest({\\\"SignalAssertions ProcessRuntimeOperations.signal(SignalPayload)\\\"})\\n  59:   void testSignal() {\\n  60:     // Arrange\\n  61:     doNothing().when(processRuntime).signal(Mockito.<SignalPayload>any());\\n  62:     Mockito.<List<RuntimeEvent<?, ?>>>when(eventSource.getEvents()).thenReturn(new ArrayList<>());\\n  63: \\n  64:     // Act\\n  65:     SignalAssertions actualSignalResult = processRuntimeOperations.signal(new SignalPayload());\\n  66:     ProcessInstance processInstance = mock(ProcessInstance.class);\\n  67:     when(processInstance.getId()).thenReturn(\\\"42\\\");\\n  68:     OperationScopeMatcher operationScopeMatcher = mock(OperationScopeMatcher.class);\\n  69:     doNothing()\\n  70:         .when(operationScopeMatcher)\\n  71:         .match(Mockito.<OperationScope>any(), Mockito.<List<RuntimeEvent<Object, Object>>>any());\\n  72:     SignalAssertions actualExpectEventsOnProcessInstanceResult =\\n  73:         actualSignalResult.expectEventsOnProcessInstance(processInstance, operationScopeMatcher);\\n  74: \\n  75:     // Assert\\n  76:     verify(processInstance).getId();\\n  77:     verify(processRuntime).signal(isA(SignalPayload.class));\\n  78:     verify(eventSource).getEvents();\\n  79:     verify(operationScopeMatcher).match(isA(OperationScope.class), isA(List.class));\\n  80:     assertTrue(actualSignalResult instanceof SignalAssertionsImpl);\\n  81:     assertSame(actualSignalResult, actualExpectEventsOnProcessInstanceResult);\\n  82:   }\\n  83: }\\n  84: \\nTest compilation failed for method org.activiti.test.operations.ProcessRuntimeOperations.signal\\n\"}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.operations.ProcessRuntimeOperations",
+            "descriptor" : "(Lorg/activiti/api/process/model/payloads/SignalPayload;)Lorg/activiti/test/assertions/SignalAssertions;",
+            "methodName" : "signal"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/test/operations/TaskRuntimeOperations;\",\"simpleNames\":[\"TaskRuntimeOperations\"]},\"fieldName\":\"eventSource\"},{\"className\":{\"descriptor\":\"Lorg/activiti/test/operations/TaskRuntimeOperations;\",\"simpleNames\":[\"TaskRuntimeOperations\"]},\"fieldName\":\"taskRuntime\"},{\"className\":{\"descriptor\":\"Lorg/activiti/test/operations/TaskRuntimeOperations;\",\"simpleNames\":[\"TaskRuntimeOperations\"]},\"fieldName\":\"taskSources\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.test.operations.TaskRuntimeOperations",
+            "descriptor" : "(Lorg/activiti/api/task/runtime/TaskRuntime;Lorg/activiti/test/EventSource;Ljava/util/List;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.TrivialConstructorMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.project.conf.ApplicationUpgradeContextAutoConfiguration",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoNonThrowingInputsMessage\",\"serializableCause\":{\"cause\":null,\"message\":\"Text '42' could not be parsed, unparsed text found at index 0\",\"originalClassName\":\"java.time.format.DateTimeParseException\",\"stackTrace\":[{\"classLoaderName\":null,\"className\":\"java.time.format.DateTimeFormatter\",\"fileName\":\"DateTimeFormatter.java\",\"lineNumber\":2111,\"methodName\":\"parseResolved0\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.time.format.DateTimeFormatter\",\"fileName\":\"DateTimeFormatter.java\",\"lineNumber\":2010,\"methodName\":\"parse\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.activiti.common.util.DateFormatterProvider\",\"fileName\":\"DateFormatterProvider.java\",\"lineNumber\":57,\"methodName\":\"parse\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.DirectMethodHandleAccessor\",\"fileName\":\"DirectMethodHandleAccessor.java\",\"lineNumber\":103,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.lang.reflect.Method\",\"fileName\":\"Method.java\",\"lineNumber\":580,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":140,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":77,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.a.f\",\"fileName\":\"SourceFile\",\"lineNumber\":852,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":463,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":99,\"methodName\":\"b\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.g.d\",\"fileName\":\"SourceFile\",\"lineNumber\":51,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":368,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":261,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.fuzztest.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":1105,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.SafeTimedExecutor\",\"fileName\":\"SourceFile\",\"lineNumber\":171,\"methodName\":\"lambda$runWithLoopIterationLimit$5\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TimedCallableExecutor$CallableFuture\",\"fileName\":\"SourceFile\",\"lineNumber\":29,\"methodName\":\"executeTask\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TaskQueueRunner\",\"fileName\":\"SourceFile\",\"lineNumber\":39,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.WorkerThread\",\"fileName\":\"SourceFile\",\"lineNumber\":265,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false}]}}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.common.util.DateFormatterProvider",
+            "descriptor" : "(Ljava/lang/String;)Ljava/util/Date;",
+            "methodName" : "parse"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.TrivialConstructorMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.common.util.conf.ActivitiCoreCommonUtilAutoConfiguration",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.TimeSensitiveAssertionMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.el.DateResolverHelper",
+            "descriptor" : "()Ljava/util/Date;",
+            "methodName" : "now"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoNonThrowingInputsMessage\",\"serializableCause\":{\"cause\":null,\"message\":\"The class 'java.lang.String' does not have the property 'Property'.\",\"originalClassName\":\"jakarta.el.PropertyNotFoundException\",\"stackTrace\":[{\"classLoaderName\":null,\"className\":\"jakarta.el.BeanELResolver\",\"fileName\":\"BeanELResolver.java\",\"lineNumber\":626,\"methodName\":\"getBeanProperty\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"jakarta.el.BeanELResolver\",\"fileName\":\"BeanELResolver.java\",\"lineNumber\":406,\"methodName\":\"setValue\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.activiti.core.el.ELResolverDecorator\",\"fileName\":\"ELResolverDecorator.java\",\"lineNumber\":47,\"methodName\":\"setValue\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.DirectMethodHandleAccessor\",\"fileName\":\"DirectMethodHandleAccessor.java\",\"lineNumber\":103,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.lang.reflect.Method\",\"fileName\":\"Method.java\",\"lineNumber\":580,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":140,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":77,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.a.f\",\"fileName\":\"SourceFile\",\"lineNumber\":852,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":463,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":99,\"methodName\":\"b\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.g.d\",\"fileName\":\"SourceFile\",\"lineNumber\":51,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":368,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":261,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.fuzztest.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":1105,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.SafeTimedExecutor\",\"fileName\":\"SourceFile\",\"lineNumber\":171,\"methodName\":\"lambda$runWithLoopIterationLimit$5\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TimedCallableExecutor$CallableFuture\",\"fileName\":\"SourceFile\",\"lineNumber\":29,\"methodName\":\"executeTask\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TaskQueueRunner\",\"fileName\":\"SourceFile\",\"lineNumber\":39,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.WorkerThread\",\"fileName\":\"SourceFile\",\"lineNumber\":265,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false}]}}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.el.ELResolverDecorator",
+            "descriptor" : "(Ljakarta/el/ELContext;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)V",
+            "methodName" : "setValue"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/core/el/ELResolverDecorator;\",\"simpleNames\":[\"ELResolverDecorator\"]},\"fieldName\":\"decoratedResolver\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.el.ELResolverReflectionBlockerDecorator",
+            "descriptor" : "(Ljakarta/el/ELResolver;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/core/el/JuelExpressionResolver;\",\"simpleNames\":[\"JuelExpressionResolver\"]},\"fieldName\":\"customFunctionProviders\"},{\"className\":{\"descriptor\":\"Lorg/activiti/core/el/JuelExpressionResolver;\",\"simpleNames\":[\"JuelExpressionResolver\"]},\"fieldName\":\"expressionFactory\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.el.JuelExpressionResolver",
+            "descriptor" : "(Ljakarta/el/ExpressionFactory;)V",
+            "methodName" : "<init>"
+          },
+          {
+            "binaryClassName" : "org.activiti.core.el.JuelExpressionResolver",
+            "descriptor" : "(Ljakarta/el/ExpressionFactory;Ljava/util/List;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/core/el/JuelExpressionResolver;\",\"simpleNames\":[\"JuelExpressionResolver\"]},\"fieldName\":\"customFunctionProviders\"},{\"className\":{\"descriptor\":\"Lorg/activiti/core/el/JuelExpressionResolver;\",\"simpleNames\":[\"JuelExpressionResolver\"]},\"fieldName\":\"expressionFactory\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.el.JuelExpressionResolver",
+            "descriptor" : "(Ljakarta/el/ExpressionFactory;)V",
+            "methodName" : "<init>"
+          },
+          {
+            "binaryClassName" : "org.activiti.core.el.JuelExpressionResolver",
+            "descriptor" : "(Ljakarta/el/ExpressionFactory;Ljava/util/List;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoMeaningfulAssertionMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.el.ReadOnlyMapELResolver",
+            "descriptor" : "(Ljakarta/el/ELContext;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)V",
+            "methodName" : "setValue"
+          }
+        ]
+      }
+    }
+  ]
+}

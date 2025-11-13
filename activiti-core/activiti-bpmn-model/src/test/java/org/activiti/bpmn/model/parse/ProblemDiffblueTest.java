@@ -1,0 +1,147 @@
+/*
+ * Copyright 2010-2020 Alfresco Software, Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.activiti.bpmn.model.parse;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import org.activiti.bpmn.model.ActivitiListener;
+import org.activiti.bpmn.model.BaseElement;
+import org.activiti.bpmn.model.GraphicInfo;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+public class ProblemDiffblueTest {
+  /**
+   * Test {@link Problem#Problem(String, String, int, int)}.
+   *
+   * <p>Method under test: {@link Problem#Problem(String, String, int, int)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Problem.<init>(String, String, int, int)"})
+  public void testNewProblem() {
+    // Arrange and Act
+    Problem actualProblem = new Problem("An error occurred", "Local Name", 2, 10);
+
+    // Assert
+    assertEquals("An error occurred", actualProblem.errorMessage);
+    assertEquals("Local Name", actualProblem.resource);
+    assertEquals(10, actualProblem.column);
+    assertEquals(2, actualProblem.line);
+  }
+
+  /**
+   * Test {@link Problem#Problem(String, GraphicInfo)}.
+   *
+   * <p>Method under test: {@link Problem#Problem(String, GraphicInfo)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Problem.<init>(String, GraphicInfo)"})
+  public void testNewProblem2() {
+    // Arrange
+    GraphicInfo graphicInfo = new GraphicInfo();
+    graphicInfo.setElement(new ActivitiListener());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(10.0d);
+    graphicInfo.setWidth(10.0d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(3.0d);
+
+    // Act
+    Problem actualProblem = new Problem("An error occurred", graphicInfo);
+
+    // Assert
+    assertEquals("An error occurred", actualProblem.errorMessage);
+    assertNull(actualProblem.resource);
+    assertEquals(10, actualProblem.column);
+    assertEquals(10, actualProblem.line);
+  }
+
+  /**
+   * Test {@link Problem#Problem(String, BaseElement)}.
+   *
+   * <ul>
+   *   <li>When {@link ActivitiListener} (default constructor).
+   *   <li>Then return {@link Problem#errorMessage} is {@code An error occurred}.
+   * </ul>
+   *
+   * <p>Method under test: {@link Problem#Problem(String, BaseElement)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void Problem.<init>(String, BaseElement)"})
+  public void testNewProblem_whenActivitiListener_thenReturnErrorMessageIsAnErrorOccurred() {
+    // Arrange and Act
+    Problem actualProblem = new Problem("An error occurred", new ActivitiListener());
+
+    // Assert
+    assertEquals("An error occurred", actualProblem.errorMessage);
+    assertNull(actualProblem.resource);
+    assertEquals(0, actualProblem.column);
+    assertEquals(0, actualProblem.line);
+  }
+
+  /**
+   * Test {@link Problem#toString()}.
+   *
+   * <ul>
+   *   <li>Then return {@code An error occurred | line 2 | column 10}.
+   * </ul>
+   *
+   * <p>Method under test: {@link Problem#toString()}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String Problem.toString()"})
+  public void testToString_thenReturnAnErrorOccurredLine2Column10() {
+    // Arrange
+    Problem problem = new Problem("An error occurred", null, 2, 10);
+
+    // Act and Assert
+    assertEquals("An error occurred | line 2 | column 10", problem.toString());
+  }
+
+  /**
+   * Test {@link Problem#toString()}.
+   *
+   * <ul>
+   *   <li>Then return {@code An error occurred | Local Name | line 2 | column 10}.
+   * </ul>
+   *
+   * <p>Method under test: {@link Problem#toString()}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String Problem.toString()"})
+  public void testToString_thenReturnAnErrorOccurredLocalNameLine2Column10() {
+    // Arrange
+    Problem problem = new Problem("An error occurred", "Local Name", 2, 10);
+
+    // Act and Assert
+    assertEquals("An error occurred | Local Name | line 2 | column 10", problem.toString());
+  }
+}

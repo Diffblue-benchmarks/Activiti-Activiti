@@ -1,0 +1,359 @@
+{
+  "meta" : {
+    "reportVersion" : "2.8"
+  },
+  "run" : {
+    "version" : "2025.11.01-3385b9f-licensed",
+    "creationTimestamp" : "2025-11-12T08:32:53.023320826Z",
+    "command" : "dcover coverage-reports --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals",
+    "totalTime" : 21.917,
+    "environmentDetectionTime" : 10.429,
+    "indexingTime" : 0.0,
+    "entryPointsTime" : 0.0,
+    "generationTime" : 0.0,
+    "timeToFirstTest" : 21.918,
+    "timeToLastTest" : 21.918,
+    "indexQueryTime" : 0.0,
+    "verificationTime" : 0.0,
+    "validationTime" : 0.0
+  },
+  "codes" : {
+    "T010" : "Abstract or interface method"
+  },
+  "summary" : {
+    "classesCount" : 4,
+    "methodsCount" : 45,
+    "cumulativeDiffblueTestCount" : 0,
+    "cumulativeManualTestCount" : 0,
+    "completeTestCount" : 0,
+    "incompleteTestCount" : 0,
+    "skeletonTestCount" : 0,
+    "totalPhysicalLineCount" : 130,
+    "perMethodTestability" : {
+      "T010" : 45
+    },
+    "perMethodOutcome" : {
+      "T010" : 45
+    }
+  },
+  "classes" : {
+    "org.activiti.api.process.runtime.ProcessAdminRuntime" : {
+      "methodsCount" : 17,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 17
+      },
+      "perMethodOutcome" : {
+        "T010" : 17
+      }
+    },
+    "org.activiti.api.process.runtime.ProcessRuntime" : {
+      "methodsCount" : 25,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 25
+      },
+      "perMethodOutcome" : {
+        "T010" : 25
+      }
+    },
+    "org.activiti.api.process.runtime.conf.ProcessRuntimeConfiguration" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 2
+      },
+      "perMethodOutcome" : {
+        "T010" : 2
+      }
+    },
+    "org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener" : {
+      "methodsCount" : 1,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 1
+      },
+      "perMethodOutcome" : {
+        "T010" : 1
+      }
+    }
+  },
+  "methods" : {
+    "org.activiti.api.process.runtime.ProcessAdminRuntime.delete:(Lorg/activiti/api/process/model/payloads/DeleteProcessPayload;)Lorg/activiti/api/process/model/ProcessInstance;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessAdminRuntime.processDefinition:(Ljava/lang/String;)Lorg/activiti/api/process/model/ProcessDefinition;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessAdminRuntime.processDefinitions:(Lorg/activiti/api/runtime/shared/query/Pageable;)Lorg/activiti/api/runtime/shared/query/Page;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessAdminRuntime.processDefinitions:(Lorg/activiti/api/runtime/shared/query/Pageable;Lorg/activiti/api/process/model/payloads/GetProcessDefinitionsPayload;)Lorg/activiti/api/runtime/shared/query/Page;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessAdminRuntime.processInstance:(Ljava/lang/String;)Lorg/activiti/api/process/model/ProcessInstance;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessAdminRuntime.processInstances:(Lorg/activiti/api/runtime/shared/query/Pageable;)Lorg/activiti/api/runtime/shared/query/Page;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessAdminRuntime.processInstances:(Lorg/activiti/api/runtime/shared/query/Pageable;Lorg/activiti/api/process/model/payloads/GetProcessInstancesPayload;)Lorg/activiti/api/runtime/shared/query/Page;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessAdminRuntime.receive:(Lorg/activiti/api/process/model/payloads/ReceiveMessagePayload;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessAdminRuntime.removeVariables:(Lorg/activiti/api/process/model/payloads/RemoveProcessVariablesPayload;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessAdminRuntime.resume:(Lorg/activiti/api/process/model/payloads/ResumeProcessPayload;)Lorg/activiti/api/process/model/ProcessInstance;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessAdminRuntime.setVariables:(Lorg/activiti/api/process/model/payloads/SetProcessVariablesPayload;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessAdminRuntime.signal:(Lorg/activiti/api/process/model/payloads/SignalPayload;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessAdminRuntime.start:(Lorg/activiti/api/process/model/payloads/StartMessagePayload;)Lorg/activiti/api/process/model/ProcessInstance;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessAdminRuntime.start:(Lorg/activiti/api/process/model/payloads/StartProcessPayload;)Lorg/activiti/api/process/model/ProcessInstance;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessAdminRuntime.suspend:(Lorg/activiti/api/process/model/payloads/SuspendProcessPayload;)Lorg/activiti/api/process/model/ProcessInstance;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessAdminRuntime.update:(Lorg/activiti/api/process/model/payloads/UpdateProcessPayload;)Lorg/activiti/api/process/model/ProcessInstance;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessAdminRuntime.variables:(Lorg/activiti/api/process/model/payloads/GetVariablesPayload;)Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessRuntime.configuration:()Lorg/activiti/api/process/runtime/conf/ProcessRuntimeConfiguration;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessRuntime.create:(Lorg/activiti/api/process/model/payloads/CreateProcessInstancePayload;)Lorg/activiti/api/process/model/ProcessInstance;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessRuntime.delete:(Lorg/activiti/api/process/model/payloads/DeleteProcessPayload;)Lorg/activiti/api/process/model/ProcessInstance;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessRuntime.processDefinition:(Ljava/lang/String;)Lorg/activiti/api/process/model/ProcessDefinition;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessRuntime.processDefinitionMeta:(Ljava/lang/String;)Lorg/activiti/api/process/model/ProcessDefinitionMeta;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessRuntime.processDefinitions:(Lorg/activiti/api/runtime/shared/query/Pageable;)Lorg/activiti/api/runtime/shared/query/Page;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessRuntime.processDefinitions:(Lorg/activiti/api/runtime/shared/query/Pageable;Ljava/util/List;)Lorg/activiti/api/runtime/shared/query/Page;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessRuntime.processDefinitions:(Lorg/activiti/api/runtime/shared/query/Pageable;Lorg/activiti/api/process/model/payloads/GetProcessDefinitionsPayload;)Lorg/activiti/api/runtime/shared/query/Page;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessRuntime.processDefinitions:(Lorg/activiti/api/runtime/shared/query/Pageable;Lorg/activiti/api/process/model/payloads/GetProcessDefinitionsPayload;Ljava/util/List;)Lorg/activiti/api/runtime/shared/query/Page;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessRuntime.processInstance:(Ljava/lang/String;)Lorg/activiti/api/process/model/ProcessInstance;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessRuntime.processInstanceMeta:(Ljava/lang/String;)Lorg/activiti/api/process/model/ProcessInstanceMeta;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessRuntime.processInstances:(Lorg/activiti/api/runtime/shared/query/Pageable;)Lorg/activiti/api/runtime/shared/query/Page;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessRuntime.processInstances:(Lorg/activiti/api/runtime/shared/query/Pageable;Lorg/activiti/api/process/model/payloads/GetProcessInstancesPayload;)Lorg/activiti/api/runtime/shared/query/Page;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessRuntime.receive:(Lorg/activiti/api/process/model/payloads/ReceiveMessagePayload;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessRuntime.removeVariables:(Lorg/activiti/api/process/model/payloads/RemoveProcessVariablesPayload;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessRuntime.resume:(Lorg/activiti/api/process/model/payloads/ResumeProcessPayload;)Lorg/activiti/api/process/model/ProcessInstance;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessRuntime.selectLatestDeployment:()Lorg/activiti/api/process/model/Deployment;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessRuntime.setVariables:(Lorg/activiti/api/process/model/payloads/SetProcessVariablesPayload;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessRuntime.signal:(Lorg/activiti/api/process/model/payloads/SignalPayload;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessRuntime.start:(Lorg/activiti/api/process/model/payloads/StartMessagePayload;)Lorg/activiti/api/process/model/ProcessInstance;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessRuntime.start:(Lorg/activiti/api/process/model/payloads/StartProcessPayload;)Lorg/activiti/api/process/model/ProcessInstance;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessRuntime.startCreatedProcess:(Ljava/lang/String;Lorg/activiti/api/process/model/payloads/StartProcessPayload;)Lorg/activiti/api/process/model/ProcessInstance;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessRuntime.suspend:(Lorg/activiti/api/process/model/payloads/SuspendProcessPayload;)Lorg/activiti/api/process/model/ProcessInstance;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessRuntime.update:(Lorg/activiti/api/process/model/payloads/UpdateProcessPayload;)Lorg/activiti/api/process/model/ProcessInstance;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.ProcessRuntime.variables:(Lorg/activiti/api/process/model/payloads/GetVariablesPayload;)Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.conf.ProcessRuntimeConfiguration.processEventListeners:()Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.conf.ProcessRuntimeConfiguration.variableEventListeners:()Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener.onEvent:(Lorg/activiti/api/model/shared/event/RuntimeEvent;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    }
+  },
+  "validationMetrics" : { },
+  "outputCodes" : [ ]
+}

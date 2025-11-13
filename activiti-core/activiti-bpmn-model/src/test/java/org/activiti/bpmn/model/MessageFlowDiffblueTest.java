@@ -1,0 +1,388 @@
+/*
+ * Copyright 2010-2020 Alfresco Software, Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.activiti.bpmn.model;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+public class MessageFlowDiffblueTest {
+  /**
+   * Test getters and setters.
+   *
+   * <p>Methods under test:
+   *
+   * <ul>
+   *   <li>{@link MessageFlow#MessageFlow()}
+   *   <li>{@link MessageFlow#setMessageRef(String)}
+   *   <li>{@link MessageFlow#setName(String)}
+   *   <li>{@link MessageFlow#setSourceRef(String)}
+   *   <li>{@link MessageFlow#setTargetRef(String)}
+   *   <li>{@link MessageFlow#toString()}
+   *   <li>{@link MessageFlow#getMessageRef()}
+   *   <li>{@link MessageFlow#getName()}
+   *   <li>{@link MessageFlow#getSourceRef()}
+   *   <li>{@link MessageFlow#getTargetRef()}
+   * </ul>
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void MessageFlow.<init>()",
+    "void MessageFlow.<init>(String, String)",
+    "String MessageFlow.getMessageRef()",
+    "String MessageFlow.getName()",
+    "String MessageFlow.getSourceRef()",
+    "String MessageFlow.getTargetRef()",
+    "void MessageFlow.setMessageRef(String)",
+    "void MessageFlow.setName(String)",
+    "void MessageFlow.setSourceRef(String)",
+    "void MessageFlow.setTargetRef(String)",
+    "String MessageFlow.toString()"
+  })
+  public void testGettersAndSetters() {
+    // Arrange and Act
+    MessageFlow actualMessageFlow = new MessageFlow();
+    actualMessageFlow.setMessageRef("Message Ref");
+    actualMessageFlow.setName("Name");
+    actualMessageFlow.setSourceRef("Source Ref");
+    actualMessageFlow.setTargetRef("Target Ref");
+    String actualToStringResult = actualMessageFlow.toString();
+    String actualMessageRef = actualMessageFlow.getMessageRef();
+    String actualName = actualMessageFlow.getName();
+    String actualSourceRef = actualMessageFlow.getSourceRef();
+
+    // Assert
+    assertEquals("Message Ref", actualMessageRef);
+    assertEquals("Name", actualName);
+    assertEquals("Source Ref --> Target Ref", actualToStringResult);
+    assertEquals("Source Ref", actualSourceRef);
+    assertEquals("Target Ref", actualMessageFlow.getTargetRef());
+    assertNull(actualMessageFlow.getId());
+    assertEquals(0, actualMessageFlow.getXmlColumnNumber());
+    assertEquals(0, actualMessageFlow.getXmlRowNumber());
+    assertTrue(actualMessageFlow.getAttributes().isEmpty());
+    assertTrue(actualMessageFlow.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test getters and setters.
+   *
+   * <ul>
+   *   <li>When {@code Source Ref}.
+   * </ul>
+   *
+   * <p>Methods under test:
+   *
+   * <ul>
+   *   <li>{@link MessageFlow#MessageFlow(String, String)}
+   *   <li>{@link MessageFlow#setMessageRef(String)}
+   *   <li>{@link MessageFlow#setName(String)}
+   *   <li>{@link MessageFlow#setSourceRef(String)}
+   *   <li>{@link MessageFlow#setTargetRef(String)}
+   *   <li>{@link MessageFlow#toString()}
+   *   <li>{@link MessageFlow#getMessageRef()}
+   *   <li>{@link MessageFlow#getName()}
+   *   <li>{@link MessageFlow#getSourceRef()}
+   *   <li>{@link MessageFlow#getTargetRef()}
+   * </ul>
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void MessageFlow.<init>()",
+    "void MessageFlow.<init>(String, String)",
+    "String MessageFlow.getMessageRef()",
+    "String MessageFlow.getName()",
+    "String MessageFlow.getSourceRef()",
+    "String MessageFlow.getTargetRef()",
+    "void MessageFlow.setMessageRef(String)",
+    "void MessageFlow.setName(String)",
+    "void MessageFlow.setSourceRef(String)",
+    "void MessageFlow.setTargetRef(String)",
+    "String MessageFlow.toString()"
+  })
+  public void testGettersAndSetters_whenSourceRef() {
+    // Arrange and Act
+    MessageFlow actualMessageFlow = new MessageFlow("Source Ref", "Target Ref");
+    actualMessageFlow.setMessageRef("Message Ref");
+    actualMessageFlow.setName("Name");
+    actualMessageFlow.setSourceRef("Source Ref");
+    actualMessageFlow.setTargetRef("Target Ref");
+    String actualToStringResult = actualMessageFlow.toString();
+    String actualMessageRef = actualMessageFlow.getMessageRef();
+    String actualName = actualMessageFlow.getName();
+    String actualSourceRef = actualMessageFlow.getSourceRef();
+
+    // Assert
+    assertEquals("Message Ref", actualMessageRef);
+    assertEquals("Name", actualName);
+    assertEquals("Source Ref --> Target Ref", actualToStringResult);
+    assertEquals("Source Ref", actualSourceRef);
+    assertEquals("Target Ref", actualMessageFlow.getTargetRef());
+    assertNull(actualMessageFlow.getId());
+    assertEquals(0, actualMessageFlow.getXmlColumnNumber());
+    assertEquals(0, actualMessageFlow.getXmlRowNumber());
+    assertTrue(actualMessageFlow.getAttributes().isEmpty());
+    assertTrue(actualMessageFlow.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link MessageFlow#clone()}.
+   *
+   * <ul>
+   *   <li>Given {@link HashMap#HashMap()} {@code 42} is {@link ArrayList#ArrayList()}.
+   *   <li>Then return {@code Source Ref}.
+   * </ul>
+   *
+   * <p>Method under test: {@link MessageFlow#clone()}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"MessageFlow MessageFlow.clone()"})
+  public void testClone_givenHashMap42IsArrayList_thenReturnSourceRef() {
+    // Arrange
+    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
+    extensionElements.put("42", new ArrayList<>());
+    extensionElements.put("Key", new ArrayList<>());
+
+    MessageFlow messageFlow = new MessageFlow("Source Ref", "Target Ref");
+    messageFlow.setExtensionElements(extensionElements);
+    messageFlow.setAttributes(null);
+
+    // Act
+    MessageFlow actualCloneResult = messageFlow.clone();
+
+    // Assert
+    assertEquals("Source Ref", actualCloneResult.getSourceRef());
+    assertEquals("Target Ref", actualCloneResult.getTargetRef());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getMessageRef());
+    assertNull(actualCloneResult.getName());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link MessageFlow#clone()}.
+   *
+   * <ul>
+   *   <li>Given {@link HashMap#HashMap()} {@code Key} is {@link ArrayList#ArrayList()}.
+   *   <li>Then return {@code Source Ref}.
+   * </ul>
+   *
+   * <p>Method under test: {@link MessageFlow#clone()}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"MessageFlow MessageFlow.clone()"})
+  public void testClone_givenHashMapKeyIsArrayList_thenReturnSourceRef() {
+    // Arrange
+    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
+    extensionElements.put("Key", new ArrayList<>());
+
+    MessageFlow messageFlow = new MessageFlow("Source Ref", "Target Ref");
+    messageFlow.setExtensionElements(extensionElements);
+    messageFlow.setAttributes(null);
+
+    // Act
+    MessageFlow actualCloneResult = messageFlow.clone();
+
+    // Assert
+    assertEquals("Source Ref", actualCloneResult.getSourceRef());
+    assertEquals("Target Ref", actualCloneResult.getTargetRef());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getMessageRef());
+    assertNull(actualCloneResult.getName());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link MessageFlow#clone()}.
+   *
+   * <ul>
+   *   <li>Given {@link MessageFlow#MessageFlow(String, String)} with {@code Source Ref} and {@code
+   *       Target Ref} ExtensionElements is {@link HashMap#HashMap()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link MessageFlow#clone()}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"MessageFlow MessageFlow.clone()"})
+  public void testClone_givenMessageFlowWithSourceRefAndTargetRefExtensionElementsIsHashMap() {
+    // Arrange
+    MessageFlow messageFlow = new MessageFlow("Source Ref", "Target Ref");
+    messageFlow.setExtensionElements(new HashMap<>());
+    messageFlow.setAttributes(null);
+
+    // Act
+    MessageFlow actualCloneResult = messageFlow.clone();
+
+    // Assert
+    assertEquals("Source Ref", actualCloneResult.getSourceRef());
+    assertEquals("Target Ref", actualCloneResult.getTargetRef());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getMessageRef());
+    assertNull(actualCloneResult.getName());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link MessageFlow#clone()}.
+   *
+   * <ul>
+   *   <li>Given {@link MessageFlow#MessageFlow(String, String)} with {@code Source Ref} and {@code
+   *       Target Ref} ExtensionElements is {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link MessageFlow#clone()}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"MessageFlow MessageFlow.clone()"})
+  public void testClone_givenMessageFlowWithSourceRefAndTargetRefExtensionElementsIsNull() {
+    // Arrange
+    MessageFlow messageFlow = new MessageFlow("Source Ref", "Target Ref");
+    messageFlow.setExtensionElements(null);
+    messageFlow.setAttributes(new HashMap<>());
+
+    // Act
+    MessageFlow actualCloneResult = messageFlow.clone();
+
+    // Assert
+    assertEquals("Source Ref", actualCloneResult.getSourceRef());
+    assertEquals("Target Ref", actualCloneResult.getTargetRef());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getMessageRef());
+    assertNull(actualCloneResult.getName());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link MessageFlow#clone()}.
+   *
+   * <ul>
+   *   <li>Given {@link MessageFlow#MessageFlow(String, String)} with {@code Source Ref} and {@code
+   *       Target Ref}.
+   *   <li>Then return {@code Source Ref}.
+   * </ul>
+   *
+   * <p>Method under test: {@link MessageFlow#clone()}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"MessageFlow MessageFlow.clone()"})
+  public void testClone_givenMessageFlowWithSourceRefAndTargetRef_thenReturnSourceRef() {
+    // Arrange and Act
+    MessageFlow actualCloneResult = new MessageFlow("Source Ref", "Target Ref").clone();
+
+    // Assert
+    assertEquals("Source Ref", actualCloneResult.getSourceRef());
+    assertEquals("Target Ref", actualCloneResult.getTargetRef());
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getMessageRef());
+    assertNull(actualCloneResult.getName());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link MessageFlow#clone()}.
+   *
+   * <ul>
+   *   <li>Then return Attributes size is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link MessageFlow#clone()}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"MessageFlow MessageFlow.clone()"})
+  public void testClone_thenReturnAttributesSizeIsOne() {
+    // Arrange
+    MessageFlow messageFlow = new MessageFlow("Source Ref", "Target Ref");
+    ExtensionAttribute attribute = new ExtensionAttribute("Name");
+    messageFlow.addAttribute(attribute);
+
+    // Act and Assert
+    Map<String, List<ExtensionAttribute>> attributes = messageFlow.clone().getAttributes();
+    assertEquals(1, attributes.size());
+    List<ExtensionAttribute> getResult = attributes.get("Name");
+    assertEquals(1, getResult.size());
+    assertSame(attribute, getResult.get(0));
+  }
+
+  /**
+   * Test {@link MessageFlow#clone()}.
+   *
+   * <ul>
+   *   <li>Then return Attributes size is two.
+   * </ul>
+   *
+   * <p>Method under test: {@link MessageFlow#clone()}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"MessageFlow MessageFlow.clone()"})
+  public void testClone_thenReturnAttributesSizeIsTwo() {
+    // Arrange
+    MessageFlow messageFlow = new MessageFlow("Source Ref", "Target Ref");
+    ExtensionAttribute attribute = new ExtensionAttribute("42");
+    messageFlow.addAttribute(attribute);
+    messageFlow.addAttribute(new ExtensionAttribute("Name"));
+
+    // Act and Assert
+    Map<String, List<ExtensionAttribute>> attributes = messageFlow.clone().getAttributes();
+    assertEquals(2, attributes.size());
+    List<ExtensionAttribute> getResult = attributes.get("42");
+    assertEquals(1, getResult.size());
+    assertTrue(attributes.containsKey("Name"));
+    assertSame(attribute, getResult.get(0));
+  }
+}

@@ -1,0 +1,162 @@
+/*
+ * Copyright 2010-2020 Alfresco Software, Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.activiti.engine.impl.persistence.entity;
+
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.ArrayList;
+import java.util.List;
+import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
+import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
+import org.activiti.engine.impl.persistence.entity.data.DataManager;
+import org.activiti.engine.impl.persistence.entity.data.ResourceDataManager;
+import org.activiti.engine.impl.persistence.entity.data.impl.MybatisResourceDataManager;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.mockito.Mockito;
+
+public class ResourceEntityManagerImplDiffblueTest {
+  /**
+   * Test getters and setters.
+   *
+   * <p>Methods under test:
+   *
+   * <ul>
+   *   <li>{@link
+   *       ResourceEntityManagerImpl#ResourceEntityManagerImpl(ProcessEngineConfigurationImpl,
+   *       ResourceDataManager)}
+   *   <li>{@link ResourceEntityManagerImpl#setResourceDataManager(ResourceDataManager)}
+   *   <li>{@link ResourceEntityManagerImpl#getDataManager()}
+   *   <li>{@link ResourceEntityManagerImpl#getResourceDataManager()}
+   * </ul>
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void ResourceEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, ResourceDataManager)",
+    "DataManager ResourceEntityManagerImpl.getDataManager()",
+    "ResourceDataManager ResourceEntityManagerImpl.getResourceDataManager()",
+    "void ResourceEntityManagerImpl.setResourceDataManager(ResourceDataManager)"
+  })
+  public void testGettersAndSetters() {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+
+    // Act
+    ResourceEntityManagerImpl actualResourceEntityManagerImpl =
+        new ResourceEntityManagerImpl(
+            processEngineConfiguration,
+            new MybatisResourceDataManager(new JtaProcessEngineConfiguration()));
+    MybatisResourceDataManager resourceDataManager =
+        new MybatisResourceDataManager(new JtaProcessEngineConfiguration());
+    actualResourceEntityManagerImpl.setResourceDataManager(resourceDataManager);
+    DataManager<ResourceEntity> actualDataManager =
+        actualResourceEntityManagerImpl.getDataManager();
+
+    // Assert
+    assertSame(resourceDataManager, actualDataManager);
+    assertSame(resourceDataManager, actualResourceEntityManagerImpl.getResourceDataManager());
+  }
+
+  /**
+   * Test {@link ResourceEntityManagerImpl#deleteResourcesByDeploymentId(String)}.
+   *
+   * <p>Method under test: {@link ResourceEntityManagerImpl#deleteResourcesByDeploymentId(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ResourceEntityManagerImpl.deleteResourcesByDeploymentId(String)"})
+  public void testDeleteResourcesByDeploymentId() {
+    // Arrange
+    ResourceDataManager resourceDataManager = mock(ResourceDataManager.class);
+    doNothing().when(resourceDataManager).deleteResourcesByDeploymentId(Mockito.<String>any());
+    ResourceEntityManagerImpl resourceEntityManagerImpl =
+        new ResourceEntityManagerImpl(new JtaProcessEngineConfiguration(), resourceDataManager);
+
+    // Act
+    resourceEntityManagerImpl.deleteResourcesByDeploymentId("42");
+
+    // Assert
+    verify(resourceDataManager).deleteResourcesByDeploymentId("42");
+  }
+
+  /**
+   * Test {@link ResourceEntityManagerImpl#findResourceByDeploymentIdAndResourceName(String,
+   * String)}.
+   *
+   * <p>Method under test: {@link
+   * ResourceEntityManagerImpl#findResourceByDeploymentIdAndResourceName(String, String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "ResourceEntity ResourceEntityManagerImpl.findResourceByDeploymentIdAndResourceName(String, String)"
+  })
+  public void testFindResourceByDeploymentIdAndResourceName() {
+    // Arrange
+    ResourceDataManager resourceDataManager = mock(ResourceDataManager.class);
+    ResourceEntityImpl resourceEntityImpl = new ResourceEntityImpl();
+    when(resourceDataManager.findResourceByDeploymentIdAndResourceName(
+            Mockito.<String>any(), Mockito.<String>any()))
+        .thenReturn(resourceEntityImpl);
+    ResourceEntityManagerImpl resourceEntityManagerImpl =
+        new ResourceEntityManagerImpl(new JtaProcessEngineConfiguration(), resourceDataManager);
+
+    // Act
+    ResourceEntity actualFindResourceByDeploymentIdAndResourceNameResult =
+        resourceEntityManagerImpl.findResourceByDeploymentIdAndResourceName("42", "Resource Name");
+
+    // Assert
+    verify(resourceDataManager).findResourceByDeploymentIdAndResourceName("42", "Resource Name");
+    assertSame(resourceEntityImpl, actualFindResourceByDeploymentIdAndResourceNameResult);
+  }
+
+  /**
+   * Test {@link ResourceEntityManagerImpl#findResourcesByDeploymentId(String)}.
+   *
+   * <p>Method under test: {@link ResourceEntityManagerImpl#findResourcesByDeploymentId(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List ResourceEntityManagerImpl.findResourcesByDeploymentId(String)"})
+  public void testFindResourcesByDeploymentId() {
+    // Arrange
+    ResourceDataManager resourceDataManager = mock(ResourceDataManager.class);
+    when(resourceDataManager.findResourcesByDeploymentId(Mockito.<String>any()))
+        .thenReturn(new ArrayList<>());
+    ResourceEntityManagerImpl resourceEntityManagerImpl =
+        new ResourceEntityManagerImpl(new JtaProcessEngineConfiguration(), resourceDataManager);
+
+    // Act
+    List<ResourceEntity> actualFindResourcesByDeploymentIdResult =
+        resourceEntityManagerImpl.findResourcesByDeploymentId("42");
+
+    // Assert
+    verify(resourceDataManager).findResourcesByDeploymentId("42");
+    assertTrue(actualFindResourcesByDeploymentIdResult.isEmpty());
+  }
+}

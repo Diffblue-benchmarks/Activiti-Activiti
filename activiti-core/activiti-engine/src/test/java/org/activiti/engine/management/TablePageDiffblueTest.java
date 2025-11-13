@@ -1,0 +1,107 @@
+/*
+ * Copyright 2010-2020 Alfresco Software, Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.activiti.engine.management;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+public class TablePageDiffblueTest {
+  /**
+   * Test getters and setters.
+   *
+   * <p>Methods under test:
+   *
+   * <ul>
+   *   <li>default or parameterless constructor of {@link TablePage}
+   *   <li>{@link TablePage#setFirstResult(long)}
+   *   <li>{@link TablePage#setRows(List)}
+   *   <li>{@link TablePage#setTableName(String)}
+   *   <li>{@link TablePage#setTotal(long)}
+   *   <li>{@link TablePage#getFirstResult()}
+   *   <li>{@link TablePage#getRows()}
+   *   <li>{@link TablePage#getTableName()}
+   *   <li>{@link TablePage#getTotal()}
+   * </ul>
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void TablePage.<init>()",
+    "long TablePage.getFirstResult()",
+    "List TablePage.getRows()",
+    "String TablePage.getTableName()",
+    "long TablePage.getTotal()",
+    "void TablePage.setFirstResult(long)",
+    "void TablePage.setRows(List)",
+    "void TablePage.setTableName(String)",
+    "void TablePage.setTotal(long)"
+  })
+  public void testGettersAndSetters() {
+    // Arrange and Act
+    TablePage actualTablePage = new TablePage();
+    actualTablePage.setFirstResult(1L);
+    ArrayList<Map<String, Object>> rowData = new ArrayList<>();
+    actualTablePage.setRows(rowData);
+    actualTablePage.setTableName("Table Name");
+    actualTablePage.setTotal(1L);
+    long actualFirstResult = actualTablePage.getFirstResult();
+    List<Map<String, Object>> actualRows = actualTablePage.getRows();
+    String actualTableName = actualTablePage.getTableName();
+
+    // Assert
+    assertEquals("Table Name", actualTableName);
+    assertEquals(1L, actualFirstResult);
+    assertEquals(1L, actualTablePage.getTotal());
+    assertTrue(actualRows.isEmpty());
+    assertSame(rowData, actualRows);
+  }
+
+  /**
+   * Test {@link TablePage#getSize()}.
+   *
+   * <ul>
+   *   <li>Given {@link TablePage} (default constructor) FirstResult is one.
+   *   <li>Then return zero.
+   * </ul>
+   *
+   * <p>Method under test: {@link TablePage#getSize()}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"long TablePage.getSize()"})
+  public void testGetSize_givenTablePageFirstResultIsOne_thenReturnZero() {
+    // Arrange
+    TablePage tablePage = new TablePage();
+    tablePage.setFirstResult(1L);
+    tablePage.setRows(new ArrayList<>());
+    tablePage.setTableName("Table Name");
+    tablePage.setTotal(1L);
+
+    // Act and Assert
+    assertEquals(0L, tablePage.getSize());
+  }
+}

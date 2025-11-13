@@ -1,0 +1,1179 @@
+{
+  "meta" : {
+    "reportVersion" : "2.8"
+  },
+  "run" : {
+    "version" : "2025.11.01-3385b9f-licensed",
+    "creationTimestamp" : "2025-11-12T09:22:28.997361025Z",
+    "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
+    "totalTime" : 88.279,
+    "environmentDetectionTime" : 1.161,
+    "indexingTime" : 0.335,
+    "entryPointsTime" : 1.141,
+    "generationTime" : 434.449,
+    "timeToFirstTest" : 1044.901,
+    "timeToLastTest" : 772.475,
+    "indexQueryTime" : 2.331,
+    "verificationTime" : 43.521,
+    "validationTime" : 10.5
+  },
+  "codes" : {
+    "R000" : "Success",
+    "R002" : "Missing observers",
+    "R004" : "No meaningful assertions found",
+    "T000" : "Method eligible for test creation",
+    "T005" : "Trivial constructor",
+    "T010" : "Abstract or interface method",
+    "V000" : "Validated successfully"
+  },
+  "summary" : {
+    "classesCount" : 4,
+    "methodsCount" : 12,
+    "cumulativeDiffblueTestCount" : 5,
+    "cumulativeManualTestCount" : 0,
+    "completeTestCount" : 5,
+    "incompleteTestCount" : 0,
+    "skeletonTestCount" : 0,
+    "totalPhysicalLineCount" : 68,
+    "perMethodTestability" : {
+      "T000" : 2,
+      "T005" : 2,
+      "T010" : 8
+    },
+    "perMethodOutcome" : {
+      "R000" : 1,
+      "R002" : 1,
+      "R004" : 1,
+      "T005" : 1,
+      "T010" : 8
+    },
+    "perTestOutcome" : {
+      "R000" : 5
+    },
+    "perTestValidation" : {
+      "V000" : 5
+    }
+  },
+  "classes" : {
+    "org.activiti.spring.resources.ResourceFinder" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 5,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 1,
+        "R002" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 5
+      }
+    },
+    "org.activiti.spring.resources.ResourceFinderDescriptor" : {
+      "methodsCount" : 6,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 6
+      },
+      "perMethodOutcome" : {
+        "T010" : 6
+      }
+    },
+    "org.activiti.spring.resources.ResourceReader" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 2
+      },
+      "perMethodOutcome" : {
+        "T010" : 2
+      }
+    },
+    "org.activiti.spring.resources.conf.ResourceFinderAutoConfiguration" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R004" : 1,
+        "T005" : 1
+      }
+    }
+  },
+  "methods" : {
+    "org.activiti.spring.resources.ResourceFinder.<init>:(Lorg/springframework/core/io/support/ResourcePatternResolver;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        36,
+        37,
+        38
+      ]
+    },
+    "org.activiti.spring.resources.ResourceFinder.discoverResources:(Lorg/activiti/spring/resources/ResourceFinderDescriptor;)Ljava/util/List;" : {
+      "completeTestCount" : 5,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 5
+      },
+      "lineNumbers" : [
+        41,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        51,
+        53,
+        54,
+        57
+      ]
+    },
+    "org.activiti.spring.resources.ResourceFinderDescriptor.getLocationPrefix:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.spring.resources.ResourceFinderDescriptor.getLocationSuffixes:()Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.spring.resources.ResourceFinderDescriptor.getMsgForEmptyResources:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.spring.resources.ResourceFinderDescriptor.getMsgForResourcesFound:(Ljava/util/List;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.spring.resources.ResourceFinderDescriptor.shouldLookUpResources:()Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.spring.resources.ResourceFinderDescriptor.validate:(Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.spring.resources.ResourceReader.getResourceNameSelector:()Ljava/util/function/Predicate;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.spring.resources.ResourceReader.read:(Ljava/io/InputStream;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.spring.resources.conf.ResourceFinderAutoConfiguration.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        25
+      ]
+    },
+    "org.activiti.spring.resources.conf.ResourceFinderAutoConfiguration.resourceFinderImpl:(Lorg/springframework/core/io/support/ResourcePatternResolver;)Lorg/activiti/spring/resources/ResourceFinder;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R004",
+      "lineNumbers" : [
+        30
+      ]
+    }
+  },
+  "validationMetrics" : { },
+  "outputCodes" : [
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.model.shared.event.VariableEvent$VariableEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/model/shared/event/VariableEvent$VariableEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.model.shared.event.VariableEvent$VariableEvents",
+            "descriptor" : "()[Lorg/activiti/api/model/shared/event/VariableEvent$VariableEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.runtime.shared.query.Order$Direction",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/runtime/shared/query/Order$Direction;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.runtime.shared.query.Order$Direction",
+            "descriptor" : "()[Lorg/activiti/api/runtime/shared/query/Order$Direction;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.NonAbstractMethodInAbstractClassMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.runtime.shared.security.AbstractSecurityManager",
+            "descriptor" : "()Ljava/util/List;",
+            "methodName" : "getAuthenticatedUserGroups"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.NonAbstractMethodInAbstractClassMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.runtime.shared.security.AbstractSecurityManager",
+            "descriptor" : "()Ljava/lang/String;",
+            "methodName" : "getAuthenticatedUserId"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.NonAbstractMethodInAbstractClassMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.runtime.shared.security.AbstractSecurityManager",
+            "descriptor" : "()Ljava/util/List;",
+            "methodName" : "getAuthenticatedUserRoles"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.NonAbstractMethodInAbstractClassMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.runtime.shared.security.AbstractSecurityManager",
+            "descriptor" : "()Ljava/lang/SecurityException;",
+            "methodName" : "securityException"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.NonAbstractMethodInAbstractClassMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.runtime.shared.security.PrincipalIdentityProvider",
+            "descriptor" : "(Ljava/security/Principal;)Ljava/lang/String;",
+            "methodName" : "getUserId"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.ProcessInstance$ProcessInstanceStatus",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/ProcessInstance$ProcessInstanceStatus;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.ProcessInstance$ProcessInstanceStatus",
+            "descriptor" : "()[Lorg/activiti/api/process/model/ProcessInstance$ProcessInstanceStatus;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.TrivialConstructorMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.builders.MessagePayloadBuilder",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.TrivialConstructorMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.builders.ProcessPayloadBuilder",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.ApplicationEvent$ApplicationEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/events/ApplicationEvent$ApplicationEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.ApplicationEvent$ApplicationEvents",
+            "descriptor" : "()[Lorg/activiti/api/process/model/events/ApplicationEvent$ApplicationEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.BPMNActivityEvent$ActivityEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/events/BPMNActivityEvent$ActivityEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.BPMNActivityEvent$ActivityEvents",
+            "descriptor" : "()[Lorg/activiti/api/process/model/events/BPMNActivityEvent$ActivityEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.BPMNErrorReceivedEvent$ErrorEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/events/BPMNErrorReceivedEvent$ErrorEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.BPMNErrorReceivedEvent$ErrorEvents",
+            "descriptor" : "()[Lorg/activiti/api/process/model/events/BPMNErrorReceivedEvent$ErrorEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.BPMNMessageEvent$MessageEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/events/BPMNMessageEvent$MessageEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.BPMNMessageEvent$MessageEvents",
+            "descriptor" : "()[Lorg/activiti/api/process/model/events/BPMNMessageEvent$MessageEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.BPMNSignalEvent$SignalEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/events/BPMNSignalEvent$SignalEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.BPMNSignalEvent$SignalEvents",
+            "descriptor" : "()[Lorg/activiti/api/process/model/events/BPMNSignalEvent$SignalEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.BPMNTimerEvent$TimerEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/events/BPMNTimerEvent$TimerEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.BPMNTimerEvent$TimerEvents",
+            "descriptor" : "()[Lorg/activiti/api/process/model/events/BPMNTimerEvent$TimerEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.IntegrationEvent$IntegrationEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/events/IntegrationEvent$IntegrationEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.IntegrationEvent$IntegrationEvents",
+            "descriptor" : "()[Lorg/activiti/api/process/model/events/IntegrationEvent$IntegrationEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.MessageDefinitionEvent$MessageDefinitionEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/events/MessageDefinitionEvent$MessageDefinitionEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.MessageDefinitionEvent$MessageDefinitionEvents",
+            "descriptor" : "()[Lorg/activiti/api/process/model/events/MessageDefinitionEvent$MessageDefinitionEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.NonAbstractMethodInAbstractClassMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.MessageSubscriptionCancelledEvent",
+            "descriptor" : "()Lorg/activiti/api/process/model/events/MessageSubscriptionEvent$MessageSubscriptionEvents;",
+            "methodName" : "getEventType"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.MessageSubscriptionEvent$MessageSubscriptionEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/events/MessageSubscriptionEvent$MessageSubscriptionEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.MessageSubscriptionEvent$MessageSubscriptionEvents",
+            "descriptor" : "()[Lorg/activiti/api/process/model/events/MessageSubscriptionEvent$MessageSubscriptionEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.ProcessCandidateStarterGroupEvent$ProcessCandidateStarterGroupEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/events/ProcessCandidateStarterGroupEvent$ProcessCandidateStarterGroupEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.ProcessCandidateStarterGroupEvent$ProcessCandidateStarterGroupEvents",
+            "descriptor" : "()[Lorg/activiti/api/process/model/events/ProcessCandidateStarterGroupEvent$ProcessCandidateStarterGroupEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.ProcessCandidateStarterUserEvent$ProcessCandidateStarterUserEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/events/ProcessCandidateStarterUserEvent$ProcessCandidateStarterUserEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.ProcessCandidateStarterUserEvent$ProcessCandidateStarterUserEvents",
+            "descriptor" : "()[Lorg/activiti/api/process/model/events/ProcessCandidateStarterUserEvent$ProcessCandidateStarterUserEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.ProcessDefinitionEvent$ProcessDefinitionEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/events/ProcessDefinitionEvent$ProcessDefinitionEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.ProcessDefinitionEvent$ProcessDefinitionEvents",
+            "descriptor" : "()[Lorg/activiti/api/process/model/events/ProcessDefinitionEvent$ProcessDefinitionEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.ProcessRuntimeEvent$ProcessEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/events/ProcessRuntimeEvent$ProcessEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.ProcessRuntimeEvent$ProcessEvents",
+            "descriptor" : "()[Lorg/activiti/api/process/model/events/ProcessRuntimeEvent$ProcessEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.SequenceFlowEvent$SequenceFlowEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/events/SequenceFlowEvent$SequenceFlowEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.SequenceFlowEvent$SequenceFlowEvents",
+            "descriptor" : "()[Lorg/activiti/api/process/model/events/SequenceFlowEvent$SequenceFlowEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.NonAbstractMethodInAbstractClassMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.events.StartMessageDeployedEvent",
+            "descriptor" : "()Lorg/activiti/api/process/model/events/MessageDefinitionEvent$MessageDefinitionEvents;",
+            "methodName" : "getEventType"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.NoMethodsToTestMessage\",\"serializableCause\":null}",
+      "methodGroup" : null
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.task.model.Task$TaskStatus",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/task/model/Task$TaskStatus;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.task.model.Task$TaskStatus",
+            "descriptor" : "()[Lorg/activiti/api/task/model/Task$TaskStatus;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.TrivialConstructorMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.task.model.builders.TaskPayloadBuilder",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.task.model.events.TaskCandidateGroupEvent$TaskCandidateGroupEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/task/model/events/TaskCandidateGroupEvent$TaskCandidateGroupEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.task.model.events.TaskCandidateGroupEvent$TaskCandidateGroupEvents",
+            "descriptor" : "()[Lorg/activiti/api/task/model/events/TaskCandidateGroupEvent$TaskCandidateGroupEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.task.model.events.TaskCandidateUserEvent$TaskCandidateUserEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/task/model/events/TaskCandidateUserEvent$TaskCandidateUserEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.task.model.events.TaskCandidateUserEvent$TaskCandidateUserEvents",
+            "descriptor" : "()[Lorg/activiti/api/task/model/events/TaskCandidateUserEvent$TaskCandidateUserEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.task.model.events.TaskRuntimeEvent$TaskEvents",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/task/model/events/TaskRuntimeEvent$TaskEvents;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.task.model.events.TaskRuntimeEvent$TaskEvents",
+            "descriptor" : "()[Lorg/activiti/api/task/model/events/TaskRuntimeEvent$TaskEvents;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.NoMethodsToTestMessage\",\"serializableCause\":null}",
+      "methodGroup" : null
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.TrivialConstructorMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.identity.config.ActivitiSpringIdentityAutoConfiguration",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/core/common/spring/security/AuthenticationPrincipalGroupsProvider;\",\"simpleNames\":[\"AuthenticationPrincipalGroupsProvider\"]},\"fieldName\":\"grantedAuthoritiesGroupsMapper\"},{\"className\":{\"descriptor\":\"Lorg/activiti/core/common/spring/security/AuthenticationPrincipalGroupsProvider;\",\"simpleNames\":[\"AuthenticationPrincipalGroupsProvider\"]},\"fieldName\":\"grantedAuthoritiesResolver\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.AuthenticationPrincipalGroupsProvider",
+            "descriptor" : "(Lorg/activiti/core/common/spring/security/GrantedAuthoritiesResolver;Lorg/activiti/core/common/spring/security/GrantedAuthoritiesGroupsMapper;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/core/common/spring/security/AuthenticationPrincipalRolesProvider;\",\"simpleNames\":[\"AuthenticationPrincipalRolesProvider\"]},\"fieldName\":\"grantedAuthoritiesResolver\"},{\"className\":{\"descriptor\":\"Lorg/activiti/core/common/spring/security/AuthenticationPrincipalRolesProvider;\",\"simpleNames\":[\"AuthenticationPrincipalRolesProvider\"]},\"fieldName\":\"grantedAuthoritiesRolesMapper\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.AuthenticationPrincipalRolesProvider",
+            "descriptor" : "(Lorg/activiti/core/common/spring/security/GrantedAuthoritiesResolver;Lorg/activiti/core/common/spring/security/GrantedAuthoritiesRolesMapper;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/api/runtime/shared/security/AbstractSecurityManager;\",\"simpleNames\":[\"AbstractSecurityManager\"]},\"fieldName\":\"principalGroupsProvider\"},{\"className\":{\"descriptor\":\"Lorg/activiti/api/runtime/shared/security/AbstractSecurityManager;\",\"simpleNames\":[\"AbstractSecurityManager\"]},\"fieldName\":\"principalIdentityProvider\"},{\"className\":{\"descriptor\":\"Lorg/activiti/api/runtime/shared/security/AbstractSecurityManager;\",\"simpleNames\":[\"AbstractSecurityManager\"]},\"fieldName\":\"principalRolesProvider\"},{\"className\":{\"descriptor\":\"Lorg/activiti/api/runtime/shared/security/AbstractSecurityManager;\",\"simpleNames\":[\"AbstractSecurityManager\"]},\"fieldName\":\"securityContextPrincipalProvider\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.LocalSpringSecurityManager",
+            "descriptor" : "(Lorg/activiti/api/runtime/shared/security/SecurityContextPrincipalProvider;Lorg/activiti/api/runtime/shared/security/PrincipalIdentityProvider;Lorg/activiti/api/runtime/shared/security/PrincipalGroupsProvider;Lorg/activiti/api/runtime/shared/security/PrincipalRolesProvider;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/core/common/spring/security/SimpleGrantedAuthoritiesGroupsMapper;\",\"simpleNames\":[\"SimpleGrantedAuthoritiesGroupsMapper\"]},\"fieldName\":\"prefix\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesGroupsMapper",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          },
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesGroupsMapper",
+            "descriptor" : "(Ljava/lang/String;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/core/common/spring/security/SimpleGrantedAuthoritiesGroupsMapper;\",\"simpleNames\":[\"SimpleGrantedAuthoritiesGroupsMapper\"]},\"fieldName\":\"prefix\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesGroupsMapper",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          },
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesGroupsMapper",
+            "descriptor" : "(Ljava/lang/String;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/core/common/spring/security/SimpleGrantedAuthoritiesRolesMapper;\",\"simpleNames\":[\"SimpleGrantedAuthoritiesRolesMapper\"]},\"fieldName\":\"prefix\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesRolesMapper",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          },
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesRolesMapper",
+            "descriptor" : "(Ljava/lang/String;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/core/common/spring/security/SimpleGrantedAuthoritiesRolesMapper;\",\"simpleNames\":[\"SimpleGrantedAuthoritiesRolesMapper\"]},\"fieldName\":\"prefix\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesRolesMapper",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          },
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesRolesMapper",
+            "descriptor" : "(Ljava/lang/String;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.TrivialConstructorMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.config.ActivitiSpringSecurityAutoConfiguration",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.policies.SecurityPoliciesProcessDefinitionRestrictionApplier",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.policies.SecurityPoliciesProcessInstanceRestrictionApplier",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.policies.SecurityPolicyAccess",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/core/common/spring/security/policies/SecurityPolicyAccess;",
+            "methodName" : "valueOf"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.SyntheticMethodMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.policies.SecurityPolicyAccess",
+            "descriptor" : "()[Lorg/activiti/core/common/spring/security/policies/SecurityPolicyAccess;",
+            "methodName" : "values"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.TrivialConstructorMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.policies.config.ActivitiSpringSecurityPoliciesAutoConfiguration",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.TrivialConstructorMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.connector.autoconfigure.ConnectorAutoConfiguration",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/application/ApplicationContent;\",\"simpleNames\":[\"ApplicationContent\"]},\"fieldName\":\"entries\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.application.ApplicationContent",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoNonThrowingInputsMessage\",\"serializableCause\":{\"cause\":null,\"message\":\"Cannot invoke \\\"org.activiti.application.ApplicationEntry.getType()\\\" because \\\"entry\\\" is null\",\"originalClassName\":\"java.lang.NullPointerException\",\"stackTrace\":[{\"classLoaderName\":null,\"className\":\"org.activiti.application.ApplicationContent\",\"fileName\":\"ApplicationContent.java\",\"lineNumber\":30,\"methodName\":\"add\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.DirectMethodHandleAccessor\",\"fileName\":\"DirectMethodHandleAccessor.java\",\"lineNumber\":103,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.lang.reflect.Method\",\"fileName\":\"Method.java\",\"lineNumber\":580,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":140,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":77,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.a.f\",\"fileName\":\"SourceFile\",\"lineNumber\":852,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":463,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":99,\"methodName\":\"b\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.g.d\",\"fileName\":\"SourceFile\",\"lineNumber\":51,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":368,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":261,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.fuzztest.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":1105,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.SafeTimedExecutor\",\"fileName\":\"SourceFile\",\"lineNumber\":171,\"methodName\":\"lambda$runWithLoopIterationLimit$5\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TimedCallableExecutor$CallableFuture\",\"fileName\":\"SourceFile\",\"lineNumber\":29,\"methodName\":\"executeTask\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TaskQueueRunner\",\"fileName\":\"SourceFile\",\"lineNumber\":39,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.WorkerThread\",\"fileName\":\"SourceFile\",\"lineNumber\":265,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false}]}}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.application.ApplicationContent",
+            "descriptor" : "(Lorg/activiti/application/ApplicationEntry;)V",
+            "methodName" : "add"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/application/ApplicationDiscovery;\",\"simpleNames\":[\"ApplicationDiscovery\"]},\"fieldName\":\"applicationsLocation\"},{\"className\":{\"descriptor\":\"Lorg/activiti/application/ApplicationDiscovery;\",\"simpleNames\":[\"ApplicationDiscovery\"]},\"fieldName\":\"resourceLoader\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.application.ApplicationDiscovery",
+            "descriptor" : "(Lorg/springframework/core/io/support/ResourcePatternResolver;Ljava/lang/String;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/application/ApplicationReader;\",\"simpleNames\":[\"ApplicationReader\"]},\"fieldName\":\"applicationEntryDiscoveries\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.application.ApplicationReader",
+            "descriptor" : "(Ljava/util/List;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/application/ApplicationService;\",\"simpleNames\":[\"ApplicationService\"]},\"fieldName\":\"applicationDiscovery\"},{\"className\":{\"descriptor\":\"Lorg/activiti/application/ApplicationService;\",\"simpleNames\":[\"ApplicationService\"]},\"fieldName\":\"applicationReader\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.application.ApplicationService",
+            "descriptor" : "(Lorg/activiti/application/ApplicationDiscovery;Lorg/activiti/application/ApplicationReader;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoNonThrowingInputsMessage\",\"serializableCause\":{\"cause\":{\"cause\":null,\"message\":\"Byte array resource [resource loaded from byte array] cannot be resolved to URL\",\"originalClassName\":\"java.io.FileNotFoundException\",\"stackTrace\":[{\"classLoaderName\":null,\"className\":\"org.springframework.core.io.AbstractResource\",\"fileName\":\"AbstractResource.java\",\"lineNumber\":108,\"methodName\":\"getURL\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.springframework.core.io.support.PathMatchingResourcePatternResolver\",\"fileName\":\"PathMatchingResourcePatternResolver.java\",\"lineNumber\":592,\"methodName\":\"findPathMatchingResources\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.springframework.core.io.support.PathMatchingResourcePatternResolver\",\"fileName\":\"PathMatchingResourcePatternResolver.java\",\"lineNumber\":350,\"methodName\":\"getResources\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.springframework.context.support.AbstractApplicationContext\",\"fileName\":\"AbstractApplicationContext.java\",\"lineNumber\":1520,\"methodName\":\"getResources\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.springframework.context.support.GenericApplicationContext\",\"fileName\":\"GenericApplicationContext.java\",\"lineNumber\":263,\"methodName\":\"getResources\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.activiti.application.ApplicationDiscovery\",\"fileName\":\"ApplicationDiscovery.java\",\"lineNumber\":43,\"methodName\":\"discoverApplications\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.activiti.application.ApplicationService\",\"fileName\":\"ApplicationService.java\",\"lineNumber\":38,\"methodName\":\"loadApplications\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.activiti.application.deployer.ApplicationDeployer\",\"fileName\":\"ApplicationDeployer.java\",\"lineNumber\":36,\"methodName\":\"deploy\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.activiti.application.conf.ApplicationAutoConfiguration\",\"fileName\":\"ApplicationAutoConfiguration.java\",\"lineNumber\":50,\"methodName\":\"lambda$deployApplications$0\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.DirectMethodHandleAccessor\",\"fileName\":\"DirectMethodHandleAccessor.java\",\"lineNumber\":103,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.lang.reflect.Method\",\"fileName\":\"Method.java\",\"lineNumber\":580,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":140,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":77,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.a.f\",\"fileName\":\"SourceFile\",\"lineNumber\":852,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":463,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":99,\"methodName\":\"b\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.g.d\",\"fileName\":\"SourceFile\",\"lineNumber\":51,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":368,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":261,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.fuzztest.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":1105,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.SafeTimedExecutor\",\"fileName\":\"SourceFile\",\"lineNumber\":171,\"methodName\":\"lambda$runWithLoopIterationLimit$5\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TimedCallableExecutor$CallableFuture\",\"fileName\":\"SourceFile\",\"lineNumber\":29,\"methodName\":\"executeTask\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TaskQueueRunner\",\"fileName\":\"SourceFile\",\"lineNumber\":39,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.WorkerThread\",\"fileName\":\"SourceFile\",\"lineNumber\":265,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false}]},\"message\":\"Unable to load application resources\",\"originalClassName\":\"org.activiti.application.ApplicationLoadException\",\"stackTrace\":[{\"classLoaderName\":null,\"className\":\"org.activiti.application.ApplicationDiscovery\",\"fileName\":\"ApplicationDiscovery.java\",\"lineNumber\":45,\"methodName\":\"discoverApplications\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.activiti.application.ApplicationService\",\"fileName\":\"ApplicationService.java\",\"lineNumber\":38,\"methodName\":\"loadApplications\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.activiti.application.deployer.ApplicationDeployer\",\"fileName\":\"ApplicationDeployer.java\",\"lineNumber\":36,\"methodName\":\"deploy\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"org.activiti.application.conf.ApplicationAutoConfiguration\",\"fileName\":\"ApplicationAutoConfiguration.java\",\"lineNumber\":50,\"methodName\":\"lambda$deployApplications$0\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"jdk.internal.reflect.DirectMethodHandleAccessor\",\"fileName\":\"DirectMethodHandleAccessor.java\",\"lineNumber\":103,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"java.lang.reflect.Method\",\"fileName\":\"Method.java\",\"lineNumber\":580,\"methodName\":\"invoke\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":140,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.h\",\"fileName\":\"SourceFile\",\"lineNumber\":77,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.a.f\",\"fileName\":\"SourceFile\",\"lineNumber\":852,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":463,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":99,\"methodName\":\"b\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.g.d\",\"fileName\":\"SourceFile\",\"lineNumber\":51,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":368,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.tir.b.g\",\"fileName\":\"SourceFile\",\"lineNumber\":261,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.fuzztest.b.f\",\"fileName\":\"SourceFile\",\"lineNumber\":1105,\"methodName\":\"a\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.SafeTimedExecutor\",\"fileName\":\"SourceFile\",\"lineNumber\":171,\"methodName\":\"lambda$runWithLoopIterationLimit$5\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TimedCallableExecutor$CallableFuture\",\"fileName\":\"SourceFile\",\"lineNumber\":29,\"methodName\":\"executeTask\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.TaskQueueRunner\",\"fileName\":\"SourceFile\",\"lineNumber\":39,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false},{\"classLoaderName\":null,\"className\":\"com.diffblue.cover.sandbox.execution.WorkerThread\",\"fileName\":\"SourceFile\",\"lineNumber\":265,\"methodName\":\"run\",\"moduleName\":null,\"moduleVersion\":null,\"nativeMethod\":false}]}}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.application.conf.ApplicationAutoConfiguration",
+            "descriptor" : "(Lorg/springframework/core/io/support/ResourcePatternResolver;Ljava/util/List;Ljava/util/List;Ljava/lang/String;)Lorg/springframework/beans/factory/InitializingBean;",
+            "methodName" : "deployApplications"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.TrivialConstructorMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.application.conf.ApplicationAutoConfiguration",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/application/deployer/ApplicationDeployer;\",\"simpleNames\":[\"ApplicationDeployer\"]},\"fieldName\":\"applicationLoader\"},{\"className\":{\"descriptor\":\"Lorg/activiti/application/deployer/ApplicationDeployer;\",\"simpleNames\":[\"ApplicationDeployer\"]},\"fieldName\":\"deployers\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.application.deployer.ApplicationDeployer",
+            "descriptor" : "(Lorg/activiti/application/ApplicationService;Ljava/util/List;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.MissingObserverMessage\",\"fields\":[{\"className\":{\"descriptor\":\"Lorg/activiti/spring/resources/ResourceFinder;\",\"simpleNames\":[\"ResourceFinder\"]},\"fieldName\":\"resourceLoader\"}],\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.spring.resources.ResourceFinder",
+            "descriptor" : "(Lorg/springframework/core/io/support/ResourcePatternResolver;)V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.NoMeaningfulAssertionMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.spring.resources.conf.ResourceFinderAutoConfiguration",
+            "descriptor" : "(Lorg/springframework/core/io/support/ResourcePatternResolver;)Lorg/activiti/spring/resources/ResourceFinder;",
+            "methodName" : "resourceFinderImpl"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.TrivialConstructorMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.spring.resources.conf.ResourceFinderAutoConfiguration",
+            "descriptor" : "()V",
+            "methodName" : "<init>"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+/*
+ * Copyright 2010-2020 Alfresco Software, Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.activiti.spring;
+
+import static org.junit.Assert.assertNull;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import jakarta.transaction.InvalidTransactionException;
+import jakarta.transaction.SystemException;
+import jakarta.transaction.Transaction;
+import jakarta.transaction.TransactionManager;
+import org.activiti.engine.impl.cfg.TransactionPropagation;
+import org.activiti.engine.impl.interceptor.Command;
+import org.activiti.engine.impl.interceptor.CommandConfig;
+import org.activiti.engine.impl.interceptor.CommandContextInterceptor;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.mockito.Mockito;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.jta.JtaTransactionManager;
+import org.springframework.transaction.jta.ManagedTransactionAdapter;
+
+public class SpringTransactionInterceptorDiffblueTest {
+  /**
+   * Test {@link
+   * SpringTransactionInterceptor#SpringTransactionInterceptor(PlatformTransactionManager)}.
+   *
+   * <p>Method under test: {@link
+   * SpringTransactionInterceptor#SpringTransactionInterceptor(PlatformTransactionManager)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void SpringTransactionInterceptor.<init>(PlatformTransactionManager)"})
+  public void testNewSpringTransactionInterceptor() {
+    // Arrange, Act and Assert
+    assertNull(new SpringTransactionInterceptor(new DataSourceTransactionManager()).getNext());
+  }
+
+  /**
+   * Test {@link SpringTransactionInterceptor#execute(CommandConfig, Command)}.
+   *
+   * <ul>
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link SpringTransactionInterceptor#execute(CommandConfig, Command)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Object SpringTransactionInterceptor.execute(CommandConfig, Command)"})
+  public void testExecute_thenReturnNull()
+      throws InvalidTransactionException, SystemException, IllegalStateException {
+    // Arrange
+    TransactionManager transactionManager = mock(TransactionManager.class);
+    doNothing().when(transactionManager).resume(Mockito.<Transaction>any());
+    when(transactionManager.suspend())
+        .thenReturn(new ManagedTransactionAdapter(mock(TransactionManager.class)));
+    when(transactionManager.getStatus()).thenReturn(1);
+    JtaTransactionManager transactionManager2 = new JtaTransactionManager(transactionManager);
+
+    SpringTransactionInterceptor springTransactionInterceptor =
+        new SpringTransactionInterceptor(transactionManager2);
+    springTransactionInterceptor.setNext(mock(CommandContextInterceptor.class));
+
+    CommandConfig config = mock(CommandConfig.class);
+    when(config.getTransactionPropagation()).thenReturn(TransactionPropagation.NOT_SUPPORTED);
+
+    // Act
+    Object actualExecuteResult = springTransactionInterceptor.execute(config, mock(Command.class));
+
+    // Assert
+    verify(transactionManager).getStatus();
+    verify(transactionManager).resume(isA(Transaction.class));
+    verify(transactionManager).suspend();
+    verify(config, atLeast(1)).getTransactionPropagation();
+    assertNull(actualExecuteResult);
+  }
+}

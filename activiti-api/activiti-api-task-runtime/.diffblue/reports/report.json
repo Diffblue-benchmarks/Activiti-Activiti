@@ -1,0 +1,347 @@
+{
+  "meta" : {
+    "reportVersion" : "2.8"
+  },
+  "run" : {
+    "version" : "2025.11.01-3385b9f-licensed",
+    "creationTimestamp" : "2025-11-12T08:33:38.370159509Z",
+    "command" : "dcover coverage-reports --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals",
+    "totalTime" : 21.897,
+    "environmentDetectionTime" : 10.517,
+    "indexingTime" : 0.0,
+    "entryPointsTime" : 0.0,
+    "generationTime" : 0.0,
+    "timeToFirstTest" : 21.897,
+    "timeToLastTest" : 21.897,
+    "indexQueryTime" : 0.0,
+    "verificationTime" : 0.0,
+    "validationTime" : 0.0
+  },
+  "codes" : {
+    "T010" : "Abstract or interface method"
+  },
+  "summary" : {
+    "classesCount" : 4,
+    "methodsCount" : 43,
+    "cumulativeDiffblueTestCount" : 0,
+    "cumulativeManualTestCount" : 0,
+    "completeTestCount" : 0,
+    "incompleteTestCount" : 0,
+    "skeletonTestCount" : 0,
+    "totalPhysicalLineCount" : 109,
+    "perMethodTestability" : {
+      "T010" : 43
+    },
+    "perMethodOutcome" : {
+      "T010" : 43
+    }
+  },
+  "classes" : {
+    "org.activiti.api.task.runtime.TaskAdminRuntime" : {
+      "methodsCount" : 19,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 19
+      },
+      "perMethodOutcome" : {
+        "T010" : 19
+      }
+    },
+    "org.activiti.api.task.runtime.TaskRuntime" : {
+      "methodsCount" : 21,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 21
+      },
+      "perMethodOutcome" : {
+        "T010" : 21
+      }
+    },
+    "org.activiti.api.task.runtime.conf.TaskRuntimeConfiguration" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 2
+      },
+      "perMethodOutcome" : {
+        "T010" : 2
+      }
+    },
+    "org.activiti.api.task.runtime.events.listener.TaskRuntimeEventListener" : {
+      "methodsCount" : 1,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 1
+      },
+      "perMethodOutcome" : {
+        "T010" : 1
+      }
+    }
+  },
+  "methods" : {
+    "org.activiti.api.task.runtime.TaskAdminRuntime.addCandidateGroups:(Lorg/activiti/api/task/model/payloads/CandidateGroupsPayload;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskAdminRuntime.addCandidateUsers:(Lorg/activiti/api/task/model/payloads/CandidateUsersPayload;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskAdminRuntime.assign:(Lorg/activiti/api/task/model/payloads/AssignTaskPayload;)Lorg/activiti/api/task/model/Task;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskAdminRuntime.assignMultiple:(Lorg/activiti/api/task/model/payloads/AssignTasksPayload;)Lorg/activiti/api/runtime/shared/query/Page;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskAdminRuntime.claim:(Lorg/activiti/api/task/model/payloads/ClaimTaskPayload;)Lorg/activiti/api/task/model/Task;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskAdminRuntime.complete:(Lorg/activiti/api/task/model/payloads/CompleteTaskPayload;)Lorg/activiti/api/task/model/Task;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskAdminRuntime.createVariable:(Lorg/activiti/api/task/model/payloads/CreateTaskVariablePayload;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskAdminRuntime.delete:(Lorg/activiti/api/task/model/payloads/DeleteTaskPayload;)Lorg/activiti/api/task/model/Task;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskAdminRuntime.deleteCandidateGroups:(Lorg/activiti/api/task/model/payloads/CandidateGroupsPayload;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskAdminRuntime.deleteCandidateUsers:(Lorg/activiti/api/task/model/payloads/CandidateUsersPayload;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskAdminRuntime.groupCandidates:(Ljava/lang/String;)Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskAdminRuntime.release:(Lorg/activiti/api/task/model/payloads/ReleaseTaskPayload;)Lorg/activiti/api/task/model/Task;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskAdminRuntime.task:(Ljava/lang/String;)Lorg/activiti/api/task/model/Task;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskAdminRuntime.tasks:(Lorg/activiti/api/runtime/shared/query/Pageable;)Lorg/activiti/api/runtime/shared/query/Page;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskAdminRuntime.tasks:(Lorg/activiti/api/runtime/shared/query/Pageable;Lorg/activiti/api/task/model/payloads/GetTasksPayload;)Lorg/activiti/api/runtime/shared/query/Page;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskAdminRuntime.update:(Lorg/activiti/api/task/model/payloads/UpdateTaskPayload;)Lorg/activiti/api/task/model/Task;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskAdminRuntime.updateVariable:(Lorg/activiti/api/task/model/payloads/UpdateTaskVariablePayload;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskAdminRuntime.userCandidates:(Ljava/lang/String;)Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskAdminRuntime.variables:(Lorg/activiti/api/task/model/payloads/GetTaskVariablesPayload;)Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskRuntime.addCandidateGroups:(Lorg/activiti/api/task/model/payloads/CandidateGroupsPayload;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskRuntime.addCandidateUsers:(Lorg/activiti/api/task/model/payloads/CandidateUsersPayload;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskRuntime.assign:(Lorg/activiti/api/task/model/payloads/AssignTaskPayload;)Lorg/activiti/api/task/model/Task;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskRuntime.claim:(Lorg/activiti/api/task/model/payloads/ClaimTaskPayload;)Lorg/activiti/api/task/model/Task;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskRuntime.complete:(Lorg/activiti/api/task/model/payloads/CompleteTaskPayload;)Lorg/activiti/api/task/model/Task;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskRuntime.configuration:()Lorg/activiti/api/task/runtime/conf/TaskRuntimeConfiguration;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskRuntime.create:(Lorg/activiti/api/task/model/payloads/CreateTaskPayload;)Lorg/activiti/api/task/model/Task;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskRuntime.createVariable:(Lorg/activiti/api/task/model/payloads/CreateTaskVariablePayload;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskRuntime.delete:(Lorg/activiti/api/task/model/payloads/DeleteTaskPayload;)Lorg/activiti/api/task/model/Task;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskRuntime.deleteCandidateGroups:(Lorg/activiti/api/task/model/payloads/CandidateGroupsPayload;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskRuntime.deleteCandidateUsers:(Lorg/activiti/api/task/model/payloads/CandidateUsersPayload;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskRuntime.groupCandidates:(Ljava/lang/String;)Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskRuntime.release:(Lorg/activiti/api/task/model/payloads/ReleaseTaskPayload;)Lorg/activiti/api/task/model/Task;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskRuntime.save:(Lorg/activiti/api/task/model/payloads/SaveTaskPayload;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskRuntime.task:(Ljava/lang/String;)Lorg/activiti/api/task/model/Task;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskRuntime.tasks:(Lorg/activiti/api/runtime/shared/query/Pageable;)Lorg/activiti/api/runtime/shared/query/Page;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskRuntime.tasks:(Lorg/activiti/api/runtime/shared/query/Pageable;Lorg/activiti/api/task/model/payloads/GetTasksPayload;)Lorg/activiti/api/runtime/shared/query/Page;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskRuntime.update:(Lorg/activiti/api/task/model/payloads/UpdateTaskPayload;)Lorg/activiti/api/task/model/Task;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskRuntime.updateVariable:(Lorg/activiti/api/task/model/payloads/UpdateTaskVariablePayload;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskRuntime.userCandidates:(Ljava/lang/String;)Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.TaskRuntime.variables:(Lorg/activiti/api/task/model/payloads/GetTaskVariablesPayload;)Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.conf.TaskRuntimeConfiguration.taskRuntimeEventListeners:()Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.conf.TaskRuntimeConfiguration.variableEventListeners:()Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.task.runtime.events.listener.TaskRuntimeEventListener.onEvent:(Lorg/activiti/api/model/shared/event/RuntimeEvent;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    }
+  },
+  "validationMetrics" : { },
+  "outputCodes" : [ ]
+}

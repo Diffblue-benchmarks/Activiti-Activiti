@@ -1,0 +1,496 @@
+/*
+ * Copyright 2010-2020 Alfresco Software, Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.activiti.validation;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.HashMap;
+import java.util.Map;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+
+class ValidationErrorDiffblueTest {
+  /**
+   * Test {@link ValidationError#toString()}.
+   *
+   * <p>Method under test: {@link ValidationError#toString()}
+   */
+  @Test
+  @DisplayName("Test toString()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ValidationError.toString()"})
+  void testToString() {
+    // Arrange
+    ValidationError validationError = new ValidationError();
+    validationError.setActivityName(" - [Extra info : ");
+
+    // Act and Assert
+    assertEquals(
+        "[Validation set: 'null' | Problem: 'null'] : null - [Extra info : activityName =  - [Extra"
+            + " info :  | ]",
+        validationError.toString());
+  }
+
+  /**
+   * Test {@link ValidationError#toString()}.
+   *
+   * <ul>
+   *   <li>Given {@link HashMap#HashMap()} {@code - [Extra info :} is {@code 42}.
+   *   <li>Then return a string.
+   * </ul>
+   *
+   * <p>Method under test: {@link ValidationError#toString()}
+   */
+  @Test
+  @DisplayName("Test toString(); given HashMap() '- [Extra info :' is '42'; then return a string")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ValidationError.toString()"})
+  void testToString_givenHashMapExtraInfoIs42_thenReturnAString() {
+    // Arrange
+    HashMap<String, String> params = new HashMap<>();
+    params.put(" - [Extra info : ", "42");
+
+    ValidationError validationError = new ValidationError();
+    validationError.setDefaultDescription("Default Description");
+    validationError.setProblem("Problem");
+    validationError.setValidatorSetName("Validator Set Name");
+    validationError.setWarning(true);
+    validationError.setProcessDefinitionId("foo");
+    validationError.setProcessDefinitionName("foo");
+    validationError.setActivityId("foo");
+    validationError.setActivityName("foo");
+    validationError.setXmlLineNumber(0);
+    validationError.setXmlColumnNumber(0);
+    validationError.setKey("foo");
+    validationError.setParams(params);
+
+    // Act and Assert
+    assertEquals(
+        "[Validation set: 'Validator Set Name' | Problem: 'Problem'] : Default Description - [Extra info :"
+            + " processDefinitionId = foo | processDefinitionName = foo |  | id = foo |  | activityName = foo |  | "
+            + " ( key: foo ) |  (  - [Extra info :  = 42 | )]",
+        validationError.toString());
+  }
+
+  /**
+   * Test {@link ValidationError#toString()}.
+   *
+   * <ul>
+   *   <li>Given {@link ValidationError} (default constructor) Params is {@code null}.
+   *   <li>Then return a string.
+   * </ul>
+   *
+   * <p>Method under test: {@link ValidationError#toString()}
+   */
+  @Test
+  @DisplayName(
+      "Test toString(); given ValidationError (default constructor) Params is 'null'; then return a string")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ValidationError.toString()"})
+  void testToString_givenValidationErrorParamsIsNull_thenReturnAString() {
+    // Arrange
+    ValidationError validationError = new ValidationError();
+    validationError.setDefaultDescription("Default Description");
+    validationError.setProblem("Problem");
+    validationError.setValidatorSetName("Validator Set Name");
+    validationError.setWarning(true);
+    validationError.setProcessDefinitionId("foo");
+    validationError.setProcessDefinitionName("foo");
+    validationError.setActivityId("foo");
+    validationError.setActivityName("foo");
+    validationError.setXmlLineNumber(0);
+    validationError.setXmlColumnNumber(0);
+    validationError.setKey("foo");
+    validationError.setParams(null);
+
+    // Act and Assert
+    assertEquals(
+        "[Validation set: 'Validator Set Name' | Problem: 'Problem'] : Default Description - [Extra info :"
+            + " processDefinitionId = foo | processDefinitionName = foo |  | id = foo |  | activityName = foo |  | "
+            + " ( key: foo )]",
+        validationError.toString());
+  }
+
+  /**
+   * Test {@link ValidationError#toString()}.
+   *
+   * <ul>
+   *   <li>Given {@link ValidationError} (default constructor) ProcessDefinitionName is {@code -
+   *       [Extra info :}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ValidationError#toString()}
+   */
+  @Test
+  @DisplayName(
+      "Test toString(); given ValidationError (default constructor) ProcessDefinitionName is '- [Extra info :'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ValidationError.toString()"})
+  void testToString_givenValidationErrorProcessDefinitionNameIsExtraInfo() {
+    // Arrange
+    ValidationError validationError = new ValidationError();
+    validationError.setProcessDefinitionName(" - [Extra info : ");
+
+    // Act and Assert
+    assertEquals(
+        "[Validation set: 'null' | Problem: 'null'] : null - [Extra info : processDefinitionName =  - [Extra"
+            + " info :  | ]",
+        validationError.toString());
+  }
+
+  /**
+   * Test {@link ValidationError#toString()}.
+   *
+   * <ul>
+   *   <li>Given {@link ValidationError} (default constructor) XmlColumnNumber is one.
+   *   <li>Then return a string.
+   * </ul>
+   *
+   * <p>Method under test: {@link ValidationError#toString()}
+   */
+  @Test
+  @DisplayName(
+      "Test toString(); given ValidationError (default constructor) XmlColumnNumber is one; then return a string")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ValidationError.toString()"})
+  void testToString_givenValidationErrorXmlColumnNumberIsOne_thenReturnAString() {
+    // Arrange
+    ValidationError validationError = new ValidationError();
+    validationError.setDefaultDescription("Default Description");
+    validationError.setProblem("Problem");
+    validationError.setValidatorSetName("Validator Set Name");
+    validationError.setWarning(true);
+    validationError.setProcessDefinitionId("foo");
+    validationError.setProcessDefinitionName("foo");
+    validationError.setActivityId("foo");
+    validationError.setActivityName("foo");
+    validationError.setXmlLineNumber(1);
+    validationError.setXmlColumnNumber(1);
+    validationError.setKey("foo");
+    validationError.setParams(new HashMap<>());
+
+    // Act and Assert
+    assertEquals(
+        "[Validation set: 'Validator Set Name' | Problem: 'Problem'] : Default Description - [Extra info :"
+            + " processDefinitionId = foo | processDefinitionName = foo |  | id = foo |  | activityName = foo |  ("
+            + " line: 1, column: 1) |  ( key: foo )]",
+        validationError.toString());
+  }
+
+  /**
+   * Test {@link ValidationError#toString()}.
+   *
+   * <ul>
+   *   <li>Given {@link ValidationError} (default constructor) XmlLineNumber is one.
+   *   <li>Then return a string.
+   * </ul>
+   *
+   * <p>Method under test: {@link ValidationError#toString()}
+   */
+  @Test
+  @DisplayName(
+      "Test toString(); given ValidationError (default constructor) XmlLineNumber is one; then return a string")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ValidationError.toString()"})
+  void testToString_givenValidationErrorXmlLineNumberIsOne_thenReturnAString() {
+    // Arrange
+    ValidationError validationError = new ValidationError();
+    validationError.setDefaultDescription("Default Description");
+    validationError.setProblem("Problem");
+    validationError.setValidatorSetName("Validator Set Name");
+    validationError.setWarning(true);
+    validationError.setProcessDefinitionId("foo");
+    validationError.setProcessDefinitionName("foo");
+    validationError.setActivityId("foo");
+    validationError.setActivityName("foo");
+    validationError.setXmlLineNumber(1);
+    validationError.setXmlColumnNumber(0);
+    validationError.setKey("foo");
+    validationError.setParams(new HashMap<>());
+
+    // Act and Assert
+    assertEquals(
+        "[Validation set: 'Validator Set Name' | Problem: 'Problem'] : Default Description - [Extra info :"
+            + " processDefinitionId = foo | processDefinitionName = foo |  | id = foo |  | activityName = foo |  | "
+            + " ( key: foo )]",
+        validationError.toString());
+  }
+
+  /**
+   * Test {@link ValidationError#toString()}.
+   *
+   * <ul>
+   *   <li>Given {@link ValidationError} (default constructor) XmlLineNumber is zero.
+   *   <li>Then return a string.
+   * </ul>
+   *
+   * <p>Method under test: {@link ValidationError#toString()}
+   */
+  @Test
+  @DisplayName(
+      "Test toString(); given ValidationError (default constructor) XmlLineNumber is zero; then return a string")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ValidationError.toString()"})
+  void testToString_givenValidationErrorXmlLineNumberIsZero_thenReturnAString() {
+    // Arrange
+    ValidationError validationError = new ValidationError();
+    validationError.setDefaultDescription("Default Description");
+    validationError.setProblem("Problem");
+    validationError.setValidatorSetName("Validator Set Name");
+    validationError.setWarning(true);
+    validationError.setProcessDefinitionId("foo");
+    validationError.setProcessDefinitionName("foo");
+    validationError.setActivityId("foo");
+    validationError.setActivityName("foo");
+    validationError.setXmlLineNumber(0);
+    validationError.setXmlColumnNumber(0);
+    validationError.setKey("foo");
+    validationError.setParams(new HashMap<>());
+
+    // Act and Assert
+    assertEquals(
+        "[Validation set: 'Validator Set Name' | Problem: 'Problem'] : Default Description - [Extra info :"
+            + " processDefinitionId = foo | processDefinitionName = foo |  | id = foo |  | activityName = foo |  | "
+            + " ( key: foo )]",
+        validationError.toString());
+  }
+
+  /**
+   * Test {@link ValidationError#toString()}.
+   *
+   * <ul>
+   *   <li>Then return {@code [Validation set: 'null' | Problem: 'null'] : null - [Extra info : ]}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ValidationError#toString()}
+   */
+  @Test
+  @DisplayName(
+      "Test toString(); then return '[Validation set: 'null' | Problem: 'null'] : null - [Extra info : ]'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ValidationError.toString()"})
+  void testToString_thenReturnValidationSetNullProblemNullNullExtraInfo() {
+    // Arrange, Act and Assert
+    assertEquals(
+        "[Validation set: 'null' | Problem: 'null'] : null - [Extra info : ]",
+        new ValidationError().toString());
+  }
+
+  /**
+   * Test {@link ValidationError#toString()}.
+   *
+   * <ul>
+   *   <li>Then return {@code [Validation set: 'null' | Problem: 'null'] : null - [Extra info : id =
+   *       42 | ]}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ValidationError#toString()}
+   */
+  @Test
+  @DisplayName(
+      "Test toString(); then return '[Validation set: 'null' | Problem: 'null'] : null - [Extra info : id = 42 | ]'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ValidationError.toString()"})
+  void testToString_thenReturnValidationSetNullProblemNullNullExtraInfoId42() {
+    // Arrange
+    ValidationError validationError = new ValidationError();
+    validationError.setActivityId("42");
+
+    // Act and Assert
+    assertEquals(
+        "[Validation set: 'null' | Problem: 'null'] : null - [Extra info : id = 42 | ]",
+        validationError.toString());
+  }
+
+  /**
+   * Test {@link ValidationError#toString()}.
+   *
+   * <ul>
+   *   <li>Then return {@code [Validation set: 'null' | Problem: 'null'] : null - [Extra info : (
+   *       Key = 42 | )]}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ValidationError#toString()}
+   */
+  @Test
+  @DisplayName(
+      "Test toString(); then return '[Validation set: 'null' | Problem: 'null'] : null - [Extra info : ( Key = 42 | )]'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ValidationError.toString()"})
+  void testToString_thenReturnValidationSetNullProblemNullNullExtraInfoKey42() {
+    // Arrange
+    HashMap<String, String> params = new HashMap<>();
+    params.put("Key", "42");
+
+    ValidationError validationError = new ValidationError();
+    validationError.setParams(params);
+
+    // Act and Assert
+    assertEquals(
+        "[Validation set: 'null' | Problem: 'null'] : null - [Extra info :  ( Key = 42 | )]",
+        validationError.toString());
+  }
+
+  /**
+   * Test {@link ValidationError#toString()}.
+   *
+   * <ul>
+   *   <li>Then return {@code [Validation set: 'null' | Problem: 'null'] : null - [Extra info : (
+   *       key: - [Extra info : )]}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ValidationError#toString()}
+   */
+  @Test
+  @DisplayName(
+      "Test toString(); then return '[Validation set: 'null' | Problem: 'null'] : null - [Extra info : ( key: - [Extra info : )]'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String ValidationError.toString()"})
+  void testToString_thenReturnValidationSetNullProblemNullNullExtraInfoKeyExtraInfo() {
+    // Arrange
+    ValidationError validationError = new ValidationError();
+    validationError.setKey(" - [Extra info : ");
+
+    // Act and Assert
+    assertEquals(
+        "[Validation set: 'null' | Problem: 'null'] : null - [Extra info :  ( key:  - [Extra info :  )]",
+        validationError.toString());
+  }
+
+  /**
+   * Test getters and setters.
+   *
+   * <p>Methods under test:
+   *
+   * <ul>
+   *   <li>default or parameterless constructor of {@link ValidationError}
+   *   <li>{@link ValidationError#setActivityId(String)}
+   *   <li>{@link ValidationError#setActivityName(String)}
+   *   <li>{@link ValidationError#setDefaultDescription(String)}
+   *   <li>{@link ValidationError#setKey(String)}
+   *   <li>{@link ValidationError#setParams(Map)}
+   *   <li>{@link ValidationError#setProblem(String)}
+   *   <li>{@link ValidationError#setProcessDefinitionId(String)}
+   *   <li>{@link ValidationError#setProcessDefinitionName(String)}
+   *   <li>{@link ValidationError#setValidatorSetName(String)}
+   *   <li>{@link ValidationError#setWarning(boolean)}
+   *   <li>{@link ValidationError#setXmlColumnNumber(int)}
+   *   <li>{@link ValidationError#setXmlLineNumber(int)}
+   *   <li>{@link ValidationError#getActivityId()}
+   *   <li>{@link ValidationError#getActivityName()}
+   *   <li>{@link ValidationError#getDefaultDescription()}
+   *   <li>{@link ValidationError#getKey()}
+   *   <li>{@link ValidationError#getParams()}
+   *   <li>{@link ValidationError#getProblem()}
+   *   <li>{@link ValidationError#getProcessDefinitionId()}
+   *   <li>{@link ValidationError#getProcessDefinitionName()}
+   *   <li>{@link ValidationError#getValidatorSetName()}
+   *   <li>{@link ValidationError#getXmlColumnNumber()}
+   *   <li>{@link ValidationError#getXmlLineNumber()}
+   *   <li>{@link ValidationError#isWarning()}
+   * </ul>
+   */
+  @Test
+  @DisplayName("Test getters and setters")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void ValidationError.<init>()",
+    "String ValidationError.getActivityId()",
+    "String ValidationError.getActivityName()",
+    "String ValidationError.getDefaultDescription()",
+    "String ValidationError.getKey()",
+    "Map ValidationError.getParams()",
+    "String ValidationError.getProblem()",
+    "String ValidationError.getProcessDefinitionId()",
+    "String ValidationError.getProcessDefinitionName()",
+    "String ValidationError.getValidatorSetName()",
+    "int ValidationError.getXmlColumnNumber()",
+    "int ValidationError.getXmlLineNumber()",
+    "boolean ValidationError.isWarning()",
+    "void ValidationError.setActivityId(String)",
+    "void ValidationError.setActivityName(String)",
+    "void ValidationError.setDefaultDescription(String)",
+    "void ValidationError.setKey(String)",
+    "void ValidationError.setParams(Map)",
+    "void ValidationError.setProblem(String)",
+    "void ValidationError.setProcessDefinitionId(String)",
+    "void ValidationError.setProcessDefinitionName(String)",
+    "void ValidationError.setValidatorSetName(String)",
+    "void ValidationError.setWarning(boolean)",
+    "void ValidationError.setXmlColumnNumber(int)",
+    "void ValidationError.setXmlLineNumber(int)"
+  })
+  void testGettersAndSetters() {
+    // Arrange and Act
+    ValidationError actualValidationError = new ValidationError();
+    actualValidationError.setActivityId("42");
+    actualValidationError.setActivityName("Activity Name");
+    actualValidationError.setDefaultDescription("Default Description");
+    actualValidationError.setKey("Key");
+    HashMap<String, String> params = new HashMap<>();
+    actualValidationError.setParams(params);
+    actualValidationError.setProblem("Problem");
+    actualValidationError.setProcessDefinitionId("42");
+    actualValidationError.setProcessDefinitionName("Process Definition Name");
+    actualValidationError.setValidatorSetName("Validator Set Name");
+    actualValidationError.setWarning(true);
+    actualValidationError.setXmlColumnNumber(10);
+    actualValidationError.setXmlLineNumber(2);
+    String actualActivityId = actualValidationError.getActivityId();
+    String actualActivityName = actualValidationError.getActivityName();
+    String actualDefaultDescription = actualValidationError.getDefaultDescription();
+    String actualKey = actualValidationError.getKey();
+    Map<String, String> actualParams = actualValidationError.getParams();
+    String actualProblem = actualValidationError.getProblem();
+    String actualProcessDefinitionId = actualValidationError.getProcessDefinitionId();
+    String actualProcessDefinitionName = actualValidationError.getProcessDefinitionName();
+    String actualValidatorSetName = actualValidationError.getValidatorSetName();
+    int actualXmlColumnNumber = actualValidationError.getXmlColumnNumber();
+    int actualXmlLineNumber = actualValidationError.getXmlLineNumber();
+    boolean actualIsWarningResult = actualValidationError.isWarning();
+
+    // Assert
+    assertEquals("42", actualActivityId);
+    assertEquals("42", actualProcessDefinitionId);
+    assertEquals("Activity Name", actualActivityName);
+    assertEquals("Default Description", actualDefaultDescription);
+    assertEquals("Key", actualKey);
+    assertEquals("Problem", actualProblem);
+    assertEquals("Process Definition Name", actualProcessDefinitionName);
+    assertEquals("Validator Set Name", actualValidatorSetName);
+    assertEquals(10, actualXmlColumnNumber);
+    assertEquals(2, actualXmlLineNumber);
+    assertTrue(actualParams.isEmpty());
+    assertTrue(actualIsWarningResult);
+    assertSame(params, actualParams);
+  }
+}

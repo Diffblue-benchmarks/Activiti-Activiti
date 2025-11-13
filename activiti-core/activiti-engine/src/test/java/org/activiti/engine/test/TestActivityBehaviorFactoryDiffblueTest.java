@@ -1,0 +1,2279 @@
+/*
+ * Copyright 2010-2020 Alfresco Software, Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.activiti.engine.test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.Map;
+import java.util.Set;
+import org.activiti.bpmn.model.Activity;
+import org.activiti.bpmn.model.AdhocSubProcess;
+import org.activiti.bpmn.model.BoundaryEvent;
+import org.activiti.bpmn.model.BusinessRuleTask;
+import org.activiti.bpmn.model.CallActivity;
+import org.activiti.bpmn.model.CancelEventDefinition;
+import org.activiti.bpmn.model.CompensateEventDefinition;
+import org.activiti.bpmn.model.EndEvent;
+import org.activiti.bpmn.model.ErrorEventDefinition;
+import org.activiti.bpmn.model.IntermediateCatchEvent;
+import org.activiti.bpmn.model.ManualTask;
+import org.activiti.bpmn.model.Message;
+import org.activiti.bpmn.model.MessageEventDefinition;
+import org.activiti.bpmn.model.ReceiveTask;
+import org.activiti.bpmn.model.ScriptTask;
+import org.activiti.bpmn.model.SendTask;
+import org.activiti.bpmn.model.ServiceTask;
+import org.activiti.bpmn.model.Signal;
+import org.activiti.bpmn.model.SignalEventDefinition;
+import org.activiti.bpmn.model.StartEvent;
+import org.activiti.bpmn.model.SubProcess;
+import org.activiti.bpmn.model.Task;
+import org.activiti.bpmn.model.ThrowEvent;
+import org.activiti.bpmn.model.TimerEventDefinition;
+import org.activiti.bpmn.model.Transaction;
+import org.activiti.bpmn.model.UserTask;
+import org.activiti.engine.delegate.DelegateExecution;
+import org.activiti.engine.impl.bpmn.behavior.AbstractBpmnActivityBehavior;
+import org.activiti.engine.impl.bpmn.behavior.BoundaryMessageEventActivityBehavior;
+import org.activiti.engine.impl.bpmn.behavior.CallActivityBehavior;
+import org.activiti.engine.impl.bpmn.behavior.IntermediateCatchMessageEventActivityBehavior;
+import org.activiti.engine.impl.bpmn.behavior.IntermediateThrowMessageEventActivityBehavior;
+import org.activiti.engine.impl.bpmn.behavior.ParallelMultiInstanceBehavior;
+import org.activiti.engine.impl.bpmn.behavior.SequentialMultiInstanceBehavior;
+import org.activiti.engine.impl.bpmn.behavior.TerminateEndEventActivityBehavior;
+import org.activiti.engine.impl.bpmn.behavior.ThrowMessageEndEventActivityBehavior;
+import org.activiti.engine.impl.bpmn.helper.ClassDelegate;
+import org.activiti.engine.impl.bpmn.parser.factory.ActivityBehaviorFactory;
+import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
+import org.activiti.engine.impl.bpmn.parser.factory.DefaultMessageExecutionContext;
+import org.activiti.engine.impl.bpmn.parser.factory.DefaultMessageExecutionContextFactory;
+import org.activiti.engine.impl.bpmn.parser.factory.MessageExecutionContext;
+import org.activiti.engine.impl.delegate.ActivityBehavior;
+import org.activiti.engine.impl.delegate.BpmnMessagePayloadMappingProvider;
+import org.activiti.engine.impl.delegate.BpmnMessagePayloadMappingProviderFactory;
+import org.activiti.engine.impl.delegate.DefaultThrowMessageJavaDelegate;
+import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.mockito.Mockito;
+
+public class TestActivityBehaviorFactoryDiffblueTest {
+  /**
+   * Test {@link TestActivityBehaviorFactory#TestActivityBehaviorFactory()}.
+   *
+   * <p>Method under test: {@link TestActivityBehaviorFactory#TestActivityBehaviorFactory()}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void TestActivityBehaviorFactory.<init>()"})
+  public void testNewTestActivityBehaviorFactory() {
+    // Arrange and Act
+    TestActivityBehaviorFactory actualTestActivityBehaviorFactory =
+        new TestActivityBehaviorFactory();
+
+    // Assert
+    assertTrue(
+        actualTestActivityBehaviorFactory.getMessageExecutionContextFactory()
+            instanceof DefaultMessageExecutionContextFactory);
+    assertTrue(
+        actualTestActivityBehaviorFactory.getMessagePayloadMappingProviderFactory()
+            instanceof BpmnMessagePayloadMappingProviderFactory);
+    assertNull(actualTestActivityBehaviorFactory.getWrappedActivityBehaviorFactory());
+    assertNull(actualTestActivityBehaviorFactory.getExpressionManager());
+    assertFalse(actualTestActivityBehaviorFactory.allServiceTasksNoOp);
+    assertTrue(actualTestActivityBehaviorFactory.mockedClassDelegatesMapping.isEmpty());
+    assertTrue(actualTestActivityBehaviorFactory.noOpServiceTaskClassNames.isEmpty());
+    assertTrue(actualTestActivityBehaviorFactory.noOpServiceTaskIds.isEmpty());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#TestActivityBehaviorFactory(ActivityBehaviorFactory)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#TestActivityBehaviorFactory(ActivityBehaviorFactory)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void TestActivityBehaviorFactory.<init>(ActivityBehaviorFactory)"})
+  public void testNewTestActivityBehaviorFactory2() {
+    // Arrange
+    DefaultActivityBehaviorFactory wrappedActivityBehaviorFactory =
+        new DefaultActivityBehaviorFactory();
+
+    // Act
+    TestActivityBehaviorFactory actualTestActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(wrappedActivityBehaviorFactory);
+
+    // Assert
+    assertTrue(
+        actualTestActivityBehaviorFactory.getMessageExecutionContextFactory()
+            instanceof DefaultMessageExecutionContextFactory);
+    assertTrue(
+        actualTestActivityBehaviorFactory.getMessagePayloadMappingProviderFactory()
+            instanceof BpmnMessagePayloadMappingProviderFactory);
+    assertNull(actualTestActivityBehaviorFactory.getExpressionManager());
+    assertFalse(actualTestActivityBehaviorFactory.allServiceTasksNoOp);
+    assertTrue(actualTestActivityBehaviorFactory.mockedClassDelegatesMapping.isEmpty());
+    assertTrue(actualTestActivityBehaviorFactory.noOpServiceTaskClassNames.isEmpty());
+    assertTrue(actualTestActivityBehaviorFactory.noOpServiceTaskIds.isEmpty());
+    assertSame(
+        wrappedActivityBehaviorFactory,
+        actualTestActivityBehaviorFactory.getWrappedActivityBehaviorFactory());
+  }
+
+  /**
+   * Test getters and setters.
+   *
+   * <p>Methods under test:
+   *
+   * <ul>
+   *   <li>{@link
+   *       TestActivityBehaviorFactory#setWrappedActivityBehaviorFactory(ActivityBehaviorFactory)}
+   *   <li>{@link TestActivityBehaviorFactory#setAllServiceTasksNoOp()}
+   *   <li>{@link TestActivityBehaviorFactory#getWrappedActivityBehaviorFactory()}
+   * </ul>
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "ActivityBehaviorFactory TestActivityBehaviorFactory.getWrappedActivityBehaviorFactory()",
+    "void TestActivityBehaviorFactory.setAllServiceTasksNoOp()",
+    "void TestActivityBehaviorFactory.setWrappedActivityBehaviorFactory(ActivityBehaviorFactory)"
+  })
+  public void testGettersAndSetters() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory();
+    DefaultActivityBehaviorFactory wrappedActivityBehaviorFactory =
+        new DefaultActivityBehaviorFactory();
+
+    // Act
+    testActivityBehaviorFactory.setWrappedActivityBehaviorFactory(wrappedActivityBehaviorFactory);
+    testActivityBehaviorFactory.setAllServiceTasksNoOp();
+
+    // Assert
+    assertSame(
+        wrappedActivityBehaviorFactory,
+        testActivityBehaviorFactory.getWrappedActivityBehaviorFactory());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createTaskActivityBehavior(Task)}.
+   *
+   * <p>Method under test: {@link TestActivityBehaviorFactory#createTaskActivityBehavior(Task)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.TaskActivityBehavior TestActivityBehaviorFactory.createTaskActivityBehavior(Task)"
+  })
+  public void testCreateTaskActivityBehavior() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(
+            new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory()));
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createTaskActivityBehavior(new Task())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createTaskActivityBehavior(Task)}.
+   *
+   * <ul>
+   *   <li>Then return MultiInstanceActivityBehavior is {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link TestActivityBehaviorFactory#createTaskActivityBehavior(Task)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.TaskActivityBehavior TestActivityBehaviorFactory.createTaskActivityBehavior(Task)"
+  })
+  public void testCreateTaskActivityBehavior_thenReturnMultiInstanceActivityBehaviorIsNull() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createTaskActivityBehavior(new Task())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createManualTaskActivityBehavior(ManualTask)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createManualTaskActivityBehavior(ManualTask)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.ManualTaskActivityBehavior TestActivityBehaviorFactory.createManualTaskActivityBehavior(ManualTask)"
+  })
+  public void testCreateManualTaskActivityBehavior() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createManualTaskActivityBehavior(new ManualTask())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createManualTaskActivityBehavior(ManualTask)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createManualTaskActivityBehavior(ManualTask)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.ManualTaskActivityBehavior TestActivityBehaviorFactory.createManualTaskActivityBehavior(ManualTask)"
+  })
+  public void testCreateManualTaskActivityBehavior2() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(
+            new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory()));
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createManualTaskActivityBehavior(new ManualTask())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createReceiveTaskActivityBehavior(ReceiveTask)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createReceiveTaskActivityBehavior(ReceiveTask)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.ReceiveTaskActivityBehavior TestActivityBehaviorFactory.createReceiveTaskActivityBehavior(ReceiveTask)"
+  })
+  public void testCreateReceiveTaskActivityBehavior() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createReceiveTaskActivityBehavior(new ReceiveTask())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createReceiveTaskActivityBehavior(ReceiveTask)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createReceiveTaskActivityBehavior(ReceiveTask)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.ReceiveTaskActivityBehavior TestActivityBehaviorFactory.createReceiveTaskActivityBehavior(ReceiveTask)"
+  })
+  public void testCreateReceiveTaskActivityBehavior2() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(
+            new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory()));
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createReceiveTaskActivityBehavior(new ReceiveTask())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createUserTaskActivityBehavior(UserTask)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createUserTaskActivityBehavior(UserTask)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.UserTaskActivityBehavior TestActivityBehaviorFactory.createUserTaskActivityBehavior(UserTask)"
+  })
+  public void testCreateUserTaskActivityBehavior() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(
+            new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory()));
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createUserTaskActivityBehavior(new UserTask())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createUserTaskActivityBehavior(UserTask)}.
+   *
+   * <ul>
+   *   <li>Then return MultiInstanceActivityBehavior is {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createUserTaskActivityBehavior(UserTask)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.UserTaskActivityBehavior TestActivityBehaviorFactory.createUserTaskActivityBehavior(UserTask)"
+  })
+  public void testCreateUserTaskActivityBehavior_thenReturnMultiInstanceActivityBehaviorIsNull() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createUserTaskActivityBehavior(new UserTask())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "ClassDelegate TestActivityBehaviorFactory.createClassDelegateServiceTask(ServiceTask)"
+  })
+  public void testCreateClassDelegateServiceTask() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(
+            new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory()));
+
+    // Act
+    ClassDelegate actualCreateClassDelegateServiceTaskResult =
+        testActivityBehaviorFactory.createClassDelegateServiceTask(new ServiceTask());
+
+    // Assert
+    assertNull(actualCreateClassDelegateServiceTaskResult.getClassName());
+    assertNull(actualCreateClassDelegateServiceTaskResult.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}.
+   *
+   * <ul>
+   *   <li>Then return ClassName is {@code Implementation}.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "ClassDelegate TestActivityBehaviorFactory.createClassDelegateServiceTask(ServiceTask)"
+  })
+  public void testCreateClassDelegateServiceTask_thenReturnClassNameIsImplementation() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+
+    ServiceTask serviceTask = new ServiceTask();
+    serviceTask.setImplementation("Implementation");
+
+    // Act
+    ClassDelegate actualCreateClassDelegateServiceTaskResult =
+        testActivityBehaviorFactory.createClassDelegateServiceTask(serviceTask);
+
+    // Assert
+    assertEquals("Implementation", actualCreateClassDelegateServiceTaskResult.getClassName());
+    assertNull(actualCreateClassDelegateServiceTaskResult.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}.
+   *
+   * <ul>
+   *   <li>Then return ClassName is {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "ClassDelegate TestActivityBehaviorFactory.createClassDelegateServiceTask(ServiceTask)"
+  })
+  public void testCreateClassDelegateServiceTask_thenReturnClassNameIsNull() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+
+    // Act
+    ClassDelegate actualCreateClassDelegateServiceTaskResult =
+        testActivityBehaviorFactory.createClassDelegateServiceTask(new ServiceTask());
+
+    // Assert
+    assertNull(actualCreateClassDelegateServiceTaskResult.getClassName());
+    assertNull(actualCreateClassDelegateServiceTaskResult.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createWebServiceActivityBehavior(SendTask)} with {@code
+   * sendTask}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createWebServiceActivityBehavior(SendTask)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.WebServiceActivityBehavior TestActivityBehaviorFactory.createWebServiceActivityBehavior(SendTask)"
+  })
+  public void testCreateWebServiceActivityBehaviorWithSendTask() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createWebServiceActivityBehavior(new SendTask())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createWebServiceActivityBehavior(SendTask)} with {@code
+   * sendTask}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createWebServiceActivityBehavior(SendTask)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.WebServiceActivityBehavior TestActivityBehaviorFactory.createWebServiceActivityBehavior(SendTask)"
+  })
+  public void testCreateWebServiceActivityBehaviorWithSendTask2() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(
+            new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory()));
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createWebServiceActivityBehavior(new SendTask())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createWebServiceActivityBehavior(ServiceTask)} with
+   * {@code serviceTask}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createWebServiceActivityBehavior(ServiceTask)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.WebServiceActivityBehavior TestActivityBehaviorFactory.createWebServiceActivityBehavior(ServiceTask)"
+  })
+  public void testCreateWebServiceActivityBehaviorWithServiceTask() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createWebServiceActivityBehavior(new ServiceTask())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createWebServiceActivityBehavior(ServiceTask)} with
+   * {@code serviceTask}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createWebServiceActivityBehavior(ServiceTask)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.WebServiceActivityBehavior TestActivityBehaviorFactory.createWebServiceActivityBehavior(ServiceTask)"
+  })
+  public void testCreateWebServiceActivityBehaviorWithServiceTask2() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(
+            new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory()));
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createWebServiceActivityBehavior(new ServiceTask())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createMailActivityBehavior(SendTask)} with {@code
+   * sendTask}.
+   *
+   * <p>Method under test: {@link TestActivityBehaviorFactory#createMailActivityBehavior(SendTask)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.MailActivityBehavior TestActivityBehaviorFactory.createMailActivityBehavior(SendTask)"
+  })
+  public void testCreateMailActivityBehaviorWithSendTask() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createMailActivityBehavior(new SendTask())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createMailActivityBehavior(ServiceTask)} with {@code
+   * serviceTask}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createMailActivityBehavior(ServiceTask)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.MailActivityBehavior TestActivityBehaviorFactory.createMailActivityBehavior(ServiceTask)"
+  })
+  public void testCreateMailActivityBehaviorWithServiceTask() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createMailActivityBehavior(new ServiceTask())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createShellActivityBehavior(ServiceTask)}.
+   *
+   * <ul>
+   *   <li>Then return MultiInstanceActivityBehavior is {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createShellActivityBehavior(ServiceTask)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.ShellActivityBehavior TestActivityBehaviorFactory.createShellActivityBehavior(ServiceTask)"
+  })
+  public void testCreateShellActivityBehavior_thenReturnMultiInstanceActivityBehaviorIsNull() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createShellActivityBehavior(new ServiceTask())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link
+   * TestActivityBehaviorFactory#createBusinessRuleTaskActivityBehavior(BusinessRuleTask)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createBusinessRuleTaskActivityBehavior(BusinessRuleTask)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "ActivityBehavior TestActivityBehaviorFactory.createBusinessRuleTaskActivityBehavior(BusinessRuleTask)"
+  })
+  public void testCreateBusinessRuleTaskActivityBehavior() {
+    // Arrange
+    ActivityBehavior activityBehavior = mock(ActivityBehavior.class);
+    doNothing().when(activityBehavior).execute(Mockito.<DelegateExecution>any());
+
+    DefaultActivityBehaviorFactory wrappedActivityBehaviorFactory =
+        mock(DefaultActivityBehaviorFactory.class);
+    when(wrappedActivityBehaviorFactory.createBusinessRuleTaskActivityBehavior(
+            Mockito.<BusinessRuleTask>any()))
+        .thenReturn(activityBehavior);
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(wrappedActivityBehaviorFactory);
+
+    // Act
+    ActivityBehavior actualCreateBusinessRuleTaskActivityBehaviorResult =
+        testActivityBehaviorFactory.createBusinessRuleTaskActivityBehavior(new BusinessRuleTask());
+    actualCreateBusinessRuleTaskActivityBehaviorResult.execute(
+        ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+
+    // Assert
+    verify(wrappedActivityBehaviorFactory)
+        .createBusinessRuleTaskActivityBehavior(isA(BusinessRuleTask.class));
+    verify(activityBehavior).execute(isA(DelegateExecution.class));
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createScriptTaskActivityBehavior(ScriptTask)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createScriptTaskActivityBehavior(ScriptTask)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.ScriptTaskActivityBehavior TestActivityBehaviorFactory.createScriptTaskActivityBehavior(ScriptTask)"
+  })
+  public void testCreateScriptTaskActivityBehavior() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createScriptTaskActivityBehavior(new ScriptTask())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createScriptTaskActivityBehavior(ScriptTask)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createScriptTaskActivityBehavior(ScriptTask)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.ScriptTaskActivityBehavior TestActivityBehaviorFactory.createScriptTaskActivityBehavior(ScriptTask)"
+  })
+  public void testCreateScriptTaskActivityBehavior2() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(
+            new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory()));
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createScriptTaskActivityBehavior(new ScriptTask())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createSequentialMultiInstanceBehavior(Activity,
+   * AbstractBpmnActivityBehavior)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createSequentialMultiInstanceBehavior(Activity,
+   * AbstractBpmnActivityBehavior)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "SequentialMultiInstanceBehavior TestActivityBehaviorFactory.createSequentialMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)"
+  })
+  public void testCreateSequentialMultiInstanceBehavior() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    AdhocSubProcess activity = new AdhocSubProcess();
+    AbstractBpmnActivityBehavior innerActivityBehavior = new AbstractBpmnActivityBehavior();
+
+    // Act
+    SequentialMultiInstanceBehavior actualCreateSequentialMultiInstanceBehaviorResult =
+        testActivityBehaviorFactory.createSequentialMultiInstanceBehavior(
+            activity, innerActivityBehavior);
+
+    // Assert
+    assertEquals(
+        "loopCounter",
+        actualCreateSequentialMultiInstanceBehaviorResult.getCollectionElementIndexVariable());
+    assertNull(actualCreateSequentialMultiInstanceBehaviorResult.getCollectionElementVariable());
+    assertNull(actualCreateSequentialMultiInstanceBehaviorResult.getCollectionVariable());
+    assertNull(actualCreateSequentialMultiInstanceBehaviorResult.getLoopDataOutputRef());
+    assertNull(actualCreateSequentialMultiInstanceBehaviorResult.getOutputDataItem());
+    assertNull(actualCreateSequentialMultiInstanceBehaviorResult.getCollectionExpression());
+    assertNull(
+        actualCreateSequentialMultiInstanceBehaviorResult.getCompletionConditionExpression());
+    assertNull(actualCreateSequentialMultiInstanceBehaviorResult.getLoopCardinalityExpression());
+    assertFalse(actualCreateSequentialMultiInstanceBehaviorResult.hasLoopDataOutputRef());
+    assertFalse(actualCreateSequentialMultiInstanceBehaviorResult.hasOutputDataItem());
+    AbstractBpmnActivityBehavior innerActivityBehavior2 =
+        actualCreateSequentialMultiInstanceBehaviorResult.getInnerActivityBehavior();
+    assertSame(innerActivityBehavior, innerActivityBehavior2);
+    assertSame(
+        actualCreateSequentialMultiInstanceBehaviorResult,
+        innerActivityBehavior2.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createSequentialMultiInstanceBehavior(Activity,
+   * AbstractBpmnActivityBehavior)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createSequentialMultiInstanceBehavior(Activity,
+   * AbstractBpmnActivityBehavior)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "SequentialMultiInstanceBehavior TestActivityBehaviorFactory.createSequentialMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)"
+  })
+  public void testCreateSequentialMultiInstanceBehavior2() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(
+            new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory()));
+    AdhocSubProcess activity = new AdhocSubProcess();
+    AbstractBpmnActivityBehavior innerActivityBehavior = new AbstractBpmnActivityBehavior();
+
+    // Act
+    SequentialMultiInstanceBehavior actualCreateSequentialMultiInstanceBehaviorResult =
+        testActivityBehaviorFactory.createSequentialMultiInstanceBehavior(
+            activity, innerActivityBehavior);
+
+    // Assert
+    assertEquals(
+        "loopCounter",
+        actualCreateSequentialMultiInstanceBehaviorResult.getCollectionElementIndexVariable());
+    assertNull(actualCreateSequentialMultiInstanceBehaviorResult.getCollectionElementVariable());
+    assertNull(actualCreateSequentialMultiInstanceBehaviorResult.getCollectionVariable());
+    assertNull(actualCreateSequentialMultiInstanceBehaviorResult.getLoopDataOutputRef());
+    assertNull(actualCreateSequentialMultiInstanceBehaviorResult.getOutputDataItem());
+    assertNull(actualCreateSequentialMultiInstanceBehaviorResult.getCollectionExpression());
+    assertNull(
+        actualCreateSequentialMultiInstanceBehaviorResult.getCompletionConditionExpression());
+    assertNull(actualCreateSequentialMultiInstanceBehaviorResult.getLoopCardinalityExpression());
+    assertFalse(actualCreateSequentialMultiInstanceBehaviorResult.hasLoopDataOutputRef());
+    assertFalse(actualCreateSequentialMultiInstanceBehaviorResult.hasOutputDataItem());
+    AbstractBpmnActivityBehavior innerActivityBehavior2 =
+        actualCreateSequentialMultiInstanceBehaviorResult.getInnerActivityBehavior();
+    assertSame(innerActivityBehavior, innerActivityBehavior2);
+    assertSame(
+        actualCreateSequentialMultiInstanceBehaviorResult,
+        innerActivityBehavior2.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createParallelMultiInstanceBehavior(Activity,
+   * AbstractBpmnActivityBehavior)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createParallelMultiInstanceBehavior(Activity,
+   * AbstractBpmnActivityBehavior)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "ParallelMultiInstanceBehavior TestActivityBehaviorFactory.createParallelMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)"
+  })
+  public void testCreateParallelMultiInstanceBehavior() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    AdhocSubProcess activity = new AdhocSubProcess();
+    AbstractBpmnActivityBehavior innerActivityBehavior = new AbstractBpmnActivityBehavior();
+
+    // Act
+    ParallelMultiInstanceBehavior actualCreateParallelMultiInstanceBehaviorResult =
+        testActivityBehaviorFactory.createParallelMultiInstanceBehavior(
+            activity, innerActivityBehavior);
+
+    // Assert
+    assertEquals(
+        "loopCounter",
+        actualCreateParallelMultiInstanceBehaviorResult.getCollectionElementIndexVariable());
+    assertNull(actualCreateParallelMultiInstanceBehaviorResult.getCollectionElementVariable());
+    assertNull(actualCreateParallelMultiInstanceBehaviorResult.getCollectionVariable());
+    assertNull(actualCreateParallelMultiInstanceBehaviorResult.getLoopDataOutputRef());
+    assertNull(actualCreateParallelMultiInstanceBehaviorResult.getOutputDataItem());
+    assertNull(actualCreateParallelMultiInstanceBehaviorResult.getCollectionExpression());
+    assertNull(actualCreateParallelMultiInstanceBehaviorResult.getCompletionConditionExpression());
+    assertNull(actualCreateParallelMultiInstanceBehaviorResult.getLoopCardinalityExpression());
+    assertFalse(actualCreateParallelMultiInstanceBehaviorResult.hasLoopDataOutputRef());
+    assertFalse(actualCreateParallelMultiInstanceBehaviorResult.hasOutputDataItem());
+    AbstractBpmnActivityBehavior innerActivityBehavior2 =
+        actualCreateParallelMultiInstanceBehaviorResult.getInnerActivityBehavior();
+    assertSame(innerActivityBehavior, innerActivityBehavior2);
+    assertSame(
+        actualCreateParallelMultiInstanceBehaviorResult,
+        innerActivityBehavior2.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createParallelMultiInstanceBehavior(Activity,
+   * AbstractBpmnActivityBehavior)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createParallelMultiInstanceBehavior(Activity,
+   * AbstractBpmnActivityBehavior)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "ParallelMultiInstanceBehavior TestActivityBehaviorFactory.createParallelMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)"
+  })
+  public void testCreateParallelMultiInstanceBehavior2() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(
+            new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory()));
+    AdhocSubProcess activity = new AdhocSubProcess();
+    AbstractBpmnActivityBehavior innerActivityBehavior = new AbstractBpmnActivityBehavior();
+
+    // Act
+    ParallelMultiInstanceBehavior actualCreateParallelMultiInstanceBehaviorResult =
+        testActivityBehaviorFactory.createParallelMultiInstanceBehavior(
+            activity, innerActivityBehavior);
+
+    // Assert
+    assertEquals(
+        "loopCounter",
+        actualCreateParallelMultiInstanceBehaviorResult.getCollectionElementIndexVariable());
+    assertNull(actualCreateParallelMultiInstanceBehaviorResult.getCollectionElementVariable());
+    assertNull(actualCreateParallelMultiInstanceBehaviorResult.getCollectionVariable());
+    assertNull(actualCreateParallelMultiInstanceBehaviorResult.getLoopDataOutputRef());
+    assertNull(actualCreateParallelMultiInstanceBehaviorResult.getOutputDataItem());
+    assertNull(actualCreateParallelMultiInstanceBehaviorResult.getCollectionExpression());
+    assertNull(actualCreateParallelMultiInstanceBehaviorResult.getCompletionConditionExpression());
+    assertNull(actualCreateParallelMultiInstanceBehaviorResult.getLoopCardinalityExpression());
+    assertFalse(actualCreateParallelMultiInstanceBehaviorResult.hasLoopDataOutputRef());
+    assertFalse(actualCreateParallelMultiInstanceBehaviorResult.hasOutputDataItem());
+    AbstractBpmnActivityBehavior innerActivityBehavior2 =
+        actualCreateParallelMultiInstanceBehaviorResult.getInnerActivityBehavior();
+    assertSame(innerActivityBehavior, innerActivityBehavior2);
+    assertSame(
+        actualCreateParallelMultiInstanceBehaviorResult,
+        innerActivityBehavior2.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createSubprocessActivityBehavior(SubProcess)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createSubprocessActivityBehavior(SubProcess)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.SubProcessActivityBehavior TestActivityBehaviorFactory.createSubprocessActivityBehavior(SubProcess)"
+  })
+  public void testCreateSubprocessActivityBehavior() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createSubprocessActivityBehavior(new SubProcess())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createSubprocessActivityBehavior(SubProcess)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createSubprocessActivityBehavior(SubProcess)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.SubProcessActivityBehavior TestActivityBehaviorFactory.createSubprocessActivityBehavior(SubProcess)"
+  })
+  public void testCreateSubprocessActivityBehavior2() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(
+            new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory()));
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createSubprocessActivityBehavior(new SubProcess())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link
+   * TestActivityBehaviorFactory#createEventSubProcessErrorStartEventActivityBehavior(StartEvent)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createEventSubProcessErrorStartEventActivityBehavior(StartEvent)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.EventSubProcessErrorStartEventActivityBehavior TestActivityBehaviorFactory.createEventSubProcessErrorStartEventActivityBehavior(StartEvent)"
+  })
+  public void testCreateEventSubProcessErrorStartEventActivityBehavior() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createEventSubProcessErrorStartEventActivityBehavior(new StartEvent())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link
+   * TestActivityBehaviorFactory#createEventSubProcessErrorStartEventActivityBehavior(StartEvent)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createEventSubProcessErrorStartEventActivityBehavior(StartEvent)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.EventSubProcessErrorStartEventActivityBehavior TestActivityBehaviorFactory.createEventSubProcessErrorStartEventActivityBehavior(StartEvent)"
+  })
+  public void testCreateEventSubProcessErrorStartEventActivityBehavior2() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(
+            new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory()));
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createEventSubProcessErrorStartEventActivityBehavior(new StartEvent())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link
+   * TestActivityBehaviorFactory#createEventSubProcessMessageStartEventActivityBehavior(StartEvent,
+   * MessageEventDefinition)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createEventSubProcessMessageStartEventActivityBehavior(StartEvent,
+   * MessageEventDefinition)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.EventSubProcessMessageStartEventActivityBehavior TestActivityBehaviorFactory.createEventSubProcessMessageStartEventActivityBehavior(StartEvent, MessageEventDefinition)"
+  })
+  public void testCreateEventSubProcessMessageStartEventActivityBehavior() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    StartEvent startEvent = new StartEvent();
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createEventSubProcessMessageStartEventActivityBehavior(
+                startEvent, new MessageEventDefinition())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link
+   * TestActivityBehaviorFactory#createEventSubProcessMessageStartEventActivityBehavior(StartEvent,
+   * MessageEventDefinition)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createEventSubProcessMessageStartEventActivityBehavior(StartEvent,
+   * MessageEventDefinition)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.EventSubProcessMessageStartEventActivityBehavior TestActivityBehaviorFactory.createEventSubProcessMessageStartEventActivityBehavior(StartEvent, MessageEventDefinition)"
+  })
+  public void testCreateEventSubProcessMessageStartEventActivityBehavior2() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(
+            new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory()));
+    StartEvent startEvent = new StartEvent();
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createEventSubProcessMessageStartEventActivityBehavior(
+                startEvent, new MessageEventDefinition())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createAdhocSubprocessActivityBehavior(SubProcess)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createAdhocSubprocessActivityBehavior(SubProcess)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.AdhocSubProcessActivityBehavior TestActivityBehaviorFactory.createAdhocSubprocessActivityBehavior(SubProcess)"
+  })
+  public void testCreateAdhocSubprocessActivityBehavior() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createAdhocSubprocessActivityBehavior(new SubProcess())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createAdhocSubprocessActivityBehavior(SubProcess)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createAdhocSubprocessActivityBehavior(SubProcess)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.AdhocSubProcessActivityBehavior TestActivityBehaviorFactory.createAdhocSubprocessActivityBehavior(SubProcess)"
+  })
+  public void testCreateAdhocSubprocessActivityBehavior2() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(
+            new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory()));
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createAdhocSubprocessActivityBehavior(new SubProcess())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createCallActivityBehavior(CallActivity)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createCallActivityBehavior(CallActivity)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "CallActivityBehavior TestActivityBehaviorFactory.createCallActivityBehavior(CallActivity)"
+  })
+  public void testCreateCallActivityBehavior() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(
+            new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory()));
+
+    // Act
+    CallActivityBehavior actualCreateCallActivityBehaviorResult =
+        testActivityBehaviorFactory.createCallActivityBehavior(new CallActivity());
+
+    // Assert
+    assertNull(actualCreateCallActivityBehaviorResult.getProcessDefinitionKey());
+    assertNull(actualCreateCallActivityBehaviorResult.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createCallActivityBehavior(CallActivity)}.
+   *
+   * <ul>
+   *   <li>Then return ProcessDefinitionKey is {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createCallActivityBehavior(CallActivity)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "CallActivityBehavior TestActivityBehaviorFactory.createCallActivityBehavior(CallActivity)"
+  })
+  public void testCreateCallActivityBehavior_thenReturnProcessDefinitionKeyIsNull() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+
+    // Act
+    CallActivityBehavior actualCreateCallActivityBehaviorResult =
+        testActivityBehaviorFactory.createCallActivityBehavior(new CallActivity());
+
+    // Assert
+    assertNull(actualCreateCallActivityBehaviorResult.getProcessDefinitionKey());
+    assertNull(actualCreateCallActivityBehaviorResult.getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createTransactionActivityBehavior(Transaction)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createTransactionActivityBehavior(Transaction)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.TransactionActivityBehavior TestActivityBehaviorFactory.createTransactionActivityBehavior(Transaction)"
+  })
+  public void testCreateTransactionActivityBehavior() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createTransactionActivityBehavior(new Transaction())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createTransactionActivityBehavior(Transaction)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createTransactionActivityBehavior(Transaction)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.TransactionActivityBehavior TestActivityBehaviorFactory.createTransactionActivityBehavior(Transaction)"
+  })
+  public void testCreateTransactionActivityBehavior2() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(
+            new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory()));
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createTransactionActivityBehavior(new Transaction())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link
+   * TestActivityBehaviorFactory#createIntermediateCatchEventActivityBehavior(IntermediateCatchEvent)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createIntermediateCatchEventActivityBehavior(IntermediateCatchEvent)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.IntermediateCatchEventActivityBehavior TestActivityBehaviorFactory.createIntermediateCatchEventActivityBehavior(IntermediateCatchEvent)"
+  })
+  public void testCreateIntermediateCatchEventActivityBehavior() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createIntermediateCatchEventActivityBehavior(new IntermediateCatchEvent())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link
+   * TestActivityBehaviorFactory#createIntermediateCatchEventActivityBehavior(IntermediateCatchEvent)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createIntermediateCatchEventActivityBehavior(IntermediateCatchEvent)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.IntermediateCatchEventActivityBehavior TestActivityBehaviorFactory.createIntermediateCatchEventActivityBehavior(IntermediateCatchEvent)"
+  })
+  public void testCreateIntermediateCatchEventActivityBehavior2() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(
+            new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory()));
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createIntermediateCatchEventActivityBehavior(new IntermediateCatchEvent())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link
+   * TestActivityBehaviorFactory#createIntermediateCatchMessageEventActivityBehavior(IntermediateCatchEvent,
+   * MessageEventDefinition)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createIntermediateCatchMessageEventActivityBehavior(IntermediateCatchEvent,
+   * MessageEventDefinition)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "IntermediateCatchMessageEventActivityBehavior TestActivityBehaviorFactory.createIntermediateCatchMessageEventActivityBehavior(IntermediateCatchEvent, MessageEventDefinition)"
+  })
+  public void testCreateIntermediateCatchMessageEventActivityBehavior() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    IntermediateCatchEvent intermediateCatchEvent = new IntermediateCatchEvent();
+    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
+
+    // Act
+    IntermediateCatchMessageEventActivityBehavior
+        actualCreateIntermediateCatchMessageEventActivityBehaviorResult =
+            testActivityBehaviorFactory.createIntermediateCatchMessageEventActivityBehavior(
+                intermediateCatchEvent, messageEventDefinition);
+
+    // Assert
+    MessageExecutionContext messageExecutionContext =
+        actualCreateIntermediateCatchMessageEventActivityBehaviorResult
+            .getMessageExecutionContext();
+    assertTrue(messageExecutionContext instanceof DefaultMessageExecutionContext);
+    assertTrue(
+        ((DefaultMessageExecutionContext) messageExecutionContext)
+                .getMessagePayloadMappingProvider()
+            instanceof BpmnMessagePayloadMappingProvider);
+    assertNull(
+        actualCreateIntermediateCatchMessageEventActivityBehaviorResult
+            .getMultiInstanceActivityBehavior());
+    assertNull(((DefaultMessageExecutionContext) messageExecutionContext).getExpressionManager());
+    assertSame(
+        messageEventDefinition,
+        actualCreateIntermediateCatchMessageEventActivityBehaviorResult
+            .getMessageEventDefinition());
+  }
+
+  /**
+   * Test {@link
+   * TestActivityBehaviorFactory#createIntermediateCatchMessageEventActivityBehavior(IntermediateCatchEvent,
+   * MessageEventDefinition)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createIntermediateCatchMessageEventActivityBehavior(IntermediateCatchEvent,
+   * MessageEventDefinition)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "IntermediateCatchMessageEventActivityBehavior TestActivityBehaviorFactory.createIntermediateCatchMessageEventActivityBehavior(IntermediateCatchEvent, MessageEventDefinition)"
+  })
+  public void testCreateIntermediateCatchMessageEventActivityBehavior2() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(
+            new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory()));
+    IntermediateCatchEvent intermediateCatchEvent = new IntermediateCatchEvent();
+    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
+
+    // Act
+    IntermediateCatchMessageEventActivityBehavior
+        actualCreateIntermediateCatchMessageEventActivityBehaviorResult =
+            testActivityBehaviorFactory.createIntermediateCatchMessageEventActivityBehavior(
+                intermediateCatchEvent, messageEventDefinition);
+
+    // Assert
+    MessageExecutionContext messageExecutionContext =
+        actualCreateIntermediateCatchMessageEventActivityBehaviorResult
+            .getMessageExecutionContext();
+    assertTrue(messageExecutionContext instanceof DefaultMessageExecutionContext);
+    assertTrue(
+        ((DefaultMessageExecutionContext) messageExecutionContext)
+                .getMessagePayloadMappingProvider()
+            instanceof BpmnMessagePayloadMappingProvider);
+    assertNull(
+        actualCreateIntermediateCatchMessageEventActivityBehaviorResult
+            .getMultiInstanceActivityBehavior());
+    assertNull(((DefaultMessageExecutionContext) messageExecutionContext).getExpressionManager());
+    assertSame(
+        messageEventDefinition,
+        actualCreateIntermediateCatchMessageEventActivityBehaviorResult
+            .getMessageEventDefinition());
+  }
+
+  /**
+   * Test {@link
+   * TestActivityBehaviorFactory#createIntermediateCatchTimerEventActivityBehavior(IntermediateCatchEvent,
+   * TimerEventDefinition)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createIntermediateCatchTimerEventActivityBehavior(IntermediateCatchEvent,
+   * TimerEventDefinition)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.IntermediateCatchTimerEventActivityBehavior TestActivityBehaviorFactory.createIntermediateCatchTimerEventActivityBehavior(IntermediateCatchEvent, TimerEventDefinition)"
+  })
+  public void testCreateIntermediateCatchTimerEventActivityBehavior() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    IntermediateCatchEvent intermediateCatchEvent = new IntermediateCatchEvent();
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createIntermediateCatchTimerEventActivityBehavior(
+                intermediateCatchEvent, new TimerEventDefinition())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link
+   * TestActivityBehaviorFactory#createIntermediateCatchTimerEventActivityBehavior(IntermediateCatchEvent,
+   * TimerEventDefinition)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createIntermediateCatchTimerEventActivityBehavior(IntermediateCatchEvent,
+   * TimerEventDefinition)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.IntermediateCatchTimerEventActivityBehavior TestActivityBehaviorFactory.createIntermediateCatchTimerEventActivityBehavior(IntermediateCatchEvent, TimerEventDefinition)"
+  })
+  public void testCreateIntermediateCatchTimerEventActivityBehavior2() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(
+            new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory()));
+    IntermediateCatchEvent intermediateCatchEvent = new IntermediateCatchEvent();
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createIntermediateCatchTimerEventActivityBehavior(
+                intermediateCatchEvent, new TimerEventDefinition())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link
+   * TestActivityBehaviorFactory#createIntermediateCatchSignalEventActivityBehavior(IntermediateCatchEvent,
+   * SignalEventDefinition, Signal)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createIntermediateCatchSignalEventActivityBehavior(IntermediateCatchEvent,
+   * SignalEventDefinition, Signal)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.IntermediateCatchSignalEventActivityBehavior TestActivityBehaviorFactory.createIntermediateCatchSignalEventActivityBehavior(IntermediateCatchEvent, SignalEventDefinition, Signal)"
+  })
+  public void testCreateIntermediateCatchSignalEventActivityBehavior() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    IntermediateCatchEvent intermediateCatchEvent = new IntermediateCatchEvent();
+    SignalEventDefinition signalEventDefinition = new SignalEventDefinition();
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createIntermediateCatchSignalEventActivityBehavior(
+                intermediateCatchEvent, signalEventDefinition, new Signal())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link
+   * TestActivityBehaviorFactory#createIntermediateCatchSignalEventActivityBehavior(IntermediateCatchEvent,
+   * SignalEventDefinition, Signal)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createIntermediateCatchSignalEventActivityBehavior(IntermediateCatchEvent,
+   * SignalEventDefinition, Signal)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.IntermediateCatchSignalEventActivityBehavior TestActivityBehaviorFactory.createIntermediateCatchSignalEventActivityBehavior(IntermediateCatchEvent, SignalEventDefinition, Signal)"
+  })
+  public void testCreateIntermediateCatchSignalEventActivityBehavior2() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(
+            new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory()));
+    IntermediateCatchEvent intermediateCatchEvent = new IntermediateCatchEvent();
+    SignalEventDefinition signalEventDefinition = new SignalEventDefinition();
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createIntermediateCatchSignalEventActivityBehavior(
+                intermediateCatchEvent, signalEventDefinition, new Signal())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link
+   * TestActivityBehaviorFactory#createIntermediateThrowSignalEventActivityBehavior(ThrowEvent,
+   * SignalEventDefinition, Signal)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createIntermediateThrowSignalEventActivityBehavior(ThrowEvent,
+   * SignalEventDefinition, Signal)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.IntermediateThrowSignalEventActivityBehavior TestActivityBehaviorFactory.createIntermediateThrowSignalEventActivityBehavior(ThrowEvent, SignalEventDefinition, Signal)"
+  })
+  public void testCreateIntermediateThrowSignalEventActivityBehavior() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    ThrowEvent throwEvent = new ThrowEvent();
+    SignalEventDefinition signalEventDefinition = new SignalEventDefinition();
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createIntermediateThrowSignalEventActivityBehavior(
+                throwEvent, signalEventDefinition, new Signal())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link
+   * TestActivityBehaviorFactory#createIntermediateThrowSignalEventActivityBehavior(ThrowEvent,
+   * SignalEventDefinition, Signal)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createIntermediateThrowSignalEventActivityBehavior(ThrowEvent,
+   * SignalEventDefinition, Signal)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.IntermediateThrowSignalEventActivityBehavior TestActivityBehaviorFactory.createIntermediateThrowSignalEventActivityBehavior(ThrowEvent, SignalEventDefinition, Signal)"
+  })
+  public void testCreateIntermediateThrowSignalEventActivityBehavior2() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(
+            new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory()));
+    ThrowEvent throwEvent = new ThrowEvent();
+    SignalEventDefinition signalEventDefinition = new SignalEventDefinition();
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createIntermediateThrowSignalEventActivityBehavior(
+                throwEvent, signalEventDefinition, new Signal())
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link
+   * TestActivityBehaviorFactory#createIntermediateThrowSignalEventActivityBehavior(ThrowEvent,
+   * SignalEventDefinition, Signal)}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createIntermediateThrowSignalEventActivityBehavior(ThrowEvent,
+   * SignalEventDefinition, Signal)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.IntermediateThrowSignalEventActivityBehavior TestActivityBehaviorFactory.createIntermediateThrowSignalEventActivityBehavior(ThrowEvent, SignalEventDefinition, Signal)"
+  })
+  public void testCreateIntermediateThrowSignalEventActivityBehavior_whenNull() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    ThrowEvent throwEvent = new ThrowEvent();
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createIntermediateThrowSignalEventActivityBehavior(
+                throwEvent, new SignalEventDefinition(), null)
+            .getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createErrorEndEventActivityBehavior(EndEvent,
+   * ErrorEventDefinition)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createErrorEndEventActivityBehavior(EndEvent,
+   * ErrorEventDefinition)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.ErrorEndEventActivityBehavior TestActivityBehaviorFactory.createErrorEndEventActivityBehavior(EndEvent, ErrorEventDefinition)"
+  })
+  public void testCreateErrorEndEventActivityBehavior() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(
+            new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory()));
+    EndEvent endEvent = new EndEvent();
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createErrorEndEventActivityBehavior(endEvent, new ErrorEventDefinition())
+            .getErrorRef());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createErrorEndEventActivityBehavior(EndEvent,
+   * ErrorEventDefinition)}.
+   *
+   * <ul>
+   *   <li>Then return ErrorRef is {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createErrorEndEventActivityBehavior(EndEvent,
+   * ErrorEventDefinition)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.ErrorEndEventActivityBehavior TestActivityBehaviorFactory.createErrorEndEventActivityBehavior(EndEvent, ErrorEventDefinition)"
+  })
+  public void testCreateErrorEndEventActivityBehavior_thenReturnErrorRefIsNull() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    EndEvent endEvent = new EndEvent();
+
+    // Act and Assert
+    assertNull(
+        testActivityBehaviorFactory
+            .createErrorEndEventActivityBehavior(endEvent, new ErrorEventDefinition())
+            .getErrorRef());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createTerminateEndEventActivityBehavior(EndEvent)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createTerminateEndEventActivityBehavior(EndEvent)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "TerminateEndEventActivityBehavior TestActivityBehaviorFactory.createTerminateEndEventActivityBehavior(EndEvent)"
+  })
+  public void testCreateTerminateEndEventActivityBehavior() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(
+            new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory()));
+
+    // Act
+    TerminateEndEventActivityBehavior actualCreateTerminateEndEventActivityBehaviorResult =
+        testActivityBehaviorFactory.createTerminateEndEventActivityBehavior(new EndEvent());
+
+    // Assert
+    assertFalse(actualCreateTerminateEndEventActivityBehaviorResult.isTerminateAll());
+    assertFalse(actualCreateTerminateEndEventActivityBehaviorResult.isTerminateMultiInstance());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createTerminateEndEventActivityBehavior(EndEvent)}.
+   *
+   * <ul>
+   *   <li>Then return not TerminateAll.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createTerminateEndEventActivityBehavior(EndEvent)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "TerminateEndEventActivityBehavior TestActivityBehaviorFactory.createTerminateEndEventActivityBehavior(EndEvent)"
+  })
+  public void testCreateTerminateEndEventActivityBehavior_thenReturnNotTerminateAll() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+
+    // Act
+    TerminateEndEventActivityBehavior actualCreateTerminateEndEventActivityBehaviorResult =
+        testActivityBehaviorFactory.createTerminateEndEventActivityBehavior(new EndEvent());
+
+    // Assert
+    assertFalse(actualCreateTerminateEndEventActivityBehaviorResult.isTerminateAll());
+    assertFalse(actualCreateTerminateEndEventActivityBehaviorResult.isTerminateMultiInstance());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createBoundaryEventActivityBehavior(BoundaryEvent,
+   * boolean)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createBoundaryEventActivityBehavior(BoundaryEvent, boolean)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.BoundaryEventActivityBehavior TestActivityBehaviorFactory.createBoundaryEventActivityBehavior(BoundaryEvent, boolean)"
+  })
+  public void testCreateBoundaryEventActivityBehavior() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(
+            new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory()));
+
+    // Act and Assert
+    assertTrue(
+        testActivityBehaviorFactory
+            .createBoundaryEventActivityBehavior(new BoundaryEvent(), true)
+            .isInterrupting());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createBoundaryEventActivityBehavior(BoundaryEvent,
+   * boolean)}.
+   *
+   * <ul>
+   *   <li>Then return Interrupting.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createBoundaryEventActivityBehavior(BoundaryEvent, boolean)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.BoundaryEventActivityBehavior TestActivityBehaviorFactory.createBoundaryEventActivityBehavior(BoundaryEvent, boolean)"
+  })
+  public void testCreateBoundaryEventActivityBehavior_thenReturnInterrupting() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+
+    // Act and Assert
+    assertTrue(
+        testActivityBehaviorFactory
+            .createBoundaryEventActivityBehavior(new BoundaryEvent(), true)
+            .isInterrupting());
+  }
+
+  /**
+   * Test {@link
+   * TestActivityBehaviorFactory#createBoundaryCancelEventActivityBehavior(CancelEventDefinition)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createBoundaryCancelEventActivityBehavior(CancelEventDefinition)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.BoundaryCancelEventActivityBehavior TestActivityBehaviorFactory.createBoundaryCancelEventActivityBehavior(CancelEventDefinition)"
+  })
+  public void testCreateBoundaryCancelEventActivityBehavior() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(
+            new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory()));
+
+    // Act and Assert
+    assertFalse(
+        testActivityBehaviorFactory
+            .createBoundaryCancelEventActivityBehavior(new CancelEventDefinition())
+            .isInterrupting());
+  }
+
+  /**
+   * Test {@link
+   * TestActivityBehaviorFactory#createBoundaryCancelEventActivityBehavior(CancelEventDefinition)}.
+   *
+   * <ul>
+   *   <li>Then return not Interrupting.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createBoundaryCancelEventActivityBehavior(CancelEventDefinition)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.BoundaryCancelEventActivityBehavior TestActivityBehaviorFactory.createBoundaryCancelEventActivityBehavior(CancelEventDefinition)"
+  })
+  public void testCreateBoundaryCancelEventActivityBehavior_thenReturnNotInterrupting() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+
+    // Act and Assert
+    assertFalse(
+        testActivityBehaviorFactory
+            .createBoundaryCancelEventActivityBehavior(new CancelEventDefinition())
+            .isInterrupting());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createBoundaryTimerEventActivityBehavior(BoundaryEvent,
+   * TimerEventDefinition, boolean)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createBoundaryTimerEventActivityBehavior(BoundaryEvent,
+   * TimerEventDefinition, boolean)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.BoundaryTimerEventActivityBehavior TestActivityBehaviorFactory.createBoundaryTimerEventActivityBehavior(BoundaryEvent, TimerEventDefinition, boolean)"
+  })
+  public void testCreateBoundaryTimerEventActivityBehavior() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(
+            new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory()));
+    BoundaryEvent boundaryEvent = new BoundaryEvent();
+
+    // Act and Assert
+    assertTrue(
+        testActivityBehaviorFactory
+            .createBoundaryTimerEventActivityBehavior(
+                boundaryEvent, new TimerEventDefinition(), true)
+            .isInterrupting());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createBoundaryTimerEventActivityBehavior(BoundaryEvent,
+   * TimerEventDefinition, boolean)}.
+   *
+   * <ul>
+   *   <li>Then return Interrupting.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createBoundaryTimerEventActivityBehavior(BoundaryEvent,
+   * TimerEventDefinition, boolean)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.BoundaryTimerEventActivityBehavior TestActivityBehaviorFactory.createBoundaryTimerEventActivityBehavior(BoundaryEvent, TimerEventDefinition, boolean)"
+  })
+  public void testCreateBoundaryTimerEventActivityBehavior_thenReturnInterrupting() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BoundaryEvent boundaryEvent = new BoundaryEvent();
+
+    // Act and Assert
+    assertTrue(
+        testActivityBehaviorFactory
+            .createBoundaryTimerEventActivityBehavior(
+                boundaryEvent, new TimerEventDefinition(), true)
+            .isInterrupting());
+  }
+
+  /**
+   * Test {@link
+   * TestActivityBehaviorFactory#createBoundarySignalEventActivityBehavior(BoundaryEvent,
+   * SignalEventDefinition, Signal, boolean)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createBoundarySignalEventActivityBehavior(BoundaryEvent,
+   * SignalEventDefinition, Signal, boolean)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.BoundarySignalEventActivityBehavior TestActivityBehaviorFactory.createBoundarySignalEventActivityBehavior(BoundaryEvent, SignalEventDefinition, Signal, boolean)"
+  })
+  public void testCreateBoundarySignalEventActivityBehavior() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(
+            new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory()));
+    BoundaryEvent boundaryEvent = new BoundaryEvent();
+    SignalEventDefinition signalEventDefinition = new SignalEventDefinition();
+
+    // Act and Assert
+    assertTrue(
+        testActivityBehaviorFactory
+            .createBoundarySignalEventActivityBehavior(
+                boundaryEvent, signalEventDefinition, new Signal(), true)
+            .isInterrupting());
+  }
+
+  /**
+   * Test {@link
+   * TestActivityBehaviorFactory#createBoundarySignalEventActivityBehavior(BoundaryEvent,
+   * SignalEventDefinition, Signal, boolean)}.
+   *
+   * <ul>
+   *   <li>Then return Interrupting.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createBoundarySignalEventActivityBehavior(BoundaryEvent,
+   * SignalEventDefinition, Signal, boolean)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.BoundarySignalEventActivityBehavior TestActivityBehaviorFactory.createBoundarySignalEventActivityBehavior(BoundaryEvent, SignalEventDefinition, Signal, boolean)"
+  })
+  public void testCreateBoundarySignalEventActivityBehavior_thenReturnInterrupting() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BoundaryEvent boundaryEvent = new BoundaryEvent();
+    SignalEventDefinition signalEventDefinition = new SignalEventDefinition();
+
+    // Act and Assert
+    assertTrue(
+        testActivityBehaviorFactory
+            .createBoundarySignalEventActivityBehavior(
+                boundaryEvent, signalEventDefinition, new Signal(), true)
+            .isInterrupting());
+  }
+
+  /**
+   * Test {@link
+   * TestActivityBehaviorFactory#createBoundaryMessageEventActivityBehavior(BoundaryEvent,
+   * MessageEventDefinition, boolean)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createBoundaryMessageEventActivityBehavior(BoundaryEvent,
+   * MessageEventDefinition, boolean)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "BoundaryMessageEventActivityBehavior TestActivityBehaviorFactory.createBoundaryMessageEventActivityBehavior(BoundaryEvent, MessageEventDefinition, boolean)"
+  })
+  public void testCreateBoundaryMessageEventActivityBehavior() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BoundaryEvent boundaryEvent = new BoundaryEvent();
+    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
+
+    // Act
+    BoundaryMessageEventActivityBehavior actualCreateBoundaryMessageEventActivityBehaviorResult =
+        testActivityBehaviorFactory.createBoundaryMessageEventActivityBehavior(
+            boundaryEvent, messageEventDefinition, true);
+
+    // Assert
+    MessageExecutionContext messageExecutionContext =
+        actualCreateBoundaryMessageEventActivityBehaviorResult.getMessageExecutionContext();
+    assertTrue(messageExecutionContext instanceof DefaultMessageExecutionContext);
+    assertTrue(
+        ((DefaultMessageExecutionContext) messageExecutionContext)
+                .getMessagePayloadMappingProvider()
+            instanceof BpmnMessagePayloadMappingProvider);
+    assertNull(((DefaultMessageExecutionContext) messageExecutionContext).getExpressionManager());
+    assertTrue(actualCreateBoundaryMessageEventActivityBehaviorResult.isInterrupting());
+    assertSame(
+        messageEventDefinition,
+        actualCreateBoundaryMessageEventActivityBehaviorResult.getMessageEventDefinition());
+  }
+
+  /**
+   * Test {@link
+   * TestActivityBehaviorFactory#createBoundaryMessageEventActivityBehavior(BoundaryEvent,
+   * MessageEventDefinition, boolean)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createBoundaryMessageEventActivityBehavior(BoundaryEvent,
+   * MessageEventDefinition, boolean)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "BoundaryMessageEventActivityBehavior TestActivityBehaviorFactory.createBoundaryMessageEventActivityBehavior(BoundaryEvent, MessageEventDefinition, boolean)"
+  })
+  public void testCreateBoundaryMessageEventActivityBehavior2() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(
+            new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory()));
+    BoundaryEvent boundaryEvent = new BoundaryEvent();
+    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
+
+    // Act
+    BoundaryMessageEventActivityBehavior actualCreateBoundaryMessageEventActivityBehaviorResult =
+        testActivityBehaviorFactory.createBoundaryMessageEventActivityBehavior(
+            boundaryEvent, messageEventDefinition, true);
+
+    // Assert
+    MessageExecutionContext messageExecutionContext =
+        actualCreateBoundaryMessageEventActivityBehaviorResult.getMessageExecutionContext();
+    assertTrue(messageExecutionContext instanceof DefaultMessageExecutionContext);
+    assertTrue(
+        ((DefaultMessageExecutionContext) messageExecutionContext)
+                .getMessagePayloadMappingProvider()
+            instanceof BpmnMessagePayloadMappingProvider);
+    assertNull(((DefaultMessageExecutionContext) messageExecutionContext).getExpressionManager());
+    assertTrue(actualCreateBoundaryMessageEventActivityBehaviorResult.isInterrupting());
+    assertSame(
+        messageEventDefinition,
+        actualCreateBoundaryMessageEventActivityBehaviorResult.getMessageEventDefinition());
+  }
+
+  /**
+   * Test {@link
+   * TestActivityBehaviorFactory#createBoundaryCompensateEventActivityBehavior(BoundaryEvent,
+   * CompensateEventDefinition, boolean)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createBoundaryCompensateEventActivityBehavior(BoundaryEvent,
+   * CompensateEventDefinition, boolean)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.BoundaryCompensateEventActivityBehavior TestActivityBehaviorFactory.createBoundaryCompensateEventActivityBehavior(BoundaryEvent, CompensateEventDefinition, boolean)"
+  })
+  public void testCreateBoundaryCompensateEventActivityBehavior() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(
+            new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory()));
+    BoundaryEvent boundaryEvent = new BoundaryEvent();
+
+    // Act and Assert
+    assertTrue(
+        testActivityBehaviorFactory
+            .createBoundaryCompensateEventActivityBehavior(
+                boundaryEvent, new CompensateEventDefinition(), true)
+            .isInterrupting());
+  }
+
+  /**
+   * Test {@link
+   * TestActivityBehaviorFactory#createBoundaryCompensateEventActivityBehavior(BoundaryEvent,
+   * CompensateEventDefinition, boolean)}.
+   *
+   * <ul>
+   *   <li>Then return Interrupting.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createBoundaryCompensateEventActivityBehavior(BoundaryEvent,
+   * CompensateEventDefinition, boolean)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.engine.impl.bpmn.behavior.BoundaryCompensateEventActivityBehavior TestActivityBehaviorFactory.createBoundaryCompensateEventActivityBehavior(BoundaryEvent, CompensateEventDefinition, boolean)"
+  })
+  public void testCreateBoundaryCompensateEventActivityBehavior_thenReturnInterrupting() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BoundaryEvent boundaryEvent = new BoundaryEvent();
+
+    // Act and Assert
+    assertTrue(
+        testActivityBehaviorFactory
+            .createBoundaryCompensateEventActivityBehavior(
+                boundaryEvent, new CompensateEventDefinition(), true)
+            .isInterrupting());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createThrowMessageEventActivityBehavior(ThrowEvent,
+   * MessageEventDefinition, Message)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createThrowMessageEventActivityBehavior(ThrowEvent,
+   * MessageEventDefinition, Message)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "IntermediateThrowMessageEventActivityBehavior TestActivityBehaviorFactory.createThrowMessageEventActivityBehavior(ThrowEvent, MessageEventDefinition, Message)"
+  })
+  public void testCreateThrowMessageEventActivityBehavior() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    ThrowEvent throwEvent = new ThrowEvent();
+    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
+
+    // Act
+    IntermediateThrowMessageEventActivityBehavior
+        actualCreateThrowMessageEventActivityBehaviorResult =
+            testActivityBehaviorFactory.createThrowMessageEventActivityBehavior(
+                throwEvent, messageEventDefinition, new Message());
+
+    // Assert
+    assertTrue(
+        actualCreateThrowMessageEventActivityBehaviorResult.getMessageExecutionContext()
+            instanceof DefaultMessageExecutionContext);
+    assertTrue(
+        actualCreateThrowMessageEventActivityBehaviorResult.getDelegate()
+            instanceof DefaultThrowMessageJavaDelegate);
+    assertSame(
+        messageEventDefinition,
+        actualCreateThrowMessageEventActivityBehaviorResult.getMessageEventDefinition());
+    assertSame(throwEvent, actualCreateThrowMessageEventActivityBehaviorResult.getThrowEvent());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#createThrowMessageEndEventActivityBehavior(EndEvent,
+   * MessageEventDefinition, Message)}.
+   *
+   * <p>Method under test: {@link
+   * TestActivityBehaviorFactory#createThrowMessageEndEventActivityBehavior(EndEvent,
+   * MessageEventDefinition, Message)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "ThrowMessageEndEventActivityBehavior TestActivityBehaviorFactory.createThrowMessageEndEventActivityBehavior(EndEvent, MessageEventDefinition, Message)"
+  })
+  public void testCreateThrowMessageEndEventActivityBehavior() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory =
+        new TestActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    EndEvent endEvent = new EndEvent();
+    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
+
+    // Act
+    ThrowMessageEndEventActivityBehavior actualCreateThrowMessageEndEventActivityBehaviorResult =
+        testActivityBehaviorFactory.createThrowMessageEndEventActivityBehavior(
+            endEvent, messageEventDefinition, new Message());
+
+    // Assert
+    assertTrue(
+        actualCreateThrowMessageEndEventActivityBehaviorResult.getMessageExecutionContext()
+            instanceof DefaultMessageExecutionContext);
+    assertTrue(
+        actualCreateThrowMessageEndEventActivityBehaviorResult.getDelegate()
+            instanceof DefaultThrowMessageJavaDelegate);
+    assertSame(endEvent, actualCreateThrowMessageEndEventActivityBehaviorResult.getEndEvent());
+    assertSame(
+        messageEventDefinition,
+        actualCreateThrowMessageEndEventActivityBehaviorResult.getMessageEventDefinition());
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#addClassDelegateMock(String, Class)} with {@code
+   * originalClassFqn}, {@code mockClass}.
+   *
+   * <p>Method under test: {@link TestActivityBehaviorFactory#addClassDelegateMock(String, Class)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void TestActivityBehaviorFactory.addClassDelegateMock(String, Class)"})
+  public void testAddClassDelegateMockWithOriginalClassFqnMockClass() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory();
+    Class<Object> mockClass = Object.class;
+
+    // Act
+    testActivityBehaviorFactory.addClassDelegateMock("Original Class Fqn", mockClass);
+
+    // Assert
+    Map<String, String> stringStringMap = testActivityBehaviorFactory.mockedClassDelegatesMapping;
+    assertEquals(1, stringStringMap.size());
+    assertEquals("java.lang.Object", stringStringMap.get("Original Class Fqn"));
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#addClassDelegateMock(String, String)} with {@code
+   * originalClassFqn}, {@code mockedClassFqn}.
+   *
+   * <p>Method under test: {@link TestActivityBehaviorFactory#addClassDelegateMock(String, String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void TestActivityBehaviorFactory.addClassDelegateMock(String, String)"})
+  public void testAddClassDelegateMockWithOriginalClassFqnMockedClassFqn() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory();
+
+    // Act
+    testActivityBehaviorFactory.addClassDelegateMock("Original Class Fqn", "Mocked Class Fqn");
+
+    // Assert
+    Map<String, String> stringStringMap = testActivityBehaviorFactory.mockedClassDelegatesMapping;
+    assertEquals(1, stringStringMap.size());
+    assertEquals("Mocked Class Fqn", stringStringMap.get("Original Class Fqn"));
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#addNoOpServiceTaskById(String)}.
+   *
+   * <p>Method under test: {@link TestActivityBehaviorFactory#addNoOpServiceTaskById(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void TestActivityBehaviorFactory.addNoOpServiceTaskById(String)"})
+  public void testAddNoOpServiceTaskById() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory();
+
+    // Act
+    testActivityBehaviorFactory.addNoOpServiceTaskById("42");
+
+    // Assert
+    Set<String> stringSet = testActivityBehaviorFactory.noOpServiceTaskIds;
+    assertEquals(1, stringSet.size());
+    assertTrue(stringSet.contains("42"));
+  }
+
+  /**
+   * Test {@link TestActivityBehaviorFactory#addNoOpServiceTaskByClassName(String)}.
+   *
+   * <p>Method under test: {@link TestActivityBehaviorFactory#addNoOpServiceTaskByClassName(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void TestActivityBehaviorFactory.addNoOpServiceTaskByClassName(String)"})
+  public void testAddNoOpServiceTaskByClassName() {
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory();
+
+    // Act
+    testActivityBehaviorFactory.addNoOpServiceTaskByClassName("Class Name");
+
+    // Assert
+    Set<String> stringSet = testActivityBehaviorFactory.noOpServiceTaskClassNames;
+    assertEquals(1, stringSet.size());
+    assertTrue(stringSet.contains("Class Name"));
+  }
+}

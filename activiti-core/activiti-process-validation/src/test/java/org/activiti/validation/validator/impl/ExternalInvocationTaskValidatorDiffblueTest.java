@@ -1,0 +1,1028 @@
+/*
+ * Copyright 2010-2020 Alfresco Software, Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.activiti.validation.validator.impl;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import org.activiti.bpmn.model.FieldExtension;
+import org.activiti.bpmn.model.FlowElement;
+import org.activiti.bpmn.model.Process;
+import org.activiti.bpmn.model.SendTask;
+import org.activiti.bpmn.model.TaskWithFieldExtensions;
+import org.activiti.validation.ValidationError;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+
+class ExternalInvocationTaskValidatorDiffblueTest {
+  /**
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process,
+   * TaskWithFieldExtensions, List, List)}.
+   *
+   * <p>Method under test: {@link
+   * ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process,
+   * TaskWithFieldExtensions, List, List)}
+   */
+  @Test
+  @DisplayName(
+      "Test validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void ExternalInvocationTaskValidator.validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)"
+  })
+  void testValidateFieldDeclarationsForEmail() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    Process process = new Process();
+    SendTask task = new SendTask();
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setFieldName("to");
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(fieldExtension);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sendTaskValidator.validateFieldDeclarationsForEmail(process, task, fieldExtensions, errors);
+
+    // Assert
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertEquals(1, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("MAIL_TASK_NO_CONTENT", getResult.getDefaultDescription());
+    assertEquals("MAIL_TASK_NO_CONTENT", getResult.getKey());
+    assertEquals("MAIL_TASK_NO_CONTENT", getResult.getProblem());
+    assertTrue(flowElements.isEmpty());
+  }
+
+  /**
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process,
+   * TaskWithFieldExtensions, List, List)}.
+   *
+   * <ul>
+   *   <li>Given {@link FieldExtension} (default constructor) FieldName is {@code html}.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process,
+   * TaskWithFieldExtensions, List, List)}
+   */
+  @Test
+  @DisplayName(
+      "Test validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List); given FieldExtension (default constructor) FieldName is 'html'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void ExternalInvocationTaskValidator.validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)"
+  })
+  void testValidateFieldDeclarationsForEmail_givenFieldExtensionFieldNameIsHtml() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    Process process = new Process();
+    SendTask task = new SendTask();
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setFieldName("html");
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(fieldExtension);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sendTaskValidator.validateFieldDeclarationsForEmail(process, task, fieldExtensions, errors);
+
+    // Assert
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertEquals(1, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("MAIL_TASK_NO_RECIPIENT", getResult.getDefaultDescription());
+    assertEquals("MAIL_TASK_NO_RECIPIENT", getResult.getKey());
+    assertEquals("MAIL_TASK_NO_RECIPIENT", getResult.getProblem());
+    assertTrue(flowElements.isEmpty());
+  }
+
+  /**
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process,
+   * TaskWithFieldExtensions, List, List)}.
+   *
+   * <ul>
+   *   <li>Given {@link FieldExtension} (default constructor) FieldName is {@code htmlVar}.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process,
+   * TaskWithFieldExtensions, List, List)}
+   */
+  @Test
+  @DisplayName(
+      "Test validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List); given FieldExtension (default constructor) FieldName is 'htmlVar'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void ExternalInvocationTaskValidator.validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)"
+  })
+  void testValidateFieldDeclarationsForEmail_givenFieldExtensionFieldNameIsHtmlVar() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    Process process = new Process();
+    SendTask task = new SendTask();
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setFieldName("htmlVar");
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(fieldExtension);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sendTaskValidator.validateFieldDeclarationsForEmail(process, task, fieldExtensions, errors);
+
+    // Assert
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertEquals(1, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("MAIL_TASK_NO_RECIPIENT", getResult.getDefaultDescription());
+    assertEquals("MAIL_TASK_NO_RECIPIENT", getResult.getKey());
+    assertEquals("MAIL_TASK_NO_RECIPIENT", getResult.getProblem());
+    assertTrue(flowElements.isEmpty());
+  }
+
+  /**
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process,
+   * TaskWithFieldExtensions, List, List)}.
+   *
+   * <ul>
+   *   <li>Given {@link FieldExtension} (default constructor) FieldName is {@code text}.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process,
+   * TaskWithFieldExtensions, List, List)}
+   */
+  @Test
+  @DisplayName(
+      "Test validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List); given FieldExtension (default constructor) FieldName is 'text'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void ExternalInvocationTaskValidator.validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)"
+  })
+  void testValidateFieldDeclarationsForEmail_givenFieldExtensionFieldNameIsText() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    Process process = new Process();
+    SendTask task = new SendTask();
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setFieldName("text");
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(fieldExtension);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sendTaskValidator.validateFieldDeclarationsForEmail(process, task, fieldExtensions, errors);
+
+    // Assert
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertEquals(1, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("MAIL_TASK_NO_RECIPIENT", getResult.getDefaultDescription());
+    assertEquals("MAIL_TASK_NO_RECIPIENT", getResult.getKey());
+    assertEquals("MAIL_TASK_NO_RECIPIENT", getResult.getProblem());
+    assertTrue(flowElements.isEmpty());
+  }
+
+  /**
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process,
+   * TaskWithFieldExtensions, List, List)}.
+   *
+   * <ul>
+   *   <li>Given {@link FieldExtension} (default constructor) FieldName is {@code textVar}.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process,
+   * TaskWithFieldExtensions, List, List)}
+   */
+  @Test
+  @DisplayName(
+      "Test validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List); given FieldExtension (default constructor) FieldName is 'textVar'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void ExternalInvocationTaskValidator.validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)"
+  })
+  void testValidateFieldDeclarationsForEmail_givenFieldExtensionFieldNameIsTextVar() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    Process process = new Process();
+    SendTask task = new SendTask();
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setFieldName("textVar");
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(fieldExtension);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sendTaskValidator.validateFieldDeclarationsForEmail(process, task, fieldExtensions, errors);
+
+    // Assert
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertEquals(1, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("MAIL_TASK_NO_RECIPIENT", getResult.getDefaultDescription());
+    assertEquals("MAIL_TASK_NO_RECIPIENT", getResult.getKey());
+    assertEquals("MAIL_TASK_NO_RECIPIENT", getResult.getProblem());
+    assertTrue(flowElements.isEmpty());
+  }
+
+  /**
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process,
+   * TaskWithFieldExtensions, List, List)}.
+   *
+   * <ul>
+   *   <li>When {@link SendTask} (default constructor).
+   *   <li>Then {@link ArrayList#ArrayList()} size is two.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process,
+   * TaskWithFieldExtensions, List, List)}
+   */
+  @Test
+  @DisplayName(
+      "Test validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List); when SendTask (default constructor); then ArrayList() size is two")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void ExternalInvocationTaskValidator.validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)"
+  })
+  void testValidateFieldDeclarationsForEmail_whenSendTask_thenArrayListSizeIsTwo() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    Process process = new Process();
+    SendTask task = new SendTask();
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sendTaskValidator.validateFieldDeclarationsForEmail(process, task, fieldExtensions, errors);
+
+    // Assert
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertEquals(2, errors.size());
+    ValidationError getResult = errors.get(1);
+    assertEquals("MAIL_TASK_NO_CONTENT", getResult.getDefaultDescription());
+    assertEquals("MAIL_TASK_NO_CONTENT", getResult.getKey());
+    assertEquals("MAIL_TASK_NO_CONTENT", getResult.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
+    assertTrue(flowElements.isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
+  }
+
+  /**
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process,
+   * TaskWithFieldExtensions, List, List)}.
+   *
+   * <p>Method under test: {@link
+   * ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process,
+   * TaskWithFieldExtensions, List, List)}
+   */
+  @Test
+  @DisplayName(
+      "Test validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void ExternalInvocationTaskValidator.validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)"
+  })
+  void testValidateFieldDeclarationsForShell() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    Process process = new Process();
+    SendTask task = new SendTask();
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setStringValue(Boolean.TRUE.toString());
+    fieldExtension.setFieldName("wait");
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(fieldExtension);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sendTaskValidator.validateFieldDeclarationsForShell(process, task, fieldExtensions, errors);
+
+    // Assert
+    assertEquals(1, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("SHELL_TASK_NO_COMMAND", getResult.getDefaultDescription());
+    assertEquals("SHELL_TASK_NO_COMMAND", getResult.getKey());
+    assertEquals("SHELL_TASK_NO_COMMAND", getResult.getProblem());
+  }
+
+  /**
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process,
+   * TaskWithFieldExtensions, List, List)}.
+   *
+   * <p>Method under test: {@link
+   * ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process,
+   * TaskWithFieldExtensions, List, List)}
+   */
+  @Test
+  @DisplayName(
+      "Test validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void ExternalInvocationTaskValidator.validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)"
+  })
+  void testValidateFieldDeclarationsForShell2() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    Process process = new Process();
+    SendTask task = new SendTask();
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setStringValue(Boolean.FALSE.toString());
+    fieldExtension.setFieldName("wait");
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(fieldExtension);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sendTaskValidator.validateFieldDeclarationsForShell(process, task, fieldExtensions, errors);
+
+    // Assert
+    assertEquals(1, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("SHELL_TASK_NO_COMMAND", getResult.getDefaultDescription());
+    assertEquals("SHELL_TASK_NO_COMMAND", getResult.getKey());
+    assertEquals("SHELL_TASK_NO_COMMAND", getResult.getProblem());
+  }
+
+  /**
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process,
+   * TaskWithFieldExtensions, List, List)}.
+   *
+   * <p>Method under test: {@link
+   * ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process,
+   * TaskWithFieldExtensions, List, List)}
+   */
+  @Test
+  @DisplayName(
+      "Test validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void ExternalInvocationTaskValidator.validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)"
+  })
+  void testValidateFieldDeclarationsForShell3() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    Process process = new Process();
+    SendTask task = new SendTask();
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setStringValue("42");
+    fieldExtension.setFieldName("redirectError");
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(fieldExtension);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sendTaskValidator.validateFieldDeclarationsForShell(process, task, fieldExtensions, errors);
+
+    // Assert
+    assertEquals(2, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("SHELL_TASK_INVALID_PARAM", getResult.getDefaultDescription());
+    assertEquals("SHELL_TASK_INVALID_PARAM", getResult.getKey());
+    assertEquals("SHELL_TASK_INVALID_PARAM", getResult.getProblem());
+    ValidationError getResult2 = errors.get(1);
+    assertEquals("SHELL_TASK_NO_COMMAND", getResult2.getDefaultDescription());
+    assertEquals("SHELL_TASK_NO_COMMAND", getResult2.getKey());
+    assertEquals("SHELL_TASK_NO_COMMAND", getResult2.getProblem());
+    assertNull(getResult2.getActivityId());
+    assertNull(getResult2.getActivityName());
+    assertNull(getResult2.getProcessDefinitionId());
+    assertNull(getResult2.getProcessDefinitionName());
+    assertNull(getResult2.getValidatorSetName());
+    assertEquals(0, getResult2.getXmlColumnNumber());
+    assertEquals(0, getResult2.getXmlLineNumber());
+    assertFalse(getResult2.isWarning());
+    assertTrue(getResult2.getParams().isEmpty());
+  }
+
+  /**
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process,
+   * TaskWithFieldExtensions, List, List)}.
+   *
+   * <ul>
+   *   <li>Given {@link FieldExtension} (default constructor) FieldName is {@code cleanEnv}.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process,
+   * TaskWithFieldExtensions, List, List)}
+   */
+  @Test
+  @DisplayName(
+      "Test validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List); given FieldExtension (default constructor) FieldName is 'cleanEnv'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void ExternalInvocationTaskValidator.validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)"
+  })
+  void testValidateFieldDeclarationsForShell_givenFieldExtensionFieldNameIsCleanEnv() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    Process process = new Process();
+    SendTask task = new SendTask();
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setStringValue("42");
+    fieldExtension.setFieldName("cleanEnv");
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(fieldExtension);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sendTaskValidator.validateFieldDeclarationsForShell(process, task, fieldExtensions, errors);
+
+    // Assert
+    assertEquals(2, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("SHELL_TASK_INVALID_PARAM", getResult.getDefaultDescription());
+    assertEquals("SHELL_TASK_INVALID_PARAM", getResult.getKey());
+    assertEquals("SHELL_TASK_INVALID_PARAM", getResult.getProblem());
+    ValidationError getResult2 = errors.get(1);
+    assertEquals("SHELL_TASK_NO_COMMAND", getResult2.getDefaultDescription());
+    assertEquals("SHELL_TASK_NO_COMMAND", getResult2.getKey());
+    assertEquals("SHELL_TASK_NO_COMMAND", getResult2.getProblem());
+    assertNull(getResult2.getActivityId());
+    assertNull(getResult2.getActivityName());
+    assertNull(getResult2.getProcessDefinitionId());
+    assertNull(getResult2.getProcessDefinitionName());
+    assertNull(getResult2.getValidatorSetName());
+    assertEquals(0, getResult2.getXmlColumnNumber());
+    assertEquals(0, getResult2.getXmlLineNumber());
+    assertFalse(getResult2.isWarning());
+    assertTrue(getResult2.getParams().isEmpty());
+  }
+
+  /**
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process,
+   * TaskWithFieldExtensions, List, List)}.
+   *
+   * <ul>
+   *   <li>Given {@link FieldExtension} (default constructor) FieldName is {@code Field Name}.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process,
+   * TaskWithFieldExtensions, List, List)}
+   */
+  @Test
+  @DisplayName(
+      "Test validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List); given FieldExtension (default constructor) FieldName is 'Field Name'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void ExternalInvocationTaskValidator.validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)"
+  })
+  void testValidateFieldDeclarationsForShell_givenFieldExtensionFieldNameIsFieldName() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    Process process = new Process();
+    SendTask task = new SendTask();
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setFieldName("Field Name");
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(fieldExtension);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sendTaskValidator.validateFieldDeclarationsForShell(process, task, fieldExtensions, errors);
+
+    // Assert
+    assertEquals(1, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("SHELL_TASK_NO_COMMAND", getResult.getDefaultDescription());
+    assertEquals("SHELL_TASK_NO_COMMAND", getResult.getKey());
+    assertEquals("SHELL_TASK_NO_COMMAND", getResult.getProblem());
+  }
+
+  /**
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process,
+   * TaskWithFieldExtensions, List, List)}.
+   *
+   * <ul>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process,
+   * TaskWithFieldExtensions, List, List)}
+   */
+  @Test
+  @DisplayName(
+      "Test validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List); then ArrayList() Empty")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void ExternalInvocationTaskValidator.validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)"
+  })
+  void testValidateFieldDeclarationsForShell_thenArrayListEmpty() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    Process process = new Process();
+    SendTask task = new SendTask();
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setFieldName("command");
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(fieldExtension);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sendTaskValidator.validateFieldDeclarationsForShell(process, task, fieldExtensions, errors);
+
+    // Assert that nothing has changed
+    assertTrue(errors.isEmpty());
+  }
+
+  /**
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process,
+   * TaskWithFieldExtensions, List, List)}.
+   *
+   * <ul>
+   *   <li>Then {@link ArrayList#ArrayList()} size is two.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process,
+   * TaskWithFieldExtensions, List, List)}
+   */
+  @Test
+  @DisplayName(
+      "Test validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List); then ArrayList() size is two")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void ExternalInvocationTaskValidator.validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)"
+  })
+  void testValidateFieldDeclarationsForShell_thenArrayListSizeIsTwo() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    Process process = new Process();
+    SendTask task = new SendTask();
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setStringValue("42");
+    fieldExtension.setFieldName("wait");
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(fieldExtension);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sendTaskValidator.validateFieldDeclarationsForShell(process, task, fieldExtensions, errors);
+
+    // Assert
+    assertEquals(2, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("SHELL_TASK_INVALID_PARAM", getResult.getDefaultDescription());
+    assertEquals("SHELL_TASK_INVALID_PARAM", getResult.getKey());
+    assertEquals("SHELL_TASK_INVALID_PARAM", getResult.getProblem());
+    ValidationError getResult2 = errors.get(1);
+    assertEquals("SHELL_TASK_NO_COMMAND", getResult2.getDefaultDescription());
+    assertEquals("SHELL_TASK_NO_COMMAND", getResult2.getKey());
+    assertEquals("SHELL_TASK_NO_COMMAND", getResult2.getProblem());
+    assertNull(getResult2.getActivityId());
+    assertNull(getResult2.getActivityName());
+    assertNull(getResult2.getProcessDefinitionId());
+    assertNull(getResult2.getProcessDefinitionName());
+    assertNull(getResult2.getValidatorSetName());
+    assertEquals(0, getResult2.getXmlColumnNumber());
+    assertEquals(0, getResult2.getXmlLineNumber());
+    assertFalse(getResult2.isWarning());
+    assertTrue(getResult2.getParams().isEmpty());
+  }
+
+  /**
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process,
+   * TaskWithFieldExtensions, List, List)}.
+   *
+   * <ul>
+   *   <li>When {@link SendTask} (default constructor).
+   *   <li>Then {@link ArrayList#ArrayList()} size is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process,
+   * TaskWithFieldExtensions, List, List)}
+   */
+  @Test
+  @DisplayName(
+      "Test validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List); when SendTask (default constructor); then ArrayList() size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void ExternalInvocationTaskValidator.validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)"
+  })
+  void testValidateFieldDeclarationsForShell_whenSendTask_thenArrayListSizeIsOne() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    Process process = new Process();
+    SendTask task = new SendTask();
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sendTaskValidator.validateFieldDeclarationsForShell(process, task, fieldExtensions, errors);
+
+    // Assert
+    assertEquals(1, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("SHELL_TASK_NO_COMMAND", getResult.getDefaultDescription());
+    assertEquals("SHELL_TASK_NO_COMMAND", getResult.getKey());
+    assertEquals("SHELL_TASK_NO_COMMAND", getResult.getProblem());
+  }
+
+  /**
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process,
+   * TaskWithFieldExtensions, List, List)}.
+   *
+   * <ul>
+   *   <li>Given {@link FieldExtension} (default constructor) FieldName is {@code Field Name}.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process,
+   * TaskWithFieldExtensions, List, List)}
+   */
+  @Test
+  @DisplayName(
+      "Test validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List); given FieldExtension (default constructor) FieldName is 'Field Name'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void ExternalInvocationTaskValidator.validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)"
+  })
+  void testValidateFieldDeclarationsForDmn_givenFieldExtensionFieldNameIsFieldName() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    Process process = new Process();
+    SendTask task = new SendTask();
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setFieldName("Field Name");
+    fieldExtension.setStringValue("Field Extensions");
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(fieldExtension);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sendTaskValidator.validateFieldDeclarationsForDmn(process, task, fieldExtensions, errors);
+
+    // Assert
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertEquals(1, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("DMN_TASK_NO_KEY", getResult.getDefaultDescription());
+    assertEquals("DMN_TASK_NO_KEY", getResult.getKey());
+    assertEquals("DMN_TASK_NO_KEY", getResult.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
+    assertTrue(flowElements.isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
+  }
+
+  /**
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process,
+   * TaskWithFieldExtensions, List, List)}.
+   *
+   * <ul>
+   *   <li>Given {@link FieldExtension} (default constructor) StringValue is empty string.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process,
+   * TaskWithFieldExtensions, List, List)}
+   */
+  @Test
+  @DisplayName(
+      "Test validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List); given FieldExtension (default constructor) StringValue is empty string")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void ExternalInvocationTaskValidator.validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)"
+  })
+  void testValidateFieldDeclarationsForDmn_givenFieldExtensionStringValueIsEmptyString() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    Process process = new Process();
+    SendTask task = new SendTask();
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setFieldName("decisionTableReferenceKey");
+    fieldExtension.setStringValue("");
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(fieldExtension);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sendTaskValidator.validateFieldDeclarationsForDmn(process, task, fieldExtensions, errors);
+
+    // Assert
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertEquals(1, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("DMN_TASK_NO_KEY", getResult.getDefaultDescription());
+    assertEquals("DMN_TASK_NO_KEY", getResult.getKey());
+    assertEquals("DMN_TASK_NO_KEY", getResult.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
+    assertTrue(flowElements.isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
+  }
+
+  /**
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process,
+   * TaskWithFieldExtensions, List, List)}.
+   *
+   * <ul>
+   *   <li>Given {@link FieldExtension} (default constructor) StringValue is {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process,
+   * TaskWithFieldExtensions, List, List)}
+   */
+  @Test
+  @DisplayName(
+      "Test validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List); given FieldExtension (default constructor) StringValue is 'null'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void ExternalInvocationTaskValidator.validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)"
+  })
+  void testValidateFieldDeclarationsForDmn_givenFieldExtensionStringValueIsNull() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    Process process = new Process();
+    SendTask task = new SendTask();
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setFieldName("decisionTableReferenceKey");
+    fieldExtension.setStringValue(null);
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(fieldExtension);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sendTaskValidator.validateFieldDeclarationsForDmn(process, task, fieldExtensions, errors);
+
+    // Assert
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertEquals(1, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("DMN_TASK_NO_KEY", getResult.getDefaultDescription());
+    assertEquals("DMN_TASK_NO_KEY", getResult.getKey());
+    assertEquals("DMN_TASK_NO_KEY", getResult.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
+    assertTrue(flowElements.isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
+  }
+
+  /**
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process,
+   * TaskWithFieldExtensions, List, List)}.
+   *
+   * <ul>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process,
+   * TaskWithFieldExtensions, List, List)}
+   */
+  @Test
+  @DisplayName(
+      "Test validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List); then ArrayList() Empty")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void ExternalInvocationTaskValidator.validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)"
+  })
+  void testValidateFieldDeclarationsForDmn_thenArrayListEmpty() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    Process process = new Process();
+    SendTask task = new SendTask();
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setFieldName("decisionTableReferenceKey");
+    fieldExtension.setStringValue("Field Extensions");
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(fieldExtension);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sendTaskValidator.validateFieldDeclarationsForDmn(process, task, fieldExtensions, errors);
+
+    // Assert that nothing has changed
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertTrue(errors.isEmpty());
+    assertTrue(flowElements.isEmpty());
+  }
+
+  /**
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process,
+   * TaskWithFieldExtensions, List, List)}.
+   *
+   * <ul>
+   *   <li>Then {@link ArrayList#ArrayList()} size is two.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process,
+   * TaskWithFieldExtensions, List, List)}
+   */
+  @Test
+  @DisplayName(
+      "Test validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List); then ArrayList() size is two")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void ExternalInvocationTaskValidator.validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)"
+  })
+  void testValidateFieldDeclarationsForDmn_thenArrayListSizeIsTwo() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    Process process = new Process();
+    SendTask task = new SendTask();
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+
+    ValidationError validationError = new ValidationError();
+    validationError.setActivityId("42");
+    validationError.setActivityName("DMN_TASK_NO_KEY");
+    validationError.setDefaultDescription("DMN_TASK_NO_KEY");
+    validationError.setKey("DMN_TASK_NO_KEY");
+    validationError.setParams(new HashMap<>());
+    validationError.setProblem("DMN_TASK_NO_KEY");
+    validationError.setProcessDefinitionId("42");
+    validationError.setProcessDefinitionName("DMN_TASK_NO_KEY");
+    validationError.setValidatorSetName("DMN_TASK_NO_KEY");
+    validationError.setWarning(true);
+    validationError.setXmlColumnNumber(10);
+    validationError.setXmlLineNumber(2);
+
+    ArrayList<ValidationError> errors = new ArrayList<>();
+    errors.add(validationError);
+
+    // Act
+    sendTaskValidator.validateFieldDeclarationsForDmn(process, task, fieldExtensions, errors);
+
+    // Assert
+    assertEquals(2, errors.size());
+    ValidationError getResult = errors.get(1);
+    assertEquals("DMN_TASK_NO_KEY", getResult.getDefaultDescription());
+    assertEquals("DMN_TASK_NO_KEY", getResult.getKey());
+    assertEquals("DMN_TASK_NO_KEY", getResult.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
+    assertTrue(getResult.getParams().isEmpty());
+  }
+
+  /**
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process,
+   * TaskWithFieldExtensions, List, List)}.
+   *
+   * <ul>
+   *   <li>When {@link SendTask} (default constructor).
+   *   <li>Then {@link ArrayList#ArrayList()} size is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process,
+   * TaskWithFieldExtensions, List, List)}
+   */
+  @Test
+  @DisplayName(
+      "Test validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List); when SendTask (default constructor); then ArrayList() size is one")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void ExternalInvocationTaskValidator.validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)"
+  })
+  void testValidateFieldDeclarationsForDmn_whenSendTask_thenArrayListSizeIsOne() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    Process process = new Process();
+    SendTask task = new SendTask();
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sendTaskValidator.validateFieldDeclarationsForDmn(process, task, fieldExtensions, errors);
+
+    // Assert
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertEquals(1, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("DMN_TASK_NO_KEY", getResult.getDefaultDescription());
+    assertEquals("DMN_TASK_NO_KEY", getResult.getKey());
+    assertEquals("DMN_TASK_NO_KEY", getResult.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
+    assertTrue(flowElements.isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
+  }
+}
