@@ -89,35 +89,6 @@ class MessageEventPayloadBuilderDiffblueTest {
    * Test {@link MessageEventPayloadBuilder#withVariable(String, Object)}.
    *
    * <ul>
-   *   <li>Given {@link MessageEventPayloadBuilder} (default constructor).
-   * </ul>
-   *
-   * <p>Method under test: {@link MessageEventPayloadBuilder#withVariable(String, Object)}
-   */
-  @Test
-  @DisplayName(
-      "Test withVariable(String, Object); given MessageEventPayloadBuilder (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "MessageEventPayloadBuilder MessageEventPayloadBuilder.withVariable(String, Object)"
-  })
-  void testWithVariable_givenMessageEventPayloadBuilder() {
-    // Arrange
-    MessageEventPayloadBuilder messageEventPayloadBuilder = new MessageEventPayloadBuilder();
-
-    // Act
-    MessageEventPayloadBuilder actualWithVariableResult =
-        messageEventPayloadBuilder.withVariable("Name", "Value");
-
-    // Assert
-    assertSame(messageEventPayloadBuilder, actualWithVariableResult);
-  }
-
-  /**
-   * Test {@link MessageEventPayloadBuilder#withVariable(String, Object)}.
-   *
-   * <ul>
    *   <li>Given {@link MessageEventPayloadBuilder} (default constructor) withVariables {@link
    *       HashMap#HashMap()}.
    * </ul>

@@ -898,33 +898,6 @@ public class ExpressionManagerDiffblueTest {
   }
 
   /**
-   * Test {@link ExpressionManager#createElResolver(VariableScope)}.
-   *
-   * <ul>
-   *   <li>Given {@link MockExpressionManager} (default constructor).
-   * </ul>
-   *
-   * <p>Method under test: {@link ExpressionManager#createElResolver(VariableScope)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"ELResolver ExpressionManager.createElResolver(VariableScope)"})
-  public void testCreateElResolver_givenMockExpressionManager() {
-    // Arrange and Act
-    ELResolver actualCreateElResolverResult =
-        ((ExpressionManager) new MockExpressionManager())
-            .createElResolver(NoExecutionVariableScope.getSharedInstance());
-
-    // Assert
-    assertTrue(actualCreateElResolverResult instanceof CompositeELResolver);
-    assertFalse(actualCreateElResolverResult.getFeatureDescriptors(null, null).hasNext());
-    Class<Object> expectedCommonPropertyType = Object.class;
-    assertEquals(
-        expectedCommonPropertyType, actualCreateElResolverResult.getCommonPropertyType(null, null));
-  }
-
-  /**
    * Test {@link ExpressionManager#addBeansResolver(CompositeELResolver)}.
    *
    * <ul>

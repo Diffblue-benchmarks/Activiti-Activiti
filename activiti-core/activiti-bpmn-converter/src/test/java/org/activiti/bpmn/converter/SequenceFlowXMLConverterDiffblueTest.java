@@ -95,7 +95,7 @@ class SequenceFlowXMLConverterDiffblueTest {
     SequenceFlowXMLConverter sequenceFlowXMLConverter = new SequenceFlowXMLConverter();
 
     SequenceFlow element = new SequenceFlow("Source Ref", "Target Ref");
-    element.setConditionExpression("not empty");
+    element.setConditionExpression("conditionExpression");
     BpmnModel model = new BpmnModel();
 
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
@@ -109,17 +109,16 @@ class SequenceFlowXMLConverterDiffblueTest {
     doNothing().when(writer).writeCData(Mockito.<String>any());
     doNothing().when(writer).writeEndElement();
     doNothing().when(writer).writeStartElement(Mockito.<String>any());
-    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
 
     // Act
     sequenceFlowXMLConverter.writeAdditionalChildElements(
-        element, model, new IndentingXMLStreamWriter(writer2));
+        element, model, new IndentingXMLStreamWriter(writer));
 
     // Assert
     verify(writer)
         .writeAttribute(
             "xsi", "http://www.w3.org/2001/XMLSchema-instance", "type", "tFormalExpression");
-    verify(writer).writeCData("not empty");
+    verify(writer).writeCData("conditionExpression");
     verify(writer).writeEndElement();
     verify(writer).writeStartElement("conditionExpression");
   }

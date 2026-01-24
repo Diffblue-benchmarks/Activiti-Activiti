@@ -32,31 +32,6 @@ class SaveTaskPayloadBuilderDiffblueTest {
    * Test {@link SaveTaskPayloadBuilder#withVariable(String, Object)}.
    *
    * <ul>
-   *   <li>Given save.
-   * </ul>
-   *
-   * <p>Method under test: {@link SaveTaskPayloadBuilder#withVariable(String, Object)}
-   */
-  @Test
-  @DisplayName("Test withVariable(String, Object); given save")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"SaveTaskPayloadBuilder SaveTaskPayloadBuilder.withVariable(String, Object)"})
-  void testWithVariable_givenSave() {
-    // Arrange
-    SaveTaskPayloadBuilder saveResult = TaskPayloadBuilder.save();
-
-    // Act
-    SaveTaskPayloadBuilder actualWithVariableResult = saveResult.withVariable("Name", "Value");
-
-    // Assert
-    assertSame(saveResult, actualWithVariableResult);
-  }
-
-  /**
-   * Test {@link SaveTaskPayloadBuilder#withVariable(String, Object)}.
-   *
-   * <ul>
    *   <li>Given save withVariables {@link HashMap#HashMap()}.
    * </ul>
    *

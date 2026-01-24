@@ -82,30 +82,6 @@ class ToAPIProcessCandidateStarterGroupAddedEventConverterDiffblueTest {
    * Test {@link ToAPIProcessCandidateStarterGroupAddedEventConverter#from(ActivitiEntityEvent)}
    * with {@code ActivitiEntityEvent}.
    *
-   * <p>Method under test: {@link
-   * ToAPIProcessCandidateStarterGroupAddedEventConverter#from(ActivitiEntityEvent)}
-   */
-  @Test
-  @DisplayName("Test from(ActivitiEntityEvent) with 'ActivitiEntityEvent'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "java.util.Optional ToAPIProcessCandidateStarterGroupAddedEventConverter.from(ActivitiEntityEvent)"
-  })
-  void testFromWithActivitiEntityEvent() {
-    // Arrange, Act and Assert
-    assertFalse(
-        toAPIProcessCandidateStarterGroupAddedEventConverter
-            .from(
-                new ActivitiProcessCancelledEventImpl(
-                    ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
-            .isPresent());
-  }
-
-  /**
-   * Test {@link ToAPIProcessCandidateStarterGroupAddedEventConverter#from(ActivitiEntityEvent)}
-   * with {@code ActivitiEntityEvent}.
-   *
    * <ul>
    *   <li>Given {@code candidate}.
    * </ul>

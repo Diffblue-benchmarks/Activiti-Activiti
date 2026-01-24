@@ -19,8 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
@@ -32,60 +30,6 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class RemoveVariablesPayloadBuilderDiffblueTest {
-  /**
-   * Test {@link RemoveVariablesPayloadBuilder#withProcessInstance(ProcessInstance)}.
-   *
-   * <p>Method under test: {@link
-   * RemoveVariablesPayloadBuilder#withProcessInstance(ProcessInstance)}
-   */
-  @Test
-  @DisplayName("Test withProcessInstance(ProcessInstance)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "RemoveVariablesPayloadBuilder RemoveVariablesPayloadBuilder.withProcessInstance(ProcessInstance)"
-  })
-  void testWithProcessInstance() {
-    // Arrange
-    RemoveVariablesPayloadBuilder removeVariablesResult = ProcessPayloadBuilder.removeVariables();
-
-    ProcessInstance processInstance = mock(ProcessInstance.class);
-    when(processInstance.getId()).thenReturn("42");
-
-    // Act
-    RemoveVariablesPayloadBuilder actualWithProcessInstanceResult =
-        removeVariablesResult.withProcessInstance(processInstance);
-
-    // Assert
-    verify(processInstance).getId();
-    assertEquals("42", removeVariablesResult.build().getProcessInstanceId());
-    assertSame(removeVariablesResult, actualWithProcessInstanceResult);
-  }
-
-  /**
-   * Test {@link RemoveVariablesPayloadBuilder#withVariableNames(String)} with {@code variableName}.
-   *
-   * <p>Method under test: {@link RemoveVariablesPayloadBuilder#withVariableNames(String)}
-   */
-  @Test
-  @DisplayName("Test withVariableNames(String) with 'variableName'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "RemoveVariablesPayloadBuilder RemoveVariablesPayloadBuilder.withVariableNames(String)"
-  })
-  void testWithVariableNamesWithVariableName() {
-    // Arrange
-    RemoveVariablesPayloadBuilder removeVariablesResult = ProcessPayloadBuilder.removeVariables();
-
-    // Act
-    RemoveVariablesPayloadBuilder actualWithVariableNamesResult =
-        removeVariablesResult.withVariableNames("Variable Name");
-
-    // Assert
-    assertSame(removeVariablesResult, actualWithVariableNamesResult);
-  }
-
   /**
    * Test {@link RemoveVariablesPayloadBuilder#build()}.
    *

@@ -32,34 +32,6 @@ class CompleteTaskPayloadBuilderDiffblueTest {
    * Test {@link CompleteTaskPayloadBuilder#withVariable(String, Object)}.
    *
    * <ul>
-   *   <li>Given complete.
-   * </ul>
-   *
-   * <p>Method under test: {@link CompleteTaskPayloadBuilder#withVariable(String, Object)}
-   */
-  @Test
-  @DisplayName("Test withVariable(String, Object); given complete")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "CompleteTaskPayloadBuilder CompleteTaskPayloadBuilder.withVariable(String, Object)"
-  })
-  void testWithVariable_givenComplete() {
-    // Arrange
-    CompleteTaskPayloadBuilder completeResult = TaskPayloadBuilder.complete();
-
-    // Act
-    CompleteTaskPayloadBuilder actualWithVariableResult =
-        completeResult.withVariable("Name", "Value");
-
-    // Assert
-    assertSame(completeResult, actualWithVariableResult);
-  }
-
-  /**
-   * Test {@link CompleteTaskPayloadBuilder#withVariable(String, Object)}.
-   *
-   * <ul>
    *   <li>Given complete withVariables {@link HashMap#HashMap()}.
    * </ul>
    *

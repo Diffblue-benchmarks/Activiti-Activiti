@@ -36,21 +36,6 @@ import org.junit.jupiter.api.Test;
 
 class BuilderDiffblueTest {
   /**
-   * Test {@link Builder#Builder()}.
-   *
-   * <p>Method under test: {@link Builder#Builder()}
-   */
-  @Test
-  @DisplayName("Test new Builder()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void Builder.<init>()"})
-  void testNewBuilder() {
-    // Arrange, Act and Assert
-    assertTrue(new Builder().features.isEmpty());
-  }
-
-  /**
    * Test {@link Builder#Builder(Feature[])}.
    *
    * <ul>

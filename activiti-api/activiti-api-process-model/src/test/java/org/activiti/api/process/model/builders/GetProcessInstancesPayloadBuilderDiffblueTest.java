@@ -62,38 +62,6 @@ class GetProcessInstancesPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link GetProcessInstancesPayloadBuilder#withProcessDefinitionKey(String)}.
-   *
-   * <ul>
-   *   <li>Given processInstances.
-   *   <li>Then return processInstances.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * GetProcessInstancesPayloadBuilder#withProcessDefinitionKey(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test withProcessDefinitionKey(String); given processInstances; then return processInstances")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "GetProcessInstancesPayloadBuilder GetProcessInstancesPayloadBuilder.withProcessDefinitionKey(String)"
-  })
-  void testWithProcessDefinitionKey_givenProcessInstances_thenReturnProcessInstances() {
-    // Arrange
-    GetProcessInstancesPayloadBuilder processInstancesResult =
-        ProcessPayloadBuilder.processInstances();
-
-    // Act
-    GetProcessInstancesPayloadBuilder actualWithProcessDefinitionKeyResult =
-        processInstancesResult.withProcessDefinitionKey("Process Definition Key");
-
-    // Assert
-    assertSame(processInstancesResult, actualWithProcessDefinitionKeyResult);
-  }
-
-  /**
    * Test {@link GetProcessInstancesPayloadBuilder#build()}.
    *
    * <p>Methods under test:

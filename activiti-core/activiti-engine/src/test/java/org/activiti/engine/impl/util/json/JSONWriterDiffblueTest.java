@@ -18,12 +18,14 @@ package org.activiti.engine.impl.util.json;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.ContributionFromDiffblue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.io.IOException;
 import java.io.PipedWriter;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -33,11 +35,18 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 @RunWith(MockitoJUnitRunner.class)
 public class JSONWriterDiffblueTest {
   @InjectMocks private JSONWriter jSONWriter;
+
+  @Mock private Writer writer;
 
   /**
    * Test {@link JSONWriter#JSONWriter(Writer)}.
@@ -75,6 +84,28 @@ public class JSONWriterDiffblueTest {
       throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> new JSONWriter(new PipedWriter()).array());
+  }
+
+  /**
+   * Test {@link JSONWriter#array()}.
+   *
+   * <ul>
+   *   <li>Then calls {@link Writer#write(String)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link JSONWriter#array()}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"JSONWriter JSONWriter.array()"})
+  public void testArray_thenCallsWrite() throws IOException, JSONException {
+    // Arrange
+    doThrow(new JSONException("An error occurred")).when(writer).write(Mockito.<String>any());
+
+    // Act and Assert
+    assertThrows(JSONException.class, () -> jSONWriter.array());
+    verify(writer).write("[");
   }
 
   /**
@@ -187,6 +218,28 @@ public class JSONWriterDiffblueTest {
       throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> new JSONWriter(new PipedWriter()).object());
+  }
+
+  /**
+   * Test {@link JSONWriter#object()}.
+   *
+   * <ul>
+   *   <li>Then calls {@link Writer#write(String)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link JSONWriter#object()}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"JSONWriter JSONWriter.object()"})
+  public void testObject_thenCallsWrite() throws IOException, JSONException {
+    // Arrange
+    doThrow(new JSONException("An error occurred")).when(writer).write(Mockito.<String>any());
+
+    // Act and Assert
+    assertThrows(JSONException.class, () -> jSONWriter.object());
+    verify(writer).write("{");
   }
 
   /**

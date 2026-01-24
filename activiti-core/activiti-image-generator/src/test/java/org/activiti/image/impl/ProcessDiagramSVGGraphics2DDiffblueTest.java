@@ -67,7 +67,6 @@ public class ProcessDiagramSVGGraphics2DDiffblueTest {
     assertTrue(root instanceof SVGOMSVGElement);
     Element root2 = actualProcessDiagramSVGGraphics2D.getRoot();
     assertTrue(root2 instanceof SVGOMSVGElement);
-    assertNull(((SVG12OMDocument) dOMFactory).getManagerData());
     assertNull(((SVG12OMDocument) dOMFactory).getEventSupport());
     assertNull(((SVGOMDefsElement) genericDefinitions).getEventSupport());
     assertNull(((SVGOMSVGElement) root).getEventSupport());
@@ -89,8 +88,7 @@ public class ProcessDiagramSVGGraphics2DDiffblueTest {
     GenericDocumentType dt = new GenericDocumentType("Qualified Name", "42", "42");
 
     SVG12OMDocument domFactory = new SVG12OMDocument(dt, new SVG12DOMImplementation());
-    domFactory.setManagerData("Data");
-    domFactory.addEventListener("Type", mock(EventListener.class), true);
+    domFactory.addEventListenerNS("Namespace URI", "Type", mock(EventListener.class), true, "42");
 
     // Act
     ProcessDiagramSVGGraphics2D actualProcessDiagramSVGGraphics2D =
@@ -103,7 +101,6 @@ public class ProcessDiagramSVGGraphics2DDiffblueTest {
     assertTrue(root instanceof SVGOMSVGElement);
     assertTrue(((SVG12OMDocument) dOMFactory).getEventSupport() instanceof XBLEventSupport);
     assertTrue(((SVGOMSVGElement) root).getEventSupport() instanceof XBLEventSupport);
-    assertEquals("Data", ((SVG12OMDocument) dOMFactory).getManagerData());
     assertTrue(((SVG12OMDocument) dOMFactory).getEventsEnabled());
   }
 

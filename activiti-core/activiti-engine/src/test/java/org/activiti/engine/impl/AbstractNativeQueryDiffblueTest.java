@@ -65,18 +65,13 @@ public class AbstractNativeQueryDiffblueTest {
   /**
    * Test {@link AbstractNativeQuery#sql(String)}.
    *
-   * <ul>
-   *   <li>Then return {@link NativeDeploymentQueryImpl#NativeDeploymentQueryImpl(CommandContext)}
-   *       with commandContext is {@code null}.
-   * </ul>
-   *
    * <p>Method under test: {@link AbstractNativeQuery#sql(String)}
    */
   @Test
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"org.activiti.engine.query.NativeQuery AbstractNativeQuery.sql(String)"})
-  public void testSql_thenReturnNativeDeploymentQueryImplWithCommandContextIsNull() {
+  public void testSql() {
     // Arrange
     NativeDeploymentQueryImpl nativeDeploymentQueryImpl =
         new NativeDeploymentQueryImpl((CommandContext) null);

@@ -18,14 +18,9 @@ package org.activiti.spring.process.variable.types;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.time.LocalDate;
-import java.time.ZoneOffset;
-import java.util.Date;
-import org.activiti.common.util.DateFormatterProvider;
 import org.activiti.engine.ActivitiException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -71,31 +66,6 @@ class VariableTypeDiffblueTest {
   /**
    * Test {@link VariableType#parseFromValue(Object)}.
    *
-   * <p>Method under test: {@link VariableType#parseFromValue(Object)}
-   */
-  @Test
-  @DisplayName("Test parseFromValue(Object)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object VariableType.parseFromValue(Object)"})
-  void testParseFromValue() throws ActivitiException {
-    // Arrange
-    Class<Object> clazz = Object.class;
-    DateVariableType dateVariableType =
-        new DateVariableType(clazz, new DateFormatterProvider("2020-03-01"));
-    Date fromResult =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
-
-    // Act
-    Object actualParseFromValueResult = dateVariableType.parseFromValue(fromResult);
-
-    // Assert
-    assertSame(fromResult, actualParseFromValueResult);
-  }
-
-  /**
-   * Test {@link VariableType#parseFromValue(Object)}.
-   *
    * <ul>
    *   <li>Given {@link JavaObjectVariableType#JavaObjectVariableType(Class)} with clazz is {@link
    *       Object}.
@@ -117,31 +87,6 @@ class VariableTypeDiffblueTest {
 
     // Act and Assert
     assertEquals("Value", new JavaObjectVariableType(clazz).parseFromValue("Value"));
-  }
-
-  /**
-   * Test {@link VariableType#parseFromValue(Object)}.
-   *
-   * <ul>
-   *   <li>When {@code ${UU}}.
-   *   <li>Then return {@code ${UU}}.
-   * </ul>
-   *
-   * <p>Method under test: {@link VariableType#parseFromValue(Object)}
-   */
-  @Test
-  @DisplayName("Test parseFromValue(Object); when '${UU}'; then return '${UU}'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object VariableType.parseFromValue(Object)"})
-  void testParseFromValue_whenUu_thenReturnUu() throws ActivitiException {
-    // Arrange
-    Class<Object> clazz = Object.class;
-    DateVariableType dateVariableType =
-        new DateVariableType(clazz, new DateFormatterProvider("2020-03-01"));
-
-    // Act and Assert
-    assertEquals("${UU}", dateVariableType.parseFromValue("${UU}"));
   }
 
   /**

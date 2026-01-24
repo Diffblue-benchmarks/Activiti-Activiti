@@ -15,7 +15,9 @@
  */
 package org.activiti.engine.impl.calendar;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -24,7 +26,9 @@ import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.impl.util.DefaultClockImpl;
 import org.activiti.engine.runtime.ClockReader;

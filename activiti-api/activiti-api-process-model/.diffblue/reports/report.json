@@ -3,22 +3,23 @@
     "reportVersion" : "2.8"
   },
   "run" : {
-    "version" : "2025.11.01-3385b9f-licensed",
-    "creationTimestamp" : "2025-11-12T09:22:28.997361025Z",
+    "version" : "2026.01.01-c73dc7d-licensed",
+    "creationTimestamp" : "2026-01-23T13:25:53.472811723Z",
     "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
-    "totalTime" : 113.393,
-    "environmentDetectionTime" : 0.147,
-    "indexingTime" : 0.312,
-    "entryPointsTime" : 0.135,
-    "generationTime" : 83.606,
-    "timeToFirstTest" : 201.5,
-    "timeToLastTest" : 159.699,
-    "indexQueryTime" : 2.328,
-    "verificationTime" : 11.187,
-    "validationTime" : 10.681
+    "totalTime" : 123.692,
+    "environmentDetectionTime" : 0.171,
+    "indexingTime" : 0.385,
+    "entryPointsTime" : 0.155,
+    "generationTime" : 90.923,
+    "timeToFirstTest" : 217.579,
+    "timeToLastTest" : 172.3,
+    "indexQueryTime" : 2.443,
+    "verificationTime" : 11.358,
+    "validationTime" : 11.207
   },
   "codes" : {
     "R000" : "Success",
+    "R003" : "Test did not increase coverage",
     "T000" : "Method eligible for test creation",
     "T001" : "Trivial getter",
     "T002" : "Trivial setter",
@@ -33,9 +34,9 @@
   "summary" : {
     "classesCount" : 74,
     "methodsCount" : 428,
-    "cumulativeDiffblueTestCount" : 175,
+    "cumulativeDiffblueTestCount" : 160,
     "cumulativeManualTestCount" : 0,
-    "completeTestCount" : 175,
+    "completeTestCount" : 160,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 1879,
@@ -51,7 +52,8 @@
       "T020" : 5
     },
     "perMethodOutcome" : {
-      "R000" : 267,
+      "R000" : 260,
+      "R003" : 7,
       "T003" : 15,
       "T005" : 2,
       "T009" : 2,
@@ -59,10 +61,10 @@
       "T012" : 45
     },
     "perTestOutcome" : {
-      "R000" : 175
+      "R000" : 160
     },
     "perTestValidation" : {
-      "V000" : 175
+      "V000" : 160
     }
   },
   "classes" : {
@@ -317,6 +319,23 @@
     },
     "org.activiti.api.process.model.builders.DeleteProcessPayloadBuilder" : {
       "methodsCount" : 5,
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T002" : 2,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 4,
+        "R003" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 1
+      }
+    },
+    "org.activiti.api.process.model.builders.GetProcessDefinitionsPayloadBuilder" : {
+      "methodsCount" : 5,
       "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
@@ -331,25 +350,9 @@
         "R000" : 2
       }
     },
-    "org.activiti.api.process.model.builders.GetProcessDefinitionsPayloadBuilder" : {
-      "methodsCount" : 5,
-      "completeTestCount" : 3,
-      "incompleteTestCount" : 0,
-      "perMethodTestability" : {
-        "T000" : 2,
-        "T002" : 2,
-        "T005" : 1
-      },
-      "perMethodOutcome" : {
-        "R000" : 5
-      },
-      "perTestOutcome" : {
-        "R000" : 3
-      }
-    },
     "org.activiti.api.process.model.builders.GetProcessInstancesPayloadBuilder" : {
       "methodsCount" : 8,
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -360,12 +363,12 @@
         "R000" : 8
       },
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
       }
     },
     "org.activiti.api.process.model.builders.GetVariablesPayloadBuilder" : {
       "methodsCount" : 4,
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -373,15 +376,16 @@
         "T005" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 4
+        "R000" : 3,
+        "R003" : 1
       },
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       }
     },
     "org.activiti.api.process.model.builders.MessageEventPayloadBuilder" : {
       "methodsCount" : 12,
-      "completeTestCount" : 14,
+      "completeTestCount" : 13,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 6,
@@ -393,7 +397,7 @@
         "R000" : 12
       },
       "perTestOutcome" : {
-        "R000" : 14
+        "R000" : 13
       }
     },
     "org.activiti.api.process.model.builders.MessagePayloadBuilder" : {
@@ -430,7 +434,7 @@
     },
     "org.activiti.api.process.model.builders.ReceiveMessagePayloadBuilder" : {
       "methodsCount" : 11,
-      "completeTestCount" : 13,
+      "completeTestCount" : 12,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 6,
@@ -442,12 +446,12 @@
         "R000" : 11
       },
       "perTestOutcome" : {
-        "R000" : 13
+        "R000" : 12
       }
     },
     "org.activiti.api.process.model.builders.RemoveVariablesPayloadBuilder" : {
       "methodsCount" : 6,
-      "completeTestCount" : 3,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 3,
@@ -455,15 +459,16 @@
         "T005" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 6
+        "R000" : 4,
+        "R003" : 2
       },
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 1
       }
     },
     "org.activiti.api.process.model.builders.ResumeProcessPayloadBuilder" : {
       "methodsCount" : 4,
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -471,15 +476,16 @@
         "T005" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 4
+        "R000" : 3,
+        "R003" : 1
       },
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       }
     },
     "org.activiti.api.process.model.builders.SetVariablesPayloadBuilder" : {
       "methodsCount" : 8,
-      "completeTestCount" : 5,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 4,
@@ -487,15 +493,16 @@
         "T005" : 2
       },
       "perMethodOutcome" : {
-        "R000" : 8
+        "R000" : 7,
+        "R003" : 1
       },
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 3
       }
     },
     "org.activiti.api.process.model.builders.SignalPayloadBuilder" : {
       "methodsCount" : 5,
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -506,12 +513,12 @@
         "R000" : 5
       },
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
       }
     },
     "org.activiti.api.process.model.builders.StartMessagePayloadBuilder" : {
       "methodsCount" : 8,
-      "completeTestCount" : 5,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 4,
@@ -522,12 +529,12 @@
         "R000" : 8
       },
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 4
       }
     },
     "org.activiti.api.process.model.builders.StartProcessPayloadBuilder" : {
       "methodsCount" : 8,
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -538,12 +545,12 @@
         "R000" : 8
       },
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
       }
     },
     "org.activiti.api.process.model.builders.SuspendProcessPayloadBuilder" : {
       "methodsCount" : 4,
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -551,10 +558,11 @@
         "T005" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 4
+        "R000" : 3,
+        "R003" : 1
       },
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       }
     },
     "org.activiti.api.process.model.builders.UpdateProcessPayloadBuilder" : {
@@ -1780,13 +1788,10 @@
       ]
     },
     "org.activiti.api.process.model.builders.DeleteProcessPayloadBuilder.withProcessInstance:(Lorg/activiti/api/process/model/ProcessInstance;)Lorg/activiti/api/process/model/builders/DeleteProcessPayloadBuilder;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R003",
       "lineNumbers" : [
         38,
         39
@@ -1857,12 +1862,12 @@
       ]
     },
     "org.activiti.api.process.model.builders.GetProcessDefinitionsPayloadBuilder.withProcessDefinitionKey:(Ljava/lang/String;)Lorg/activiti/api/process/model/builders/GetProcessDefinitionsPayloadBuilder;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         39,
@@ -1970,12 +1975,12 @@
       ]
     },
     "org.activiti.api.process.model.builders.GetProcessInstancesPayloadBuilder.withProcessDefinitionKey:(Ljava/lang/String;)Lorg/activiti/api/process/model/builders/GetProcessInstancesPayloadBuilder;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         43,
@@ -2022,13 +2027,10 @@
       ]
     },
     "org.activiti.api.process.model.builders.GetVariablesPayloadBuilder.withProcessInstance:(Lorg/activiti/api/process/model/ProcessInstance;)Lorg/activiti/api/process/model/builders/GetVariablesPayloadBuilder;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R003",
       "lineNumbers" : [
         31,
         32
@@ -2198,12 +2200,12 @@
       ]
     },
     "org.activiti.api.process.model.builders.MessageEventPayloadBuilder.withVariable:(Ljava/lang/String;Ljava/lang/Object;)Lorg/activiti/api/process/model/builders/MessageEventPayloadBuilder;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         60,
@@ -2746,12 +2748,12 @@
       ]
     },
     "org.activiti.api.process.model.builders.ReceiveMessagePayloadBuilder.withVariable:(Ljava/lang/String;Ljava/lang/Object;)Lorg/activiti/api/process/model/builders/ReceiveMessagePayloadBuilder;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         58,
@@ -2799,13 +2801,10 @@
       ]
     },
     "org.activiti.api.process.model.builders.RemoveVariablesPayloadBuilder.withProcessInstance:(Lorg/activiti/api/process/model/ProcessInstance;)Lorg/activiti/api/process/model/builders/RemoveVariablesPayloadBuilder;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R003",
       "lineNumbers" : [
         35,
         36
@@ -2825,13 +2824,10 @@
       ]
     },
     "org.activiti.api.process.model.builders.RemoveVariablesPayloadBuilder.withVariableNames:(Ljava/lang/String;)Lorg/activiti/api/process/model/builders/RemoveVariablesPayloadBuilder;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R003",
       "lineNumbers" : [
         40,
         41,
@@ -2877,13 +2873,10 @@
       ]
     },
     "org.activiti.api.process.model.builders.ResumeProcessPayloadBuilder.withProcessInstance:(Lorg/activiti/api/process/model/ProcessInstance;)Lorg/activiti/api/process/model/builders/ResumeProcessPayloadBuilder;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R003",
       "lineNumbers" : [
         31,
         32
@@ -2959,13 +2952,10 @@
       ]
     },
     "org.activiti.api.process.model.builders.SetVariablesPayloadBuilder.withProcessInstance:(Lorg/activiti/api/process/model/ProcessInstance;)Lorg/activiti/api/process/model/builders/SetVariablesPayloadBuilder;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R003",
       "lineNumbers" : [
         46,
         47
@@ -2985,12 +2975,12 @@
       ]
     },
     "org.activiti.api.process.model.builders.SetVariablesPayloadBuilder.withVariable:(Ljava/lang/String;Ljava/lang/Object;)Lorg/activiti/api/process/model/builders/SetVariablesPayloadBuilder;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         57,
@@ -3050,12 +3040,12 @@
       ]
     },
     "org.activiti.api.process.model.builders.SignalPayloadBuilder.withVariable:(Ljava/lang/String;Ljava/lang/Object;)Lorg/activiti/api/process/model/builders/SignalPayloadBuilder;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         40,
@@ -3157,12 +3147,12 @@
       ]
     },
     "org.activiti.api.process.model.builders.StartMessagePayloadBuilder.withVariable:(Ljava/lang/String;Ljava/lang/Object;)Lorg/activiti/api/process/model/builders/StartMessagePayloadBuilder;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         58,
@@ -3262,12 +3252,12 @@
       ]
     },
     "org.activiti.api.process.model.builders.StartProcessPayloadBuilder.withVariable:(Ljava/lang/String;Ljava/lang/Object;)Lorg/activiti/api/process/model/builders/StartProcessPayloadBuilder;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         38,
@@ -3314,13 +3304,10 @@
       ]
     },
     "org.activiti.api.process.model.builders.SuspendProcessPayloadBuilder.withProcessInstance:(Lorg/activiti/api/process/model/ProcessInstance;)Lorg/activiti/api/process/model/builders/SuspendProcessPayloadBuilder;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R003",
       "lineNumbers" : [
         31,
         32
@@ -5977,6 +5964,30 @@
       }
     },
     {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.TestNotAddingCoverageMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.builders.DeleteProcessPayloadBuilder",
+            "descriptor" : "(Lorg/activiti/api/process/model/ProcessInstance;)Lorg/activiti/api/process/model/builders/DeleteProcessPayloadBuilder;",
+            "methodName" : "withProcessInstance"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.TestNotAddingCoverageMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.builders.GetVariablesPayloadBuilder",
+            "descriptor" : "(Lorg/activiti/api/process/model/ProcessInstance;)Lorg/activiti/api/process/model/builders/GetVariablesPayloadBuilder;",
+            "methodName" : "withProcessInstance"
+          }
+        ]
+      }
+    },
+    {
       "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.TrivialConstructorMessage\",\"serializableCause\":null}",
       "methodGroup" : {
         "methods" : [
@@ -5996,6 +6007,66 @@
             "binaryClassName" : "org.activiti.api.process.model.builders.ProcessPayloadBuilder",
             "descriptor" : "()V",
             "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.TestNotAddingCoverageMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.builders.RemoveVariablesPayloadBuilder",
+            "descriptor" : "(Lorg/activiti/api/process/model/ProcessInstance;)Lorg/activiti/api/process/model/builders/RemoveVariablesPayloadBuilder;",
+            "methodName" : "withProcessInstance"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.TestNotAddingCoverageMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.builders.RemoveVariablesPayloadBuilder",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/builders/RemoveVariablesPayloadBuilder;",
+            "methodName" : "withVariableNames"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.TestNotAddingCoverageMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.builders.ResumeProcessPayloadBuilder",
+            "descriptor" : "(Lorg/activiti/api/process/model/ProcessInstance;)Lorg/activiti/api/process/model/builders/ResumeProcessPayloadBuilder;",
+            "methodName" : "withProcessInstance"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.TestNotAddingCoverageMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.builders.SetVariablesPayloadBuilder",
+            "descriptor" : "(Lorg/activiti/api/process/model/ProcessInstance;)Lorg/activiti/api/process/model/builders/SetVariablesPayloadBuilder;",
+            "methodName" : "withProcessInstance"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.TestNotAddingCoverageMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.builders.SuspendProcessPayloadBuilder",
+            "descriptor" : "(Lorg/activiti/api/process/model/ProcessInstance;)Lorg/activiti/api/process/model/builders/SuspendProcessPayloadBuilder;",
+            "methodName" : "withProcessInstance"
           }
         ]
       }

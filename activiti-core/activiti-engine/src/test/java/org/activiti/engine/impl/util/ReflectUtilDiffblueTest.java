@@ -15,6 +15,7 @@
  */
 package org.activiti.engine.impl.util;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
@@ -22,7 +23,11 @@ import static org.junit.Assert.assertTrue;
 import com.diffblue.cover.annotations.ContributionFromDiffblue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.io.IOException;
 import java.lang.reflect.Method;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.activiti.engine.ActivitiClassLoadingException;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.impl.util.json.JSONObject;
@@ -81,7 +86,7 @@ public class ReflectUtilDiffblueTest {
   @Test
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
-  @MethodsUnderTest({"java.net.URL ReflectUtil.getResource(String)"})
+  @MethodsUnderTest({"URL ReflectUtil.getResource(String)"})
   public void testGetResource_whenName_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(ReflectUtil.getResource("Name"));

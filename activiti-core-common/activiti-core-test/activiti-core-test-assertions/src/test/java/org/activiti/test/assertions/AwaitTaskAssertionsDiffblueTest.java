@@ -101,25 +101,24 @@ class AwaitTaskAssertionsDiffblueTest {
    * Test {@link AwaitTaskAssertions#expectFields(TaskResultMatcher[])}.
    *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} addFirst {@link TaskSource}.
+   *   <li>Given {@link ArrayList#ArrayList()} addLast {@link TaskSource}.
    * </ul>
    *
    * <p>Method under test: {@link AwaitTaskAssertions#expectFields(TaskResultMatcher[])}
    */
   @Test
-  @DisplayName("Test expectFields(TaskResultMatcher[]); given ArrayList() addFirst TaskSource")
+  @DisplayName("Test expectFields(TaskResultMatcher[]); given ArrayList() addLast TaskSource")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"TaskAssertions AwaitTaskAssertions.expectFields(TaskResultMatcher[])"})
-  void testExpectFields_givenArrayListAddFirstTaskSource() {
+  void testExpectFields_givenArrayListAddLastTaskSource() {
     // Arrange
     ArrayList<TaskSource> taskSources = new ArrayList<>();
-    taskSources.addFirst(mock(TaskSource.class));
+    taskSources.addLast(mock(TaskSource.class));
+    taskSources.add(1, mock(TaskSource.class));
     TaskAssertionsImpl taskAssertions =
         new TaskAssertionsImpl(mock(Task.class), taskSources, mock(EventSource.class));
-    AwaitTaskAssertions taskAssertions2 =
-        new AwaitTaskAssertions(new AwaitTaskAssertions(taskAssertions));
-    AwaitTaskAssertions awaitTaskAssertions = new AwaitTaskAssertions(taskAssertions2);
+    AwaitTaskAssertions awaitTaskAssertions = new AwaitTaskAssertions(taskAssertions);
 
     TaskResultMatcher taskResultMatcher = mock(TaskResultMatcher.class);
     doNothing().when(taskResultMatcher).match(Mockito.<Task>any());

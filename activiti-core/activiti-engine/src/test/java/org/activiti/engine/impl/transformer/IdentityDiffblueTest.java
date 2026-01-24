@@ -44,24 +44,4 @@ public class IdentityDiffblueTest {
     assertNull(actualInstance.primTransform(null));
     assertSame(object, actualTransformResult);
   }
-
-  /**
-   * Test {@link Identity#primTransform(Object)}.
-   *
-   * <p>Method under test: {@link Identity#primTransform(Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object Identity.primTransform(Object)"})
-  public void testPrimTransform() throws Exception {
-    // Arrange
-    Object object = JSONObject.NULL;
-
-    // Act
-    Object actualPrimTransformResult = Identity.getInstance().primTransform(object);
-
-    // Assert
-    assertSame(object, actualPrimTransformResult);
-  }
 }

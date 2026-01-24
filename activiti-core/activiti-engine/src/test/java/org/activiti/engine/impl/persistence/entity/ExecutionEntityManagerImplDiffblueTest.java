@@ -70,6 +70,7 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -1991,7 +1992,9 @@ public class ExecutionEntityManagerImplDiffblueTest {
     // Arrange
     ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
     when(executionDataManager.findExecutionsByNativeQuery(
-            Mockito.<Map<String, Object>>any(), anyInt(), anyInt()))
+            Mockito.<Map<String, Object>>any(),
+            ArgumentMatchers.anyInt(),
+            ArgumentMatchers.anyInt()))
         .thenReturn(new ArrayList<>());
     ExecutionEntityManagerImpl executionEntityManagerImpl =
         new ExecutionEntityManagerImpl(new JtaProcessEngineConfiguration(), executionDataManager);
@@ -2025,7 +2028,9 @@ public class ExecutionEntityManagerImplDiffblueTest {
     // Arrange
     ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
     when(executionDataManager.findProcessInstanceByNativeQuery(
-            Mockito.<Map<String, Object>>any(), anyInt(), anyInt()))
+            Mockito.<Map<String, Object>>any(),
+            ArgumentMatchers.anyInt(),
+            ArgumentMatchers.anyInt()))
         .thenReturn(new ArrayList<>());
     ExecutionEntityManagerImpl executionEntityManagerImpl =
         new ExecutionEntityManagerImpl(new JtaProcessEngineConfiguration(), executionDataManager);
@@ -2100,7 +2105,7 @@ public class ExecutionEntityManagerImplDiffblueTest {
     doNothing().when(executionEntityImpl).setProcessDefinitionVersion(Mockito.<Integer>any());
     doNothing().when(executionEntityImpl).setProcessInstanceId(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setRootProcessInstanceId(Mockito.<String>any());
-    doNothing().when(executionEntityImpl).setScope(anyBoolean());
+    doNothing().when(executionEntityImpl).setScope(ArgumentMatchers.anyBoolean());
     doNothing().when(executionEntityImpl).setStartUserId(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setTenantId(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setVariable(Mockito.<String>any(), Mockito.<Object>any());
@@ -2168,7 +2173,7 @@ public class ExecutionEntityManagerImplDiffblueTest {
     doNothing().when(executionEntityImpl).setProcessDefinitionVersion(Mockito.<Integer>any());
     doNothing().when(executionEntityImpl).setProcessInstanceId(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setRootProcessInstanceId(Mockito.<String>any());
-    doNothing().when(executionEntityImpl).setScope(anyBoolean());
+    doNothing().when(executionEntityImpl).setScope(ArgumentMatchers.anyBoolean());
     doNothing().when(executionEntityImpl).setStartUserId(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setTenantId(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setVariable(Mockito.<String>any(), Mockito.<Object>any());
@@ -2228,7 +2233,7 @@ public class ExecutionEntityManagerImplDiffblueTest {
     processEngineConfiguration.setEventDispatcher(new ActivitiEventDispatcherImpl());
 
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
-    doNothing().when(executionEntityImpl).setCountEnabled(anyBoolean());
+    doNothing().when(executionEntityImpl).setCountEnabled(ArgumentMatchers.anyBoolean());
     when(executionEntityImpl.getProcessDefinitionId()).thenReturn("42");
     when(executionEntityImpl.getProcessInstanceId()).thenReturn("42");
     when(executionEntityImpl.getId()).thenReturn("42");
@@ -2240,7 +2245,7 @@ public class ExecutionEntityManagerImplDiffblueTest {
     doNothing().when(executionEntityImpl).setProcessDefinitionVersion(Mockito.<Integer>any());
     doNothing().when(executionEntityImpl).setProcessInstanceId(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setRootProcessInstanceId(Mockito.<String>any());
-    doNothing().when(executionEntityImpl).setScope(anyBoolean());
+    doNothing().when(executionEntityImpl).setScope(ArgumentMatchers.anyBoolean());
     doNothing().when(executionEntityImpl).setStartUserId(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setTenantId(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setVariable(Mockito.<String>any(), Mockito.<Object>any());
@@ -2301,7 +2306,7 @@ public class ExecutionEntityManagerImplDiffblueTest {
     Class<Object> objectClass = Object.class;
     doThrow(new ActivitiObjectNotFoundException(objectClass))
         .when(executionEntityImpl)
-        .setCountEnabled(anyBoolean());
+        .setCountEnabled(ArgumentMatchers.anyBoolean());
 
     ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
     when(executionDataManager.create()).thenReturn(executionEntityImpl);
@@ -2347,7 +2352,7 @@ public class ExecutionEntityManagerImplDiffblueTest {
     processEngineConfiguration.setEventDispatcher(eventDispatcher);
 
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
-    doNothing().when(executionEntityImpl).setCountEnabled(anyBoolean());
+    doNothing().when(executionEntityImpl).setCountEnabled(ArgumentMatchers.anyBoolean());
     when(executionEntityImpl.getProcessDefinitionId()).thenReturn("42");
     when(executionEntityImpl.getProcessInstanceId()).thenReturn("42");
     when(executionEntityImpl.getId()).thenReturn("42");
@@ -2359,7 +2364,7 @@ public class ExecutionEntityManagerImplDiffblueTest {
     doNothing().when(executionEntityImpl).setProcessDefinitionVersion(Mockito.<Integer>any());
     doNothing().when(executionEntityImpl).setProcessInstanceId(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setRootProcessInstanceId(Mockito.<String>any());
-    doNothing().when(executionEntityImpl).setScope(anyBoolean());
+    doNothing().when(executionEntityImpl).setScope(ArgumentMatchers.anyBoolean());
     doNothing().when(executionEntityImpl).setStartUserId(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setTenantId(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setVariable(Mockito.<String>any(), Mockito.<Object>any());
@@ -2426,7 +2431,7 @@ public class ExecutionEntityManagerImplDiffblueTest {
     processEngineConfiguration.setEventDispatcher(eventDispatcher);
 
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
-    doNothing().when(executionEntityImpl).setCountEnabled(anyBoolean());
+    doNothing().when(executionEntityImpl).setCountEnabled(ArgumentMatchers.anyBoolean());
     when(executionEntityImpl.getProcessDefinitionId()).thenReturn("42");
     when(executionEntityImpl.getProcessInstanceId()).thenReturn("42");
     when(executionEntityImpl.getId()).thenReturn("42");
@@ -2438,7 +2443,7 @@ public class ExecutionEntityManagerImplDiffblueTest {
     doNothing().when(executionEntityImpl).setProcessDefinitionVersion(Mockito.<Integer>any());
     doNothing().when(executionEntityImpl).setProcessInstanceId(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setRootProcessInstanceId(Mockito.<String>any());
-    doNothing().when(executionEntityImpl).setScope(anyBoolean());
+    doNothing().when(executionEntityImpl).setScope(ArgumentMatchers.anyBoolean());
     doNothing().when(executionEntityImpl).setStartUserId(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setTenantId(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setVariable(Mockito.<String>any(), Mockito.<Object>any());
@@ -2709,14 +2714,14 @@ public class ExecutionEntityManagerImplDiffblueTest {
     when(executionEntityImpl.getId()).thenReturn("42");
     doNothing().when(executionEntityImpl).setAppVersion(Mockito.<Integer>any());
     doNothing().when(executionEntityImpl).setBusinessKey(Mockito.<String>any());
-    doNothing().when(executionEntityImpl).setCountEnabled(anyBoolean());
+    doNothing().when(executionEntityImpl).setCountEnabled(ArgumentMatchers.anyBoolean());
     doNothing().when(executionEntityImpl).setProcessDefinitionId(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setProcessDefinitionKey(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setProcessDefinitionName(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setProcessDefinitionVersion(Mockito.<Integer>any());
     doNothing().when(executionEntityImpl).setProcessInstanceId(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setRootProcessInstanceId(Mockito.<String>any());
-    doNothing().when(executionEntityImpl).setScope(anyBoolean());
+    doNothing().when(executionEntityImpl).setScope(ArgumentMatchers.anyBoolean());
     doNothing().when(executionEntityImpl).setStartUserId(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setTenantId(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setVariable(Mockito.<String>any(), Mockito.<Object>any());
@@ -2783,14 +2788,14 @@ public class ExecutionEntityManagerImplDiffblueTest {
     when(executionEntityImpl.getProcessInstanceId()).thenReturn("42");
     doNothing().when(executionEntityImpl).setAppVersion(Mockito.<Integer>any());
     doNothing().when(executionEntityImpl).setBusinessKey(Mockito.<String>any());
-    doNothing().when(executionEntityImpl).setCountEnabled(anyBoolean());
+    doNothing().when(executionEntityImpl).setCountEnabled(ArgumentMatchers.anyBoolean());
     doNothing().when(executionEntityImpl).setProcessDefinitionId(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setProcessDefinitionKey(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setProcessDefinitionName(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setProcessDefinitionVersion(Mockito.<Integer>any());
     doNothing().when(executionEntityImpl).setProcessInstanceId(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setRootProcessInstanceId(Mockito.<String>any());
-    doNothing().when(executionEntityImpl).setScope(anyBoolean());
+    doNothing().when(executionEntityImpl).setScope(ArgumentMatchers.anyBoolean());
     doNothing().when(executionEntityImpl).setStartUserId(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setVariable(Mockito.<String>any(), Mockito.<Object>any());
     doNothing().when(executionDataManager).insert(Mockito.<ExecutionEntity>any());
@@ -2858,14 +2863,14 @@ public class ExecutionEntityManagerImplDiffblueTest {
     when(executionEntityImpl.getProcessInstanceId()).thenReturn("42");
     doNothing().when(executionEntityImpl).setAppVersion(Mockito.<Integer>any());
     doNothing().when(executionEntityImpl).setBusinessKey(Mockito.<String>any());
-    doNothing().when(executionEntityImpl).setCountEnabled(anyBoolean());
+    doNothing().when(executionEntityImpl).setCountEnabled(ArgumentMatchers.anyBoolean());
     doNothing().when(executionEntityImpl).setProcessDefinitionId(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setProcessDefinitionKey(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setProcessDefinitionName(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setProcessDefinitionVersion(Mockito.<Integer>any());
     doNothing().when(executionEntityImpl).setProcessInstanceId(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setRootProcessInstanceId(Mockito.<String>any());
-    doNothing().when(executionEntityImpl).setScope(anyBoolean());
+    doNothing().when(executionEntityImpl).setScope(ArgumentMatchers.anyBoolean());
     doNothing().when(executionEntityImpl).setStartUserId(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setTenantId(Mockito.<String>any());
     doNothing().when(executionDataManager).insert(Mockito.<ExecutionEntity>any());
@@ -3164,10 +3169,10 @@ public class ExecutionEntityManagerImplDiffblueTest {
 
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
     when(executionEntityImpl.getId()).thenReturn("42");
-    doNothing().when(executionEntityImpl).setActive(anyBoolean());
+    doNothing().when(executionEntityImpl).setActive(ArgumentMatchers.anyBoolean());
     doNothing().when(executionEntityImpl).setAppVersion(Mockito.<Integer>any());
     doNothing().when(executionEntityImpl).setBusinessKey(Mockito.<String>any());
-    doNothing().when(executionEntityImpl).setCountEnabled(anyBoolean());
+    doNothing().when(executionEntityImpl).setCountEnabled(ArgumentMatchers.anyBoolean());
     doNothing().when(executionEntityImpl).setName(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setProcessDefinitionId(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setProcessDefinitionKey(Mockito.<String>any());
@@ -3175,7 +3180,7 @@ public class ExecutionEntityManagerImplDiffblueTest {
     doNothing().when(executionEntityImpl).setProcessDefinitionVersion(Mockito.<Integer>any());
     doNothing().when(executionEntityImpl).setProcessInstanceId(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setRootProcessInstanceId(Mockito.<String>any());
-    doNothing().when(executionEntityImpl).setScope(anyBoolean());
+    doNothing().when(executionEntityImpl).setScope(ArgumentMatchers.anyBoolean());
     doNothing().when(executionEntityImpl).setStartTime(Mockito.<Date>any());
     doNothing().when(executionEntityImpl).setStartUserId(Mockito.<String>any());
     doNothing().when(executionEntityImpl).setSuperExecution(Mockito.<ExecutionEntity>any());
@@ -4146,8 +4151,8 @@ public class ExecutionEntityManagerImplDiffblueTest {
     when(executionEntity.isCountEnabled()).thenReturn(true);
     when(executionEntity.getId()).thenReturn("42");
     when(executionEntity.getProcessInstanceId()).thenReturn("42");
-    doNothing().when(executionEntity).setActive(anyBoolean());
-    doNothing().when(executionEntity).setEnded(anyBoolean());
+    doNothing().when(executionEntity).setActive(ArgumentMatchers.anyBoolean());
+    doNothing().when(executionEntity).setEnded(ArgumentMatchers.anyBoolean());
 
     // Act and Assert
     assertThrows(
@@ -4204,8 +4209,8 @@ public class ExecutionEntityManagerImplDiffblueTest {
     when(executionEntity.isCountEnabled()).thenReturn(true);
     when(executionEntity.getId()).thenReturn("42");
     when(executionEntity.getProcessInstanceId()).thenReturn("42");
-    doNothing().when(executionEntity).setActive(anyBoolean());
-    doNothing().when(executionEntity).setEnded(anyBoolean());
+    doNothing().when(executionEntity).setActive(ArgumentMatchers.anyBoolean());
+    doNothing().when(executionEntity).setEnded(ArgumentMatchers.anyBoolean());
 
     // Act and Assert
     assertThrows(
@@ -4261,8 +4266,8 @@ public class ExecutionEntityManagerImplDiffblueTest {
     ExecutionEntityImpl executionEntity = mock(ExecutionEntityImpl.class);
     when(executionEntity.getId()).thenReturn("42");
     when(executionEntity.getProcessInstanceId()).thenReturn("42");
-    doNothing().when(executionEntity).setActive(anyBoolean());
-    doNothing().when(executionEntity).setEnded(anyBoolean());
+    doNothing().when(executionEntity).setActive(ArgumentMatchers.anyBoolean());
+    doNothing().when(executionEntity).setEnded(ArgumentMatchers.anyBoolean());
 
     // Act and Assert
     assertThrows(
@@ -4332,8 +4337,8 @@ public class ExecutionEntityManagerImplDiffblueTest {
     when(executionEntity.isCountEnabled()).thenReturn(true);
     when(executionEntity.getId()).thenReturn("42");
     when(executionEntity.getProcessInstanceId()).thenReturn("42");
-    doNothing().when(executionEntity).setActive(anyBoolean());
-    doNothing().when(executionEntity).setEnded(anyBoolean());
+    doNothing().when(executionEntity).setActive(ArgumentMatchers.anyBoolean());
+    doNothing().when(executionEntity).setEnded(ArgumentMatchers.anyBoolean());
 
     // Act and Assert
     assertThrows(
@@ -4431,8 +4436,8 @@ public class ExecutionEntityManagerImplDiffblueTest {
     when(executionEntity.isCountEnabled()).thenReturn(true);
     when(executionEntity.getId()).thenReturn("42");
     when(executionEntity.getProcessInstanceId()).thenReturn("42");
-    doNothing().when(executionEntity).setActive(anyBoolean());
-    doNothing().when(executionEntity).setEnded(anyBoolean());
+    doNothing().when(executionEntity).setActive(ArgumentMatchers.anyBoolean());
+    doNothing().when(executionEntity).setEnded(ArgumentMatchers.anyBoolean());
 
     // Act and Assert
     assertThrows(
@@ -4491,8 +4496,8 @@ public class ExecutionEntityManagerImplDiffblueTest {
     when(executionEntity.isCountEnabled()).thenReturn(true);
     when(executionEntity.getId()).thenReturn("42");
     when(executionEntity.getProcessInstanceId()).thenReturn("42");
-    doNothing().when(executionEntity).setActive(anyBoolean());
-    doNothing().when(executionEntity).setEnded(anyBoolean());
+    doNothing().when(executionEntity).setActive(ArgumentMatchers.anyBoolean());
+    doNothing().when(executionEntity).setEnded(ArgumentMatchers.anyBoolean());
 
     // Act and Assert
     assertThrows(
@@ -4550,8 +4555,8 @@ public class ExecutionEntityManagerImplDiffblueTest {
     when(executionEntity.isActive()).thenReturn(true);
     when(executionEntity.getId()).thenReturn("42");
     when(executionEntity.getProcessInstanceId()).thenReturn("42");
-    doNothing().when(executionEntity).setActive(anyBoolean());
-    doNothing().when(executionEntity).setEnded(anyBoolean());
+    doNothing().when(executionEntity).setActive(ArgumentMatchers.anyBoolean());
+    doNothing().when(executionEntity).setEnded(ArgumentMatchers.anyBoolean());
 
     // Act and Assert
     assertThrows(
@@ -4623,8 +4628,8 @@ public class ExecutionEntityManagerImplDiffblueTest {
     when(executionEntity.isCountEnabled()).thenReturn(true);
     when(executionEntity.getId()).thenReturn("42");
     when(executionEntity.getProcessInstanceId()).thenReturn("42");
-    doNothing().when(executionEntity).setActive(anyBoolean());
-    doNothing().when(executionEntity).setEnded(anyBoolean());
+    doNothing().when(executionEntity).setActive(ArgumentMatchers.anyBoolean());
+    doNothing().when(executionEntity).setEnded(ArgumentMatchers.anyBoolean());
 
     // Act and Assert
     assertThrows(

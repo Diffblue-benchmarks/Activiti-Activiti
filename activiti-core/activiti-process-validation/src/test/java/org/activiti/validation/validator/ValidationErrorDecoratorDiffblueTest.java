@@ -100,19 +100,97 @@ class ValidationErrorDecoratorDiffblueTest {
   /**
    * Test {@link ValidationErrorDecorator#decorate(ValidationError)}.
    *
+   * <p>Method under test: {@link ValidationErrorDecorator#decorate(ValidationError)}
+   */
+  @Test
+  @DisplayName("Test decorate(ValidationError)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ValidationErrorDecorator.decorate(ValidationError)"})
+  void testDecorate2() {
+    // Arrange
+    ErrorMessageDefinition errorMessageDefinition = new ErrorMessageDefinition();
+    errorMessageDefinition.setProblem("{{{{");
+    when(map.get(Mockito.<Object>any())).thenReturn(errorMessageDefinition);
+
+    ValidationError error = new ValidationError();
+    error.setActivityId("42");
+    error.setActivityName("Activity Name");
+    error.setDefaultDescription("Default Description");
+    error.setKey("Key");
+    error.setParams(new HashMap<>());
+    error.setProblem("Problem");
+    error.setProcessDefinitionId("42");
+    error.setProcessDefinitionName("Process Definition Name");
+    error.setValidatorSetName("Validator Set Name");
+    error.setWarning(true);
+    error.setXmlColumnNumber(10);
+    error.setXmlLineNumber(2);
+
+    // Act
+    validationErrorDecorator.decorate(error);
+
+    // Assert
+    verify(map, atLeast(1)).get(isA(Object.class));
+    assertEquals("{{{{", error.getProblem());
+    assertNull(error.getDefaultDescription());
+  }
+
+  /**
+   * Test {@link ValidationErrorDecorator#decorate(ValidationError)}.
+   *
+   * <p>Method under test: {@link ValidationErrorDecorator#decorate(ValidationError)}
+   */
+  @Test
+  @DisplayName("Test decorate(ValidationError)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ValidationErrorDecorator.decorate(ValidationError)"})
+  void testDecorate3() {
+    // Arrange
+    ErrorMessageDefinition errorMessageDefinition = new ErrorMessageDefinition();
+    errorMessageDefinition.setProblem("{{}}");
+    when(map.get(Mockito.<Object>any())).thenReturn(errorMessageDefinition);
+
+    ValidationError error = new ValidationError();
+    error.setActivityId("42");
+    error.setActivityName("Activity Name");
+    error.setDefaultDescription("Default Description");
+    error.setKey("Key");
+    error.setParams(new HashMap<>());
+    error.setProblem("Problem");
+    error.setProcessDefinitionId("42");
+    error.setProcessDefinitionName("Process Definition Name");
+    error.setValidatorSetName("Validator Set Name");
+    error.setWarning(true);
+    error.setXmlColumnNumber(10);
+    error.setXmlLineNumber(2);
+
+    // Act
+    validationErrorDecorator.decorate(error);
+
+    // Assert
+    verify(map, atLeast(1)).get(isA(Object.class));
+    assertEquals("{{}}", error.getProblem());
+    assertNull(error.getDefaultDescription());
+  }
+
+  /**
+   * Test {@link ValidationErrorDecorator#decorate(ValidationError)}.
+   *
    * <ul>
-   *   <li>Then {@link ValidationError} (default constructor) Problem is empty string.
+   *   <li>Given {@link ErrorMessageDefinition} (default constructor) Problem is empty string.
    * </ul>
    *
    * <p>Method under test: {@link ValidationErrorDecorator#decorate(ValidationError)}
    */
   @Test
   @DisplayName(
-      "Test decorate(ValidationError); then ValidationError (default constructor) Problem is empty string")
+      "Test decorate(ValidationError); given ErrorMessageDefinition (default constructor) Problem is empty string")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void ValidationErrorDecorator.decorate(ValidationError)"})
-  void testDecorate_thenValidationErrorProblemIsEmptyString() {
+  void testDecorate_givenErrorMessageDefinitionProblemIsEmptyString() {
     // Arrange
     ErrorMessageDefinition errorMessageDefinition = new ErrorMessageDefinition();
     errorMessageDefinition.setProblem("");
@@ -124,6 +202,53 @@ class ValidationErrorDecoratorDiffblueTest {
     error.setDefaultDescription("Default Description");
     error.setKey("Key");
     error.setParams(new HashMap<>());
+    error.setProblem("Problem");
+    error.setProcessDefinitionId("42");
+    error.setProcessDefinitionName("Process Definition Name");
+    error.setValidatorSetName("Validator Set Name");
+    error.setWarning(true);
+    error.setXmlColumnNumber(10);
+    error.setXmlLineNumber(2);
+
+    // Act
+    validationErrorDecorator.decorate(error);
+
+    // Assert
+    verify(map, atLeast(1)).get(isA(Object.class));
+    assertEquals("", error.getProblem());
+    assertNull(error.getDefaultDescription());
+  }
+
+  /**
+   * Test {@link ValidationErrorDecorator#decorate(ValidationError)}.
+   *
+   * <ul>
+   *   <li>Given {@link HashMap#HashMap()} empty string is empty string.
+   * </ul>
+   *
+   * <p>Method under test: {@link ValidationErrorDecorator#decorate(ValidationError)}
+   */
+  @Test
+  @DisplayName("Test decorate(ValidationError); given HashMap() empty string is empty string")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ValidationErrorDecorator.decorate(ValidationError)"})
+  void testDecorate_givenHashMapEmptyStringIsEmptyString() {
+    // Arrange
+    ErrorMessageDefinition errorMessageDefinition = new ErrorMessageDefinition();
+    errorMessageDefinition.setProblem("{{}}");
+    when(map.get(Mockito.<Object>any())).thenReturn(errorMessageDefinition);
+
+    HashMap<String, String> params = new HashMap<>();
+    params.put("", "");
+    params.putAll(new HashMap<>());
+
+    ValidationError error = new ValidationError();
+    error.setActivityId("42");
+    error.setActivityName("Activity Name");
+    error.setDefaultDescription("Default Description");
+    error.setKey("Key");
+    error.setParams(params);
     error.setProblem("Problem");
     error.setProcessDefinitionId("42");
     error.setProcessDefinitionName("Process Definition Name");
@@ -255,26 +380,23 @@ class ValidationErrorDecoratorDiffblueTest {
    * Test {@link ValidationErrorDecorator#resolveMessage(String, Map)}.
    *
    * <ul>
-   *   <li>When {@code Not all who wander are lost}.
-   *   <li>Then return {@code Not all who wander are lost}.
+   *   <li>When {@code Message}.
+   *   <li>Then return {@code Message}.
    * </ul>
    *
    * <p>Method under test: {@link ValidationErrorDecorator#resolveMessage(String, Map)}
    */
   @Test
-  @DisplayName(
-      "Test resolveMessage(String, Map); when 'Not all who wander are lost'; then return 'Not all who wander are lost'")
+  @DisplayName("Test resolveMessage(String, Map); when 'Message'; then return 'Message'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String ValidationErrorDecorator.resolveMessage(String, Map)"})
-  void testResolveMessage_whenNotAllWhoWanderAreLost_thenReturnNotAllWhoWanderAreLost() {
+  void testResolveMessage_whenMessage_thenReturnMessage() {
     // Arrange
     ValidationErrorDecorator validationErrorDecorator = new ValidationErrorDecorator();
 
     // Act and Assert
-    assertEquals(
-        "Not all who wander are lost",
-        validationErrorDecorator.resolveMessage("Not all who wander are lost", new HashMap<>()));
+    assertEquals("Message", validationErrorDecorator.resolveMessage("Message", new HashMap<>()));
   }
 
   /**

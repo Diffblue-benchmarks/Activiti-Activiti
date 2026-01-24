@@ -42,17 +42,14 @@ import org.activiti.engine.impl.asyncexecutor.AsyncExecutor;
 import org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor;
 import org.activiti.engine.impl.cfg.DelegateExpressionFieldInjectionMode;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
-import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration;
 import org.activiti.engine.impl.history.HistoryLevel;
 import org.activiti.engine.impl.interceptor.CommandInterceptor;
 import org.activiti.engine.impl.persistence.deploy.Deployer;
 import org.activiti.engine.impl.persistence.entity.integration.IntegrationContextManagerImpl;
-import org.activiti.engine.impl.util.DefaultClockImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.activiti.engine.integration.IntegrationContextServiceImpl;
-import org.activiti.engine.runtime.Clock;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.test.annotation.DirtiesContext;
@@ -3833,34 +3830,10 @@ public class ProcessEngineConfigurationDiffblueTest {
   @Test
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
-  @MethodsUnderTest({"Clock ProcessEngineConfiguration.getClock()"})
+  @MethodsUnderTest({"org.activiti.engine.runtime.Clock ProcessEngineConfiguration.getClock()"})
   public void testGetClock() {
     // Arrange, Act and Assert
     assertNull(new JtaProcessEngineConfiguration().getClock());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#setClock(Clock)}.
-   *
-   * <p>Method under test: {@link ProcessEngineConfiguration#setClock(Clock)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setClock(Clock)"})
-  public void testSetClock() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration =
-        new JtaProcessEngineConfiguration();
-    DefaultClockImpl clock = new DefaultClockImpl();
-
-    // Act
-    ProcessEngineConfigurationImpl actualSetClockResult =
-        jtaProcessEngineConfiguration.setClock(clock);
-
-    // Assert
-    assertSame(jtaProcessEngineConfiguration, actualSetClockResult);
-    assertSame(clock, jtaProcessEngineConfiguration.getClock());
   }
 
   /**

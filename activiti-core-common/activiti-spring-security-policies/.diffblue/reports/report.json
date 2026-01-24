@@ -3,23 +3,24 @@
     "reportVersion" : "2.8"
   },
   "run" : {
-    "version" : "2025.11.01-3385b9f-licensed",
-    "creationTimestamp" : "2025-11-12T09:22:28.997361025Z",
+    "version" : "2026.01.01-c73dc7d-licensed",
+    "creationTimestamp" : "2026-01-23T13:25:53.472811723Z",
     "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
-    "totalTime" : 105.332,
-    "environmentDetectionTime" : 0.685,
-    "indexingTime" : 0.326,
+    "totalTime" : 113.221,
+    "environmentDetectionTime" : 0.679,
+    "indexingTime" : 0.406,
     "entryPointsTime" : 0.669,
-    "generationTime" : 265.681,
-    "timeToFirstTest" : 660.802,
-    "timeToLastTest" : 500.192,
-    "indexQueryTime" : 3.209,
-    "verificationTime" : 32.094,
-    "validationTime" : 12.119
+    "generationTime" : 291.061,
+    "timeToFirstTest" : 715.076,
+    "timeToLastTest" : 541.86,
+    "indexQueryTime" : 3.289,
+    "verificationTime" : 33.566,
+    "validationTime" : 12.994
   },
   "codes" : {
     "R000" : "Success",
     "R002" : "Missing observers",
+    "R003" : "Test did not increase coverage",
     "T000" : "Method eligible for test creation",
     "T001" : "Trivial getter",
     "T002" : "Trivial setter",
@@ -32,9 +33,9 @@
   "summary" : {
     "classesCount" : 12,
     "methodsCount" : 64,
-    "cumulativeDiffblueTestCount" : 37,
+    "cumulativeDiffblueTestCount" : 33,
     "cumulativeManualTestCount" : 4,
-    "completeTestCount" : 37,
+    "completeTestCount" : 33,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 356,
@@ -48,18 +49,19 @@
       "T012" : 4
     },
     "perMethodOutcome" : {
-      "R000" : 40,
+      "R000" : 39,
       "R002" : 2,
+      "R003" : 1,
       "T003" : 5,
       "T005" : 1,
       "T010" : 12,
       "T012" : 4
     },
     "perTestOutcome" : {
-      "R000" : 37
+      "R000" : 33
     },
     "perTestValidation" : {
-      "V000" : 37
+      "V000" : 33
     }
   },
   "classes" : {
@@ -79,7 +81,7 @@
     },
     "org.activiti.core.common.spring.security.policies.BaseSecurityPoliciesManagerImpl" : {
       "methodsCount" : 11,
-      "completeTestCount" : 11,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 7,
@@ -88,13 +90,14 @@
         "T012" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 7,
+        "R000" : 6,
+        "R003" : 1,
         "T003" : 2,
         "T010" : 1,
         "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 11
+        "R000" : 7
       }
     },
     "org.activiti.core.common.spring.security.policies.ProcessSecurityPoliciesManager" : {
@@ -280,13 +283,10 @@
       ]
     },
     "org.activiti.core.common.spring.security.policies.BaseSecurityPoliciesManagerImpl.anEntryInSetStartsKey:(Ljava/util/Set;Ljava/lang/String;)Z" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 4
-      },
+      "perMethodOutcome" : "R003",
       "lineNumbers" : [
         148,
         149,
@@ -1115,6 +1115,30 @@
       }
     },
     {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.TestNotAddingCoverageMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.builders.DeleteProcessPayloadBuilder",
+            "descriptor" : "(Lorg/activiti/api/process/model/ProcessInstance;)Lorg/activiti/api/process/model/builders/DeleteProcessPayloadBuilder;",
+            "methodName" : "withProcessInstance"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.TestNotAddingCoverageMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.builders.GetVariablesPayloadBuilder",
+            "descriptor" : "(Lorg/activiti/api/process/model/ProcessInstance;)Lorg/activiti/api/process/model/builders/GetVariablesPayloadBuilder;",
+            "methodName" : "withProcessInstance"
+          }
+        ]
+      }
+    },
+    {
       "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.testability.TrivialConstructorMessage\",\"serializableCause\":null}",
       "methodGroup" : {
         "methods" : [
@@ -1134,6 +1158,66 @@
             "binaryClassName" : "org.activiti.api.process.model.builders.ProcessPayloadBuilder",
             "descriptor" : "()V",
             "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.TestNotAddingCoverageMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.builders.RemoveVariablesPayloadBuilder",
+            "descriptor" : "(Lorg/activiti/api/process/model/ProcessInstance;)Lorg/activiti/api/process/model/builders/RemoveVariablesPayloadBuilder;",
+            "methodName" : "withProcessInstance"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.TestNotAddingCoverageMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.builders.RemoveVariablesPayloadBuilder",
+            "descriptor" : "(Ljava/lang/String;)Lorg/activiti/api/process/model/builders/RemoveVariablesPayloadBuilder;",
+            "methodName" : "withVariableNames"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.TestNotAddingCoverageMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.builders.ResumeProcessPayloadBuilder",
+            "descriptor" : "(Lorg/activiti/api/process/model/ProcessInstance;)Lorg/activiti/api/process/model/builders/ResumeProcessPayloadBuilder;",
+            "methodName" : "withProcessInstance"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.TestNotAddingCoverageMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.builders.SetVariablesPayloadBuilder",
+            "descriptor" : "(Lorg/activiti/api/process/model/ProcessInstance;)Lorg/activiti/api/process/model/builders/SetVariablesPayloadBuilder;",
+            "methodName" : "withProcessInstance"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.TestNotAddingCoverageMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.api.process.model.builders.SuspendProcessPayloadBuilder",
+            "descriptor" : "(Lorg/activiti/api/process/model/ProcessInstance;)Lorg/activiti/api/process/model/builders/SuspendProcessPayloadBuilder;",
+            "methodName" : "withProcessInstance"
           }
         ]
       }
@@ -1738,6 +1822,18 @@
             "binaryClassName" : "org.activiti.core.common.spring.security.config.ActivitiSpringSecurityAutoConfiguration",
             "descriptor" : "()V",
             "methodName" : "<init>"
+          }
+        ]
+      }
+    },
+    {
+      "baseMessage" : "{\"__type\":\"com.diffblue.cover.message.limitation.TestNotAddingCoverageMessage\",\"serializableCause\":null}",
+      "methodGroup" : {
+        "methods" : [
+          {
+            "binaryClassName" : "org.activiti.core.common.spring.security.policies.BaseSecurityPoliciesManagerImpl",
+            "descriptor" : "(Ljava/util/Set;Ljava/lang/String;)Z",
+            "methodName" : "anEntryInSetStartsKey"
           }
         ]
       }

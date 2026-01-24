@@ -72,6 +72,7 @@ import org.h2.jdbc.JdbcResultSet;
 import org.h2.tools.SimpleResultSet;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
 public class DbSqlSessionDiffblueTest {
@@ -426,7 +427,7 @@ public class DbSqlSessionDiffblueTest {
         .thenThrow(new ActivitiException("An error occurred"));
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -479,7 +480,7 @@ public class DbSqlSessionDiffblueTest {
         .thenReturn(new SimpleResultSet());
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -533,7 +534,7 @@ public class DbSqlSessionDiffblueTest {
         .thenReturn(new SimpleResultSet());
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -587,7 +588,7 @@ public class DbSqlSessionDiffblueTest {
         .thenReturn(new SimpleResultSet());
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -639,7 +640,7 @@ public class DbSqlSessionDiffblueTest {
         .thenReturn(new SimpleResultSet());
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -799,7 +800,7 @@ public class DbSqlSessionDiffblueTest {
         .thenThrow(new ActivitiException("An error occurred"));
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -855,7 +856,7 @@ public class DbSqlSessionDiffblueTest {
         .thenReturn(simpleResultSet);
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -910,7 +911,7 @@ public class DbSqlSessionDiffblueTest {
         .thenReturn(new SimpleResultSet());
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -965,7 +966,7 @@ public class DbSqlSessionDiffblueTest {
         .thenReturn(new SimpleResultSet());
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -1021,7 +1022,7 @@ public class DbSqlSessionDiffblueTest {
         .thenReturn(new SimpleResultSet());
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -1077,7 +1078,7 @@ public class DbSqlSessionDiffblueTest {
         .thenReturn(new SimpleResultSet());
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -1186,7 +1187,7 @@ public class DbSqlSessionDiffblueTest {
         .thenThrow(new ActivitiException("An error occurred"));
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -1239,7 +1240,7 @@ public class DbSqlSessionDiffblueTest {
         .thenReturn(new SimpleResultSet());
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -1293,7 +1294,7 @@ public class DbSqlSessionDiffblueTest {
         .thenReturn(new SimpleResultSet());
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -1347,7 +1348,7 @@ public class DbSqlSessionDiffblueTest {
         .thenReturn(new SimpleResultSet());
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -1399,7 +1400,7 @@ public class DbSqlSessionDiffblueTest {
         .thenReturn(new SimpleResultSet());
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -1532,7 +1533,7 @@ public class DbSqlSessionDiffblueTest {
         .thenThrow(new ActivitiException("An error occurred"));
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -1588,7 +1589,7 @@ public class DbSqlSessionDiffblueTest {
         .thenReturn(simpleResultSet);
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -1644,7 +1645,7 @@ public class DbSqlSessionDiffblueTest {
         .thenReturn(new SimpleResultSet());
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -1701,7 +1702,7 @@ public class DbSqlSessionDiffblueTest {
         .thenReturn(new SimpleResultSet());
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -1758,7 +1759,7 @@ public class DbSqlSessionDiffblueTest {
         .thenReturn(new SimpleResultSet());
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -1813,7 +1814,7 @@ public class DbSqlSessionDiffblueTest {
         .thenReturn(new SimpleResultSet());
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -1892,7 +1893,7 @@ public class DbSqlSessionDiffblueTest {
         .thenThrow(new ActivitiException("An error occurred"));
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -1948,7 +1949,7 @@ public class DbSqlSessionDiffblueTest {
         .thenReturn(simpleResultSet);
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -2004,7 +2005,7 @@ public class DbSqlSessionDiffblueTest {
         .thenReturn(new SimpleResultSet());
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -2061,7 +2062,7 @@ public class DbSqlSessionDiffblueTest {
         .thenReturn(new SimpleResultSet());
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -2118,7 +2119,7 @@ public class DbSqlSessionDiffblueTest {
         .thenReturn(new SimpleResultSet());
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -2173,7 +2174,7 @@ public class DbSqlSessionDiffblueTest {
         .thenReturn(new SimpleResultSet());
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -2252,7 +2253,7 @@ public class DbSqlSessionDiffblueTest {
         .thenThrow(new ActivitiException("An error occurred"));
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -2307,7 +2308,7 @@ public class DbSqlSessionDiffblueTest {
         .thenReturn(jdbcResultSet);
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -2369,7 +2370,7 @@ public class DbSqlSessionDiffblueTest {
         .thenReturn(jdbcResultSet);
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -2431,7 +2432,7 @@ public class DbSqlSessionDiffblueTest {
         .thenReturn(jdbcResultSet);
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -2493,7 +2494,7 @@ public class DbSqlSessionDiffblueTest {
         .thenReturn(jdbcResultSet);
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -2556,7 +2557,7 @@ public class DbSqlSessionDiffblueTest {
         .thenReturn(jdbcResultSet);
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -2617,7 +2618,7 @@ public class DbSqlSessionDiffblueTest {
         .thenReturn(jdbcResultSet);
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 
@@ -2672,7 +2673,7 @@ public class DbSqlSessionDiffblueTest {
         .thenReturn(new SimpleResultSet());
 
     Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
+    doNothing().when(connection).setAutoCommit(ArgumentMatchers.anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
 

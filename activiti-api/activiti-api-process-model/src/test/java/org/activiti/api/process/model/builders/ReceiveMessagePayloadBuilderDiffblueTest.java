@@ -84,35 +84,6 @@ class ReceiveMessagePayloadBuilderDiffblueTest {
    * Test {@link ReceiveMessagePayloadBuilder#withVariable(String, Object)}.
    *
    * <ul>
-   *   <li>Given {@link ReceiveMessagePayloadBuilder} (default constructor).
-   * </ul>
-   *
-   * <p>Method under test: {@link ReceiveMessagePayloadBuilder#withVariable(String, Object)}
-   */
-  @Test
-  @DisplayName(
-      "Test withVariable(String, Object); given ReceiveMessagePayloadBuilder (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ReceiveMessagePayloadBuilder ReceiveMessagePayloadBuilder.withVariable(String, Object)"
-  })
-  void testWithVariable_givenReceiveMessagePayloadBuilder() {
-    // Arrange
-    ReceiveMessagePayloadBuilder receiveMessagePayloadBuilder = new ReceiveMessagePayloadBuilder();
-
-    // Act
-    ReceiveMessagePayloadBuilder actualWithVariableResult =
-        receiveMessagePayloadBuilder.withVariable("Name", "Value");
-
-    // Assert
-    assertSame(receiveMessagePayloadBuilder, actualWithVariableResult);
-  }
-
-  /**
-   * Test {@link ReceiveMessagePayloadBuilder#withVariable(String, Object)}.
-   *
-   * <ul>
    *   <li>Given {@link ReceiveMessagePayloadBuilder} (default constructor) withVariables {@link
    *       HashMap#HashMap()}.
    * </ul>

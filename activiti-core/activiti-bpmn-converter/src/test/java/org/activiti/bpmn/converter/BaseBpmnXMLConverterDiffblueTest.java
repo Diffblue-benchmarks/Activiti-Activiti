@@ -4995,9 +4995,9 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
 
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
     doNothing()
-        .when(writer)
+        .when(xtw)
         .writeAttribute(
             Mockito.<String>any(),
             Mockito.<String>any(),
@@ -5005,11 +5005,10 @@ class BaseBpmnXMLConverterDiffblueTest {
             Mockito.<String>any());
 
     // Act
-    associationXMLConverter.writeQualifiedAttribute(
-        "Attribute Name", "42", new IndentingXMLStreamWriter(writer));
+    associationXMLConverter.writeQualifiedAttribute("Attribute Name", "42", xtw);
 
     // Assert
-    verify(writer).writeAttribute("activiti", "http://activiti.org/bpmn", "Attribute Name", "42");
+    verify(xtw).writeAttribute("activiti", "http://activiti.org/bpmn", "Attribute Name", "42");
   }
 
   /**

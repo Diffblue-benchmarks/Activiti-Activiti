@@ -3,16 +3,16 @@
     "reportVersion" : "2.8"
   },
   "run" : {
-    "version" : "2025.11.01-3385b9f-licensed",
-    "creationTimestamp" : "2025-11-12T08:32:53.023320826Z",
+    "version" : "2026.01.01-c73dc7d-licensed",
+    "creationTimestamp" : "2026-01-23T12:35:52.567713168Z",
     "command" : "dcover coverage-reports --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals",
-    "totalTime" : 21.917,
-    "environmentDetectionTime" : 10.429,
+    "totalTime" : 24.307,
+    "environmentDetectionTime" : 11.497,
     "indexingTime" : 0.0,
     "entryPointsTime" : 0.0,
     "generationTime" : 0.0,
-    "timeToFirstTest" : 21.918,
-    "timeToLastTest" : 21.918,
+    "timeToFirstTest" : 24.308,
+    "timeToLastTest" : 24.308,
     "indexQueryTime" : 0.0,
     "verificationTime" : 0.0,
     "validationTime" : 0.0

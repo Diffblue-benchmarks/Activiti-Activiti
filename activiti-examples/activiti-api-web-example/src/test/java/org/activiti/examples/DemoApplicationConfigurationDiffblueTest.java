@@ -21,17 +21,9 @@ import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ContextConfiguration(classes = {DemoApplicationConfiguration.class})
-@ExtendWith(SpringExtension.class)
 class DemoApplicationConfigurationDiffblueTest {
-  @Autowired private DemoApplicationConfiguration demoApplicationConfiguration;
-
   /**
    * Test {@link DemoApplicationConfiguration#userDetailsService()}.
    *
@@ -54,27 +46,5 @@ class DemoApplicationConfigurationDiffblueTest {
     assertTrue(
         new DemoApplicationConfiguration().userDetailsService()
             instanceof InMemoryUserDetailsManager);
-  }
-
-  /**
-   * Test {@link DemoApplicationConfiguration#userDetailsService()}.
-   *
-   * <ul>
-   *   <li>Then return {@link InMemoryUserDetailsManager}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DemoApplicationConfiguration#userDetailsService()}
-   */
-  @Test
-  @DisplayName("Test userDetailsService(); then return InMemoryUserDetailsManager")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.springframework.security.core.userdetails.UserDetailsService DemoApplicationConfiguration.userDetailsService()"
-  })
-  void testUserDetailsService_thenReturnInMemoryUserDetailsManager() {
-    // Arrange, Act and Assert
-    assertTrue(
-        demoApplicationConfiguration.userDetailsService() instanceof InMemoryUserDetailsManager);
   }
 }

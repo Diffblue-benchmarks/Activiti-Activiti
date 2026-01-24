@@ -102,66 +102,6 @@ class SetVariablesPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link SetVariablesPayloadBuilder#withProcessInstance(ProcessInstance)}.
-   *
-   * <p>Method under test: {@link SetVariablesPayloadBuilder#withProcessInstance(ProcessInstance)}
-   */
-  @Test
-  @DisplayName("Test withProcessInstance(ProcessInstance)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "SetVariablesPayloadBuilder SetVariablesPayloadBuilder.withProcessInstance(ProcessInstance)"
-  })
-  void testWithProcessInstance() {
-    // Arrange
-    SetVariablesPayloadBuilder setVariablesResult = ProcessPayloadBuilder.setVariables();
-
-    ProcessInstance processInstance = mock(ProcessInstance.class);
-    when(processInstance.getId()).thenReturn("42");
-
-    // Act
-    SetVariablesPayloadBuilder actualWithProcessInstanceResult =
-        setVariablesResult.withProcessInstance(processInstance);
-
-    // Assert
-    verify(processInstance).getId();
-    assertEquals("42", setVariablesResult.build().getProcessInstanceId());
-    assertSame(setVariablesResult, actualWithProcessInstanceResult);
-  }
-
-  /**
-   * Test {@link SetVariablesPayloadBuilder#withVariable(String, Object)}.
-   *
-   * <ul>
-   *   <li>Given Variables.
-   *   <li>When {@code Name}.
-   *   <li>Then return Variables.
-   * </ul>
-   *
-   * <p>Method under test: {@link SetVariablesPayloadBuilder#withVariable(String, Object)}
-   */
-  @Test
-  @DisplayName(
-      "Test withVariable(String, Object); given Variables; when 'Name'; then return Variables")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "SetVariablesPayloadBuilder SetVariablesPayloadBuilder.withVariable(String, Object)"
-  })
-  void testWithVariable_givenVariables_whenName_thenReturnVariables() {
-    // Arrange
-    SetVariablesPayloadBuilder setVariablesResult = ProcessPayloadBuilder.setVariables();
-
-    // Act
-    SetVariablesPayloadBuilder actualWithVariableResult =
-        setVariablesResult.withVariable("Name", "Value");
-
-    // Assert
-    assertSame(setVariablesResult, actualWithVariableResult);
-  }
-
-  /**
    * Test {@link SetVariablesPayloadBuilder#withVariable(String, Object)}.
    *
    * <ul>

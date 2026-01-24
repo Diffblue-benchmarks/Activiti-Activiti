@@ -16,13 +16,64 @@
 package org.activiti.application;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
+@ExtendWith(MockitoExtension.class)
 class ApplicationContentDiffblueTest {
+  @InjectMocks private ApplicationContent applicationContent;
+
+  @Mock private Map<String, List<FileContent>> map;
+
+  /**
+   * Test {@link ApplicationContent#add(ApplicationEntry)}.
+   *
+   * <ul>
+   *   <li>Then calls {@link Map#computeIfAbsent(Object, Function)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link ApplicationContent#add(ApplicationEntry)}
+   */
+  @Test
+  @DisplayName("Test add(ApplicationEntry); then calls computeIfAbsent(Object, Function)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ApplicationContent.add(ApplicationEntry)"})
+  void testAdd_thenCallsComputeIfAbsent() throws UnsupportedEncodingException {
+    // Arrange
+    when(map.computeIfAbsent(
+            Mockito.<String>any(), Mockito.<Function<String, List<FileContent>>>any()))
+        .thenReturn(new ArrayList<>());
+    FileContent fileContent = new FileContent("Name", "AXAXAXAX".getBytes("UTF-8"));
+    ApplicationEntry entry = new ApplicationEntry("Type", fileContent);
+
+    // Act
+    applicationContent.add(entry);
+
+    // Assert
+    verify(map).computeIfAbsent(eq("Type"), isA(Function.class));
+  }
+
   /**
    * Test {@link ApplicationContent#getFileContents(String)}.
    *
@@ -32,7 +83,7 @@ class ApplicationContentDiffblueTest {
   @DisplayName("Test getFileContents(String)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
-  @MethodsUnderTest({"java.util.List ApplicationContent.getFileContents(String)"})
+  @MethodsUnderTest({"List ApplicationContent.getFileContents(String)"})
   void testGetFileContents() {
     // Arrange, Act and Assert
     assertTrue(new ApplicationContent().getFileContents("Entry Type").isEmpty());

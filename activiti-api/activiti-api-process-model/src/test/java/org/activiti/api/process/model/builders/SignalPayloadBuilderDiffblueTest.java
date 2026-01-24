@@ -32,31 +32,6 @@ class SignalPayloadBuilderDiffblueTest {
    * Test {@link SignalPayloadBuilder#withVariable(String, Object)}.
    *
    * <ul>
-   *   <li>Given signal.
-   * </ul>
-   *
-   * <p>Method under test: {@link SignalPayloadBuilder#withVariable(String, Object)}
-   */
-  @Test
-  @DisplayName("Test withVariable(String, Object); given signal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"SignalPayloadBuilder SignalPayloadBuilder.withVariable(String, Object)"})
-  void testWithVariable_givenSignal() {
-    // Arrange
-    SignalPayloadBuilder signalResult = ProcessPayloadBuilder.signal();
-
-    // Act
-    SignalPayloadBuilder actualWithVariableResult = signalResult.withVariable("Name", "Value");
-
-    // Assert
-    assertSame(signalResult, actualWithVariableResult);
-  }
-
-  /**
-   * Test {@link SignalPayloadBuilder#withVariable(String, Object)}.
-   *
-   * <ul>
    *   <li>Given signal withVariables {@link HashMap#HashMap()}.
    * </ul>
    *

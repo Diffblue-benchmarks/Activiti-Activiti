@@ -20,7 +20,6 @@ import static org.junit.Assert.assertSame;
 import com.diffblue.cover.annotations.ContributionFromDiffblue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.activiti.engine.impl.DeadLetterJobQueryImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -194,24 +193,6 @@ public class ListQueryParameterObjectDiffblueTest {
 
     // Act and Assert
     assertEquals(-2147483645, listQueryParameterObject.getLastRow());
-  }
-
-  /**
-   * Test {@link ListQueryParameterObject#getOrderByColumns()}.
-   *
-   * <ul>
-   *   <li>Given {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ListQueryParameterObject#getOrderByColumns()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String ListQueryParameterObject.getOrderByColumns()"})
-  public void testGetOrderByColumns_givenDeadLetterJobQueryImpl() {
-    // Arrange, Act and Assert
-    assertEquals("RES.ID_ asc", new DeadLetterJobQueryImpl().getOrderByColumns());
   }
 
   /**

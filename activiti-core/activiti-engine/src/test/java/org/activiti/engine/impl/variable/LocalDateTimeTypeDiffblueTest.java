@@ -24,6 +24,8 @@ import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.Date;
 import org.activiti.engine.impl.persistence.entity.HistoricDetailVariableInstanceUpdateEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
@@ -66,6 +68,76 @@ public class LocalDateTimeTypeDiffblueTest {
   public void testIsAbleToStore_whenNull_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(new LocalDateTimeType().isAbleToStore(null));
+  }
+
+  /**
+   * Test {@link LocalDateTimeType#getValue(ValueFields)}.
+   *
+   * <ul>
+   *   <li>Given forty-two.
+   *   <li>Then return toLocalTime toString is {@code 00:00:42}.
+   * </ul>
+   *
+   * <p>Method under test: {@link LocalDateTimeType#getValue(ValueFields)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Object LocalDateTimeType.getValue(ValueFields)"})
+  public void testGetValue_givenFortyTwo_thenReturnToLocalTimeToStringIs000042() {
+    // Arrange
+    LocalDateTimeType localDateTimeType = new LocalDateTimeType();
+
+    HistoricDetailVariableInstanceUpdateEntityImpl valueFields =
+        new HistoricDetailVariableInstanceUpdateEntityImpl();
+    valueFields.setActivityInstanceId("42");
+    valueFields.setCachedValue(JSONObject.NULL);
+    valueFields.setDeleted(true);
+    valueFields.setDetailType("Detail Type");
+    valueFields.setDoubleValue(10.0d);
+    valueFields.setExecutionId("42");
+    valueFields.setId("42");
+    valueFields.setInserted(true);
+    valueFields.setName("Name");
+    valueFields.setProcessInstanceId("42");
+    valueFields.setRevision(1);
+    valueFields.setTaskId("42");
+    valueFields.setTextValue("42");
+    valueFields.setTextValue2("42");
+    valueFields.setTime(
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    valueFields.setUpdated(true);
+    valueFields.setVariableType(new BigDecimalType());
+    valueFields.setLongValue(42L);
+
+    // Act
+    Object actualValue = localDateTimeType.getValue(valueFields);
+
+    // Assert
+    assertEquals("00:00:42", ((LocalDateTime) actualValue).toLocalTime().toString());
+    assertEquals("1970-01-01", ((LocalDateTime) actualValue).toLocalDate().toString());
+  }
+
+  /**
+   * Test {@link LocalDateTimeType#getValue(ValueFields)}.
+   *
+   * <ul>
+   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor).
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link LocalDateTimeType#getValue(ValueFields)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Object LocalDateTimeType.getValue(ValueFields)"})
+  public void testGetValue_whenHistoricDetailVariableInstanceUpdateEntityImpl_thenReturnNull() {
+    // Arrange
+    LocalDateTimeType localDateTimeType = new LocalDateTimeType();
+
+    // Act and Assert
+    assertNull(localDateTimeType.getValue(new HistoricDetailVariableInstanceUpdateEntityImpl()));
   }
 
   /**

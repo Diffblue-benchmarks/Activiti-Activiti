@@ -58,6 +58,7 @@ import org.activiti.engine.impl.cfg.CommandExecutorImpl;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.cfg.TransactionContextFactory;
+import org.activiti.engine.impl.db.DbSqlSessionFactory;
 import org.activiti.engine.impl.interceptor.CommandConfig;
 import org.activiti.engine.impl.interceptor.CommandContextInterceptor;
 import org.activiti.engine.impl.interceptor.SessionFactory;
@@ -339,6 +340,8 @@ public class ActivitiRuleDiffblueTest {
     CommandExecutorImpl commandExecutorImpl =
         new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor());
     when(processEngineConfiguration.getCommandExecutor()).thenReturn(commandExecutorImpl);
+    doNothing().when(processEngineConfiguration).addSessionFactory(Mockito.<SessionFactory>any());
+    processEngineConfiguration.addSessionFactory(new DbSqlSessionFactory());
     ProcessEngineImpl processEngine = new ProcessEngineImpl(processEngineConfiguration);
 
     // Act
@@ -349,6 +352,7 @@ public class ActivitiRuleDiffblueTest {
     verify(processEngineConfiguration, atLeast(1)).getProcessEngineLifecycleListener();
     verify(processEngineConfiguration).getProcessEngineName();
     verify(processEngineLifecycleListener).onProcessEngineBuilt(isA(ProcessEngine.class));
+    verify(processEngineConfiguration).addSessionFactory(isA(SessionFactory.class));
     verify(processEngineConfiguration).getCommandExecutor();
     verify(processEngineConfiguration).getDynamicBpmnService();
     verify(processEngineConfiguration).getEventDispatcher();

@@ -13859,8 +13859,6 @@ class BpmnXMLConverterDiffblueTest {
     when(activitiListener.getOnTransaction()).thenReturn("On Transaction");
     when(activitiListener.getFieldExtensions()).thenReturn(new ArrayList<>());
     when(activitiListener.getEvent()).thenReturn("Event");
-    doNothing().when(activitiListener).setEvent(Mockito.<String>any());
-    activitiListener.setEvent("not empty");
 
     ArrayList<ActivitiListener> taskListeners = new ArrayList<>();
     taskListeners.add(activitiListener);
@@ -13872,17 +13870,14 @@ class BpmnXMLConverterDiffblueTest {
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
     doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeEndElement();
     doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
     doNothing()
         .when(writer)
         .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
 
-    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
-    writer2.setIndentStep("bpmn2");
-
     // Act
-    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer2));
+    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer));
 
     // Assert
     verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
@@ -13896,7 +13891,6 @@ class BpmnXMLConverterDiffblueTest {
     verify(activitiListener).getFieldExtensions();
     verify(activitiListener, atLeast(1)).getImplementationType();
     verify(activitiListener).getOnTransaction();
-    verify(activitiListener).setEvent("not empty");
   }
 
   /**
@@ -13917,10 +13911,7 @@ class BpmnXMLConverterDiffblueTest {
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
 
     ActivitiListener activitiListener = mock(ActivitiListener.class);
-    when(activitiListener.getImplementationType()).thenThrow(new XMLException("An error occurred"));
     when(activitiListener.getEvent()).thenReturn("Event");
-    doNothing().when(activitiListener).setEvent(Mockito.<String>any());
-    activitiListener.setEvent("not empty");
 
     ArrayList<ActivitiListener> taskListeners = new ArrayList<>();
     taskListeners.add(activitiListener);
@@ -13930,29 +13921,21 @@ class BpmnXMLConverterDiffblueTest {
     BpmnModel model = new BpmnModel();
 
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    doThrow(new XMLException("An error occurred"))
+        .when(writer)
+        .writeCharacters(Mockito.<String>any());
     doNothing()
         .when(writer)
         .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
 
-    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
-    writer2.setIndentStep("bpmn2");
-
     // Act and Assert
     assertThrows(
         XMLException.class,
-        () ->
-            bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer2)));
-    verify(writer).writeAttribute("event", "Event");
-    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
-    verify(writer).writeStartElement("extensionElements");
-    verify(writer, atLeast(1))
-        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-    verify(activitiListener, atLeast(1)).getEvent();
-    verify(activitiListener).getImplementationType();
-    verify(activitiListener).setEvent("not empty");
+        () -> bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer)));
+    verify(writer).writeCharacters("\n");
+    verify(writer)
+        .writeStartElement("bpmn2", "userTask", "http://www.omg.org/spec/BPMN/20100524/MODEL");
+    verify(activitiListener).getEvent();
   }
 
   /**
@@ -13972,22 +13955,9 @@ class BpmnXMLConverterDiffblueTest {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
 
-    FieldExtension fieldExtension = mock(FieldExtension.class);
-    when(fieldExtension.getStringValue()).thenThrow(new XMLException("An error occurred"));
-    when(fieldExtension.getFieldName()).thenReturn("Field Name");
-
-    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
-    fieldExtensionList.add(fieldExtension);
-
     ActivitiListener activitiListener = mock(ActivitiListener.class);
-    when(activitiListener.getCustomPropertiesResolverImplementationType())
-        .thenReturn("Custom Properties Resolver Implementation Type");
-    when(activitiListener.getImplementationType()).thenReturn("Implementation Type");
-    when(activitiListener.getOnTransaction()).thenReturn("On Transaction");
-    when(activitiListener.getFieldExtensions()).thenReturn(fieldExtensionList);
+    when(activitiListener.getImplementationType()).thenThrow(new XMLException("An error occurred"));
     when(activitiListener.getEvent()).thenReturn("Event");
-    doNothing().when(activitiListener).setEvent(Mockito.<String>any());
-    activitiListener.setEvent("not empty");
 
     ArrayList<ActivitiListener> taskListeners = new ArrayList<>();
     taskListeners.add(activitiListener);
@@ -14004,101 +13974,17 @@ class BpmnXMLConverterDiffblueTest {
         .when(writer)
         .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
 
-    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
-    writer2.setIndentStep("bpmn2");
-
     // Act and Assert
     assertThrows(
         XMLException.class,
-        () ->
-            bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer2)));
-    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+        () -> bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer)));
+    verify(writer).writeAttribute("event", "Event");
     verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
     verify(writer).writeStartElement("extensionElements");
     verify(writer, atLeast(1))
         .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-    verify(activitiListener, atLeast(1)).getCustomPropertiesResolverImplementationType();
     verify(activitiListener, atLeast(1)).getEvent();
-    verify(activitiListener).getFieldExtensions();
-    verify(activitiListener, atLeast(1)).getImplementationType();
-    verify(activitiListener).getOnTransaction();
-    verify(activitiListener).setEvent("not empty");
-    verify(fieldExtension).getFieldName();
-    verify(fieldExtension).getStringValue();
-  }
-
-  /**
-   * Test {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)} with {@code
-   * flowElement}, {@code model}, {@code xtw}.
-   *
-   * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
-   * XMLStreamWriter)}
-   */
-  @Test
-  @DisplayName(
-      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
-  void testCreateXMLWithFlowElementModelXtw4() throws Exception {
-    // Arrange
-    BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
-
-    FieldExtension fieldExtension = mock(FieldExtension.class);
-    when(fieldExtension.getStringValue()).thenReturn("42");
-    when(fieldExtension.getFieldName()).thenReturn("Field Name");
-
-    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
-    fieldExtensionList.add(fieldExtension);
-
-    ActivitiListener activitiListener = mock(ActivitiListener.class);
-    when(activitiListener.getCustomPropertiesResolverImplementationType())
-        .thenReturn("Custom Properties Resolver Implementation Type");
-    when(activitiListener.getImplementationType()).thenReturn("Implementation Type");
-    when(activitiListener.getOnTransaction()).thenReturn("On Transaction");
-    when(activitiListener.getFieldExtensions()).thenReturn(fieldExtensionList);
-    when(activitiListener.getEvent()).thenReturn("Event");
-    doNothing().when(activitiListener).setEvent(Mockito.<String>any());
-    activitiListener.setEvent("not empty");
-
-    ArrayList<ActivitiListener> taskListeners = new ArrayList<>();
-    taskListeners.add(activitiListener);
-
-    UserTask flowElement = new UserTask();
-    flowElement.setTaskListeners(taskListeners);
-    BpmnModel model = new BpmnModel();
-
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doThrow(new XMLException("An error occurred")).when(writer).writeCData(Mockito.<String>any());
-    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeStartElement(Mockito.<String>any());
-    doNothing()
-        .when(writer)
-        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-
-    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
-    writer2.setIndentStep("bpmn2");
-
-    // Act and Assert
-    assertThrows(
-        XMLException.class,
-        () ->
-            bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer2)));
-    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    verify(writer).writeCData("42");
-    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
-    verify(writer).writeStartElement("extensionElements");
-    verify(writer, atLeast(1))
-        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-    verify(activitiListener, atLeast(1)).getCustomPropertiesResolverImplementationType();
-    verify(activitiListener, atLeast(1)).getEvent();
-    verify(activitiListener).getFieldExtensions();
-    verify(activitiListener, atLeast(1)).getImplementationType();
-    verify(activitiListener).getOnTransaction();
-    verify(activitiListener).setEvent("not empty");
-    verify(fieldExtension, atLeast(1)).getFieldName();
-    verify(fieldExtension, atLeast(1)).getStringValue();
+    verify(activitiListener).getImplementationType();
   }
 
   /**
@@ -14106,7 +13992,7 @@ class BpmnXMLConverterDiffblueTest {
    * flowElement}, {@code model}, {@code xtw}.
    *
    * <ul>
-   *   <li>Given {@link ActivitiListener} (default constructor) Event is {@code not empty}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link ActivitiListener} (default constructor).
    * </ul>
    *
    * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
@@ -14114,135 +14000,16 @@ class BpmnXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; given ActivitiListener (default constructor) Event is 'not empty'")
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; given ArrayList() add ActivitiListener (default constructor)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
-  void testCreateXMLWithFlowElementModelXtw_givenActivitiListenerEventIsNotEmpty()
-      throws Exception {
+  void testCreateXMLWithFlowElementModelXtw_givenArrayListAddActivitiListener() throws Exception {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
-
-    ActivitiListener activitiListener = new ActivitiListener();
-    activitiListener.setEvent("not empty");
-
-    ArrayList<ActivitiListener> taskListeners = new ArrayList<>();
-    taskListeners.add(activitiListener);
-
-    UserTask flowElement = new UserTask();
-    flowElement.setTaskListeners(taskListeners);
-    BpmnModel model = new BpmnModel();
-
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeEndElement();
-    doNothing().when(writer).writeStartElement(Mockito.<String>any());
-    doNothing()
-        .when(writer)
-        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-
-    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
-    writer2.setIndentStep("bpmn2");
-
-    // Act
-    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer2));
-
-    // Assert
-    verify(writer).writeAttribute("event", "not empty");
-    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
-    verify(writer, atLeast(1)).writeEndElement();
-    verify(writer).writeStartElement("extensionElements");
-    verify(writer, atLeast(1))
-        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-  }
-
-  /**
-   * Test {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)} with {@code
-   * flowElement}, {@code model}, {@code xtw}.
-   *
-   * <ul>
-   *   <li>Given {@link ActivitiListener} (default constructor) Event is {@code not empty}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
-   * XMLStreamWriter)}
-   */
-  @Test
-  @DisplayName(
-      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; given ActivitiListener (default constructor) Event is 'not empty'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
-  void testCreateXMLWithFlowElementModelXtw_givenActivitiListenerEventIsNotEmpty2()
-      throws Exception {
-    // Arrange
-    BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
-
-    ActivitiListener activitiListener = new ActivitiListener();
-    activitiListener.setEvent("not empty");
 
     ArrayList<ActivitiListener> taskListeners = new ArrayList<>();
     taskListeners.add(new ActivitiListener());
-    taskListeners.add(activitiListener);
-
-    UserTask flowElement = new UserTask();
-    flowElement.setTaskListeners(taskListeners);
-    BpmnModel model = new BpmnModel();
-
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeEndElement();
-    doNothing().when(writer).writeStartElement(Mockito.<String>any());
-    doNothing()
-        .when(writer)
-        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-
-    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
-    writer2.setIndentStep("bpmn2");
-
-    // Act
-    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer2));
-
-    // Assert
-    verify(writer).writeAttribute("event", "not empty");
-    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
-    verify(writer, atLeast(1)).writeEndElement();
-    verify(writer).writeStartElement("extensionElements");
-    verify(writer, atLeast(1))
-        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-  }
-
-  /**
-   * Test {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)} with {@code
-   * flowElement}, {@code model}, {@code xtw}.
-   *
-   * <ul>
-   *   <li>Given {@link ActivitiListener} {@link ActivitiListener#getEvent()} return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
-   * XMLStreamWriter)}
-   */
-  @Test
-  @DisplayName(
-      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; given ActivitiListener getEvent() return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
-  void testCreateXMLWithFlowElementModelXtw_givenActivitiListenerGetEventReturnNull()
-      throws Exception {
-    // Arrange
-    BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
-
-    ActivitiListener activitiListener = mock(ActivitiListener.class);
-    when(activitiListener.getEvent()).thenReturn(null);
-    doNothing().when(activitiListener).setEvent(Mockito.<String>any());
-    activitiListener.setEvent("not empty");
-
-    ArrayList<ActivitiListener> taskListeners = new ArrayList<>();
-    taskListeners.add(activitiListener);
 
     UserTask flowElement = new UserTask();
     flowElement.setTaskListeners(taskListeners);
@@ -14254,18 +14021,13 @@ class BpmnXMLConverterDiffblueTest {
         .when(writer)
         .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
 
-    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
-    writer2.setIndentStep("bpmn2");
-
     // Act
-    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer2));
+    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer));
 
     // Assert
     verify(writer).writeEndElement();
     verify(writer)
         .writeStartElement("bpmn2", "userTask", "http://www.omg.org/spec/BPMN/20100524/MODEL");
-    verify(activitiListener).getEvent();
-    verify(activitiListener).setEvent("not empty");
   }
 
   /**
@@ -14299,8 +14061,6 @@ class BpmnXMLConverterDiffblueTest {
     when(activitiListener.getOnTransaction()).thenReturn("On Transaction");
     when(activitiListener.getFieldExtensions()).thenReturn(fieldExtensionList);
     when(activitiListener.getEvent()).thenReturn("Event");
-    doNothing().when(activitiListener).setEvent(Mockito.<String>any());
-    activitiListener.setEvent("not empty");
 
     ArrayList<ActivitiListener> taskListeners = new ArrayList<>();
     taskListeners.add(activitiListener);
@@ -14312,17 +14072,14 @@ class BpmnXMLConverterDiffblueTest {
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
     doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeEndElement();
     doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
     doNothing()
         .when(writer)
         .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
 
-    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
-    writer2.setIndentStep("bpmn2");
-
     // Act
-    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer2));
+    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer));
 
     // Assert
     verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
@@ -14336,7 +14093,6 @@ class BpmnXMLConverterDiffblueTest {
     verify(activitiListener).getFieldExtensions();
     verify(activitiListener, atLeast(1)).getImplementationType();
     verify(activitiListener).getOnTransaction();
-    verify(activitiListener).setEvent("not empty");
   }
 
   /**
@@ -14344,7 +14100,8 @@ class BpmnXMLConverterDiffblueTest {
    * flowElement}, {@code model}, {@code xtw}.
    *
    * <ul>
-   *   <li>Given {@link FieldExtension} {@link FieldExtension#getStringValue()} return {@code 42}.
+   *   <li>Given {@link ArrayList#ArrayList()}.
+   *   <li>Then calls {@link IndentingXMLStreamWriter#writeEndElement()}.
    * </ul>
    *
    * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
@@ -14352,71 +14109,32 @@ class BpmnXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; given FieldExtension getStringValue() return '42'")
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; given ArrayList(); then calls writeEndElement()")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
-  void testCreateXMLWithFlowElementModelXtw_givenFieldExtensionGetStringValueReturn42()
+  void testCreateXMLWithFlowElementModelXtw_givenArrayList_thenCallsWriteEndElement()
       throws Exception {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
 
-    FieldExtension fieldExtension = mock(FieldExtension.class);
-    when(fieldExtension.getStringValue()).thenReturn("42");
-    when(fieldExtension.getFieldName()).thenReturn("Field Name");
-
-    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
-    fieldExtensionList.add(fieldExtension);
-
-    ActivitiListener activitiListener = mock(ActivitiListener.class);
-    when(activitiListener.getCustomPropertiesResolverImplementationType())
-        .thenReturn("Custom Properties Resolver Implementation Type");
-    when(activitiListener.getImplementationType()).thenReturn("Implementation Type");
-    when(activitiListener.getOnTransaction()).thenReturn("On Transaction");
-    when(activitiListener.getFieldExtensions()).thenReturn(fieldExtensionList);
-    when(activitiListener.getEvent()).thenReturn("Event");
-    doNothing().when(activitiListener).setEvent(Mockito.<String>any());
-    activitiListener.setEvent("not empty");
-
-    ArrayList<ActivitiListener> taskListeners = new ArrayList<>();
-    taskListeners.add(activitiListener);
-
     UserTask flowElement = new UserTask();
-    flowElement.setTaskListeners(taskListeners);
+    flowElement.setTaskListeners(new ArrayList<>());
     BpmnModel model = new BpmnModel();
 
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).writeCData(Mockito.<String>any());
-    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
     doNothing().when(writer).writeEndElement();
-    doNothing().when(writer).writeStartElement(Mockito.<String>any());
     doNothing()
         .when(writer)
         .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
 
-    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
-    writer2.setIndentStep("bpmn2");
-
     // Act
-    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer2));
+    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer));
 
     // Assert
-    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    verify(writer).writeCData("42");
-    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
-    verify(writer, atLeast(1)).writeEndElement();
-    verify(writer).writeStartElement("extensionElements");
-    verify(writer, atLeast(1))
-        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-    verify(activitiListener, atLeast(1)).getCustomPropertiesResolverImplementationType();
-    verify(activitiListener, atLeast(1)).getEvent();
-    verify(activitiListener).getFieldExtensions();
-    verify(activitiListener, atLeast(1)).getImplementationType();
-    verify(activitiListener).getOnTransaction();
-    verify(activitiListener).setEvent("not empty");
-    verify(fieldExtension, atLeast(1)).getFieldName();
-    verify(fieldExtension, atLeast(1)).getStringValue();
+    verify(writer).writeEndElement();
+    verify(writer)
+        .writeStartElement("bpmn2", "userTask", "http://www.omg.org/spec/BPMN/20100524/MODEL");
   }
 
   /**
@@ -14424,7 +14142,8 @@ class BpmnXMLConverterDiffblueTest {
    * flowElement}, {@code model}, {@code xtw}.
    *
    * <ul>
-   *   <li>Then calls {@link FieldExtension#getExpression()}.
+   *   <li>Given {@code null}.
+   *   <li>When {@link UserTask} (default constructor) TaskListeners is {@code null}.
    * </ul>
    *
    * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
@@ -14432,72 +14151,32 @@ class BpmnXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; then calls getExpression()")
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; given 'null'; when UserTask (default constructor) TaskListeners is 'null'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
-  void testCreateXMLWithFlowElementModelXtw_thenCallsGetExpression() throws Exception {
+  void testCreateXMLWithFlowElementModelXtw_givenNull_whenUserTaskTaskListenersIsNull()
+      throws Exception {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
 
-    FieldExtension fieldExtension = mock(FieldExtension.class);
-    when(fieldExtension.getExpression()).thenReturn("Expression");
-    when(fieldExtension.getStringValue()).thenReturn(null);
-    when(fieldExtension.getFieldName()).thenReturn("Field Name");
-
-    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
-    fieldExtensionList.add(fieldExtension);
-
-    ActivitiListener activitiListener = mock(ActivitiListener.class);
-    when(activitiListener.getCustomPropertiesResolverImplementationType())
-        .thenReturn("Custom Properties Resolver Implementation Type");
-    when(activitiListener.getImplementationType()).thenReturn("Implementation Type");
-    when(activitiListener.getOnTransaction()).thenReturn("On Transaction");
-    when(activitiListener.getFieldExtensions()).thenReturn(fieldExtensionList);
-    when(activitiListener.getEvent()).thenReturn("Event");
-    doNothing().when(activitiListener).setEvent(Mockito.<String>any());
-    activitiListener.setEvent("not empty");
-
-    ArrayList<ActivitiListener> taskListeners = new ArrayList<>();
-    taskListeners.add(activitiListener);
-
     UserTask flowElement = new UserTask();
-    flowElement.setTaskListeners(taskListeners);
+    flowElement.setTaskListeners(null);
     BpmnModel model = new BpmnModel();
 
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).writeCData(Mockito.<String>any());
-    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
     doNothing().when(writer).writeEndElement();
-    doNothing().when(writer).writeStartElement(Mockito.<String>any());
     doNothing()
         .when(writer)
         .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
 
-    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
-    writer2.setIndentStep("bpmn2");
-
     // Act
-    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer2));
+    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer));
 
     // Assert
-    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    verify(writer).writeCData("Expression");
-    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
-    verify(writer, atLeast(1)).writeEndElement();
-    verify(writer).writeStartElement("extensionElements");
-    verify(writer, atLeast(1))
-        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-    verify(activitiListener, atLeast(1)).getCustomPropertiesResolverImplementationType();
-    verify(activitiListener, atLeast(1)).getEvent();
-    verify(activitiListener).getFieldExtensions();
-    verify(activitiListener, atLeast(1)).getImplementationType();
-    verify(activitiListener).getOnTransaction();
-    verify(activitiListener).setEvent("not empty");
-    verify(fieldExtension, atLeast(1)).getExpression();
-    verify(fieldExtension, atLeast(1)).getFieldName();
-    verify(fieldExtension, atLeast(1)).getStringValue();
+    verify(writer).writeEndElement();
+    verify(writer)
+        .writeStartElement("bpmn2", "userTask", "http://www.omg.org/spec/BPMN/20100524/MODEL");
   }
 
   /**

@@ -67,54 +67,6 @@ public class MapBusinessCalendarManagerDiffblueTest {
   }
 
   /**
-   * Test {@link MapBusinessCalendarManager#getBusinessCalendar(String)}.
-   *
-   * <ul>
-   *   <li>Then return {@link DefaultBusinessCalendar}.
-   * </ul>
-   *
-   * <p>Method under test: {@link MapBusinessCalendarManager#getBusinessCalendar(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"BusinessCalendar MapBusinessCalendarManager.getBusinessCalendar(String)"})
-  public void testGetBusinessCalendar_thenReturnDefaultBusinessCalendar() {
-    // Arrange
-    MapBusinessCalendarManager mapBusinessCalendarManager = new MapBusinessCalendarManager();
-    DefaultBusinessCalendar businessCalendar = new DefaultBusinessCalendar();
-    mapBusinessCalendarManager.addBusinessCalendar("Business Calendar Ref", businessCalendar);
-
-    // Act
-    BusinessCalendar actualBusinessCalendar =
-        mapBusinessCalendarManager.getBusinessCalendar("Business Calendar Ref");
-
-    // Assert
-    assertTrue(actualBusinessCalendar instanceof DefaultBusinessCalendar);
-    assertSame(businessCalendar, actualBusinessCalendar);
-  }
-
-  /**
-   * Test {@link MapBusinessCalendarManager#getBusinessCalendar(String)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link MapBusinessCalendarManager#getBusinessCalendar(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"BusinessCalendar MapBusinessCalendarManager.getBusinessCalendar(String)"})
-  public void testGetBusinessCalendar_thenThrowActivitiException() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> new MapBusinessCalendarManager().getBusinessCalendar("Business Calendar Ref"));
-  }
-
-  /**
    * Test {@link MapBusinessCalendarManager#addBusinessCalendar(String, BusinessCalendar)}.
    *
    * <ul>

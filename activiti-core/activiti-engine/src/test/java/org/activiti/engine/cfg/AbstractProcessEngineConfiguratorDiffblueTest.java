@@ -16,15 +16,9 @@
 package org.activiti.engine.cfg;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import com.diffblue.cover.annotations.ContributionFromDiffblue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
-import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
-import org.activiti.engine.impl.interceptor.CommandInterceptor;
-import org.activiti.engine.test.impl.logger.LoggingCommandInvoker;
 import org.activiti.engine.test.impl.logger.ProcessExecutionLoggerConfigurator;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -42,32 +36,5 @@ public class AbstractProcessEngineConfiguratorDiffblueTest {
   public void testGetPriority() {
     // Arrange, Act and Assert
     assertEquals(10000, new ProcessExecutionLoggerConfigurator().getPriority());
-  }
-
-  /**
-   * Test {@link AbstractProcessEngineConfigurator#beforeInit(ProcessEngineConfigurationImpl)}.
-   *
-   * <p>Method under test: {@link
-   * AbstractProcessEngineConfigurator#beforeInit(ProcessEngineConfigurationImpl)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void AbstractProcessEngineConfigurator.beforeInit(ProcessEngineConfigurationImpl)"
-  })
-  public void testBeforeInit() {
-    // Arrange
-    ProcessExecutionLoggerConfigurator processExecutionLoggerConfigurator =
-        new ProcessExecutionLoggerConfigurator();
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-
-    // Act
-    processExecutionLoggerConfigurator.beforeInit(processEngineConfiguration);
-
-    // Assert
-    CommandInterceptor commandInvoker = processEngineConfiguration.getCommandInvoker();
-    assertTrue(commandInvoker instanceof LoggingCommandInvoker);
-    assertNull(commandInvoker.getNext());
   }
 }

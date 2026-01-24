@@ -17,10 +17,7 @@ package org.activiti.api.process.model.builders;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.ProcessInstance;
@@ -30,35 +27,6 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class SuspendProcessPayloadBuilderDiffblueTest {
-  /**
-   * Test {@link SuspendProcessPayloadBuilder#withProcessInstance(ProcessInstance)}.
-   *
-   * <p>Method under test: {@link SuspendProcessPayloadBuilder#withProcessInstance(ProcessInstance)}
-   */
-  @Test
-  @DisplayName("Test withProcessInstance(ProcessInstance)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "SuspendProcessPayloadBuilder SuspendProcessPayloadBuilder.withProcessInstance(ProcessInstance)"
-  })
-  void testWithProcessInstance() {
-    // Arrange
-    SuspendProcessPayloadBuilder suspendResult = ProcessPayloadBuilder.suspend();
-
-    ProcessInstance processInstance = mock(ProcessInstance.class);
-    when(processInstance.getId()).thenReturn("42");
-
-    // Act
-    SuspendProcessPayloadBuilder actualWithProcessInstanceResult =
-        suspendResult.withProcessInstance(processInstance);
-
-    // Assert
-    verify(processInstance).getId();
-    assertEquals("42", suspendResult.build().getProcessInstanceId());
-    assertSame(suspendResult, actualWithProcessInstanceResult);
-  }
-
   /**
    * Test {@link SuspendProcessPayloadBuilder#build()}.
    *

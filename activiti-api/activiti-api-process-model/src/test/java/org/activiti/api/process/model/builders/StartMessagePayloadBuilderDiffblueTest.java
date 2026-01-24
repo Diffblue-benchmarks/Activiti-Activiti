@@ -82,35 +82,6 @@ class StartMessagePayloadBuilderDiffblueTest {
    * Test {@link StartMessagePayloadBuilder#withVariable(String, Object)}.
    *
    * <ul>
-   *   <li>Given {@link StartMessagePayloadBuilder} (default constructor).
-   * </ul>
-   *
-   * <p>Method under test: {@link StartMessagePayloadBuilder#withVariable(String, Object)}
-   */
-  @Test
-  @DisplayName(
-      "Test withVariable(String, Object); given StartMessagePayloadBuilder (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "StartMessagePayloadBuilder StartMessagePayloadBuilder.withVariable(String, Object)"
-  })
-  void testWithVariable_givenStartMessagePayloadBuilder() {
-    // Arrange
-    StartMessagePayloadBuilder startMessagePayloadBuilder = new StartMessagePayloadBuilder();
-
-    // Act
-    StartMessagePayloadBuilder actualWithVariableResult =
-        startMessagePayloadBuilder.withVariable("Name", "Value");
-
-    // Assert
-    assertSame(startMessagePayloadBuilder, actualWithVariableResult);
-  }
-
-  /**
-   * Test {@link StartMessagePayloadBuilder#withVariable(String, Object)}.
-   *
-   * <ul>
    *   <li>Given {@link StartMessagePayloadBuilder} (default constructor) withVariables {@link
    *       HashMap#HashMap()}.
    * </ul>

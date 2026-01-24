@@ -5212,9 +5212,7 @@ public class DynamicBpmnServiceImplDiffblueTest {
     ObjectNode infoNode = mock(ObjectNode.class);
     JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
     when(infoNode.get(Mockito.<String>any())).thenReturn(new ObjectNode(nc));
-    when(infoNode.has(Mockito.<String>any())).thenReturn(false);
-    JsonNodeFactory nc2 = JsonNodeFactory.withExactBigDecimals(true);
-    when(infoNode.putObject(Mockito.<String>any())).thenReturn(new ObjectNode(nc2));
+    when(infoNode.has(Mockito.<String>any())).thenReturn(true);
 
     // Act
     dynamicBpmnServiceImpl.changeDmnTaskDecisionTableKey("42", "Decision Table Key", infoNode);
@@ -5222,7 +5220,6 @@ public class DynamicBpmnServiceImplDiffblueTest {
     // Assert
     verify(infoNode).has("bpmn");
     verify(infoNode).get("bpmn");
-    verify(infoNode).putObject("bpmn");
   }
 
   /**
@@ -5230,7 +5227,7 @@ public class DynamicBpmnServiceImplDiffblueTest {
    * with {@code id}, {@code decisionTableKey}, {@code infoNode}.
    *
    * <ul>
-   *   <li>Then calls {@link ObjectNode#has(String)}.
+   *   <li>Given {@code false}.
    * </ul>
    *
    * <p>Method under test: {@link DynamicBpmnServiceImpl#changeDmnTaskDecisionTableKey(String,
@@ -5242,7 +5239,7 @@ public class DynamicBpmnServiceImplDiffblueTest {
   @MethodsUnderTest({
     "void DynamicBpmnServiceImpl.changeDmnTaskDecisionTableKey(String, String, ObjectNode)"
   })
-  public void testChangeDmnTaskDecisionTableKeyWithIdDecisionTableKeyInfoNode_thenCallsHas() {
+  public void testChangeDmnTaskDecisionTableKeyWithIdDecisionTableKeyInfoNode_givenFalse() {
     // Arrange
     DynamicBpmnServiceImpl dynamicBpmnServiceImpl =
         new DynamicBpmnServiceImpl(new JtaProcessEngineConfiguration());
@@ -5250,7 +5247,9 @@ public class DynamicBpmnServiceImplDiffblueTest {
     ObjectNode infoNode = mock(ObjectNode.class);
     JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
     when(infoNode.get(Mockito.<String>any())).thenReturn(new ObjectNode(nc));
-    when(infoNode.has(Mockito.<String>any())).thenReturn(true);
+    when(infoNode.has(Mockito.<String>any())).thenReturn(false);
+    JsonNodeFactory nc2 = JsonNodeFactory.withExactBigDecimals(true);
+    when(infoNode.putObject(Mockito.<String>any())).thenReturn(new ObjectNode(nc2));
 
     // Act
     dynamicBpmnServiceImpl.changeDmnTaskDecisionTableKey("42", "Decision Table Key", infoNode);
@@ -5258,6 +5257,7 @@ public class DynamicBpmnServiceImplDiffblueTest {
     // Assert
     verify(infoNode).has("bpmn");
     verify(infoNode).get("bpmn");
+    verify(infoNode).putObject("bpmn");
   }
 
   /**

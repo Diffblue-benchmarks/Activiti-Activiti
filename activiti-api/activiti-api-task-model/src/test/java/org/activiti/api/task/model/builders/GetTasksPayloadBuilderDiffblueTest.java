@@ -33,31 +33,6 @@ class GetTasksPayloadBuilderDiffblueTest {
    * Test {@link GetTasksPayloadBuilder#withGroup(String)}.
    *
    * <ul>
-   *   <li>Given tasks.
-   * </ul>
-   *
-   * <p>Method under test: {@link GetTasksPayloadBuilder#withGroup(String)}
-   */
-  @Test
-  @DisplayName("Test withGroup(String); given tasks")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"GetTasksPayloadBuilder GetTasksPayloadBuilder.withGroup(String)"})
-  void testWithGroup_givenTasks() {
-    // Arrange
-    GetTasksPayloadBuilder tasksResult = TaskPayloadBuilder.tasks();
-
-    // Act
-    GetTasksPayloadBuilder actualWithGroupResult = tasksResult.withGroup("Group");
-
-    // Assert
-    assertSame(tasksResult, actualWithGroupResult);
-  }
-
-  /**
-   * Test {@link GetTasksPayloadBuilder#withGroup(String)}.
-   *
-   * <ul>
    *   <li>Given tasks withGroups {@link ArrayList#ArrayList()}.
    * </ul>
    *

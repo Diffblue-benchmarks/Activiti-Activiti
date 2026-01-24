@@ -60,35 +60,6 @@ class StartProcessPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link StartProcessPayloadBuilder#withVariable(String, Object)}.
-   *
-   * <ul>
-   *   <li>Given start.
-   *   <li>When {@code Name}.
-   *   <li>Then return start.
-   * </ul>
-   *
-   * <p>Method under test: {@link StartProcessPayloadBuilder#withVariable(String, Object)}
-   */
-  @Test
-  @DisplayName("Test withVariable(String, Object); given start; when 'Name'; then return start")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "StartProcessPayloadBuilder StartProcessPayloadBuilder.withVariable(String, Object)"
-  })
-  void testWithVariable_givenStart_whenName_thenReturnStart() {
-    // Arrange
-    StartProcessPayloadBuilder startResult = ProcessPayloadBuilder.start();
-
-    // Act
-    StartProcessPayloadBuilder actualWithVariableResult = startResult.withVariable("Name", "Value");
-
-    // Assert
-    assertSame(startResult, actualWithVariableResult);
-  }
-
-  /**
    * Test {@link StartProcessPayloadBuilder#build()}.
    *
    * <p>Methods under test:

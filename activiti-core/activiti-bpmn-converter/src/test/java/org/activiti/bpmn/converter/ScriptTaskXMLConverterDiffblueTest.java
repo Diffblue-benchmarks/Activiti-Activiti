@@ -98,6 +98,7 @@ class ScriptTaskXMLConverterDiffblueTest {
    * XMLStreamWriter)}.
    *
    * <ul>
+   *   <li>Given {@code script}.
    *   <li>Then calls {@link IndentingXMLStreamWriter#writeCData(String)}.
    * </ul>
    *
@@ -106,32 +107,31 @@ class ScriptTaskXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter); then calls writeCData(String)")
+      "Test writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter); given 'script'; then calls writeCData(String)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({
     "void ScriptTaskXMLConverter.writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)"
   })
-  void testWriteAdditionalChildElements_thenCallsWriteCData() throws Exception {
+  void testWriteAdditionalChildElements_givenScript_thenCallsWriteCData() throws Exception {
     // Arrange
     ScriptTaskXMLConverter scriptTaskXMLConverter = new ScriptTaskXMLConverter();
 
     ScriptTask element = new ScriptTask();
-    element.setScript("not empty");
+    element.setScript("script");
     BpmnModel model = new BpmnModel();
 
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeCData(Mockito.<String>any());
     doNothing().when(writer).writeEndElement();
     doNothing().when(writer).writeStartElement(Mockito.<String>any());
-    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
 
     // Act
     scriptTaskXMLConverter.writeAdditionalChildElements(
-        element, model, new IndentingXMLStreamWriter(writer2));
+        element, model, new IndentingXMLStreamWriter(writer));
 
     // Assert
-    verify(writer).writeCData("not empty");
+    verify(writer).writeCData("script");
     verify(writer).writeEndElement();
     verify(writer).writeStartElement("script");
   }

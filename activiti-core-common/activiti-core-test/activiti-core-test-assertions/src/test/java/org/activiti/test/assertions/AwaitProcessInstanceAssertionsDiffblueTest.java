@@ -118,29 +118,29 @@ class AwaitProcessInstanceAssertionsDiffblueTest {
    * Test {@link AwaitProcessInstanceAssertions#expectFields(ProcessResultMatcher[])}.
    *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link TaskSource}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link RuntimeEvent}.
    * </ul>
    *
    * <p>Method under test: {@link
    * AwaitProcessInstanceAssertions#expectFields(ProcessResultMatcher[])}
    */
   @Test
-  @DisplayName("Test expectFields(ProcessResultMatcher[]); given ArrayList() add TaskSource")
+  @DisplayName("Test expectFields(ProcessResultMatcher[]); given ArrayList() add RuntimeEvent")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({
     "ProcessInstanceAssertions AwaitProcessInstanceAssertions.expectFields(ProcessResultMatcher[])"
   })
-  void testExpectFields_givenArrayListAddTaskSource() {
+  void testExpectFields_givenArrayListAddRuntimeEvent() {
     // Arrange
-    EventSource eventSource = mock(EventSource.class);
-    Mockito.<List<RuntimeEvent<?, ?>>>when(eventSource.getEvents()).thenReturn(new ArrayList<>());
+    ArrayList<RuntimeEvent<?, ?>> runtimeEventList = new ArrayList<>();
+    runtimeEventList.add(mock(RuntimeEvent.class));
 
-    ArrayList<TaskSource> taskSourceList = new ArrayList<>();
-    taskSourceList.add(mock(TaskSource.class));
+    EventSource eventSource = mock(EventSource.class);
+    Mockito.<List<RuntimeEvent<?, ?>>>when(eventSource.getEvents()).thenReturn(runtimeEventList);
 
     ArrayList<TaskSource> taskSources = new ArrayList<>();
-    taskSources.addAll(taskSourceList);
+    taskSources.addLast(mock(TaskSource.class));
 
     ProcessInstanceAssertionsImpl processInstanceAssertions =
         new ProcessInstanceAssertionsImpl(eventSource, taskSources, mock(ProcessInstance.class));

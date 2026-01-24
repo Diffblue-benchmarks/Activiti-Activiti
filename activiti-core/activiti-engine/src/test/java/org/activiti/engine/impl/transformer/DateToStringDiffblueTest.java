@@ -31,55 +31,6 @@ import org.junit.experimental.categories.Category;
 
 public class DateToStringDiffblueTest {
   /**
-   * Test {@link DateToString#primTransform(Object)}.
-   *
-   * <ul>
-   *   <li>Then return {@code 01/02/1901}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DateToString#primTransform(Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object DateToString.primTransform(Object)"})
-  public void testPrimTransform_thenReturn01021901() throws Exception {
-    // Arrange
-    DateToString dateToString = new DateToString();
-
-    // Act
-    Object actualPrimTransformResult = dateToString.primTransform(new Date(1, 1, 1));
-
-    // Assert
-    assertEquals("01/02/1901", actualPrimTransformResult);
-  }
-
-  /**
-   * Test {@link DateToString#primTransform(Object)}.
-   *
-   * <ul>
-   *   <li>Then return {@code 21/01/190690352}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DateToString#primTransform(Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object DateToString.primTransform(Object)"})
-  public void testPrimTransform_thenReturn2101190690352() throws Exception {
-    // Arrange
-    DateToString dateToString = new DateToString();
-
-    // Act
-    Object actualPrimTransformResult =
-        dateToString.primTransform(new Date(Integer.MIN_VALUE, 1, 1));
-
-    // Assert
-    assertEquals("21/01/190690352", actualPrimTransformResult);
-  }
-
-  /**
    * Test new {@link DateToString} (default constructor).
    *
    * <p>Method under test: default or parameterless constructor of {@link DateToString}

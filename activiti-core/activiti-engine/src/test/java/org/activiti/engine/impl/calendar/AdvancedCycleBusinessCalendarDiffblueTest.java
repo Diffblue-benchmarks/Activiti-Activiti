@@ -17,11 +17,15 @@ package org.activiti.engine.impl.calendar;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 import com.diffblue.cover.annotations.ContributionFromDiffblue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.impl.util.DefaultClockImpl;
+import org.activiti.engine.runtime.ClockReader;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.test.annotation.DirtiesContext;
@@ -41,7 +45,7 @@ public class AdvancedCycleBusinessCalendarDiffblueTest {
   @Test
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.Integer AdvancedCycleBusinessCalendar.getDefaultScheduleVersion()"})
+  @MethodsUnderTest({"Integer AdvancedCycleBusinessCalendar.getDefaultScheduleVersion()"})
   public void testGetDefaultScheduleVersion_thenReturnIntValueIsOne() {
     // Arrange
     AdvancedCycleBusinessCalendar advancedCycleBusinessCalendar =
@@ -64,7 +68,7 @@ public class AdvancedCycleBusinessCalendarDiffblueTest {
   @Test
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.Integer AdvancedCycleBusinessCalendar.getDefaultScheduleVersion()"})
+  @MethodsUnderTest({"Integer AdvancedCycleBusinessCalendar.getDefaultScheduleVersion()"})
   public void testGetDefaultScheduleVersion_thenReturnIntValueIsTwo() {
     // Arrange, Act and Assert
     assertEquals(

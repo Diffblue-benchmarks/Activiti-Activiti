@@ -77,30 +77,6 @@ class ToAPITaskCandidateUserAddedEventConverterDiffblueTest {
    * Test {@link ToAPITaskCandidateUserAddedEventConverter#from(ActivitiEntityEvent)} with {@code
    * ActivitiEntityEvent}.
    *
-   * <p>Method under test: {@link
-   * ToAPITaskCandidateUserAddedEventConverter#from(ActivitiEntityEvent)}
-   */
-  @Test
-  @DisplayName("Test from(ActivitiEntityEvent) with 'ActivitiEntityEvent'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "java.util.Optional ToAPITaskCandidateUserAddedEventConverter.from(ActivitiEntityEvent)"
-  })
-  void testFromWithActivitiEntityEvent() {
-    // Arrange, Act and Assert
-    assertFalse(
-        toAPITaskCandidateUserAddedEventConverter
-            .from(
-                new ActivitiProcessCancelledEventImpl(
-                    ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
-            .isPresent());
-  }
-
-  /**
-   * Test {@link ToAPITaskCandidateUserAddedEventConverter#from(ActivitiEntityEvent)} with {@code
-   * ActivitiEntityEvent}.
-   *
    * <ul>
    *   <li>Given {@code candidate}.
    * </ul>

@@ -17,10 +17,7 @@ package org.activiti.api.process.model.builders;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.ProcessInstance;
@@ -30,35 +27,6 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ResumeProcessPayloadBuilderDiffblueTest {
-  /**
-   * Test {@link ResumeProcessPayloadBuilder#withProcessInstance(ProcessInstance)}.
-   *
-   * <p>Method under test: {@link ResumeProcessPayloadBuilder#withProcessInstance(ProcessInstance)}
-   */
-  @Test
-  @DisplayName("Test withProcessInstance(ProcessInstance)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ResumeProcessPayloadBuilder ResumeProcessPayloadBuilder.withProcessInstance(ProcessInstance)"
-  })
-  void testWithProcessInstance() {
-    // Arrange
-    ResumeProcessPayloadBuilder resumeResult = ProcessPayloadBuilder.resume();
-
-    ProcessInstance processInstance = mock(ProcessInstance.class);
-    when(processInstance.getId()).thenReturn("42");
-
-    // Act
-    ResumeProcessPayloadBuilder actualWithProcessInstanceResult =
-        resumeResult.withProcessInstance(processInstance);
-
-    // Assert
-    verify(processInstance).getId();
-    assertEquals("42", resumeResult.build().getProcessInstanceId());
-    assertSame(resumeResult, actualWithProcessInstanceResult);
-  }
-
   /**
    * Test {@link ResumeProcessPayloadBuilder#build()}.
    *

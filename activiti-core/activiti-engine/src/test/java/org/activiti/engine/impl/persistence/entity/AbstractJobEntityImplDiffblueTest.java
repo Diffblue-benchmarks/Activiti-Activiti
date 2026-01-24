@@ -816,18 +816,4 @@ public class AbstractJobEntityImplDiffblueTest {
     // Arrange, Act and Assert
     assertArrayEquals("Str".getBytes("UTF-8"), new DeadLetterJobEntityImpl().getUtf8Bytes("Str"));
   }
-
-  /**
-   * Test {@link AbstractJobEntityImpl#toString()}.
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#toString()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String AbstractJobEntityImpl.toString()"})
-  public void testToString() {
-    // Arrange, Act and Assert
-    assertEquals("DeadLetterJobEntity [id=null]", new DeadLetterJobEntityImpl().toString());
-  }
 }

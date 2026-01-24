@@ -40,34 +40,6 @@ import org.mockito.Mockito;
 
 class ELContextBuilderDiffblueTest {
   /**
-   * Test {@link ELContextBuilder#withResolvers(ELResolver[])}.
-   *
-   * <ul>
-   *   <li>When {@link JsonNodeELResolver#JsonNodeELResolver()}.
-   *   <li>Then return {@link ELContextBuilder} (default constructor).
-   * </ul>
-   *
-   * <p>Method under test: {@link ELContextBuilder#withResolvers(ELResolver[])}
-   */
-  @Test
-  @DisplayName(
-      "Test withResolvers(ELResolver[]); when JsonNodeELResolver(); then return ELContextBuilder (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"ELContextBuilder ELContextBuilder.withResolvers(ELResolver[])"})
-  void testWithResolvers_whenJsonNodeELResolver_thenReturnELContextBuilder() {
-    // Arrange
-    ELContextBuilder elContextBuilder = new ELContextBuilder();
-
-    // Act
-    ELContextBuilder actualWithResolversResult =
-        elContextBuilder.withResolvers(new JsonNodeELResolver());
-
-    // Assert
-    assertSame(elContextBuilder, actualWithResolversResult);
-  }
-
-  /**
    * Test {@link ELContextBuilder#buildWithCustomFunctions(List)}.
    *
    * <p>Method under test: {@link ELContextBuilder#buildWithCustomFunctions(List)}

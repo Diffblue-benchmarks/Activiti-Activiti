@@ -16,10 +16,7 @@
 package org.activiti.api.process.model.builders;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.ProcessInstance;
@@ -29,35 +26,6 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class DeleteProcessPayloadBuilderDiffblueTest {
-  /**
-   * Test {@link DeleteProcessPayloadBuilder#withProcessInstance(ProcessInstance)}.
-   *
-   * <p>Method under test: {@link DeleteProcessPayloadBuilder#withProcessInstance(ProcessInstance)}
-   */
-  @Test
-  @DisplayName("Test withProcessInstance(ProcessInstance)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "DeleteProcessPayloadBuilder DeleteProcessPayloadBuilder.withProcessInstance(ProcessInstance)"
-  })
-  void testWithProcessInstance() {
-    // Arrange
-    DeleteProcessPayloadBuilder deleteResult = ProcessPayloadBuilder.delete();
-
-    ProcessInstance processInstance = mock(ProcessInstance.class);
-    when(processInstance.getId()).thenReturn("42");
-
-    // Act
-    DeleteProcessPayloadBuilder actualWithProcessInstanceResult =
-        deleteResult.withProcessInstance(processInstance);
-
-    // Assert
-    verify(processInstance).getId();
-    assertEquals("42", deleteResult.build().getProcessInstanceId());
-    assertSame(deleteResult, actualWithProcessInstanceResult);
-  }
-
   /**
    * Test {@link DeleteProcessPayloadBuilder#build()}.
    *

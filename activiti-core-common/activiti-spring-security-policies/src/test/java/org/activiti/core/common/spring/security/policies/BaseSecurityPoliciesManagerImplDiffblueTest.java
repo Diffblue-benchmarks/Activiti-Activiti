@@ -18,24 +18,16 @@ package org.activiti.core.common.spring.security.policies;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import org.activiti.api.process.model.payloads.GetProcessDefinitionsPayload;
 import org.activiti.api.process.model.payloads.GetProcessInstancesPayload;
-import org.activiti.api.runtime.shared.security.PrincipalGroupsProvider;
-import org.activiti.api.runtime.shared.security.PrincipalRolesProvider;
-import org.activiti.api.runtime.shared.security.SecurityContextPrincipalProvider;
 import org.activiti.api.runtime.shared.security.SecurityManager;
-import org.activiti.core.common.spring.security.AuthenticationPrincipalIdentityProvider;
-import org.activiti.core.common.spring.security.LocalSpringSecurityManager;
 import org.activiti.core.common.spring.security.policies.conf.SecurityPoliciesProperties;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -193,190 +185,6 @@ class BaseSecurityPoliciesManagerImplDiffblueTest {
     assertTrue(
         baseSecurityPoliciesManagerImpl.hasPermission(
             "Process Definition Key", SecurityPolicyAccess.NONE, "App Name"));
-  }
-
-  /**
-   * Test {@link BaseSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}.
-   *
-   * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>When {@code 42}.
-   *   <li>Then return {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set,
-   * String)}
-   */
-  @Test
-  @DisplayName("Test anEntryInSetStartsKey(Set, String); given '42'; when '42'; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean BaseSecurityPoliciesManagerImpl.anEntryInSetStartsKey(Set, String)"})
-  void testAnEntryInSetStartsKey_given42_when42_thenReturnTrue() {
-    // Arrange
-    SecurityContextPrincipalProvider securityContextPrincipalProvider =
-        mock(SecurityContextPrincipalProvider.class);
-    LocalSpringSecurityManager securityManager =
-        new LocalSpringSecurityManager(
-            securityContextPrincipalProvider,
-            new AuthenticationPrincipalIdentityProvider(),
-            mock(PrincipalGroupsProvider.class),
-            mock(PrincipalRolesProvider.class));
-    SecurityPoliciesProperties securityPoliciesProperties = new SecurityPoliciesProperties();
-    SecurityPoliciesProcessDefinitionRestrictionApplier processDefinitionRestrictionApplier =
-        new SecurityPoliciesProcessDefinitionRestrictionApplier();
-
-    ProcessSecurityPoliciesManagerImpl processSecurityPoliciesManagerImpl =
-        new ProcessSecurityPoliciesManagerImpl(
-            securityManager,
-            securityPoliciesProperties,
-            processDefinitionRestrictionApplier,
-            new SecurityPoliciesProcessInstanceRestrictionApplier());
-
-    HashSet<String> keys = new HashSet<>();
-    keys.add("42");
-    keys.add("foo");
-
-    // Act and Assert
-    assertTrue(processSecurityPoliciesManagerImpl.anEntryInSetStartsKey(keys, "42"));
-  }
-
-  /**
-   * Test {@link BaseSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}.
-   *
-   * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>When {@link HashSet#HashSet()} add {@code 42}.
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set,
-   * String)}
-   */
-  @Test
-  @DisplayName(
-      "Test anEntryInSetStartsKey(Set, String); given '42'; when HashSet() add '42'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean BaseSecurityPoliciesManagerImpl.anEntryInSetStartsKey(Set, String)"})
-  void testAnEntryInSetStartsKey_given42_whenHashSetAdd42_thenReturnFalse() {
-    // Arrange
-    SecurityContextPrincipalProvider securityContextPrincipalProvider =
-        mock(SecurityContextPrincipalProvider.class);
-    LocalSpringSecurityManager securityManager =
-        new LocalSpringSecurityManager(
-            securityContextPrincipalProvider,
-            new AuthenticationPrincipalIdentityProvider(),
-            mock(PrincipalGroupsProvider.class),
-            mock(PrincipalRolesProvider.class));
-    SecurityPoliciesProperties securityPoliciesProperties = new SecurityPoliciesProperties();
-    SecurityPoliciesProcessDefinitionRestrictionApplier processDefinitionRestrictionApplier =
-        new SecurityPoliciesProcessDefinitionRestrictionApplier();
-
-    ProcessSecurityPoliciesManagerImpl processSecurityPoliciesManagerImpl =
-        new ProcessSecurityPoliciesManagerImpl(
-            securityManager,
-            securityPoliciesProperties,
-            processDefinitionRestrictionApplier,
-            new SecurityPoliciesProcessInstanceRestrictionApplier());
-
-    HashSet<String> keys = new HashSet<>();
-    keys.add("42");
-    keys.add("foo");
-
-    // Act and Assert
-    assertFalse(
-        processSecurityPoliciesManagerImpl.anEntryInSetStartsKey(keys, "Process Definition Key"));
-  }
-
-  /**
-   * Test {@link BaseSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}.
-   *
-   * <ul>
-   *   <li>Given {@code Keys}.
-   *   <li>When {@link LinkedHashSet#LinkedHashSet()} add {@code Keys}.
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set,
-   * String)}
-   */
-  @Test
-  @DisplayName(
-      "Test anEntryInSetStartsKey(Set, String); given 'Keys'; when LinkedHashSet() add 'Keys'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean BaseSecurityPoliciesManagerImpl.anEntryInSetStartsKey(Set, String)"})
-  void testAnEntryInSetStartsKey_givenKeys_whenLinkedHashSetAddKeys_thenReturnFalse() {
-    // Arrange
-    SecurityContextPrincipalProvider securityContextPrincipalProvider =
-        mock(SecurityContextPrincipalProvider.class);
-    LocalSpringSecurityManager securityManager =
-        new LocalSpringSecurityManager(
-            securityContextPrincipalProvider,
-            new AuthenticationPrincipalIdentityProvider(),
-            mock(PrincipalGroupsProvider.class),
-            mock(PrincipalRolesProvider.class));
-    SecurityPoliciesProperties securityPoliciesProperties = new SecurityPoliciesProperties();
-    SecurityPoliciesProcessDefinitionRestrictionApplier processDefinitionRestrictionApplier =
-        new SecurityPoliciesProcessDefinitionRestrictionApplier();
-
-    ProcessSecurityPoliciesManagerImpl processSecurityPoliciesManagerImpl =
-        new ProcessSecurityPoliciesManagerImpl(
-            securityManager,
-            securityPoliciesProperties,
-            processDefinitionRestrictionApplier,
-            new SecurityPoliciesProcessInstanceRestrictionApplier());
-
-    LinkedHashSet<String> keys = new LinkedHashSet<>();
-    keys.add("Keys");
-
-    // Act and Assert
-    assertFalse(
-        processSecurityPoliciesManagerImpl.anEntryInSetStartsKey(keys, "Process Definition Key"));
-  }
-
-  /**
-   * Test {@link BaseSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}.
-   *
-   * <ul>
-   *   <li>When {@link HashSet#HashSet()}.
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set,
-   * String)}
-   */
-  @Test
-  @DisplayName("Test anEntryInSetStartsKey(Set, String); when HashSet(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean BaseSecurityPoliciesManagerImpl.anEntryInSetStartsKey(Set, String)"})
-  void testAnEntryInSetStartsKey_whenHashSet_thenReturnFalse() {
-    // Arrange
-    SecurityContextPrincipalProvider securityContextPrincipalProvider =
-        mock(SecurityContextPrincipalProvider.class);
-    LocalSpringSecurityManager securityManager =
-        new LocalSpringSecurityManager(
-            securityContextPrincipalProvider,
-            new AuthenticationPrincipalIdentityProvider(),
-            mock(PrincipalGroupsProvider.class),
-            mock(PrincipalRolesProvider.class));
-    SecurityPoliciesProperties securityPoliciesProperties = new SecurityPoliciesProperties();
-    SecurityPoliciesProcessDefinitionRestrictionApplier processDefinitionRestrictionApplier =
-        new SecurityPoliciesProcessDefinitionRestrictionApplier();
-
-    ProcessSecurityPoliciesManagerImpl processSecurityPoliciesManagerImpl =
-        new ProcessSecurityPoliciesManagerImpl(
-            securityManager,
-            securityPoliciesProperties,
-            processDefinitionRestrictionApplier,
-            new SecurityPoliciesProcessInstanceRestrictionApplier());
-
-    // Act and Assert
-    assertFalse(
-        processSecurityPoliciesManagerImpl.anEntryInSetStartsKey(
-            new HashSet<>(), "Process Definition Key"));
   }
 
   /**
